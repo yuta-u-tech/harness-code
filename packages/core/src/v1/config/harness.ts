@@ -7,6 +7,16 @@ import { PositiveInt } from "../../schema"
 const Id = Schema.String.check(Schema.isMinLength(1))
 const Name = Schema.String.check(Schema.isMinLength(1))
 
+/** Runs a step through an official CLI that is already signed in, instead of through the model catalog. */
+export const Runner = Schema.Struct({
+  kind: Schema.Literals(["codex", "claude"]),
+  model: Schema.optional(Schema.String).annotate({
+    description: "Model name passed to the CLI. Empty uses its default.",
+  }),
+  effort: Schema.optional(Schema.String).annotate({ description: "Reasoning effort passed to the CLI." }),
+}).annotate({ identifier: "HarnessRunner" })
+export type Runner = Schema.Schema.Type<typeof Runner>
+
 export const CommandCheck = Schema.Struct({
   id: Id,
   type: Schema.Literal("command"),
@@ -28,6 +38,7 @@ export const RubricCheck = Schema.Struct({
   name: Name,
   model: Schema.String.annotate({ description: "Judge model as provider/model." }),
   variant: Schema.optional(Schema.NullOr(Schema.String)).annotate({ description: "Judge reasoning variant." }),
+  runner: Schema.optional(Runner).annotate({ description: "Judge through a CLI instead of the model above." }),
   runs: PositiveInt.annotate({ description: "How many times to score. The median is used." }),
   pass: Schema.Finite.check(Schema.isBetween({ minimum: 1, maximum: 5 })),
   required: Schema.Boolean,
@@ -43,6 +54,9 @@ export const AgentStep = Schema.Struct({
   agent: Schema.String.annotate({ description: "Key of an entry in the top-level agent config." }),
   subagents: Schema.optional(Schema.mutable(Schema.Array(Schema.String))).annotate({
     description: "Subagent keys this step may call.",
+  }),
+  runner: Schema.optional(Runner).annotate({
+    description: "Run this step through a CLI instead of the model catalog.",
   }),
 })
 

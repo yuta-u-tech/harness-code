@@ -34917,6 +34917,23 @@
         "additionalProperties": false,
         "description": "Server configuration for the kilo serve command"
       },
+      "HarnessRunner": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["codex", "claude"]
+          },
+          "model": {
+            "type": "string"
+          },
+          "effort": {
+            "type": "string"
+          }
+        },
+        "required": ["kind"],
+        "additionalProperties": false
+      },
       "IndexingConfig": {
         "type": "object",
         "properties": {
@@ -35795,6 +35812,9 @@
                           "items": {
                             "type": "string"
                           }
+                        },
+                        "runner": {
+                          "$ref": "#/components/schemas/HarnessRunner"
                         }
                       },
                       "required": ["id", "kind", "name", "agent"],
@@ -35877,6 +35897,9 @@
                                   },
                                   "variant": {
                                     "type": "string"
+                                  },
+                                  "runner": {
+                                    "$ref": "#/components/schemas/HarnessRunner"
                                   },
                                   "runs": {
                                     "type": "integer",

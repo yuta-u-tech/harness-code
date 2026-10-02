@@ -60,7 +60,10 @@ describe("config harness", () => {
                 : {
                     ...check,
                     ...(patch.pass === undefined ? {} : { pass: patch.pass }),
-                    items: check.items.map((item) => ({ ...item, ...(patch.weight === undefined ? {} : { weight: patch.weight }) })),
+                    items: check.items.map((item) => ({
+                      ...item,
+                      ...(patch.weight === undefined ? {} : { weight: patch.weight }),
+                    })),
                   },
             ),
           },
@@ -73,6 +76,58 @@ describe("config harness", () => {
 
   test("rejects a pass line outside 1 to 5", () => {
     expect(() => decode({ harness: withRubric({ pass: 6 }) })).toThrow()
+  })
+})
+
+describe("config harness runner", () => {
+  const step = (runner: unknown) => ({
+    harness: { steps: [{ id: "a", kind: "agent", name: "実装", agent: "harness-a", runner }] },
+  })
+
+  test("accepts a Codex or Claude CLI runner on an agent step", () => {
+    const codex = decode(step({ kind: "codex", model: "gpt-5", effort: "high" }))
+    expect(codex.harness?.steps.at(0)).toMatchObject({ runner: { kind: "codex", model: "gpt-5", effort: "high" } })
+    expect(decode(step({ kind: "claude" })).harness?.steps).toHaveLength(1)
+  })
+
+  test("keeps a step without a runner on the regular model path", () => {
+    const plain = decode({ harness: { steps: [{ id: "a", kind: "agent", name: "実装", agent: "harness-a" }] } })
+    expect(plain.harness?.steps.at(0)).not.toHaveProperty("runner")
+  })
+
+  test("rejects an unknown runner kind", () => {
+    expect(() => decode(step({ kind: "gemini" }))).toThrow()
+  })
+
+  test("accepts a runner on a rubric check", () => {
+    const flow = {
+      harness: {
+        steps: [
+          {
+            id: "v",
+            kind: "check",
+            name: "検証",
+            failTo: "a",
+            retries: 1,
+            checks: [
+              {
+                id: "r",
+                type: "rubric",
+                name: "品質",
+                model: "",
+                runner: { kind: "claude", effort: "low" },
+                runs: 1,
+                pass: 3,
+                required: false,
+                items: [{ id: "i", name: "可読性", weight: 1, criterion: "" }],
+              },
+            ],
+          },
+        ],
+      },
+    }
+    const out = decode(flow).harness?.steps.at(0)
+    expect(out?.kind === "check" && out.checks.at(0)).toMatchObject({ runner: { kind: "claude", effort: "low" } })
   })
 })
 

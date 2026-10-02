@@ -2227,6 +2227,12 @@ export type ServerConfig = {
   cors?: Array<string>
 }
 
+export type HarnessRunner = {
+  kind: "codex" | "claude"
+  model?: string
+  effort?: string
+}
+
 export type IndexingConfig = {
   enabled?: boolean
   provider?:
@@ -2536,6 +2542,7 @@ export type Config = {
            */
           agent: string
           subagents?: Array<string>
+          runner?: HarnessRunner
         }
       | {
           id: string
@@ -2569,6 +2576,7 @@ export type Config = {
                  */
                 model: string
                 variant?: string
+                runner?: HarnessRunner
                 /**
                  * How many times to score. The median is used.
                  */
