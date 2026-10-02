@@ -7,7 +7,6 @@ const { toaster } = await import("@kilocode/kilo-ui/toast")
 const { ServerProvider } = await import("../../webview-ui/src/context/server")
 const { ProviderProvider } = await import("../../webview-ui/src/context/provider")
 const { ConfigProvider } = await import("../../webview-ui/src/context/config")
-const { NotificationsProvider } = await import("../../webview-ui/src/context/notifications")
 const { SessionProvider } = await import("../../webview-ui/src/context/session")
 const { post } = await import("../../webview-ui/src/utils/webview-message")
 const { REVERT_ERROR_CODE } = await import("../../src/shared/revert-error")
@@ -24,9 +23,7 @@ toaster.show = (...args: Parameters<typeof show>) => {
 const shell = (children: () => JSX.Element) => (
   <ServerProvider>
     <ProviderProvider>
-      <ConfigProvider>
-        <NotificationsProvider>{children()}</NotificationsProvider>
-      </ConfigProvider>
+      <ConfigProvider>{children()}</ConfigProvider>
     </ProviderProvider>
   </ServerProvider>
 )

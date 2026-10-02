@@ -400,10 +400,6 @@ export async function disconnectProvider(
     // reconnect automatically with an old key after logout.
     await removeAuth(ctx, id, custom)
 
-    if (id === "kilo") {
-      ctx.postMessage({ type: "profileData", data: null })
-    }
-
     if (configured) {
       await removeConfigured(ctx, id, config.global, config.merged)
     }

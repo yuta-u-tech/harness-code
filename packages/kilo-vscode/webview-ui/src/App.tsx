@@ -2,7 +2,6 @@ import { Component, createSignal, createMemo, createEffect, Switch, Match, Show,
 import { DataProvider } from "@kilocode/kilo-ui/context/data"
 import { BoardNavigationProvider } from "@kilocode/kilo-ui/context/board-navigation"
 import Settings from "./components/settings/Settings"
-import ProfileView from "./components/profile/ProfileView"
 import { useVSCode } from "./context/vscode"
 import { useServer } from "./context/server"
 import { useProvider } from "./context/provider"
@@ -35,8 +34,8 @@ import { cycleAgent as cycle } from "./context/session-agent"
 import { routeChatInput } from "./utils/chat-input-route"
 import "./styles/chat.css"
 
-type ViewType = "newTask" | "history" | "profile" | "settings" | "subAgentViewer"
-const VALID_VIEWS = new Set<string>(["newTask", "history", "profile", "settings", "subAgentViewer"])
+type ViewType = "newTask" | "history" | "settings" | "subAgentViewer"
+const VALID_VIEWS = new Set<string>(["newTask", "history", "settings", "subAgentViewer"])
 
 /**
  * Bridge our session store to the DataProvider's expected Data shape.
@@ -288,9 +287,6 @@ const AppContent: Component = () => {
       case "historyButtonClicked":
         setCurrentView("history")
         break
-      case "profileButtonClicked":
-        setCurrentView("profile")
-        break
       case "settingsButtonClicked":
         setCurrentView("settings")
         break
@@ -439,18 +435,6 @@ const AppContent: Component = () => {
             </Match>
             <Match when={currentView() === "history"}>
               <HistoryView onSelectSession={handleSelectSession} onBack={() => setCurrentView("newTask")} />
-            </Match>
-            <Match when={currentView() === "profile"}>
-              <ProfileView
-                profileData={server.profileData()}
-                providerUsage={server.providerUsage()}
-                providerUsageLoading={server.providerUsageLoading()}
-                providerUsageError={server.providerUsageError()}
-                deviceAuth={server.deviceAuth()}
-                onLogin={server.startLogin}
-                onRequestProviderUsage={server.requestProviderUsage}
-                onRefreshProviderUsage={server.refreshProviderUsage}
-              />
             </Match>
             <Match when={currentView() === "settings"}>
               <Settings tab={settingsTab()} onTabChange={setSettingsTab} />

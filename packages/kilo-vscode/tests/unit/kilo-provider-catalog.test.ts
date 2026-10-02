@@ -1,6 +1,5 @@
 import { describe, expect, it } from "bun:test"
 import type { Config } from "@kilocode/sdk/v2/client"
-import type { AuthContext } from "../../src/kilo-provider/handlers/auth"
 
 const { KiloProvider } = await import("../../src/KiloProvider")
 
@@ -25,7 +24,6 @@ type Internals = {
   cachedConfigMessage: unknown
   cachedProvidersMessage: unknown
   providersRefresh: Promise<void> | null
-  authCtx: AuthContext
   fetchAndSendProviders(): Promise<void>
   invalidateProviders(): void
   handleEvent(event: unknown, directory?: string): void
@@ -54,7 +52,6 @@ function setup(list: () => Promise<ReturnType<typeof catalog>>, org: () => strin
     fetchAndSendSkills: async () => {},
     fetchAndSendCommands: async () => {},
     fetchAndSendIndexingStatus: async () => {},
-    fetchAndSendNotifications: async () => {},
   })
   const reloads: Promise<void>[] = []
   const reload = internal.reloadAfterAuthChange.bind(internal)
@@ -128,7 +125,7 @@ describe("KiloProvider catalog refresh", () => {
     const queued = internal.fetchAndSendProviders()
 
     org = "b"
-    internal.authCtx.invalidateProviders()
+    internal.invalidateProviders()
     if (fail) first.reject(new Error("Old catalog unavailable"))
     if (!fail) first.resolve(catalog("a"))
     await Promise.all([before, queued])
@@ -201,7 +198,7 @@ describe("KiloProvider catalog refresh", () => {
     const pending = views.map((view) => view.internal.fetchAndSendProviders())
     const queued = views.map((view) => view.internal.fetchAndSendProviders())
     org = "b"
-    views.at(0)!.internal.authCtx.invalidateProviders()
+    views.at(0)!.internal.invalidateProviders()
     for (const view of views) {
       view.client.config.get = () => config.promise
       view.internal.handleEvent({ type: "global.disposed", properties: {} }, "global")

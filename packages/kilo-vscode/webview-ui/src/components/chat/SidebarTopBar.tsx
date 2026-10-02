@@ -40,15 +40,12 @@ export const SidebarTopBar: Component<SidebarTopBarProps> = (props) => {
       properties: { button, surface: props.surface },
     })
 
-  const open = (type: "openAgentManager" | "openMarketplacePanel" | "openProfilePanel" | "openSettingsPanel") =>
-    vscode.postMessage({ type })
+  const open = (type: "openAgentManager" | "openSettingsPanel") => vscode.postMessage({ type })
 
   const actions: Action[] = [
     { key: "newTask", icon: "plus", button: "new_task", run: () => props.onNewTask() },
     { key: "history", icon: "history", button: "history", run: () => props.onHistory() },
     { key: "agentManager", icon: "organization", button: "agent_manager", run: () => open("openAgentManager") },
-    { key: "marketplace", icon: "extensions", button: "marketplace", run: () => open("openMarketplacePanel") },
-    { key: "profile", icon: "user", button: "profile", run: () => open("openProfilePanel") },
     { key: "settings", icon: "settings-gear", button: "settings", run: () => open("openSettingsPanel") },
   ]
 

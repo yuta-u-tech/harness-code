@@ -32,7 +32,7 @@ export function createReviewSpeech(t: T): {
   const server = useServer()
   const provider = useProvider()
   const { config, features } = useConfig()
-  const speech = useSpeechToText(vscode, server, { t })
+  const speech = useSpeechToText(vscode, { t })
   const models = useSpeechToTextModels()
   return {
     speech,

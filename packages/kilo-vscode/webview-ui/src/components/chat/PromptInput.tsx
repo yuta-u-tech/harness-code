@@ -535,7 +535,7 @@ export const PromptInput: Component<PromptInputProps> = (props) => {
   })
 
   const ghost = useGhostText(vscode, text, () => server.isConnected())
-  const speech = useSpeechToText(vscode, server, language)
+  const speech = useSpeechToText(vscode, language)
   const speechModels = useSpeechToTextModels()
 
   const replaceReviewComments = (next: ReviewCommentEntry[]) => {

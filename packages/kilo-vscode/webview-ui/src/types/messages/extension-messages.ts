@@ -61,8 +61,6 @@ import type {
   KiloEmbeddingModelCatalog,
 } from "./config"
 import type { WorkStyle, WorkStyleState } from "../../../../src/shared/work-style-presets"
-import type { KilocodeNotification, ProfileData } from "./profile"
-import type { ProviderUsageLoadedMessage } from "./provider-usage"
 import type {
   AgentManagerApplyWorktreeDiffConflict,
   AgentManagerApplyWorktreeDiffStatus,
@@ -434,31 +432,6 @@ export interface TriggerTaskMessage {
   text: string
   /** Label for a prompt Kilo composed, such as an editor code action. */
   injectedTitle?: string
-}
-
-export interface ProfileDataMessage {
-  type: "profileData"
-  data: ProfileData | null
-}
-
-export interface DeviceAuthStartedMessage {
-  type: "deviceAuthStarted"
-  code?: string
-  verificationUrl: string
-  expiresIn: number
-}
-
-export interface DeviceAuthCompleteMessage {
-  type: "deviceAuthComplete"
-}
-
-export interface DeviceAuthFailedMessage {
-  type: "deviceAuthFailed"
-  error: string
-}
-
-export interface DeviceAuthCancelledMessage {
-  type: "deviceAuthCancelled"
 }
 
 export interface NavigateMessage {
@@ -877,12 +850,6 @@ export interface WorkStyleApplyFailedMessage {
   type: "workStyleApplyFailed"
   message: string
   rollbackFailed: boolean
-}
-
-export interface NotificationsLoadedMessage {
-  type: "notificationsLoaded"
-  notifications: KilocodeNotification[]
-  dismissedIds: string[]
 }
 
 // Agent Manager repo info (current branch of the main workspace)
@@ -1501,45 +1468,6 @@ export interface TelemetryStateMessage {
 // Marketplace Messages
 // ============================================
 
-export interface MarketplaceDataMessage {
-  type: "marketplaceData"
-  marketplaceItems: MarketplaceItem[]
-  marketplaceInstalledMetadata: MarketplaceInstalledMetadata
-  marketplaceRelevance: MarketplaceRelevanceMetadata
-  errors?: string[]
-  showAgentMigrationBanner?: boolean
-}
-
-export interface MarketplaceInstallResultMessage {
-  type: "marketplaceInstallResult"
-  success: boolean
-  slug: string
-  error?: string
-  filePath?: string
-  filePaths?: string[]
-}
-
-export interface OpenInstallModalMessage {
-  type: "openInstallModal"
-  mpItem: MarketplaceItem
-}
-
-export interface FocusMarketplaceItemMessage {
-  type: "focusMarketplaceItem"
-  mpItem: MarketplaceItem
-}
-
-export interface ResetMarketplaceFiltersMessage {
-  type: "resetMarketplaceFilters"
-}
-
-export interface MarketplaceRemoveResultMessage {
-  type: "marketplaceRemoveResult"
-  success: boolean
-  slug: string
-  error?: string
-}
-
 export interface ProviderOAuthReadyMessage {
   type: "providerOAuthReady"
   requestId: string
@@ -1727,12 +1655,6 @@ export type ExtensionMessage =
   | CloudSessionsLoadedMessage
   | GitRemoteUrlLoadedMessage
   | ActionMessage
-  | ProfileDataMessage
-  | ProviderUsageLoadedMessage
-  | DeviceAuthStartedMessage
-  | DeviceAuthCompleteMessage
-  | DeviceAuthFailedMessage
-  | DeviceAuthCancelledMessage
   | NavigateMessage
   | AgentManagerSettingsLoadedMessage
   | AgentManagerSettingsBranchesLoadedMessage
@@ -1785,7 +1707,6 @@ export type ExtensionMessage =
   | WorkStyleLoadedMessage
   | WorkStyleAppliedMessage
   | WorkStyleApplyFailedMessage
-  | NotificationsLoadedMessage
   | AgentManagerRepoInfoMessage
   | AgentManagerWorktreeSetupMessage
   | AgentManagerSessionAddedMessage
@@ -1869,12 +1790,6 @@ export type ExtensionMessage =
   | DiffViewerCapabilitiesMessage
   | DiffViewerNoticeMessage
   | DiffViewerBranchesLoadedMessage
-  | MarketplaceDataMessage
-  | MarketplaceInstallResultMessage
-  | MarketplaceRemoveResultMessage
-  | OpenInstallModalMessage
-  | FocusMarketplaceItemMessage
-  | ResetMarketplaceFiltersMessage
   | ProviderOAuthReadyMessage
   | ProviderConnectedMessage
   | ProviderDisconnectedMessage

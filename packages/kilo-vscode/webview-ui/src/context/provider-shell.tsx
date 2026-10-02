@@ -18,7 +18,6 @@ import { IndexingProvider } from "./indexing"
 import { MemoryProvider } from "./memory"
 import { SessionProvider } from "./session"
 import { LanguageBridge } from "./language-bridge"
-import { NotificationsProvider } from "./notifications"
 import { FeedbackProvider } from "./feedback"
 import { KiloEmbeddingModelsProvider } from "./kilo-embedding-models"
 import { ImageModelsProvider } from "./image-models"
@@ -80,9 +79,7 @@ const Session: ParentComponent = (props) => (
     <KiloEmbeddingModelsProvider>
       <ImageModelsProvider>
         <SpeechToTextModelsProvider>
-          <NotificationsProvider>
-            <SessionProvider>{props.children}</SessionProvider>
-          </NotificationsProvider>
+          <SessionProvider>{props.children}</SessionProvider>
         </SpeechToTextModelsProvider>
       </ImageModelsProvider>
     </KiloEmbeddingModelsProvider>

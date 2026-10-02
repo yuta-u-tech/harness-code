@@ -18,13 +18,3 @@ export interface ServerInfo {
 }
 
 // Device auth flow status
-export type DeviceAuthStatus = "idle" | "initiating" | "pending" | "success" | "error" | "cancelled"
-
-// Device auth state
-export interface DeviceAuthState {
-  status: DeviceAuthStatus
-  code?: string
-  verificationUrl?: string
-  expiresIn?: number
-  error?: string
-}

@@ -24,7 +24,6 @@ const { useSpeechToText } = await import("../../webview-ui/src/components/speech
 function setup() {
   const sent: WebviewMessage[] = []
   let handler: ((message: ExtensionMessage) => void) | undefined
-  let logins = 0
   toasts.length = 0
 
   const root = createRoot((dispose) => ({
@@ -39,13 +38,12 @@ function setup() {
           }
         },
       },
-      { goToLogin: () => logins++ },
       { t: (key) => key },
     ),
   }))
 
   const fire = (message: ExtensionMessage) => handler?.(message)
-  return { ...root, fire, sent, logins: () => logins }
+  return { ...root, fire, sent }
 }
 
 describe("useSpeechToText", () => {
@@ -102,7 +100,7 @@ describe("useSpeechToText", () => {
     ctx.dispose()
   })
 
-  it("offers sign-in when stored credentials stop authenticating", () => {
+  it("reports a login problem without offering sign-in", () => {
     const ctx = setup()
 
     ctx.speech.start({ model: "scribe", insert: () => {} })
@@ -115,10 +113,8 @@ describe("useSpeechToText", () => {
       error: "Unauthorized",
       code: "not_authenticated",
     })
-    const action = toasts[0]?.actions?.find((item) => typeof item.onClick === "function")
-    if (typeof action?.onClick === "function") action.onClick()
 
-    expect(ctx.logins()).toBe(1)
+    expect(toasts[0]?.actions?.map((item) => item.label)).toEqual(["common.dismiss"])
     expect(ctx.speech.error()).toBe("speechToText.error.loginRequired")
     ctx.dispose()
   })

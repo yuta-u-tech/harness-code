@@ -61,13 +61,6 @@ const ProviderSelectDialog = () => {
       return
     }
 
-    if (item.id === KILO_PROVIDER_ID) {
-      dialog.close()
-      // Navigate to the Profile view so the full device-auth UI is visible.
-      server.goToLogin()
-      return
-    }
-
     dialog.show(() => <ProviderConnectDialog providerID={item.id} />)
   }
 

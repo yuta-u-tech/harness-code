@@ -4,14 +4,7 @@ import type { KiloConnectionService } from "../cli-backend"
 import { retry } from "../cli-backend/retry"
 import { removeAgent } from "../agent-removal"
 import type { MarketplaceService } from "."
-import type {
-  InstallMarketplaceItemOptions,
-  InstallResult,
-  MarketplaceDataResponse,
-  MarketplaceItem,
-  MarketplaceItemRef,
-  RemoveResult,
-} from "./types"
+import type { MarketplaceItemRef, RemoveResult } from "./types"
 
 export interface MarketplaceActionContext {
   connection: KiloConnectionService
@@ -23,46 +16,6 @@ export interface MarketplaceRemoveContext {
   connection: KiloConnectionService
   marketplace: MarketplaceService
   storage?: vscode.Uri
-}
-
-export async function fetchMarketplaceData(
-  ctx: MarketplaceActionContext,
-  project: string | undefined,
-  dir: string | undefined,
-  roots: readonly vscode.Uri[],
-): Promise<MarketplaceDataResponse> {
-  const route = project ?? dir
-  if (!route) {
-    return {
-      marketplaceItems: [],
-      marketplaceInstalledMetadata: { project: {}, global: {} },
-      marketplaceRelevance: {},
-      errors: ["No directory available for marketplace data"],
-    }
-  }
-  const client = await ctx.connection.getClientAsync(route)
-  return retry(() => ctx.marketplace.fetchData(client, project, route, roots))
-}
-
-export async function installMarketplaceItem(
-  ctx: MarketplaceActionContext,
-  item: MarketplaceItem,
-  opts: InstallMarketplaceItemOptions,
-  project: string | undefined,
-  dir: string,
-): Promise<InstallResult> {
-  const scope = opts.target ?? "project"
-  if (scope === "project" && !project) {
-    return { success: false, slug: item.id, error: "No workspace directory for project-scope install" }
-  }
-
-  try {
-    const route = scope === "project" ? project! : dir
-    const client = await ctx.connection.getClientAsync(route)
-    return await retry(() => ctx.marketplace.install(client, item, opts, route))
-  } catch (err) {
-    return { success: false, slug: item.id, error: String(err) }
-  }
 }
 
 export async function removeMarketplaceItem(

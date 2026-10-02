@@ -8,8 +8,6 @@ import { DocumentViewerProvider } from "./DocumentViewerProvider"
 import { DiffSourceCatalog } from "./diff/sources/catalog"
 import { DiffVirtualProvider } from "./DiffVirtualProvider"
 import { SettingsEditorProvider } from "./SettingsEditorProvider"
-import { MarketplacePanelProvider } from "./MarketplacePanelProvider"
-import { MarketplaceNotifier } from "./services/marketplace/notifier"
 import { SubAgentViewerProvider } from "./SubAgentViewerProvider"
 import { EXTENSION_DISPLAY_NAME } from "./constants"
 import { KiloConnectionService } from "./services/cli-backend"
@@ -150,7 +148,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   // Track all open tab panel providers so toolbar button commands can target them.
   // NOTE: The editor/title toolbar for tab panels intentionally omits Agent Manager
-  // and Marketplace buttons (unlike the sidebar). Too many icons causes VS Code to
+  // buttons (unlike the sidebar). Too many icons causes VS Code to
   // collapse them into a "..." overflow menu, hiding important buttons like Settings.
   const tabPanels = new Map<vscode.WebviewPanel, KiloProvider>()
   const activeTabProvider = () => {
@@ -452,18 +450,7 @@ export async function activate(context: vscode.ExtensionContext) {
     ...agentManagerProvider.settings,
   })
   settingsEditorProvider.setRemoteService(remoteService)
-  const marketplacePanelProvider = new MarketplacePanelProvider(context.extensionUri, connectionService, context)
-  context.subscriptions.push(settingsEditorProvider, marketplacePanelProvider)
-
-  // Surface a discardable notification when a marketplace item matches the workspace.
-  const marketplaceNotifier = new MarketplaceNotifier(
-    connectionService,
-    context,
-    (item) => marketplacePanelProvider.openInstall(item),
-    (item) => marketplacePanelProvider.focusItem(item),
-  )
-  context.subscriptions.push(marketplaceNotifier)
-  marketplaceNotifier.start()
+  context.subscriptions.push(settingsEditorProvider)
 
   // Create sub-agent viewer provider (read-only editor panel for sub-agent sessions)
   const subAgentViewerProvider = new SubAgentViewerProvider(context.extensionUri, connectionService, context)
@@ -481,15 +468,6 @@ export async function activate(context: vscode.ExtensionContext) {
       }),
     )
   }
-
-  context.subscriptions.push(
-    vscode.window.registerWebviewPanelSerializer(MarketplacePanelProvider.viewType, {
-      deserializeWebviewPanel(panel: vscode.WebviewPanel) {
-        marketplacePanelProvider.deserializePanel(panel)
-        return Promise.resolve()
-      },
-    }),
-  )
 
   context.subscriptions.push(
     vscode.window.registerWebviewPanelSerializer(DocumentViewerProvider.viewType, {
@@ -552,12 +530,6 @@ export async function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("harness-code.sidebarTitle.agentManagerOpen", () => {
       track("agent_manager", "harness-code.agentManagerOpen")
     }),
-    vscode.commands.registerCommand("harness-code.sidebarTitle.marketplaceButtonClicked", () => {
-      track("marketplace", "harness-code.marketplaceButtonClicked")
-    }),
-    vscode.commands.registerCommand("harness-code.sidebarTitle.profileButtonClicked", () => {
-      track("profile", "harness-code.profileButtonClicked")
-    }),
     vscode.commands.registerCommand("harness-code.sidebarTitle.settingsButtonClicked", () => {
       track("settings", "harness-code.settingsButtonClicked")
     }),
@@ -575,9 +547,6 @@ export async function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("harness-code.agentManagerOpen", () => {
       agentManagerProvider.openPanel()
     }),
-    vscode.commands.registerCommand("harness-code.marketplaceButtonClicked", (directory?: string | null) => {
-      marketplacePanelProvider.openPanel(directory)
-    }),
     vscode.commands.registerCommand("harness-code.historyButtonClicked", () => {
       const tab = activeTabProvider()
       if (tab) tab.postMessage({ type: "action", action: "historyButtonClicked" })
@@ -594,9 +563,6 @@ export async function activate(context: vscode.ExtensionContext) {
       if (tab) tab.postMessage({ type: "action", action: "cyclePreviousAgentMode" })
       else provider.postMessage({ type: "action", action: "cyclePreviousAgentMode" })
       agentManagerProvider.postMessage({ type: "action", action: "cyclePreviousAgentMode" })
-    }),
-    vscode.commands.registerCommand("harness-code.profileButtonClicked", () => {
-      settingsEditorProvider.openPanel("profile")
     }),
     vscode.commands.registerCommand("harness-code.settingsButtonClicked", (tab?: string, projectId?: string) => {
       settingsEditorProvider.openPanel("settings", tab, projectId)

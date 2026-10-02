@@ -1585,18 +1585,7 @@ export const TaskUsageExpanded200: Story = {
   render: usageStory(true),
 }
 
-// ---------------------------------------------------------------------------
-// Welcome screen with AccountSwitcher + KiloNotifications
-// ---------------------------------------------------------------------------
-
-const MOCK_NOTIFICATION = {
-  id: "notif-1",
-  title: "Try BYOK for Kilo Gateway",
-  message: "Bring your own API key for even more flexibility with Kilo Gateway models.",
-  action: { actionText: "Learn more", actionURL: "https://kilo.ai/docs" },
-}
-
-/** Mock server context with profile data so AccountSwitcher is visible */
+/** Mock server context for stories that need a connected backend. */
 const mockServer = {
   connectionState: () => "connected" as const,
   serverInfo: () => undefined,
@@ -1604,18 +1593,6 @@ const mockServer = {
   errorMessage: () => undefined,
   errorDetails: () => undefined,
   isConnected: () => true,
-  profileData: () => ({
-    profile: {
-      email: "dev@kilo.dev",
-      name: "Dev User",
-      organizations: [{ id: "org-1", name: "Kilo Org", role: "member" }],
-    },
-    balance: { balance: 5.0 },
-    currentOrgId: "org-1",
-  }),
-  deviceAuth: () => ({ status: "idle" as const }),
-  startLogin: () => {},
-  goToLogin: () => {},
   vscodeLanguage: () => "en",
   languageOverride: () => undefined,
   workspaceDirectory: () => "/project",
@@ -1633,19 +1610,6 @@ export const SidebarTopBarDefault: Story = {
       <div style={{ width: "340px" }}>
         <SidebarTopBar onNewTask={() => undefined} onHistory={() => undefined} surface="sidebar_title" />
       </div>
-    </StoryProviders>
-  ),
-}
-
-export const WelcomeWithSwitcherAndNotification: Story = {
-  name: "Welcome — account switcher + notification",
-  render: () => (
-    <StoryProviders sessionID={SESSION_ID} status="idle" noPadding notifications={[MOCK_NOTIFICATION]}>
-      <ServerContext.Provider value={mockServer as any}>
-        <div style={{ width: "100%", height: "600px", display: "flex", "flex-direction": "column" }}>
-          <ChatView />
-        </div>
-      </ServerContext.Provider>
     </StoryProviders>
   ),
 }

@@ -122,22 +122,10 @@
         "icon": "$(organization)"
       },
       {
-        "command": "harness-code.marketplaceButtonClicked",
-        "title": "Marketplace",
-        "category": "Harness Code",
-        "icon": "$(extensions)"
-      },
-      {
         "command": "harness-code.historyButtonClicked",
         "title": "History",
         "category": "Harness Code",
         "icon": "$(history)"
-      },
-      {
-        "command": "harness-code.profileButtonClicked",
-        "title": "Profile",
-        "category": "Harness Code",
-        "icon": "$(account)"
       },
       {
         "command": "harness-code.settingsButtonClicked",
@@ -156,19 +144,9 @@
         "icon": "$(organization)"
       },
       {
-        "command": "harness-code.sidebarTitle.marketplaceButtonClicked",
-        "title": "Marketplace",
-        "icon": "$(extensions)"
-      },
-      {
         "command": "harness-code.sidebarTitle.historyButtonClicked",
         "title": "History",
         "icon": "$(history)"
-      },
-      {
-        "command": "harness-code.sidebarTitle.profileButtonClicked",
-        "title": "Profile",
-        "icon": "$(account)"
       },
       {
         "command": "harness-code.sidebarTitle.settingsButtonClicked",
@@ -503,14 +481,6 @@
           "when": "false"
         },
         {
-          "command": "harness-code.sidebarTitle.marketplaceButtonClicked",
-          "when": "false"
-        },
-        {
-          "command": "harness-code.sidebarTitle.profileButtonClicked",
-          "when": "false"
-        },
-        {
           "command": "harness-code.sidebarTitle.settingsButtonClicked",
           "when": "false"
         }
@@ -529,16 +499,6 @@
         {
           "command": "harness-code.sidebarTitle.agentManagerOpen",
           "group": "navigation@2",
-          "when": "view == harness-code.SidebarProvider && !harness-code.isCursor"
-        },
-        {
-          "command": "harness-code.sidebarTitle.marketplaceButtonClicked",
-          "group": "navigation@3",
-          "when": "view == harness-code.SidebarProvider && !harness-code.isCursor"
-        },
-        {
-          "command": "harness-code.sidebarTitle.profileButtonClicked",
-          "group": "navigation@4",
           "when": "view == harness-code.SidebarProvider && !harness-code.isCursor"
         },
         {
@@ -575,11 +535,6 @@
         {
           "command": "harness-code.historyButtonClicked",
           "group": "navigation@1",
-          "when": "activeWebviewPanelId == harness-code.TabPanel && !harness-code.isCursor"
-        },
-        {
-          "command": "harness-code.profileButtonClicked",
-          "group": "navigation@2",
           "when": "activeWebviewPanelId == harness-code.TabPanel && !harness-code.isCursor"
         },
         {

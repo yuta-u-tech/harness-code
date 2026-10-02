@@ -9,7 +9,6 @@ import type { PRReviewCommentData, ReviewMessageData } from "../../../../src/sha
 import type { BrowserFeedbackData } from "../../../../src/shared/browser-feedback"
 import type { BrowserInteraction, BrowserViewport, BrowserViewIdentity } from "../../../../src/shared/browser-stream"
 import type { WorkStyle, WorkStyleState } from "../../../../src/shared/work-style-presets"
-import type { RefreshProviderUsageMessage, RequestProviderUsageMessage } from "./provider-usage"
 import type { AnacondaDesktopWebviewMessage } from "../../../../src/shared/anaconda-desktop-messages"
 import type { RequestMigrationDataMessage, StartMigrationMessage } from "./migration"
 import type { HarnessWebviewMessage } from "./harness-run"
@@ -166,18 +165,6 @@ export interface ImportAndSendMessage {
   injectedTitle?: string
 }
 
-export interface LoginRequest {
-  type: "login"
-}
-
-export interface LogoutRequest {
-  type: "logout"
-}
-
-export interface RefreshProfileRequest {
-  type: "refreshProfile"
-}
-
 export interface OpenExternalRequest {
   type: "openExternal"
   url: string
@@ -209,15 +196,6 @@ export interface ValidateFilesRequest {
   // against the wrong worktree.
   sessionID: string
   paths: string[]
-}
-
-export interface CancelLoginRequest {
-  type: "cancelLogin"
-}
-
-export interface SetOrganizationRequest {
-  type: "setOrganization"
-  organizationId: string | null
 }
 
 export interface WebviewReadyRequest {
@@ -281,10 +259,6 @@ export interface ConfigureAgentManagerSetupScriptMessage {
   requestId: string
 }
 
-export interface OpenProfilePanelRequest {
-  type: "openProfilePanel"
-}
-
 export interface OpenVSCodeSettingsRequest {
   type: "openVSCodeSettings"
   query: string
@@ -315,11 +289,6 @@ export interface OpenConfigFileRequest {
     sourceProjectKilocode: string
     sourceProjectOpencode: string
   }
-}
-
-export interface OpenMarketplacePanelRequest {
-  type: "openMarketplacePanel"
-  directory?: string
 }
 
 export interface OpenAgentManagerRequest {
@@ -1632,22 +1601,6 @@ export interface MoveSectionRequest {
   dir: -1 | 1
 }
 
-export interface FetchMarketplaceDataMessage {
-  type: "fetchMarketplaceData"
-}
-
-export interface InstallMarketplaceItemMessage {
-  type: "installMarketplaceItem"
-  mpItem: MarketplaceItem
-  mpInstallOptions: InstallMarketplaceItemOptions
-}
-
-export interface RemoveInstalledMarketplaceItemMessage {
-  type: "removeInstalledMarketplaceItem"
-  mpItem: MarketplaceItem
-  mpInstallOptions: InstallMarketplaceItemOptions
-}
-
 export interface DismissAgentMigrationBannerMessage {
   type: "dismissAgentMigrationBanner"
 }
@@ -1682,27 +1635,18 @@ export type WebviewMessage =
   | RequestSessionModelUsageMessage
   | RequestCloudSessionsMessage
   | RequestGitRemoteUrlMessage
-  | LoginRequest
-  | LogoutRequest
-  | RefreshProfileRequest
-  | RequestProviderUsageMessage
-  | RefreshProviderUsageMessage
   | OpenExternalRequest
   | OpenSettingsPanelRequest
   | RequestAgentManagerSettingsMessage
   | RequestAgentManagerSettingsBranchesMessage
   | SetAgentManagerDefaultBaseBranchMessage
   | ConfigureAgentManagerSetupScriptMessage
-  | OpenProfilePanelRequest
   | OpenVSCodeSettingsRequest
   | OpenConfigFileRequest
-  | OpenMarketplacePanelRequest
   | OpenAgentManagerRequest
   | OpenAdvancedWorktreeRequest
   | OpenFileRequest
   | ValidateFilesRequest
-  | CancelLoginRequest
-  | SetOrganizationRequest
   | WebviewReadyRequest
   | WebviewFocusChangedRequest
   | AgentManagerFocusChangedRequest
@@ -1879,9 +1823,6 @@ export type WebviewMessage =
   | RequestSandboxDefaultMessage
   | SetSandboxDefaultMessage
   | ToggleSandboxMessage
-  | FetchMarketplaceDataMessage
-  | InstallMarketplaceItemMessage
-  | RemoveInstalledMarketplaceItemMessage
   | DismissAgentMigrationBannerMessage
   | ConnectProviderMessage
   | AuthorizeProviderOAuthMessage

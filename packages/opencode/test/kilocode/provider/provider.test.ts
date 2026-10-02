@@ -57,28 +57,3 @@ it.instance(
     },
   },
 )
-
-it.instance(
-  "getSmallModel falls back to Kilo auto when the kilo provider is configured",
-  Effect.gen(function* () {
-    const model = yield* Provider.use.getSmallModel(ProviderV2.ID.make("test-provider"))
-    expect(model).toMatchObject({ providerID: "kilo", id: "kilo-auto/small" })
-  }),
-  {
-    config: {
-      provider: {
-        "test-provider": {
-          name: "Test Provider",
-          npm: "@ai-sdk/openai-compatible",
-          models: {
-            "gpt-5-nano": { release_date: "2026-01-01" },
-          },
-          options: { apiKey: "test-key" },
-        },
-        kilo: {
-          options: { apiKey: "kilo-key" },
-        },
-      },
-    },
-  },
-)

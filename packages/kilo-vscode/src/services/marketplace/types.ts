@@ -84,22 +84,6 @@ export interface MarketplaceRelevance {
 
 export type MarketplaceRelevanceMetadata = Record<string, MarketplaceRelevance>
 
-export interface MarketplaceDataResponse {
-  marketplaceItems: MarketplaceItem[]
-  marketplaceInstalledMetadata: MarketplaceInstalledMetadata
-  marketplaceRelevance: MarketplaceRelevanceMetadata
-  errors?: string[]
-}
-
-export interface InstallResult {
-  success: boolean
-  slug: string
-  error?: string
-  filePath?: string
-  filePaths?: string[]
-  line?: number
-}
-
 export interface RemoveResult {
   success: boolean
   slug: string
