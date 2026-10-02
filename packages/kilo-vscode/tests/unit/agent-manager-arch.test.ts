@@ -79,7 +79,6 @@ const TSX_FILES = [
   path.join(ROOT, "webview-ui/agent-manager/TabBar.tsx"),
   path.join(ROOT, "webview-ui/agent-manager/ClosableTab.tsx"),
   path.join(ROOT, "webview-ui/agent-manager/InspectorTabStrip.tsx"),
-  path.join(ROOT, "webview-ui/agent-manager/ProjectBranchDialog.tsx"),
   path.join(ROOT, "webview-ui/agent-manager/tab-rendering.tsx"),
   path.join(ROOT, "webview-ui/agent-manager/terminal/TerminalTab.tsx"),
   path.join(ROOT, "webview-ui/agent-manager/terminal/SideTerminalPanel.tsx"),
@@ -558,10 +557,10 @@ describe("Agent Manager Worktree Actions", () => {
       contributes: { keybindings: { command: string; key?: string; mac?: string }[] }
     }
     const dialog = manifest.contributes.keybindings.find(
-      (item) => item.command === "kilo-code.new.agentManager.newWorktree",
+      (item) => item.command === "harness-code.agentManager.newWorktree",
     )
     const quick = manifest.contributes.keybindings.find(
-      (item) => item.command === "kilo-code.new.agentManager.quickWorktree",
+      (item) => item.command === "harness-code.agentManager.quickWorktree",
     )
 
     expect(dialog).toMatchObject({ key: "ctrl+n", mac: "cmd+n" })
@@ -576,7 +575,7 @@ describe("Agent Manager Worktree Actions", () => {
       contributes: { keybindings: { command: string; key?: string; mac?: string }[] }
     }
     const removed = manifest.contributes.keybindings.find((item) => item.command === "-workbench.actions.view.problems")
-    const manager = manifest.contributes.keybindings.find((item) => item.command === "kilo-code.new.agentManagerOpen")
+    const manager = manifest.contributes.keybindings.find((item) => item.command === "harness-code.agentManagerOpen")
 
     expect(removed).toMatchObject({ key: "ctrl+shift+m", mac: "cmd+shift+m" })
     expect(manager).toMatchObject({ key: "ctrl+shift+m", mac: "cmd+shift+m" })
@@ -610,8 +609,8 @@ describe("Agent Manager Worktree Actions", () => {
 
   it("forwards the quick-worktree command to immediate creation", () => {
     const source = fs.readFileSync(path.join(ROOT, "src/extension.ts"), "utf-8")
-    const start = source.indexOf('vscode.commands.registerCommand("kilo-code.new.agentManager.quickWorktree"')
-    const end = source.indexOf('vscode.commands.registerCommand("kilo-code.new.agentManager.openWorktree"', start)
+    const start = source.indexOf('vscode.commands.registerCommand("harness-code.agentManager.quickWorktree"')
+    const end = source.indexOf('vscode.commands.registerCommand("harness-code.agentManager.openWorktree"', start)
     const command = source.slice(start, end)
 
     expect(start).toBeGreaterThanOrEqual(0)

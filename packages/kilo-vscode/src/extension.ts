@@ -61,9 +61,9 @@ export async function activate(context: vscode.ExtensionContext) {
   console.log("Harness Code extension is now active")
   shuttingDown = false
 
-  // Drives the "!kilo-code.new.isCursor" guards on the native view/title and
+  // Drives the "!harness-code.isCursor" guards on the native view/title and
   // editor/title menu contributions — see isCursorHost() for why.
-  void vscode.commands.executeCommand("setContext", "kilo-code.new.isCursor", isCursorHost())
+  void vscode.commands.executeCommand("setContext", "harness-code.isCursor", isCursorHost())
 
   const telemetry = TelemetryProxy.getInstance()
 
@@ -73,7 +73,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const browserBroker = new BrowserBroker({
     log: (...args) => console.warn("[Kilo New] BrowserBroker:", ...args),
-    enabled: () => vscode.workspace.getConfiguration("kilo-code.new.experimental").get("browserAutomation", false),
+    enabled: () => vscode.workspace.getConfiguration("harness-code.experimental").get("browserAutomation", false),
     trusted: () => vscode.workspace.isTrusted,
     useSystemChrome: () => integratedBrowserUseSystemChrome(),
   })
@@ -170,7 +170,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   // Create the provider with shared service
   const provider = new KiloProvider(context.extensionUri, connectionService, context, {
-    focusContext: "kilo-code.new.sidebarFocused",
+    focusContext: "harness-code.sidebarFocused",
     onFocused: () => {
       focus.gained("sidebar")
       chat = provider
@@ -207,12 +207,12 @@ export async function activate(context: vscode.ExtensionContext) {
   // terminal.integrated.commandsToSkipShell, which only contains built-in
   // commands by default.
   const skip = [
-    "kilo-code.new.agentManagerOpen",
-    "kilo-code.new.agentManager.showTerminal",
-    "kilo-code.new.agentManager.previousTerminal",
-    "kilo-code.new.agentManager.nextTerminal",
+    "harness-code.agentManagerOpen",
+    "harness-code.agentManager.showTerminal",
+    "harness-code.agentManager.previousTerminal",
+    "harness-code.agentManager.nextTerminal",
   ]
-  if (process.platform === "darwin") skip.push("kilo-code.new.agentManager.runScript")
+  if (process.platform === "darwin") skip.push("harness-code.agentManager.runScript")
   ensureCommandsSkipShell(skip)
 
   // Create Agent Manager provider for editor panel
@@ -290,7 +290,7 @@ export async function activate(context: vscode.ExtensionContext) {
   agentManager = agentManagerProvider
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration((event) => {
-      if (event.affectsConfiguration("kilo-code.new.experimental.browserAutomation")) {
+      if (event.affectsConfiguration("harness-code.experimental.browserAutomation")) {
         agentManagerProvider.refreshBrowserAutomation()
       }
     }),
@@ -344,7 +344,7 @@ export async function activate(context: vscode.ExtensionContext) {
     os: showOSNotification,
     show: async (sessionID, directory) => {
       if (await agentManagerProvider.revealSession(sessionID)) return
-      await vscode.commands.executeCommand("kilo-code.SidebarProvider.focus")
+      await vscode.commands.executeCommand("harness-code.SidebarProvider.focus")
       await provider.openSession(sessionID, directory)
     },
   })
@@ -406,7 +406,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   // Register serializer so "Open in Tab" restores when VS Code restarts
   context.subscriptions.push(
-    vscode.window.registerWebviewPanelSerializer("kilo-code.new.TabPanel", {
+    vscode.window.registerWebviewPanelSerializer("harness-code.TabPanel", {
       deserializeWebviewPanel(panel: vscode.WebviewPanel) {
         const tabProvider = attach(panel)
         panel.onDidDispose(
@@ -473,7 +473,7 @@ export async function activate(context: vscode.ExtensionContext) {
   const settingsViews = ["settingsPanel", "profilePanel"] as const
   for (const suffix of settingsViews) {
     context.subscriptions.push(
-      vscode.window.registerWebviewPanelSerializer(`kilo-code.new.${suffix}`, {
+      vscode.window.registerWebviewPanelSerializer(`harness-code.${suffix}`, {
         deserializeWebviewPanel(panel: vscode.WebviewPanel) {
           settingsEditorProvider.deserializePanel(panel)
           return Promise.resolve()
@@ -510,7 +510,7 @@ export async function activate(context: vscode.ExtensionContext) {
   )
 
   context.subscriptions.push(
-    vscode.window.registerWebviewPanelSerializer("kilo-code.new.SubAgentViewerPanel", {
+    vscode.window.registerWebviewPanelSerializer("harness-code.SubAgentViewerPanel", {
       deserializeWebviewPanel(panel: vscode.WebviewPanel) {
         // Sub-agent viewer requires a session ID that can't be recovered
         // after restart, so dispose the stale panel cleanly.
@@ -543,88 +543,88 @@ export async function activate(context: vscode.ExtensionContext) {
 
   // Register toolbar button command handlers
   context.subscriptions.push(
-    vscode.commands.registerCommand("kilo-code.new.sidebarTitle.plusButtonClicked", () => {
-      track("new_task", "kilo-code.new.plusButtonClicked")
+    vscode.commands.registerCommand("harness-code.sidebarTitle.plusButtonClicked", () => {
+      track("new_task", "harness-code.plusButtonClicked")
     }),
-    vscode.commands.registerCommand("kilo-code.new.sidebarTitle.historyButtonClicked", () => {
-      track("history", "kilo-code.new.historyButtonClicked")
+    vscode.commands.registerCommand("harness-code.sidebarTitle.historyButtonClicked", () => {
+      track("history", "harness-code.historyButtonClicked")
     }),
-    vscode.commands.registerCommand("kilo-code.new.sidebarTitle.agentManagerOpen", () => {
-      track("agent_manager", "kilo-code.new.agentManagerOpen")
+    vscode.commands.registerCommand("harness-code.sidebarTitle.agentManagerOpen", () => {
+      track("agent_manager", "harness-code.agentManagerOpen")
     }),
-    vscode.commands.registerCommand("kilo-code.new.sidebarTitle.marketplaceButtonClicked", () => {
-      track("marketplace", "kilo-code.new.marketplaceButtonClicked")
+    vscode.commands.registerCommand("harness-code.sidebarTitle.marketplaceButtonClicked", () => {
+      track("marketplace", "harness-code.marketplaceButtonClicked")
     }),
-    vscode.commands.registerCommand("kilo-code.new.sidebarTitle.profileButtonClicked", () => {
-      track("profile", "kilo-code.new.profileButtonClicked")
+    vscode.commands.registerCommand("harness-code.sidebarTitle.profileButtonClicked", () => {
+      track("profile", "harness-code.profileButtonClicked")
     }),
-    vscode.commands.registerCommand("kilo-code.new.sidebarTitle.settingsButtonClicked", () => {
-      track("settings", "kilo-code.new.settingsButtonClicked")
+    vscode.commands.registerCommand("harness-code.sidebarTitle.settingsButtonClicked", () => {
+      track("settings", "harness-code.settingsButtonClicked")
     }),
-    vscode.commands.registerCommand("kilo-code.new.plusButtonClicked", () => {
+    vscode.commands.registerCommand("harness-code.plusButtonClicked", () => {
       const tab = activeTabProvider()
       if (tab) tab.postMessage({ type: "action", action: "plusButtonClicked" })
       else provider.postMessage({ type: "action", action: "plusButtonClicked" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.closeTask", () => {
+    vscode.commands.registerCommand("harness-code.closeTask", () => {
       taskTarget().postMessage({ type: "action", action: "closeTask" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.closeAllTasks", () => {
+    vscode.commands.registerCommand("harness-code.closeAllTasks", () => {
       taskTarget().postMessage({ type: "action", action: "closeAllTasks" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManagerOpen", () => {
+    vscode.commands.registerCommand("harness-code.agentManagerOpen", () => {
       agentManagerProvider.openPanel()
     }),
-    vscode.commands.registerCommand("kilo-code.new.marketplaceButtonClicked", (directory?: string | null) => {
+    vscode.commands.registerCommand("harness-code.marketplaceButtonClicked", (directory?: string | null) => {
       marketplacePanelProvider.openPanel(directory)
     }),
-    vscode.commands.registerCommand("kilo-code.new.historyButtonClicked", () => {
+    vscode.commands.registerCommand("harness-code.historyButtonClicked", () => {
       const tab = activeTabProvider()
       if (tab) tab.postMessage({ type: "action", action: "historyButtonClicked" })
       else provider.postMessage({ type: "action", action: "historyButtonClicked" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.cycleAgentMode", () => {
+    vscode.commands.registerCommand("harness-code.cycleAgentMode", () => {
       const tab = activeTabProvider()
       if (tab) tab.postMessage({ type: "action", action: "cycleAgentMode" })
       else provider.postMessage({ type: "action", action: "cycleAgentMode" })
       agentManagerProvider.postMessage({ type: "action", action: "cycleAgentMode" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.cyclePreviousAgentMode", () => {
+    vscode.commands.registerCommand("harness-code.cyclePreviousAgentMode", () => {
       const tab = activeTabProvider()
       if (tab) tab.postMessage({ type: "action", action: "cyclePreviousAgentMode" })
       else provider.postMessage({ type: "action", action: "cyclePreviousAgentMode" })
       agentManagerProvider.postMessage({ type: "action", action: "cyclePreviousAgentMode" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.profileButtonClicked", () => {
+    vscode.commands.registerCommand("harness-code.profileButtonClicked", () => {
       settingsEditorProvider.openPanel("profile")
     }),
-    vscode.commands.registerCommand("kilo-code.new.settingsButtonClicked", (tab?: string, projectId?: string) => {
+    vscode.commands.registerCommand("harness-code.settingsButtonClicked", (tab?: string, projectId?: string) => {
       settingsEditorProvider.openPanel("settings", tab, projectId)
     }),
-    vscode.commands.registerCommand("kilo-code.new.openIndexingSettings", () => {
+    vscode.commands.registerCommand("harness-code.openIndexingSettings", () => {
       settingsEditorProvider.openPanel("settings", "indexing")
     }),
-    vscode.commands.registerCommand("kilo-code.new.showMemory", async () => {
+    vscode.commands.registerCommand("harness-code.showMemory", async () => {
       if (agentManagerProvider.isActive()) {
         await agentManagerProvider.showMemory()
         return
       }
       const target = activeTabProvider() ?? provider
-      if (target === provider) await vscode.commands.executeCommand("kilo-code.SidebarProvider.focus")
+      if (target === provider) await vscode.commands.executeCommand("harness-code.SidebarProvider.focus")
       await target.waitForReady()
       await target.showMemory()
     }),
-    vscode.commands.registerCommand("kilo-code.new.toggleMemory", async () => {
+    vscode.commands.registerCommand("harness-code.toggleMemory", async () => {
       if (agentManagerProvider.isActive()) {
         await agentManagerProvider.toggleMemory()
         return
       }
       const target = activeTabProvider() ?? provider
-      if (target === provider) await vscode.commands.executeCommand("kilo-code.SidebarProvider.focus")
+      if (target === provider) await vscode.commands.executeCommand("harness-code.SidebarProvider.focus")
       await target.waitForReady()
       await target.toggleMemory()
     }),
-    vscode.commands.registerCommand("kilo-code.new.toggleCaffeination", (enabled?: boolean) => {
+    vscode.commands.registerCommand("harness-code.toggleCaffeination", (enabled?: boolean) => {
       const state = awake.getState()
       const next = typeof enabled === "boolean" ? enabled : !(state.enabled || state.active)
       if (next && !state.available) {
@@ -632,13 +632,13 @@ export async function activate(context: vscode.ExtensionContext) {
       }
       return toggle(next)
     }),
-    vscode.commands.registerCommand("kilo-code.new.generateTerminalCommand", async () => {
+    vscode.commands.registerCommand("harness-code.generateTerminalCommand", async () => {
       const input = await vscode.window.showInputBox({
         prompt: "Describe the terminal command you want to generate",
         placeHolder: "e.g., find all .ts files modified in the last 24 hours",
       })
       if (!input) return
-      await vscode.commands.executeCommand("kilo-code.SidebarProvider.focus")
+      await vscode.commands.executeCommand("harness-code.SidebarProvider.focus")
       await provider.waitForReady()
       provider.postMessage({
         type: "triggerTask",
@@ -646,108 +646,108 @@ export async function activate(context: vscode.ExtensionContext) {
         injectedTitle: "Generate terminal command",
       })
     }),
-    vscode.commands.registerCommand("kilo-code.new.toggleRemote", () => {
+    vscode.commands.registerCommand("harness-code.toggleRemote", () => {
       remoteService.toggle().catch((err) => console.error("[Kilo New] toggleRemote command failed:", err))
     }),
-    vscode.commands.registerCommand("kilo-code.new.openInTab", () => {
+    vscode.commands.registerCommand("harness-code.openInTab", () => {
       return openKiloInNewTab(context, tabPanels, attach)
     }),
     vscode.commands.registerCommand(
-      "kilo-code.new.showChanges",
+      "harness-code.showChanges",
       (arg?: Parameters<DiffViewerProvider["openFromCommand"]>[0]) => {
         diffViewerProvider.openFromCommand(arg)
       },
     ),
     vscode.commands.registerCommand(
-      "kilo-code.new.openSubAgentViewer",
+      "harness-code.openSubAgentViewer",
       (sessionID: string, title?: string, directory?: string) => {
         subAgentViewerProvider.openPanel(sessionID, title, directory)
       },
     ),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.previousSession", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.previousSession", () => {
       agentManagerProvider.postMessage({ type: "action", action: "sessionPrevious" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.nextSession", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.nextSession", () => {
       agentManagerProvider.postMessage({ type: "action", action: "sessionNext" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.previousTab", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.previousTab", () => {
       agentManagerProvider.postMessage({ type: "action", action: "tabPrevious" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.nextTab", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.nextTab", () => {
       agentManagerProvider.postMessage({ type: "action", action: "tabNext" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.previousTerminal", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.previousTerminal", () => {
       agentManagerProvider.postMessage({ type: "action", action: "terminalPrevious" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.nextTerminal", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.nextTerminal", () => {
       agentManagerProvider.postMessage({ type: "action", action: "terminalNext" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.diagnostics", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.diagnostics", () => {
       // diagnose() spawns git/gh probes and writes to the output channel; a rejection (disposed
       // channel, disposed context mid-probe) would otherwise be an invisible unhandled rejection.
       void agentManagerProvider.diagnose().catch((err: unknown) => {
         console.error("[Kilo New] Agent Manager diagnostics failed:", err)
       })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.search", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.search", () => {
       agentManagerProvider.postMessage({ type: "action", action: "search" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.showTerminal", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.showTerminal", () => {
       // Route through the webview so it can reach into the active session
       // state and open the VS Code integrated terminal for it.
       agentManagerProvider.postMessage({ type: "action", action: "showTerminal" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.runScript", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.runScript", () => {
       agentManagerProvider.postMessage({ type: "action", action: "runScript" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.toggleDiff", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.toggleDiff", () => {
       agentManagerProvider.postMessage({ type: "action", action: "toggleDiff" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.showShortcuts", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.showShortcuts", () => {
       agentManagerProvider.postMessage({ type: "action", action: "showShortcuts" })
     }),
 
-    vscode.commands.registerCommand("kilo-code.new.agentManager.newTab", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.newTab", () => {
       agentManagerProvider.postMessage({ type: "action", action: "newTab" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.newTerminalTab", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.newTerminalTab", () => {
       agentManagerProvider.postMessage({ type: "action", action: "newTerminalTab" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.newSideTerminal", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.newSideTerminal", () => {
       agentManagerProvider.postMessage({ type: "action", action: "newSideTerminal" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.closeTab", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.closeTab", () => {
       agentManagerProvider.postMessage({ type: "action", action: "closeTab" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.newWorktree", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.newWorktree", () => {
       agentManagerProvider.postMessage({ type: "action", action: "newWorktree" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.quickWorktree", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.quickWorktree", () => {
       agentManagerProvider.postMessage({ type: "action", action: "quickWorktree" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.openWorktree", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.openWorktree", () => {
       agentManagerProvider.postMessage({ type: "action", action: "openWorktree" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.updateFromBase", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.updateFromBase", () => {
       agentManagerProvider.postMessage({ type: "action", action: "updateFromBase" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.openPR", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.openPR", () => {
       agentManagerProvider.postMessage({ type: "action", action: "openPR" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.closeWorktree", () => {
+    vscode.commands.registerCommand("harness-code.agentManager.closeWorktree", () => {
       agentManagerProvider.postMessage({ type: "action", action: "closeWorktree" })
     }),
-    vscode.commands.registerCommand("kilo-code.new.agentManager.advancedWorktree", () =>
+    vscode.commands.registerCommand("harness-code.agentManager.advancedWorktree", () =>
       agentManagerProvider.openAdvancedWorktree(),
     ),
     ...Array.from({ length: 9 }, (_, i) =>
-      vscode.commands.registerCommand(`kilo-code.new.agentManager.jumpTo${i + 1}`, () => {
+      vscode.commands.registerCommand(`harness-code.agentManager.jumpTo${i + 1}`, () => {
         agentManagerProvider.postMessage({ type: "action", action: `jumpTo${i + 1}` })
       }),
     ),
   )
 
-  // Register URI handler for extension deep links (vscode://kilocode.kilo-code/kilocode/...)
+  // Register URI handler for extension deep links (vscode://yuta-u-tech.harness-code/kilocode/...)
   context.subscriptions.push(
     vscode.window.registerUriHandler({
       async handleUri(uri: vscode.Uri) {
@@ -781,7 +781,7 @@ export async function activate(context: vscode.ExtensionContext) {
   registerHeapSnapshot(context, connectionService)
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("kilo-code.new.reload", () => {
+    vscode.commands.registerCommand("harness-code.reload", () => {
       provider.reload().catch((e) => console.error("[Kilo New] reload command failed:", e))
     }),
   )
@@ -832,7 +832,7 @@ function openKiloInNewTab(
   attach: (panel: vscode.WebviewPanel) => KiloProvider,
 ) {
   const panel = vscode.window.createWebviewPanel(
-    "kilo-code.new.TabPanel",
+    "harness-code.TabPanel",
     EXTENSION_DISPLAY_NAME,
     vscode.ViewColumn.Active,
     {
@@ -843,8 +843,8 @@ function openKiloInNewTab(
   )
 
   panel.iconPath = {
-    light: vscode.Uri.joinPath(context.extensionUri, "assets", "icons", "kilo-light.svg"),
-    dark: vscode.Uri.joinPath(context.extensionUri, "assets", "icons", "kilo-dark.svg"),
+    light: vscode.Uri.joinPath(context.extensionUri, "assets", "icons", "harness-light.svg"),
+    dark: vscode.Uri.joinPath(context.extensionUri, "assets", "icons", "harness-dark.svg"),
   }
 
   const tabProvider = attach(panel)

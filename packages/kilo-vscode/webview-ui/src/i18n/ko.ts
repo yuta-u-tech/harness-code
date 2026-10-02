@@ -675,64 +675,15 @@ export const dict = {
 
   "settings.agentBehaviour.title": "에이전트 동작",
   "settings.autoApprove.title": "자동 승인",
-  "settings.webTools.title": "웹 도구",
-  "settings.webTools.description": "웹 검색 및 브라우저 자동화를 구성합니다.",
-  "settings.webTools.webSearch.enable": "모든 제공업체에 사용",
-  "settings.webTools.browserAutomation": "브라우저 자동화",
-  "settings.webTools.webSearch.title": "웹 검색",
-  "settings.webTools.webSearch.description": "모든 제공업체의 모델에서 웹 검색을 사용할 수 있도록 합니다.",
   "settings.checkpoints.title": "체크포인트",
   "settings.display.title": "디스플레이",
-  "settings.autocomplete.title": "자동 완성",
   "settings.autocomplete.model.title": "자동 완성 모델",
   "settings.autocomplete.model.description": "인라인 코드 완성에 사용되는 모델 선택",
   "settings.notifications.title": "알림",
-  "settings.context.title": "컨텍스트",
 
-  "settings.experimental.title": "실험적",
   "settings.language.title": "언어",
-  "settings.aboutKiloCode.title": "Harness Code 정보",
 
   "prompt.action.indexing": "인덱싱 설정",
-  "settings.indexing.dimension.description": "비워두면 모델에서 임베딩 차원을 자동으로 감지합니다.",
-  "settings.indexing.dimension.placeholder": "자동",
-  "settings.indexing.dimension.title": "벡터 차원",
-  "settings.indexing.enable.description": "의미적 코드베이스 인덱싱을 켜거나 끕니다.",
-  "settings.indexing.showButton.title": "인덱싱이 꺼져 있을 때 버튼 표시",
-  "settings.indexing.showButton.description":
-    "인덱싱이 꺼져 있는 동안 프롬프트 아래에 인덱싱 버튼을 표시합니다. 버튼이 숨겨져 있는 경우 설정 > 인덱싱을 열어 인덱싱을 활성화하세요.",
-  "settings.indexing.enable.title": "인덱싱 활성화",
-  "settings.indexing.globalEnable.title": "전역으로 활성화",
-  "settings.indexing.globalEnable.description": "모든 작업 영역에 대해 인덱싱을 활성화합니다.",
-  "settings.indexing.projectEnable.title": "이 프로젝트에 대해 활성화",
-  "settings.indexing.projectEnable.description":
-    "전역 인덱싱이 꺼져 있을 때 이 작업 영역에 대해 인덱싱을 활성화합니다.",
-  "settings.indexing.lancedbDirectory.description": "로컬 LanceDB 저장소의 선택적 디렉터리입니다.",
-  "settings.indexing.lancedbDirectory.placeholder": "기본값 사용을 위해 비워두세요",
-  "settings.indexing.lancedbDirectory.title": "LanceDB 디렉터리",
-  "settings.indexing.model.description": "선택한 공급자의 기본 임베딩 모델을 재정의합니다.",
-  "settings.indexing.model.title": "임베딩 모델",
-  "settings.indexing.provider.description": "의미 검색을 위한 임베딩 생성에 사용할 공급자를 선택하세요.",
-  "settings.indexing.kiloModel.title": "Kilo 모델 프리셋",
-  "settings.indexing.kiloModel.description": "지원되는 Kilo 호스팅 임베딩 모델을 선택하세요.",
-  "settings.indexing.kiloSignIn.title": "Kilo 로그인이 필요합니다",
-  "settings.indexing.kiloSignIn.description": "호스팅 임베딩을 사용하려면 Kilo에 로그인하세요.",
-  "settings.indexing.provider.title": "임베딩 공급자",
-  "settings.indexing.providerField.description": "공급자별 연결 설정.",
-  "settings.indexing.qdrantApiKey.description": "Qdrant 인스턴스에 대한 선택적 API 키입니다.",
-  "settings.indexing.qdrantApiKey.placeholder": "선택적 API 키",
-  "settings.indexing.fileExtensions.title": "파일 확장자",
-  "settings.indexing.fileExtensions.description":
-    "쉼표로 구분된 허용 목록입니다. 기본 제공 기본값을 사용하려면 비워 두세요.",
-  "settings.indexing.fileExtensions.invalid": "잘못된 확장자: {{extension}}",
-  "settings.indexing.qdrantApiKey.title": "Qdrant API 키",
-  "settings.indexing.qdrantUrl.description": "Qdrant 인스턴스의 서버 URL입니다.",
-  "settings.indexing.qdrantUrl.title": "Qdrant URL",
-  "settings.indexing.status.title": "상태",
-  "settings.indexing.title": "인덱싱",
-  "settings.indexing.tuning.description": "고급 검색 및 배치 매개변수입니다.",
-  "settings.indexing.vectorStore.description": "인덱싱된 임베딩을 저장할 위치를 선택하세요.",
-  "settings.indexing.vectorStore.title": "벡터 저장소",
 
   "session.messages.welcome":
     "Harness Code는 AI 코딩 어시스턴트입니다. 기능 구축, 버그 수정 또는 코드베이스 설명을 요청하세요.",
@@ -792,57 +743,11 @@ export const dict = {
   "time.thisMonth": "이번 달",
   "time.older": "이전",
 
-  "settings.aboutKiloCode.status.connected": "연결됨",
-  "settings.aboutKiloCode.status.connecting": "연결 중...",
-  "settings.aboutKiloCode.status.disconnected": "연결 끊김",
-  "settings.aboutKiloCode.status.error": "오류",
-  "settings.aboutKiloCode.cliServer": "CLI 서버",
-  "settings.aboutKiloCode.status.label": "상태:",
-  "settings.aboutKiloCode.port.label": "포트:",
-  "settings.aboutKiloCode.versionInfo": "버전 정보",
-  "settings.aboutKiloCode.version.label": "버전:",
-  "settings.aboutKiloCode.community": "커뮤니티 및 지원",
-  "settings.aboutKiloCode.feedback.prefix": "질문이나 피드백이 있으시면 다음에서 이슈를 열어주세요",
-  "settings.aboutKiloCode.feedback.or": "또는",
-  "settings.aboutKiloCode.support.prefix": "결제 또는 계정 관련 문의는 고객 지원팀에 문의하세요",
-  "settings.aboutKiloCode.resetSettings.title": "설정 초기화",
-  "settings.aboutKiloCode.resetSettings.description":
-    "이 기능은 VS Code 확장 프로그램 전용 설정만 기본값으로 초기화합니다. 모드 및 자동 승인 규칙과 같이 CLI와 공유되는 설정은 CLI 구성에 저장되며 초기화되지 않습니다.",
-  "settings.aboutKiloCode.resetSettings.button": "모든 설정 초기화",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "Reset Read Notifications",
-  "settings.aboutKiloCode.settingsTransfer.title": "설정 이전",
-  "settings.aboutKiloCode.settingsTransfer.description":
-    "VS Code 인스턴스 간에 설정을 전송하려면 내보내기 또는 가져오기하세요.",
-  "settings.aboutKiloCode.exportSettings": "내보내기",
-  "settings.aboutKiloCode.importSettings": "가져오기",
-  "settings.aboutKiloCode.importSettings.invalidJson":
-    "유효하지 않은 JSON 파일입니다. 올바른 설정 파일을 선택해 주세요.",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "파일에 유효한 Kilo 설정이 포함되어 있지 않습니다.",
-  "settings.aboutKiloCode.importSettings.tooLarge": "파일이 너무 큽니다. 설정 파일은 1 MB 이하여야 합니다.",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "이 파일은 더 최신 버전의 Kilo에서 내보낸 것입니다. 일부 설정이 무시될 수 있습니다.",
-  "settings.aboutKiloCode.importSettings.success": "설정을 가져왔습니다. 위의 변경 사항을 확인한 후 저장을 클릭하세요.",
-
-  "settings.aboutKiloCode.telemetry.title": "원격 측정",
-  "settings.aboutKiloCode.telemetry.description":
-    '원격 측정은 VS Code에 내장된 원격 측정 설정으로 제어됩니다. 비활성화하려면 설정 > 원격 측정 > 원격 측정 수준으로 이동하여 "off"로 설정하세요. 변경 사항을 적용하려면 VS Code를 다시 시작하세요.',
-  "settings.aboutKiloCode.telemetry.openSettings": "원격 측정 설정 열기",
-
   "settings.agentBehaviour.subtab.agents": "에이전트",
   "settings.agentBehaviour.subtab.mcpServers": "MCP 서버",
   "settings.agentBehaviour.subtab.rules": "규칙",
   "settings.agentBehaviour.subtab.workflows": "워크플로",
   "settings.agentBehaviour.subtab.skills": "스킬",
-
-  "settings.browser.description":
-    "Playwright 기반의 내장 브라우저 자동화를 구성합니다. Kilo는 세션에서 웹 페이지를 탐색하고 상호 작용하며 스크린샷을 찍을 수 있습니다.",
-  "settings.browser.enable.title": "브라우저 자동화 활성화",
-  "settings.browser.enable.description":
-    "로컬 애플리케이션과 공개 HTTPS 페이지를 위한 세션별 Agent Manager 브라우저를 활성화합니다.",
-  "settings.browser.systemChrome.title": "시스템 Chrome 사용",
-  "settings.browser.systemChrome.description": "별도의 Chromium 인스턴스 대신 설치된 Chrome 브라우저를 사용합니다.",
-  "settings.browser.headless.title": "헤드리스 모드",
-  "settings.browser.headless.description": "헤드리스 모드로 실행합니다 (브라우저 창이 표시되지 않음).",
 
   "settings.language.description": 'Harness Code UI의 언어를 선택하세요. "자동"은 VS Code 표시 언어를 사용합니다.',
   "settings.language.auto": "자동 (VS Code 언어)",
@@ -850,13 +755,6 @@ export const dict = {
 
   "common.add": "추가",
 
-  "settings.autocomplete.autoTrigger.title": "자동 인라인 완성 활성화",
-  "settings.autocomplete.autoTrigger.description": "입력 시 인라인 완성 제안을 자동으로 표시",
-  "settings.autocomplete.smartKeybinding.title": "스마트 인라인 작업 키바인딩 활성화",
-  "settings.autocomplete.smartKeybinding.description": "인라인 작업을 트리거하는 스마트 키바인딩 사용",
-  "settings.autocomplete.chatAutocomplete.title": "채팅 텍스트 영역 자동완성 활성화",
-  "settings.autocomplete.chatAutocomplete.description": "채팅 텍스트 영역에서 자동완성 제안 표시",
-  "settings.autocomplete.modelsHint": "자동 완성에 사용되는 모델을 선택하려면 모델 설정을 참조하세요.",
   "settings.notifications.sounds": "소리",
   "settings.notifications.enable.title": "소리 알림 활성화",
   "settings.notifications.enable.description":
@@ -876,25 +774,9 @@ export const dict = {
   "settings.notifications.sound.system": "시스템",
   "settings.notifications.sound.description":
     "기본값은 완료, 입력, 오류에 서로 다른 소리를 사용합니다. 다른 옵션에서는 모든 이벤트에 동일한 소리를 사용합니다.",
-  "settings.experimental.share.title": "공유 모드",
-  "settings.experimental.share.description": "세션 공유 동작 방식",
-  "settings.experimental.share.manual": "수동",
-  "settings.experimental.share.auto": "자동",
-  "settings.experimental.share.disabled": "비활성화",
-  "settings.experimental.formatter.title": "포매터",
-  "settings.experimental.formatter.description": "자동 코드 포매터 활성화",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "언어 서버 프로토콜 통합 활성화",
-  "settings.experimental.batch.title": "배치 도구",
-  "settings.experimental.batch.description": "여러 도구 호출의 배치 처리 활성화",
-  "settings.experimental.imageGeneration.title": "이미지 생성",
-  "settings.experimental.imageGeneration.description": "AI 이미지 생성 활성화",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "메인 세션과 해당 세션의 작업을 맡은 하위 에이전트(중첩된 하위 에이전트 포함)가 보드를 공유합니다. 모든 작업에 사용하지 말고, 해결책을 병렬로 시도하거나 서로 보완하는 작업을 수행할 때 사용하세요.",
-  "settings.experimental.imageGenerationModel.title": "이미지 모델",
-  "settings.experimental.imageGenerationModel.description": "이미지 생성 모델",
-  "settings.experimental.imageGenerationModel.placeholder": "기본값 (Auto Router)",
 
   "settings.models.speechToTextModel.customDescription":
     "사용자 지정 변환 엔드포인트로 전송되는 모델 ID입니다. 예: whisper-1.",
@@ -913,39 +795,7 @@ export const dict = {
     "음성 입력은 원격 창에서 사용할 수 없습니다. 마이크를 사용하려면 로컬 창에서 Kilo를 여세요.",
   "settings.models.speechToTextModel.title": "음성 텍스트 변환 모델",
   "settings.models.speechToTextModel.description": "음성 입력에 사용할 Kilo Gateway 변환 모델을 선택하세요.",
-  "settings.experimental.nativeNotebookTools.title": "네이티브 노트북 도구",
-  "settings.experimental.nativeNotebookTools.description":
-    "VS Code 노트북을 읽고, 편집하고, 실행하는 실험적 도구를 활성화합니다",
-  "settings.experimental.continueOnDeny.title": "거부 시 계속",
-  "settings.experimental.continueOnDeny.description": "권한이 거부되면 에이전트 루프 계속",
-  "settings.sandboxing.title": "샌드박스",
-  "settings.sandboxing.network.title": "네트워크 액세스 제한",
-  "settings.sandboxing.network.description":
-    "모델에서 시작된 명령 및 HTTP 도구의 직접적인 아웃바운드 액세스를 차단합니다. 제한이 적용되는 동안 로컬 및 원격 MCP 도구를 사용할 수 없습니다. 공급자 트래픽과 신뢰할 수 있는 플러그인 후크는 이 제한의 적용 대상이 아닙니다.",
 
-  "settings.sandboxing.allowedHosts.title": "허용된 네트워크 대상",
-  "settings.sandboxing.allowedHosts.description":
-    "샌드박스 처리된 HTTP 및 HTTPS 프록시 트래픽의 DNS 호스트 및 포트 대상입니다. GitHub CLI 및 HTTPS Git에는 일반적으로 github.com:443 및 api.github.com:443가 필요합니다.",
-  "settings.sandboxing.writablePaths.title": "추가 쓰기 가능 경로",
-  "settings.sandboxing.writablePaths.description":
-    "샌드박스에서 쓰기를 허용하는 추가 파일시스템 경로(예: /tmp, /var/log). 샌드박스가 활성화되면 기본 쓰기 가능 경로와 병합됩니다.",
-  "settings.experimental.multiProject.title": "멀티 프로젝트 Agent Manager",
-  "settings.experimental.claudeMigration.title": "Claude Code 마이그레이션",
-  "settings.experimental.claudeMigration.description":
-    "지원되는 전역 CLAUDE.md 지침, 간단한 스킬 및 비활성화된 MCP 정의를 한 번 가져옵니다. 원본 Claude 파일은 변경되지 않으며 활성화 후 백엔드를 다시 시작해야 합니다.",
-  "settings.experimental.multiProject.description":
-    "Agent Manager에서 여러 저장소에 걸친 세션과 워크트리 관리를 활성화합니다. 현재 워크스페이스 저장소는 항상 기본 프로젝트입니다.",
-  "settings.experimental.mcpTimeout.title": "MCP 타임아웃 (ms)",
-  "settings.experimental.mcpTimeout.description": "MCP 서버 요청의 타임아웃 시간 (밀리초)",
-  "settings.experimental.remote.title": "Remote 제어",
-  "settings.experimental.remote.description":
-    "Kilo Cloud를 통한 세션의 Remote 제어를 활성화합니다. 이는 이 컴퓨터의 CLI에도 영향을 미칩니다.",
-  "settings.experimental.remote.current": "현재 상태:",
-  "settings.experimental.remote.startup": "시작 시 자동 활성화:",
-  "settings.experimental.remote.active": "활성",
-  "settings.experimental.remote.inactive": "비활성",
-  "settings.experimental.remote.hint": "채팅에서 /remote를 사용하여 전환하세요",
-  "settings.experimental.toolToggles": "도구 토글",
   "settings.agentBehaviour.defaultAgent.title": "기본 에이전트",
   "settings.agentBehaviour.defaultAgent.description": "지정되지 않은 경우 사용할 에이전트",
   "settings.agentBehaviour.availableAgents": "사용 가능한 에이전트",
@@ -1065,12 +915,6 @@ export const dict = {
   "settings.agentBehaviour.workflows.model": "모델",
   "settings.agentBehaviour.workflows.variant": "변형",
   "settings.agentBehaviour.workflows.modelDescription": "전역 모델 재정의",
-  "settings.experimental.codeMode.title": "프로그래밍 방식 도구 호출",
-  "settings.experimental.codeMode.description":
-    "각 MCP 도구를 직접 노출하는 대신 주문형 도구 검색을 지원하는 격리된 JavaScript 런타임을 통해 MCP 도구 호출을 라우팅합니다. 많은 MCP 도구가 연결되어 있을 때 컨텍스트를 절약합니다.",
-  "settings.sandboxing.enabled.title": "샌드박스",
-  "settings.sandboxing.enabled.description":
-    "에이전트 셸 명령을 프로젝트 및 Kilo 상태 디렉터리에 대한 쓰기를 제한하는 OS 수준의 샌드박스 내에서 실행",
 
   "settings.autoApprove.description":
     "도구 실행 허용 방식을 정의합니다. 대부분의 도구 기본값은 '허용'입니다. doom_loop 및 external_directory의 기본값은 '확인'입니다.",
@@ -1104,77 +948,15 @@ export const dict = {
     "작업 공간 외부 파일 접근. 현재 프로젝트 디렉토리 외부의 파일에 접근할 때 트리거됩니다.",
   "settings.autoApprove.tool.doom_loop":
     "반복되는 동일한 작업 방지. 동일한 입력으로 동일한 도구 호출이 반복될 때 트리거됩니다.",
-  "settings.checkpoints.enable.title": "스냅샷 활성화",
-  "settings.checkpoints.enable.description": "파일 편집 전 체크포인트를 생성하여 이전 상태를 복원할 수 있습니다",
-  "settings.autoCleanup.enable.title": "자동 세션 정리 활성화",
-  "settings.autoCleanup.enable.description":
-    "정해진 일 수가 지나면 오래된 세션 기록을 자동으로 삭제합니다. 이 컴퓨터의 모든 프로젝트와 모든 Kilo 클라이언트가 대상이며 이 창만이 아닙니다. 실행 중인 세션과 최근 분기가 있는 세션은 절대 삭제되지 않습니다. 삭제는 영구적입니다.",
-  "settings.autoCleanup.defaultRetention.title": "세션 보관 기간(일)",
-  "settings.autoCleanup.defaultRetention.description": "자동 정리가 세션 기록을 삭제하기 전까지 보관하는 기간입니다.",
-  "settings.autoCleanup.lastRun.title": "마지막 정리",
-  "settings.autoCleanup.lastRun.never": "실행된 적 없음",
-  "settings.autoCleanup.result":
-    "{{date}}: {{scanned}}개 중 {{deleted}}개 세션 삭제({{active}}개 활성 건너뜀, {{failed}}개 실패), {{seconds}}초",
-  "settings.autoCleanup.starting": "세션 정리를 시작하는 중...",
-  "settings.autoCleanup.error.status": "세션 정리 상태를 일시적으로 확인할 수 없습니다. 다시 시도하는 중...",
-  "settings.autoCleanup.error.timeout": "정리 상태를 기다리는 중입니다. 백엔드 응답이 예상보다 오래 걸리고 있습니다.",
-  "settings.autoCleanup.error.run":
-    "세션 정리 완료를 확인할 수 없습니다. 다시 시도하기 전에 마지막 정리 결과를 확인하세요.",
-  "settings.autoCleanup.progress.scanning": "세션 검색 중: {{processed}}/{{total}}개 처리됨",
-  "settings.autoCleanup.progress.deleting":
-    "세션 삭제 중: {{processed}}/{{total}}개 처리됨({{deleted}}개 삭제, {{failed}}개 실패)",
-  "settings.autoCleanup.runNow": "지금 정리 실행",
-  "settings.autoCleanup.runNow.confirm":
-    "이 컴퓨터의 모든 프로젝트와 모든 Kilo 클라이언트에 걸쳐 만료된 세션을 영구적으로 삭제할까요?",
-  "settings.autoCleanup.stop": "정리 중지",
-  "settings.autoCleanup.progress.cancelling": "세션 정리를 중지하는 중...",
-  "settings.autoCleanup.lastRun.cancelled": "중단됨",
-  "settings.context.autoCompaction.title": "자동 압축",
-  "settings.context.autoCompaction.description": "컨텍스트가 한도에 도달하기 전에 자동으로 압축",
-  "settings.context.compaction.title": "압축",
   "settings.context.compactionModel.title": "압축 모델",
   "settings.context.compactionModel.description":
     "자동 및 수동 압축에 사용하는 모델입니다. 채팅 모델을 사용하려면 설정하지 않은 상태로 두세요. 비용, 속도 및 요약 품질은 모델에 따라 달라집니다.",
   "settings.context.compactionModel.useChatModel": "채팅 모델 사용",
-  "settings.context.compactionModel.hint": "압축에 사용되는 모델을 선택하려면 모델 설정을 참조하세요.",
-  "settings.context.compactionLimit.title": "자동 압축 한도",
-  "settings.context.compactionLimit.description":
-    "컨텍스트가 모델 창의 이 비율에 도달하면 압축합니다. 안전 버퍼만 사용하려면 비워 두세요.",
-  "settings.context.prune.title": "이전 출력 정리",
-  "settings.context.prune.description": "압축 중 이전 도구 출력 제거",
-  "settings.context.watcherPatterns": "파일 감시자 무시 패턴",
-  "settings.context.watcherPatterns.description": "감시자가 무시해야 할 파일의 글로브 패턴",
 
-  "settings.context.memory.title": "메모리",
-  "settings.context.memory.project.title": "프로젝트 메모리",
-  "settings.context.memory.autoSave.title": "프로젝트 메모리 자동 저장",
-  "settings.context.memory.autoSave.description":
-    "메모리가 활성화되면 완료된 턴에서 지속적인 프로젝트 사실을 자동으로 저장합니다.",
-  "settings.context.memory.storage.title": "Storage",
-  "settings.context.memory.status.notLoaded": "로드되지 않음",
-  "settings.context.memory.status.disabled": "비활성화됨",
-  "settings.context.memory.status.enabledTokens": "Enabled - ~{{tokens}} stored tokens",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "Enable memory to create project memory files.",
-  "settings.context.memory.inspect": "검사",
   "chat.memory.project.disabled": "프로젝트 메모리 비활성화됨",
-  "chat.memory.project.empty": "This project doesn't have any memory yet. It will start showing after you use Kilo.",
   "chat.memory.command.failed": "메모리 명령 실패",
   "chat.memory.updated": "Memory updated",
   "chat.memory.rebuild": "Memory index rebuilt",
-
-  "settings.commitMessage.title": "Commit Message",
-  "settings.commitMessage.override.title": "사용자 지정 prompt 사용",
-  "settings.commitMessage.override.description":
-    "기본 commit message의 prompt를 재정의합니다. 활성화되면 사용자 지정 prompt가 기본 제공되는 conventional commits의 prompt를 완전히 대체합니다.",
-  "settings.commitMessage.prompt.title": "사용자 지정 prompt",
-  "settings.commitMessage.prompt.description":
-    "commit messages를 생성할 때 AI로 전송되는 시스템 prompt입니다. 이는 기본 prompt를 완전히 대체합니다.",
-  "settings.commitMessage.prompt.placeholder":
-    "예: 스페인어로 conventional commits 형식을 따라 commit messages를 생성해줘. 오직 commit message만 반환할 것.",
-
-  "settings.commitMessage.language.sync": "UI 언어와 동기화",
-  "settings.commitMessage.language.description": "AI 생성된 커밋 메시지에 사용할 언어를 선택하십시오.:",
 
   "settings.display.preview.title": "미리보기",
   "settings.display.presets.title": "표시 프리셋",
@@ -1367,12 +1149,6 @@ export const dict = {
   "chat.search.close": "검색 닫기",
   "chat.search.invalidRegex": "정규식이 잘못되었습니다",
   "chat.search.noResults": "검색 결과 없음",
-  "settings.experimental.browserAutomation.title": "통합 브라우저",
-  "settings.experimental.browserAutomation.description":
-    "Agent Manager에서 로컬 애플리케이션 미리보기를 표시하고 browser_open 도구를 Agent Manager 세션에 노출합니다.",
-  "settings.experimental.browserAutomation.systemChrome.title": "시스템 Chrome 사용",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "통합 브라우저에 설치된 Google Chrome을 사용합니다. 호환되는 Playwright Chromium 브라우저가 이미 설치된 경우에만 비활성화하세요.",
   "chat.search.searchingHistory": "이전 메시지를 검색하는 중…",
   "settings.harness.title": "Harness",
   "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
@@ -1431,4 +1207,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "Subagent reports",
   "settings.harness.human.checklist": "Your checklist (one per line)",
   "settings.harness.human.checklist.hint": "Things the AI cannot judge, such as taste.",
+  "settings.connections.title": "Models and providers",
 }

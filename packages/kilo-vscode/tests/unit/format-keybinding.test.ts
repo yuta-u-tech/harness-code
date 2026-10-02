@@ -78,7 +78,7 @@ describe("formatKeybinding", () => {
 
 describe("buildKeybindingMap", () => {
   it("maps the configurable Agent Manager search shortcut", () => {
-    const bindings = [{ command: "kilo-code.new.agentManager.search", key: "ctrl+f", mac: "cmd+f" }]
+    const bindings = [{ command: "harness-code.agentManager.search", key: "ctrl+f", mac: "cmd+f" }]
     expect(buildKeybindingMap(bindings, true).search).toBe("⌘F")
     expect(buildKeybindingMap(bindings, false).search).toBe("Ctrl+F")
   })
@@ -93,16 +93,16 @@ describe("buildKeybindingMap", () => {
   it("keeps prompt and side-terminal shortcuts separate", () => {
     const bindings = [
       {
-        command: "kilo-code.new.agentManager.newTerminalTab",
+        command: "harness-code.agentManager.newTerminalTab",
         key: "ctrl+shift+t",
         mac: "cmd+shift+t",
-        when: "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel' && kilo-code.new.agentManagerPromptFocused",
+        when: "activeWebviewPanelId == 'harness-code.AgentManagerPanel' && harness-code.agentManagerPromptFocused",
       },
       {
-        command: "kilo-code.new.agentManager.newSideTerminal",
+        command: "harness-code.agentManager.newSideTerminal",
         key: "ctrl+t",
         mac: "cmd+t",
-        when: "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel' && kilo-code.new.agentManagerSideTerminalFocused",
+        when: "activeWebviewPanelId == 'harness-code.AgentManagerPanel' && harness-code.agentManagerSideTerminalFocused",
       },
     ]
     expect(buildKeybindingMap(bindings, true)).toMatchObject({

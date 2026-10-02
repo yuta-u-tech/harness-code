@@ -37,24 +37,6 @@ export const dict = {
   "agentManager.section.worktrees": "РОБОЧІ ДЕРЕВА",
   "agentManager.section.sessions": "СЕСІЇ",
   "agentManager.projects": "ПРОЄКТИ",
-  "agentManager.settings.title": "Agent Manager",
-  "agentManager.settings.autoBranchNaming.title": "Автоматичне іменування гілок",
-  "agentManager.settings.autoBranchNaming.description":
-    "Автоматично іменувати гілки, коли розмова описує чітке завдання. Застосовується до всіх проєктів. Гілки з явно заданими назвами та опубліковані гілки ніколи не перейменовуються.",
-  "agentManager.settings.branchPrefix.title": "Префікс гілки",
-  "agentManager.settings.branchPrefix.description":
-    "Префікс автоматично іменованих гілок у всіх проєктах, наприклад feature/. Не застосовується до явно заданих назв гілок. Залиште порожнім, щоб не використовувати префікс.",
-  "agentManager.settings.worktreePool.title": "Попереднє прогрівання worktree",
-  "agentManager.settings.worktreePool.description":
-    "Готувати worktree заздалегідь у фоновому режимі, щоб нові сесії Agent Manager запускалися швидше. Використовує додатковий простір на диску для одного checkout на кожен відкритий проєкт.",
-  "agentManager.settings.project.title": "Проєкт",
-  "agentManager.settings.project.description": "Виберіть repository, налаштування worktree якого потрібно змінити.",
-  "agentManager.settings.project.empty": "Немає доступних проєктів Agent Manager.",
-  "agentManager.settings.defaultBaseBranch.description":
-    "branch, який використовується як початкова точка для нових worktrees.",
-  "agentManager.settings.setupScript.description": "Запускайте перед початком роботи agent у новому worktree.",
-  "agentManager.settings.setupScript.create": "Створити script",
-  "agentManager.settings.setupScript.edit": "Редагувати script",
   "agentManager.project.add": "Додати проєкт...",
   "agentManager.project.new": "Новий проєкт...",
   "agentManager.project.openLocal": "Відкрити локальну теку...",
@@ -82,7 +64,6 @@ export const dict = {
 
   "agentManager.worktree.settings": "Налаштування робочого дерева",
   "agentManager.worktree.new": "Нове робоче дерево",
-  "agentManager.worktree.setupScript": "Скрипт налаштування робочого дерева",
   "agentManager.worktree.delete": "Видалити робоче дерево",
   "agentManager.worktree.confirmDelete": "Видалити?",
   "agentManager.worktree.stale": "Застаріле",
@@ -91,8 +72,6 @@ export const dict = {
   "agentManager.worktree.doubleClickRename": "Двічі клацніть для перейменування",
   "agentManager.worktree.versions": "{{count}} версій",
   "agentManager.worktree.advancedOptions": "Розширені параметри робочого дерева",
-  "agentManager.worktree.defaultBaseBranch": "Гілка за замовчуванням",
-  "agentManager.worktree.defaultBaseBranchAuto": "Автоматичне визначення",
   "agentManager.worktree.copyPath": "Копіювати шлях",
   "agentManager.worktree.openInVscode": "Відкрити у VS Code",
   "agentManager.worktree.rename": "Перейменувати",

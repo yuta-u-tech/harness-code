@@ -636,60 +636,10 @@ export const dict = {
 
   "settings.agentBehaviour.title": "رفتار عامل",
   "settings.autoApprove.title": "تأیید خودکار",
-  "settings.webTools.title": "ابزارهای وب",
-  "settings.webTools.description": "جستجوی وب و اتوماسیون مرورگر را پیکربندی کنید.",
-  "settings.webTools.webSearch.enable": "فعال‌سازی برای همه ارائه‌دهندگان",
-  "settings.webTools.browserAutomation": "اتوماسیون مرورگر",
-  "settings.webTools.webSearch.title": "جستجوی وب",
-  "settings.webTools.webSearch.description": "جستجوی وب را برای مدل‌های همه ارائه‌دهندگان در دسترس قرار دهید.",
   "settings.checkpoints.title": "نقاط بازیابی",
   "settings.display.title": "نمایش",
-  "settings.autocomplete.title": "تکمیل خودکار",
   "settings.notifications.title": "اعلان‌ها",
-  "settings.context.title": "زمینه",
-  "settings.indexing.title": "ایندکس‌گذاری",
-  "settings.indexing.status.title": "وضعیت",
-  "settings.indexing.enable.title": "فعال‌سازی ایندکس‌گذاری",
-  "settings.indexing.enable.description": "ایندکس‌گذاری معنایی پایگاه کد را روشن یا خاموش کنید.",
-  "settings.indexing.showButton.title": "نمایش دکمه هنگامی که ایندکس‌گذاری خاموش است",
-  "settings.indexing.showButton.description":
-    "دکمه ایندکس‌گذاری را در زیر پرامپت هنگامی که ایندکس‌گذاری خاموش است نشان دهید. در صورت پنهان بودن، برای فعال‌سازی ایندکس‌گذاری به تنظیمات > ایندکس‌گذاری بروید.",
-  "settings.indexing.globalEnable.title": "فعال‌سازی سراسری",
-  "settings.indexing.globalEnable.description": "فهرست‌سازی را برای همه فضاهای کاری فعال کنید.",
-  "settings.indexing.projectEnable.title": "فعال‌سازی برای این پروژه",
-  "settings.indexing.projectEnable.description":
-    "هنگامی که فهرست‌سازی سراسری غیرفعال است، فهرست‌سازی را برای این فضای کاری فعال کنید.",
-  "settings.indexing.provider.title": "ارائه‌دهنده جاسازی",
-  "settings.indexing.provider.description":
-    "ارائه‌دهنده مورد استفاده برای تولید جاسازی‌ها در جستجوی معنایی را انتخاب کنید.",
-  "settings.indexing.kiloModel.title": "پیش‌تنظیم مدل Kilo",
-  "settings.indexing.kiloModel.description": "یک مدل جاسازی میزبانی‌شده توسط Kilo را انتخاب کنید.",
-  "settings.indexing.kiloSignIn.title": "ورود به Kilo الزامی است",
-  "settings.indexing.kiloSignIn.description": "برای استفاده از جاسازی‌های میزبانی‌شده، وارد Kilo شوید.",
-  "settings.indexing.model.title": "مدل جاسازی",
-  "settings.indexing.model.description": "مدل جاسازی پیش‌فرض برای ارائه‌دهنده انتخاب‌شده را بازنویسی کنید.",
-  "settings.indexing.dimension.title": "بُعد برداری",
-  "settings.indexing.dimension.description": "برای تشخیص خودکار بُعد جاسازی از مدل، خالی بگذارید.",
-  "settings.indexing.dimension.placeholder": "خودکار",
-  "settings.indexing.providerField.description": "تنظیم اتصال مخصوص ارائه‌دهنده.",
-  "settings.indexing.vectorStore.title": "فروشگاه برداری",
-  "settings.indexing.vectorStore.description": "محل ذخیره‌سازی جاسازی‌های ایندکس‌شده را انتخاب کنید.",
-  "settings.indexing.lancedbDirectory.title": "پوشه LanceDB",
-  "settings.indexing.lancedbDirectory.description": "پوشه اختیاری برای ذخیره‌گاه محلی LanceDB.",
-  "settings.indexing.lancedbDirectory.placeholder": "برای پیش‌فرض خالی بگذارید",
-  "settings.indexing.qdrantUrl.title": "آدرس URL Qdrant",
-  "settings.indexing.qdrantUrl.description": "آدرس سرور برای نمونه Qdrant.",
-  "settings.indexing.qdrantApiKey.title": "کلید API Qdrant",
-  "settings.indexing.qdrantApiKey.description": "کلید API اختیاری برای نمونه Qdrant.",
-  "settings.indexing.qdrantApiKey.placeholder": "کلید API اختیاری",
-  "settings.indexing.fileExtensions.title": "پسوندهای فایل",
-  "settings.indexing.fileExtensions.description":
-    "فهرست مجاز با جداکننده کاما. برای استفاده از پیش‌فرض‌های داخلی خالی بگذارید.",
-  "settings.indexing.fileExtensions.invalid": "پسوند نامعتبر: {{extension}}",
-  "settings.indexing.tuning.description": "پارامتر پیشرفته جستجو و دسته‌بندی.",
-  "settings.experimental.title": "آزمایشی",
   "settings.language.title": "زبان",
-  "settings.aboutKiloCode.title": "درباره Harness Code",
 
   "session.messages.welcome":
     "Harness Code یک دستیار هوش مصنوعی برای کدنویسی است. از آن بخواهید ویژگی‌ها بسازد، باگ‌ها را رفع کند یا کدبیس شما را توضیح دهد.",
@@ -779,60 +729,11 @@ export const dict = {
   "time.thisMonth": "این ماه",
   "time.older": "قدیمی‌تر",
 
-  "settings.aboutKiloCode.status.connected": "متصل",
-  "settings.aboutKiloCode.status.connecting": "در حال اتصال...",
-  "settings.aboutKiloCode.status.disconnected": "قطع شده",
-  "settings.aboutKiloCode.status.error": "خطا",
-  "settings.aboutKiloCode.cliServer": "سرور CLI",
-  "settings.aboutKiloCode.status.label": "وضعیت:",
-  "settings.aboutKiloCode.port.label": "پورت:",
-  "settings.aboutKiloCode.versionInfo": "اطلاعات نسخه",
-  "settings.aboutKiloCode.version.label": "نسخه:",
-  "settings.aboutKiloCode.community": "جامعه و پشتیبانی",
-  "settings.aboutKiloCode.feedback.prefix": "اگر سؤال یا بازخوردی دارید، می‌توانید یک issue در",
-  "settings.aboutKiloCode.feedback.or": "یا",
-  "settings.aboutKiloCode.support.prefix": "برای سؤالات مربوط به صورت‌حساب یا حساب کاربری، با پشتیبانی مشتریان در",
-  "settings.aboutKiloCode.resetSettings.title": "بازنشانی تنظیمات",
-  "settings.aboutKiloCode.resetSettings.description":
-    "این گزینه فقط تنظیمات مخصوص افزونه VS Code را به مقادیر پیش‌فرض بازنشانی می‌کند. تنظیمات مشترک با CLI، مانند حالت‌ها و قوانین تأیید خودکار، در پیکربندی CLI ذخیره می‌شوند و بازنشانی نخواهند شد.",
-  "settings.aboutKiloCode.resetSettings.button": "بازنشانی همه تنظیمات",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "بازنشانی اعلان‌های خوانده‌شده",
-  "settings.aboutKiloCode.settingsTransfer.title": "انتقال تنظیمات",
-  "settings.aboutKiloCode.settingsTransfer.description":
-    "تنظیمات خود را برای انتقال بین نمونه‌های VS Code صادر یا وارد کنید.",
-  "settings.aboutKiloCode.exportSettings": "صادر کردن",
-  "settings.aboutKiloCode.importSettings": "وارد کردن",
-  "settings.aboutKiloCode.importSettings.invalidJson":
-    "فایل JSON نامعتبر است. لطفاً یک فایل تنظیمات معتبر انتخاب کنید.",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "فایل حاوی تنظیمات معتبر Kilo نیست.",
-  "settings.aboutKiloCode.importSettings.tooLarge":
-    "فایل بیش از حد بزرگ است. فایل‌های تنظیمات باید کمتر از ۱ مگابایت باشند.",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "این فایل از نسخه جدیدتری از Kilo صادر شده است. برخی تنظیمات ممکن است نادیده گرفته شوند.",
-  "settings.aboutKiloCode.importSettings.success":
-    "تنظیمات وارد شد. تغییرات بالا را بررسی کنید، سپس روی ذخیره کلیک کنید.",
-
-  "settings.aboutKiloCode.telemetry.title": "تله‌متری",
-  "settings.aboutKiloCode.telemetry.description":
-    "تله‌متری توسط تنظیمات داخلی تله‌متری VS Code کنترل می‌شود. برای غیرفعال کردن آن، به Settings > Telemetry > Telemetry Level بروید و آن را روی «off» تنظیم کنید. VS Code را مجدداً راه‌اندازی کنید تا تغییر اعمال شود.",
-  "settings.aboutKiloCode.telemetry.openSettings": "باز کردن تنظیمات تله‌متری",
-
   "settings.agentBehaviour.subtab.agents": "عوامل",
   "settings.agentBehaviour.subtab.mcpServers": "MCP Servers",
   "settings.agentBehaviour.subtab.rules": "قوانین",
   "settings.agentBehaviour.subtab.workflows": "گردش‌های کاری",
   "settings.agentBehaviour.subtab.skills": "مهارت‌ها",
-
-  "settings.browser.description":
-    "پیکربندی اتوماسیون مرورگر داخلی با پشتیبانی Playwright. Kilo می‌تواند در جلسات شما در صفحات وب پیمایش کند، با آن‌ها تعامل داشته باشد و اسکرین‌شات بگیرد.",
-  "settings.browser.enable.title": "فعال‌سازی اتوماسیون مرورگر",
-  "settings.browser.enable.description":
-    "مرورگر Agent Manager مختص هر جلسه را برای برنامه‌های محلی و صفحات عمومی HTTPS فعال کنید.",
-  "settings.browser.systemChrome.title": "استفاده از Chrome سیستم",
-  "settings.browser.systemChrome.description":
-    "به جای یک نمونه Chromium جداگانه، از مرورگر Chrome نصب‌شده شما استفاده کنید.",
-  "settings.browser.headless.title": "حالت Headless",
-  "settings.browser.headless.description": "در حالت headless اجرا شود (بدون پنجره مرورگر قابل مشاهده).",
 
   "settings.language.description":
     "زبان رابط کاربری Harness Code را انتخاب کنید. «Auto» از زبان نمایشی VS Code شما استفاده می‌کند.",
@@ -843,13 +744,6 @@ export const dict = {
 
   "settings.autocomplete.model.title": "مدل تکمیل خودکار",
   "settings.autocomplete.model.description": "مدل مورد استفاده برای تکمیل‌های درون‌خطی کد را انتخاب کنید",
-  "settings.autocomplete.autoTrigger.title": "فعال‌سازی تکمیل‌های خودکار درون‌خطی",
-  "settings.autocomplete.autoTrigger.description": "پیشنهادهای تکمیل درون‌خطی را هنگام تایپ به‌صورت خودکار نمایش بده",
-  "settings.autocomplete.smartKeybinding.title": "فعال‌سازی میانبر هوشمند وظایف درون‌خطی",
-  "settings.autocomplete.smartKeybinding.description": "از یک میانبر هوشمند برای فعال‌سازی وظایف درون‌خطی استفاده کن",
-  "settings.autocomplete.chatAutocomplete.title": "فعال‌سازی تکمیل خودکار متن چت",
-  "settings.autocomplete.chatAutocomplete.description": "نمایش پیشنهادات تکمیل خودکار در کادر متنی چت",
-  "settings.autocomplete.modelsHint": "برای انتخاب مدل مورد استفاده در تکمیل خودکار، به تنظیمات مدل‌ها مراجعه کنید.",
 
   "settings.notifications.sounds": "صداها",
   "settings.notifications.enable.title": "فعال‌سازی اعلان‌های صوتی",
@@ -870,25 +764,9 @@ export const dict = {
   "settings.notifications.sound.description":
     "پیش‌فرض از صداهای مختلف برای تکمیل، ورودی و خطاها استفاده می‌کند. سایر گزینه‌ها از یک صدا برای همه رویدادها استفاده می‌کنند.",
 
-  "settings.experimental.share.title": "حالت اشتراک‌گذاری",
-  "settings.experimental.share.description": "نحوه رفتار اشتراک‌گذاری جلسه",
-  "settings.experimental.share.manual": "دستی",
-  "settings.experimental.share.auto": "خودکار",
-  "settings.experimental.share.disabled": "غیرفعال",
-  "settings.experimental.formatter.title": "قالب‌بند",
-  "settings.experimental.formatter.description": "فعال‌سازی قالب‌بند خودکار کد",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "فعال‌سازی یکپارچه‌سازی پروتکل سرور زبان",
-  "settings.experimental.batch.title": "ابزار دسته‌ای",
-  "settings.experimental.batch.description": "فعال‌سازی دسته‌بندی چندین فراخوانی ابزار",
-  "settings.experimental.imageGeneration.title": "تولید تصویر",
-  "settings.experimental.imageGeneration.description": "فعال‌سازی تولید تصویر با هوش مصنوعی",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "یک برد را بین یک جلسهٔ اصلی و عامل‌های فرعی مسئول وظایف آن، از جمله عامل‌های فرعی تودرتو، به اشتراک بگذارید. از آن برای تلاش‌های موازی جهت یافتن راه‌حل یا کارهای مکمل استفاده کنید، نه برای هر وظیفه.",
-  "settings.experimental.imageGenerationModel.title": "مدل تصویر",
-  "settings.experimental.imageGenerationModel.description": "مدل تولید تصویر",
-  "settings.experimental.imageGenerationModel.placeholder": "پیش‌فرض (مسیریاب خودکار)",
 
   "settings.models.speechToTextModel.customDescription":
     "شناسه مدلی که به نقطه پایانی رونویسی دلخواه شما فرستاده می‌شود، برای نمونه whisper-1.",
@@ -907,44 +785,6 @@ export const dict = {
     "ورودی صوتی در پنجره‌های راه دور در دسترس نیست. برای استفاده از میکروفون، Kilo را در یک پنجره محلی باز کنید.",
   "settings.models.speechToTextModel.title": "مدل تبدیل گفتار به متن",
   "settings.models.speechToTextModel.description": "مدل رونویسی Kilo Gateway را برای ورودی صوتی انتخاب کنید.",
-  "settings.experimental.nativeNotebookTools.title": "ابزارهای بومی Notebook",
-  "settings.experimental.nativeNotebookTools.description":
-    "ابزارهای آزمایشی برای خواندن، ویرایش و اجرای VS Code notebooks را فعال کنید",
-  "settings.experimental.continueOnDeny.title": "ادامه در صورت رد",
-  "settings.experimental.continueOnDeny.description": "حلقه عامل را هنگام رد شدن یک مجوز ادامه دهید",
-  "settings.experimental.codeMode.title": "فراخوانی برنامه‌نویسی ابزارها",
-  "settings.experimental.codeMode.description":
-    "فراخوانی‌های ابزار MCP را از طریق یک محیط اجرای JavaScript محدودشده و با کشف ابزار به‌صورت درخواستی هدایت می‌کند، به‌جای نمایش مستقیم هر ابزار MCP. در صورت اتصال ابزارهای MCP متعدد، در مصرف زمینه صرفه‌جویی می‌کند.",
-  "settings.sandboxing.enabled.title": "Sandbox",
-  "settings.sandboxing.enabled.description":
-    "اجرای دستورات شل عامل در یک Sandbox سطح سیستم‌عامل که نوشتن را به پوشه‌های پروژه و وضعیت Kilo محدود می‌کند",
-  "settings.sandboxing.title": "Sandboxing",
-  "settings.sandboxing.network.title": "محدود کردن دسترسی شبکه",
-  "settings.sandboxing.network.description":
-    "مسدود کردن دسترسی مستقیم خروجی از دستورات مدل و ابزارهای HTTP. ابزارهای MCP محلی و راه‌دور در حین محدودیت در دسترس نیستند. ترافیک ارائه‌دهنده و هوک‌های پلاگین مورد اعتماد خارج از این محدودیت باقی می‌مانند.",
-  "settings.sandboxing.allowedHosts.title": "مقصدهای شبکه مجاز",
-  "settings.sandboxing.allowedHosts.description":
-    "مقصدهای DNS هاست و پورت برای ترافیک پروکسی HTTP و HTTPS در Sandbox. GitHub CLI و Git از طریق HTTPS معمولاً به github.com:443 و api.github.com:443 نیاز دارند. تغییرات در نشست‌های جدید اعمال می‌شوند.",
-  "settings.sandboxing.writablePaths.title": "مسیرهای قابل نوشتن اضافی",
-  "settings.sandboxing.writablePaths.description":
-    "مسیرهای فایل‌سیستم اضافی که Sandbox اجازه نوشتن به آن‌ها را می‌دهد (مثلاً /tmp، /var/log). این مسیرها هنگام فعال بودن Sandbox با مسیرهای قابل نوشتن پیش‌فرض ادغام می‌شوند.",
-  "settings.experimental.multiProject.title": "مدیر agent چندپروژه‌ای",
-  "settings.experimental.claudeMigration.title": "مهاجرت Claude Code",
-  "settings.experimental.claudeMigration.description":
-    "دستورالعمل‌های سراسری CLAUDE.md پشتیبانی‌شده، مهارت‌های ساده و تعریف‌های MCP غیرفعال را فقط یک‌بار وارد کنید. فایل‌های اصلی Claude تغییر نمی‌کنند؛ پس از فعال‌سازی backend را دوباره راه‌اندازی کنید.",
-  "settings.experimental.multiProject.description":
-    "مدیریت sessionها و worktreeها را در چند مخزن در Agent Manager فعال می‌کند. مخزن فضای کاری فعلی همیشه پروژه پیش‌فرض است.",
-  "settings.experimental.mcpTimeout.title": "زمان‌وقفه MCP (میلی‌ثانیه)",
-  "settings.experimental.mcpTimeout.description": "زمان‌وقفه برای درخواست‌های سرور MCP بر حسب میلی‌ثانیه",
-  "settings.experimental.remote.title": "کنترل از راه دور",
-  "settings.experimental.remote.description":
-    "فعال‌سازی کنترل از راه دور جلسات از طریق Kilo Cloud. این تنظیم بر CLIهای این دستگاه نیز تأثیر می‌گذارد.",
-  "settings.experimental.remote.current": "وضعیت فعلی:",
-  "settings.experimental.remote.startup": "فعال‌سازی خودکار هنگام راه‌اندازی:",
-  "settings.experimental.remote.active": "فعال",
-  "settings.experimental.remote.inactive": "غیرفعال",
-  "settings.experimental.remote.hint": "برای تغییر وضعیت از /remote در چت استفاده کنید",
-  "settings.experimental.toolToggles": "تنظیمات ابزارها",
 
   "settings.agentBehaviour.defaultAgent.title": "عامل پیش‌فرض",
   "settings.agentBehaviour.defaultAgent.description": "عاملی که در صورت عدم تعیین استفاده می‌شود",
@@ -1107,80 +947,14 @@ export const dict = {
   "settings.autoApprove.tool.doom_loop":
     "جلوگیری از اقدامات تکراری یکسان. زمانی فعال می‌شود که همان فراخوانی ابزار با ورودی یکسان تکرار شود.",
 
-  "settings.checkpoints.enable.title": "فعال‌سازی اسنپ‌شات‌ها",
-  "settings.checkpoints.enable.description":
-    "قبل از ویرایش فایل‌ها نقاط بازیابی ایجاد کنید تا بتوانید به حالت‌های قبلی بازگردید",
-  "settings.autoCleanup.enable.title": "فعال‌سازی پاکسازی خودکار جلسه‌ها",
-  "settings.autoCleanup.enable.description":
-    "تاریخچه جلسه‌های قدیمی را پس از تعداد روز مشخصی به‌صورت خودکار حذف می‌کند، در همهٔ پروژه‌ها و همهٔ سرویس‌گیرنده‌های Kilo روی این رایانه، نه فقط همین پنجره. جلسه‌های در حال اجرا و جلسه‌های دارای انشعاب اخیر هرگز حذف نمی‌شوند. حذف دائمی است.",
-  "settings.autoCleanup.defaultRetention.title": "نگهداری جلسه‌ها (روز)",
-  "settings.autoCleanup.defaultRetention.description": "مدت نگهداری تاریخچه جلسه‌ها قبل از حذف توسط پاکسازی خودکار.",
-  "settings.autoCleanup.lastRun.title": "آخرین پاکسازی",
-  "settings.autoCleanup.lastRun.never": "هرگز اجرا نشده",
-  "settings.autoCleanup.result":
-    "{{date}}: {{deleted}} از {{scanned}} جلسه حذف شد ({{active}} فعال رد شد، {{failed}} ناموفق) در {{seconds}} ثانیه",
-  "settings.autoCleanup.starting": "در حال شروع پاکسازی جلسه‌ها...",
-  "settings.autoCleanup.error.status": "وضعیت پاکسازی جلسه‌ها موقتاً در دسترس نیست. در حال تلاش مجدد...",
-  "settings.autoCleanup.error.timeout":
-    "در انتظار وضعیت پاکسازی. پاسخ‌دهی بخش پشتیبان بیشتر از حد انتظار طول کشیده است.",
-  "settings.autoCleanup.error.run":
-    "تکمیل پاکسازی جلسه‌ها تأیید نشد. پیش از تلاش مجدد، نتیجه آخرین پاکسازی را بررسی کنید.",
-  "settings.autoCleanup.progress.scanning": "در حال اسکن جلسه‌ها: {{processed}}/{{total}} پردازش شده",
-  "settings.autoCleanup.progress.deleting":
-    "در حال حذف جلسه‌ها: {{processed}}/{{total}} پردازش شده ({{deleted}} حذف شده، {{failed}} ناموفق)",
-  "settings.autoCleanup.runNow": "اجرای پاکسازی الآن",
-  "settings.autoCleanup.runNow.confirm":
-    "حذف دائمی جلسه‌های منقضی‌شده در همهٔ پروژه‌ها و همهٔ سرویس‌گیرنده‌های Kilo روی این رایانه؟",
-  "settings.autoCleanup.stop": "توقف پاکسازی",
-  "settings.autoCleanup.progress.cancelling": "در حال توقف پاکسازی نشست‌ها...",
-  "settings.autoCleanup.lastRun.cancelled": "قطع‌شده",
-
-  "settings.context.autoCompaction.title": "فشرده‌سازی خودکار",
-  "settings.context.autoCompaction.description": "قبل از رسیدن به محدودیت، زمینه را به‌طور خودکار فشرده کنید",
-  "settings.context.compaction.title": "فشرده‌سازی",
   "settings.context.compactionModel.title": "مدل فشرده‌سازی",
   "settings.context.compactionModel.description":
     "مدل مورد استفاده برای فشرده‌سازی خودکار و دستی. برای استفاده از مدل چت، خالی بگذارید. هزینه، سرعت و کیفیت خلاصه به مدل بستگی دارند.",
   "settings.context.compactionModel.useChatModel": "استفاده از مدل چت",
-  "settings.context.compactionModel.hint": "برای انتخاب مدل مورد استفاده در فشرده‌سازی، به تنظیمات مدل‌ها مراجعه کنید.",
-  "settings.context.compactionLimit.title": "محدودیت فشرده‌سازی خودکار",
-  "settings.context.compactionLimit.description":
-    "زمانی فشرده‌سازی انجام شود که زمینه به این درصد از پنجره مدل برسد. برای استفاده تنها از بافر ایمنی، خالی بگذارید.",
-  "settings.context.prune.title": "حذف خروجی‌های قدیمی",
-  "settings.context.prune.description": "حذف خروجی‌های قدیمی ابزار در حین فشرده‌سازی",
-  "settings.context.watcherPatterns": "الگوهای نادیده‌گیری ناظر فایل",
-  "settings.context.watcherPatterns.description": "الگوهای Glob برای فایل‌هایی که ناظر باید نادیده بگیرد",
-  "settings.context.memory.title": "حافظه",
-  "settings.context.memory.project.title": "حافظه پروژه",
-  "settings.context.memory.autoSave.title": "ذخیره خودکار حافظه پروژه",
-  "settings.context.memory.autoSave.description":
-    "هنگامی که حافظه فعال است، اطلاعات پایدار پروژه از نوبت‌های تکمیل‌شده به‌طور خودکار ذخیره می‌شوند.",
-  "settings.context.memory.storage.title": "ذخیره‌سازی",
-  "settings.context.memory.status.notLoaded": "بارگذاری نشده",
-  "settings.context.memory.status.disabled": "غیرفعال",
-  "settings.context.memory.status.enabledTokens": "فعال - ~{{tokens}} توکن ذخیره‌شده",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "حافظه را فعال کنید تا فایل‌های حافظه پروژه ایجاد شوند.",
-  "settings.context.memory.inspect": "بررسی",
   "chat.memory.project.disabled": "حافظه پروژه غیرفعال است",
-  "chat.memory.project.empty": "این پروژه هنوز هیچ حافظه‌ای ندارد. پس از استفاده از Kilo نمایش داده خواهد شد.",
   "chat.memory.command.failed": "دستور حافظه ناموفق بود",
   "chat.memory.updated": "حافظه به‌روزرسانی شد",
   "chat.memory.rebuild": "ایندکس حافظه بازسازی شد",
-
-  "settings.commitMessage.title": "پیام Commit",
-  "settings.commitMessage.override.title": "استفاده از Prompt سفارشی",
-  "settings.commitMessage.override.description":
-    "جایگزینی Prompt پیش‌فرض پیام commit. در صورت فعال‌سازی، Prompt سفارشی شما به‌طور کامل جایگزین Prompt داخلی conventional commits می‌شود.",
-  "settings.commitMessage.prompt.title": "پرامپت سفارشی",
-  "settings.commitMessage.prompt.description":
-    "پرامپت سیستمی که هنگام تولید پیام‌های کامیت به هوش مصنوعی ارسال می‌شود. این گزینه پرامپت پیش‌فرض را به‌طور کامل جایگزین می‌کند.",
-  "settings.commitMessage.prompt.placeholder":
-    "مثال: پیام‌های کامیت را به زبان اسپانیایی و با فرمت conventional commits تولید کن. فقط پیام کامیت را برگردان.",
-
-  "settings.commitMessage.language.sync": "همگام‌سازی با زبان رابط کاربری",
-  "settings.commitMessage.language.description":
-    "زبان مورد استفاده برای پیام‌های کامیت تولیدشده توسط هوش مصنوعی را انتخاب کنید:",
 
   "settings.display.preview.title": "پیش‌نمایش",
   "settings.display.presets.title": "از پیش تعیین‌های نمایش",
@@ -1390,12 +1164,6 @@ export const dict = {
   "chat.search.close": "بستن جستجو",
   "chat.search.invalidRegex": "عبارت منظم نامعتبر",
   "chat.search.noResults": "نتیجه‌ای یافت نشد",
-  "settings.experimental.browserAutomation.title": "مرورگر یکپارچه",
-  "settings.experimental.browserAutomation.description":
-    "پیش‌نمایش برنامه‌های محلی را در Agent Manager نشان دهید و ابزار browser_open را در اختیار جلسات Agent Manager قرار دهید.",
-  "settings.experimental.browserAutomation.systemChrome.title": "استفاده از Chrome سیستم",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "از Google Chrome نصب‌شده برای مرورگر یکپارچه استفاده کنید. فقط زمانی غیرفعال کنید که مرورگر Playwright Chromium سازگار از قبل نصب شده باشد.",
   "chat.search.searchingHistory": "در حال جستجو در پیام‌های قبلی…",
   "settings.harness.title": "Harness",
   "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
@@ -1454,4 +1222,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "Subagent reports",
   "settings.harness.human.checklist": "Your checklist (one per line)",
   "settings.harness.human.checklist.hint": "Things the AI cannot judge, such as taste.",
+  "settings.connections.title": "Models and providers",
 }

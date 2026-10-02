@@ -629,58 +629,10 @@ export const dict = {
 
   "settings.agentBehaviour.title": "Agent Behaviour",
   "settings.autoApprove.title": "Auto-Approve",
-  "settings.webTools.title": "Web Tools",
-  "settings.webTools.description": "Configure web search and browser automation.",
-  "settings.webTools.webSearch.enable": "Enable for All Providers",
-  "settings.webTools.browserAutomation": "Browser Automation",
-  "settings.webTools.webSearch.title": "Web Search",
-  "settings.webTools.webSearch.description": "Make web search available to models from all providers.",
   "settings.checkpoints.title": "Checkpoints",
   "settings.display.title": "Display",
-  "settings.autocomplete.title": "Autocomplete",
   "settings.notifications.title": "Notifications",
-  "settings.context.title": "Context",
-  "settings.indexing.title": "Indexing",
-  "settings.indexing.status.title": "Status",
-  "settings.indexing.enable.title": "Enable indexing",
-  "settings.indexing.enable.description": "Turn semantic codebase indexing on or off.",
-  "settings.indexing.showButton.title": "Show button when indexing is off",
-  "settings.indexing.showButton.description":
-    "Show the indexing button below the prompt while indexing is off. If hidden, open Settings > Indexing to enable indexing.",
-  "settings.indexing.globalEnable.title": "Enable globally",
-  "settings.indexing.globalEnable.description": "Enable indexing for every workspace.",
-  "settings.indexing.projectEnable.title": "Enable for this project",
-  "settings.indexing.projectEnable.description": "Enable indexing for this workspace when global indexing is off.",
-  "settings.indexing.provider.title": "Embedding provider",
-  "settings.indexing.provider.description": "Choose the provider used to generate embeddings for semantic search.",
-  "settings.indexing.kiloModel.title": "Kilo model preset",
-  "settings.indexing.kiloModel.description": "Choose a supported Kilo-hosted embedding model.",
-  "settings.indexing.kiloSignIn.title": "Kilo sign-in required",
-  "settings.indexing.kiloSignIn.description": "Sign in to Kilo to use hosted embeddings.",
-  "settings.indexing.model.title": "Embedding model",
-  "settings.indexing.model.description": "Override the default embedding model for the selected provider.",
-  "settings.indexing.dimension.title": "Vector dimension",
-  "settings.indexing.dimension.description": "Leave empty to auto-detect the embedding dimension from the model.",
-  "settings.indexing.dimension.placeholder": "Auto",
-  "settings.indexing.providerField.description": "Provider-specific connection setting.",
-  "settings.indexing.vectorStore.title": "Vector store",
-  "settings.indexing.vectorStore.description": "Choose where indexed embeddings are stored.",
-  "settings.indexing.lancedbDirectory.title": "LanceDB directory",
-  "settings.indexing.lancedbDirectory.description": "Optional directory for the local LanceDB store.",
-  "settings.indexing.lancedbDirectory.placeholder": "Leave empty for default",
-  "settings.indexing.qdrantUrl.title": "Qdrant URL",
-  "settings.indexing.qdrantUrl.description": "Server URL for the Qdrant instance.",
-  "settings.indexing.qdrantApiKey.title": "Qdrant API key",
-  "settings.indexing.qdrantApiKey.description": "Optional API key for the Qdrant instance.",
-  "settings.indexing.qdrantApiKey.placeholder": "Optional API key",
-  "settings.indexing.fileExtensions.title": "File Extensions",
-  "settings.indexing.fileExtensions.description":
-    "Comma-separated allowlist. Leave empty to use the built-in defaults.",
-  "settings.indexing.fileExtensions.invalid": "Invalid extension: {{extension}}",
-  "settings.indexing.tuning.description": "Advanced search and batching parameter.",
-  "settings.experimental.title": "Experimental",
   "settings.language.title": "Language",
-  "settings.aboutKiloCode.title": "About Harness Code",
 
   "session.messages.welcome":
     "Harness Code is an AI coding assistant. Ask it to build features, fix bugs, or explain your codebase.",
@@ -774,56 +726,11 @@ export const dict = {
   "time.thisMonth": "This Month",
   "time.older": "Older",
 
-  "settings.aboutKiloCode.status.connected": "Connected",
-  "settings.aboutKiloCode.status.connecting": "Connecting...",
-  "settings.aboutKiloCode.status.disconnected": "Disconnected",
-  "settings.aboutKiloCode.status.error": "Error",
-  "settings.aboutKiloCode.cliServer": "CLI Server",
-  "settings.aboutKiloCode.status.label": "Status:",
-  "settings.aboutKiloCode.port.label": "Port:",
-  "settings.aboutKiloCode.versionInfo": "Version Information",
-  "settings.aboutKiloCode.version.label": "Version:",
-  "settings.aboutKiloCode.community": "Community & Support",
-  "settings.aboutKiloCode.feedback.prefix": "If you have any questions or feedback, feel free to open an issue on",
-  "settings.aboutKiloCode.feedback.or": "or",
-  "settings.aboutKiloCode.support.prefix": "For billing or account questions, contact Customer Support at",
-  "settings.aboutKiloCode.resetSettings.title": "Reset Settings",
-  "settings.aboutKiloCode.resetSettings.description":
-    "This resets only VS Code extension-specific settings to their default values. Settings shared with the CLI, such as modes and auto-approve rules, are stored in the CLI configuration and will not be reset.",
-  "settings.aboutKiloCode.resetSettings.button": "Reset All Settings",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "Reset Read Notifications",
-  "settings.aboutKiloCode.settingsTransfer.title": "Settings Transfer",
-  "settings.aboutKiloCode.settingsTransfer.description":
-    "Export or import your settings to transfer them between VS Code instances.",
-  "settings.aboutKiloCode.exportSettings": "Export",
-  "settings.aboutKiloCode.importSettings": "Import",
-  "settings.aboutKiloCode.importSettings.invalidJson": "Invalid JSON file. Please select a valid settings file.",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "File does not contain valid Kilo settings.",
-  "settings.aboutKiloCode.importSettings.tooLarge": "File is too large. Settings files must be under 1 MB.",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "This file was exported from a newer version of Kilo. Some settings may be ignored.",
-  "settings.aboutKiloCode.importSettings.success": "Settings imported. Review the changes above, then click Save.",
-
-  "settings.aboutKiloCode.telemetry.title": "Telemetry",
-  "settings.aboutKiloCode.telemetry.description":
-    'Telemetry is controlled by VS Code\'s built-in telemetry setting. To disable it, go to Settings > Telemetry > Telemetry Level and set it to "off". Restart VS Code to apply the change.',
-  "settings.aboutKiloCode.telemetry.openSettings": "Open Telemetry Settings",
-
   "settings.agentBehaviour.subtab.agents": "Agents",
   "settings.agentBehaviour.subtab.mcpServers": "MCP Servers",
   "settings.agentBehaviour.subtab.rules": "Rules",
   "settings.agentBehaviour.subtab.workflows": "Workflows",
   "settings.agentBehaviour.subtab.skills": "Skills",
-
-  "settings.browser.description":
-    "Configure built-in browser automation powered by Playwright. Kilo can navigate, interact with, and screenshot web pages in your sessions.",
-  "settings.browser.enable.title": "Enable Browser Automation",
-  "settings.browser.enable.description": "Register the Playwright MCP server with the CLI backend.",
-  "settings.browser.systemChrome.title": "Use System Chrome",
-  "settings.browser.systemChrome.description":
-    "Use installed Google Chrome. Disable only when a compatible Playwright Chromium browser is already installed.",
-  "settings.browser.headless.title": "Headless Mode",
-  "settings.browser.headless.description": "Run in headless mode (no visible browser window).",
 
   "settings.language.description":
     'Choose the language for the Harness Code UI. "Auto" uses your VS Code display language.',
@@ -834,13 +741,6 @@ export const dict = {
 
   "settings.autocomplete.model.title": "Autocomplete model",
   "settings.autocomplete.model.description": "Select the model used for inline code completions",
-  "settings.autocomplete.autoTrigger.title": "Enable automatic inline completions",
-  "settings.autocomplete.autoTrigger.description": "Automatically show inline completion suggestions as you type",
-  "settings.autocomplete.smartKeybinding.title": "Enable smart inline task keybinding",
-  "settings.autocomplete.smartKeybinding.description": "Use a smart keybinding for triggering inline tasks",
-  "settings.autocomplete.chatAutocomplete.title": "Enable chat textarea autocomplete",
-  "settings.autocomplete.chatAutocomplete.description": "Show autocomplete suggestions in the chat textarea",
-  "settings.autocomplete.modelsHint": "To choose which model is used for autocompletions, see the Models settings.",
 
   "settings.notifications.sounds": "Sounds",
   "settings.notifications.enable.title": "Enable Sound Notifications",
@@ -862,25 +762,9 @@ export const dict = {
   "settings.notifications.sound.description":
     "Default uses different sounds for completion, input, and errors. Other choices use one sound for every event.",
 
-  "settings.experimental.share.title": "Share Mode",
-  "settings.experimental.share.description": "How session sharing behaves",
-  "settings.experimental.share.manual": "Manual",
-  "settings.experimental.share.auto": "Auto",
-  "settings.experimental.share.disabled": "Disabled",
-  "settings.experimental.formatter.title": "Formatter",
-  "settings.experimental.formatter.description": "Enable the automatic code formatter",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "Enable language server protocol integration",
-  "settings.experimental.batch.title": "Batch Tool",
-  "settings.experimental.batch.description": "Enable batching of multiple tool calls",
-  "settings.experimental.imageGeneration.title": "Image Generation",
-  "settings.experimental.imageGeneration.description": "Enable AI image generation",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Share a board between a main session and its task subagents, including nested subagents. Use it for parallel solution attempts or complementary work, not every task.",
-  "settings.experimental.imageGenerationModel.title": "Image Model",
-  "settings.experimental.imageGenerationModel.description": "Image Generation Model",
-  "settings.experimental.imageGenerationModel.placeholder": "Default (Auto Router)",
 
   "settings.models.speechToText.disabledDescription":
     "Kilo Gateway is selected. Enable and sign in to the Kilo provider to choose a supported model, or enter a custom transcription base URL above.",
@@ -900,50 +784,6 @@ export const dict = {
   "settings.models.speechToTextApiKey.description":
     "Bearer token sent to the custom transcription base URL. Stored in your Kilo config file.",
   "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.experimental.nativeNotebookTools.title": "Native Notebook Tools",
-  "settings.experimental.nativeNotebookTools.description":
-    "Enable experimental tools for reading, editing, and executing VS Code notebooks",
-  "settings.experimental.continueOnDeny.title": "Continue on Deny",
-  "settings.experimental.continueOnDeny.description": "Continue the agent loop when a permission is denied",
-  "settings.experimental.codeMode.title": "Programmatic Tool Calling",
-  "settings.experimental.codeMode.description":
-    "Route MCP tool calls through a confined JavaScript runtime with on-demand tool discovery instead of exposing every MCP tool directly. Saves context when many MCP tools are connected.",
-  "settings.sandboxing.enabled.title": "Sandbox",
-  "settings.sandboxing.enabled.description":
-    "Run agent shell commands inside an OS-level sandbox that restricts writes to the project and Kilo state directories",
-  "settings.sandboxing.title": "Sandboxing",
-  "settings.sandboxing.network.title": "Restrict Network Access",
-  "settings.sandboxing.network.description":
-    "Block direct outbound access from model-originated commands and HTTP tools. Local and remote MCP tools are unavailable while restricted. Provider traffic and trusted plugin hooks remain outside this restriction.",
-  "settings.sandboxing.allowedHosts.title": "Allowed Network Destinations",
-  "settings.sandboxing.allowedHosts.description":
-    "DNS host and port destinations for sandboxed HTTP and HTTPS proxy traffic. GitHub CLI and HTTPS Git commonly need github.com:443 and api.github.com:443.",
-  "settings.sandboxing.writablePaths.title": "Additional Writable Paths",
-  "settings.sandboxing.writablePaths.description":
-    "Extra filesystem paths the sandbox allows writes to (e.g. /tmp, /var/log). These are merged with the default writable paths when the sandbox is active.",
-  "settings.experimental.multiProject.title": "Multi-Project Agent Manager",
-  "settings.experimental.multiProject.description":
-    "Enable managing sessions and worktrees across multiple repositories in Agent Manager. The current workspace repository is always the default project.",
-  "settings.experimental.browserAutomation.title": "Integrated Browser",
-  "settings.experimental.browserAutomation.description":
-    "Preview local applications and public HTTPS pages in Agent Manager and expose the browser_open tool to Agent Manager sessions.",
-  "settings.experimental.browserAutomation.systemChrome.title": "Use System Chrome",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "Use installed Google Chrome for the Integrated Browser. Disable only when a compatible Playwright Chromium browser is already installed.",
-  "settings.experimental.claudeMigration.title": "Claude Code Migration",
-  "settings.experimental.claudeMigration.description":
-    "On the next backend start, import supported global CLAUDE.md instructions, simple skills, and disabled MCP definitions. This runs once with no automatic retry; global Claude instructions and skills are then handed off to Kilo. Claude files stay unchanged; keep them if you still use Claude Code.",
-  "settings.experimental.mcpTimeout.title": "MCP Timeout (ms)",
-  "settings.experimental.mcpTimeout.description": "Timeout for MCP server requests in milliseconds",
-  "settings.experimental.remote.title": "Remote Control",
-  "settings.experimental.remote.description":
-    "Enable remote control of sessions via Kilo Cloud. This will also affect CLIs on this machine.",
-  "settings.experimental.remote.current": "Current state:",
-  "settings.experimental.remote.startup": "Auto-enable on startup:",
-  "settings.experimental.remote.active": "Active",
-  "settings.experimental.remote.inactive": "Inactive",
-  "settings.experimental.remote.hint": "Use /remote in chat to toggle",
-  "settings.experimental.toolToggles": "Tool Toggles",
 
   "settings.agentBehaviour.defaultAgent.title": "Default Agent",
   "settings.agentBehaviour.defaultAgent.description": "Agent to use when none is specified",
@@ -1103,79 +943,14 @@ export const dict = {
   "settings.autoApprove.tool.doom_loop":
     "Prevent repeated identical actions. Triggered when the same tool call repeats with identical input.",
 
-  "settings.checkpoints.enable.title": "Enable Snapshots",
-  "settings.checkpoints.enable.description": "Create checkpoints before file edits so you can restore previous states",
-
-  "settings.autoCleanup.enable.title": "Enable automatic session cleanup",
-  "settings.autoCleanup.enable.description":
-    "Automatically delete old session history after a fixed number of days across all projects and every Kilo client on this machine, not just this window. Running sessions and sessions with a recent fork are never deleted. Deletion is permanent.",
-  "settings.autoCleanup.defaultRetention.title": "Keep sessions for (days)",
-  "settings.autoCleanup.defaultRetention.description":
-    "How long session history is kept before automatic cleanup deletes it.",
-  "settings.autoCleanup.lastRun.title": "Last cleanup",
-  "settings.autoCleanup.lastRun.never": "Never run",
-  "settings.autoCleanup.result":
-    "{{date}}: deleted {{deleted}} of {{scanned}} sessions ({{active}} active skipped, {{failed}} failed) in {{seconds}}s",
-  "settings.autoCleanup.starting": "Starting session cleanup...",
-  "settings.autoCleanup.error.status": "Session cleanup status is temporarily unavailable. Retrying...",
-  "settings.autoCleanup.error.timeout": "Waiting for cleanup status. The backend is taking longer than expected.",
-  "settings.autoCleanup.error.run":
-    "Could not confirm session cleanup completed. Check the last cleanup result before trying again.",
-  "settings.autoCleanup.progress.scanning": "Scanning sessions: {{processed}}/{{total}} processed",
-  "settings.autoCleanup.progress.deleting":
-    "Deleting sessions: {{processed}}/{{total}} processed ({{deleted}} deleted, {{failed}} failed)",
-  "settings.autoCleanup.runNow": "Run Cleanup Now",
-  "settings.autoCleanup.runNow.confirm":
-    "Permanently delete expired sessions across all projects and every Kilo client on this machine?",
-  "settings.autoCleanup.stop": "Stop cleanup",
-  "settings.autoCleanup.progress.cancelling": "Stopping session cleanup...",
-  "settings.autoCleanup.lastRun.cancelled": "interrupted",
-
-  "settings.context.autoCompaction.title": "Auto Compaction",
-  "settings.context.autoCompaction.description": "Automatically compact context before it reaches the limit",
-  "settings.context.compaction.title": "Compaction",
   "settings.context.compactionModel.title": "Compaction model",
   "settings.context.compactionModel.description":
     "Model used for automatic and manual compaction. Leave unset to use the chat model. Cost, speed, and summary quality depend on the model.",
   "settings.context.compactionModel.useChatModel": "Use chat model",
-  "settings.context.compactionModel.hint": "To choose which model is used for compaction, see the Models settings.",
-  "settings.context.compactionLimit.title": "Auto Compaction Limit",
-  "settings.context.compactionLimit.description":
-    "Compact when context reaches this percentage of the model window. Leave blank to use the safety buffer only.",
-  "settings.context.prune.title": "Prune Old Outputs",
-  "settings.context.prune.description": "Remove old tool outputs during compaction",
-  "settings.context.watcherPatterns": "File Watcher Ignore Patterns",
-  "settings.context.watcherPatterns.description": "Glob patterns for files the watcher should ignore",
-  "settings.context.memory.title": "Memory",
-  "settings.context.memory.project.title": "Project memory",
-  "settings.context.memory.autoSave.title": "Auto-save project memory",
-  "settings.context.memory.autoSave.description":
-    "Automatically save durable project facts from completed turns when memory is enabled.",
-  "settings.context.memory.storage.title": "Storage",
-  "settings.context.memory.status.notLoaded": "Not loaded",
-  "settings.context.memory.status.disabled": "Disabled",
-  "settings.context.memory.status.enabledTokens": "Enabled - ~{{tokens}} stored tokens",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "Enable memory to create project memory files.",
-  "settings.context.memory.inspect": "Inspect",
   "chat.memory.project.disabled": "Project memory disabled",
-  "chat.memory.project.empty": "This project doesn't have any memory yet. It will start showing after you use Kilo.",
   "chat.memory.command.failed": "Memory command failed",
   "chat.memory.updated": "Memory updated",
   "chat.memory.rebuild": "Memory index rebuilt",
-
-  "settings.commitMessage.title": "Commit Message",
-  "settings.commitMessage.override.title": "Use Custom Prompt",
-  "settings.commitMessage.override.description":
-    "Override the default commit message prompt. When enabled, your custom prompt fully replaces the built-in conventional commits prompt.",
-  "settings.commitMessage.prompt.title": "Custom Prompt",
-  "settings.commitMessage.prompt.description":
-    "System prompt sent to the AI when generating commit messages. This replaces the default prompt entirely.",
-  "settings.commitMessage.prompt.placeholder":
-    "e.g. Generate commit messages in Spanish following conventional commits format. Return ONLY the commit message.",
-
-  "settings.commitMessage.language.sync": "Sync with UI language",
-  "settings.commitMessage.language.description": "Choose which language to use for AI-generated commit messages:",
 
   "settings.display.preview.title": "Preview",
   "settings.display.presets.title": "Display presets",
@@ -1439,4 +1214,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "Subagent reports",
   "settings.harness.human.checklist": "Your checklist (one per line)",
   "settings.harness.human.checklist.hint": "Things the AI cannot judge, such as taste.",
+  "settings.connections.title": "Models and providers",
 }

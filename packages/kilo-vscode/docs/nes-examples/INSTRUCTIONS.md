@@ -8,9 +8,9 @@ These tests are designed so that the source files contain **no hints** about wha
 2. In the kilocode VSCode window, press **F5** → opens the **Extension Development Host**.
 3. In the Dev Host: `File → Open Folder…` → `packages/kilo-vscode/docs/nes-examples/` inside this repo.
 4. Open Settings (`Cmd+,`), confirm:
-   - `kilo-code.new.autocomplete.enableAutoTrigger` → ✓ (default true)
-   - `kilo-code.new.autocomplete.model` → **Mercury Next Edit (Inception)** ← *NOT* "Mercury Edit 2", which is the classic FIM option
-   - `kilo-code.new.autocomplete.nextEdit.apiKey` → your `sk_...` key
+   - `harness-code.autocomplete.enableAutoTrigger` → ✓ (default true)
+   - `harness-code.autocomplete.model` → **Mercury Next Edit (Inception)** ← *NOT* "Mercury Edit 2", which is the classic FIM option
+   - `harness-code.autocomplete.nextEdit.apiKey` → your `sk_...` key
    - VSCode global `editor.inlineSuggest.enabled` → ✓
 5. To watch the pipeline live: `View → Output` → pick the **"Kilo Code · Next Edit"** channel.
 

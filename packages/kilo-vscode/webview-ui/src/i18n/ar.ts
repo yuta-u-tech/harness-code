@@ -667,61 +667,13 @@ export const dict = {
 
   "settings.agentBehaviour.title": "سلوك الوكيل",
   "settings.autoApprove.title": "الموافقة التلقائية",
-  "settings.webTools.title": "أدوات الويب",
-  "settings.webTools.description": "اضبط البحث على الويب وأتمتة المتصفح.",
-  "settings.webTools.webSearch.enable": "تمكين لجميع المزوّدين",
-  "settings.webTools.browserAutomation": "أتمتة المتصفح",
-  "settings.webTools.webSearch.title": "البحث على الويب",
-  "settings.webTools.webSearch.description": "اجعل البحث على الويب متاحًا لنماذج جميع المزوّدين.",
   "settings.checkpoints.title": "نقاط التحقق",
   "settings.display.title": "العرض",
-  "settings.autocomplete.title": "الإكمال التلقائي",
   "settings.autocomplete.model.title": "نموذج الإكمال التلقائي",
   "settings.autocomplete.model.description": "حدد النموذج المستخدم لإكمال الكود المضمن (inline completions)",
   "settings.notifications.title": "الإشعارات",
-  "settings.context.title": "السياق",
-  "settings.indexing.title": "الفهرسة",
-  "settings.indexing.enable.title": "تمكين الفهرسة",
-  "settings.indexing.enable.description": "تشغيل أو إيقاف فهرسة قاعدة الكود الدلالية.",
-  "settings.indexing.showButton.title": "إظهار الزر عند تعطيل الفهرسة",
-  "settings.indexing.showButton.description":
-    "إظهار زر الفهرسة أسفل حقل الإدخال عندما تكون الفهرسة معطلة. إذا كان الزر مخفيًا، فافتح الإعدادات > الفهرسة لتفعيل الفهرسة.",
-  "settings.indexing.globalEnable.title": "تمكين عام",
-  "settings.indexing.globalEnable.description": "تمكين الفهرسة لكل مساحة عمل.",
-  "settings.indexing.projectEnable.title": "تمكين لهذا المشروع",
-  "settings.indexing.projectEnable.description": "تمكين الفهرسة لمساحة العمل هذه عندما تكون الفهرسة العامة متوقفة.",
-  "settings.indexing.provider.title": "موفر التضمين",
-  "settings.indexing.provider.description": "اختر الموفر المستخدم لإنشاء التضمينات للبحث الدلالي.",
-  "settings.indexing.kiloModel.title": "إعداد مسبق لنموذج Kilo",
-  "settings.indexing.kiloModel.description": "اختر نموذج تضمين مدعومًا ومستضافًا بواسطة Kilo.",
-  "settings.indexing.kiloSignIn.title": "تسجيل الدخول إلى Kilo مطلوب",
-  "settings.indexing.kiloSignIn.description": "سجّل الدخول إلى Kilo لاستخدام التضمينات المستضافة.",
-  "settings.indexing.model.title": "نموذج التضمين",
-  "settings.indexing.model.description": "تجاوز نموذج التضمين الافتراضي للموفر المحدد.",
-  "settings.indexing.dimension.title": "بُعد المتجه",
-  "settings.indexing.dimension.description": "اتركه فارغًا للكشف التلقائي عن بُعد التضمين من النموذج.",
-  "settings.indexing.dimension.placeholder": "تلقائي",
-  "settings.indexing.vectorStore.title": "مخزن المتجهات",
-  "settings.indexing.vectorStore.description": "اختر مكان تخزين التضمينات المفهرسة.",
-  "settings.indexing.lancedbDirectory.title": "دليل LanceDB",
-  "settings.indexing.lancedbDirectory.description": "دليل اختياري لتخزين LanceDB المحلي.",
-  "settings.indexing.lancedbDirectory.placeholder": "اتركه فارغًا للافتراضي",
-  "settings.indexing.qdrantUrl.title": "عنوان URL لـ Qdrant",
-  "settings.indexing.qdrantUrl.description": "عنوان URL للخادم لمثيل Qdrant.",
-  "settings.indexing.qdrantApiKey.title": "مفتاح API لـ Qdrant",
-  "settings.indexing.qdrantApiKey.description": "مفتاح API اختياري لمثيل Qdrant.",
-  "settings.indexing.qdrantApiKey.placeholder": "مفتاح API اختياري",
-  "settings.indexing.fileExtensions.title": "امتدادات الملفات",
-  "settings.indexing.fileExtensions.description":
-    "قائمة سماح مفصولة بفواصل. اتركها فارغة لاستخدام الإعدادات الافتراضية المضمنة.",
-  "settings.indexing.fileExtensions.invalid": "امتداد غير صالح: {{extension}}",
-  "settings.indexing.status.title": "الحالة",
-  "settings.indexing.tuning.description": "معامل متقدم للبحث والدفعات.",
-  "settings.indexing.providerField.description": "إعداد اتصال خاص بالموفر.",
   "prompt.action.indexing": "إعدادات الفهرسة",
-  "settings.experimental.title": "تجريبي",
   "settings.language.title": "اللغة",
-  "settings.aboutKiloCode.title": "حول Harness Code",
 
   "session.messages.welcome":
     "Harness Code هو مساعد ترميز بالذكاء الاصطناعي. اطلب منه بناء ميزات أو إصلاح أخطاء أو شرح قاعدة الشيفرة.",
@@ -782,55 +734,11 @@ export const dict = {
   "time.thisMonth": "هذا الشهر",
   "time.older": "أقدم",
 
-  "settings.aboutKiloCode.status.connected": "متصل",
-  "settings.aboutKiloCode.status.connecting": "جارٍ الاتصال...",
-  "settings.aboutKiloCode.status.disconnected": "غير متصل",
-  "settings.aboutKiloCode.status.error": "خطأ",
-  "settings.aboutKiloCode.cliServer": "خادم CLI",
-  "settings.aboutKiloCode.status.label": "الحالة:",
-  "settings.aboutKiloCode.port.label": "المنفذ:",
-  "settings.aboutKiloCode.versionInfo": "معلومات الإصدار",
-  "settings.aboutKiloCode.version.label": "الإصدار:",
-  "settings.aboutKiloCode.community": "المجتمع والدعم",
-  "settings.aboutKiloCode.feedback.prefix": "إذا كان لديك أي أسئلة أو ملاحظات، لا تتردد في فتح مشكلة على",
-  "settings.aboutKiloCode.feedback.or": "أو",
-  "settings.aboutKiloCode.support.prefix": "لأسئلة الفوترة أو الحساب، تواصل مع دعم العملاء على",
-  "settings.aboutKiloCode.resetSettings.title": "إعادة تعيين الإعدادات",
-  "settings.aboutKiloCode.resetSettings.description":
-    "يؤدي هذا إلى إعادة تعيين الإعدادات الخاصة بامتداد VS Code فقط إلى قيمها الافتراضية. الإعدادات المشتركة مع CLI، مثل الأوضاع وقواعد الموافقة التلقائية، مخزّنة في تكوين CLI ولن تتأثر.",
-  "settings.aboutKiloCode.resetSettings.button": "إعادة تعيين جميع الإعدادات",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "Reset Read Notifications",
-  "settings.aboutKiloCode.settingsTransfer.title": "نقل الإعدادات",
-  "settings.aboutKiloCode.settingsTransfer.description": "تصدير أو استيراد إعداداتك لنقلها بين نُسخ VS Code.",
-  "settings.aboutKiloCode.exportSettings": "تصدير",
-  "settings.aboutKiloCode.importSettings": "استيراد",
-  "settings.aboutKiloCode.importSettings.invalidJson": "ملف JSON غير صالح. يرجى اختيار ملف إعدادات صالح.",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "الملف لا يحتوي على إعدادات Kilo صالحة.",
-  "settings.aboutKiloCode.importSettings.tooLarge": "الملف كبير جدًا. يجب أن تكون ملفات الإعدادات أقل من 1 MB.",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "تم تصدير هذا الملف من إصدار أحدث من Kilo. قد يتم تجاهل بعض الإعدادات.",
-  "settings.aboutKiloCode.importSettings.success": "تم استيراد الإعدادات. راجع التغييرات أعلاه، ثم انقر على حفظ.",
-
-  "settings.aboutKiloCode.telemetry.title": "Telemetry",
-  "settings.aboutKiloCode.telemetry.description":
-    'يتم التحكم في Telemetry بواسطة إعداد Telemetry المدمج في VS Code. لتعطيله، انتقل إلى الإعدادات > Telemetry > Telemetry Level واضبطه على "off". أعد تشغيل VS Code لتطبيق التغيير.',
-  "settings.aboutKiloCode.telemetry.openSettings": "فتح إعدادات Telemetry",
-
   "settings.agentBehaviour.subtab.agents": "الوكلاء",
   "settings.agentBehaviour.subtab.mcpServers": "خوادم MCP",
   "settings.agentBehaviour.subtab.rules": "القواعد",
   "settings.agentBehaviour.subtab.workflows": "سير العمل",
   "settings.agentBehaviour.subtab.skills": "المهارات",
-
-  "settings.browser.description":
-    "تكوين أتمتة المتصفح المدمجة المدعومة من Playwright. يمكن لـ Kilo التنقل والتفاعل مع صفحات الويب والتقاط لقطات شاشة لها في جلساتك.",
-  "settings.browser.enable.title": "تفعيل أتمتة المتصفح",
-  "settings.browser.enable.description":
-    "تفعيل متصفح Agent Manager الخاص بكل جلسة للتطبيقات المحلية وصفحات HTTPS العامة.",
-  "settings.browser.systemChrome.title": "استخدام Chrome النظام",
-  "settings.browser.systemChrome.description": "استخدم متصفح Chrome المثبت لديك بدلاً من نسخة Chromium منفصلة.",
-  "settings.browser.headless.title": "الوضع بدون واجهة",
-  "settings.browser.headless.description": "التشغيل في الوضع بدون واجهة (بدون نافذة متصفح مرئية).",
 
   "settings.language.description": 'اختر اللغة لواجهة Harness Code. "تلقائي" يستخدم لغة عرض VS Code.',
   "settings.language.auto": "تلقائي (لغة VS Code)",
@@ -838,13 +746,6 @@ export const dict = {
 
   "common.add": "إضافة",
 
-  "settings.autocomplete.autoTrigger.title": "تمكين الإكمال التلقائي المضمّن",
-  "settings.autocomplete.autoTrigger.description": "عرض اقتراحات الإكمال المضمّن تلقائياً أثناء الكتابة",
-  "settings.autocomplete.smartKeybinding.title": "تمكين اختصار المهمة المضمّنة الذكي",
-  "settings.autocomplete.smartKeybinding.description": "استخدام اختصار ذكي لتشغيل المهام المضمّنة",
-  "settings.autocomplete.chatAutocomplete.title": "تمكين الإكمال التلقائي للدردشة",
-  "settings.autocomplete.chatAutocomplete.description": "عرض اقتراحات الإكمال التلقائي في مربع الدردشة",
-  "settings.autocomplete.modelsHint": "لاختيار النموذج المستخدم للإكمال التلقائي، راجع إعدادات النماذج.",
   "settings.notifications.sounds": "أصوات",
   "settings.notifications.enable.title": "تمكين الإشعارات الصوتية",
   "settings.notifications.enable.description": "تشغيل أصوات عند اكتمال الجلسات أو حدوث خطأ أو الحاجة إلى ردّك",
@@ -862,25 +763,9 @@ export const dict = {
   "settings.notifications.sound.system": "النظام",
   "settings.notifications.sound.description":
     "يستخدم الخيار الافتراضي أصواتًا مختلفة عند الاكتمال أو الحاجة إلى ردّك أو حدوث خطأ. تستخدم الخيارات الأخرى صوتًا واحدًا لجميع الأحداث.",
-  "settings.experimental.share.title": "وضع المشاركة",
-  "settings.experimental.share.description": "سلوك مشاركة الجلسة",
-  "settings.experimental.share.manual": "يدوي",
-  "settings.experimental.share.auto": "تلقائي",
-  "settings.experimental.share.disabled": "معطل",
-  "settings.experimental.formatter.title": "المنسق",
-  "settings.experimental.formatter.description": "تمكين منسق الكود التلقائي",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "تمكين تكامل بروتوكول خادم اللغة",
-  "settings.experimental.batch.title": "أداة دفعية",
-  "settings.experimental.batch.description": "تمكين المعالجة الدفعية لاستدعاءات الأدوات",
-  "settings.experimental.imageGeneration.title": "توليد الصور",
-  "settings.experimental.imageGeneration.description": "تمكين توليد الصور بالذكاء الاصطناعي",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "شارك لوحة بين جلسة رئيسية ووكلائها الفرعيين المكلّفين بالمهام، بما يشمل الوكلاء الفرعيين المتداخلين. استخدمها لمحاولات حل متوازية أو أعمال متكاملة، وليس لكل مهمة.",
-  "settings.experimental.imageGenerationModel.title": "نموذج الصور",
-  "settings.experimental.imageGenerationModel.description": "نموذج توليد الصور",
-  "settings.experimental.imageGenerationModel.placeholder": "افتراضي (Auto Router)",
 
   "settings.models.speechToTextModel.customDescription":
     "معرّف النموذج الذي يُرسل إلى نقطة النهاية المخصصة للنسخ، مثل whisper-1.",
@@ -899,39 +784,7 @@ export const dict = {
     "الإدخال الصوتي غير متاح في النوافذ البعيدة. افتح Kilo في نافذة محلية لاستخدام الميكروفون.",
   "settings.models.speechToTextModel.title": "نموذج تحويل الصوت إلى نص",
   "settings.models.speechToTextModel.description": "اختر نموذج نسخ Kilo Gateway للإدخال الصوتي.",
-  "settings.experimental.nativeNotebookTools.title": "أدوات الدفاتر الأصلية",
-  "settings.experimental.nativeNotebookTools.description":
-    "تمكين الأدوات التجريبية لقراءة دفاتر VS Code وتحريرها وتنفيذها",
-  "settings.experimental.continueOnDeny.title": "المتابعة عند الرفض",
-  "settings.experimental.continueOnDeny.description": "متابعة حلقة الوكيل عند رفض الإذن",
-  "settings.sandboxing.title": "العزل",
-  "settings.sandboxing.network.title": "تقييد الوصول إلى الشبكة",
-  "settings.sandboxing.network.description":
-    "حظر الوصول الصادر المباشر من الأوامر الصادرة عن النموذج وأدوات HTTP. تصبح أدوات MCP المحلية والبعيدة غير متاحة أثناء تفعيل التقييد. تظل حركة مرور المزوّد وخطافات الإضافات الموثوقة خارج هذا التقييد.",
 
-  "settings.sandboxing.allowedHosts.title": "وجهات الشبكة المسموح بها",
-  "settings.sandboxing.allowedHosts.description":
-    "وجهات مضيف ومنفذ DNS لحركة مرور وكيل HTTP وHTTPS المعزولة. يحتاج GitHub CLI وHTTPS Git عادةً إلى github.com:443 وapi.github.com:443.",
-  "settings.sandboxing.writablePaths.title": "مسارات قابلة للكتابة إضافية",
-  "settings.sandboxing.writablePaths.description":
-    "مسارات نظام ملفات إضافية يسمح صندوق الرمل بالكتابة إليها (مثل /tmp، /var/log). يتم دمجها مع مسارات الكتابة الافتراضية عندما يكون صندوق الرمل نشطًا.",
-  "settings.experimental.multiProject.title": "إدارة متعددة المشاريع",
-  "settings.experimental.claudeMigration.title": "ترحيل Claude Code",
-  "settings.experimental.claudeMigration.description":
-    "استورد مرة واحدة تعليمات CLAUDE.md العامة المدعومة والمهارات البسيطة وتعريفات MCP المعطلة. تبقى ملفات Claude الأصلية دون تغيير؛ أعد تشغيل الخلفية بعد التفعيل.",
-  "settings.experimental.multiProject.description":
-    "تفعيل إدارة الجلسات وأشجار العمل عبر مستودعات متعددة في Agent Manager. المستودع الحالي هو دائمًا المشروع الافتراضي.",
-  "settings.experimental.mcpTimeout.title": "مهلة MCP (مللي ثانية)",
-  "settings.experimental.mcpTimeout.description": "مهلة طلبات خادم MCP بالمللي ثانية",
-  "settings.experimental.remote.title": "التحكم Remote",
-  "settings.experimental.remote.description":
-    "قم بتمكين التحكم Remote في الجلسات عبر Kilo Cloud. سيؤثر هذا أيضًا على واجهات سطر الأوامر (CLIs) على هذا الجهاز.",
-  "settings.experimental.remote.current": "الحالة الحالية:",
-  "settings.experimental.remote.startup": "التفعيل التلقائي عند بدء التشغيل:",
-  "settings.experimental.remote.active": "نشط",
-  "settings.experimental.remote.inactive": "غير نشط",
-  "settings.experimental.remote.hint": "استخدم /remote في الدردشة للتبديل",
-  "settings.experimental.toolToggles": "مفاتيح الأدوات",
   "settings.agentBehaviour.defaultAgent.title": "الوكيل الافتراضي",
   "settings.agentBehaviour.defaultAgent.description": "الوكيل المستخدم عند عدم التحديد",
   "settings.agentBehaviour.availableAgents": "الوكلاء المتاحون",
@@ -1052,12 +905,6 @@ export const dict = {
   "settings.agentBehaviour.workflows.model": "النموذج",
   "settings.agentBehaviour.workflows.variant": "المتغير",
   "settings.agentBehaviour.workflows.modelDescription": "تجاوز النموذج العام",
-  "settings.experimental.codeMode.title": "استدعاءات الأدوات البرمجية",
-  "settings.experimental.codeMode.description":
-    "يوجّه استدعاءات أدوات MCP عبر بيئة تشغيل JavaScript معزولة مع اكتشاف الأدوات عند الطلب بدلاً من عرض كل أداة MCP مباشرةً. يوفّر السياق عند توصيل العديد من أدوات MCP.",
-  "settings.sandboxing.enabled.title": "Sandbox",
-  "settings.sandboxing.enabled.description":
-    "تشغيل أوامر shell الخاصة بالوكيل داخل sandbox على مستوى نظام التشغيل يقيّد الكتابة على مجلدات حالة المشروع و Kilo",
 
   "settings.autoApprove.description":
     "تحديد كيفية السماح بتشغيل الأدوات. معظم الأدوات معينة افتراضياً على السماح. doom_loop و external_directory معينة افتراضياً على السؤال.",
@@ -1093,77 +940,15 @@ export const dict = {
     "الوصول للملفات خارج مساحة العمل. يتم تشغيله عند الوصول إلى ملفات خارج مسار المشروع الحالي.",
   "settings.autoApprove.tool.doom_loop":
     "منع الإجراءات المتطابقة المتكررة. يتم تشغيله عندما يتكرر نفس استدعاء الأداة بمدخلات متطابقة.",
-  "settings.checkpoints.enable.title": "تمكين اللقطات",
-  "settings.checkpoints.enable.description": "إنشاء نقاط فحص قبل تحرير الملفات",
-  "settings.autoCleanup.enable.title": "تمكين التنظيف التلقائي للجلسات",
-  "settings.autoCleanup.enable.description":
-    "حذف سجل الجلسات القديم تلقائيًا بعد عدد ثابت من الأيام، عبر جميع المشاريع وكل عميل Kilo على هذا الجهاز، وليس هذه النافذة فقط. لا يتم حذف الجلسات قيد التشغيل حاليًا، ولا الجلسات ذات التفرعات الحديثة أبدًا. الحذف نهائي.",
-  "settings.autoCleanup.defaultRetention.title": "الاحتفاظ بالجلسات (أيام)",
-  "settings.autoCleanup.defaultRetention.description": "مدة الاحتفاظ بسجل الجلسات قبل أن يحذفه التنظيف التلقائي.",
-  "settings.autoCleanup.lastRun.title": "التنظيف الأخير",
-  "settings.autoCleanup.lastRun.never": "لم يُشغّل أبدًا",
-  "settings.autoCleanup.result":
-    "{{date}}: تم حذف {{deleted}} من {{scanned}} جلسة ({{active}} نشطة تم تخطيها، {{failed}} فشلت) في {{seconds}} ثانية",
-  "settings.autoCleanup.starting": "جارٍ بدء تنظيف الجلسات...",
-  "settings.autoCleanup.error.status": "حالة تنظيف الجلسات غير متاحة مؤقتًا. جارٍ إعادة المحاولة...",
-  "settings.autoCleanup.error.timeout": "في انتظار حالة التنظيف. تستغرق الواجهة الخلفية وقتًا أطول من المتوقع.",
-  "settings.autoCleanup.error.run":
-    "تعذّر تأكيد اكتمال تنظيف الجلسات. تحقق من نتيجة التنظيف الأخير قبل إعادة المحاولة.",
-  "settings.autoCleanup.progress.scanning": "جارٍ فحص الجلسات: تمت معالجة {{processed}}/{{total}}",
-  "settings.autoCleanup.progress.deleting":
-    "جارٍ حذف الجلسات: تمت معالجة {{processed}}/{{total}} (تم حذف {{deleted}}، فشل {{failed}})",
-  "settings.autoCleanup.runNow": "شغّل التنظيف الآن",
-  "settings.autoCleanup.runNow.confirm":
-    "حذف الجلسات المنتهية الصلاحية نهائيًا عبر جميع المشاريع وكل عميل Kilo على هذا الجهاز؟",
-  "settings.autoCleanup.stop": "إيقاف التنظيف",
-  "settings.autoCleanup.progress.cancelling": "جارٍ إيقاف تنظيف الجلسات...",
-  "settings.autoCleanup.lastRun.cancelled": "تمت المقاطعة",
-  "settings.context.autoCompaction.title": "ضغط تلقائي",
-  "settings.context.autoCompaction.description": "ضغط السياق تلقائياً قبل أن يصل إلى الحد",
-  "settings.context.compaction.title": "الضغط",
   "settings.context.compactionModel.title": "نموذج الضغط",
   "settings.context.compactionModel.description":
     "النموذج المستخدم للضغط التلقائي واليدوي. اتركه فارغاً لاستخدام نموذج الدردشة. تعتمد التكلفة والسرعة وجودة الملخص على النموذج.",
   "settings.context.compactionModel.useChatModel": "استخدام نموذج الدردشة",
-  "settings.context.compactionModel.hint": "لاختيار النموذج المستخدم للضغط، راجع إعدادات النماذج.",
-  "settings.context.compactionLimit.title": "حد الضغط التلقائي",
-  "settings.context.compactionLimit.description":
-    "اضغط عندما يصل السياق إلى هذه النسبة المئوية من نافذة النموذج. اتركه فارغاً لاستخدام هامش الأمان فقط.",
-  "settings.context.prune.title": "تقليم المخرجات القديمة",
-  "settings.context.prune.description": "إزالة مخرجات الأدوات القديمة أثناء الضغط",
-  "settings.context.watcherPatterns": "أنماط تجاهل مراقب الملفات",
-  "settings.context.watcherPatterns.description": "أنماط glob للملفات التي يجب على المراقب تجاهلها",
 
-  "settings.context.memory.title": "الذاكرة",
-  "settings.context.memory.project.title": "ذاكرة المشروع",
-  "settings.context.memory.autoSave.title": "حفظ ذاكرة المشروع تلقائيًا",
-  "settings.context.memory.autoSave.description":
-    "حفظ حقائق المشروع الدائمة تلقائيًا من الجولات المكتملة عند تفعيل الذاكرة.",
-  "settings.context.memory.storage.title": "Storage",
-  "settings.context.memory.status.notLoaded": "غير محمّلة",
-  "settings.context.memory.status.disabled": "معطّلة",
-  "settings.context.memory.status.enabledTokens": "Enabled - ~{{tokens}} stored tokens",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "Enable memory to create project memory files.",
-  "settings.context.memory.inspect": "فحص",
   "chat.memory.project.disabled": "ذاكرة المشروع معطّلة",
-  "chat.memory.project.empty": "This project doesn't have any memory yet. It will start showing after you use Kilo.",
   "chat.memory.command.failed": "فشل أمر الذاكرة",
   "chat.memory.updated": "Memory updated",
   "chat.memory.rebuild": "Memory index rebuilt",
-
-  "settings.commitMessage.title": "Commit Message",
-  "settings.commitMessage.override.title": "استخدام prompt مخصص",
-  "settings.commitMessage.override.description":
-    "تجاوز prompt الـ commit message الافتراضي. عند التفعيل، سيستبدل الـ prompt المخصص الخاص بك الـ prompt المدمج لـ conventional commits بالكامل.",
-  "settings.commitMessage.prompt.title": "prompt مخصص",
-  "settings.commitMessage.prompt.description":
-    "الـ prompt النظامي المرسل إلى الذكاء الاصطناعي عند إنشاء commit messages. هذا يستبدل الـ prompt الافتراضي بالكامل.",
-  "settings.commitMessage.prompt.placeholder":
-    "على سبيل المثال: قم بإنشاء commit messages باللغة الإسبانية باتباع تنسيق conventional commits. أرجع الـ commit message فقط.",
-
-  "settings.commitMessage.language.sync": "مزامنة مع لغة واجهة المستخدم",
-  "settings.commitMessage.language.description": "اختر اللغة المستخدمة لرسائل الالتزام التي تولدها الذكاء الاصطناعي:",
 
   "settings.display.preview.title": "معاينة",
   "settings.display.presets.title": "إعدادات العرض المسبقة",
@@ -1358,12 +1143,6 @@ export const dict = {
   "chat.search.close": "إغلاق البحث",
   "chat.search.invalidRegex": "تعبير عادي غير صالح",
   "chat.search.noResults": "لا توجد نتائج",
-  "settings.experimental.browserAutomation.title": "المتصفح المدمج",
-  "settings.experimental.browserAutomation.description":
-    "عرض معاينات التطبيقات المحلية في Agent Manager وإتاحة أداة browser_open لجلسات Agent Manager.",
-  "settings.experimental.browserAutomation.systemChrome.title": "استخدام Chrome النظام",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "استخدام Google Chrome المثبّت للمتصفح المدمج. عطّله فقط عند تثبيت متصفح Playwright Chromium متوافق.",
   "chat.search.searchingHistory": "جارٍ البحث في الرسائل السابقة…",
   "settings.harness.title": "Harness",
   "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
@@ -1422,4 +1201,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "Subagent reports",
   "settings.harness.human.checklist": "Your checklist (one per line)",
   "settings.harness.human.checklist.hint": "Things the AI cannot judge, such as taste.",
+  "settings.connections.title": "Models and providers",
 }

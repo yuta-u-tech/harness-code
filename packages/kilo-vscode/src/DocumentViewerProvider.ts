@@ -18,7 +18,7 @@ export interface DocumentViewerOptions {
 }
 
 export class DocumentViewerProvider implements vscode.Disposable {
-  public static readonly viewType = "kilo-code.new.DocumentsPanel"
+  public static readonly viewType = "harness-code.DocumentsPanel"
   private panel: vscode.WebviewPanel | undefined
   private pending: { file: string; sessionId?: string; directory?: string; line?: number; column?: number } | undefined
   private readonly contexts = new Map<string, Context>()
@@ -74,8 +74,8 @@ export class DocumentViewerProvider implements vscode.Disposable {
       },
     )
     panel.iconPath = {
-      light: vscode.Uri.joinPath(this.extensionUri, "assets", "icons", "kilo-light.svg"),
-      dark: vscode.Uri.joinPath(this.extensionUri, "assets", "icons", "kilo-dark.svg"),
+      light: vscode.Uri.joinPath(this.extensionUri, "assets", "icons", "harness-light.svg"),
+      dark: vscode.Uri.joinPath(this.extensionUri, "assets", "icons", "harness-dark.svg"),
     }
     panel.webview.html = this.html(panel.webview)
     this.panel = panel

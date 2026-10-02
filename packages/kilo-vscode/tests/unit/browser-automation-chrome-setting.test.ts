@@ -5,7 +5,7 @@ import {
   migrateIntegratedBrowserUseSystemChrome,
 } from "../../src/services/browser-automation/chrome-setting"
 
-const INTEGRATED_BROWSER = "kilo-code.new.agentManager.browser"
+const INTEGRATED_BROWSER = "harness-code.agentManager.browser"
 
 describe("Integrated Browser Chrome preference", () => {
   const descriptors = Object.getOwnPropertyDescriptors(vscode.workspace)

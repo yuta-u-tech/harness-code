@@ -417,47 +417,6 @@ export const dict = {
   "sound.option.yup05": "Yup 05",
   "sound.option.yup06": "Yup 06",
 
-  "settings.indexing.title": "Индексация",
-  "settings.indexing.enable.title": "Включить индексацию",
-  "settings.indexing.enable.description": "Включить или отключить семантическую индексацию кодовой базы.",
-  "settings.indexing.showButton.title": "Показывать кнопку, когда индексация отключена",
-  "settings.indexing.showButton.description":
-    "Показывать кнопку индексации под полем ввода, пока индексация отключена. Если кнопка скрыта, откройте «Настройки > Индексация», чтобы включить индексацию.",
-  "settings.indexing.globalEnable.title": "Включить глобально",
-  "settings.indexing.globalEnable.description": "Включить индексирование для каждого рабочего пространства.",
-  "settings.indexing.projectEnable.title": "Включить для этого проекта",
-  "settings.indexing.projectEnable.description":
-    "Включить индексирование для этого рабочего пространства, если глобальное индексирование отключено.",
-  "settings.indexing.status.title": "Статус",
-  "settings.indexing.provider.title": "Провайдер эмбеддингов",
-  "settings.indexing.provider.description": "Выберите провайдера для генерации эмбеддингов при семантическом поиске.",
-  "settings.indexing.kiloModel.title": "Предустановка модели Kilo",
-  "settings.indexing.kiloModel.description": "Выберите поддерживаемую модель эмбеддингов, размещенную в Kilo.",
-  "settings.indexing.kiloSignIn.title": "Требуется вход в Kilo",
-  "settings.indexing.kiloSignIn.description": "Войдите в Kilo, чтобы использовать размещенные эмбеддинги.",
-  "settings.indexing.model.title": "Модель эмбеддингов",
-  "settings.indexing.model.description": "Переопределить модель эмбеддингов по умолчанию для выбранного провайдера.",
-  "settings.indexing.dimension.title": "Размерность вектора",
-  "settings.indexing.dimension.description":
-    "Оставьте пустым для автоматического определения размерности эмбеддингов из модели.",
-  "settings.indexing.dimension.placeholder": "Авто",
-  "settings.indexing.vectorStore.title": "Векторное хранилище",
-  "settings.indexing.vectorStore.description": "Выберите, где хранить проиндексированные эмбеддинги.",
-  "settings.indexing.lancedbDirectory.title": "Директория LanceDB",
-  "settings.indexing.lancedbDirectory.description": "Необязательная директория для локального хранилища LanceDB.",
-  "settings.indexing.lancedbDirectory.placeholder": "Оставьте пустым для значения по умолчанию",
-  "settings.indexing.qdrantUrl.title": "URL Qdrant",
-  "settings.indexing.qdrantUrl.description": "URL сервера для экземпляра Qdrant.",
-  "settings.indexing.qdrantApiKey.title": "API-ключ Qdrant",
-  "settings.indexing.qdrantApiKey.description": "Необязательный API-ключ для экземпляра Qdrant.",
-  "settings.indexing.qdrantApiKey.placeholder": "Необязательный API-ключ",
-  "settings.indexing.fileExtensions.title": "Расширения файлов",
-  "settings.indexing.fileExtensions.description":
-    "Список разрешённых значений, разделённых запятыми. Оставьте пустым, чтобы использовать встроенные значения по умолчанию.",
-  "settings.indexing.fileExtensions.invalid": "Недопустимое расширение: {{extension}}",
-  "settings.indexing.providerField.description": "Настройка подключения, специфичная для провайдера.",
-  "settings.indexing.tuning.description": "Параметры расширенного поиска и пакетной обработки.",
-
   "settings.providers.title": "Провайдеры",
   "settings.providers.section.connected": "Подключённые провайдеры",
   "settings.providers.connected.empty": "Нет подключённых провайдеров",
@@ -719,23 +678,13 @@ export const dict = {
 
   "settings.agentBehaviour.title": "Поведение агента",
   "settings.autoApprove.title": "Автоодобрение",
-  "settings.webTools.title": "Веб-инструменты",
-  "settings.webTools.description": "Настройте веб-поиск и автоматизацию браузера.",
-  "settings.webTools.webSearch.enable": "Включить для всех провайдеров",
-  "settings.webTools.browserAutomation": "Автоматизация браузера",
-  "settings.webTools.webSearch.title": "Веб-поиск",
-  "settings.webTools.webSearch.description": "Сделайте веб-поиск доступным для моделей всех провайдеров.",
   "settings.checkpoints.title": "Контрольные точки",
   "settings.display.title": "Отображение",
-  "settings.autocomplete.title": "Автодополнение",
   "settings.autocomplete.model.title": "Модель автодополнения",
   "settings.autocomplete.model.description": "Выберите модель для встроенного (inline) автодополнения кода",
   "settings.notifications.title": "Уведомления",
-  "settings.context.title": "Контекст",
 
-  "settings.experimental.title": "Экспериментальное",
   "settings.language.title": "Язык",
-  "settings.aboutKiloCode.title": "О Harness Code",
 
   "session.messages.welcome":
     "Harness Code — это AI-помощник для программирования. Попросите его создать функции, исправить ошибки или объяснить вашу кодовую базу.",
@@ -797,58 +746,11 @@ export const dict = {
   "time.thisMonth": "В этом месяце",
   "time.older": "Ранее",
 
-  "settings.aboutKiloCode.status.connected": "Подключено",
-  "settings.aboutKiloCode.status.connecting": "Подключение...",
-  "settings.aboutKiloCode.status.disconnected": "Отключено",
-  "settings.aboutKiloCode.status.error": "Ошибка",
-  "settings.aboutKiloCode.cliServer": "CLI-сервер",
-  "settings.aboutKiloCode.status.label": "Статус:",
-  "settings.aboutKiloCode.port.label": "Порт:",
-  "settings.aboutKiloCode.versionInfo": "Информация о версии",
-  "settings.aboutKiloCode.version.label": "Версия:",
-  "settings.aboutKiloCode.community": "Сообщество и поддержка",
-  "settings.aboutKiloCode.feedback.prefix": "Если у вас есть вопросы или отзывы, создайте issue на",
-  "settings.aboutKiloCode.feedback.or": "или",
-  "settings.aboutKiloCode.support.prefix": "По вопросам оплаты или аккаунта обращайтесь в службу поддержки по адресу",
-  "settings.aboutKiloCode.resetSettings.title": "Сброс настроек",
-  "settings.aboutKiloCode.resetSettings.description":
-    "Это сбрасывает только настройки, специфичные для расширения VS Code, до значений по умолчанию. Настройки, общие с CLI, такие как режимы и правила автоматического утверждения, хранятся в конфигурации CLI и не будут сброшены.",
-  "settings.aboutKiloCode.resetSettings.button": "Сбросить все настройки",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "Reset Read Notifications",
-  "settings.aboutKiloCode.settingsTransfer.title": "Перенос настроек",
-  "settings.aboutKiloCode.settingsTransfer.description":
-    "Экспортируйте или импортируйте настройки для переноса между экземплярами VS Code.",
-  "settings.aboutKiloCode.exportSettings": "Экспорт",
-  "settings.aboutKiloCode.importSettings": "Импорт",
-  "settings.aboutKiloCode.importSettings.invalidJson": "Недопустимый файл JSON. Выберите корректный файл настроек.",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "Файл не содержит допустимых настроек Kilo.",
-  "settings.aboutKiloCode.importSettings.tooLarge": "Файл слишком большой. Файлы настроек должны быть менее 1 MB.",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "Этот файл был экспортирован из более новой версии Kilo. Некоторые настройки могут быть проигнорированы.",
-  "settings.aboutKiloCode.importSettings.success":
-    "Настройки импортированы. Просмотрите изменения выше и нажмите «Сохранить».",
-
-  "settings.aboutKiloCode.telemetry.title": "Телеметрия",
-  "settings.aboutKiloCode.telemetry.description":
-    'Телеметрия управляется встроенной настройкой телеметрии VS Code. Чтобы отключить её, перейдите в Настройки > Телеметрия > Уровень телеметрии и установите значение "off". Перезапустите VS Code, чтобы применить изменение.',
-  "settings.aboutKiloCode.telemetry.openSettings": "Открыть настройки телеметрии",
-
   "settings.agentBehaviour.subtab.agents": "Агенты",
   "settings.agentBehaviour.subtab.mcpServers": "MCP-серверы",
   "settings.agentBehaviour.subtab.rules": "Правила",
   "settings.agentBehaviour.subtab.workflows": "Рабочие процессы",
   "settings.agentBehaviour.subtab.skills": "Навыки",
-
-  "settings.browser.description":
-    "Настройте встроенную автоматизацию браузера на основе Playwright. Kilo может переходить по веб-страницам, взаимодействовать с ними и делать скриншоты в ваших сессиях.",
-  "settings.browser.enable.title": "Включить автоматизацию браузера",
-  "settings.browser.enable.description":
-    "Включить привязанный к сеансу браузер Agent Manager для локальных приложений и общедоступных HTTPS-страниц.",
-  "settings.browser.systemChrome.title": "Использовать системный Chrome",
-  "settings.browser.systemChrome.description":
-    "Использовать установленный браузер Chrome вместо отдельного экземпляра Chromium.",
-  "settings.browser.headless.title": "Безголовый режим",
-  "settings.browser.headless.description": "Запуск в безголовом режиме (без видимого окна браузера).",
 
   "settings.language.description": "Выберите язык интерфейса Harness Code. «Авто» использует язык отображения VS Code.",
   "settings.language.auto": "Авто (язык VS Code)",
@@ -856,13 +758,6 @@ export const dict = {
 
   "common.add": "Добавить",
 
-  "settings.autocomplete.autoTrigger.title": "Включить автоматическое встроенное дополнение",
-  "settings.autocomplete.autoTrigger.description": "Автоматически показывать предложения дополнения при вводе",
-  "settings.autocomplete.smartKeybinding.title": "Включить умную клавишу встроенной задачи",
-  "settings.autocomplete.smartKeybinding.description": "Использовать умную клавишу для запуска встроенных задач",
-  "settings.autocomplete.chatAutocomplete.title": "Включить автодополнение чата",
-  "settings.autocomplete.chatAutocomplete.description": "Показывать предложения автодополнения в поле чата",
-  "settings.autocomplete.modelsHint": "Чтобы выбрать модель для автодополнения, см. настройки Моделей.",
   "settings.notifications.sounds": "Звуки",
   "settings.notifications.enable.title": "Включить звуковые уведомления",
   "settings.notifications.enable.description":
@@ -882,25 +777,9 @@ export const dict = {
   "settings.notifications.sound.system": "Системный",
   "settings.notifications.sound.description":
     "По умолчанию для завершения, запроса вашего участия и ошибок используются разные звуки. В остальных вариантах для всех событий используется один и тот же звук.",
-  "settings.experimental.share.title": "Режим обмена",
-  "settings.experimental.share.description": "Поведение обмена сессиями",
-  "settings.experimental.share.manual": "Вручную",
-  "settings.experimental.share.auto": "Автоматически",
-  "settings.experimental.share.disabled": "Отключено",
-  "settings.experimental.formatter.title": "Форматтер",
-  "settings.experimental.formatter.description": "Включить автоматическое форматирование кода",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "Включить интеграцию протокола языкового сервера",
-  "settings.experimental.batch.title": "Пакетный инструмент",
-  "settings.experimental.batch.description": "Включить пакетную обработку вызовов инструментов",
-  "settings.experimental.imageGeneration.title": "Генерация изображений",
-  "settings.experimental.imageGeneration.description": "Включить генерацию изображений с помощью ИИ",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Предоставьте общую доску основному сеансу и его подагентам, выполняющим задачи, включая вложенных подагентов. Используйте её для параллельных попыток найти решение или взаимодополняющей работы, а не для каждой задачи.",
-  "settings.experimental.imageGenerationModel.title": "Модель изображений",
-  "settings.experimental.imageGenerationModel.description": "Модель генерации изображений",
-  "settings.experimental.imageGenerationModel.placeholder": "По умолчанию (Auto Router)",
 
   "settings.models.speechToTextModel.customDescription":
     "Идентификатор модели, отправляемый в ваш собственный эндпоинт транскрипции, например whisper-1.",
@@ -919,39 +798,7 @@ export const dict = {
     "Голосовой ввод недоступен в удалённых окнах. Откройте Kilo в локальном окне, чтобы использовать микрофон.",
   "settings.models.speechToTextModel.title": "Модель речи в текст",
   "settings.models.speechToTextModel.description": "Выберите модель транскрипции Kilo Gateway для голосового ввода.",
-  "settings.experimental.nativeNotebookTools.title": "Нативные инструменты блокнотов",
-  "settings.experimental.nativeNotebookTools.description":
-    "Включить экспериментальные инструменты для чтения, редактирования и выполнения блокнотов VS Code",
-  "settings.experimental.continueOnDeny.title": "Продолжить при отказе",
-  "settings.experimental.continueOnDeny.description": "Продолжить цикл агента при отказе в разрешении",
-  "settings.sandboxing.title": "Изоляция в песочнице",
-  "settings.sandboxing.network.title": "Ограничить доступ к сети",
-  "settings.sandboxing.network.description":
-    "Блокировать прямой исходящий доступ из команд, инициированных моделью, и HTTP-инструментов. Локальные и удалённые MCP-инструменты недоступны, пока это ограничение активно. Трафик провайдеров и доверенные хуки плагинов не подпадают под это ограничение.",
 
-  "settings.sandboxing.allowedHosts.title": "Разрешенные сетевые назначения",
-  "settings.sandboxing.allowedHosts.description":
-    "Целевые DNS-хосты и порты для прокси-трафика HTTP и HTTPS в песочнице. GitHub CLI и HTTPS Git обычно требуют github.com:443 и api.github.com:443.",
-  "settings.sandboxing.writablePaths.title": "Дополнительные пути для записи",
-  "settings.sandboxing.writablePaths.description":
-    "Дополнительные пути файловой системы, в которые разрешена запись в песочнице (например, /tmp, /var/log). Они объединяются с путями записи по умолчанию при активной песочнице.",
-  "settings.experimental.multiProject.title": "Мультипроектный Agent Manager",
-  "settings.experimental.claudeMigration.title": "Миграция Claude Code",
-  "settings.experimental.claudeMigration.description":
-    "Однократно импортируйте поддерживаемые глобальные инструкции CLAUDE.md, простые навыки и отключённые определения MCP. Исходные файлы Claude не изменяются; после включения перезапустите backend.",
-  "settings.experimental.multiProject.description":
-    "Включите управление сессиями и рабочими деревьями в нескольких репозиториях в Agent Manager. Текущий репозиторий рабочего пространства всегда является проектом по умолчанию.",
-  "settings.experimental.mcpTimeout.title": "Таймаут MCP (мс)",
-  "settings.experimental.mcpTimeout.description": "Таймаут запросов MCP-сервера в миллисекундах",
-  "settings.experimental.remote.title": "Управление Remote",
-  "settings.experimental.remote.description":
-    "Включите управление Remote сеансами через Kilo Cloud. Это также повлияет на CLI на этом компьютере.",
-  "settings.experimental.remote.current": "Текущее состояние:",
-  "settings.experimental.remote.startup": "Автоматически включать при запуске:",
-  "settings.experimental.remote.active": "Активно",
-  "settings.experimental.remote.inactive": "Неактивно",
-  "settings.experimental.remote.hint": "Используйте /remote в чате для переключения",
-  "settings.experimental.toolToggles": "Переключатели инструментов",
   "settings.agentBehaviour.defaultAgent.title": "Агент по умолчанию",
   "settings.agentBehaviour.defaultAgent.description": "Агент при отсутствии указания",
   "settings.agentBehaviour.availableAgents": "Доступные агенты",
@@ -1074,12 +921,6 @@ export const dict = {
   "settings.agentBehaviour.workflows.model": "модель",
   "settings.agentBehaviour.workflows.variant": "вариант",
   "settings.agentBehaviour.workflows.modelDescription": "Глобальное переопределение модели",
-  "settings.experimental.codeMode.title": "Программные вызовы инструментов",
-  "settings.experimental.codeMode.description":
-    "Направляет вызовы инструментов MCP через изолированную среду выполнения JavaScript с обнаружением инструментов по запросу вместо прямого предоставления каждого инструмента MCP. Экономит контекст при подключении множества инструментов MCP.",
-  "settings.sandboxing.enabled.title": "Песочница",
-  "settings.sandboxing.enabled.description":
-    "Выполнять команды оболочки агента в песочнице на уровне ОС, которая ограничивает запись в каталоги состояния проекта и Kilo",
 
   "settings.autoApprove.description":
     "Определите правила запуска инструментов. Большинство инструментов по умолчанию Разрешены. Для doom_loop и external_directory по умолчанию установлено Спрашивать.",
@@ -1121,78 +962,15 @@ export const dict = {
     "Доступ к файлам вне рабочей области. Срабатывает при доступе к файлам за пределами текущего каталога проекта.",
   "settings.autoApprove.tool.doom_loop":
     "Предотвращение повторных идентичных действий. Срабатывает, когда один и тот же вызов инструмента повторяется с идентичными входными данными.",
-  "settings.checkpoints.enable.title": "Включить снимки",
-  "settings.checkpoints.enable.description": "Создавать контрольные точки перед редактированием файлов",
-  "settings.autoCleanup.enable.title": "Включить автоматическую очистку сессий",
-  "settings.autoCleanup.enable.description":
-    "Автоматически удаляет старую историю сессий по истечении заданного числа дней, во всех проектах и во всех клиентах Kilo на этом компьютере, а не только в этом окне. Запущенные сессии и сессии с недавним форком никогда не удаляются. Удаление необратимо.",
-  "settings.autoCleanup.defaultRetention.title": "Хранить сессии (дней)",
-  "settings.autoCleanup.defaultRetention.description":
-    "Как долго хранится история сессий до удаления автоматической очисткой.",
-  "settings.autoCleanup.lastRun.title": "Последняя очистка",
-  "settings.autoCleanup.lastRun.never": "Никогда не запускалась",
-  "settings.autoCleanup.result":
-    "{{date}}: удалено {{deleted}} из {{scanned}} сессий ({{active}} активных пропущено, {{failed}} с ошибкой) за {{seconds}} с",
-  "settings.autoCleanup.starting": "Запуск очистки сессий...",
-  "settings.autoCleanup.error.status": "Статус очистки сессий временно недоступен. Повторная попытка...",
-  "settings.autoCleanup.error.timeout": "Ожидание статуса очистки. Серверная часть отвечает дольше, чем ожидалось.",
-  "settings.autoCleanup.error.run":
-    "Не удалось подтвердить завершение очистки сессий. Проверьте результат последней очистки перед повторной попыткой.",
-  "settings.autoCleanup.progress.scanning": "Сканирование сессий: обработано {{processed}}/{{total}}",
-  "settings.autoCleanup.progress.deleting":
-    "Удаление сессий: обработано {{processed}}/{{total}} (удалено {{deleted}}, с ошибкой {{failed}})",
-  "settings.autoCleanup.runNow": "Запустить очистку сейчас",
-  "settings.autoCleanup.runNow.confirm":
-    "Безвозвратно удалить устаревшие сессии во всех проектах и во всех клиентах Kilo на этом компьютере?",
-  "settings.autoCleanup.stop": "Остановить очистку",
-  "settings.autoCleanup.progress.cancelling": "Остановка очистки сессий...",
-  "settings.autoCleanup.lastRun.cancelled": "прервана",
-  "settings.context.autoCompaction.title": "Автоматическое сжатие",
-  "settings.context.autoCompaction.description": "Автоматически сжимать контекст до достижения лимита",
-  "settings.context.compaction.title": "Сжатие",
   "settings.context.compactionModel.title": "Модель сжатия",
   "settings.context.compactionModel.description":
     "Модель, используемая для автоматического и ручного сжатия. Оставьте поле пустым, чтобы использовать модель чата. Стоимость, скорость и качество сводки зависят от модели.",
   "settings.context.compactionModel.useChatModel": "Использовать модель чата",
-  "settings.context.compactionModel.hint": "Чтобы выбрать модель для сжатия, см. настройки Моделей.",
-  "settings.context.compactionLimit.title": "Лимит автоматического сжатия",
-  "settings.context.compactionLimit.description":
-    "Сжимать, когда контекст достигает этого процента окна модели. Оставьте пустым, чтобы использовать только буфер безопасности.",
-  "settings.context.prune.title": "Очистить старые выходные данные",
-  "settings.context.prune.description": "Удалить старые выходные данные инструментов при сжатии",
-  "settings.context.watcherPatterns": "Шаблоны игнорирования наблюдателя файлов",
-  "settings.context.watcherPatterns.description": "Glob-шаблоны для файлов, которые наблюдатель должен игнорировать",
 
-  "settings.context.memory.title": "Память",
-  "settings.context.memory.project.title": "Память проекта",
-  "settings.context.memory.autoSave.title": "Автосохранение памяти проекта",
-  "settings.context.memory.autoSave.description":
-    "Автоматически сохраняет устойчивые факты проекта из завершённых ходов, когда память включена.",
-  "settings.context.memory.storage.title": "Storage",
-  "settings.context.memory.status.notLoaded": "Не загружена",
-  "settings.context.memory.status.disabled": "Отключена",
-  "settings.context.memory.status.enabledTokens": "Enabled - ~{{tokens}} stored tokens",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "Enable memory to create project memory files.",
-  "settings.context.memory.inspect": "Проверить",
   "chat.memory.project.disabled": "Память проекта отключена",
-  "chat.memory.project.empty": "This project doesn't have any memory yet. It will start showing after you use Kilo.",
   "chat.memory.command.failed": "Команда памяти не выполнена",
   "chat.memory.updated": "Memory updated",
   "chat.memory.rebuild": "Memory index rebuilt",
-
-  "settings.commitMessage.title": "Commit Message",
-  "settings.commitMessage.override.title": "Использовать пользовательский prompt",
-  "settings.commitMessage.override.description":
-    "Переопределить prompt по умолчанию для commit message. Если включено, ваш пользовательский prompt полностью заменяет встроенный prompt для conventional commits.",
-  "settings.commitMessage.prompt.title": "Пользовательский prompt",
-  "settings.commitMessage.prompt.description":
-    "Системный prompt, отправляемый ИИ при генерации commit messages. Это полностью заменяет prompt по умолчанию.",
-  "settings.commitMessage.prompt.placeholder":
-    "напр., Сгенерируй commit messages на испанском языке в формате conventional commits. Верни ТОЛЬКО commit message.",
-
-  "settings.commitMessage.language.sync": "Синхронизация с языком пользовательского интерфейса",
-  "settings.commitMessage.language.description": "Выберите язык для сообщений, генерированных ИИ:",
 
   "settings.display.preview.title": "Предпросмотр",
   "settings.display.presets.title": "Пресеты отображения",
@@ -1389,12 +1167,6 @@ export const dict = {
   "chat.search.close": "Закрыть поиск",
   "chat.search.invalidRegex": "Недопустимое регулярное выражение",
   "chat.search.noResults": "Нет результатов",
-  "settings.experimental.browserAutomation.title": "Встроенный браузер",
-  "settings.experimental.browserAutomation.description":
-    "Показывайте предпросмотр локальных приложений в Agent Manager и предоставляйте инструмент browser_open сеансам Agent Manager.",
-  "settings.experimental.browserAutomation.systemChrome.title": "Использовать системный Chrome",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "Использовать установленный Google Chrome для встроенного браузера. Отключайте только если совместимый браузер Playwright Chromium уже установлен.",
   "chat.search.searchingHistory": "Поиск в более ранних сообщениях…",
   "settings.harness.title": "Harness",
   "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
@@ -1453,4 +1225,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "Subagent reports",
   "settings.harness.human.checklist": "Your checklist (one per line)",
   "settings.harness.human.checklist.hint": "Things the AI cannot judge, such as taste.",
+  "settings.connections.title": "Models and providers",
 }

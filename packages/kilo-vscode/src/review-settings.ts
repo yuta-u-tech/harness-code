@@ -1,6 +1,6 @@
 import * as vscode from "vscode"
 
-const CONFIG = "kilo-code.new"
+const CONFIG = "harness-code"
 const KEY = "diff.renderMarkdown"
 
 export function getDiffMarkdownRender(): boolean {

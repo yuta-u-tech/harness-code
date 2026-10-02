@@ -65,7 +65,7 @@ export class VscodeHost implements Host {
     worktreeDirectories?: () => string[]
   }): PanelContext {
     const panel = vscode.window.createWebviewPanel(
-      "kilo-code.new.AgentManagerPanel",
+      "harness-code.AgentManagerPanel",
       "Agent Manager",
       vscode.ViewColumn.One,
       {
@@ -107,8 +107,8 @@ export class VscodeHost implements Host {
     }
 
     panel.iconPath = {
-      light: vscode.Uri.joinPath(this.extensionUri, "assets", "icons", "kilo-light.svg"),
-      dark: vscode.Uri.joinPath(this.extensionUri, "assets", "icons", "kilo-dark.svg"),
+      light: vscode.Uri.joinPath(this.extensionUri, "assets", "icons", "harness-light.svg"),
+      dark: vscode.Uri.joinPath(this.extensionUri, "assets", "icons", "harness-dark.svg"),
     }
 
     const port = this.connectionService.getServerInfo()?.port
@@ -137,9 +137,9 @@ export class VscodeHost implements Host {
       disableViewedRegistration: true,
       disableStatsPolling: true,
       focusTargetContext: {
-        prompt: "kilo-code.new.agentManagerPromptFocused",
-        mainTerminal: "kilo-code.new.agentManagerMainTerminalFocused",
-        sideTerminal: "kilo-code.new.agentManagerSideTerminalFocused",
+        prompt: "harness-code.agentManagerPromptFocused",
+        mainTerminal: "harness-code.agentManagerMainTerminalFocused",
+        sideTerminal: "harness-code.agentManagerSideTerminalFocused",
       },
       onFocused: () => this.focus?.gained(),
       routeService: this.routes,
@@ -411,11 +411,11 @@ export class VscodeHost implements Host {
   }
 
   multiProject(): boolean {
-    return vscode.workspace.getConfiguration("kilo-code.new.experimental").get("multiProject", false)
+    return vscode.workspace.getConfiguration("harness-code.experimental").get("multiProject", false)
   }
 
   browserAutomation(): boolean {
-    return vscode.workspace.getConfiguration("kilo-code.new.experimental").get("browserAutomation", false)
+    return vscode.workspace.getConfiguration("harness-code.experimental").get("browserAutomation", false)
   }
 
   async approveBrowserNavigation(origin: string): Promise<boolean> {
@@ -428,7 +428,7 @@ export class VscodeHost implements Host {
   }
 
   worktreePool(): boolean {
-    return vscode.workspace.getConfiguration("kilo-code.new.agentManager").get("worktreePool", true)
+    return vscode.workspace.getConfiguration("harness-code.agentManager").get("worktreePool", true)
   }
 
   readProjects(): unknown {
@@ -461,13 +461,13 @@ export class VscodeHost implements Host {
 
   onDidChangeMultiProject(cb: (enabled: boolean) => void): Disposable {
     return vscode.workspace.onDidChangeConfiguration((e) => {
-      if (e.affectsConfiguration("kilo-code.new.experimental.multiProject")) cb(this.multiProject())
+      if (e.affectsConfiguration("harness-code.experimental.multiProject")) cb(this.multiProject())
     })
   }
 
   onDidChangeWorktreePool(cb: (enabled: boolean) => void): Disposable {
     return vscode.workspace.onDidChangeConfiguration((e) => {
-      if (e.affectsConfiguration("kilo-code.new.agentManager.worktreePool")) cb(this.worktreePool())
+      if (e.affectsConfiguration("harness-code.agentManager.worktreePool")) cb(this.worktreePool())
     })
   }
 
@@ -476,7 +476,7 @@ export class VscodeHost implements Host {
   }
 
   autoBranchNaming(): { enabled: boolean; prefix: string } {
-    const cfg = vscode.workspace.getConfiguration("kilo-code.new.agentManager")
+    const cfg = vscode.workspace.getConfiguration("harness-code.agentManager")
     return {
       enabled: cfg.get("autoBranchNaming", true),
       prefix: cfg.get("branchPrefix", ""),
@@ -536,7 +536,7 @@ export class VscodeHost implements Host {
   }
 
   extensionKeybindings(): Array<{ command: string; key?: string; mac?: string; when?: string }> {
-    const ext = vscode.extensions.getExtension("kilocode.kilo-code")
+    const ext = vscode.extensions.getExtension("yuta-u-tech.harness-code")
     return ext?.packageJSON?.contributes?.keybindings ?? []
   }
 
@@ -557,7 +557,7 @@ export class VscodeHost implements Host {
   }
 
   openSettings(tab?: string, projectId?: string): void {
-    void vscode.commands.executeCommand("kilo-code.new.settingsButtonClicked", tab, projectId)
+    void vscode.commands.executeCommand("harness-code.settingsButtonClicked", tab, projectId)
   }
 
   refreshGit(): void {

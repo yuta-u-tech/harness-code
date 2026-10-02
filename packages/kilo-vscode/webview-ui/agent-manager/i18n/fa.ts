@@ -34,24 +34,6 @@ export const dict = {
   "agentManager.section.worktrees": "WORKTREES",
   "agentManager.section.sessions": "جلسات",
   "agentManager.projects": "پروژه‌ها",
-  "agentManager.settings.title": "Agent Manager",
-  "agentManager.settings.autoBranchNaming.title": "نام‌گذاری خودکار شاخه‌ها",
-  "agentManager.settings.autoBranchNaming.description":
-    "وقتی گفتگو یک کار مشخص را توصیف می‌کند، شاخه‌ها را خودکار نام‌گذاری کنید. برای همه پروژه‌ها اعمال می‌شود. نام شاخه‌های صریحاً نام‌گذاری‌شده و منتشرشده هرگز تغییر نمی‌کند.",
-  "agentManager.settings.branchPrefix.title": "پیشوند شاخه",
-  "agentManager.settings.branchPrefix.description":
-    "پیشوند شاخه‌هایی که در همه پروژه‌ها خودکار نام‌گذاری می‌شوند، برای مثال feature/. برای نام‌های صریح شاخه‌ها اعمال نمی‌شود. برای نداشتن پیشوند، خالی بگذارید.",
-  "agentManager.settings.worktreePool.title": "آماده‌سازی از پیش worktreeها",
-  "agentManager.settings.worktreePool.description":
-    "یک worktree آماده را در پس‌زمینه فراهم کنید تا نشست‌های جدید Agent Manager سریع‌تر شروع شوند. برای هر پروژه باز، یک checkout روی دیسک فضای اضافی مصرف می‌کند.",
-  "agentManager.settings.project.title": "پروژه",
-  "agentManager.settings.project.description":
-    "repository موردنظر را انتخاب کنید تا تنظیمات worktree آن را ویرایش کنید.",
-  "agentManager.settings.project.empty": "هیچ پروژه‌ای در Agent Manager در دسترس نیست.",
-  "agentManager.settings.defaultBaseBranch.description": "branch مورد استفاده به‌عنوان نقطه شروع برای worktrees جدید.",
-  "agentManager.settings.setupScript.description": "قبل از شروع agent در یک worktree جدید اجرا شود.",
-  "agentManager.settings.setupScript.create": "ایجاد script",
-  "agentManager.settings.setupScript.edit": "ویرایش script",
   "agentManager.project.add": "افزودن پروژه...",
   "agentManager.project.new": "پروژه جدید...",
   "agentManager.project.openLocal": "باز کردن پوشه محلی...",
@@ -79,7 +61,6 @@ export const dict = {
 
   "agentManager.worktree.settings": "تنظیمات Worktree",
   "agentManager.worktree.new": "Worktree جدید",
-  "agentManager.worktree.setupScript": "اسکریپت راه‌اندازی Worktree",
   "agentManager.worktree.delete": "حذف Worktree",
   "agentManager.worktree.confirmDelete": "حذف شود؟",
   "agentManager.worktree.stale": "منسوخ",
@@ -88,8 +69,6 @@ export const dict = {
   "agentManager.worktree.doubleClickRename": "برای تغییر نام دوبار کلیک کنید",
   "agentManager.worktree.versions": "{{count}} نسخه",
   "agentManager.worktree.advancedOptions": "گزینه‌های پیشرفته worktree",
-  "agentManager.worktree.defaultBaseBranch": "شاخه پایه پیش‌فرض",
-  "agentManager.worktree.defaultBaseBranchAuto": "تشخیص خودکار",
   "agentManager.worktree.copyPath": "کپی مسیر",
   "agentManager.worktree.openInVscode": "باز کردن در VS Code",
   "agentManager.worktree.rename": "تغییر نام",

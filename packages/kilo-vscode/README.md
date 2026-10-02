@@ -2,9 +2,7 @@
 
 An open source AI coding agent for VS Code that works through a **harness**: a flow you define of agent steps, checks and your own review.
 
-Based on [Kilo Code](https://github.com/Kilo-Org/kilocode) (MIT). See [LICENSE](../../LICENSE) for the copyright notices.
-
-## What it adds
+## Features
 
 Open **Settings → Harness** to build a flow step by step.
 

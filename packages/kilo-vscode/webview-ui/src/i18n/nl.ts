@@ -674,60 +674,13 @@ export const dict = {
 
   "settings.agentBehaviour.title": "Agent Gedrag",
   "settings.autoApprove.title": "Automatisch Goedkeuren",
-  "settings.webTools.title": "Webtools",
-  "settings.webTools.description": "Configureer zoeken op internet en browserautomatisering.",
-  "settings.webTools.webSearch.enable": "Inschakelen voor alle providers",
-  "settings.webTools.browserAutomation": "Browserautomatisering",
-  "settings.webTools.webSearch.title": "Zoeken op internet",
-  "settings.webTools.webSearch.description": "Maak zoeken op internet beschikbaar voor modellen van alle providers.",
   "settings.checkpoints.title": "Controlepunten",
   "settings.display.title": "Weergave",
-  "settings.autocomplete.title": "Automatisch Aanvullen",
   "settings.autocomplete.model.title": "Autocomplete-model",
   "settings.autocomplete.model.description": "Selecteer het model dat wordt gebruikt voor inline code-aanvullingen",
   "settings.notifications.title": "Meldingen",
-  "settings.context.title": "Context",
-  "settings.indexing.title": "Indexering",
-  "settings.indexing.status.title": "Status",
-  "settings.indexing.enable.title": "Indexering inschakelen",
-  "settings.indexing.enable.description": "Schakel semantische codebase-indexering in of uit.",
-  "settings.indexing.showButton.title": "Knop weergeven wanneer indexering is uitgeschakeld",
-  "settings.indexing.showButton.description":
-    "Geef de indexeringsknop onder de prompt weer wanneer indexering is uitgeschakeld. Als de knop verborgen is, opent u Instellingen > Indexering om indexering in te schakelen.",
-  "settings.indexing.globalEnable.title": "Globaal inschakelen",
-  "settings.indexing.globalEnable.description": "Indexering inschakelen voor elke werkruimte.",
-  "settings.indexing.projectEnable.title": "Inschakelen voor dit project",
-  "settings.indexing.projectEnable.description":
-    "Indexering inschakelen voor deze werkruimte wanneer globale indexering is uitgeschakeld.",
-  "settings.indexing.provider.title": "Embedding-provider",
-  "settings.indexing.provider.description":
-    "Kies de provider die wordt gebruikt om embeddings te genereren voor semantisch zoeken.",
-  "settings.indexing.model.title": "Embedding-model",
-  "settings.indexing.model.description": "Overschrijf het standaard embedding-model voor de geselecteerde provider.",
-  "settings.indexing.dimension.title": "Vectordimensie",
-  "settings.indexing.dimension.description":
-    "Laat leeg om de embedding-dimensie automatisch te detecteren vanuit het model.",
-  "settings.indexing.dimension.placeholder": "Auto",
-  "settings.indexing.providerField.description": "Provider-specifieke verbindingsinstelling.",
-  "settings.indexing.vectorStore.title": "Vectoropslag",
-  "settings.indexing.vectorStore.description": "Kies waar geïndexeerde embeddings worden opgeslagen.",
-  "settings.indexing.lancedbDirectory.title": "LanceDB-directory",
-  "settings.indexing.lancedbDirectory.description": "Optionele directory voor de lokale LanceDB-opslag.",
-  "settings.indexing.lancedbDirectory.placeholder": "Laat leeg voor standaard",
-  "settings.indexing.qdrantUrl.title": "Qdrant-URL",
-  "settings.indexing.qdrantUrl.description": "Server-URL voor de Qdrant-instantie.",
-  "settings.indexing.qdrantApiKey.title": "Qdrant API-sleutel",
-  "settings.indexing.qdrantApiKey.description": "Optionele API-sleutel voor de Qdrant-instantie.",
-  "settings.indexing.qdrantApiKey.placeholder": "Optionele API-sleutel",
-  "settings.indexing.fileExtensions.title": "Bestandsextensies",
-  "settings.indexing.fileExtensions.description":
-    "Door komma's gescheiden lijst met toegestane items. Laat leeg om de ingebouwde standaardwaarden te gebruiken.",
-  "settings.indexing.fileExtensions.invalid": "Ongeldige extensie: {{extension}}",
-  "settings.indexing.tuning.description": "Geavanceerde parameter voor zoeken en batching.",
 
-  "settings.experimental.title": "Experimenteel",
   "settings.language.title": "Taal",
-  "settings.aboutKiloCode.title": "Over Harness Code",
 
   "session.messages.welcome":
     "Harness Code is een AI-codeerassistent. Vraag het om features te bouwen, bugs op te lossen of je codebase uit te leggen.",
@@ -789,79 +742,17 @@ export const dict = {
   "time.thisMonth": "Deze Maand",
   "time.older": "Ouder",
 
-  "settings.aboutKiloCode.status.connected": "Verbonden",
-  "settings.aboutKiloCode.status.connecting": "Verbinden...",
-  "settings.aboutKiloCode.status.disconnected": "Verbinding verbroken",
-  "settings.aboutKiloCode.status.error": "Fout",
-  "settings.aboutKiloCode.cliServer": "CLI Server",
-  "settings.aboutKiloCode.status.label": "Status:",
-  "settings.aboutKiloCode.port.label": "Poort:",
-  "settings.aboutKiloCode.versionInfo": "Versie-informatie",
-  "settings.aboutKiloCode.version.label": "Versie:",
-  "settings.aboutKiloCode.community": "Community & Ondersteuning",
-  "settings.aboutKiloCode.feedback.prefix": "Als je vragen of feedback hebt, voel je vrij om een issue aan te maken op",
-  "settings.aboutKiloCode.feedback.or": "of",
-  "settings.aboutKiloCode.support.prefix":
-    "Voor vragen over facturering of je account, neem contact op met Klantenservice op",
-  "settings.aboutKiloCode.resetSettings.title": "Instellingen resetten",
-  "settings.aboutKiloCode.resetSettings.description":
-    "Dit reset alleen VS Code-extensiespecifieke instellingen naar hun standaardwaarden. Instellingen die gedeeld worden met de CLI, zoals modi en regels voor automatisch goedkeuren, worden opgeslagen in de CLI-configuratie en worden niet gereset.",
-  "settings.aboutKiloCode.resetSettings.button": "Alle instellingen resetten",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "Reset Read Notifications",
-  "settings.aboutKiloCode.settingsTransfer.title": "Instellingen overdragen",
-  "settings.aboutKiloCode.settingsTransfer.description":
-    "Exporteer of importeer uw instellingen om ze tussen VS Code-instanties over te dragen.",
-  "settings.aboutKiloCode.exportSettings": "Exporteren",
-  "settings.aboutKiloCode.importSettings": "Importeren",
-  "settings.aboutKiloCode.importSettings.invalidJson":
-    "Ongeldig JSON-bestand. Selecteer een geldig instellingenbestand.",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "Het bestand bevat geen geldige Kilo-instellingen.",
-  "settings.aboutKiloCode.importSettings.tooLarge":
-    "Het bestand is te groot. Instellingenbestanden moeten kleiner zijn dan 1 MB.",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "Dit bestand is geëxporteerd vanuit een nieuwere versie van Kilo. Sommige instellingen worden mogelijk genegeerd.",
-  "settings.aboutKiloCode.importSettings.success":
-    "Instellingen geïmporteerd. Controleer de bovenstaande wijzigingen en klik vervolgens op Opslaan.",
-
-  "settings.aboutKiloCode.telemetry.title": "Telemetrie",
-  "settings.aboutKiloCode.telemetry.description":
-    'Telemetrie wordt beheerd door de ingebouwde telemetrie-instelling van VS Code. Om dit uit te schakelen, gaat u naar Instellingen > Telemetrie > Telemetrieniveau en stelt u dit in op "off". Herstart VS Code om de wijziging toe te passen.',
-  "settings.aboutKiloCode.telemetry.openSettings": "Telemetrie-instellingen openen",
-
   "settings.agentBehaviour.subtab.agents": "Agenten",
   "settings.agentBehaviour.subtab.mcpServers": "MCP Servers",
   "settings.agentBehaviour.subtab.rules": "Regels",
   "settings.agentBehaviour.subtab.workflows": "Workflows",
   "settings.agentBehaviour.subtab.skills": "Skills",
 
-  "settings.browser.description":
-    "Configureer ingebouwde browserautomatisering mogelijk gemaakt door Playwright. Kilo kan in je sessies door webpagina's navigeren, ermee werken en schermafbeeldingen maken.",
-  "settings.browser.enable.title": "Browserautomatisering inschakelen",
-  "settings.browser.enable.description":
-    "Schakel de sessiegebonden browser van Agent Manager in voor lokale applicaties en openbare HTTPS-pagina's.",
-  "settings.browser.systemChrome.title": "Gebruik Systeem Chrome",
-  "settings.browser.systemChrome.description":
-    "Gebruik je geïnstalleerde Chrome-browser in plaats van een aparte Chromium-instantie.",
-  "settings.browser.headless.title": "Headless Modus",
-  "settings.browser.headless.description": "Draai in headless modus (geen zichtbaar browservenster).",
-
   "settings.language.description": 'Kies de taal voor de Harness Code UI. "Auto" gebruikt je VS Code schermtaal.',
   "settings.language.auto": "Auto (VS Code taal)",
   "settings.language.current": "Huidig:",
 
   "common.add": "Toevoegen",
-
-  "settings.autocomplete.autoTrigger.title": "Automatische inline aanvullingen inschakelen",
-  "settings.autocomplete.autoTrigger.description":
-    "Toon automatisch suggesties voor inline aanvullingen tijdens het typen",
-  "settings.autocomplete.smartKeybinding.title": "Slimme inline taak-sneltoets inschakelen",
-  "settings.autocomplete.smartKeybinding.description":
-    "Gebruik een slimme sneltoets voor het activeren van inline taken",
-  "settings.autocomplete.chatAutocomplete.title": "Chat tekstveld automatisch aanvullen inschakelen",
-  "settings.autocomplete.chatAutocomplete.description":
-    "Toon suggesties voor automatisch aanvullen in het chat tekstveld",
-  "settings.autocomplete.modelsHint":
-    "Om te kiezen welk model wordt gebruikt voor automatisch aanvullen, zie de Modellen-instellingen.",
 
   "settings.notifications.sounds": "Geluiden",
   "settings.notifications.enable.title": "Geluidsmeldingen inschakelen",
@@ -883,25 +774,9 @@ export const dict = {
   "settings.notifications.sound.description":
     "Standaard worden verschillende geluiden gebruikt voor voltooiing, invoer en fouten. Andere keuzes gebruiken voor elke gebeurtenis hetzelfde geluid.",
 
-  "settings.experimental.share.title": "Deelmodus",
-  "settings.experimental.share.description": "Hoe sessiedelen zich gedraagt",
-  "settings.experimental.share.manual": "Handmatig",
-  "settings.experimental.share.auto": "Auto",
-  "settings.experimental.share.disabled": "Uitgeschakeld",
-  "settings.experimental.formatter.title": "Formatter",
-  "settings.experimental.formatter.description": "Schakel de automatische code formatter in",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "Schakel language server protocol integratie in",
-  "settings.experimental.batch.title": "Batch Tool",
-  "settings.experimental.batch.description": "Schakel batching van meerdere tool calls in",
-  "settings.experimental.imageGeneration.title": "Afbeeldingsgeneratie",
-  "settings.experimental.imageGeneration.description": "AI-afbeeldingsgeneratie inschakelen",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Deel een bord tussen een hoofdsessie en de subagenten die haar taken uitvoeren, inclusief geneste subagenten. Gebruik het voor parallelle oplossingspogingen of werkzaamheden die elkaar aanvullen, niet voor elke taak.",
-  "settings.experimental.imageGenerationModel.title": "Afbeeldingsmodel",
-  "settings.experimental.imageGenerationModel.description": "Afbeeldingsgeneratiemodel",
-  "settings.experimental.imageGenerationModel.placeholder": "Standaard (Auto Router)",
 
   "settings.models.speechToTextModel.customDescription":
     "Model-ID die naar uw eigen transcriptie-eindpunt wordt gestuurd, bijvoorbeeld whisper-1.",
@@ -920,46 +795,6 @@ export const dict = {
     "Spraakinvoer is niet beschikbaar in externe vensters. Open Kilo in een lokaal venster om de microfoon te gebruiken.",
   "settings.models.speechToTextModel.title": "Spraak-naar-tekst-model",
   "settings.models.speechToTextModel.description": "Kies het Kilo Gateway-transcriptiemodel voor spraakinvoer.",
-  "settings.experimental.nativeNotebookTools.title": "Native notebooktools",
-  "settings.experimental.nativeNotebookTools.description":
-    "Experimentele tools inschakelen voor het lezen, bewerken en uitvoeren van VS Code-notebooks",
-  "settings.experimental.continueOnDeny.title": "Doorgaan bij weigering",
-  "settings.experimental.continueOnDeny.description":
-    "Ga door met de agent loop wanneer een toestemming wordt geweigerd",
-  "settings.sandboxing.title": "Sandbox",
-  "settings.sandboxing.network.title": "Netwerktoegang beperken",
-  "settings.sandboxing.network.description":
-    "Blokkeer directe uitgaande toegang vanuit opdrachten die door het model zijn geïnitieerd en HTTP-hulpprogramma's. Lokale en externe MCP-hulpprogramma's zijn niet beschikbaar zolang deze beperking actief is. Verkeer van providers en hooks van vertrouwde plug-ins vallen buiten deze beperking.",
-
-  "settings.sandboxing.allowedHosts.title": "Toegestane netwerkbestemmingen",
-  "settings.sandboxing.allowedHosts.description":
-    "DNS-host- en poortbestemmingen voor HTTP- en HTTPS-proxyverkeer in een sandbox. GitHub CLI en HTTPS Git hebben doorgaans github.com:443 en api.github.com:443 nodig.",
-  "settings.sandboxing.writablePaths.title": "Extra schrijfbare paden",
-  "settings.sandboxing.writablePaths.description":
-    "Extra bestandssysteempaden waar de sandbox schrijftoestemming voor geeft (bijv. /tmp, /var/log). Deze worden samengevoegd met de standaard schrijfbare paden wanneer de sandbox actief is.",
-  "settings.experimental.multiProject.title": "Multi-project Agent Manager",
-  "settings.experimental.claudeMigration.title": "Claude Code-migratie",
-  "settings.experimental.claudeMigration.description":
-    "Importeer ondersteunde globale CLAUDE.md-instructies, eenvoudige vaardigheden en uitgeschakelde MCP-definities één keer. Originele Claude-bestanden blijven ongewijzigd; herstart de backend na inschakelen.",
-  "settings.experimental.multiProject.description":
-    "Schakel het beheren van sessies en worktrees over meerdere repositories in Agent Manager in. De huidige workspace-repository is altijd het standaardproject.",
-  "settings.experimental.mcpTimeout.title": "MCP Timeout (ms)",
-  "settings.experimental.mcpTimeout.description": "Timeout voor MCP-serververzoeken in milliseconden",
-  "settings.experimental.remote.title": "Remote-bediening",
-  "settings.experimental.remote.description":
-    "Schakel Remote-bediening van sessies in via Kilo Cloud. Dit heeft ook invloed op CLI's op deze machine.",
-  "settings.experimental.remote.current": "Huidige status:",
-  "settings.experimental.remote.startup": "Automatisch inschakelen bij opstarten:",
-  "settings.experimental.remote.active": "Actief",
-  "settings.experimental.remote.inactive": "Inactief",
-  "settings.experimental.remote.hint": "Gebruik /remote in de chat om te schakelen",
-  "settings.experimental.toolToggles": "Tool Schakelaars",
-  "settings.experimental.codeMode.title": "Programmatische toolaanroepen",
-  "settings.experimental.codeMode.description":
-    "Leidt MCP-toolaanroepen via een afgeschermde JavaScript-runtime met on-demand tooldetectie, in plaats van elke MCP-tool direct beschikbaar te stellen. Bespaart context wanneer veel MCP-tools zijn verbonden.",
-  "settings.sandboxing.enabled.title": "Sandbox",
-  "settings.sandboxing.enabled.description":
-    "Shell-opdrachten van de agent uitvoeren in een sandbox op besturingssysteemniveau die schrijfbewerkingen beperkt tot de project- en Kilo-statusmappen",
 
   "settings.agentBehaviour.defaultAgent.title": "Standaard Agent",
   "settings.agentBehaviour.defaultAgent.description": "Agent om te gebruiken wanneer er geen is opgegeven",
@@ -1091,83 +926,15 @@ export const dict = {
   "settings.autoApprove.tool.doom_loop":
     "Voorkom herhaalde identieke acties. Geactiveerd wanneer dezelfde tool call herhaald wordt met identieke invoer.",
 
-  "settings.checkpoints.enable.title": "Snapshots inschakelen",
-  "settings.checkpoints.enable.description":
-    "Maak checkpoints aan voor het bewerken van bestanden zodat je eerdere staten kunt herstellen",
-  "settings.autoCleanup.enable.title": "Automatische sessieopschoning inschakelen",
-  "settings.autoCleanup.enable.description":
-    "Verwijdert oude sessiegeschiedenis automatisch na een vast aantal dagen, in alle projecten en alle Kilo-clients op deze machine, niet alleen in dit venster. Actieve sessies en sessies met een recente fork worden nooit verwijderd. Verwijderen is definitief.",
-  "settings.autoCleanup.defaultRetention.title": "Sessies bewaren (dagen)",
-  "settings.autoCleanup.defaultRetention.description":
-    "Hoe lang sessiegeschiedenis wordt bewaard voordat automatische opschoning deze verwijdert.",
-  "settings.autoCleanup.lastRun.title": "Laatste opschoning",
-  "settings.autoCleanup.lastRun.never": "Nooit uitgevoerd",
-  "settings.autoCleanup.result":
-    "{{date}}: {{deleted}} van {{scanned}} sessies verwijderd ({{active}} actief overgeslagen, {{failed}} mislukt) in {{seconds}}s",
-  "settings.autoCleanup.starting": "Sessieopschoning wordt gestart...",
-  "settings.autoCleanup.error.status":
-    "De status van de sessieopschoning is tijdelijk niet beschikbaar. Opnieuw proberen...",
-  "settings.autoCleanup.error.timeout": "Wachten op de opschoningsstatus. De backend doet er langer over dan verwacht.",
-  "settings.autoCleanup.error.run":
-    "Kon niet bevestigen dat de sessieopschoning is voltooid. Controleer het resultaat van de laatste opschoning voordat je het opnieuw probeert.",
-  "settings.autoCleanup.progress.scanning": "Sessies scannen: {{processed}}/{{total}} verwerkt",
-  "settings.autoCleanup.progress.deleting":
-    "Sessies verwijderen: {{processed}}/{{total}} verwerkt ({{deleted}} verwijderd, {{failed}} mislukt)",
-  "settings.autoCleanup.runNow": "Opschoning nu uitvoeren",
-  "settings.autoCleanup.runNow.confirm":
-    "Verlopen sessies definitief verwijderen in alle projecten en alle Kilo-clients op deze machine?",
-  "settings.autoCleanup.stop": "Opschonen stoppen",
-  "settings.autoCleanup.progress.cancelling": "Sessie-opschoning wordt gestopt...",
-  "settings.autoCleanup.lastRun.cancelled": "afgebroken",
-
-  "settings.context.autoCompaction.title": "Automatische Compactie",
-  "settings.context.autoCompaction.description": "Context automatisch compacteren voordat deze de limiet bereikt",
-  "settings.context.compaction.title": "Compactie",
   "settings.context.compactionModel.title": "Compactiemodel",
   "settings.context.compactionModel.description":
     "Model dat wordt gebruikt voor automatische en handmatige compactie. Laat dit leeg om het chatmodel te gebruiken. Kosten, snelheid en de kwaliteit van de samenvatting hangen af van het model.",
   "settings.context.compactionModel.useChatModel": "Chatmodel gebruiken",
-  "settings.context.compactionModel.hint":
-    "Om te kiezen welk model wordt gebruikt voor compactie, zie de Modellen-instellingen.",
-  "settings.context.compactionLimit.title": "Limiet voor automatisch compacteren",
-  "settings.context.compactionLimit.description":
-    "Compacteer wanneer de context dit percentage van het modelvenster bereikt. Laat leeg om alleen de veiligheidsbuffer te gebruiken.",
-  "settings.context.prune.title": "Oude Uitvoer Opschonen",
-  "settings.context.prune.description": "Verwijder oude tool uitvoer tijdens compactie",
-  "settings.context.watcherPatterns": "File Watcher Negeer Patronen",
-  "settings.context.watcherPatterns.description": "Glob-patronen voor bestanden die de watcher moet negeren",
 
-  "settings.context.memory.title": "Geheugen",
-  "settings.context.memory.project.title": "Projectgeheugen",
-  "settings.context.memory.autoSave.title": "Projectgeheugen automatisch opslaan",
-  "settings.context.memory.autoSave.description":
-    "Sla duurzame projectfeiten automatisch op uit voltooide beurten wanneer geheugen is ingeschakeld.",
-  "settings.context.memory.storage.title": "Storage",
-  "settings.context.memory.status.notLoaded": "Niet geladen",
-  "settings.context.memory.status.disabled": "Uitgeschakeld",
-  "settings.context.memory.status.enabledTokens": "Enabled - ~{{tokens}} stored tokens",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "Enable memory to create project memory files.",
-  "settings.context.memory.inspect": "Inspecteren",
   "chat.memory.project.disabled": "Projectgeheugen uitgeschakeld",
-  "chat.memory.project.empty": "This project doesn't have any memory yet. It will start showing after you use Kilo.",
   "chat.memory.command.failed": "Geheugenopdracht mislukt",
   "chat.memory.updated": "Memory updated",
   "chat.memory.rebuild": "Memory index rebuilt",
-
-  "settings.commitMessage.title": "Commit Message",
-  "settings.commitMessage.override.title": "Aangepaste prompt gebruiken",
-  "settings.commitMessage.override.description":
-    "Overschrijf de standaard prompt voor de commit message. Indien ingeschakeld, vervangt uw aangepaste prompt de ingebouwde prompt voor conventional commits volledig.",
-  "settings.commitMessage.prompt.title": "Aangepaste prompt",
-  "settings.commitMessage.prompt.description":
-    "Systeem prompt die naar de AI wordt gestuurd bij het genereren van commit messages. Dit vervangt de standaard prompt volledig.",
-  "settings.commitMessage.prompt.placeholder":
-    "bijv. Genereer commit messages in het Spaans volgens het conventional commits formaat. Retourneer ALLEEN de commit message.",
-
-  "settings.commitMessage.language.sync": "Synchroniseren met UI taal",
-  "settings.commitMessage.language.description":
-    "Kies welke taal je wilt gebruiken voor AI-gegenereerde commitberichten:",
 
   "settings.display.preview.title": "Voorbeeld",
   "settings.display.presets.title": "Weergavepresets",
@@ -1334,10 +1101,6 @@ export const dict = {
   "notifications.action.close": "Sluiten",
   "notifications.action.tryModel": "Probeer {{model}}",
   "notifications.action.tryModelGeneric": "Probeer model",
-  "settings.indexing.kiloModel.title": "Kilo-model voorinstelling",
-  "settings.indexing.kiloModel.description": "Kies een ondersteund Kilo-hosted embeddings model.",
-  "settings.indexing.kiloSignIn.title": "Kilo-aanmelding vereist",
-  "settings.indexing.kiloSignIn.description": "Log in op Kilo om hosted embeddings te gebruiken.",
   // Missing translations - English fallbacks until translated
   "settings.agentBehaviour.createMode": "Nieuwe modus aanmaken",
   "settings.agentBehaviour.createMode.button": "Aanmaken",
@@ -1420,12 +1183,6 @@ export const dict = {
   "chat.search.close": "Zoeken sluiten",
   "chat.search.invalidRegex": "Ongeldige reguliere expressie",
   "chat.search.noResults": "Geen resultaten",
-  "settings.experimental.browserAutomation.title": "Geïntegreerde browser",
-  "settings.experimental.browserAutomation.description":
-    "Toon voorbeelden van lokale applicaties in Agent Manager en stel de tool browser_open beschikbaar aan Agent Manager-sessies.",
-  "settings.experimental.browserAutomation.systemChrome.title": "Gebruik Systeem Chrome",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "Gebruik de geïnstalleerde Google Chrome voor de geïntegreerde browser. Schakel dit alleen uit als er al een compatibele Playwright Chromium-browser is geïnstalleerd.",
   "chat.search.searchingHistory": "Eerdere berichten doorzoeken…",
   "settings.harness.title": "Harness",
   "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
@@ -1484,4 +1241,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "Subagent reports",
   "settings.harness.human.checklist": "Your checklist (one per line)",
   "settings.harness.human.checklist.hint": "Things the AI cannot judge, such as taste.",
+  "settings.connections.title": "Models and providers",
 }

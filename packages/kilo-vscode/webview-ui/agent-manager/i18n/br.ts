@@ -35,24 +35,6 @@ export const dict = {
   "agentManager.section.worktrees": "WORKTREES",
   "agentManager.section.sessions": "SESSÕES",
   "agentManager.projects": "PROJETOS",
-  "agentManager.settings.title": "Agent Manager",
-  "agentManager.settings.autoBranchNaming.title": "Nomeação automática de branches",
-  "agentManager.settings.autoBranchNaming.description":
-    "Nomeie branches automaticamente quando a conversa descrever uma tarefa clara. Aplica-se a todos os projetos. Branches nomeadas explicitamente e publicadas nunca são renomeadas.",
-  "agentManager.settings.branchPrefix.title": "Prefixo da branch",
-  "agentManager.settings.branchPrefix.description":
-    "Prefixo para branches nomeadas automaticamente em todos os projetos, por exemplo feature/. Não se aplica a nomes explícitos de branches. Deixe vazio para não usar prefixo.",
-  "agentManager.settings.worktreePool.title": "Pré-aquecimento de worktrees",
-  "agentManager.settings.worktreePool.description":
-    "Prepare um worktree pronto em segundo plano para que novas sessões do Agent Manager iniciem mais rápido. Usa espaço em disco extra para um checkout por projeto aberto.",
-  "agentManager.settings.project.title": "Projeto",
-  "agentManager.settings.project.description":
-    "Escolha o repository cujas configurações de worktree você deseja editar.",
-  "agentManager.settings.project.empty": "Nenhum projeto do Agent Manager está disponível.",
-  "agentManager.settings.defaultBaseBranch.description": "O branch usado como ponto de partida para novos worktrees.",
-  "agentManager.settings.setupScript.description": "Execute antes que um agent comece em um novo worktree.",
-  "agentManager.settings.setupScript.create": "Criar script",
-  "agentManager.settings.setupScript.edit": "Editar script",
   "agentManager.project.add": "Adicionar projeto...",
   "agentManager.project.new": "Novo projeto...",
   "agentManager.project.openLocal": "Abrir pasta local...",
@@ -80,7 +62,6 @@ export const dict = {
 
   "agentManager.worktree.settings": "Configurações do Worktree",
   "agentManager.worktree.new": "Novo Worktree",
-  "agentManager.worktree.setupScript": "Script de configuração do Worktree",
   "agentManager.worktree.delete": "Excluir Worktree",
   "agentManager.worktree.confirmDelete": "Excluir?",
   "agentManager.worktree.stale": "Obsoleto",
@@ -89,8 +70,6 @@ export const dict = {
   "agentManager.worktree.doubleClickRename": "Clique duplo para renomear",
   "agentManager.worktree.versions": "{{count}} versões",
   "agentManager.worktree.advancedOptions": "Opções avançadas de Worktree",
-  "agentManager.worktree.defaultBaseBranch": "Branch base padrão",
-  "agentManager.worktree.defaultBaseBranchAuto": "Detecção automática",
   "agentManager.worktree.copyPath": "Copiar Caminho",
   "agentManager.worktree.openInVscode": "Abrir no VS Code",
   "agentManager.worktree.rename": "Renomear",

@@ -36,24 +36,6 @@ export const dict = {
   "agentManager.section.worktrees": "WORKTREES",
   "agentManager.section.sessions": "СЕССИИ",
   "agentManager.projects": "ПРОЕКТЫ",
-  "agentManager.settings.title": "Agent Manager",
-  "agentManager.settings.autoBranchNaming.title": "Автоматическое именование веток",
-  "agentManager.settings.autoBranchNaming.description":
-    "Автоматически именовать ветки, когда в разговоре описана чёткая задача. Применяется ко всем проектам. Ветки с явно заданными именами и опубликованные ветки никогда не переименовываются.",
-  "agentManager.settings.branchPrefix.title": "Префикс ветки",
-  "agentManager.settings.branchPrefix.description":
-    "Префикс автоматически именуемых веток во всех проектах, например feature/. Не применяется к явно заданным именам веток. Оставьте пустым, чтобы не использовать префикс.",
-  "agentManager.settings.worktreePool.title": "Предварительный прогрев worktree",
-  "agentManager.settings.worktreePool.description":
-    "Подготовьте готовый worktree в фоне, чтобы новые сессии Agent Manager запускались быстрее. Использует дополнительное место на диске для одного checkout на каждый открытый проект.",
-  "agentManager.settings.project.title": "Проект",
-  "agentManager.settings.project.description": "Выберите repository, настройки worktree которого хотите изменить.",
-  "agentManager.settings.project.empty": "Нет доступных проектов Agent Manager.",
-  "agentManager.settings.defaultBaseBranch.description":
-    "branch, используемый как отправная точка для новых worktrees.",
-  "agentManager.settings.setupScript.description": "Запустите перед тем, как agent начнёт работу в новом worktree.",
-  "agentManager.settings.setupScript.create": "Создать script",
-  "agentManager.settings.setupScript.edit": "Изменить script",
   "agentManager.project.add": "Добавить проект...",
   "agentManager.project.new": "Новый проект...",
   "agentManager.project.openLocal": "Открыть локальную папку...",
@@ -81,7 +63,6 @@ export const dict = {
 
   "agentManager.worktree.settings": "Настройки Worktree",
   "agentManager.worktree.new": "Новый Worktree",
-  "agentManager.worktree.setupScript": "Скрипт настройки Worktree",
   "agentManager.worktree.delete": "Удалить Worktree",
   "agentManager.worktree.confirmDelete": "Удалить?",
   "agentManager.worktree.stale": "Устаревший",
@@ -90,8 +71,6 @@ export const dict = {
   "agentManager.worktree.doubleClickRename": "Двойной клик для переименования",
   "agentManager.worktree.versions": "{{count}} версий",
   "agentManager.worktree.advancedOptions": "Расширенные настройки Worktree",
-  "agentManager.worktree.defaultBaseBranch": "Базовая ветка по умолчанию",
-  "agentManager.worktree.defaultBaseBranchAuto": "Автоопределение",
   "agentManager.worktree.copyPath": "Копировать путь",
   "agentManager.worktree.openInVscode": "Открыть в VS Code",
   "agentManager.worktree.rename": "Переименовать",

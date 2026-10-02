@@ -15,25 +15,25 @@ export class KiloCodeActionProvider implements vscode.CodeActionProvider {
     const actions: vscode.CodeAction[] = []
 
     const add = new vscode.CodeAction("Add to Harness Code", vscode.CodeActionKind.RefactorRewrite)
-    add.command = { command: "kilo-code.new.addToContext", title: "Add to Harness Code" }
+    add.command = { command: "harness-code.addToContext", title: "Add to Harness Code" }
     actions.push(add)
 
     const hasDiagnostics = context.diagnostics.length > 0
 
     if (hasDiagnostics) {
       const fix = new vscode.CodeAction("Fix with Harness Code", vscode.CodeActionKind.QuickFix)
-      fix.command = { command: "kilo-code.new.fixCode", title: "Fix with Harness Code" }
+      fix.command = { command: "harness-code.fixCode", title: "Fix with Harness Code" }
       fix.isPreferred = true
       actions.push(fix)
     }
 
     if (!hasDiagnostics) {
       const explain = new vscode.CodeAction("Explain with Harness Code", vscode.CodeActionKind.RefactorRewrite)
-      explain.command = { command: "kilo-code.new.explainCode", title: "Explain with Harness Code" }
+      explain.command = { command: "harness-code.explainCode", title: "Explain with Harness Code" }
       actions.push(explain)
 
       const improve = new vscode.CodeAction("Improve with Harness Code", vscode.CodeActionKind.RefactorRewrite)
-      improve.command = { command: "kilo-code.new.improveCode", title: "Improve with Harness Code" }
+      improve.command = { command: "harness-code.improveCode", title: "Improve with Harness Code" }
       actions.push(improve)
     }
 

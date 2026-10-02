@@ -35,11 +35,3 @@ export const ImageModelsProvider: ParentComponent = (props) => {
 
   return <ImageModelsContext.Provider value={{ models }}>{props.children}</ImageModelsContext.Provider>
 }
-
-export function useImageModels(): ImageModelsContextValue {
-  const context = useContext(ImageModelsContext)
-  if (!context) {
-    throw new Error("useImageModels must be used within an ImageModelsProvider")
-  }
-  return context
-}

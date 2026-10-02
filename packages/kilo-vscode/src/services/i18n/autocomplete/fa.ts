@@ -2,7 +2,7 @@
 // Source: src/i18n/locales/en/kilocode.json → "autocomplete" section
 
 export const dict = {
-  "kilocode:autocomplete.statusBar.enabled": "$(kilo-logo) تکمیل خودکار",
+  "kilocode:autocomplete.statusBar.enabled": "$(sparkle) تکمیل خودکار",
   "kilocode:autocomplete.statusBar.snoozed": "به تعویق افتاده",
   "kilocode:autocomplete.statusBar.warning": "$(warning) تکمیل خودکار",
   "kilocode:autocomplete.statusBar.tooltip.basic": "تکمیل خودکار Kilo Code",

@@ -111,7 +111,7 @@ describe("scanServerPort", () => {
 
 describe("cli tree-sitter resources", () => {
   it("resolves resources next to the VS Code bundled CLI", () => {
-    const root = "/Users/test/.vscode/extensions/kilocode.kilo-code-7.2.50-darwin-arm64"
+    const root = "/Users/test/.vscode/extensions/yuta-u-tech.harness-code-7.2.50-darwin-arm64"
     const bin = `${root}/bin/kilo`
 
     expect(treeSitterDirForBinary(bin)).toBe(`${root}/bin/tree-sitter`)
@@ -121,7 +121,7 @@ describe("cli tree-sitter resources", () => {
   })
 
   it("resolves resources next to a Windows packaged CLI", () => {
-    const root = String.raw`C:\Users\test\.vscode\extensions\kilocode.kilo-code-7.2.50-win32-x64`
+    const root = String.raw`C:\Users\test\.vscode\extensions\yuta-u-tech.harness-code-7.2.50-win32-x64`
     const bin = String.raw`${root}\bin\kilo.exe`
 
     expect(treeSitterDirForBinary(bin)).toBe(String.raw`${root}\bin\tree-sitter`)

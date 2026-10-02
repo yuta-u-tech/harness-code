@@ -1,6 +1,5 @@
 import { afterEach, describe, expect, test } from "bun:test"
 import { configFeatures } from "../../src/features"
-import { visible } from "../../webview-ui/src/components/settings/sandboxing"
 
 const features = { indexing: false, sandboxControls: false, backgroundSubagents: false }
 const platform = Object.getOwnPropertyDescriptor(process, "platform")
@@ -13,19 +12,7 @@ afterEach(() => {
   if (platform) Object.defineProperty(process, "platform", platform)
 })
 
-describe("Sandboxing settings visibility", () => {
-  test("depends only on sandbox control availability", () => {
-    expect(visible(features)).toBe(false)
-    expect(visible({ ...features, sandboxControls: true })).toBe(true)
-  })
-
-  test("edits global sandbox config without promoting project policy", async () => {
-    const src = await Bun.file("webview-ui/src/components/settings/SandboxingTab.tsx").text()
-    expect(src).toContain("const { globalConfig, updateGlobalConfig } = useConfig()")
-    expect(src).toContain("allowed_hosts")
-    expect(src).not.toContain("const { config, updateConfig } = useConfig()")
-  })
-
+describe("Sandbox control availability", () => {
   test("shows sandbox controls outside Windows", () => {
     setPlatform("darwin")
     expect(configFeatures().sandboxControls).toBe(true)

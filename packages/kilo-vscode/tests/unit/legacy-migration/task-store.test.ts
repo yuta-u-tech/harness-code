@@ -5,7 +5,7 @@ import { listSessions, resolveSession, scanTaskStore } from "../../../src/legacy
 type Fs = typeof vscode.workspace.fs
 const fs = vscode.workspace.fs as Fs
 const original = { readDirectory: fs.readDirectory, readFile: fs.readFile, stat: fs.stat }
-const dir = "/storage/kilocode.kilo-code/tasks"
+const dir = "/storage/yuta-u-tech.harness-code/tasks"
 const api = (id: string) => `${dir}/${id}/api_conversation_history.json`
 
 describe("task store history scan", () => {

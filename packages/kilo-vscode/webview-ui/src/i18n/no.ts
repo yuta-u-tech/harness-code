@@ -683,23 +683,13 @@ export const dict = {
 
   "settings.agentBehaviour.title": "Agentoppførsel",
   "settings.autoApprove.title": "Automatisk godkjenning",
-  "settings.webTools.title": "Nettverktøy",
-  "settings.webTools.description": "Konfigurer nettsøk og nettleserautomatisering.",
-  "settings.webTools.webSearch.enable": "Aktiver for alle leverandører",
-  "settings.webTools.browserAutomation": "Nettleserautomatisering",
-  "settings.webTools.webSearch.title": "Nettsøk",
-  "settings.webTools.webSearch.description": "Gjør nettsøk tilgjengelig for modeller fra alle leverandører.",
   "settings.checkpoints.title": "Kontrollpunkter",
   "settings.display.title": "Visning",
-  "settings.autocomplete.title": "Autofullfør",
   "settings.autocomplete.model.title": "Autocomplete-modell",
   "settings.autocomplete.model.description": "Velg modellen som brukes for inline kodefullføring",
   "settings.notifications.title": "Varslinger",
-  "settings.context.title": "Kontekst",
 
-  "settings.experimental.title": "Eksperimentelt",
   "settings.language.title": "Språk",
-  "settings.aboutKiloCode.title": "Om Harness Code",
 
   "session.messages.welcome":
     "Harness Code er en AI-kodingsassistent. Be den om å bygge funksjoner, fikse feil eller forklare kodebasen din.",
@@ -761,58 +751,11 @@ export const dict = {
   "time.thisMonth": "Denne måneden",
   "time.older": "Eldre",
 
-  "settings.aboutKiloCode.status.connected": "Tilkoblet",
-  "settings.aboutKiloCode.status.connecting": "Kobler til...",
-  "settings.aboutKiloCode.status.disconnected": "Frakoblet",
-  "settings.aboutKiloCode.status.error": "Feil",
-  "settings.aboutKiloCode.cliServer": "CLI-server",
-  "settings.aboutKiloCode.status.label": "Status:",
-  "settings.aboutKiloCode.port.label": "Port:",
-  "settings.aboutKiloCode.versionInfo": "Versjonsinformasjon",
-  "settings.aboutKiloCode.version.label": "Versjon:",
-  "settings.aboutKiloCode.community": "Fellesskap og støtte",
-  "settings.aboutKiloCode.feedback.prefix": "Hvis du har spørsmål eller tilbakemeldinger, åpne gjerne en issue på",
-  "settings.aboutKiloCode.feedback.or": "eller",
-  "settings.aboutKiloCode.support.prefix": "For fakturerings- eller kontospørsmål, kontakt kundestøtte på",
-  "settings.aboutKiloCode.resetSettings.title": "Tilbakestill innstillinger",
-  "settings.aboutKiloCode.resetSettings.description":
-    "Dette tilbakestiller kun VS Code-utvidelsesspecifikke innstillinger til standardverdiene. Innstillinger som deles med CLI, som modi og regler for automatisk godkjenning, lagres i CLI-konfigurasjonen og vil ikke tilbakestilles.",
-  "settings.aboutKiloCode.resetSettings.button": "Tilbakestill alle innstillinger",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "Reset Read Notifications",
-  "settings.aboutKiloCode.settingsTransfer.title": "Overføring av innstillinger",
-  "settings.aboutKiloCode.settingsTransfer.description":
-    "Eksporter eller importer innstillingene dine for å overføre dem mellom VS Code-instanser.",
-  "settings.aboutKiloCode.exportSettings": "Eksporter",
-  "settings.aboutKiloCode.importSettings": "Importer",
-  "settings.aboutKiloCode.importSettings.invalidJson": "Ugyldig JSON-fil. Vennligst velg en gyldig innstillingsfil.",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "Filen inneholder ikke gyldige Kilo-innstillinger.",
-  "settings.aboutKiloCode.importSettings.tooLarge": "Filen er for stor. Innstillingsfiler må være under 1 MB.",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "Denne filen ble eksportert fra en nyere versjon av Kilo. Noen innstillinger kan bli ignorert.",
-  "settings.aboutKiloCode.importSettings.success":
-    "Innstillinger importert. Gjennomgå endringene ovenfor, og klikk deretter på Lagre.",
-
-  "settings.aboutKiloCode.telemetry.title": "Telemetri",
-  "settings.aboutKiloCode.telemetry.description":
-    'Telemetri styres av den innebygde telemetri-innstillingen i VS Code. For å deaktivere den, gå til Innstillinger > Telemetry > Telemetry Level og sett den til "off". Start VS Code på nytt for å ta i bruk endringen.',
-  "settings.aboutKiloCode.telemetry.openSettings": "Åpne innstillinger for telemetri",
-
   "settings.agentBehaviour.subtab.agents": "Agenter",
   "settings.agentBehaviour.subtab.mcpServers": "MCP-servere",
   "settings.agentBehaviour.subtab.rules": "Regler",
   "settings.agentBehaviour.subtab.workflows": "Arbeidsflyter",
   "settings.agentBehaviour.subtab.skills": "Ferdigheter",
-
-  "settings.browser.description":
-    "Konfigurer innebygd nettleserautomatisering drevet av Playwright. Kilo kan navigere, samhandle med og ta skjermbilder av nettsider i øktene dine.",
-  "settings.browser.enable.title": "Aktiver nettleserautomatisering",
-  "settings.browser.enable.description":
-    "Aktiver den øktspesifikke nettleseren i Agent Manager for lokale applikasjoner og offentlige HTTPS-sider.",
-  "settings.browser.systemChrome.title": "Bruk system-Chrome",
-  "settings.browser.systemChrome.description":
-    "Bruk den installerte Chrome-nettleseren i stedet for en separat Chromium-instans.",
-  "settings.browser.headless.title": "Headless-modus",
-  "settings.browser.headless.description": "Kjør i headless-modus (uten synlig nettleservindu).",
 
   "settings.language.description": 'Velg språket for Harness Code-grensesnittet. "Auto" bruker VS Codes visningsspråk.',
   "settings.language.auto": "Auto (VS Code-språk)",
@@ -820,14 +763,6 @@ export const dict = {
 
   "common.add": "Legg til",
 
-  "settings.autocomplete.autoTrigger.title": "Aktiver automatisk innebygd fullføring",
-  "settings.autocomplete.autoTrigger.description": "Vis automatisk innebygde fullføringsforslag ved skriving",
-  "settings.autocomplete.smartKeybinding.title": "Aktiver smart innebygd oppgavetastbinding",
-  "settings.autocomplete.smartKeybinding.description": "Bruk en smart tastbinding for å utløse innebygde oppgaver",
-  "settings.autocomplete.chatAutocomplete.title": "Aktiver chat-autofullføring",
-  "settings.autocomplete.chatAutocomplete.description": "Vis autofullføringsforslag i chatfeltet",
-  "settings.autocomplete.modelsHint":
-    "For å velge hvilken modell som brukes til autofullføring, se Modellinnstillinger.",
   "settings.notifications.sounds": "Lyder",
   "settings.notifications.enable.title": "Aktiver lydvarsler",
   "settings.notifications.enable.description":
@@ -847,25 +782,9 @@ export const dict = {
   "settings.notifications.sound.system": "System",
   "settings.notifications.sound.description":
     "Standardvalget bruker forskjellige lyder for fullføring, innspill og feil. Andre valg bruker én lyd for alle hendelser.",
-  "settings.experimental.share.title": "Delingsmodus",
-  "settings.experimental.share.description": "Oppførsel for sesjonsdeling",
-  "settings.experimental.share.manual": "Manuell",
-  "settings.experimental.share.auto": "Automatisk",
-  "settings.experimental.share.disabled": "Deaktivert",
-  "settings.experimental.formatter.title": "Formater",
-  "settings.experimental.formatter.description": "Aktiver automatisk kodeformatering",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "Aktiver språkserverprotokoll-integrasjon",
-  "settings.experimental.batch.title": "Batchverktøy",
-  "settings.experimental.batch.description": "Aktiver batchbehandling av verktøykall",
-  "settings.experimental.imageGeneration.title": "Bildegenerering",
-  "settings.experimental.imageGeneration.description": "Aktiver AI-bildegenerering",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Del en tavle mellom en hovedøkt og underagentene som utfører oppgavene dens, inkludert nestede underagenter. Bruk den til parallelle løsningsforsøk eller arbeidsoppgaver som utfyller hverandre, ikke til alle oppgaver.",
-  "settings.experimental.imageGenerationModel.title": "Bildemodell",
-  "settings.experimental.imageGenerationModel.description": "Bildegenereringsmodell",
-  "settings.experimental.imageGenerationModel.placeholder": "Standard (Auto Router)",
 
   "settings.models.speechToTextModel.customDescription":
     "Modell-ID som sendes til ditt eget transkripsjonsendepunkt, for eksempel whisper-1.",
@@ -884,78 +803,7 @@ export const dict = {
     "Taleinndata er ikke tilgjengelig i eksterne vinduer. Åpne Kilo i et lokalt vindu for å bruke mikrofonen.",
   "settings.models.speechToTextModel.title": "Tale-til-tekst-modell",
   "settings.models.speechToTextModel.description": "Velg Kilo Gateway-transkripsjonsmodellen for taleinndata.",
-  "settings.experimental.nativeNotebookTools.title": "Innebygde notatbok-verktøy",
-  "settings.experimental.nativeNotebookTools.description":
-    "Aktiver eksperimentelle verktøy for å lese, redigere og kjøre VS Code-notatbøker",
-  "settings.experimental.continueOnDeny.title": "Fortsett ved avvisning",
-  "settings.experimental.continueOnDeny.description": "Fortsett agentløkken når en tillatelse avvises",
-  "settings.sandboxing.title": "Kjøring i sandkasse",
-  "settings.sandboxing.network.title": "Begrens nettverkstilgang",
-  "settings.sandboxing.network.description":
-    "Blokker direkte utgående tilgang fra kommandoer initiert av modellen og HTTP-verktøy. Lokale og eksterne MCP-verktøy er utilgjengelige mens denne begrensningen er aktiv. Leverandørtrafikk og pålitelige plugin-kroker omfattes ikke av denne begrensningen.",
 
-  "settings.sandboxing.allowedHosts.title": "Tillatte nettverksmål",
-  "settings.sandboxing.allowedHosts.description":
-    "DNS-verts- og portdestinasjoner for HTTP- og HTTPS-proxytrafikk i sandkassen. GitHub CLI og HTTPS Git trenger vanligvis github.com:443 og api.github.com:443.",
-  "settings.sandboxing.writablePaths.title": "Ytterligere skrivbare baner",
-  "settings.sandboxing.writablePaths.description":
-    "Ytterligere filsystembaner som sandkassen tillater skriving til (f.eks. /tmp, /var/log). Disse flettes med de standardskrivbare banene når sandkassen er aktiv.",
-  "settings.experimental.multiProject.title": "Multi-prosjekt Agent Manager",
-  "settings.experimental.claudeMigration.title": "Claude Code-migrering",
-  "settings.experimental.claudeMigration.description":
-    "Importer støttede globale CLAUDE.md-instruksjoner, enkle ferdigheter og deaktiverte MCP-definisjoner én gang. Originale Claude-filer forblir uendret; start backend på nytt etter aktivering.",
-  "settings.experimental.multiProject.description":
-    "Aktiver administrering av økter og worktrees på tvers av flere repositories i Agent Manager. Det nåværende workspace-repositoryet er alltid standardprosjektet.",
-  "settings.experimental.mcpTimeout.title": "MCP-tidsavbrudd (ms)",
-  "settings.experimental.mcpTimeout.description": "Tidsavbrudd for MCP-serverforespørsler i millisekunder",
-  "settings.experimental.remote.title": "Remote-kontroll",
-  "settings.experimental.remote.description":
-    "Aktiver Remote-kontroll av økter via Kilo Cloud. Dette vil også påvirke CLI-er på denne maskinen.",
-  "settings.experimental.remote.current": "Nåværende status:",
-  "settings.experimental.remote.startup": "Aktiver automatisk ved oppstart:",
-  "settings.experimental.remote.active": "Aktiv",
-  "settings.experimental.remote.inactive": "Inaktiv",
-  "settings.experimental.remote.hint": "Bruk /remote i chatten for å veksle",
-  "settings.experimental.toolToggles": "Verktøybrytere",
-  "settings.indexing.title": "Indeksering",
-  "settings.indexing.enable.title": "Aktiver indeksering",
-  "settings.indexing.enable.description": "Slå semantisk kodebaseindeksering på eller av.",
-  "settings.indexing.showButton.title": "Vis knappen når indeksering er slått av",
-  "settings.indexing.showButton.description":
-    "Vis indekseringsknappen under ledeteksten mens indeksering er slått av. Hvis knappen er skjult, åpner du Innstillinger > Indeksering for å aktivere indeksering.",
-  "settings.indexing.globalEnable.title": "Aktiver globalt",
-  "settings.indexing.globalEnable.description": "Aktiver indeksering for hvert arbeidsområde.",
-  "settings.indexing.projectEnable.title": "Aktiver for dette prosjektet",
-  "settings.indexing.projectEnable.description":
-    "Aktiver indeksering for dette arbeidsområdet når global indeksering er slått av.",
-  "settings.indexing.provider.title": "Embedding-leverandør",
-  "settings.indexing.provider.description": "Velg leverandøren som brukes til å generere embeddings for semantisk søk.",
-  "settings.indexing.kiloModel.title": "Kilo-modellforhåndsvalg",
-  "settings.indexing.kiloModel.description": "Velg en støttet Kilo-hostet embedding-modell.",
-  "settings.indexing.kiloSignIn.title": "Kilo-pålogging kreves",
-  "settings.indexing.kiloSignIn.description": "Logg inn på Kilo for å bruke hostede embeddings.",
-  "settings.indexing.model.title": "Embedding-modell",
-  "settings.indexing.model.description": "Overstyr standard embedding-modell for den valgte leverandøren.",
-  "settings.indexing.vectorStore.title": "Vektordatabase",
-  "settings.indexing.vectorStore.description": "Velg hvor indekserte embeddings lagres.",
-  "settings.indexing.lancedbDirectory.title": "LanceDB-mappe",
-  "settings.indexing.lancedbDirectory.description": "Valgfri mappe for den lokale LanceDB-lagringen.",
-  "settings.indexing.lancedbDirectory.placeholder": "La stå tom for standard",
-  "settings.indexing.qdrantUrl.title": "Qdrant URL",
-  "settings.indexing.qdrantUrl.description": "Server-URL for Qdrant-instansen.",
-  "settings.indexing.qdrantApiKey.title": "Qdrant API-nøkkel",
-  "settings.indexing.qdrantApiKey.description": "Valgfri API-nøkkel for Qdrant-instansen.",
-  "settings.indexing.qdrantApiKey.placeholder": "Valgfri API-nøkkel",
-  "settings.indexing.fileExtensions.title": "Filutvidelser",
-  "settings.indexing.fileExtensions.description":
-    "Kommaseparert tillatelsesliste. La stå tomt for å bruke de innebygde standardinnstillingene.",
-  "settings.indexing.fileExtensions.invalid": "Ugyldig filutvidelse: {{extension}}",
-  "settings.indexing.dimension.title": "Vektordimensjon",
-  "settings.indexing.dimension.description": "La stå tom for automatisk å oppdage embedding-dimensjonen fra modellen.",
-  "settings.indexing.dimension.placeholder": "Auto",
-  "settings.indexing.status.title": "Status",
-  "settings.indexing.tuning.description": "Avansert søke- og batch-parameter.",
-  "settings.indexing.providerField.description": "Leverandørspesifikk tilkoblingsinnstilling.",
   "settings.agentBehaviour.defaultAgent.title": "Standardagent",
   "settings.agentBehaviour.defaultAgent.description": "Agent å bruke når ingen er angitt",
   "settings.agentBehaviour.availableAgents": "Tilgjengelige agenter",
@@ -1077,12 +925,6 @@ export const dict = {
   "settings.agentBehaviour.workflows.model": "modell",
   "settings.agentBehaviour.workflows.variant": "variant",
   "settings.agentBehaviour.workflows.modelDescription": "Global modelloverstyring",
-  "settings.experimental.codeMode.title": "Programmatiske verktøykall",
-  "settings.experimental.codeMode.description":
-    "Ruter MCP-verktøykall gjennom en avgrenset JavaScript-runtime med behovsstyrt verktøyoppdagelse i stedet for å eksponere hvert MCP-verktøy direkte. Sparer kontekst når mange MCP-verktøy er tilkoblet.",
-  "settings.sandboxing.enabled.title": "Sandbox",
-  "settings.sandboxing.enabled.description":
-    "Kjør shell-kommandoer for agenten i en sandbox på operativsystemnivå som begrenser skriving til prosjekt- og Kilo-tilstandsmapper",
 
   "settings.autoApprove.description":
     "Definer hvordan verktøy kan kjøre. De fleste verktøy har Tillat som standard. doom_loop og external_directory har Spør som standard.",
@@ -1121,79 +963,15 @@ export const dict = {
     "Få tilgang til filer utenfor arbeidsområdet. Utløses ved tilgang til filer utenfor gjeldende prosjektkatalog.",
   "settings.autoApprove.tool.doom_loop":
     "Forhindre gjentatte identiske handlinger. Utløses når det samme verktøyanropet gjentas med identisk inndata.",
-  "settings.checkpoints.enable.title": "Aktiver øyeblikksbilder",
-  "settings.checkpoints.enable.description": "Opprett kontrollpunkter før filredigeringer",
-  "settings.autoCleanup.enable.title": "Aktiver automatisk opprydding av økter",
-  "settings.autoCleanup.enable.description":
-    "Sletter gammel økthistorikk automatisk etter et fast antall dager, på tvers av alle prosjekter og alle Kilo-klienter på denne maskinen, ikke bare i dette vinduet. Kjørende økter og økter med nylig forgrening slettes aldri. Sletting er permanent.",
-  "settings.autoCleanup.defaultRetention.title": "Behold økter i (dager)",
-  "settings.autoCleanup.defaultRetention.description":
-    "Hvor lenge økthistorikk beholdes før automatisk opprydding sletter den.",
-  "settings.autoCleanup.lastRun.title": "Siste opprydding",
-  "settings.autoCleanup.lastRun.never": "Aldri kjørt",
-  "settings.autoCleanup.result":
-    "{{date}}: slettet {{deleted}} av {{scanned}} økter ({{active}} aktive hoppet over, {{failed}} feilet) på {{seconds}}s",
-  "settings.autoCleanup.starting": "Starter opprydding av økter...",
-  "settings.autoCleanup.error.status": "Status for opprydding av økter er midlertidig utilgjengelig. Prøver igjen...",
-  "settings.autoCleanup.error.timeout": "Venter på oppryddingsstatus. Bakenden bruker lengre tid enn forventet.",
-  "settings.autoCleanup.error.run":
-    "Kunne ikke bekrefte at oppryddingen av økter er fullført. Kontroller resultatet av siste opprydding før du prøver igjen.",
-  "settings.autoCleanup.progress.scanning": "Skanner økter: {{processed}}/{{total}} behandlet",
-  "settings.autoCleanup.progress.deleting":
-    "Sletter økter: {{processed}}/{{total}} behandlet ({{deleted}} slettet, {{failed}} feilet)",
-  "settings.autoCleanup.runNow": "Kjør opprydding nå",
-  "settings.autoCleanup.runNow.confirm":
-    "Slett utløpte økter permanent på tvers av alle prosjekter og alle Kilo-klienter på denne maskinen?",
-  "settings.autoCleanup.stop": "Stopp opprydding",
-  "settings.autoCleanup.progress.cancelling": "Stopper opprydding av økter...",
-  "settings.autoCleanup.lastRun.cancelled": "avbrutt",
-  "settings.context.autoCompaction.title": "Automatisk komprimering",
-  "settings.context.autoCompaction.description": "Komprimer automatisk kontekst før den når grensen",
-  "settings.context.compaction.title": "Komprimering",
   "settings.context.compactionModel.title": "Komprimeringsmodell",
   "settings.context.compactionModel.description":
     "Modell som brukes for automatisk og manuell komprimering. La feltet stå tomt for å bruke chatmodellen. Kostnad, hastighet og kvaliteten på sammendraget avhenger av modellen.",
   "settings.context.compactionModel.useChatModel": "Bruk chatmodell",
-  "settings.context.compactionModel.hint":
-    "For å velge hvilken modell som brukes til komprimering, se Modellinnstillinger.",
-  "settings.context.compactionLimit.title": "Grense for automatisk komprimering",
-  "settings.context.compactionLimit.description":
-    "Komprimer når konteksten når denne prosentandelen av modellvinduet. La stå tomt for å bare bruke sikkerhetsbufferen.",
-  "settings.context.prune.title": "Fjern gamle utdata",
-  "settings.context.prune.description": "Fjern gamle verktøyutdata under komprimering",
-  "settings.context.watcherPatterns": "Filvakt-ignormønstre",
-  "settings.context.watcherPatterns.description": "Glob-mønstre for filer som vakten skal ignorere",
 
-  "settings.context.memory.title": "Minne",
-  "settings.context.memory.project.title": "Prosjektminne",
-  "settings.context.memory.autoSave.title": "Lagre prosjektminne automatisk",
-  "settings.context.memory.autoSave.description":
-    "Lagrer varige prosjektfakta automatisk fra fullførte turer når minne er aktivert.",
-  "settings.context.memory.storage.title": "Storage",
-  "settings.context.memory.status.notLoaded": "Ikke lastet",
-  "settings.context.memory.status.disabled": "Deaktivert",
-  "settings.context.memory.status.enabledTokens": "Enabled - ~{{tokens}} stored tokens",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "Enable memory to create project memory files.",
-  "settings.context.memory.inspect": "Inspiser",
   "chat.memory.project.disabled": "Prosjektminne deaktivert",
-  "chat.memory.project.empty": "This project doesn't have any memory yet. It will start showing after you use Kilo.",
   "chat.memory.command.failed": "Minnekommando mislyktes",
   "chat.memory.updated": "Memory updated",
   "chat.memory.rebuild": "Memory index rebuilt",
-
-  "settings.commitMessage.title": "Commit Message",
-  "settings.commitMessage.override.title": "Bruk egendefinert prompt",
-  "settings.commitMessage.override.description":
-    "Overstyr standard prompt for commit message. Når aktivert, erstatter din egendefinerte prompt fullstendig den innebygde prompten for conventional commits.",
-  "settings.commitMessage.prompt.title": "Egendefinert prompt",
-  "settings.commitMessage.prompt.description":
-    "System prompt sendt til AI-en ved generering av commit messages. Dette erstatter standard prompt fullstendig.",
-  "settings.commitMessage.prompt.placeholder":
-    "f.eks. Generer commit messages på spansk i henhold til conventional commits-formatet. Returner KUN commit message.",
-
-  "settings.commitMessage.language.sync": "Sync med UI-språk",
-  "settings.commitMessage.language.description": "Velg hvilket språk du skal bruke for AI-genererte commit-meldinger:",
 
   "settings.display.preview.title": "Forhåndsvisning",
   "settings.display.presets.title": "Visningsforhåndsinnstillinger",
@@ -1387,12 +1165,6 @@ export const dict = {
   "chat.search.close": "Lukk søk",
   "chat.search.invalidRegex": "Ugyldig regulært uttrykk",
   "chat.search.noResults": "Ingen resultater",
-  "settings.experimental.browserAutomation.title": "Integrert nettleser",
-  "settings.experimental.browserAutomation.description":
-    "Vis forhåndsvisninger av lokale applikasjoner i Agent Manager, og gjør verktøyet browser_open tilgjengelig for Agent Manager-økter.",
-  "settings.experimental.browserAutomation.systemChrome.title": "Bruk system-Chrome",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "Bruk den installerte Google Chrome for den integrerte nettleseren. Deaktiver bare når en kompatibel Playwright Chromium-nettleser allerede er installert.",
   "chat.search.searchingHistory": "Søker i tidligere meldinger…",
   "settings.harness.title": "Harness",
   "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
@@ -1451,4 +1223,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "Subagent reports",
   "settings.harness.human.checklist": "Your checklist (one per line)",
   "settings.harness.human.checklist.hint": "Things the AI cannot judge, such as taste.",
+  "settings.connections.title": "Models and providers",
 } satisfies Partial<Record<Keys, string>>

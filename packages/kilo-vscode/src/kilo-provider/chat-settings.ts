@@ -3,7 +3,7 @@ import * as vscode from "vscode"
 type Post = (msg: unknown) => void
 
 export function buildChatSettingsMessage() {
-  const config = vscode.workspace.getConfiguration("kilo-code.new.chat")
+  const config = vscode.workspace.getConfiguration("harness-code.chat")
   return {
     type: "chatSettingsLoaded" as const,
     settings: {
@@ -13,7 +13,7 @@ export function buildChatSettingsMessage() {
 }
 
 export function buildTimelineSettingMessage() {
-  const config = vscode.workspace.getConfiguration("kilo-code.new")
+  const config = vscode.workspace.getConfiguration("harness-code")
   return {
     type: "timelineSettingLoaded" as const,
     visible: config.get<boolean>("showTaskTimeline", true),
@@ -22,10 +22,10 @@ export function buildTimelineSettingMessage() {
 
 export function watchChatConfig(post: Post): vscode.Disposable {
   return vscode.workspace.onDidChangeConfiguration((event) => {
-    if (event.affectsConfiguration("kilo-code.new.chat")) {
+    if (event.affectsConfiguration("harness-code.chat")) {
       post(buildChatSettingsMessage())
     }
-    if (event.affectsConfiguration("kilo-code.new.showTaskTimeline")) {
+    if (event.affectsConfiguration("harness-code.showTaskTimeline")) {
       post(buildTimelineSettingMessage())
     }
   })

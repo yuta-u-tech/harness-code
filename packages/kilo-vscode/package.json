@@ -1,14 +1,14 @@
 {
-  "name": "kilo-code",
+  "name": "harness-code",
   "displayName": "Harness Code: AI Coding Agent with Step-by-Step Harness",
-  "description": "Open source AI coding agent. Define a step-by-step harness of agents, command checks and AI-scored review, choose a model for each step, and approve the result yourself. Based on Harness Code.",
+  "description": "Open source AI coding agent. Define a step-by-step harness of agents, command checks and AI-scored review, choose a model for each step, and approve the result yourself.",
   "version": "7.8.3",
-  "icon": "assets/icons/logo-outline-black.png",
+  "icon": "assets/icons/harness-logo.png",
   "galleryBanner": {
     "color": "#FFFFFF",
     "theme": "light"
   },
-  "publisher": "kilocode",
+  "publisher": "yuta-u-tech",
   "repository": {
     "type": "git",
     "url": "https://github.com/yuta-u-tech/kilocode.git",
@@ -80,582 +80,572 @@
         }
       }
     ],
-    "icons": {
-      "kilo-logo": {
-        "description": "Harness Code logo",
-        "default": {
-          "fontPath": "assets/icons/kilo-icon-font.woff2",
-          "fontCharacter": "\\F101"
-        }
-      }
-    },
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "kilo-code-ActivityBar",
+          "id": "harness-code-ActivityBar",
           "title": "Harness Code",
-          "icon": "assets/icons/kilo-light.png",
-          "darkIcon": "assets/icons/kilo-dark.png"
+          "icon": "assets/icons/harness-light.svg"
         }
       ]
     },
     "views": {
-      "kilo-code-ActivityBar": [
+      "harness-code-ActivityBar": [
         {
           "type": "webview",
-          "id": "kilo-code.SidebarProvider",
+          "id": "harness-code.SidebarProvider",
           "name": "Harness Code"
         }
       ]
     },
     "commands": [
       {
-        "command": "kilo-code.new.plusButtonClicked",
+        "command": "harness-code.plusButtonClicked",
         "title": "New Task",
         "category": "Harness Code",
         "icon": "$(add)"
       },
       {
-        "command": "kilo-code.new.closeTask",
+        "command": "harness-code.closeTask",
         "title": "Close Task",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.closeAllTasks",
+        "command": "harness-code.closeAllTasks",
         "title": "Close All Tasks",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManagerOpen",
+        "command": "harness-code.agentManagerOpen",
         "title": "Agent Manager",
         "category": "Harness Code",
         "icon": "$(organization)"
       },
       {
-        "command": "kilo-code.new.marketplaceButtonClicked",
+        "command": "harness-code.marketplaceButtonClicked",
         "title": "Marketplace",
         "category": "Harness Code",
         "icon": "$(extensions)"
       },
       {
-        "command": "kilo-code.new.historyButtonClicked",
+        "command": "harness-code.historyButtonClicked",
         "title": "History",
         "category": "Harness Code",
         "icon": "$(history)"
       },
       {
-        "command": "kilo-code.new.profileButtonClicked",
+        "command": "harness-code.profileButtonClicked",
         "title": "Profile",
         "category": "Harness Code",
         "icon": "$(account)"
       },
       {
-        "command": "kilo-code.new.settingsButtonClicked",
+        "command": "harness-code.settingsButtonClicked",
         "title": "Settings",
         "category": "Harness Code",
         "icon": "$(settings-gear)"
       },
       {
-        "command": "kilo-code.new.sidebarTitle.plusButtonClicked",
+        "command": "harness-code.sidebarTitle.plusButtonClicked",
         "title": "New Task",
         "icon": "$(add)"
       },
       {
-        "command": "kilo-code.new.sidebarTitle.agentManagerOpen",
+        "command": "harness-code.sidebarTitle.agentManagerOpen",
         "title": "Agent Manager",
         "icon": "$(organization)"
       },
       {
-        "command": "kilo-code.new.sidebarTitle.marketplaceButtonClicked",
+        "command": "harness-code.sidebarTitle.marketplaceButtonClicked",
         "title": "Marketplace",
         "icon": "$(extensions)"
       },
       {
-        "command": "kilo-code.new.sidebarTitle.historyButtonClicked",
+        "command": "harness-code.sidebarTitle.historyButtonClicked",
         "title": "History",
         "icon": "$(history)"
       },
       {
-        "command": "kilo-code.new.sidebarTitle.profileButtonClicked",
+        "command": "harness-code.sidebarTitle.profileButtonClicked",
         "title": "Profile",
         "icon": "$(account)"
       },
       {
-        "command": "kilo-code.new.sidebarTitle.settingsButtonClicked",
+        "command": "harness-code.sidebarTitle.settingsButtonClicked",
         "title": "Settings",
         "icon": "$(settings-gear)"
       },
       {
-        "command": "kilo-code.new.openInTab",
+        "command": "harness-code.openInTab",
         "title": "Open in Tab",
         "category": "Harness Code",
         "icon": {
-          "light": "assets/icons/kilo-light.svg",
-          "dark": "assets/icons/kilo-dark.svg"
+          "light": "assets/icons/harness-light.svg",
+          "dark": "assets/icons/harness-dark.svg"
         }
       },
       {
-        "command": "kilo-code.new.showChanges",
+        "command": "harness-code.showChanges",
         "title": "Show Changes",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.showMemory",
+        "command": "harness-code.showMemory",
         "title": "Show Project Memory",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.toggleMemory",
+        "command": "harness-code.toggleMemory",
         "title": "Toggle Project Memory",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.toggleCaffeination",
+        "command": "harness-code.toggleCaffeination",
         "title": "Toggle Keep Awake",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.autocomplete.generateSuggestions",
+        "command": "harness-code.autocomplete.generateSuggestions",
         "title": "Generate Suggested Edits",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.autocomplete.cancelSuggestions",
+        "command": "harness-code.autocomplete.cancelSuggestions",
         "title": "Cancel Suggested Edits",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.autocomplete.nextEdit.acceptOrJump",
+        "command": "harness-code.autocomplete.nextEdit.acceptOrJump",
         "title": "Next Edit: Accept or Jump to Suggested Edit",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.autocomplete.nextEdit.dismiss",
+        "command": "harness-code.autocomplete.nextEdit.dismiss",
         "title": "Next Edit: Dismiss Pending Suggestion",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.previousSession",
+        "command": "harness-code.agentManager.previousSession",
         "title": "Agent Manager: Previous Session",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.nextSession",
+        "command": "harness-code.agentManager.nextSession",
         "title": "Agent Manager: Next Session",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.previousTab",
+        "command": "harness-code.agentManager.previousTab",
         "title": "Agent Manager: Previous Tab",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.nextTab",
+        "command": "harness-code.agentManager.nextTab",
         "title": "Agent Manager: Next Tab",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.previousTerminal",
+        "command": "harness-code.agentManager.previousTerminal",
         "title": "Agent Manager: Previous Terminal",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.nextTerminal",
+        "command": "harness-code.agentManager.nextTerminal",
         "title": "Agent Manager: Next Terminal",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.diagnostics",
+        "command": "harness-code.agentManager.diagnostics",
         "title": "Agent Manager: Show Worktree Diagnostics",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.search",
+        "command": "harness-code.agentManager.search",
         "title": "Agent Manager: Search Worktrees and Sessions",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.showTerminal",
+        "command": "harness-code.agentManager.showTerminal",
         "title": "Agent Manager: Focus Terminal",
         "category": "Harness Code",
         "icon": "$(terminal)"
       },
       {
-        "command": "kilo-code.new.agentManager.runScript",
+        "command": "harness-code.agentManager.runScript",
         "title": "Agent Manager: Run Script",
         "category": "Harness Code",
         "icon": "$(play)"
       },
       {
-        "command": "kilo-code.new.agentManager.toggleDiff",
+        "command": "harness-code.agentManager.toggleDiff",
         "title": "Agent Manager: Toggle Diff Panel",
         "category": "Harness Code",
         "icon": "$(diff)"
       },
       {
-        "command": "kilo-code.new.agentManager.showShortcuts",
+        "command": "harness-code.agentManager.showShortcuts",
         "title": "Agent Manager: Show Keyboard Shortcuts",
         "category": "Harness Code",
         "icon": "$(keyboard)"
       },
       {
-        "command": "kilo-code.new.agentManager.newTab",
+        "command": "harness-code.agentManager.newTab",
         "title": "Agent Manager: New Tab",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.newTerminalTab",
+        "command": "harness-code.agentManager.newTerminalTab",
         "title": "Agent Manager: New Terminal Tab",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.newSideTerminal",
+        "command": "harness-code.agentManager.newSideTerminal",
         "title": "Agent Manager: New Sidebar Terminal Tab",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.closeTab",
+        "command": "harness-code.agentManager.closeTab",
         "title": "Agent Manager: Close Tab",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.newWorktree",
+        "command": "harness-code.agentManager.newWorktree",
         "title": "Agent Manager: Configure New Worktree",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.quickWorktree",
+        "command": "harness-code.agentManager.quickWorktree",
         "title": "Agent Manager: New Worktree",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.openWorktree",
+        "command": "harness-code.agentManager.openWorktree",
         "title": "Agent Manager: Open Worktree",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.updateFromBase",
+        "command": "harness-code.agentManager.updateFromBase",
         "title": "Agent Manager: Update from base",
         "category": "Harness Code",
-        "enablement": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "enablement": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.openPR",
+        "command": "harness-code.agentManager.openPR",
         "title": "Agent Manager: Open Pull Request",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.closeWorktree",
+        "command": "harness-code.agentManager.closeWorktree",
         "title": "Agent Manager: Close Worktree",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.advancedWorktree",
+        "command": "harness-code.agentManager.advancedWorktree",
         "title": "Agent Manager: Configure New Worktree",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo1",
+        "command": "harness-code.agentManager.jumpTo1",
         "title": "Agent Manager: Jump to Item 1",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo2",
+        "command": "harness-code.agentManager.jumpTo2",
         "title": "Agent Manager: Jump to Item 2",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo3",
+        "command": "harness-code.agentManager.jumpTo3",
         "title": "Agent Manager: Jump to Item 3",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo4",
+        "command": "harness-code.agentManager.jumpTo4",
         "title": "Agent Manager: Jump to Item 4",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo5",
+        "command": "harness-code.agentManager.jumpTo5",
         "title": "Agent Manager: Jump to Item 5",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo6",
+        "command": "harness-code.agentManager.jumpTo6",
         "title": "Agent Manager: Jump to Item 6",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo7",
+        "command": "harness-code.agentManager.jumpTo7",
         "title": "Agent Manager: Jump to Item 7",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo8",
+        "command": "harness-code.agentManager.jumpTo8",
         "title": "Agent Manager: Jump to Item 8",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo9",
+        "command": "harness-code.agentManager.jumpTo9",
         "title": "Agent Manager: Jump to Item 9",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.generateCommitMessage",
+        "command": "harness-code.generateCommitMessage",
         "title": "Generate Commit Message",
         "category": "Harness Code",
         "icon": {
-          "light": "assets/icons/kilo-light.svg",
-          "dark": "assets/icons/kilo-dark.svg"
+          "light": "assets/icons/harness-light.svg",
+          "dark": "assets/icons/harness-dark.svg"
         }
       },
       {
-        "command": "kilo-code.new.explainCode",
+        "command": "harness-code.explainCode",
         "title": "Explain Code",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.fixCode",
+        "command": "harness-code.fixCode",
         "title": "Fix Code",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.improveCode",
+        "command": "harness-code.improveCode",
         "title": "Improve Code",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.addToContext",
+        "command": "harness-code.addToContext",
         "title": "Add to Context",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.terminalAddToContext",
+        "command": "harness-code.terminalAddToContext",
         "title": "Add Terminal Content to Context",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.terminalFixCommand",
+        "command": "harness-code.terminalFixCommand",
         "title": "Fix This Command",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.terminalExplainCommand",
+        "command": "harness-code.terminalExplainCommand",
         "title": "Explain This Command",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.focusChatInput",
+        "command": "harness-code.focusChatInput",
         "title": "Focus Chat Input",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.toggleChatSearch",
+        "command": "harness-code.toggleChatSearch",
         "title": "Toggle Chat Search",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.cycleAgentMode",
+        "command": "harness-code.cycleAgentMode",
         "title": "Cycle Agent Mode",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.cyclePreviousAgentMode",
+        "command": "harness-code.cyclePreviousAgentMode",
         "title": "Cycle Previous Agent Mode",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.toggleAutoApprove",
+        "command": "harness-code.toggleAutoApprove",
         "title": "Toggle Auto-Approve",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.generateTerminalCommand",
+        "command": "harness-code.generateTerminalCommand",
         "title": "Generate Terminal Command",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.takeHeapSnapshot",
+        "command": "harness-code.takeHeapSnapshot",
         "title": "Take Heap Snapshot",
         "category": "Harness Code"
       },
       {
-        "command": "kilo-code.new.reload",
+        "command": "harness-code.reload",
         "title": "Reload Config and Skills",
         "category": "Harness Code"
       }
     ],
     "submenus": [
       {
-        "id": "kilo-code.new.editorContextMenu",
+        "id": "harness-code.editorContextMenu",
         "label": "Harness Code"
       },
       {
-        "id": "kilo-code.new.terminalContextMenu",
+        "id": "harness-code.terminalContextMenu",
         "label": "Harness Code"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "command": "kilo-code.new.sidebarTitle.plusButtonClicked",
+          "command": "harness-code.sidebarTitle.plusButtonClicked",
           "when": "false"
         },
         {
-          "command": "kilo-code.new.sidebarTitle.historyButtonClicked",
+          "command": "harness-code.sidebarTitle.historyButtonClicked",
           "when": "false"
         },
         {
-          "command": "kilo-code.new.sidebarTitle.agentManagerOpen",
+          "command": "harness-code.sidebarTitle.agentManagerOpen",
           "when": "false"
         },
         {
-          "command": "kilo-code.new.agentManager.advancedWorktree",
+          "command": "harness-code.agentManager.advancedWorktree",
           "when": "false"
         },
         {
-          "command": "kilo-code.new.sidebarTitle.marketplaceButtonClicked",
+          "command": "harness-code.sidebarTitle.marketplaceButtonClicked",
           "when": "false"
         },
         {
-          "command": "kilo-code.new.sidebarTitle.profileButtonClicked",
+          "command": "harness-code.sidebarTitle.profileButtonClicked",
           "when": "false"
         },
         {
-          "command": "kilo-code.new.sidebarTitle.settingsButtonClicked",
+          "command": "harness-code.sidebarTitle.settingsButtonClicked",
           "when": "false"
         }
       ],
       "view/title": [
         {
-          "command": "kilo-code.new.sidebarTitle.plusButtonClicked",
+          "command": "harness-code.sidebarTitle.plusButtonClicked",
           "group": "navigation@0",
-          "when": "view == kilo-code.SidebarProvider && !kilo-code.new.isCursor"
+          "when": "view == harness-code.SidebarProvider && !harness-code.isCursor"
         },
         {
-          "command": "kilo-code.new.sidebarTitle.historyButtonClicked",
+          "command": "harness-code.sidebarTitle.historyButtonClicked",
           "group": "navigation@1",
-          "when": "view == kilo-code.SidebarProvider && !kilo-code.new.isCursor"
+          "when": "view == harness-code.SidebarProvider && !harness-code.isCursor"
         },
         {
-          "command": "kilo-code.new.sidebarTitle.agentManagerOpen",
+          "command": "harness-code.sidebarTitle.agentManagerOpen",
           "group": "navigation@2",
-          "when": "view == kilo-code.SidebarProvider && !kilo-code.new.isCursor"
+          "when": "view == harness-code.SidebarProvider && !harness-code.isCursor"
         },
         {
-          "command": "kilo-code.new.sidebarTitle.marketplaceButtonClicked",
+          "command": "harness-code.sidebarTitle.marketplaceButtonClicked",
           "group": "navigation@3",
-          "when": "view == kilo-code.SidebarProvider && !kilo-code.new.isCursor"
+          "when": "view == harness-code.SidebarProvider && !harness-code.isCursor"
         },
         {
-          "command": "kilo-code.new.sidebarTitle.profileButtonClicked",
+          "command": "harness-code.sidebarTitle.profileButtonClicked",
           "group": "navigation@4",
-          "when": "view == kilo-code.SidebarProvider && !kilo-code.new.isCursor"
+          "when": "view == harness-code.SidebarProvider && !harness-code.isCursor"
         },
         {
-          "command": "kilo-code.new.sidebarTitle.settingsButtonClicked",
+          "command": "harness-code.sidebarTitle.settingsButtonClicked",
           "group": "navigation@5",
-          "when": "view == kilo-code.SidebarProvider && !kilo-code.new.isCursor"
+          "when": "view == harness-code.SidebarProvider && !harness-code.isCursor"
         }
       ],
       "scm/title": [
         {
-          "command": "kilo-code.new.generateCommitMessage",
+          "command": "harness-code.generateCommitMessage",
           "group": "navigation",
           "when": "scmProvider == git"
         }
       ],
       "scm/input": [
         {
-          "command": "kilo-code.new.generateCommitMessage",
+          "command": "harness-code.generateCommitMessage",
           "group": "navigation",
           "when": "scmProvider == git"
         }
       ],
       "editor/title": [
         {
-          "command": "kilo-code.new.openInTab",
+          "command": "harness-code.openInTab",
           "group": "navigation",
           "when": "true"
         },
         {
-          "command": "kilo-code.new.plusButtonClicked",
+          "command": "harness-code.plusButtonClicked",
           "group": "navigation@0",
-          "when": "activeWebviewPanelId == kilo-code.new.TabPanel && !kilo-code.new.isCursor"
+          "when": "activeWebviewPanelId == harness-code.TabPanel && !harness-code.isCursor"
         },
         {
-          "command": "kilo-code.new.historyButtonClicked",
+          "command": "harness-code.historyButtonClicked",
           "group": "navigation@1",
-          "when": "activeWebviewPanelId == kilo-code.new.TabPanel && !kilo-code.new.isCursor"
+          "when": "activeWebviewPanelId == harness-code.TabPanel && !harness-code.isCursor"
         },
         {
-          "command": "kilo-code.new.profileButtonClicked",
+          "command": "harness-code.profileButtonClicked",
           "group": "navigation@2",
-          "when": "activeWebviewPanelId == kilo-code.new.TabPanel && !kilo-code.new.isCursor"
+          "when": "activeWebviewPanelId == harness-code.TabPanel && !harness-code.isCursor"
         },
         {
-          "command": "kilo-code.new.settingsButtonClicked",
+          "command": "harness-code.settingsButtonClicked",
           "group": "navigation@3",
-          "when": "activeWebviewPanelId == kilo-code.new.TabPanel && !kilo-code.new.isCursor"
+          "when": "activeWebviewPanelId == harness-code.TabPanel && !harness-code.isCursor"
         }
       ],
       "editor/context": [
         {
-          "submenu": "kilo-code.new.editorContextMenu",
+          "submenu": "harness-code.editorContextMenu",
           "group": "1_kilocode"
         }
       ],
-      "kilo-code.new.editorContextMenu": [
+      "harness-code.editorContextMenu": [
         {
-          "command": "kilo-code.new.explainCode",
+          "command": "harness-code.explainCode",
           "group": "1_actions@1"
         },
         {
-          "command": "kilo-code.new.fixCode",
+          "command": "harness-code.fixCode",
           "group": "1_actions@2"
         },
         {
-          "command": "kilo-code.new.improveCode",
+          "command": "harness-code.improveCode",
           "group": "1_actions@3"
         },
         {
-          "command": "kilo-code.new.addToContext",
+          "command": "harness-code.addToContext",
           "group": "1_actions@4"
         }
       ],
       "terminal/context": [
         {
-          "submenu": "kilo-code.new.terminalContextMenu",
+          "submenu": "harness-code.terminalContextMenu",
           "group": "2_kilocode"
         }
       ],
-      "kilo-code.new.terminalContextMenu": [
+      "harness-code.terminalContextMenu": [
         {
-          "command": "kilo-code.new.terminalAddToContext",
+          "command": "harness-code.terminalAddToContext",
           "group": "1_actions@1"
         },
         {
-          "command": "kilo-code.new.terminalFixCommand",
+          "command": "harness-code.terminalFixCommand",
           "group": "1_actions@2"
         },
         {
-          "command": "kilo-code.new.terminalExplainCommand",
+          "command": "harness-code.terminalExplainCommand",
           "group": "1_actions@3"
         }
       ]
     },
     "keybindings": [
       {
-        "command": "kilo-code.new.focusChatInput",
+        "command": "harness-code.focusChatInput",
         "key": "ctrl+shift+a",
         "mac": "cmd+shift+a"
       },
       {
-        "command": "kilo-code.new.toggleAutoApprove",
+        "command": "harness-code.toggleAutoApprove",
         "key": "ctrl+alt+a",
         "mac": "cmd+alt+a"
       },
       {
-        "command": "kilo-code.new.generateTerminalCommand",
+        "command": "harness-code.generateTerminalCommand",
         "key": "ctrl+shift+g",
         "mac": "cmd+shift+g"
       },
@@ -665,226 +655,226 @@
         "mac": "cmd+shift+m"
       },
       {
-        "command": "kilo-code.new.agentManagerOpen",
+        "command": "harness-code.agentManagerOpen",
         "key": "ctrl+shift+m",
         "mac": "cmd+shift+m"
       },
       {
-        "command": "kilo-code.new.addToContext",
+        "command": "harness-code.addToContext",
         "key": "ctrl+k ctrl+a",
         "mac": "cmd+k cmd+a",
         "when": "editorTextFocus && editorHasSelection"
       },
       {
-        "command": "kilo-code.new.agentManager.previousSession",
+        "command": "harness-code.agentManager.previousSession",
         "key": "ctrl+alt+up",
         "mac": "cmd+alt+up",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.nextSession",
+        "command": "harness-code.agentManager.nextSession",
         "key": "ctrl+alt+down",
         "mac": "cmd+alt+down",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.previousTab",
+        "command": "harness-code.agentManager.previousTab",
         "key": "ctrl+alt+left",
         "mac": "cmd+alt+left",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.nextTab",
+        "command": "harness-code.agentManager.nextTab",
         "key": "ctrl+alt+right",
         "mac": "cmd+alt+right",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.previousTerminal",
+        "command": "harness-code.agentManager.previousTerminal",
         "key": "ctrl+shift+[",
         "mac": "cmd+shift+[",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.nextTerminal",
+        "command": "harness-code.agentManager.nextTerminal",
         "key": "ctrl+shift+]",
         "mac": "cmd+shift+]",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.search",
+        "command": "harness-code.agentManager.search",
         "key": "ctrl+f",
         "mac": "cmd+f",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel' && !terminalFocus"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel' && !terminalFocus"
       },
       {
-        "command": "kilo-code.new.agentManager.showTerminal",
+        "command": "harness-code.agentManager.showTerminal",
         "key": "ctrl+/",
         "mac": "cmd+/",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel' && !kilo-code.new.sidebarFocused"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel' && !harness-code.sidebarFocused"
       },
       {
-        "command": "kilo-code.new.agentManager.runScript",
+        "command": "harness-code.agentManager.runScript",
         "key": "ctrl+e",
         "mac": "cmd+e",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel' && (isMac || !terminalFocus)"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel' && (isMac || !terminalFocus)"
       },
       {
-        "command": "kilo-code.new.agentManager.toggleDiff",
+        "command": "harness-code.agentManager.toggleDiff",
         "key": "ctrl+d",
         "mac": "cmd+d",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.showShortcuts",
+        "command": "harness-code.agentManager.showShortcuts",
         "key": "ctrl+shift+/",
         "mac": "cmd+shift+/",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.newTab",
+        "command": "harness-code.agentManager.newTab",
         "key": "ctrl+t",
         "mac": "cmd+t",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel' && !kilo-code.new.agentManagerSideTerminalFocused"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel' && !harness-code.agentManagerSideTerminalFocused"
       },
       {
-        "command": "kilo-code.new.agentManager.newTerminalTab",
+        "command": "harness-code.agentManager.newTerminalTab",
         "key": "ctrl+shift+t",
         "mac": "cmd+shift+t",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel' && !kilo-code.new.agentManagerSideTerminalFocused"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel' && !harness-code.agentManagerSideTerminalFocused"
       },
       {
-        "command": "kilo-code.new.agentManager.newSideTerminal",
+        "command": "harness-code.agentManager.newSideTerminal",
         "key": "ctrl+t",
         "mac": "cmd+t",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel' && kilo-code.new.agentManagerSideTerminalFocused"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel' && harness-code.agentManagerSideTerminalFocused"
       },
       {
-        "command": "kilo-code.new.agentManager.closeTab",
+        "command": "harness-code.agentManager.closeTab",
         "key": "ctrl+w",
         "mac": "cmd+w",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.newWorktree",
+        "command": "harness-code.agentManager.newWorktree",
         "key": "ctrl+n",
         "mac": "cmd+n",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.quickWorktree",
+        "command": "harness-code.agentManager.quickWorktree",
         "key": "ctrl+shift+n",
         "mac": "cmd+shift+n",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.openWorktree",
+        "command": "harness-code.agentManager.openWorktree",
         "key": "ctrl+shift+o",
         "mac": "cmd+shift+o",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.openPR",
+        "command": "harness-code.agentManager.openPR",
         "key": "ctrl+shift+r",
         "mac": "cmd+shift+r",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.closeWorktree",
+        "command": "harness-code.agentManager.closeWorktree",
         "key": "ctrl+shift+w",
         "mac": "cmd+shift+w",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo1",
+        "command": "harness-code.agentManager.jumpTo1",
         "key": "ctrl+1",
         "mac": "cmd+1",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo2",
+        "command": "harness-code.agentManager.jumpTo2",
         "key": "ctrl+2",
         "mac": "cmd+2",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo3",
+        "command": "harness-code.agentManager.jumpTo3",
         "key": "ctrl+3",
         "mac": "cmd+3",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo4",
+        "command": "harness-code.agentManager.jumpTo4",
         "key": "ctrl+4",
         "mac": "cmd+4",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo5",
+        "command": "harness-code.agentManager.jumpTo5",
         "key": "ctrl+5",
         "mac": "cmd+5",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo6",
+        "command": "harness-code.agentManager.jumpTo6",
         "key": "ctrl+6",
         "mac": "cmd+6",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo7",
+        "command": "harness-code.agentManager.jumpTo7",
         "key": "ctrl+7",
         "mac": "cmd+7",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo8",
+        "command": "harness-code.agentManager.jumpTo8",
         "key": "ctrl+8",
         "mac": "cmd+8",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.agentManager.jumpTo9",
+        "command": "harness-code.agentManager.jumpTo9",
         "key": "ctrl+9",
         "mac": "cmd+9",
-        "when": "activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel'"
+        "when": "activeWebviewPanelId == 'harness-code.AgentManagerPanel'"
       },
       {
-        "command": "kilo-code.new.cycleAgentMode",
+        "command": "harness-code.cycleAgentMode",
         "key": "ctrl+.",
         "mac": "cmd+.",
-        "when": "kilo-code.new.sidebarFocused || activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel' || activeWebviewPanelId == 'kilo-code.new.TabPanel'"
+        "when": "harness-code.sidebarFocused || activeWebviewPanelId == 'harness-code.AgentManagerPanel' || activeWebviewPanelId == 'harness-code.TabPanel'"
       },
       {
-        "command": "kilo-code.new.cyclePreviousAgentMode",
+        "command": "harness-code.cyclePreviousAgentMode",
         "key": "ctrl+shift+.",
         "mac": "cmd+shift+.",
-        "when": "kilo-code.new.sidebarFocused || activeWebviewPanelId == 'kilo-code.new.AgentManagerPanel' || activeWebviewPanelId == 'kilo-code.new.TabPanel'"
+        "when": "harness-code.sidebarFocused || activeWebviewPanelId == 'harness-code.AgentManagerPanel' || activeWebviewPanelId == 'harness-code.TabPanel'"
       },
       {
-        "command": "kilo-code.new.autocomplete.cancelSuggestions",
+        "command": "harness-code.autocomplete.cancelSuggestions",
         "key": "escape",
-        "when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && kilo-code.new.autocomplete.hasSuggestions"
+        "when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && harness-code.autocomplete.hasSuggestions"
       },
       {
-        "command": "kilo-code.new.autocomplete.generateSuggestions",
+        "command": "harness-code.autocomplete.generateSuggestions",
         "key": "ctrl+l",
         "mac": "cmd+l",
         "when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && kilocode.autocomplete.enableSmartInlineTaskKeybinding && !github.copilot.completions.enabled"
       },
       {
-        "command": "kilo-code.new.autocomplete.showIncompatibilityExtensionPopup",
+        "command": "harness-code.autocomplete.showIncompatibilityExtensionPopup",
         "key": "ctrl+l",
         "mac": "cmd+l",
         "when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && kilocode.autocomplete.enableSmartInlineTaskKeybinding && github.copilot.completions.enabled"
       },
       {
-        "command": "kilo-code.new.autocomplete.nextEdit.acceptOrJump",
+        "command": "harness-code.autocomplete.nextEdit.acceptOrJump",
         "key": "tab",
         "when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && !suggestWidgetVisible && kilo-code.nextEdit.hasPendingSuggestion"
       },
       {
-        "command": "kilo-code.new.autocomplete.nextEdit.dismiss",
+        "command": "harness-code.autocomplete.nextEdit.dismiss",
         "key": "escape",
         "when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && kilo-code.nextEdit.hasPendingSuggestion"
       }
@@ -892,7 +882,7 @@
     "configuration": {
       "title": "Harness Code",
       "properties": {
-        "kilo-code.new.language": {
+        "harness-code.language": {
           "type": "string",
           "default": "",
           "description": "Override the UI language for Harness Code (e.g. en, de, ja). Empty means use VS Code's display language.",
@@ -945,7 +935,7 @@
             "فارسی"
           ]
         },
-        "kilo-code.new.languageCommitMessage": {
+        "harness-code.languageCommitMessage": {
           "type": "string",
           "default": "sync",
           "description": "Language used for AI-generated commit messages. Choose 'sync' to follow the Harness Code UI language, or select a specific language.",
@@ -998,17 +988,17 @@
             "فارسی"
           ]
         },
-        "kilo-code.new.model.providerID": {
+        "harness-code.model.providerID": {
           "type": "string",
           "default": "kilo",
           "description": "Default model provider ID for new sessions"
         },
-        "kilo-code.new.model.modelID": {
+        "harness-code.model.modelID": {
           "type": "string",
           "default": "kilo-auto/free",
           "description": "Default model ID for new sessions"
         },
-        "kilo-code.new.autocomplete.model": {
+        "harness-code.autocomplete.model": {
           "type": "string",
           "enum": [
             "mistralai/codestral-2508",
@@ -1028,7 +1018,7 @@
           ],
           "description": "Model to use for inline autocomplete suggestions. If unset, the recommended default is used."
         },
-        "kilo-code.new.autocomplete.provider": {
+        "harness-code.autocomplete.provider": {
           "type": "string",
           "enum": [
             "kilo",
@@ -1042,58 +1032,58 @@
           ],
           "description": "Provider to use for inline autocomplete suggestions. If unset, Kilo Gateway is used."
         },
-        "kilo-code.new.autocomplete.enableAutoTrigger": {
+        "harness-code.autocomplete.enableAutoTrigger": {
           "type": "boolean",
           "default": true,
           "description": "Enable automatic inline completion suggestions"
         },
-        "kilo-code.new.autocomplete.enableSmartInlineTaskKeybinding": {
+        "harness-code.autocomplete.enableSmartInlineTaskKeybinding": {
           "type": "boolean",
           "default": false,
           "description": "Enable smart inline task keybinding"
         },
-        "kilo-code.new.autocomplete.enableChatAutocomplete": {
+        "harness-code.autocomplete.enableChatAutocomplete": {
           "type": "boolean",
           "default": false,
           "description": "Enable chat textarea autocomplete"
         },
-        "kilo-code.new.agentManager.autoBranchNaming": {
+        "harness-code.agentManager.autoBranchNaming": {
           "type": "boolean",
           "default": true,
           "scope": "application",
           "description": "Automatically name new Agent Manager branches when the conversation describes a clear task. Explicitly named and published branches are never renamed."
         },
-        "kilo-code.new.agentManager.branchPrefix": {
+        "harness-code.agentManager.branchPrefix": {
           "type": "string",
           "default": "",
           "scope": "application",
           "description": "Prefix for automatically named Agent Manager branches, for example 'marius/' or 'feature/'. Explicit branch names are unchanged."
         },
-        "kilo-code.new.agentManager.worktreePool": {
+        "harness-code.agentManager.worktreePool": {
           "type": "boolean",
           "default": true,
           "scope": "application",
           "description": "Pre-warm a ready worktree in the background so new Agent Manager sessions start faster. Uses extra disk space equal to one checkout per open project. Turn off to create worktrees only on demand."
         },
-        "kilo-code.new.experimental.multiProject": {
+        "harness-code.experimental.multiProject": {
           "type": "boolean",
           "default": false,
           "scope": "application",
           "description": "Allow Agent Manager to manage sessions and worktrees across multiple repositories as projects. The current workspace repository is always the default project; additional projects can be added and persist across restarts."
         },
-        "kilo-code.new.experimental.browserAutomation": {
+        "harness-code.experimental.browserAutomation": {
           "type": "boolean",
           "default": false,
           "scope": "application",
           "description": "Enable the experimental Integrated Browser panel and browser_open tool in Agent Manager."
         },
-        "kilo-code.new.experimental.claudeMigration": {
+        "harness-code.experimental.claudeMigration": {
           "type": "boolean",
           "default": false,
           "scope": "application",
           "description": "Experimental one-time import of supported global Claude Code instructions, simple skills, and disabled MCP definitions into Kilo. The original Claude files are never changed."
         },
-        "kilo-code.new.agentManager.terminalButtonDestination": {
+        "harness-code.agentManager.terminalButtonDestination": {
           "type": "string",
           "scope": "application",
           "default": "agentManager",
@@ -1107,77 +1097,77 @@
           ],
           "description": "Default destination for the Agent Manager terminal button and Focus Terminal keyboard shortcut. The terminal button's dropdown remembers its own choice per Agent Manager panel; this setting only applies to panels that never picked one."
         },
-        "kilo-code.new.indexing.showButtonWhenDisabled": {
+        "harness-code.indexing.showButtonWhenDisabled": {
           "type": "boolean",
           "default": true,
           "scope": "application",
           "description": "Show the codebase indexing button below the prompt while indexing is disabled."
         },
-        "kilo-code.new.claudeCodeCompat": {
+        "harness-code.claudeCodeCompat": {
           "type": "boolean",
           "default": false,
           "description": "Load CLAUDE.md instructions and skills from your Claude Code configuration directory into Kilo sessions. Enable this if you want Kilo to use your Claude Code instructions and skills."
         },
-        "kilo-code.new.extraCaCerts": {
+        "harness-code.extraCaCerts": {
           "type": "string",
           "default": "",
           "description": "Absolute path to a PEM file containing extra CA certificates to trust when the Kilo backend makes HTTPS requests (sets NODE_EXTRA_CA_CERTS on the CLI process). Use this if you're behind a corporate proxy that performs SSL inspection. Leave empty to rely on the OS trust store."
         },
-        "kilo-code.new.autoApprove.enabled": {
+        "harness-code.autoApprove.enabled": {
           "type": "boolean",
           "default": false,
           "description": "Start Harness Code with the main auto-approve toggle enabled. When enabled, permission prompts are approved automatically. Sandbox escalation prompts are always excluded."
         },
-        "kilo-code.new.maxCost": {
+        "harness-code.maxCost": {
           "type": "number",
           "default": 0,
           "minimum": 0,
           "description": "Show a non-blocking alert when a session exceeds this USD amount. Use whole dollars; set to 0 to disable."
         },
-        "kilo-code.new.fontSize": {
+        "harness-code.fontSize": {
           "type": "number",
           "default": 13,
           "minimum": 10,
           "maximum": 24,
           "description": "Font size in pixels for the Harness Code webview UI."
         },
-        "kilo-code.new.browserAutomation.enabled": {
+        "harness-code.browserAutomation.enabled": {
           "type": "boolean",
           "default": false,
           "description": "Enable browser automation powered by Playwright. When enabled, the AI agent can interact with web pages in a visible Chrome window."
         },
-        "kilo-code.new.browserAutomation.useSystemChrome": {
+        "harness-code.browserAutomation.useSystemChrome": {
           "type": "boolean",
           "default": true,
           "description": "Use your system's installed Chrome browser instead of downloading a separate Chromium instance."
         },
-        "kilo-code.new.browserAutomation.headless": {
+        "harness-code.browserAutomation.headless": {
           "type": "boolean",
           "default": false,
           "description": "Run browser automation in headless mode (no visible window). When disabled, you can watch the agent interact with the browser."
         },
-        "kilo-code.new.agentManager.browser.useSystemChrome": {
+        "harness-code.agentManager.browser.useSystemChrome": {
           "type": "boolean",
           "default": true,
           "scope": "application",
           "description": "Use system-installed Google Chrome for the Integrated Browser. Disable only when a compatible Playwright Chromium browser is already installed."
         },
-        "kilo-code.new.attention.enabled": {
+        "harness-code.attention.enabled": {
           "type": "boolean",
           "default": false,
           "description": "Play sounds when sessions complete, error, or need input"
         },
-        "kilo-code.new.attention.notifications": {
+        "harness-code.attention.notifications": {
           "type": "boolean",
           "default": false,
           "description": "Show VS Code notifications when Kilo completes a task or needs input. Notifications are suppressed while a Kilo panel is active."
         },
-        "kilo-code.new.attention.OSNotifications": {
+        "harness-code.attention.OSNotifications": {
           "type": "boolean",
           "default": false,
           "description": "Show native OS notification alerts when Kilo completes a task or needs input while VS Code is not active."
         },
-        "kilo-code.new.attention.sound": {
+        "harness-code.attention.sound": {
           "type": "string",
           "default": "default",
           "enum": [
@@ -1231,32 +1221,32 @@
           ],
           "description": "Use different sounds for completion, input, and errors, or choose one sound for every event"
         },
-        "kilo-code.new.showTaskTimeline": {
+        "harness-code.showTaskTimeline": {
           "type": "boolean",
           "default": true,
           "description": "Show the task timeline graph in the chat header"
         },
-        "kilo-code.new.showTokenThroughput": {
+        "harness-code.showTokenThroughput": {
           "type": "boolean",
           "default": true,
           "description": "Show tokens-per-second (prompt-processing / text-generation) badges on assistant messages and the task header"
         },
-        "kilo-code.new.showAutoApprovalReason": {
+        "harness-code.showAutoApprovalReason": {
           "type": "boolean",
           "default": true,
           "description": "Show a line on tool calls explaining why they were auto-approved (matched rule, agent default, YOLO mode, etc.)"
         },
-        "kilo-code.new.chat.shiftTabCyclesVariant": {
+        "harness-code.chat.shiftTabCyclesVariant": {
           "type": "boolean",
           "default": true,
           "description": "Cycle through reasoning effort variants with Shift+Tab in prompt inputs. Disable to keep Shift+Tab for keyboard focus navigation."
         },
-        "kilo-code.new.agentManager.pushFixes": {
+        "harness-code.agentManager.pushFixes": {
           "type": "boolean",
           "default": true,
           "description": "Agent Manager: when you send pull request CI failures or review comments to the agent, or update a worktree from its base, ask the agent to commit and push so the pull request updates. Permission prompts still apply. Disable to keep commits manual."
         },
-        "kilo-code.new.agentWorkStyle": {
+        "harness-code.agentWorkStyle": {
           "type": "string",
           "scope": "application",
           "default": "unset",
@@ -1274,12 +1264,12 @@
           ],
           "description": "Preferred agent work style. Set to Unset to show the onboarding flow again."
         },
-        "kilo-code.new.diff.renderMarkdown": {
+        "harness-code.diff.renderMarkdown": {
           "type": "boolean",
           "default": false,
           "description": "Render Markdown files in Kilo diff viewers by default. Toggle this from a Markdown file header in the diff viewer."
         },
-        "kilo-code.new.diff.style": {
+        "harness-code.diff.style": {
           "type": "string",
           "enum": [
             "unified",
@@ -1372,7 +1362,6 @@
     "@kilocode/plugin": "workspace:*",
     "@kilocode/sandbox": "workspace:*",
     "@kilocode/sdk": "workspace:*",
-    "@lottiefiles/dotlottie-web": "0.63.0",
     "@opencode-ai/core": "workspace:*",
     "@opencode-ai/ui": "workspace:*",
     "@pierre/diffs": "catalog:",

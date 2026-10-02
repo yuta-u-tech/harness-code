@@ -24,7 +24,7 @@ export class BrowserAutomationService implements vscode.Disposable {
   ) {
     this.disposables.push(
       vscode.workspace.onDidChangeConfiguration((event) => {
-        if (!event.affectsConfiguration("kilo-code.new.browserAutomation")) return
+        if (!event.affectsConfiguration("harness-code.browserAutomation")) return
         void this.syncWithSettings()
       }),
       vscode.workspace.onDidChangeWorkspaceFolders(() => this.enqueue(() => this.apply(true))),
@@ -146,11 +146,11 @@ export class BrowserAutomationService implements vscode.Disposable {
   }
 
   private enabled(): boolean {
-    return vscode.workspace.getConfiguration("kilo-code.new.browserAutomation").get<boolean>("enabled", false) === true
+    return vscode.workspace.getConfiguration("harness-code.browserAutomation").get<boolean>("enabled", false) === true
   }
 
   private command(): string[] {
-    const config = vscode.workspace.getConfiguration("kilo-code.new.browserAutomation")
+    const config = vscode.workspace.getConfiguration("harness-code.browserAutomation")
     return playwrightCommand({
       headless: config.get<boolean>("headless", false),
       useSystemChrome: config.get<boolean>("useSystemChrome", true),

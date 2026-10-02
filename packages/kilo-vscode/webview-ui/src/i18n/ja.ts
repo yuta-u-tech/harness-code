@@ -419,46 +419,6 @@ export const dict = {
   "sound.option.yup05": "はい 05",
   "sound.option.yup06": "はい 06",
 
-  "settings.indexing.dimension.description": "空のままにすると、モデルから埋め込み次元を自動検出します。",
-  "settings.indexing.dimension.placeholder": "自動",
-  "settings.indexing.dimension.title": "ベクトル次元",
-  "settings.indexing.enable.description": "セマンティックコードベースインデックスをオンまたはオフにします。",
-  "settings.indexing.showButton.title": "インデックス作成がオフのときにボタンを表示",
-  "settings.indexing.showButton.description":
-    "インデックス作成がオフの間、プロンプトの下にインデックス作成ボタンを表示します。ボタンが非表示の場合は、設定 > インデックス作成を開いてインデックス作成を有効にしてください。",
-  "settings.indexing.enable.title": "インデックスを有効にする",
-  "settings.indexing.globalEnable.title": "グローバルで有効にする",
-  "settings.indexing.globalEnable.description": "すべてのワークスペースでインデックス作成を有効にします。",
-  "settings.indexing.projectEnable.title": "このプロジェクトで有効にする",
-  "settings.indexing.projectEnable.description":
-    "グローバルなインデックス作成がオフの場合に、このワークスペースでのインデックス作成を有効にします。",
-  "settings.indexing.lancedbDirectory.description": "ローカルLanceDBストアのオプションのディレクトリ。",
-  "settings.indexing.lancedbDirectory.placeholder": "デフォルトの場合は空のままにする",
-  "settings.indexing.lancedbDirectory.title": "LanceDBディレクトリ",
-  "settings.indexing.model.description": "選択したプロバイダーのデフォルト埋め込みモデルを上書きします。",
-  "settings.indexing.model.title": "埋め込みモデル",
-  "settings.indexing.provider.description": "セマンティック検索用の埋め込みを生成するプロバイダーを選択します。",
-  "settings.indexing.kiloModel.title": "Kiloモデルプリセット",
-  "settings.indexing.kiloModel.description": "サポートされているKiloホスト型埋め込みモデルを選択します。",
-  "settings.indexing.kiloSignIn.title": "Kiloへのサインインが必要です",
-  "settings.indexing.kiloSignIn.description": "ホスト型埋め込みを使用するにはKiloにサインインしてください。",
-  "settings.indexing.provider.title": "埋め込みプロバイダー",
-  "settings.indexing.providerField.description": "プロバイダー固有の接続設定。",
-  "settings.indexing.qdrantApiKey.description": "QdrantインスタンスのオプションのAPIキー。",
-  "settings.indexing.qdrantApiKey.placeholder": "オプションのAPIキー",
-  "settings.indexing.fileExtensions.title": "ファイル拡張子",
-  "settings.indexing.fileExtensions.description":
-    "カンマ区切りの許可リストです。空欄のままにすると、組み込みのデフォルトが使用されます。",
-  "settings.indexing.fileExtensions.invalid": "無効な拡張子: {{extension}}",
-  "settings.indexing.qdrantApiKey.title": "Qdrant APIキー",
-  "settings.indexing.qdrantUrl.description": "QdrantインスタンスのサーバーURL。",
-  "settings.indexing.qdrantUrl.title": "Qdrant URL",
-  "settings.indexing.status.title": "ステータス",
-  "settings.indexing.title": "インデックス",
-  "settings.indexing.tuning.description": "高度な検索とバッチ処理パラメータ。",
-  "settings.indexing.vectorStore.description": "インデックスされた埋め込みを保存する場所を選択します。",
-  "settings.indexing.vectorStore.title": "ベクトルストア",
-
   "settings.providers.title": "プロバイダー",
   "settings.providers.section.connected": "接続済みプロバイダー",
   "settings.providers.connected.empty": "接続済みプロバイダーはありません",
@@ -716,23 +676,13 @@ export const dict = {
 
   "settings.agentBehaviour.title": "エージェントの動作",
   "settings.autoApprove.title": "自動承認",
-  "settings.webTools.title": "ウェブツール",
-  "settings.webTools.description": "ウェブ検索とブラウザ自動化を設定します。",
-  "settings.webTools.webSearch.enable": "すべてのプロバイダーで有効化",
-  "settings.webTools.browserAutomation": "ブラウザ自動化",
-  "settings.webTools.webSearch.title": "ウェブ検索",
-  "settings.webTools.webSearch.description": "すべてのプロバイダーのモデルでウェブ検索を利用できるようにします。",
   "settings.checkpoints.title": "チェックポイント",
   "settings.display.title": "表示",
-  "settings.autocomplete.title": "オートコンプリート",
   "settings.autocomplete.model.title": "オートコンプリートモデル",
   "settings.autocomplete.model.description": "インラインでのコード補完に使用するモデルを選択します",
   "settings.notifications.title": "通知",
-  "settings.context.title": "コンテキスト",
 
-  "settings.experimental.title": "実験的機能",
   "settings.language.title": "言語",
-  "settings.aboutKiloCode.title": "Harness Codeについて",
 
   "session.messages.welcome":
     "Harness CodeはAIコーディングアシスタントです。機能の構築、バグの修正、コードベースの説明を依頼できます。",
@@ -793,60 +743,11 @@ export const dict = {
   "time.thisMonth": "今月",
   "time.older": "それ以前",
 
-  "settings.aboutKiloCode.status.connected": "接続済み",
-  "settings.aboutKiloCode.status.connecting": "接続中...",
-  "settings.aboutKiloCode.status.disconnected": "切断",
-  "settings.aboutKiloCode.status.error": "エラー",
-  "settings.aboutKiloCode.cliServer": "CLIサーバー",
-  "settings.aboutKiloCode.status.label": "ステータス：",
-  "settings.aboutKiloCode.port.label": "ポート：",
-  "settings.aboutKiloCode.versionInfo": "バージョン情報",
-  "settings.aboutKiloCode.version.label": "バージョン：",
-  "settings.aboutKiloCode.community": "コミュニティとサポート",
-  "settings.aboutKiloCode.feedback.prefix": "ご質問やフィードバックがありましたら、お気軽にissueを作成してください",
-  "settings.aboutKiloCode.feedback.or": "または",
-  "settings.aboutKiloCode.support.prefix":
-    "請求やアカウントに関するご質問は、カスタマーサポートまでお問い合わせください",
-  "settings.aboutKiloCode.resetSettings.title": "設定をリセット",
-  "settings.aboutKiloCode.resetSettings.description":
-    "これはVS Code拡張機能固有の設定のみをデフォルト値にリセットします。モードや自動承認ルールなど、CLIと共有される設定はCLI設定ファイルに保存されており、リセットされません。",
-  "settings.aboutKiloCode.resetSettings.button": "すべての設定をリセット",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "Reset Read Notifications",
-  "settings.aboutKiloCode.settingsTransfer.title": "設定の移行",
-  "settings.aboutKiloCode.settingsTransfer.description":
-    "VS Code インスタンス間で設定を転送するには、エクスポートまたはインポートしてください。",
-  "settings.aboutKiloCode.exportSettings": "エクスポート",
-  "settings.aboutKiloCode.importSettings": "インポート",
-  "settings.aboutKiloCode.importSettings.invalidJson":
-    "無効な JSON ファイルです。有効な設定ファイルを選択してください。",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "ファイルに有効な Kilo の設定が含まれていません。",
-  "settings.aboutKiloCode.importSettings.tooLarge": "ファイルが大きすぎます。設定ファイルは 1 MB 以下にしてください。",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "このファイルはより新しいバージョンの Kilo からエクスポートされたものです。一部の設定が無視される場合があります。",
-  "settings.aboutKiloCode.importSettings.success":
-    "設定をインポートしました。上記の変更内容を確認してから、保存をクリックしてください。",
-
-  "settings.aboutKiloCode.telemetry.title": "テレメトリ",
-  "settings.aboutKiloCode.telemetry.description":
-    "テレメトリは VS Code の組み込みテレメトリ設定によって制御されます。無効にするには、設定 > テレメトリ > Telemetry Level に移動して「off」に設定してください。変更を適用するには、VS Code を再起動してください。",
-  "settings.aboutKiloCode.telemetry.openSettings": "テレメトリ設定を開く",
-
   "settings.agentBehaviour.subtab.agents": "エージェント",
   "settings.agentBehaviour.subtab.mcpServers": "MCPサーバー",
   "settings.agentBehaviour.subtab.rules": "ルール",
   "settings.agentBehaviour.subtab.workflows": "ワークフロー",
   "settings.agentBehaviour.subtab.skills": "スキル",
-
-  "settings.browser.description":
-    "Playwrightを利用した組み込みブラウザ自動化を設定します。Kiloはセッション内でWebページのナビゲーション、操作、スクリーンショット撮影を行えます。",
-  "settings.browser.enable.title": "ブラウザ自動化を有効にする",
-  "settings.browser.enable.description":
-    "ローカルアプリケーションと公開 HTTPS ページ向けに、セッション単位の Agent Manager ブラウザを有効にします。",
-  "settings.browser.systemChrome.title": "システムChromeを使用",
-  "settings.browser.systemChrome.description":
-    "別のChromiumインスタンスの代わりに、インストール済みのChromeブラウザを使用します。",
-  "settings.browser.headless.title": "ヘッドレスモード",
-  "settings.browser.headless.description": "ヘッドレスモードで実行します（ブラウザウィンドウは表示されません）。",
 
   "settings.language.description": "Harness Code UIの言語を選択します。「自動」はVS Codeの表示言語を使用します。",
   "settings.language.auto": "自動（VS Code言語）",
@@ -854,13 +755,6 @@ export const dict = {
 
   "common.add": "追加",
 
-  "settings.autocomplete.autoTrigger.title": "自動インライン補完を有効にする",
-  "settings.autocomplete.autoTrigger.description": "入力時にインライン補完の提案を自動的に表示",
-  "settings.autocomplete.smartKeybinding.title": "スマートインラインタスクキーバインドを有効にする",
-  "settings.autocomplete.smartKeybinding.description": "インラインタスクをトリガーするスマートキーバインドを使用",
-  "settings.autocomplete.chatAutocomplete.title": "チャットの自動補完を有効にする",
-  "settings.autocomplete.chatAutocomplete.description": "チャットテキストエリアに自動補完の提案を表示",
-  "settings.autocomplete.modelsHint": "オートコンプリートに使用するモデルを選択するには、モデル設定をご覧ください。",
   "settings.notifications.sounds": "サウンド",
   "settings.notifications.enable.title": "サウンド通知を有効にする",
   "settings.notifications.enable.description":
@@ -880,25 +774,9 @@ export const dict = {
   "settings.notifications.sound.system": "システム",
   "settings.notifications.sound.description":
     "デフォルトでは、完了、入力、エラーにそれぞれ異なるサウンドが使用されます。その他の選択肢では、すべてのイベントに同じサウンドが使用されます。",
-  "settings.experimental.share.title": "共有モード",
-  "settings.experimental.share.description": "セッション共有の動作",
-  "settings.experimental.share.manual": "手動",
-  "settings.experimental.share.auto": "自動",
-  "settings.experimental.share.disabled": "無効",
-  "settings.experimental.formatter.title": "フォーマッター",
-  "settings.experimental.formatter.description": "自動コードフォーマッターを有効にする",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "言語サーバープロトコル統合を有効にする",
-  "settings.experimental.batch.title": "バッチツール",
-  "settings.experimental.batch.description": "複数のツール呼び出しのバッチ処理を有効にする",
-  "settings.experimental.imageGeneration.title": "画像生成",
-  "settings.experimental.imageGeneration.description": "AI画像生成を有効にする",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "メインセッションと、そのタスクを担当するサブエージェント（ネストされたサブエージェントを含む）の間でボードを共有します。すべてのタスクで使うのではなく、並行して解決策を試す場合や、互いに補完し合う作業に使用してください。",
-  "settings.experimental.imageGenerationModel.title": "画像モデル",
-  "settings.experimental.imageGenerationModel.description": "画像生成モデル",
-  "settings.experimental.imageGenerationModel.placeholder": "デフォルト (Auto Router)",
 
   "settings.models.speechToTextModel.customDescription":
     "カスタム文字起こしエンドポイントに送信するモデル ID です。例: whisper-1。",
@@ -917,39 +795,7 @@ export const dict = {
     "音声入力はリモートウィンドウでは利用できません。マイクを使用するには、ローカルウィンドウで Kilo を開いてください。",
   "settings.models.speechToTextModel.title": "音声認識モデル",
   "settings.models.speechToTextModel.description": "音声入力に使用するKilo Gateway文字起こしモデルを選択します。",
-  "settings.experimental.nativeNotebookTools.title": "ネイティブノートブックツール",
-  "settings.experimental.nativeNotebookTools.description":
-    "VS Codeノートブックの読み取り、編集、実行を行う実験的なツールを有効にします",
-  "settings.experimental.continueOnDeny.title": "拒否時に続行",
-  "settings.experimental.continueOnDeny.description": "権限が拒否された場合にエージェントループを続行",
-  "settings.sandboxing.title": "サンドボックス化",
-  "settings.sandboxing.network.title": "ネットワークアクセスを制限",
-  "settings.sandboxing.network.description":
-    "モデル起点のコマンドと HTTP ツールによる直接のアウトバウンドアクセスをブロックします。この制限が適用されている間、ローカルおよびリモートの MCP ツールは利用できません。プロバイダーのトラフィックと信頼済みプラグインフックは、この制限の対象外です。",
 
-  "settings.sandboxing.allowedHosts.title": "許可されたネットワーク接続先",
-  "settings.sandboxing.allowedHosts.description":
-    "サンドボックス化された HTTP および HTTPS プロキシトラフィックの DNS ホストとポートの宛先。GitHub CLI と HTTPS Git では通常、github.com:443 と api.github.com:443 が必要です。",
-  "settings.sandboxing.writablePaths.title": "追加の書き込み可能パス",
-  "settings.sandboxing.writablePaths.description":
-    "サンドボックスでの書き込みを許可する追加のファイルシステムパス（例: /tmp、/var/log）。サンドボックス有効時、デフォルトの書き込み可能パスと統合されます。",
-  "settings.experimental.multiProject.title": "マルチプロジェクト Agent Manager",
-  "settings.experimental.claudeMigration.title": "Claude Code 移行",
-  "settings.experimental.claudeMigration.description":
-    "サポートされるグローバル CLAUDE.md 命令、簡単なスキル、無効化された MCP 定義を一度だけインポートします。元の Claude ファイルは変更されません。有効化後にバックエンドを再起動してください。",
-  "settings.experimental.multiProject.description":
-    "Agent Managerで複数のリポジトリにまたがるセッションとワークツリーの管理を有効にします。現在のワークスペースリポジトリは常にデフォルトプロジェクトです。",
-  "settings.experimental.mcpTimeout.title": "MCPタイムアウト（ミリ秒）",
-  "settings.experimental.mcpTimeout.description": "MCPサーバーリクエストのタイムアウト（ミリ秒）",
-  "settings.experimental.remote.title": "Remote コントロール",
-  "settings.experimental.remote.description":
-    "Kilo Cloud 経由でのセッションの Remote コントロールを有効にします。これはこのマシンの CLI にも影響します。",
-  "settings.experimental.remote.current": "現在の状態:",
-  "settings.experimental.remote.startup": "起動時の自動有効化:",
-  "settings.experimental.remote.active": "アクティブ",
-  "settings.experimental.remote.inactive": "非アクティブ",
-  "settings.experimental.remote.hint": "チャットで /remote を使用して切り替えます",
-  "settings.experimental.toolToggles": "ツールトグル",
   "settings.agentBehaviour.defaultAgent.title": "デフォルトエージェント",
   "settings.agentBehaviour.defaultAgent.description": "指定されていない場合に使用するエージェント",
   "settings.agentBehaviour.availableAgents": "利用可能なエージェント",
@@ -1072,12 +918,6 @@ export const dict = {
   "settings.agentBehaviour.workflows.model": "モデル",
   "settings.agentBehaviour.workflows.variant": "バリアント",
   "settings.agentBehaviour.workflows.modelDescription": "グローバルモデルの上書き",
-  "settings.experimental.codeMode.title": "プログラムによるツール呼び出し",
-  "settings.experimental.codeMode.description":
-    "各 MCP ツールを直接公開する代わりに、オンデマンドのツール検出を備えた隔離された JavaScript ランタイム経由で MCP ツール呼び出しをルーティングします。多数の MCP ツールが接続されている場合にコンテキストを節約します。",
-  "settings.sandboxing.enabled.title": "サンドボックス",
-  "settings.sandboxing.enabled.description":
-    "エージェントのシェルコマンドを、プロジェクトおよびKiloの状態ディレクトリへの書き込みを制限するOSレベルのサンドボックス内で実行",
 
   "settings.autoApprove.description":
     "ツールの実行許可を定義します。ほとんどのツールはデフォルトで「許可」されます。doom_loop と external_directory はデフォルトで「確認」になります。",
@@ -1116,78 +956,15 @@ export const dict = {
     "ワークスペース外のファイルにアクセス。現在のプロジェクトディレクトリ外のファイルにアクセスしたときにトリガーされます。",
   "settings.autoApprove.tool.doom_loop":
     "繰り返し同一のアクションを防止。同じツール呼び出しが同一の入力で繰り返されたときにトリガーされます。",
-  "settings.checkpoints.enable.title": "スナップショットを有効にする",
-  "settings.checkpoints.enable.description": "ファイル編集前にチェックポイントを作成して以前の状態を復元可能にする",
-  "settings.autoCleanup.enable.title": "自動セッションクリーンアップを有効化",
-  "settings.autoCleanup.enable.description":
-    "決まった日数が経過すると古いセッション履歴を自動削除します。対象はこのマシン上のすべてのプロジェクトとすべての Kilo クライアントで、このウィンドウだけではありません。実行中のセッションや最近フォークを持つセッションは決して削除されません。削除は元に戻せません。",
-  "settings.autoCleanup.defaultRetention.title": "セッションを保持する期間（日数）",
-  "settings.autoCleanup.defaultRetention.description": "自動クリーンアップがセッション履歴を削除するまでの保持期間。",
-  "settings.autoCleanup.lastRun.title": "前回のクリーンアップ",
-  "settings.autoCleanup.lastRun.never": "未実行",
-  "settings.autoCleanup.result":
-    "{{date}}: {{scanned}} 件中 {{deleted}} 件のセッションを削除（{{active}} 件のアクティブをスキップ、{{failed}} 件失敗）、{{seconds}} 秒",
-  "settings.autoCleanup.starting": "セッションのクリーンアップを開始しています...",
-  "settings.autoCleanup.error.status": "セッションのクリーンアップ状況を一時的に取得できません。再試行しています...",
-  "settings.autoCleanup.error.timeout":
-    "クリーンアップ状況を待機中です。バックエンドの応答に予想以上の時間がかかっています。",
-  "settings.autoCleanup.error.run":
-    "セッションのクリーンアップ完了を確認できませんでした。再試行する前に、前回のクリーンアップ結果を確認してください。",
-  "settings.autoCleanup.progress.scanning": "セッションをスキャン中: {{processed}}/{{total}} 件を処理済み",
-  "settings.autoCleanup.progress.deleting":
-    "セッションを削除中: {{processed}}/{{total}} 件を処理済み（{{deleted}} 件削除、{{failed}} 件失敗）",
-  "settings.autoCleanup.runNow": "今すぐクリーンアップを実行",
-  "settings.autoCleanup.runNow.confirm":
-    "このマシン上のすべてのプロジェクトとすべての Kilo クライアントにわたる、削除対象の古いセッションを完全に削除しますか？",
-  "settings.autoCleanup.stop": "クリーンアップを停止",
-  "settings.autoCleanup.progress.cancelling": "セッションのクリーンアップを停止しています...",
-  "settings.autoCleanup.lastRun.cancelled": "中断されました",
-  "settings.context.autoCompaction.title": "自動圧縮",
-  "settings.context.autoCompaction.description": "コンテキストが上限に達する前に自動的に圧縮",
-  "settings.context.compaction.title": "圧縮",
   "settings.context.compactionModel.title": "圧縮モデル",
   "settings.context.compactionModel.description":
     "自動および手動の圧縮に使用するモデル。チャットモデルを使用するには未設定のままにしてください。コスト、速度、要約の品質はモデルによって異なります。",
   "settings.context.compactionModel.useChatModel": "チャットモデルを使用",
-  "settings.context.compactionModel.hint": "圧縮に使用するモデルを選択するには、モデル設定をご覧ください。",
-  "settings.context.compactionLimit.title": "自動圧縮の上限",
-  "settings.context.compactionLimit.description":
-    "コンテキストがモデルウィンドウのこの割合に達したら圧縮します。安全バッファーのみを使用するには空欄のままにしてください。",
-  "settings.context.prune.title": "古い出力を削除",
-  "settings.context.prune.description": "圧縮時に古いツール出力を削除",
-  "settings.context.watcherPatterns": "ファイルウォッチャー無視パターン",
-  "settings.context.watcherPatterns.description": "ウォッチャーが無視すべきファイルのglobパターン",
 
-  "settings.context.memory.title": "メモリ",
-  "settings.context.memory.project.title": "プロジェクトメモリ",
-  "settings.context.memory.autoSave.title": "プロジェクトメモリを自動保存",
-  "settings.context.memory.autoSave.description":
-    "メモリが有効なとき、完了したターンから永続的なプロジェクト情報を自動保存します。",
-  "settings.context.memory.storage.title": "Storage",
-  "settings.context.memory.status.notLoaded": "未読み込み",
-  "settings.context.memory.status.disabled": "無効",
-  "settings.context.memory.status.enabledTokens": "Enabled - ~{{tokens}} stored tokens",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "Enable memory to create project memory files.",
-  "settings.context.memory.inspect": "検査",
   "chat.memory.project.disabled": "プロジェクトメモリが無効です",
-  "chat.memory.project.empty": "This project doesn't have any memory yet. It will start showing after you use Kilo.",
   "chat.memory.command.failed": "メモリコマンドに失敗しました",
   "chat.memory.updated": "Memory updated",
   "chat.memory.rebuild": "Memory index rebuilt",
-
-  "settings.commitMessage.title": "Commit Message",
-  "settings.commitMessage.override.title": "カスタム prompt を使用",
-  "settings.commitMessage.override.description":
-    "デフォルトの commit message の prompt を上書きします。有効にすると、カスタム prompt が組み込みの conventional commits の prompt を完全に置き換えます。",
-  "settings.commitMessage.prompt.title": "カスタム prompt",
-  "settings.commitMessage.prompt.description":
-    "commit messages を生成する際に AI に送信されるシステム prompt。これはデフォルトの prompt を完全に置き換えます。",
-  "settings.commitMessage.prompt.placeholder":
-    "例: スペイン語で conventional commits 形式に従って commit messages を生成して。commit message のみを返して。",
-
-  "settings.commitMessage.language.sync": "UI言語と同期",
-  "settings.commitMessage.language.description": "AIが生成するコミットメッセージに使用する言語を選択:",
 
   "settings.display.preview.title": "プレビュー",
   "settings.display.presets.title": "表示プリセット",
@@ -1383,12 +1160,6 @@ export const dict = {
   "chat.search.close": "検索を閉じる",
   "chat.search.invalidRegex": "正規表現が無効です",
   "chat.search.noResults": "見つかりませんでした",
-  "settings.experimental.browserAutomation.title": "統合ブラウザー",
-  "settings.experimental.browserAutomation.description":
-    "Agent Manager でローカルアプリケーションのプレビューを表示し、browser_open ツールを Agent Manager セッションに公開します。",
-  "settings.experimental.browserAutomation.systemChrome.title": "システムChromeを使用",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "統合ブラウザーにインストール済みの Google Chrome を使用します。互換性のある Playwright Chromium ブラウザーが既にインストールされている場合にのみ無効にしてください。",
   "chat.search.searchingHistory": "以前のメッセージを検索しています…",
   "settings.harness.title": "ハーネス",
   "settings.harness.intro":
@@ -1448,4 +1219,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "サブエージェントの報告",
   "settings.harness.human.checklist": "あなたの確認項目(1行に1つ)",
   "settings.harness.human.checklist.hint": "AIが判断できない好みの部分を書きます。",
+  "settings.connections.title": "モデルと接続",
 }

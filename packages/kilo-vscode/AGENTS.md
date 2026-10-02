@@ -184,7 +184,7 @@ Extension-side code lives in `src/agent-manager/`, webview code in `webview-ui/a
 
 ### Multi-project migration
 
-Multi-project Agent Manager is an incremental migration behind the application-scoped `kilo-code.new.experimental.multiProject` flag (default `false`); flag-off behavior must remain unchanged. The project registry/contexts, per-project state and session routing, project sidebar, sections and drag-and-drop, progress/persistence, and project-targeted worktree creation are implemented.
+Multi-project Agent Manager is an incremental migration behind the application-scoped `harness-code.experimental.multiProject` flag (default `false`); flag-off behavior must remain unchanged. The project registry/contexts, per-project state and session routing, project sidebar, sections and drag-and-drop, progress/persistence, and project-targeted worktree creation are implemented.
 
 Current implementations are in [project/](src/agent-manager/project/) and [indexing-consent.ts](src/indexing-consent.ts). Check the code and tests before treating migration items as unfinished work. Review areas remain explicit project/worktree/session routing, immutable project-bound Settings, machine-local indexing consent, canonical Git identity, multi-window route ownership, shared sidebar convergence, and full two-project E2E/legacy-parity coverage.
 
@@ -224,8 +224,8 @@ Generated screenshot baselines live under `packages/kilo-docs/public/img/screens
 
 ## Naming Conventions
 
-- All VSCode commands must use `kilo-code.new.` prefix (not `kilo-code.`)
-- All view IDs must use `kilo-code.new.` prefix, **except** the sidebar view which uses `kilo-code.SidebarProvider` to preserve user sidebar position when upgrading from the legacy extension
+- All VSCode commands must use `harness-code.` prefix (not `kilo-code.`)
+- All view IDs must use `harness-code.` prefix, **except** the sidebar view which uses `harness-code.SidebarProvider` to preserve user sidebar position when upgrading from the legacy extension
 
 ## Kilocode Change Markers
 

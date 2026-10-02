@@ -417,46 +417,6 @@ export const dict = {
   "sound.option.yup05": "Yup 05",
   "sound.option.yup06": "Yup 06",
 
-  "settings.indexing.title": "การสร้างดัชนี",
-  "settings.indexing.enable.title": "เปิดใช้งานการสร้างดัชนี",
-  "settings.indexing.enable.description": "เปิดหรือปิดการสร้างดัชนีโค้ดเบสเชิงความหมาย",
-  "settings.indexing.showButton.title": "แสดงปุ่มเมื่อปิดการสร้างดัชนี",
-  "settings.indexing.showButton.description":
-    "แสดงปุ่มการสร้างดัชนีใต้ช่องพรอมต์ขณะปิดการสร้างดัชนี หากซ่อนปุ่มไว้ ให้เปิด การตั้งค่า > การสร้างดัชนี เพื่อเปิดใช้การสร้างดัชนี",
-  "settings.indexing.globalEnable.title": "เปิดใช้งานแบบโกลบอล",
-  "settings.indexing.globalEnable.description": "เปิดใช้งานการทำดัชนีสำหรับทุกพื้นที่ทำงาน",
-  "settings.indexing.projectEnable.title": "เปิดใช้งานสำหรับโปรเจกต์นี้",
-  "settings.indexing.projectEnable.description":
-    "เปิดใช้งานการทำดัชนีสำหรับพื้นที่ทำงานนี้เมื่อการทำดัชนีแบบโกลบอลถูกปิดใช้งาน",
-  "settings.indexing.provider.title": "ผู้ให้บริการการฝัง",
-  "settings.indexing.provider.description": "เลือกผู้ให้บริการที่ใช้สร้างการฝังสำหรับการค้นหาเชิงความหมาย",
-  "settings.indexing.kiloModel.title": "พรีเซ็ตโมเดล Kilo",
-  "settings.indexing.kiloModel.description": "เลือกโมเดลการฝังที่ Kilo โฮสต์และรองรับ",
-  "settings.indexing.kiloSignIn.title": "ต้องลงชื่อเข้าใช้ Kilo",
-  "settings.indexing.kiloSignIn.description": "ลงชื่อเข้าใช้ Kilo เพื่อใช้การฝังแบบโฮสต์",
-  "settings.indexing.model.title": "โมเดลการฝัง",
-  "settings.indexing.model.description": "แทนที่โมเดลการฝังเริ่มต้นสำหรับผู้ให้บริการที่เลือก",
-  "settings.indexing.dimension.title": "ขนาดเวกเตอร์",
-  "settings.indexing.dimension.description": "ปล่อยว่างเพื่อตรวจจับขนาดการฝังอัตโนมัติจากโมเดล",
-  "settings.indexing.dimension.placeholder": "อัตโนมัติ",
-  "settings.indexing.vectorStore.title": "ที่เก็บเวกเตอร์",
-  "settings.indexing.vectorStore.description": "เลือกที่เก็บการฝังที่สร้างดัชนี",
-  "settings.indexing.lancedbDirectory.title": "ไดเรกทอรี LanceDB",
-  "settings.indexing.lancedbDirectory.description": "ไดเรกทอรีเสริมสำหรับที่เก็บ LanceDB ในเครื่อง",
-  "settings.indexing.lancedbDirectory.placeholder": "ปล่อยว่างสำหรับค่าเริ่มต้น",
-  "settings.indexing.qdrantUrl.title": "URL Qdrant",
-  "settings.indexing.qdrantUrl.description": "URL เซิร์ฟเวอร์สำหรับอินสแตนซ์ Qdrant",
-  "settings.indexing.qdrantApiKey.title": "คีย์ API Qdrant",
-  "settings.indexing.qdrantApiKey.description": "คีย์ API เสริมสำหรับอินสแตนซ์ Qdrant",
-  "settings.indexing.qdrantApiKey.placeholder": "คีย์ API เสริม",
-  "settings.indexing.fileExtensions.title": "นามสกุลไฟล์",
-  "settings.indexing.fileExtensions.description":
-    "รายการที่อนุญาตคั่นด้วยเครื่องหมายจุลภาค ปล่อยว่างไว้เพื่อใช้ค่าเริ่มต้นที่มีมาให้",
-  "settings.indexing.fileExtensions.invalid": "นามสกุลไฟล์ไม่ถูกต้อง: {{extension}}",
-  "settings.indexing.providerField.description": "การตั้งค่าการเชื่อมต่อเฉพาะผู้ให้บริการ",
-  "settings.indexing.status.title": "สถานะ",
-  "settings.indexing.tuning.description": "พารามิเตอร์การค้นหาขั้นสูงและการประมวลผลแบทช์",
-
   "settings.providers.title": "ผู้ให้บริการ",
   "settings.providers.section.connected": "ผู้ให้บริการที่เชื่อมต่อ",
   "settings.providers.connected.empty": "ไม่มีผู้ให้บริการที่เชื่อมต่อ",
@@ -712,23 +672,13 @@ export const dict = {
 
   "settings.agentBehaviour.title": "พฤติกรรมของเอเจนต์",
   "settings.autoApprove.title": "อนุมัติอัตโนมัติ",
-  "settings.webTools.title": "เครื่องมือเว็บ",
-  "settings.webTools.description": "กำหนดค่าการค้นหาเว็บและระบบอัตโนมัติของเบราว์เซอร์",
-  "settings.webTools.webSearch.enable": "เปิดใช้สำหรับผู้ให้บริการทั้งหมด",
-  "settings.webTools.browserAutomation": "ระบบอัตโนมัติของเบราว์เซอร์",
-  "settings.webTools.webSearch.title": "ค้นหาเว็บ",
-  "settings.webTools.webSearch.description": "ทำให้โมเดลจากผู้ให้บริการทั้งหมดใช้การค้นหาเว็บได้",
   "settings.checkpoints.title": "จุดตรวจสอบ",
   "settings.display.title": "การแสดงผล",
-  "settings.autocomplete.title": "เติมข้อความอัตโนมัติ",
   "settings.autocomplete.model.title": "โมเดล Autocomplete",
   "settings.autocomplete.model.description": "เลือกโมเดลที่ใช้สำหรับการเติมโค้ดแบบอินไลน์ (inline completions)",
   "settings.notifications.title": "การแจ้งเตือน",
-  "settings.context.title": "บริบท",
 
-  "settings.experimental.title": "ทดลอง",
   "settings.language.title": "ภาษา",
-  "settings.aboutKiloCode.title": "เกี่ยวกับ Harness Code",
 
   "session.messages.welcome": "Harness Code เป็นผู้ช่วยเขียนโค้ด AI ขอให้สร้างฟีเจอร์ แก้ไขบัก หรืออธิบายโค้ดเบสของคุณ",
   "session.messages.scrollToBottom": "เลื่อนไปด้านล่าง",
@@ -788,56 +738,11 @@ export const dict = {
   "time.thisMonth": "เดือนนี้",
   "time.older": "เก่ากว่า",
 
-  "settings.aboutKiloCode.status.connected": "เชื่อมต่อแล้ว",
-  "settings.aboutKiloCode.status.connecting": "กำลังเชื่อมต่อ...",
-  "settings.aboutKiloCode.status.disconnected": "ตัดการเชื่อมต่อ",
-  "settings.aboutKiloCode.status.error": "ข้อผิดพลาด",
-  "settings.aboutKiloCode.cliServer": "เซิร์ฟเวอร์ CLI",
-  "settings.aboutKiloCode.status.label": "สถานะ:",
-  "settings.aboutKiloCode.port.label": "พอร์ต:",
-  "settings.aboutKiloCode.versionInfo": "ข้อมูลเวอร์ชัน",
-  "settings.aboutKiloCode.version.label": "เวอร์ชัน:",
-  "settings.aboutKiloCode.community": "ชุมชนและการสนับสนุน",
-  "settings.aboutKiloCode.feedback.prefix": "หากคุณมีคำถามหรือข้อเสนอแนะ สามารถเปิด issue ได้ที่",
-  "settings.aboutKiloCode.feedback.or": "หรือ",
-  "settings.aboutKiloCode.support.prefix": "สำหรับคำถามเกี่ยวกับการเรียกเก็บเงินหรือบัญชี ติดต่อฝ่ายสนับสนุนลูกค้าที่",
-  "settings.aboutKiloCode.resetSettings.title": "รีเซ็ตการตั้งค่า",
-  "settings.aboutKiloCode.resetSettings.description":
-    "การดำเนินการนี้จะรีเซ็ตเฉพาะการตั้งค่าเฉพาะของส่วนขยาย VS Code กลับเป็นค่าเริ่มต้นเท่านั้น การตั้งค่าที่ใช้ร่วมกับ CLI เช่น โหมดและกฎการอนุมัติอัตโนมัติ จะถูกเก็บไว้ในการกำหนดค่า CLI และจะไม่ถูกรีเซ็ต",
-  "settings.aboutKiloCode.resetSettings.button": "รีเซ็ตการตั้งค่าทั้งหมด",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "Reset Read Notifications",
-  "settings.aboutKiloCode.settingsTransfer.title": "ถ่ายโอนการตั้งค่า",
-  "settings.aboutKiloCode.settingsTransfer.description":
-    "ส่งออกหรือนำเข้าการตั้งค่าเพื่อถ่ายโอนระหว่างอินสแตนซ์ VS Code",
-  "settings.aboutKiloCode.exportSettings": "ส่งออก",
-  "settings.aboutKiloCode.importSettings": "นำเข้า",
-  "settings.aboutKiloCode.importSettings.invalidJson": "ไฟล์ JSON ไม่ถูกต้อง กรุณาเลือกไฟล์การตั้งค่าที่ถูกต้อง",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "ไฟล์ไม่มีการตั้งค่า Kilo ที่ถูกต้อง",
-  "settings.aboutKiloCode.importSettings.tooLarge": "ไฟล์มีขนาดใหญ่เกินไป ไฟล์การตั้งค่าต้องมีขนาดไม่เกิน 1 MB",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "ไฟล์นี้ถูกส่งออกจาก Kilo เวอร์ชันใหม่กว่า การตั้งค่าบางรายการอาจถูกข้ามไป",
-  "settings.aboutKiloCode.importSettings.success": "นำเข้าการตั้งค่าแล้ว ตรวจสอบการเปลี่ยนแปลงด้านบน จากนั้นคลิกบันทึก",
-
-  "settings.aboutKiloCode.telemetry.title": "Telemetry",
-  "settings.aboutKiloCode.telemetry.description":
-    'Telemetry ถูกควบคุมโดยการตั้งค่า Telemetry ในตัวของ VS Code หากต้องการปิดใช้งาน ให้ไปที่ Settings > Telemetry > Telemetry Level แล้วตั้งค่าเป็น "off" รีสตาร์ท VS Code เพื่อให้การเปลี่ยนแปลงมีผล',
-  "settings.aboutKiloCode.telemetry.openSettings": "เปิดการตั้งค่า Telemetry",
-
   "settings.agentBehaviour.subtab.agents": "ตัวแทน",
   "settings.agentBehaviour.subtab.mcpServers": "เซิร์ฟเวอร์ MCP",
   "settings.agentBehaviour.subtab.rules": "กฎ",
   "settings.agentBehaviour.subtab.workflows": "เวิร์กโฟลว์",
   "settings.agentBehaviour.subtab.skills": "ทักษะ",
-
-  "settings.browser.description":
-    "กำหนดค่าการทำงานอัตโนมัติของเบราว์เซอร์ในตัวที่ขับเคลื่อนโดย Playwright Kilo สามารถนำทาง โต้ตอบ และจับภาพหน้าจอของหน้าเว็บในเซสชันของคุณได้",
-  "settings.browser.enable.title": "เปิดใช้งานการทำงานอัตโนมัติของเบราว์เซอร์",
-  "settings.browser.enable.description":
-    "เปิดใช้งานเบราว์เซอร์ Agent Manager แบบแยกตามเซสชันสำหรับแอปพลิเคชันในเครื่องและหน้าเว็บ HTTPS สาธารณะ",
-  "settings.browser.systemChrome.title": "ใช้ Chrome ของระบบ",
-  "settings.browser.systemChrome.description": "ใช้เบราว์เซอร์ Chrome ที่ติดตั้งแทนอินสแตนซ์ Chromium แยกต่างหาก",
-  "settings.browser.headless.title": "โหมด Headless",
-  "settings.browser.headless.description": "ทำงานในโหมด headless (ไม่มีหน้าต่างเบราว์เซอร์ที่มองเห็นได้)",
 
   "settings.language.description": 'เลือกภาษาสำหรับ UI ของ Harness Code "อัตโนมัติ" จะใช้ภาษาการแสดงผลของ VS Code',
   "settings.language.auto": "อัตโนมัติ (ภาษา VS Code)",
@@ -845,13 +750,6 @@ export const dict = {
 
   "common.add": "เพิ่ม",
 
-  "settings.autocomplete.autoTrigger.title": "เปิดใช้งานการเติมอัตโนมัติแบบอินไลน์",
-  "settings.autocomplete.autoTrigger.description": "แสดงข้อเสนอแนะการเติมอัตโนมัติระหว่างพิมพ์",
-  "settings.autocomplete.smartKeybinding.title": "เปิดใช้งานปุ่มลัดงานอินไลน์อัจฉริยะ",
-  "settings.autocomplete.smartKeybinding.description": "ใช้ปุ่มลัดอัจฉริยะสำหรับงานอินไลน์",
-  "settings.autocomplete.chatAutocomplete.title": "เปิดใช้งานเติมอัตโนมัติแชท",
-  "settings.autocomplete.chatAutocomplete.description": "แสดงข้อเสนอแนะเติมอัตโนมัติในช่องแชท",
-  "settings.autocomplete.modelsHint": "เลือกโมเดลที่ใช้สำหรับการเติมอัตโนมัติได้ที่การตั้งค่าโมเดล",
   "settings.notifications.sounds": "เสียง",
   "settings.notifications.enable.title": "เปิดใช้การแจ้งเตือนด้วยเสียง",
   "settings.notifications.enable.description":
@@ -871,25 +769,9 @@ export const dict = {
   "settings.notifications.sound.system": "ระบบ",
   "settings.notifications.sound.description":
     "ค่าเริ่มต้นจะใช้เสียงที่แตกต่างกันสำหรับการเสร็จสิ้น การป้อนข้อมูล และข้อผิดพลาด ส่วนตัวเลือกอื่นจะใช้เสียงเดียวสำหรับทุกเหตุการณ์",
-  "settings.experimental.share.title": "โหมดแชร์",
-  "settings.experimental.share.description": "พฤติกรรมการแชร์เซสชัน",
-  "settings.experimental.share.manual": "ด้วยตนเอง",
-  "settings.experimental.share.auto": "อัตโนมัติ",
-  "settings.experimental.share.disabled": "ปิดใช้งาน",
-  "settings.experimental.formatter.title": "ฟอร์แมตเตอร์",
-  "settings.experimental.formatter.description": "เปิดใช้งานฟอร์แมตโค้ดอัตโนมัติ",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "เปิดใช้งานการรวม Language Server Protocol",
-  "settings.experimental.batch.title": "เครื่องมือแบทช์",
-  "settings.experimental.batch.description": "เปิดใช้งานการประมวลผลแบทช์ของการเรียกเครื่องมือ",
-  "settings.experimental.imageGeneration.title": "การสร้างภาพ",
-  "settings.experimental.imageGeneration.description": "เปิดใช้งานการสร้างภาพด้วย AI",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "แชร์กระดานระหว่างเซสชันหลักกับเอเจนต์ย่อยที่รับมอบหมายงานจากเซสชันนั้น รวมถึงเอเจนต์ย่อยที่ซ้อนกัน ใช้สำหรับการลองแก้ปัญหาแบบขนานหรืองานที่เสริมกัน ไม่ใช่สำหรับทุกงาน",
-  "settings.experimental.imageGenerationModel.title": "โมเดลภาพ",
-  "settings.experimental.imageGenerationModel.description": "โมเดลการสร้างภาพ",
-  "settings.experimental.imageGenerationModel.placeholder": "ค่าเริ่มต้น (Auto Router)",
 
   "settings.models.speechToTextModel.customDescription":
     "รหัสโมเดลที่ส่งไปยังปลายทางการถอดเสียงของคุณเอง เช่น whisper-1",
@@ -908,39 +790,7 @@ export const dict = {
     "การป้อนด้วยเสียงไม่พร้อมใช้งานในหน้าต่างระยะไกล เปิด Kilo ในหน้าต่างภายในเครื่องเพื่อใช้ไมโครโฟน",
   "settings.models.speechToTextModel.title": "โมเดลแปลงเสียงเป็นข้อความ",
   "settings.models.speechToTextModel.description": "เลือกโมเดลการถอดเสียง Kilo Gateway สำหรับการป้อนข้อมูลด้วยเสียง",
-  "settings.experimental.nativeNotebookTools.title": "เครื่องมือโน้ตบุ๊กดั้งเดิม",
-  "settings.experimental.nativeNotebookTools.description":
-    "เปิดใช้งานเครื่องมือทดลองสำหรับการอ่าน แก้ไข และเรียกใช้โน้ตบุ๊ก VS Code",
-  "settings.experimental.continueOnDeny.title": "ดำเนินต่อเมื่อถูกปฏิเสธ",
-  "settings.experimental.continueOnDeny.description": "ดำเนินลูปเอเจนต์ต่อเมื่อสิทธิ์ถูกปฏิเสธ",
-  "settings.sandboxing.title": "การทำงานในแซนด์บ็อกซ์",
-  "settings.sandboxing.network.title": "จำกัดการเข้าถึงเครือข่าย",
-  "settings.sandboxing.network.description":
-    "บล็อกการเข้าถึงขาออกโดยตรงจากคำสั่งที่เริ่มต้นโดยโมเดลและเครื่องมือ HTTP เครื่องมือ MCP ทั้งในเครื่องและระยะไกลจะใช้งานไม่ได้ในขณะที่มีการจำกัดนี้ การรับส่งข้อมูลของผู้ให้บริการและฮุกของปลั๊กอินที่เชื่อถือได้จะไม่อยู่ภายใต้ข้อจำกัดนี้",
 
-  "settings.sandboxing.allowedHosts.title": "ปลายทางเครือข่ายที่อนุญาต",
-  "settings.sandboxing.allowedHosts.description":
-    "โฮสต์ DNS และพอร์ตปลายทางสำหรับทราฟฟิกพร็อกซี HTTP และ HTTPS ในแซนด์บ็อกซ์ GitHub CLI และ HTTPS Git มักต้องใช้ github.com:443 และ api.github.com:443",
-  "settings.sandboxing.writablePaths.title": "เส้นทางที่เขียนได้เพิ่มเติม",
-  "settings.sandboxing.writablePaths.description":
-    "เส้นทางระบบไฟล์เพิ่มเติมที่แซนด์บ็อกซ์อนุญาตให้เขียนได้ (เช่น /tmp, /var/log) จะถูกรวมเข้ากับเส้นทางที่เขียนได้เริ่มต้นเมื่อแซนด์บ็อกซ์เปิดใช้งาน",
-  "settings.experimental.multiProject.title": "Agent Manager หลายโปรเจกต์",
-  "settings.experimental.claudeMigration.title": "การย้าย Claude Code",
-  "settings.experimental.claudeMigration.description":
-    "นำเข้าคำสั่ง CLAUDE.md ระดับโลกที่รองรับ ทักษะอย่างง่าย และคำจำกัดความ MCP ที่ปิดใช้งานเพียงครั้งเดียว ไฟล์ Claude ต้นฉบับจะไม่ถูกแก้ไข ให้เริ่มแบ็กเอนด์ใหม่หลังเปิดใช้งาน",
-  "settings.experimental.multiProject.description":
-    "เปิดใช้งานการจัดการเซสชันและเวิร์กทรีข้ามหลาย Repository ใน Agent Manager Repository ของ workspace ปัจจุบันเป็นโปรเจกต์เริ่มต้นเสมอ",
-  "settings.experimental.mcpTimeout.title": "หมดเวลา MCP (มิลลิวินาที)",
-  "settings.experimental.mcpTimeout.description": "หมดเวลาสำหรับคำขอเซิร์ฟเวอร์ MCP เป็นมิลลิวินาที",
-  "settings.experimental.remote.title": "การควบคุม Remote",
-  "settings.experimental.remote.description":
-    "เปิดใช้งานการควบคุม Remote ของเซสชันผ่าน Kilo Cloud ซึ่งจะส่งผลต่อ CLI บนเครื่องนี้ด้วย",
-  "settings.experimental.remote.current": "สถานะปัจจุบัน:",
-  "settings.experimental.remote.startup": "เปิดใช้งานอัตโนมัติเมื่อเริ่มต้น:",
-  "settings.experimental.remote.active": "เปิดใช้งาน",
-  "settings.experimental.remote.inactive": "ปิดใช้งาน",
-  "settings.experimental.remote.hint": "ใช้ /remote ในแชทเพื่อสลับสถานะ",
-  "settings.experimental.toolToggles": "สวิตช์เครื่องมือ",
   "settings.agentBehaviour.defaultAgent.title": "เอเจนต์เริ่มต้น",
   "settings.agentBehaviour.defaultAgent.description": "เอเจนต์ที่ใช้เมื่อไม่ได้ระบุ",
   "settings.agentBehaviour.availableAgents": "เอเจนต์ที่ใช้งานได้",
@@ -1061,12 +911,6 @@ export const dict = {
   "settings.agentBehaviour.workflows.model": "โมเดล",
   "settings.agentBehaviour.workflows.variant": "รูปแบบ",
   "settings.agentBehaviour.workflows.modelDescription": "การแทนที่โมเดลส่วนกลาง",
-  "settings.experimental.codeMode.title": "การเรียกใช้เครื่องมือแบบโปรแกรม",
-  "settings.experimental.codeMode.description":
-    "กำหนดเส้นทางการเรียกใช้เครื่องมือ MCP ผ่านรันไทม์ JavaScript ที่จำกัดขอบเขตพร้อมการค้นหาเครื่องมือตามต้องการ แทนการเปิดเผยเครื่องมือ MCP แต่ละรายการโดยตรง ช่วยประหยัดบริบทเมื่อมีเครื่องมือ MCP เชื่อมต่ออยู่เป็นจำนวนมาก",
-  "settings.sandboxing.enabled.title": "Sandbox",
-  "settings.sandboxing.enabled.description":
-    "เรียกใช้คำสั่ง shell ของ agent ใน sandbox ระดับระบบปฏิบัติการที่จำกัดการเขียนไปยังโฟลเดอร์สถานะของโปรเจ็กต์และ Kilo",
 
   "settings.autoApprove.description":
     "กำหนดวิธีอนุญาตการทำงานของเครื่องมือ โดยค่าเริ่มต้นเครื่องมือส่วนใหญ่คืออนุญาต ส่วน doom_loop และ external_directory ค่าเริ่มต้นคือถาม",
@@ -1101,77 +945,15 @@ export const dict = {
     "เข้าถึงไฟล์นอกพื้นที่ทำงาน (Workspace) ถูกเรียกเมื่อเข้าถึงไฟล์ภายนอกไดเรกทอรีโปรเจ็กต์ปัจจุบัน",
   "settings.autoApprove.tool.doom_loop":
     "ป้องกันการกระทำที่ซ้ำกัน ถูกเรียกเมื่อเครื่องมือเดิมถูกเรียกซ้ำด้วยข้อมูลนำเข้าที่เหมือนกัน",
-  "settings.checkpoints.enable.title": "เปิดใช้งานสแนปชอต",
-  "settings.checkpoints.enable.description": "สร้างจุดตรวจก่อนแก้ไขไฟล์",
-  "settings.autoCleanup.enable.title": "เปิดการล้างเซสชันอัตโนมัติ",
-  "settings.autoCleanup.enable.description":
-    "ล้างประวัติเซสชันเก่าโดยอัตโนมัติหลังจากผ่านไปตามจำนวนวันที่กำหนด ครอบคลุมทุกโปรเจกต์และไคลเอนต์ Kilo ทุกตัวบนเครื่องนี้ ไม่ใช่แค่หน้าต่างนี้ เซสชันที่กำลังทำงานและเซสชันที่มี fork ล่าสุดจะไม่ถูกลบเด็ดขาด การลบเป็นการถาวร",
-  "settings.autoCleanup.defaultRetention.title": "เก็บเซสชันไว้ (วัน)",
-  "settings.autoCleanup.defaultRetention.description": "ระยะเวลาที่เก็บประวัติเซสชันก่อนการล้างอัตโนมัติจะลบ",
-  "settings.autoCleanup.lastRun.title": "การล้างล่าสุด",
-  "settings.autoCleanup.lastRun.never": "ยังไม่เคยรัน",
-  "settings.autoCleanup.result":
-    "{{date}}: ลบ {{deleted}} จาก {{scanned}} เซสชัน (ข้ามเซสชันที่กำลังทำงาน {{active}} เซสชัน, ล้มเหลว {{failed}}) ใน {{seconds}} วินาที",
-  "settings.autoCleanup.starting": "กำลังเริ่มการล้างเซสชัน...",
-  "settings.autoCleanup.error.status": "ไม่สามารถดูสถานะการล้างเซสชันได้ชั่วคราว กำลังลองใหม่...",
-  "settings.autoCleanup.error.timeout": "กำลังรอสถานะการล้าง ระบบเบื้องหลังใช้เวลานานกว่าที่คาดไว้",
-  "settings.autoCleanup.error.run":
-    "ไม่สามารถยืนยันได้ว่าการล้างเซสชันเสร็จสมบูรณ์ โปรดตรวจสอบผลการล้างล่าสุดก่อนลองอีกครั้ง",
-  "settings.autoCleanup.progress.scanning": "กำลังสแกนเซสชัน: ประมวลผลแล้ว {{processed}}/{{total}}",
-  "settings.autoCleanup.progress.deleting":
-    "กำลังลบเซสชัน: ประมวลผลแล้ว {{processed}}/{{total}} (ลบแล้ว {{deleted}}, ล้มเหลว {{failed}})",
-  "settings.autoCleanup.runNow": "รันการล้างเดี๋ยวนี้",
-  "settings.autoCleanup.runNow.confirm":
-    "ลบเซสชันที่หมดอายุอย่างถาวรทั่วทุกโปรเจกต์และไคลเอนต์ Kilo ทุกตัวบนเครื่องนี้หรือไม่?",
-  "settings.autoCleanup.stop": "หยุดการล้างข้อมูล",
-  "settings.autoCleanup.progress.cancelling": "กำลังหยุดการล้างเซสชัน...",
-  "settings.autoCleanup.lastRun.cancelled": "ถูกยกเลิก",
-  "settings.context.autoCompaction.title": "การบีบอัดอัตโนมัติ",
-  "settings.context.autoCompaction.description": "บีบอัดบริบทอัตโนมัติก่อนถึงขีดจำกัด",
-  "settings.context.compaction.title": "การบีบอัด",
   "settings.context.compactionModel.title": "โมเดลสำหรับการบีบอัด",
   "settings.context.compactionModel.description":
     "โมเดลที่ใช้สำหรับการบีบอัดอัตโนมัติและด้วยตนเอง เว้นว่างไว้เพื่อใช้โมเดลแชท ค่าใช้จ่าย ความเร็ว และคุณภาพของสรุปขึ้นอยู่กับโมเดล",
   "settings.context.compactionModel.useChatModel": "ใช้โมเดลแชท",
-  "settings.context.compactionModel.hint": "เลือกโมเดลที่ใช้สำหรับการบีบอัดได้ที่การตั้งค่าโมเดล",
-  "settings.context.compactionLimit.title": "ขีดจำกัดการบีบอัดอัตโนมัติ",
-  "settings.context.compactionLimit.description":
-    "บีบอัดเมื่อบริบทถึงเปอร์เซ็นต์นี้ของหน้าต่างโมเดล เว้นว่างไว้เพื่อใช้เฉพาะบัฟเฟอร์ความปลอดภัย",
-  "settings.context.prune.title": "ตัดผลลัพธ์เก่า",
-  "settings.context.prune.description": "ลบผลลัพธ์เครื่องมือเก่าระหว่างการบีบอัด",
-  "settings.context.watcherPatterns": "รูปแบบการละเว้นตัวเฝ้าดูไฟล์",
-  "settings.context.watcherPatterns.description": "รูปแบบ glob สำหรับไฟล์ที่ตัวเฝ้าดูควรละเว้น",
 
-  "settings.context.memory.title": "ความจำ",
-  "settings.context.memory.project.title": "ความจำของโปรเจกต์",
-  "settings.context.memory.autoSave.title": "บันทึกความจำของโปรเจกต์อัตโนมัติ",
-  "settings.context.memory.autoSave.description":
-    "บันทึกข้อเท็จจริงถาวรของโปรเจกต์จากรอบที่เสร็จแล้วโดยอัตโนมัติเมื่อเปิดใช้ความจำ",
-  "settings.context.memory.storage.title": "Storage",
-  "settings.context.memory.status.notLoaded": "ยังไม่ได้โหลด",
-  "settings.context.memory.status.disabled": "ปิดใช้งาน",
-  "settings.context.memory.status.enabledTokens": "Enabled - ~{{tokens}} stored tokens",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "Enable memory to create project memory files.",
-  "settings.context.memory.inspect": "ตรวจสอบ",
   "chat.memory.project.disabled": "ปิดใช้ความจำของโปรเจกต์แล้ว",
-  "chat.memory.project.empty": "This project doesn't have any memory yet. It will start showing after you use Kilo.",
   "chat.memory.command.failed": "คำสั่งความจำล้มเหลว",
   "chat.memory.updated": "Memory updated",
   "chat.memory.rebuild": "Memory index rebuilt",
-
-  "settings.commitMessage.title": "Commit Message",
-  "settings.commitMessage.override.title": "ใช้ prompt แบบกำหนดเอง",
-  "settings.commitMessage.override.description":
-    "แทนที่ prompt เริ่มต้นของ commit message เมื่อเปิดใช้งาน prompt แบบกำหนดเองของคุณจะแทนที่ prompt เริ่มต้นของ conventional commits ทั้งหมด",
-  "settings.commitMessage.prompt.title": "prompt แบบกำหนดเอง",
-  "settings.commitMessage.prompt.description":
-    "System prompt ที่ส่งไปยัง AI เมื่อสร้าง commit messages สิ่งนี้จะแทนที่ prompt เริ่มต้นทั้งหมด",
-  "settings.commitMessage.prompt.placeholder":
-    "เช่น สร้าง commit messages เป็นภาษาสเปนตามรูปแบบ conventional commits คืนค่าเฉพาะ commit message เท่านั้น",
-
-  "settings.commitMessage.language.sync": "ซิงค์กับภาษา UI",
-  "settings.commitMessage.language.description": "เลือกภาษาใดที่จะใช้สําหรับข้อความ commit ที่สร้างโดย AI:",
 
   "settings.display.preview.title": "ตัวอย่าง",
   "settings.display.presets.title": "พรีเซ็ตการแสดงผล",
@@ -1364,12 +1146,6 @@ export const dict = {
   "chat.search.close": "ปิดการค้นหา",
   "chat.search.invalidRegex": "นิพจน์ทั่วไปไม่ถูกต้อง",
   "chat.search.noResults": "ไม่มีผลลัพธ์",
-  "settings.experimental.browserAutomation.title": "เบราว์เซอร์ในตัว",
-  "settings.experimental.browserAutomation.description":
-    "แสดงตัวอย่างแอปพลิเคชันในเครื่องใน Agent Manager และเปิดเผยเครื่องมือ browser_open ให้กับเซสชัน Agent Manager",
-  "settings.experimental.browserAutomation.systemChrome.title": "ใช้ Chrome ของระบบ",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "ใช้ Google Chrome ที่ติดตั้งไว้สำหรับเบราว์เซอร์ในตัว ปิดใช้งานเฉพาะเมื่อติดตั้งเบราว์เซอร์ Playwright Chromium ที่เข้ากันได้ไว้แล้วเท่านั้น",
   "chat.search.searchingHistory": "กำลังค้นหาข้อความก่อนหน้า…",
   "settings.harness.title": "Harness",
   "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
@@ -1428,4 +1204,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "Subagent reports",
   "settings.harness.human.checklist": "Your checklist (one per line)",
   "settings.harness.human.checklist.hint": "Things the AI cannot judge, such as taste.",
+  "settings.connections.title": "Models and providers",
 }

@@ -429,47 +429,6 @@ export const dict = {
   "sound.option.yup06": "Ja 06",
 
   "prompt.action.indexing": "Indizierungseinstellungen",
-  "settings.indexing.dimension.description":
-    "Leer lassen, um die Embedding-Dimension automatisch aus dem Modell zu erkennen.",
-  "settings.indexing.dimension.placeholder": "Auto",
-  "settings.indexing.dimension.title": "Vektordimension",
-  "settings.indexing.enable.description": "Semantische Codebasis-Indizierung ein- oder ausschalten.",
-  "settings.indexing.showButton.title": "Schaltfläche anzeigen, wenn die Indizierung deaktiviert ist",
-  "settings.indexing.showButton.description":
-    "Zeigt die Schaltfläche für die Indizierung unter dem Eingabefeld an, solange die Indizierung deaktiviert ist. Wenn die Schaltfläche ausgeblendet ist, öffnen Sie Einstellungen > Indizierung, um die Indizierung zu aktivieren.",
-  "settings.indexing.enable.title": "Indizierung aktivieren",
-  "settings.indexing.globalEnable.title": "Global aktivieren",
-  "settings.indexing.globalEnable.description": "Indizierung für jeden Workspace aktivieren.",
-  "settings.indexing.projectEnable.title": "Für dieses Projekt aktivieren",
-  "settings.indexing.projectEnable.description":
-    "Indizierung für diesen Workspace aktivieren, wenn die globale Indizierung deaktiviert ist.",
-  "settings.indexing.lancedbDirectory.description": "Optionaler Ordner für den lokalen LanceDB-Speicher.",
-  "settings.indexing.lancedbDirectory.placeholder": "Leer lassen für Standard",
-  "settings.indexing.lancedbDirectory.title": "LanceDB-Ordner",
-  "settings.indexing.model.description": "Das Standard-Embedding-Modell für den ausgewählten Anbieter überschreiben.",
-  "settings.indexing.model.title": "Embedding-Modell",
-  "settings.indexing.provider.description":
-    "Wählen Sie den Anbieter, der für die Generierung von Embeddings für die semantische Suche verwendet wird.",
-  "settings.indexing.kiloModel.title": "Kilo-Modellvoreinstellung",
-  "settings.indexing.kiloModel.description": "Wählen Sie ein unterstütztes von Kilo gehostetes Embedding-Modell.",
-  "settings.indexing.kiloSignIn.title": "Kilo-Anmeldung erforderlich",
-  "settings.indexing.kiloSignIn.description": "Melden Sie sich bei Kilo an, um gehostete Embeddings zu verwenden.",
-  "settings.indexing.provider.title": "Embedding-Anbieter",
-  "settings.indexing.providerField.description": "Anbieterspezifische Verbindungseinstellung.",
-  "settings.indexing.qdrantApiKey.description": "Optionaler API-Schlüssel für die Qdrant-Instanz.",
-  "settings.indexing.qdrantApiKey.placeholder": "Optionaler API-Schlüssel",
-  "settings.indexing.fileExtensions.title": "Dateierweiterungen",
-  "settings.indexing.fileExtensions.description":
-    "Durch Kommas getrennte Zulassungsliste. Leer lassen, um die integrierten Standardwerte zu verwenden.",
-  "settings.indexing.fileExtensions.invalid": "Ungültige Erweiterung: {{extension}}",
-  "settings.indexing.qdrantApiKey.title": "Qdrant API-Schlüssel",
-  "settings.indexing.qdrantUrl.description": "Server-URL für die Qdrant-Instanz.",
-  "settings.indexing.qdrantUrl.title": "Qdrant URL",
-  "settings.indexing.status.title": "Status",
-  "settings.indexing.title": "Indizierung",
-  "settings.indexing.tuning.description": "Erweiterter Such- und Batch-Parameter.",
-  "settings.indexing.vectorStore.description": "Wählen Sie, wo indizierte Embeddings gespeichert werden.",
-  "settings.indexing.vectorStore.title": "Vektorspeicher",
 
   "settings.providers.title": "Anbieter",
   "settings.providers.section.connected": "Verbundene Anbieter",
@@ -733,23 +692,13 @@ export const dict = {
 
   "settings.agentBehaviour.title": "Agentenverhalten",
   "settings.autoApprove.title": "Automatisch genehmigen",
-  "settings.webTools.title": "Web-Tools",
-  "settings.webTools.description": "Konfigurieren Sie Websuche und Browserautomatisierung.",
-  "settings.webTools.webSearch.enable": "Für alle Anbieter aktivieren",
-  "settings.webTools.browserAutomation": "Browserautomatisierung",
-  "settings.webTools.webSearch.title": "Websuche",
-  "settings.webTools.webSearch.description": "Machen Sie die Websuche für Modelle aller Anbieter verfügbar.",
   "settings.checkpoints.title": "Prüfpunkte",
   "settings.display.title": "Anzeige",
-  "settings.autocomplete.title": "Autovervollständigung",
   "settings.autocomplete.model.title": "Autocomplete-Modell",
   "settings.autocomplete.model.description": "Wählen Sie das Modell für Inline-Code-Vervollständigungen",
   "settings.notifications.title": "Benachrichtigungen",
-  "settings.context.title": "Kontext",
 
-  "settings.experimental.title": "Experimentell",
   "settings.language.title": "Sprache",
-  "settings.aboutKiloCode.title": "Über Harness Code",
 
   "session.messages.welcome":
     "Harness Code ist ein KI-Programmierassistent. Bitten Sie ihn, Funktionen zu erstellen, Fehler zu beheben oder Ihre Codebasis zu erklären.",
@@ -812,61 +761,11 @@ export const dict = {
   "time.thisMonth": "Diesen Monat",
   "time.older": "Älter",
 
-  "settings.aboutKiloCode.status.connected": "Verbunden",
-  "settings.aboutKiloCode.status.connecting": "Verbindung wird hergestellt...",
-  "settings.aboutKiloCode.status.disconnected": "Getrennt",
-  "settings.aboutKiloCode.status.error": "Fehler",
-  "settings.aboutKiloCode.cliServer": "CLI-Server",
-  "settings.aboutKiloCode.status.label": "Status:",
-  "settings.aboutKiloCode.port.label": "Port:",
-  "settings.aboutKiloCode.versionInfo": "Versionsinformationen",
-  "settings.aboutKiloCode.version.label": "Version:",
-  "settings.aboutKiloCode.community": "Community & Support",
-  "settings.aboutKiloCode.feedback.prefix": "Bei Fragen oder Feedback können Sie ein Issue eröffnen auf",
-  "settings.aboutKiloCode.feedback.or": "oder",
-  "settings.aboutKiloCode.support.prefix":
-    "Bei Abrechnungs- oder Kontofragen wenden Sie sich an den Kundensupport unter",
-  "settings.aboutKiloCode.resetSettings.title": "Einstellungen zurücksetzen",
-  "settings.aboutKiloCode.resetSettings.description":
-    "Dies setzt nur VS Code-erweiterungsspezifische Einstellungen auf ihre Standardwerte zurück. Einstellungen, die mit der CLI geteilt werden, wie Modi und Regeln für die automatische Genehmigung, werden in der CLI-Konfiguration gespeichert und nicht zurückgesetzt.",
-  "settings.aboutKiloCode.resetSettings.button": "Alle Einstellungen zurücksetzen",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "Reset Read Notifications",
-  "settings.aboutKiloCode.settingsTransfer.title": "Einstellungen übertragen",
-  "settings.aboutKiloCode.settingsTransfer.description":
-    "Exportieren oder importieren Sie Ihre Einstellungen, um sie zwischen VS Code-Instanzen zu übertragen.",
-  "settings.aboutKiloCode.exportSettings": "Exportieren",
-  "settings.aboutKiloCode.importSettings": "Importieren",
-  "settings.aboutKiloCode.importSettings.invalidJson":
-    "Ungültige JSON-Datei. Bitte wählen Sie eine gültige Einstellungsdatei aus.",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "Die Datei enthält keine gültigen Kilo-Einstellungen.",
-  "settings.aboutKiloCode.importSettings.tooLarge":
-    "Die Datei ist zu groß. Einstellungsdateien müssen kleiner als 1 MB sein.",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "Diese Datei wurde mit einer neueren Version von Kilo exportiert. Einige Einstellungen werden möglicherweise ignoriert.",
-  "settings.aboutKiloCode.importSettings.success":
-    "Einstellungen importiert. Überprüfen Sie die obigen Änderungen und klicken Sie dann auf Speichern.",
-
-  "settings.aboutKiloCode.telemetry.title": "Telemetrie",
-  "settings.aboutKiloCode.telemetry.description":
-    'Die Telemetrie wird durch die integrierte Telemetrie-Einstellung von VS Code gesteuert. Um sie zu deaktivieren, gehen Sie zu Einstellungen > Telemetrie > Telemetrie-Stufe und setzen Sie diese auf "off". Starten Sie VS Code neu, um die Änderung zu übernehmen.',
-  "settings.aboutKiloCode.telemetry.openSettings": "Telemetrie-Einstellungen öffnen",
-
   "settings.agentBehaviour.subtab.agents": "Agenten",
   "settings.agentBehaviour.subtab.mcpServers": "MCP-Server",
   "settings.agentBehaviour.subtab.rules": "Regeln",
   "settings.agentBehaviour.subtab.workflows": "Workflows",
   "settings.agentBehaviour.subtab.skills": "Fähigkeiten",
-
-  "settings.browser.description":
-    "Integrierte Browser-Automatisierung auf Basis von Playwright konfigurieren. Kilo kann in Ihren Sitzungen Webseiten aufrufen, mit ihnen interagieren und Screenshots erstellen.",
-  "settings.browser.enable.title": "Browser-Automatisierung aktivieren",
-  "settings.browser.enable.description":
-    "Den sitzungsgebundenen Browser im Agent Manager für lokale Anwendungen und öffentliche HTTPS-Seiten aktivieren.",
-  "settings.browser.systemChrome.title": "System-Chrome verwenden",
-  "settings.browser.systemChrome.description":
-    "Verwenden Sie Ihren installierten Chrome-Browser anstelle einer separaten Chromium-Instanz.",
-  "settings.browser.headless.title": "Headless-Modus",
-  "settings.browser.headless.description": "Im Headless-Modus ausführen (kein sichtbares Browserfenster).",
 
   "settings.language.description":
     'Wählen Sie die Sprache für die Harness Code Oberfläche. „Auto" verwendet die VS Code Anzeigesprache.',
@@ -875,16 +774,6 @@ export const dict = {
 
   "common.add": "Hinzufügen",
 
-  "settings.autocomplete.autoTrigger.title": "Automatische Inline-Vervollständigung aktivieren",
-  "settings.autocomplete.autoTrigger.description":
-    "Inline-Vervollständigungsvorschläge beim Tippen automatisch anzeigen",
-  "settings.autocomplete.smartKeybinding.title": "Intelligente Inline-Aufgaben-Tastenkombination aktivieren",
-  "settings.autocomplete.smartKeybinding.description":
-    "Eine intelligente Tastenkombination zum Auslösen von Inline-Aufgaben verwenden",
-  "settings.autocomplete.chatAutocomplete.title": "Chat-Textfeld-Autovervollständigung aktivieren",
-  "settings.autocomplete.chatAutocomplete.description": "Autovervollständigungsvorschläge im Chat-Textfeld anzeigen",
-  "settings.autocomplete.modelsHint":
-    "Um zu wählen, welches Modell für die Autovervollständigung verwendet wird, siehe Modelleinstellungen.",
   "settings.notifications.sounds": "Töne",
   "settings.notifications.enable.title": "Tonbenachrichtigungen aktivieren",
   "settings.notifications.enable.description":
@@ -904,25 +793,9 @@ export const dict = {
   "settings.notifications.sound.system": "System",
   "settings.notifications.sound.description":
     "Die Standardeinstellung verwendet unterschiedliche Töne für Abschluss, Eingabe und Fehler. Bei anderen Optionen wird für alle Ereignisse derselbe Ton verwendet.",
-  "settings.experimental.share.title": "Freigabemodus",
-  "settings.experimental.share.description": "Verhalten der Sitzungsfreigabe",
-  "settings.experimental.share.manual": "Manuell",
-  "settings.experimental.share.auto": "Automatisch",
-  "settings.experimental.share.disabled": "Deaktiviert",
-  "settings.experimental.formatter.title": "Formatierer",
-  "settings.experimental.formatter.description": "Automatischen Code-Formatierer aktivieren",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "Language-Server-Protokoll-Integration aktivieren",
-  "settings.experimental.batch.title": "Batch-Werkzeug",
-  "settings.experimental.batch.description": "Bündelung mehrerer Werkzeugaufrufe aktivieren",
-  "settings.experimental.imageGeneration.title": "Bildgenerierung",
-  "settings.experimental.imageGeneration.description": "KI-Bildgenerierung aktivieren",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Teilen Sie ein Board zwischen einer Hauptsitzung und ihren mit Aufgaben betrauten Unteragenten, einschließlich verschachtelter Unteragenten. Nutzen Sie es für parallele Lösungsversuche oder sich ergänzende Arbeiten, nicht für jede Aufgabe.",
-  "settings.experimental.imageGenerationModel.title": "Bildmodell",
-  "settings.experimental.imageGenerationModel.description": "Bildgenerierungsmodell",
-  "settings.experimental.imageGenerationModel.placeholder": "Standard (Auto Router)",
 
   "settings.models.speechToTextModel.customDescription":
     "Modell-ID, die an Ihren eigenen Transkriptions-Endpunkt gesendet wird, zum Beispiel whisper-1.",
@@ -942,40 +815,7 @@ export const dict = {
   "settings.models.speechToTextModel.title": "Sprache-zu-Text-Modell",
   "settings.models.speechToTextModel.description":
     "Wählen Sie das Kilo Gateway-Transkriptionsmodell für die Spracheingabe.",
-  "settings.experimental.nativeNotebookTools.title": "Native Notebook-Tools",
-  "settings.experimental.nativeNotebookTools.description":
-    "Experimentelle Tools zum Lesen, Bearbeiten und Ausführen von VS Code-Notebooks aktivieren",
-  "settings.experimental.continueOnDeny.title": "Bei Ablehnung fortfahren",
-  "settings.experimental.continueOnDeny.description":
-    "Agent-Schleife fortsetzen, wenn eine Berechtigung abgelehnt wird",
-  "settings.sandboxing.title": "Sandbox",
-  "settings.sandboxing.network.title": "Netzwerkzugriff einschränken",
-  "settings.sandboxing.network.description":
-    "Blockiert den direkten ausgehenden Zugriff durch vom Modell initiierte Befehle und HTTP-Tools. Lokale und entfernte MCP-Tools sind während der Einschränkung nicht verfügbar. Provider-Datenverkehr und vertrauenswürdige Plugin-Hooks bleiben von dieser Einschränkung ausgenommen.",
 
-  "settings.sandboxing.allowedHosts.title": "Zulässige Netzwerkziele",
-  "settings.sandboxing.allowedHosts.description":
-    "DNS-Host- und Portziele für Sandbox-HTTP- und HTTPS-Proxy-Datenverkehr. GitHub CLI und HTTPS Git benötigen üblicherweise github.com:443 und api.github.com:443.",
-  "settings.sandboxing.writablePaths.title": "Zusätzliche schreibbare Pfade",
-  "settings.sandboxing.writablePaths.description":
-    "Zusätzliche Dateisystempfade, in die die Sandbox Schreibvorgänge erlaubt (z. B. /tmp, /var/log). Diese werden mit den Standard-Schreibpfaden zusammengeführt, wenn die Sandbox aktiv ist.",
-  "settings.experimental.multiProject.title": "Multi-Projekt Agent Manager",
-  "settings.experimental.claudeMigration.title": "Claude-Code-Migration",
-  "settings.experimental.claudeMigration.description":
-    "Unterstützte globale CLAUDE.md-Anweisungen, einfache Skills und deaktivierte MCP-Definitionen einmalig importieren. Originale Claude-Dateien bleiben unverändert; Backend nach dem Aktivieren neu starten.",
-  "settings.experimental.multiProject.description":
-    "Aktivieren Sie die Verwaltung von Sitzungen und Worktrees über mehrere Repositories im Agent Manager. Das aktuelle Workspace-Repository ist immer das Standardprojekt.",
-  "settings.experimental.mcpTimeout.title": "MCP-Zeitlimit (ms)",
-  "settings.experimental.mcpTimeout.description": "Zeitlimit für MCP-Server-Anfragen in Millisekunden",
-  "settings.experimental.remote.title": "Remote-Steuerung",
-  "settings.experimental.remote.description":
-    "Aktivieren Sie die Remote-Steuerung von Sitzungen über Kilo Cloud. Dies betrifft auch CLIs auf diesem Computer.",
-  "settings.experimental.remote.current": "Aktueller Status:",
-  "settings.experimental.remote.startup": "Automatisch beim Start aktivieren:",
-  "settings.experimental.remote.active": "Aktiv",
-  "settings.experimental.remote.inactive": "Inaktiv",
-  "settings.experimental.remote.hint": "Verwende /remote im Chat zum Umschalten",
-  "settings.experimental.toolToggles": "Werkzeug-Schalter",
   "settings.agentBehaviour.defaultAgent.title": "Standard-Agent",
   "settings.agentBehaviour.defaultAgent.description": "Agent, der verwendet wird, wenn keiner angegeben ist",
   "settings.agentBehaviour.availableAgents": "Verfügbare Agenten",
@@ -1100,12 +940,6 @@ export const dict = {
   "settings.agentBehaviour.workflows.model": "Modell",
   "settings.agentBehaviour.workflows.variant": "Variante",
   "settings.agentBehaviour.workflows.modelDescription": "Globale Modellüberschreibung",
-  "settings.experimental.codeMode.title": "Programmatische Werkzeugaufrufe",
-  "settings.experimental.codeMode.description":
-    "Leitet MCP-Tool-Aufrufe durch eine abgeschirmte JavaScript-Laufzeit mit bedarfsgesteuerter Tool-Erkennung, statt jedes MCP-Tool direkt bereitzustellen. Spart Kontext, wenn viele MCP-Tools verbunden sind.",
-  "settings.sandboxing.enabled.title": "Sandbox",
-  "settings.sandboxing.enabled.description":
-    "Shell-Befehle des Agenten in einer Sandbox auf Betriebssystemebene ausführen, die Schreibvorgänge auf die Projekt- und Kilo-Statusverzeichnisse beschränkt",
 
   "settings.autoApprove.description":
     "Legen Sie fest, wie Tools ausgeführt werden dürfen. Die meisten Tools sind standardmäßig auf Zulassen eingestellt. doom_loop und external_directory sind standardmäßig auf Fragen eingestellt.",
@@ -1146,82 +980,15 @@ export const dict = {
     "Zugriff auf Dateien außerhalb des Arbeitsbereichs. Wird ausgelöst, wenn auf Dateien außerhalb des aktuellen Projektverzeichnisses zugegriffen wird.",
   "settings.autoApprove.tool.doom_loop":
     "Wiederholte identische Aktionen verhindern. Wird ausgelöst, wenn sich derselbe Werkzeugaufruf mit identischer Eingabe wiederholt.",
-  "settings.checkpoints.enable.title": "Snapshots aktivieren",
-  "settings.checkpoints.enable.description":
-    "Prüfpunkte vor Dateibearbeitungen erstellen, um vorherige Zustände wiederherstellen zu können",
-  "settings.autoCleanup.enable.title": "Automatische Sitzungsbereinigung aktivieren",
-  "settings.autoCleanup.enable.description":
-    "Löscht alten Sitzungsverlauf automatisch nach einer festen Anzahl von Tagen, in allen Projekten und allen Kilo-Clients auf diesem Rechner, nicht nur in diesem Fenster. Laufende Sitzungen und Sitzungen mit jungem Fork werden nie gelöscht. Die Löschung ist dauerhaft.",
-  "settings.autoCleanup.defaultRetention.title": "Sitzungen aufbewahren (Tage)",
-  "settings.autoCleanup.defaultRetention.description":
-    "Wie lange der Sitzungsverlauf aufbewahrt wird, bevor die automatische Bereinigung ihn löscht.",
-  "settings.autoCleanup.lastRun.title": "Letzte Bereinigung",
-  "settings.autoCleanup.lastRun.never": "Nie ausgeführt",
-  "settings.autoCleanup.result":
-    "{{date}}: {{deleted}} von {{scanned}} Sitzungen gelöscht ({{active}} aktiv übersprungen, {{failed}} fehlgeschlagen) in {{seconds}}s",
-  "settings.autoCleanup.starting": "Sitzungsbereinigung wird gestartet...",
-  "settings.autoCleanup.error.status":
-    "Der Status der Sitzungsbereinigung ist vorübergehend nicht verfügbar. Erneuter Versuch...",
-  "settings.autoCleanup.error.timeout": "Warten auf den Bereinigungsstatus. Das Backend braucht länger als erwartet.",
-  "settings.autoCleanup.error.run":
-    "Der Abschluss der Sitzungsbereinigung konnte nicht bestätigt werden. Prüfe das Ergebnis der letzten Bereinigung, bevor du es erneut versuchst.",
-  "settings.autoCleanup.progress.scanning": "Sitzungen werden geprüft: {{processed}}/{{total}} verarbeitet",
-  "settings.autoCleanup.progress.deleting":
-    "Sitzungen werden gelöscht: {{processed}}/{{total}} verarbeitet ({{deleted}} gelöscht, {{failed}} fehlgeschlagen)",
-  "settings.autoCleanup.runNow": "Bereinigung jetzt ausführen",
-  "settings.autoCleanup.runNow.confirm":
-    "Abgelaufene Sitzungen endgültig in allen Projekten und allen Kilo-Clients auf diesem Rechner löschen?",
-  "settings.autoCleanup.stop": "Bereinigung stoppen",
-  "settings.autoCleanup.progress.cancelling": "Sitzungsbereinigung wird gestoppt...",
-  "settings.autoCleanup.lastRun.cancelled": "abgebrochen",
-  "settings.context.autoCompaction.title": "Automatische Komprimierung",
-  "settings.context.autoCompaction.description": "Kontext automatisch komprimieren, bevor er das Limit erreicht",
-  "settings.context.compaction.title": "Komprimierung",
   "settings.context.compactionModel.title": "Komprimierungsmodell",
   "settings.context.compactionModel.description":
     "Modell für die automatische und manuelle Komprimierung. Leer lassen, um das Chatmodell zu verwenden. Kosten, Geschwindigkeit und Zusammenfassungsqualität hängen vom Modell ab.",
   "settings.context.compactionModel.useChatModel": "Chatmodell verwenden",
-  "settings.context.compactionModel.hint":
-    "Um zu wählen, welches Modell für die Komprimierung verwendet wird, siehe Modelleinstellungen.",
-  "settings.context.compactionLimit.title": "Limit für automatische Komprimierung",
-  "settings.context.compactionLimit.description":
-    "Komprimieren, wenn der Kontext diesen Prozentsatz des Modellfensters erreicht. Leer lassen, um nur den Sicherheitspuffer zu verwenden.",
-  "settings.context.prune.title": "Alte Ausgaben bereinigen",
-  "settings.context.prune.description": "Alte Werkzeugausgaben während der Komprimierung entfernen",
-  "settings.context.watcherPatterns": "Datei-Watcher-Ignorierungsmuster",
-  "settings.context.watcherPatterns.description": "Glob-Muster für Dateien, die der Watcher ignorieren soll",
 
-  "settings.context.memory.title": "Speicher",
-  "settings.context.memory.project.title": "Projektspeicher",
-  "settings.context.memory.autoSave.title": "Projektspeicher automatisch speichern",
-  "settings.context.memory.autoSave.description":
-    "Dauerhafte Projektfakten aus abgeschlossenen Durchläufen automatisch speichern, wenn Speicher aktiviert ist.",
-  "settings.context.memory.storage.title": "Storage",
-  "settings.context.memory.status.notLoaded": "Nicht geladen",
-  "settings.context.memory.status.disabled": "Deaktiviert",
-  "settings.context.memory.status.enabledTokens": "Enabled - ~{{tokens}} stored tokens",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "Enable memory to create project memory files.",
-  "settings.context.memory.inspect": "Prüfen",
   "chat.memory.project.disabled": "Projektspeicher deaktiviert",
-  "chat.memory.project.empty": "This project doesn't have any memory yet. It will start showing after you use Kilo.",
   "chat.memory.command.failed": "Speicherbefehl fehlgeschlagen",
   "chat.memory.updated": "Memory updated",
   "chat.memory.rebuild": "Memory index rebuilt",
-
-  "settings.commitMessage.title": "Commit Message",
-  "settings.commitMessage.override.title": "Benutzerdefinierten prompt verwenden",
-  "settings.commitMessage.override.description":
-    "Den Standard-prompt für die commit message überschreiben. Wenn diese Option aktiviert ist, ersetzt Ihr benutzerdefinierter prompt den integrierten prompt für conventional commits vollständig.",
-  "settings.commitMessage.prompt.title": "Benutzerdefinierter prompt",
-  "settings.commitMessage.prompt.description":
-    "System-prompt, der beim Generieren von commit messages an die KI gesendet wird. Dies ersetzt den Standard-prompt vollständig.",
-  "settings.commitMessage.prompt.placeholder":
-    "z. B. Generiere commit messages auf Spanisch nach dem conventional commits Format. Gib NUR die commit message zurück.",
-
-  "settings.commitMessage.language.sync": "Synchronisieren mit Benutzeroberflächensprache",
-  "settings.commitMessage.language.description":
-    "Wählen Sie, welche Sprache für KI-generierte Commit-Nachrichten verwendet werden soll:",
 
   "settings.display.preview.title": "Vorschau",
   "settings.display.presets.title": "Anzeigevoreinstellungen",
@@ -1421,12 +1188,6 @@ export const dict = {
   "chat.search.close": "Suche schließen",
   "chat.search.invalidRegex": "Ungültiger regulärer Ausdruck",
   "chat.search.noResults": "Keine Ergebnisse",
-  "settings.experimental.browserAutomation.title": "Integrierter Browser",
-  "settings.experimental.browserAutomation.description":
-    "Lokale Anwendungsvorschauen im Agent Manager anzeigen und das Tool browser_open für Agent Manager-Sitzungen bereitstellen.",
-  "settings.experimental.browserAutomation.systemChrome.title": "System-Chrome verwenden",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "Das installierte Google Chrome für den integrierten Browser verwenden. Nur deaktivieren, wenn bereits ein kompatibler Playwright-Chromium-Browser installiert ist.",
   "chat.search.searchingHistory": "Frühere Nachrichten werden durchsucht…",
   "settings.harness.title": "Harness",
   "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
@@ -1485,4 +1246,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "Subagent reports",
   "settings.harness.human.checklist": "Your checklist (one per line)",
   "settings.harness.human.checklist.hint": "Things the AI cannot judge, such as taste.",
+  "settings.connections.title": "Models and providers",
 } satisfies Partial<Record<Keys, string>>

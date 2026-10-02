@@ -38,25 +38,6 @@ export const dict = {
   "agentManager.section.worktrees": "WORKTREES",
   "agentManager.section.sessions": "SESSIONS",
   "agentManager.projects": "PROJETS",
-  "agentManager.settings.title": "Agent Manager",
-  "agentManager.settings.autoBranchNaming.title": "Nommage automatique des branches",
-  "agentManager.settings.autoBranchNaming.description":
-    "Nomme automatiquement les branches lorsque la conversation décrit une tâche claire. S’applique à tous les projets. Les branches nommées explicitement et les branches publiées ne sont jamais renommées.",
-  "agentManager.settings.branchPrefix.title": "Préfixe de branche",
-  "agentManager.settings.branchPrefix.description":
-    "Préfixe des branches nommées automatiquement dans tous les projets, par exemple feature/. Ne s’applique pas aux noms de branches explicites. Laissez vide pour ne pas utiliser de préfixe.",
-  "agentManager.settings.worktreePool.title": "Préchauffer les worktrees",
-  "agentManager.settings.worktreePool.description":
-    "Prépare en arrière-plan un worktree prêt à l'emploi afin que les nouvelles sessions Agent Manager démarrent plus vite. Utilise de l'espace disque supplémentaire pour un checkout par projet ouvert.",
-  "agentManager.settings.project.title": "Projet",
-  "agentManager.settings.project.description":
-    "Choisissez le repository dont vous souhaitez modifier les paramètres du worktree.",
-  "agentManager.settings.project.empty": "Aucun projet Agent Manager n'est disponible.",
-  "agentManager.settings.defaultBaseBranch.description":
-    "Le branch utilisé comme point de départ pour les nouveaux worktrees.",
-  "agentManager.settings.setupScript.description": "Exécuter avant qu'un agent ne démarre dans un nouveau worktree.",
-  "agentManager.settings.setupScript.create": "Créer script",
-  "agentManager.settings.setupScript.edit": "Modifier script",
   "agentManager.project.add": "Ajouter un projet...",
   "agentManager.project.new": "Nouveau projet...",
   "agentManager.project.openLocal": "Ouvrir un dossier local...",
@@ -84,7 +65,6 @@ export const dict = {
 
   "agentManager.worktree.settings": "Paramètres du Worktree",
   "agentManager.worktree.new": "Nouveau Worktree",
-  "agentManager.worktree.setupScript": "Script de configuration du Worktree",
   "agentManager.worktree.delete": "Supprimer le Worktree",
   "agentManager.worktree.confirmDelete": "Supprimer ?",
   "agentManager.worktree.stale": "Obsolète",
@@ -93,8 +73,6 @@ export const dict = {
   "agentManager.worktree.doubleClickRename": "Double-cliquez pour renommer",
   "agentManager.worktree.versions": "{{count}} versions",
   "agentManager.worktree.advancedOptions": "Options avancées du Worktree",
-  "agentManager.worktree.defaultBaseBranch": "Branche de base par défaut",
-  "agentManager.worktree.defaultBaseBranchAuto": "Détection automatique",
   "agentManager.worktree.copyPath": "Copier le chemin",
   "agentManager.worktree.openInVscode": "Ouvrir dans VS Code",
   "agentManager.worktree.rename": "Renommer",

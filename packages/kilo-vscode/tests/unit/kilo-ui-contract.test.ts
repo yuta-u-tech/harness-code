@@ -33,10 +33,6 @@ const ASSISTANT_MESSAGE_FILE = path.join(
   "packages/kilo-vscode/webview-ui/src/components/chat/AssistantMessage.tsx",
 )
 const TASK_HEADER_FILE = path.join(MONOREPO_ROOT, "packages/kilo-vscode/webview-ui/src/components/chat/TaskHeader.tsx")
-const CONTEXT_TAB_FILE = path.join(
-  MONOREPO_ROOT,
-  "packages/kilo-vscode/webview-ui/src/components/settings/ContextTab.tsx",
-)
 const PROMPT_INPUT_FILE = path.join(
   MONOREPO_ROOT,
   "packages/kilo-vscode/webview-ui/src/components/chat/PromptInput.tsx",
@@ -476,21 +472,11 @@ describe("Native tool summary contract (source)", () => {
 
 describe("Memory control placement contract (source)", () => {
   const header = fs.readFileSync(TASK_HEADER_FILE, "utf-8")
-  const settings = fs.readFileSync(CONTEXT_TAB_FILE, "utf-8")
   const prompt = fs.readFileSync(PROMPT_INPUT_FILE, "utf-8")
 
   it("keeps memory controls out of the task header", () => {
     expect(header).not.toContain("useMemory")
     expect(header).not.toContain('name="memory"')
-  })
-
-  it("shows storage inspection in settings without a manual rebuild action", () => {
-    expect(settings).toContain("settings.context.memory.storage.title")
-    expect(settings).toContain("settings.context.memory.status.enabledTokens")
-    expect(settings).toContain("memory.inspect()")
-    expect(settings).not.toContain("memory.rebuild()")
-    expect(settings).not.toContain("lastOperationCount")
-    expect(settings).not.toContain("sessionTokens")
   })
 
   it("expands bare memory commands into inline completion", () => {

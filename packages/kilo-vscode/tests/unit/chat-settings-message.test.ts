@@ -19,7 +19,7 @@ const original = {
   watch: vscode.workspace.onDidChangeConfiguration,
 }
 
-function stubConfig(state: Map<string, unknown>, scope = "kilo-code.new.chat") {
+function stubConfig(state: Map<string, unknown>, scope = "harness-code.chat") {
   ;(vscode.workspace as unknown as Stub).getConfiguration = (section?: string) => {
     if (section !== scope) {
       return { get: <T>(_key: string, fallback?: T) => fallback }
@@ -59,7 +59,7 @@ describe("timeline settings", () => {
   it.each([undefined, false, true])("returns the saved visibility %s", (visible) => {
     const state = new Map<string, unknown>()
     if (visible !== undefined) state.set("showTaskTimeline", visible)
-    stubConfig(state, "kilo-code.new")
+    stubConfig(state, "harness-code")
 
     expect(buildTimelineSettingMessage()).toEqual({
       type: "timelineSettingLoaded",
@@ -69,7 +69,7 @@ describe("timeline settings", () => {
 
   it("synchronizes open viewers and stops sending after disposal", () => {
     const state = new Map<string, unknown>()
-    stubConfig(state, "kilo-code.new")
+    stubConfig(state, "harness-code")
     const listeners = new Set<(event: vscode.ConfigurationChangeEvent) => void>()
     const workspace = vscode.workspace as unknown as Stub
     workspace.onDidChangeConfiguration = (listener) => {
@@ -84,23 +84,23 @@ describe("timeline settings", () => {
     const main = watchChatConfig((msg) => parent.push(msg))
     const viewer = watchChatConfig((msg) => child.push(msg))
 
-    emit("kilo-code.new.showTokenThroughput")
+    emit("harness-code.showTokenThroughput")
     expect(parent).toEqual([])
     expect(child).toEqual([])
 
     state.set("showTaskTimeline", false)
-    emit("kilo-code.new.showTaskTimeline")
+    emit("harness-code.showTaskTimeline")
     expect(parent).toEqual([{ type: "timelineSettingLoaded", visible: false }])
     expect(child).toEqual(parent)
 
     state.set("showTaskTimeline", true)
-    emit("kilo-code.new.showTaskTimeline")
+    emit("harness-code.showTaskTimeline")
     expect(parent.at(-1)).toEqual({ type: "timelineSettingLoaded", visible: true })
     expect(child).toEqual(parent)
 
     viewer.dispose()
     state.set("showTaskTimeline", false)
-    emit("kilo-code.new.showTaskTimeline")
+    emit("harness-code.showTaskTimeline")
     expect(parent).toHaveLength(3)
     expect(child).toHaveLength(2)
     main.dispose()

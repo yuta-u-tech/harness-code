@@ -1,5 +1,5 @@
 export const dict = {
-  "kilocode:autocomplete.statusBar.enabled": "$(kilo-logo) Автодоповнення",
+  "kilocode:autocomplete.statusBar.enabled": "$(sparkle) Автодоповнення",
   "kilocode:autocomplete.statusBar.snoozed": "відкладено",
   "kilocode:autocomplete.statusBar.warning": "$(warning) Автодоповнення",
   "kilocode:autocomplete.statusBar.tooltip.basic": "Автодоповнення Kilo Code",

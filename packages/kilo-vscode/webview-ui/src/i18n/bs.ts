@@ -421,47 +421,6 @@ export const dict = {
   "sound.option.yup06": "Da 06",
 
   "prompt.action.indexing": "Postavke indeksiranja",
-  "settings.indexing.dimension.description":
-    "Ostavite prazno za automatsko prepoznavanje dimenzije embeddinga iz modela.",
-  "settings.indexing.dimension.placeholder": "Auto",
-  "settings.indexing.dimension.title": "Dimenzija vektora",
-  "settings.indexing.enable.description": "Uključite ili isključite semantičko indeksiranje baze koda.",
-  "settings.indexing.showButton.title": "Prikaži dugme kada je indeksiranje isključeno",
-  "settings.indexing.showButton.description":
-    "Prikaži dugme za indeksiranje ispod polja za unos dok je indeksiranje isključeno. Ako je dugme skriveno, otvorite Postavke > Indeksiranje da biste omogućili indeksiranje.",
-  "settings.indexing.enable.title": "Omogući indeksiranje",
-  "settings.indexing.globalEnable.title": "Omogući globalno",
-  "settings.indexing.globalEnable.description": "Omogući indeksiranje za svaki radni prostor.",
-  "settings.indexing.projectEnable.title": "Omogući za ovaj projekat",
-  "settings.indexing.projectEnable.description":
-    "Omogući indeksiranje za ovaj radni prostor kada je globalno indeksiranje isključeno.",
-  "settings.indexing.lancedbDirectory.description": "Opcionalni direktorij za lokalno LanceDB skladište.",
-  "settings.indexing.lancedbDirectory.placeholder": "Ostavite prazno za zadano",
-  "settings.indexing.lancedbDirectory.title": "LanceDB direktorij",
-  "settings.indexing.model.description": "Prepišite zadani model embeddinga za odabranog provajdera.",
-  "settings.indexing.model.title": "Model embeddinga",
-  "settings.indexing.provider.description":
-    "Odaberite provajdera koji se koristi za generiranje embeddinga za semantičku pretragu.",
-  "settings.indexing.kiloModel.title": "Preset Kilo modela",
-  "settings.indexing.kiloModel.description": "Odaberite podržani model embeddinga hostovan na Kilo.",
-  "settings.indexing.kiloSignIn.title": "Potrebna je prijava na Kilo",
-  "settings.indexing.kiloSignIn.description": "Prijavite se na Kilo za korištenje hostovanih embeddinga.",
-  "settings.indexing.provider.title": "Provajder embeddinga",
-  "settings.indexing.providerField.description": "Postavka veze specifična za provajdera.",
-  "settings.indexing.qdrantApiKey.description": "Opcionalni API ključ za Qdrant instancu.",
-  "settings.indexing.qdrantApiKey.placeholder": "Opcionalni API ključ",
-  "settings.indexing.fileExtensions.title": "Ekstenzije datoteka",
-  "settings.indexing.fileExtensions.description":
-    "Lista dozvoljenih stavki odvojena zarezima. Ostavite prazno da biste koristili ugrađene zadane postavke.",
-  "settings.indexing.fileExtensions.invalid": "Neispravna ekstenzija datoteke: {{extension}}",
-  "settings.indexing.qdrantApiKey.title": "Qdrant API ključ",
-  "settings.indexing.qdrantUrl.description": "URL servera za Qdrant instancu.",
-  "settings.indexing.qdrantUrl.title": "Qdrant URL",
-  "settings.indexing.status.title": "Status",
-  "settings.indexing.title": "Indeksiranje",
-  "settings.indexing.tuning.description": "Napredni parametar pretrage i grupiranja.",
-  "settings.indexing.vectorStore.description": "Odaberite gdje se pohranjuju indeksirani embeddingi.",
-  "settings.indexing.vectorStore.title": "Vektorsko skladište",
 
   "settings.providers.title": "Provajderi",
   "settings.providers.section.connected": "Povezani provajderi",
@@ -722,23 +681,13 @@ export const dict = {
 
   "settings.agentBehaviour.title": "Ponašanje agenta",
   "settings.autoApprove.title": "Automatsko odobravanje",
-  "settings.webTools.title": "Web alati",
-  "settings.webTools.description": "Konfigurišite web pretragu i automatizaciju preglednika.",
-  "settings.webTools.webSearch.enable": "Omogući za sve pružaoce",
-  "settings.webTools.browserAutomation": "Automatizacija preglednika",
-  "settings.webTools.webSearch.title": "Web pretraga",
-  "settings.webTools.webSearch.description": "Omogućite web pretragu modelima svih pružalaca.",
   "settings.checkpoints.title": "Kontrolne tačke",
   "settings.display.title": "Prikaz",
-  "settings.autocomplete.title": "Automatsko dovršavanje",
   "settings.autocomplete.model.title": "Model za automatsko dovršavanje",
   "settings.autocomplete.model.description": "Odaberite model koji se koristi za inline dovršavanje koda",
   "settings.notifications.title": "Obavještenja",
-  "settings.context.title": "Kontekst",
 
-  "settings.experimental.title": "Eksperimentalno",
   "settings.language.title": "Jezik",
-  "settings.aboutKiloCode.title": "O Harness Code-u",
 
   "session.messages.welcome":
     "Harness Code je AI asistent za programiranje. Zatražite da gradi funkcionalnosti, ispravlja greške ili objasni vašu bazu koda.",
@@ -800,58 +749,11 @@ export const dict = {
   "time.thisMonth": "Ovog mjeseca",
   "time.older": "Starije",
 
-  "settings.aboutKiloCode.status.connected": "Povezano",
-  "settings.aboutKiloCode.status.connecting": "Povezivanje...",
-  "settings.aboutKiloCode.status.disconnected": "Odspojeno",
-  "settings.aboutKiloCode.status.error": "Greška",
-  "settings.aboutKiloCode.cliServer": "CLI server",
-  "settings.aboutKiloCode.status.label": "Status:",
-  "settings.aboutKiloCode.port.label": "Port:",
-  "settings.aboutKiloCode.versionInfo": "Informacije o verziji",
-  "settings.aboutKiloCode.version.label": "Verzija:",
-  "settings.aboutKiloCode.community": "Zajednica i podrška",
-  "settings.aboutKiloCode.feedback.prefix": "Ako imate pitanja ili povratne informacije, slobodno otvorite issue na",
-  "settings.aboutKiloCode.feedback.or": "ili",
-  "settings.aboutKiloCode.support.prefix": "Za pitanja o naplati ili računu, kontaktirajte korisničku podršku na",
-  "settings.aboutKiloCode.resetSettings.title": "Resetovanje postavki",
-  "settings.aboutKiloCode.resetSettings.description":
-    "Ovo resetuje samo postavke specifične za VS Code ekstenziju na njihove zadane vrijednosti. Postavke koje se dijele s CLI-jem, kao što su načini rada i pravila automatskog odobravanja, pohranjene su u CLI konfiguraciji i neće biti resetovane.",
-  "settings.aboutKiloCode.resetSettings.button": "Resetuj sve postavke",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "Reset Read Notifications",
-  "settings.aboutKiloCode.settingsTransfer.title": "Prijenos postavki",
-  "settings.aboutKiloCode.settingsTransfer.description":
-    "Izvezite ili uvezite postavke za prijenos između VS Code instanci.",
-  "settings.aboutKiloCode.exportSettings": "Izvezi",
-  "settings.aboutKiloCode.importSettings": "Uvezi",
-  "settings.aboutKiloCode.importSettings.invalidJson": "Nevažeći JSON fajl. Odaberite važeći fajl s postavkama.",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "Fajl ne sadrži važeće Kilo postavke.",
-  "settings.aboutKiloCode.importSettings.tooLarge": "Fajl je prevelik. Fajlovi s postavkama moraju biti manji od 1 MB.",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "Ovaj fajl je izvezen iz novije verzije Kilo-a. Neke postavke mogu biti zanemarene.",
-  "settings.aboutKiloCode.importSettings.success":
-    "Postavke su uvezene. Pregledajte promjene iznad, a zatim kliknite Sačuvaj.",
-
-  "settings.aboutKiloCode.telemetry.title": "Telemetrija",
-  "settings.aboutKiloCode.telemetry.description":
-    'Telemetrija je kontrolisana ugrađenom postavkom za telemetriju u VS Code-u. Da biste je onemogućili, idite na Postavke > Telemetrija > Nivo telemetrije i postavite na "off". Ponovo pokrenite VS Code da biste primijenili promjenu.',
-  "settings.aboutKiloCode.telemetry.openSettings": "Otvori postavke telemetrije",
-
   "settings.agentBehaviour.subtab.agents": "Agenti",
   "settings.agentBehaviour.subtab.mcpServers": "MCP serveri",
   "settings.agentBehaviour.subtab.rules": "Pravila",
   "settings.agentBehaviour.subtab.workflows": "Tokovi rada",
   "settings.agentBehaviour.subtab.skills": "Vještine",
-
-  "settings.browser.description":
-    "Konfigurirajte ugrađenu automatizaciju preglednika koju pokreće Playwright. Kilo može navigirati, komunicirati sa web stranicama i snimati ekran u vašim sesijama.",
-  "settings.browser.enable.title": "Omogući automatizaciju preglednika",
-  "settings.browser.enable.description":
-    "Omogući preglednik vezan za sesiju u aplikaciji Agent Manager za lokalne aplikacije i javne HTTPS stranice.",
-  "settings.browser.systemChrome.title": "Koristi sistemski Chrome",
-  "settings.browser.systemChrome.description":
-    "Koristite instalirani Chrome preglednik umjesto zasebne Chromium instance.",
-  "settings.browser.headless.title": "Headless način",
-  "settings.browser.headless.description": "Pokreni u headless načinu (bez vidljivog prozora preglednika).",
 
   "settings.language.description": 'Odaberite jezik za Harness Code sučelje. "Auto" koristi jezik prikaza VS Code-a.',
   "settings.language.auto": "Auto (VS Code jezik)",
@@ -859,14 +761,6 @@ export const dict = {
 
   "common.add": "Dodaj",
 
-  "settings.autocomplete.autoTrigger.title": "Omogući automatsko inline dovršavanje",
-  "settings.autocomplete.autoTrigger.description": "Automatski prikaži prijedloge inline dovršavanja tokom tipkanja",
-  "settings.autocomplete.smartKeybinding.title": "Omogući pametnu prečicu inline zadatka",
-  "settings.autocomplete.smartKeybinding.description": "Koristi pametnu prečicu za pokretanje inline zadataka",
-  "settings.autocomplete.chatAutocomplete.title": "Omogući automatsko dovršavanje chata",
-  "settings.autocomplete.chatAutocomplete.description": "Prikaži prijedloge automatskog dovršavanja u polju chata",
-  "settings.autocomplete.modelsHint":
-    "Da odaberete koji se model koristi za automatsko dovršavanje, pogledajte postavke Modela.",
   "settings.notifications.sounds": "Zvukovi",
   "settings.notifications.enable.title": "Omogući zvučne obavijesti",
   "settings.notifications.enable.description":
@@ -886,25 +780,9 @@ export const dict = {
   "settings.notifications.sound.system": "Sistem",
   "settings.notifications.sound.description":
     "Zadana opcija koristi različite zvukove za završetak, unos i greške. Ostale opcije koriste jedan zvuk za sve događaje.",
-  "settings.experimental.share.title": "Način dijeljenja",
-  "settings.experimental.share.description": "Ponašanje dijeljenja sesije",
-  "settings.experimental.share.manual": "Ručno",
-  "settings.experimental.share.auto": "Automatski",
-  "settings.experimental.share.disabled": "Onemogućeno",
-  "settings.experimental.formatter.title": "Formater",
-  "settings.experimental.formatter.description": "Omogući automatsko formatiranje koda",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "Omogući integraciju jezičkog servera",
-  "settings.experimental.batch.title": "Batch alat",
-  "settings.experimental.batch.description": "Omogući batch obradu poziva alata",
-  "settings.experimental.imageGeneration.title": "Generisanje slika",
-  "settings.experimental.imageGeneration.description": "Omogući AI generisanje slika",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Dijelite ploču između glavne sesije i njenih podagenata za zadatke, uključujući ugniježđene podagente. Koristite je za paralelne pokušaje rješavanja problema ili rad na zadacima koji se međusobno nadopunjuju, a ne za svaki zadatak.",
-  "settings.experimental.imageGenerationModel.title": "Model slike",
-  "settings.experimental.imageGenerationModel.description": "Model za generisanje slika",
-  "settings.experimental.imageGenerationModel.placeholder": "Zadano (Auto Router)",
 
   "settings.models.speechToTextModel.customDescription":
     "ID modela koji se šalje vašoj vlastitoj krajnjoj tački za transkripciju, na primjer whisper-1.",
@@ -923,39 +801,7 @@ export const dict = {
     "Glasovni unos nije dostupan u udaljenim prozorima. Otvorite Kilo u lokalnom prozoru da biste koristili mikrofon.",
   "settings.models.speechToTextModel.title": "Model govora u tekst",
   "settings.models.speechToTextModel.description": "Odaberite Kilo Gateway model za transkripciju za glasovni unos.",
-  "settings.experimental.nativeNotebookTools.title": "Izvorni alati za bilježnice",
-  "settings.experimental.nativeNotebookTools.description":
-    "Omogući eksperimentalne alate za čitanje, uređivanje i izvršavanje VS Code bilježnica",
-  "settings.experimental.continueOnDeny.title": "Nastavi pri odbijanju",
-  "settings.experimental.continueOnDeny.description": "Nastavi petlju agenta kada je dozvola odbijena",
-  "settings.sandboxing.title": "Rad u izoliranom okruženju",
-  "settings.sandboxing.network.title": "Ograniči pristup mreži",
-  "settings.sandboxing.network.description":
-    "Blokira direktni odlazni pristup iz naredbi koje potiču od modela i HTTP alata. Lokalni i udaljeni MCP alati nisu dostupni dok je ograničenje aktivno. Saobraćaj provajdera i pouzdane zakačke dodataka ostaju izvan ovog ograničenja.",
 
-  "settings.sandboxing.allowedHosts.title": "Dozvoljena mrežna odredišta",
-  "settings.sandboxing.allowedHosts.description":
-    "DNS odredišta hosta i porta za sandboxirani HTTP i HTTPS proxy promet. GitHub CLI i HTTPS Git obično trebaju github.com:443 i api.github.com:443.",
-  "settings.sandboxing.writablePaths.title": "Dodatne upisive putanje",
-  "settings.sandboxing.writablePaths.description":
-    "Dodatne putanje sistema datoteka u koje sandbox dozvoljava upis (npr. /tmp, /var/log). Spajaju se sa zadanim upisivim putanjama kada je sandbox aktivan.",
-  "settings.experimental.multiProject.title": "Višeprojektni Agent Manager",
-  "settings.experimental.claudeMigration.title": "Claude Code migracija",
-  "settings.experimental.claudeMigration.description":
-    "Jednom uvezite podržane globalne CLAUDE.md upute, jednostavne vještine i onemogućene MCP definicije. Originalne Claude datoteke ostaju nepromijenjene; ponovo pokrenite backend nakon uključivanja.",
-  "settings.experimental.multiProject.description":
-    "Omogući upravljanje sesijama i worktree-ima kroz više repozitorija u Agent Manager-u. Trenutni workspace repozitorij je uvijek zadani projekat.",
-  "settings.experimental.mcpTimeout.title": "MCP istek vremena (ms)",
-  "settings.experimental.mcpTimeout.description": "Istek vremena za MCP server zahtjeve u milisekundama",
-  "settings.experimental.remote.title": "Remote kontrola",
-  "settings.experimental.remote.description":
-    "Omogućite Remote kontrolu sesija putem Kilo Cloud. Ovo će također utjecati na CLI-jeve na ovoj mašini.",
-  "settings.experimental.remote.current": "Trenutno stanje:",
-  "settings.experimental.remote.startup": "Automatsko uključivanje pri pokretanju:",
-  "settings.experimental.remote.active": "Aktivno",
-  "settings.experimental.remote.inactive": "Neaktivno",
-  "settings.experimental.remote.hint": "Koristite /remote u chatu za prebacivanje",
-  "settings.experimental.toolToggles": "Prekidači alata",
   "settings.agentBehaviour.defaultAgent.title": "Zadani agent",
   "settings.agentBehaviour.defaultAgent.description": "Agent koji se koristi kada nijedan nije naveden",
   "settings.agentBehaviour.availableAgents": "Dostupni agenti",
@@ -1078,12 +924,6 @@ export const dict = {
   "settings.agentBehaviour.workflows.model": "model",
   "settings.agentBehaviour.workflows.variant": "varijanta",
   "settings.agentBehaviour.workflows.modelDescription": "Globalno premošćivanje modela",
-  "settings.experimental.codeMode.title": "Programski pozivi alata",
-  "settings.experimental.codeMode.description":
-    "Usmjerava pozive MCP alata kroz izolirano JavaScript okruženje s otkrivanjem alata na zahtjev umjesto izravnog izlaganja svakog MCP alata. Štedi kontekst kada je povezano mnogo MCP alata.",
-  "settings.sandboxing.enabled.title": "Sandbox",
-  "settings.sandboxing.enabled.description":
-    "Pokrenite shell komande agenta unutar sandboxa na nivou operativnog sistema koji ograničava pisanje na direktorije stanja projekta i Kilo",
 
   "settings.autoApprove.description":
     "Definišite kako je dozvoljeno pokretanje alata. Većina alata je podrazumijevano na Dozvoli. doom_loop i external_directory su podrazumijevano na Pitaj.",
@@ -1126,80 +966,15 @@ export const dict = {
     "Pristup datotekama izvan radnog prostora. Pokreće se prilikom pristupa datotekama izvan trenutnog direktorija projekta.",
   "settings.autoApprove.tool.doom_loop":
     "Sprečavanje ponavljanja identičnih radnji. Pokreće se kada se isti poziv alata ponovi sa identičnim unosom.",
-  "settings.checkpoints.enable.title": "Omogući snimke",
-  "settings.checkpoints.enable.description": "Kreiraj kontrolne točke prije uređivanja datoteka",
-  "settings.autoCleanup.enable.title": "Omogući automatsko čišćenje sesija",
-  "settings.autoCleanup.enable.description":
-    "Automatski briše staru historiju sesija nakon određenog broja dana, u svim projektima i svim Kilo klijentima na ovom računaru, ne samo u ovom prozoru. Sesije koje su trenutno aktivne i sesije sa nedavnim forkom nikad se ne brišu. Brisanje je trajno.",
-  "settings.autoCleanup.defaultRetention.title": "Zadrži sesije (dana)",
-  "settings.autoCleanup.defaultRetention.description":
-    "Koliko dugo se historija sesija čuva prije automatskog brisanja.",
-  "settings.autoCleanup.lastRun.title": "Posljednje čišćenje",
-  "settings.autoCleanup.lastRun.never": "Nikad pokrenuto",
-  "settings.autoCleanup.result":
-    "{{date}}: obrisano {{deleted}} od {{scanned}} sesija ({{active}} aktivnih preskočeno, {{failed}} neuspjelo) za {{seconds}}s",
-  "settings.autoCleanup.starting": "Pokretanje čišćenja sesija...",
-  "settings.autoCleanup.error.status": "Status čišćenja sesija je privremeno nedostupan. Ponovni pokušaj...",
-  "settings.autoCleanup.error.timeout":
-    "Čekanje na status čišćenja. Pozadinski servis traje duže nego što se očekivalo.",
-  "settings.autoCleanup.error.run":
-    "Nije moguće potvrditi da je čišćenje sesija završeno. Provjerite rezultat posljednjeg čišćenja prije ponovnog pokušaja.",
-  "settings.autoCleanup.progress.scanning": "Pregled sesija: {{processed}}/{{total}} obrađeno",
-  "settings.autoCleanup.progress.deleting":
-    "Brisanje sesija: {{processed}}/{{total}} obrađeno ({{deleted}} obrisano, {{failed}} neuspjelo)",
-  "settings.autoCleanup.runNow": "Pokreni čišćenje sada",
-  "settings.autoCleanup.runNow.confirm":
-    "Trajno obrisati istekle sesije u svim projektima i svim Kilo klijentima na ovom računaru?",
-  "settings.autoCleanup.stop": "Zaustavi čišćenje",
-  "settings.autoCleanup.progress.cancelling": "Zaustavljanje čišćenja sesija...",
-  "settings.autoCleanup.lastRun.cancelled": "prekinuto",
-  "settings.context.autoCompaction.title": "Automatska kompresija",
-  "settings.context.autoCompaction.description": "Automatski komprimiraj kontekst prije nego dostigne limit",
-  "settings.context.compaction.title": "Kompresija",
   "settings.context.compactionModel.title": "Model za kompresiju",
   "settings.context.compactionModel.description":
     "Model koji se koristi za automatsku i ručnu kompresiju. Ostavite nepostavljeno da biste koristili model za chat. Trošak, brzina i kvalitet sažetka zavise od modela.",
   "settings.context.compactionModel.useChatModel": "Koristi model za chat",
-  "settings.context.compactionModel.hint":
-    "Da odaberete koji se model koristi za kompresiju, pogledajte postavke Modela.",
-  "settings.context.compactionLimit.title": "Limit automatske kompresije",
-  "settings.context.compactionLimit.description":
-    "Komprimiraj kada kontekst dostigne ovaj procenat prozora modela. Ostavite prazno da koristite samo sigurnosnu rezervu.",
-  "settings.context.prune.title": "Očisti stare izlaze",
-  "settings.context.prune.description": "Ukloni stare izlaze alata tokom kompresije",
-  "settings.context.watcherPatterns": "Uzorci ignoriranja za promatrač datoteka",
-  "settings.context.watcherPatterns.description": "Glob uzorci za datoteke koje promatrač treba ignorirati",
 
-  "settings.context.memory.title": "Memorija",
-  "settings.context.memory.project.title": "Memorija projekta",
-  "settings.context.memory.autoSave.title": "Automatsko spremanje memorije projekta",
-  "settings.context.memory.autoSave.description":
-    "Automatski sprema trajne činjenice projekta iz završenih koraka kada je memorija uključena.",
-  "settings.context.memory.storage.title": "Storage",
-  "settings.context.memory.status.notLoaded": "Nije učitana",
-  "settings.context.memory.status.disabled": "Onemogućena",
-  "settings.context.memory.status.enabledTokens": "Enabled - ~{{tokens}} stored tokens",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "Enable memory to create project memory files.",
-  "settings.context.memory.inspect": "Pregledaj",
   "chat.memory.project.disabled": "Memorija projekta onemogućena",
-  "chat.memory.project.empty": "This project doesn't have any memory yet. It will start showing after you use Kilo.",
   "chat.memory.command.failed": "Komanda memorije nije uspjela",
   "chat.memory.updated": "Memory updated",
   "chat.memory.rebuild": "Memory index rebuilt",
-
-  "settings.commitMessage.title": "Commit Message",
-  "settings.commitMessage.override.title": "Koristi prilagođeni prompt",
-  "settings.commitMessage.override.description":
-    "Nadjačaj podrazumijevani prompt za commit message. Kada je omogućeno, vaš prilagođeni prompt u potpunosti zamjenjuje ugrađeni prompt za conventional commits.",
-  "settings.commitMessage.prompt.title": "Prilagođeni prompt",
-  "settings.commitMessage.prompt.description":
-    "Sistemski prompt koji se šalje AI-u prilikom generisanja commit messages. Ovo u potpunosti zamjenjuje podrazumijevani prompt.",
-  "settings.commitMessage.prompt.placeholder":
-    "npr. Generiši commit messages na španskom jeziku prateći conventional commits format. Vrati SAMO commit message.",
-
-  "settings.commitMessage.language.sync": "Sinkronizacija sa jezikom korisničkog sučelja",
-  "settings.commitMessage.language.description": "Izaberite koji jezik koristiti za poruke koje generiše AI:",
 
   "settings.display.preview.title": "Pregled",
   "settings.display.presets.title": "Preseti prikaza",
@@ -1396,12 +1171,6 @@ export const dict = {
   "chat.search.close": "Zatvori pretragu",
   "chat.search.invalidRegex": "Nevažeći regularni izraz",
   "chat.search.noResults": "Nema rezultata",
-  "settings.experimental.browserAutomation.title": "Integrirani preglednik",
-  "settings.experimental.browserAutomation.description":
-    "Prikažite preglede lokalnih aplikacija u Agent Manageru i omogućite alat browser_open sesijama Agent Managera.",
-  "settings.experimental.browserAutomation.systemChrome.title": "Koristi sistemski Chrome",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "Koristite instalirani Google Chrome za Integrirani preglednik. Onemogućite samo kada je kompatibilni Playwright Chromium preglednik već instaliran.",
   "chat.search.searchingHistory": "Pretraživanje ranijih poruka…",
   "settings.harness.title": "Harness",
   "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
@@ -1460,4 +1229,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "Subagent reports",
   "settings.harness.human.checklist": "Your checklist (one per line)",
   "settings.harness.human.checklist.hint": "Things the AI cannot judge, such as taste.",
+  "settings.connections.title": "Models and providers",
 }

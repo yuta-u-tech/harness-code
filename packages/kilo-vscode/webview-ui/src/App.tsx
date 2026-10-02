@@ -453,13 +453,7 @@ const AppContent: Component = () => {
               />
             </Match>
             <Match when={currentView() === "settings"}>
-              <Settings
-                tab={settingsTab()}
-                agentManagerProjectId={agentManagerProjectId()}
-                agentManagerSettings={host.KILO_AGENT_MANAGER_SETTINGS === true}
-                onTabChange={setSettingsTab}
-                onMigrationClick={() => setMigration(true)}
-              />
+              <Settings tab={settingsTab()} onTabChange={setSettingsTab} />
             </Match>
             <Match when={currentView() === "subAgentViewer"}>
               <ChatView readonly />

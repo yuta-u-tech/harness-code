@@ -558,51 +558,10 @@ export const dict = {
   "profile.action.logout": "Esci",
   "settings.agentBehaviour.title": "Comportamento agente",
   "settings.autoApprove.title": "Approvazione automatica",
-  "settings.webTools.title": "Strumenti web",
-  "settings.webTools.description": "Configura la ricerca web e l'automazione del browser.",
-  "settings.webTools.webSearch.enable": "Abilita per tutti i provider",
-  "settings.webTools.browserAutomation": "Automazione del browser",
-  "settings.webTools.webSearch.title": "Ricerca web",
-  "settings.webTools.webSearch.description": "Rendi disponibile la ricerca web ai modelli di tutti i provider.",
   "settings.checkpoints.title": "Checkpoint",
   "settings.display.title": "Visualizzazione",
-  "settings.autocomplete.title": "Autocompletamento",
   "settings.notifications.title": "Notifiche",
-  "settings.context.title": "Contesto",
-  "settings.indexing.title": "Indicizzazione",
-  "settings.indexing.status.title": "Stato",
-  "settings.indexing.enable.title": "Abilita indicizzazione",
-  "settings.indexing.enable.description": "Attiva o disattiva l'indicizzazione semantica del codebase.",
-  "settings.indexing.showButton.title": "Mostra il pulsante quando l'indicizzazione è disattivata",
-  "settings.indexing.showButton.description":
-    "Mostra il pulsante di indicizzazione sotto il prompt quando l'indicizzazione è disattivata. Se il pulsante è nascosto, apri Impostazioni > Indicizzazione per attivare l'indicizzazione.",
-  "settings.indexing.provider.title": "Provider embedding",
-  "settings.indexing.provider.description": "Scegli il provider usato per generare embedding per la ricerca semantica.",
-  "settings.indexing.model.title": "Modello embedding",
-  "settings.indexing.model.description": "Sostituisci il modello embedding predefinito per il provider selezionato.",
-  "settings.indexing.dimension.title": "Dimensione vettore",
-  "settings.indexing.dimension.description":
-    "Lascia vuoto per rilevare automaticamente la dimensione embedding dal modello.",
-  "settings.indexing.dimension.placeholder": "Auto",
-  "settings.indexing.providerField.description": "Impostazione di connessione specifica del provider.",
-  "settings.indexing.vectorStore.title": "Archivio vettoriale",
-  "settings.indexing.vectorStore.description": "Scegli dove salvare gli embedding indicizzati.",
-  "settings.indexing.lancedbDirectory.title": "Directory LanceDB",
-  "settings.indexing.lancedbDirectory.description": "Directory opzionale per lo store LanceDB locale.",
-  "settings.indexing.lancedbDirectory.placeholder": "Lascia vuoto per il valore predefinito",
-  "settings.indexing.qdrantUrl.title": "URL Qdrant",
-  "settings.indexing.qdrantUrl.description": "URL server dell'istanza Qdrant.",
-  "settings.indexing.qdrantApiKey.title": "API key Qdrant",
-  "settings.indexing.qdrantApiKey.description": "API key opzionale per l'istanza Qdrant.",
-  "settings.indexing.qdrantApiKey.placeholder": "API key opzionale",
-  "settings.indexing.fileExtensions.title": "Estensioni file",
-  "settings.indexing.fileExtensions.description":
-    "Elenco di elementi consentiti separati da virgole. Lasciare vuoto per utilizzare i valori predefiniti integrati.",
-  "settings.indexing.fileExtensions.invalid": "Estensione non valida: {{extension}}",
-  "settings.indexing.tuning.description": "Parametro avanzato per ricerca e batching.",
-  "settings.experimental.title": "Sperimentale",
   "settings.language.title": "Lingua",
-  "settings.aboutKiloCode.title": "Informazioni su Harness Code",
   "session.messages.welcome":
     "Harness Code è un assistente AI per il coding. Chiedigli di creare feature, correggere bug o spiegare il codebase.",
   "session.messages.scrollToBottom": "Scorri in fondo",
@@ -665,69 +624,17 @@ export const dict = {
   "time.thisWeek": "Questa settimana",
   "time.thisMonth": "Questo mese",
   "time.older": "Più vecchi",
-  "settings.aboutKiloCode.status.connected": "Connesso",
-  "settings.aboutKiloCode.status.connecting": "Connessione...",
-  "settings.aboutKiloCode.status.disconnected": "Disconnesso",
-  "settings.aboutKiloCode.status.error": "Errore",
-  "settings.aboutKiloCode.cliServer": "Server CLI",
-  "settings.aboutKiloCode.status.label": "Stato:",
-  "settings.aboutKiloCode.port.label": "Porta:",
-  "settings.aboutKiloCode.versionInfo": "Informazioni versione",
-  "settings.aboutKiloCode.version.label": "Versione:",
-  "settings.aboutKiloCode.community": "Community e supporto",
-  "settings.aboutKiloCode.feedback.prefix": "Per domande o feedback, apri pure una issue su",
-  "settings.aboutKiloCode.feedback.or": "oppure",
-  "settings.aboutKiloCode.support.prefix": "Per domande su fatturazione o account, contatta il supporto clienti a",
-  "settings.aboutKiloCode.resetSettings.title": "Ripristina impostazioni",
-  "settings.aboutKiloCode.resetSettings.description":
-    "Ripristina solo le impostazioni specifiche dell'estensione VS Code ai valori predefiniti. Le impostazioni condivise con la CLI, come modalità e regole di approvazione automatica, sono salvate nella configurazione CLI e non verranno ripristinate.",
-  "settings.aboutKiloCode.resetSettings.button": "Ripristina tutte le impostazioni",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "Reset Read Notifications",
-  "settings.aboutKiloCode.settingsTransfer.title": "Trasferimento impostazioni",
-  "settings.aboutKiloCode.settingsTransfer.description":
-    "Esporta o importa le impostazioni per trasferirle tra istanze VS Code.",
-  "settings.aboutKiloCode.exportSettings": "Esporta",
-  "settings.aboutKiloCode.importSettings": "Importa",
-  "settings.aboutKiloCode.importSettings.invalidJson": "File JSON non valido. Seleziona un file impostazioni valido.",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "Il file non contiene impostazioni Kilo valide.",
-  "settings.aboutKiloCode.importSettings.tooLarge": "File troppo grande. I file impostazioni devono essere sotto 1 MB.",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "Questo file è stato esportato da una versione più recente di Kilo. Alcune impostazioni potrebbero essere ignorate.",
-  "settings.aboutKiloCode.importSettings.success":
-    "Impostazioni importate. Controlla le modifiche sopra, poi fai clic su Salva.",
-  "settings.aboutKiloCode.telemetry.title": "Telemetria",
-  "settings.aboutKiloCode.telemetry.description":
-    'La telemetria è controllata dall\'impostazione integrata di VS Code. Per disabilitarla, vai in Impostazioni > Telemetria > Livello telemetria e impostala su "off". Riavvia VS Code per applicare la modifica.',
-  "settings.aboutKiloCode.telemetry.openSettings": "Apri impostazioni telemetria",
   "settings.agentBehaviour.subtab.agents": "Agenti",
   "settings.agentBehaviour.subtab.mcpServers": "Server MCP",
   "settings.agentBehaviour.subtab.rules": "Regole",
   "settings.agentBehaviour.subtab.workflows": "Workflow",
   "settings.agentBehaviour.subtab.skills": "Skill",
-  "settings.browser.description":
-    "Configura l'automazione del browser integrata basata su Playwright. Kilo può navigare, interagire e acquisire screenshot delle pagine web nelle tue sessioni.",
-  "settings.browser.enable.title": "Abilita automazione browser",
-  "settings.browser.enable.description":
-    "Abilita il browser di Agent Manager dedicato a ciascuna sessione per le applicazioni locali e le pagine HTTPS pubbliche.",
-  "settings.browser.systemChrome.title": "Usa Chrome di sistema",
-  "settings.browser.systemChrome.description":
-    "Usa il browser Chrome installato invece di un'istanza Chromium separata.",
-  "settings.browser.headless.title": "Modalità headless",
-  "settings.browser.headless.description": "Esegui in modalità headless (senza finestra browser visibile).",
   "settings.language.description": 'Scegli la lingua dell\'interfaccia Harness Code. "Auto" usa la lingua di VS Code.',
   "settings.language.auto": "Auto (lingua VS Code)",
   "settings.language.current": "Corrente:",
   "common.add": "Aggiungi",
   "settings.autocomplete.model.title": "Modello autocompletamento",
   "settings.autocomplete.model.description": "Seleziona il modello usato per i completamenti inline del codice",
-  "settings.autocomplete.autoTrigger.title": "Abilita completamenti inline automatici",
-  "settings.autocomplete.autoTrigger.description":
-    "Mostra automaticamente suggerimenti di completamento inline mentre scrivi",
-  "settings.autocomplete.smartKeybinding.title": "Abilita scorciatoia smart per task inline",
-  "settings.autocomplete.smartKeybinding.description": "Usa una scorciatoia smart per attivare task inline",
-  "settings.autocomplete.chatAutocomplete.title": "Abilita autocompletamento textarea chat",
-  "settings.autocomplete.chatAutocomplete.description":
-    "Mostra suggerimenti di autocompletamento nella textarea della chat",
   "settings.notifications.sounds": "Suoni",
   "settings.notifications.enable.title": "Abilita le notifiche sonore",
   "settings.notifications.enable.description":
@@ -747,62 +654,13 @@ export const dict = {
   "settings.notifications.sound.system": "Sistema",
   "settings.notifications.sound.description":
     "L'opzione predefinita usa suoni diversi per completamento, intervento ed errori. Le altre opzioni usano un unico suono per tutti gli eventi.",
-  "settings.experimental.share.title": "Modalità condivisione",
-  "settings.experimental.share.description": "Come si comporta la condivisione sessione",
-  "settings.experimental.share.manual": "Manuale",
-  "settings.experimental.share.auto": "Automatica",
-  "settings.experimental.share.disabled": "Disabilitata",
-  "settings.experimental.formatter.title": "Formatter",
-  "settings.experimental.formatter.description": "Abilita il formatter automatico del codice",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "Abilita integrazione language server protocol",
-  "settings.experimental.batch.title": "Tool batch",
-  "settings.experimental.batch.description": "Abilita batching di più chiamate tool",
   "settings.experimental.semanticIndexing.title": "Indicizzazione semantica",
   "settings.experimental.semanticIndexing.description":
     "Abilita l'indicizzazione semantica del codebase e il tool semantic_search. Richiede configurazione indicizzazione.",
-  "settings.experimental.imageGeneration.title": "Generazione di immagini",
-  "settings.experimental.imageGeneration.description": "Abilita la generazione di immagini con AI",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Condividi una board tra una sessione principale e i suoi sotto-agenti incaricati dei task, inclusi quelli annidati. Usala per tentativi di soluzione in parallelo o attività complementari, non per ogni task.",
-  "settings.experimental.imageGenerationModel.title": "Modello di immagine",
-  "settings.experimental.imageGenerationModel.description": "Modello di generazione di immagini",
-  "settings.experimental.imageGenerationModel.placeholder": "Predefinito (Auto Router)",
 
-  "settings.experimental.nativeNotebookTools.title": "Strumenti nativi per notebook",
-  "settings.experimental.nativeNotebookTools.description":
-    "Abilita strumenti sperimentali per leggere, modificare ed eseguire i notebook di VS Code",
-  "settings.experimental.continueOnDeny.title": "Continua dopo rifiuto",
-  "settings.experimental.continueOnDeny.description": "Continua il loop agente quando un'autorizzazione viene negata",
-  "settings.sandboxing.title": "Sandbox",
-  "settings.sandboxing.network.title": "Limita l'accesso alla rete",
-  "settings.sandboxing.network.description":
-    "Blocca l'accesso in uscita diretto dai comandi avviati dal modello e dagli strumenti HTTP. Gli strumenti MCP locali e remoti non sono disponibili mentre la restrizione è attiva. Il traffico del provider e gli hook dei plugin attendibili restano al di fuori di questa restrizione.",
-
-  "settings.sandboxing.allowedHosts.title": "Destinazioni di rete consentite",
-  "settings.sandboxing.allowedHosts.description":
-    "Destinazioni DNS di host e porta per il traffico proxy HTTP e HTTPS in sandbox. GitHub CLI e HTTPS Git richiedono comunemente github.com:443 e api.github.com:443.",
-  "settings.sandboxing.writablePaths.title": "Percorsi di scrittura aggiuntivi",
-  "settings.sandboxing.writablePaths.description":
-    "Percorsi aggiuntivi del file system in cui la sandbox consente la scrittura (es. /tmp, /var/log). Vengono uniti con i percorsi di scrittura predefiniti quando la sandbox è attiva.",
-  "settings.experimental.multiProject.title": "Agent Manager Multi-Progetto",
-  "settings.experimental.claudeMigration.title": "Migrazione Claude Code",
-  "settings.experimental.claudeMigration.description":
-    "Importa una volta le istruzioni globali CLAUDE.md supportate, le competenze semplici e le definizioni MCP disabilitate. I file Claude originali restano invariati; riavvia il backend dopo l'attivazione.",
-  "settings.experimental.multiProject.description":
-    "Abilita la gestione di sessioni e worktree su più repository in Agent Manager. Il repository dell'area di lavoro corrente è sempre il progetto predefinito.",
-  "settings.experimental.mcpTimeout.title": "Timeout MCP (ms)",
-  "settings.experimental.mcpTimeout.description": "Timeout per richieste server MCP in millisecondi",
-  "settings.experimental.remote.title": "Controllo remoto",
-  "settings.experimental.remote.description":
-    "Abilita controllo remoto delle sessioni tramite Kilo Cloud. Influenzerà anche le CLI su questa macchina.",
-  "settings.experimental.remote.current": "Stato corrente:",
-  "settings.experimental.remote.startup": "Abilita automaticamente all'avvio:",
-  "settings.experimental.remote.active": "Attivo",
-  "settings.experimental.remote.inactive": "Inattivo",
-  "settings.experimental.remote.hint": "Usa /remote in chat per attivare/disattivare",
-  "settings.experimental.toolToggles": "Controlli tool",
   "settings.agentBehaviour.defaultAgent.title": "Agente predefinito",
   "settings.agentBehaviour.defaultAgent.description": "Agente da usare quando non ne viene specificato uno",
   "settings.agentBehaviour.availableAgents": "Agenti disponibili",
@@ -849,12 +707,6 @@ export const dict = {
     "Fai clic per limitare le scritture nel file system e l'accesso alla rete.",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "Fai clic per limitare le scritture nel file system. L'accesso alla rete resta consentito dalle impostazioni della sandbox.",
-  "settings.experimental.codeMode.title": "Chiamate programmatiche agli strumenti",
-  "settings.experimental.codeMode.description":
-    "Instrada le chiamate agli strumenti MCP attraverso un runtime JavaScript confinato con rilevamento degli strumenti su richiesta, invece di esporre direttamente ogni strumento MCP. Risparmia contesto quando sono connessi molti strumenti MCP.",
-  "settings.sandboxing.enabled.title": "Sandbox",
-  "settings.sandboxing.enabled.description":
-    "Esegui i comandi shell dell'agente all'interno di un sandbox a livello di sistema operativo che limita le scritture alle directory di stato del progetto e di Kilo",
 
   "settings.agentBehaviour.skillPaths": "Percorsi cartelle skill",
   "settings.agentBehaviour.skillUrls": "URL skill",
@@ -986,78 +838,14 @@ export const dict = {
   "settings.autoApprove.tool.websearch": "Cerca sul web. Consente ricerche web esterne.",
   "settings.autoApprove.tool.doom_loop":
     "Previeni azioni identiche ripetute. Si attiva quando la stessa chiamata tool si ripete con input identico.",
-  "settings.checkpoints.enable.title": "Abilita snapshot",
-  "settings.checkpoints.enable.description":
-    "Crea checkpoint prima delle modifiche ai file così puoi ripristinare stati precedenti",
-  "settings.autoCleanup.enable.title": "Abilita pulizia automatica delle sessioni",
-  "settings.autoCleanup.enable.description":
-    "Elimina automaticamente la vecchia cronologia delle sessioni dopo un numero fisso di giorni, in tutti i progetti e in tutti i client Kilo di questo computer, non solo in questa finestra. Le sessioni in esecuzione e quelle con un fork recente non vengono mai eliminate. L'eliminazione è permanente.",
-  "settings.autoCleanup.defaultRetention.title": "Conserva sessioni per (giorni)",
-  "settings.autoCleanup.defaultRetention.description":
-    "Per quanto tempo viene conservata la cronologia delle sessioni prima che la pulizia automatica la elimini.",
-  "settings.autoCleanup.lastRun.title": "Ultima pulizia",
-  "settings.autoCleanup.lastRun.never": "Mai eseguita",
-  "settings.autoCleanup.result":
-    "{{date}}: eliminate {{deleted}} di {{scanned}} sessioni ({{active}} attive ignorate, {{failed}} non riuscite) in {{seconds}}s",
-  "settings.autoCleanup.starting": "Avvio della pulizia delle sessioni...",
-  "settings.autoCleanup.error.status":
-    "Lo stato della pulizia delle sessioni è temporaneamente non disponibile. Nuovo tentativo...",
-  "settings.autoCleanup.error.timeout":
-    "In attesa dello stato della pulizia. Il backend sta impiegando più tempo del previsto.",
-  "settings.autoCleanup.error.run":
-    "Impossibile confermare il completamento della pulizia delle sessioni. Controlla il risultato dell'ultima pulizia prima di riprovare.",
-  "settings.autoCleanup.progress.scanning": "Analisi delle sessioni: {{processed}}/{{total}} elaborate",
-  "settings.autoCleanup.progress.deleting":
-    "Eliminazione delle sessioni: {{processed}}/{{total}} elaborate ({{deleted}} eliminate, {{failed}} non riuscite)",
-  "settings.autoCleanup.runNow": "Esegui pulizia ora",
-  "settings.autoCleanup.runNow.confirm":
-    "Eliminare definitivamente le sessioni scadute in tutti i progetti e in tutti i client Kilo di questo computer?",
-  "settings.autoCleanup.stop": "Interrompi pulizia",
-  "settings.autoCleanup.progress.cancelling": "Interruzione della pulizia delle sessioni...",
-  "settings.autoCleanup.lastRun.cancelled": "interrotta",
-  "settings.context.autoCompaction.title": "Compattazione automatica",
-  "settings.context.autoCompaction.description": "Compatta automaticamente il contesto quando è pieno",
-  "settings.context.compaction.title": "Compattazione",
   "settings.context.compactionModel.title": "Modello di compattazione",
   "settings.context.compactionModel.description":
     "Modello usato per la compattazione automatica e manuale. Lascia non impostato per usare il modello di chat. Costo, velocità e qualità del riepilogo dipendono dal modello.",
   "settings.context.compactionModel.useChatModel": "Usa il modello di chat",
-  "settings.context.compactionModel.hint":
-    "Per scegliere quale modello usare per la compattazione, vedi le impostazioni Modelli.",
-  "settings.context.prune.title": "Riduci output vecchi",
-  "settings.context.prune.description": "Rimuovi output tool vecchi durante la compattazione",
-  "settings.context.watcherPatterns": "Pattern ignore file watcher",
-  "settings.context.watcherPatterns.description": "Pattern glob per file che il watcher deve ignorare",
-  "settings.context.memory.title": "Memoria",
-  "settings.context.memory.project.title": "Memoria del progetto",
-  "settings.context.memory.autoSave.title": "Salvataggio automatico memoria progetto",
-  "settings.context.memory.autoSave.description":
-    "Salva automaticamente fatti durevoli del progetto dai turni completati quando la memoria è attiva.",
-  "settings.context.memory.storage.title": "Storage",
-  "settings.context.memory.status.notLoaded": "Non caricata",
-  "settings.context.memory.status.disabled": "Disattivata",
-  "settings.context.memory.status.enabledTokens": "Enabled - ~{{tokens}} stored tokens",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "Enable memory to create project memory files.",
-  "settings.context.memory.inspect": "Ispeziona",
   "chat.memory.project.disabled": "Memoria del progetto disattivata",
-  "chat.memory.project.empty": "This project doesn't have any memory yet. It will start showing after you use Kilo.",
   "chat.memory.command.failed": "Comando memoria non riuscito",
   "chat.memory.updated": "Memory updated",
   "chat.memory.rebuild": "Memory index rebuilt",
-
-  "settings.commitMessage.title": "Messaggio commit",
-  "settings.commitMessage.override.title": "Usa prompt personalizzato",
-  "settings.commitMessage.override.description":
-    "Sovrascrivi il prompt predefinito per il messaggio di commit. Quando è abilitato, il prompt personalizzato sostituisce completamente il prompt conventional commits integrato.",
-  "settings.commitMessage.prompt.title": "Prompt personalizzato",
-  "settings.commitMessage.prompt.description":
-    "Prompt di sistema inviato all'AI quando genera messaggi di commit. Sostituisce completamente il prompt predefinito.",
-  "settings.commitMessage.prompt.placeholder":
-    "es. Genera messaggi di commit in spagnolo seguendo il formato conventional commits. Restituisci SOLO il messaggio di commit.",
-
-  "settings.commitMessage.language.sync": "Sincronizzazione con la lingua dell'interfaccia utente",
-  "settings.commitMessage.language.description": "Scegli quale lingua usare per i messaggi di commit generati da AI:",
 
   "settings.display.preview.title": "Anteprima",
   "settings.display.presets.title": "Preset di visualizzazione",
@@ -1294,9 +1082,6 @@ export const dict = {
   "settings.models.speechToTextModel.description": "Scegli il modello di trascrizione Kilo Gateway per l'input vocale.",
 
   // Compaction limit
-  "settings.context.compactionLimit.title": "Limite compattazione automatica",
-  "settings.context.compactionLimit.description":
-    "Compatta quando il contesto raggiunge questa percentuale della finestra del modello. Lascia vuoto per usare solo il buffer di sicurezza.",
 
   // Subagent model
   "settings.providers.subagentModel.title": "Modello sub-agent",
@@ -1307,19 +1092,8 @@ export const dict = {
     "Nascondi i modelli Kilo Gateway i cui provider potrebbero usare i tuoi prompt per l'addestramento.",
 
   // Autocomplete hint
-  "settings.autocomplete.modelsHint":
-    "Per scegliere quale modello usare per l'autocompletamento, vedi le impostazioni Modelli.",
 
   // Indexing
-  "settings.indexing.globalEnable.title": "Abilita globalmente",
-  "settings.indexing.globalEnable.description": "Abilita l'indicizzazione per ogni workspace.",
-  "settings.indexing.projectEnable.title": "Abilita per questo progetto",
-  "settings.indexing.projectEnable.description":
-    "Abilita l'indicizzazione per questo workspace quando l'indicizzazione globale è disattivata.",
-  "settings.indexing.kiloModel.title": "Preset modello Kilo",
-  "settings.indexing.kiloModel.description": "Scegli un modello embedding ospitato da Kilo.",
-  "settings.indexing.kiloSignIn.title": "Accesso Kilo richiesto",
-  "settings.indexing.kiloSignIn.description": "Accedi a Kilo per usare gli embedding ospitati.",
 
   // Azure provider
   "provider.connect.azure.endpointType.label": "Seleziona configurazione endpoint Azure",
@@ -1375,12 +1149,6 @@ export const dict = {
   "chat.search.close": "Chiudi ricerca",
   "chat.search.invalidRegex": "Espressione regolare non valida",
   "chat.search.noResults": "Nessun risultato",
-  "settings.experimental.browserAutomation.title": "Browser integrato",
-  "settings.experimental.browserAutomation.description":
-    "Mostra le anteprime delle applicazioni locali in Agent Manager ed esponi lo strumento browser_open alle sessioni di Agent Manager.",
-  "settings.experimental.browserAutomation.systemChrome.title": "Usa Chrome di sistema",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "Usa il Google Chrome installato per il Browser integrato. Disattivalo solo se è già installato un browser Playwright Chromium compatibile.",
   "chat.search.searchingHistory": "Ricerca nei messaggi precedenti…",
   "settings.harness.title": "Harness",
   "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
@@ -1439,4 +1207,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "Subagent reports",
   "settings.harness.human.checklist": "Your checklist (one per line)",
   "settings.harness.human.checklist.hint": "Things the AI cannot judge, such as taste.",
+  "settings.connections.title": "Models and providers",
 } as const

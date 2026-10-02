@@ -48,7 +48,7 @@ export class SettingsEditorProvider implements vscode.Disposable {
     return resolvePanelProjectDirectory(active, vscode.workspace.workspaceFolders)
   }
 
-  /** Extract the PanelView from a viewType string like "kilo-code.new.settingsPanel". */
+  /** Extract the PanelView from a viewType string like "harness-code.settingsPanel". */
   static viewFromType(type: string): PanelView | undefined {
     const match = type.match(/^kilo-code\.new\.(\w+)Panel$/)
     if (!match) return undefined
@@ -77,7 +77,7 @@ export class SettingsEditorProvider implements vscode.Disposable {
     }
 
     const panel = vscode.window.createWebviewPanel(
-      `kilo-code.new.${view}Panel`,
+      `harness-code.${view}Panel`,
       PANEL_TITLES[view],
       vscode.ViewColumn.Active,
       {
@@ -102,8 +102,8 @@ export class SettingsEditorProvider implements vscode.Disposable {
 
   private wirePanel(panel: vscode.WebviewPanel, view: PanelView, projectDirectory: string | null): void {
     panel.iconPath = {
-      light: vscode.Uri.joinPath(this.extensionUri, "assets", "icons", "kilo-light.svg"),
-      dark: vscode.Uri.joinPath(this.extensionUri, "assets", "icons", "kilo-dark.svg"),
+      light: vscode.Uri.joinPath(this.extensionUri, "assets", "icons", "harness-light.svg"),
+      dark: vscode.Uri.joinPath(this.extensionUri, "assets", "icons", "harness-dark.svg"),
     }
 
     // Create a dedicated KiloProvider for this panel so it has full

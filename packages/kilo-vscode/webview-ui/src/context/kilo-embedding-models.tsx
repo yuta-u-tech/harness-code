@@ -27,11 +27,3 @@ export const KiloEmbeddingModelsProvider: ParentComponent = (props) => {
 
   return <KiloEmbeddingModelsContext.Provider value={{ catalog }}>{props.children}</KiloEmbeddingModelsContext.Provider>
 }
-
-export function useKiloEmbeddingModels(): KiloEmbeddingModelsContextValue {
-  const context = useContext(KiloEmbeddingModelsContext)
-  if (!context) {
-    throw new Error("useKiloEmbeddingModels must be used within a KiloEmbeddingModelsProvider")
-  }
-  return context
-}

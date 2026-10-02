@@ -672,60 +672,13 @@ export const dict = {
 
   "settings.agentBehaviour.title": "Ajan Davranışı",
   "settings.autoApprove.title": "Otomatik Onay",
-  "settings.webTools.title": "Web Araçları",
-  "settings.webTools.description": "Web aramasını ve tarayıcı otomasyonunu yapılandırın.",
-  "settings.webTools.webSearch.enable": "Tüm Sağlayıcılar İçin Etkinleştir",
-  "settings.webTools.browserAutomation": "Tarayıcı Otomasyonu",
-  "settings.webTools.webSearch.title": "Web Araması",
-  "settings.webTools.webSearch.description":
-    "Web aramasını tüm sağlayıcıların modelleri için kullanılabilir hale getirin.",
   "settings.checkpoints.title": "Kontrol Noktaları",
   "settings.display.title": "Görünüm",
-  "settings.autocomplete.title": "Otomatik Tamamlama",
   "settings.autocomplete.model.title": "Otomatik tamamlama modeli",
   "settings.autocomplete.model.description": "Satır içi (inline) kod tamamlamaları için kullanılacak modeli seçin",
   "settings.notifications.title": "Bildirimler",
-  "settings.context.title": "Bağlam",
-  "settings.indexing.title": "İndeksleme",
-  "settings.indexing.status.title": "Durum",
-  "settings.indexing.enable.title": "İndekslemeyi etkinleştir",
-  "settings.indexing.enable.description": "Anlamsal kod tabanı indekslemeyi açın veya kapatın.",
-  "settings.indexing.showButton.title": "İndeksleme kapalıyken düğmeyi göster",
-  "settings.indexing.showButton.description":
-    "İndeksleme kapalıyken istem alanının altında indeksleme düğmesini göster. Düğme gizliyse indekslemeyi etkinleştirmek için Ayarlar > İndeksleme'yi açın.",
-  "settings.indexing.globalEnable.title": "Genel olarak etkinleştir",
-  "settings.indexing.globalEnable.description": "Her çalışma alanı için dizine eklemeyi etkinleştir.",
-  "settings.indexing.projectEnable.title": "Bu proje için etkinleştir",
-  "settings.indexing.projectEnable.description":
-    "Genel dizine ekleme kapalı olduğunda bu çalışma alanı için dizine eklemeyi etkinleştir.",
-  "settings.indexing.provider.title": "Yerleştirme sağlayıcısı",
-  "settings.indexing.provider.description":
-    "Anlamsal arama için yerleştirmeleri oluşturmak amacıyla kullanılacak sağlayıcıyı seçin.",
-  "settings.indexing.model.title": "Yerleştirme modeli",
-  "settings.indexing.model.description": "Seçili sağlayıcı için varsayılan yerleştirme modelini geçersiz kılın.",
-  "settings.indexing.dimension.title": "Vektör boyutu",
-  "settings.indexing.dimension.description": "Modelden yerleştirme boyutunu otomatik algılamak için boş bırakın.",
-  "settings.indexing.dimension.placeholder": "Otomatik",
-  "settings.indexing.providerField.description": "Sağlayıcıya özel bağlantı ayarı.",
-  "settings.indexing.vectorStore.title": "Vektör deposu",
-  "settings.indexing.vectorStore.description": "İndekslenen yerleştirmelerin nerede saklanacağını seçin.",
-  "settings.indexing.lancedbDirectory.title": "LanceDB dizini",
-  "settings.indexing.lancedbDirectory.description": "Yerel LanceDB deposu için isteğe bağlı dizin.",
-  "settings.indexing.lancedbDirectory.placeholder": "Varsayılan için boş bırakın",
-  "settings.indexing.qdrantUrl.title": "Qdrant URL",
-  "settings.indexing.qdrantUrl.description": "Qdrant örneği için sunucu URL'si.",
-  "settings.indexing.qdrantApiKey.title": "Qdrant API anahtarı",
-  "settings.indexing.qdrantApiKey.description": "Qdrant örneği için isteğe bağlı API anahtarı.",
-  "settings.indexing.qdrantApiKey.placeholder": "İsteğe bağlı API anahtarı",
-  "settings.indexing.fileExtensions.title": "Dosya Uzantıları",
-  "settings.indexing.fileExtensions.description":
-    "Virgülle ayrılmış izin listesi. Yerleşik varsayılanları kullanmak için boş bırakın.",
-  "settings.indexing.fileExtensions.invalid": "Geçersiz uzantı: {{extension}}",
-  "settings.indexing.tuning.description": "Gelişmiş arama ve toplu işlem parametresi.",
 
-  "settings.experimental.title": "Deneysel",
   "settings.language.title": "Dil",
-  "settings.aboutKiloCode.title": "Harness Code Hakkında",
 
   "session.messages.welcome":
     "Harness Code bir yapay zeka kodlama asistanıdır. Özellik geliştirmesini, hata düzeltmesini veya kod tabanınızı açıklamasını isteyin.",
@@ -787,58 +740,11 @@ export const dict = {
   "time.thisMonth": "Bu Ay",
   "time.older": "Daha Eski",
 
-  "settings.aboutKiloCode.status.connected": "Bağlı",
-  "settings.aboutKiloCode.status.connecting": "Bağlanıyor...",
-  "settings.aboutKiloCode.status.disconnected": "Bağlantı Kesildi",
-  "settings.aboutKiloCode.status.error": "Hata",
-  "settings.aboutKiloCode.cliServer": "CLI Sunucusu",
-  "settings.aboutKiloCode.status.label": "Durum:",
-  "settings.aboutKiloCode.port.label": "Port:",
-  "settings.aboutKiloCode.versionInfo": "Sürüm Bilgisi",
-  "settings.aboutKiloCode.version.label": "Sürüm:",
-  "settings.aboutKiloCode.community": "Topluluk ve Destek",
-  "settings.aboutKiloCode.feedback.prefix":
-    "Herhangi bir sorunuz veya geri bildiriminiz varsa, lütfen şu adreste bir sorun açın:",
-  "settings.aboutKiloCode.feedback.or": "veya",
-  "settings.aboutKiloCode.support.prefix": "Faturalama veya hesap soruları için Müşteri Desteği ile iletişime geçin:",
-  "settings.aboutKiloCode.resetSettings.title": "Ayarları Sıfırla",
-  "settings.aboutKiloCode.resetSettings.description":
-    "Bu, yalnızca VS Code uzantısına özgü ayarları varsayılan değerlerine sıfırlar. Modlar ve otomatik onay kuralları gibi CLI ile paylaşılan ayarlar, CLI yapılandırmasında depolanır ve sıfırlanmaz.",
-  "settings.aboutKiloCode.resetSettings.button": "Tüm Ayarları Sıfırla",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "Reset Read Notifications",
-  "settings.aboutKiloCode.settingsTransfer.title": "Ayar Aktarımı",
-  "settings.aboutKiloCode.settingsTransfer.description":
-    "Ayarlarınızı VS Code örnekleri arasında aktarmak için dışa veya içe aktarın.",
-  "settings.aboutKiloCode.exportSettings": "Dışa Aktar",
-  "settings.aboutKiloCode.importSettings": "İçe Aktar",
-  "settings.aboutKiloCode.importSettings.invalidJson": "Geçersiz JSON dosyası. Lütfen geçerli bir ayar dosyası seçin.",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "Dosya geçerli Kilo ayarları içermiyor.",
-  "settings.aboutKiloCode.importSettings.tooLarge": "Dosya çok büyük. Ayar dosyaları 1 MB altında olmalıdır.",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "Bu dosya Kilo'nun daha yeni bir sürümünden dışa aktarılmış. Bazı ayarlar göz ardı edilebilir.",
-  "settings.aboutKiloCode.importSettings.success":
-    "Ayarlar içe aktarıldı. Yukarıdaki değişiklikleri gözden geçirin, ardından Kaydet'e tıklayın.",
-
-  "settings.aboutKiloCode.telemetry.title": "Telemetri",
-  "settings.aboutKiloCode.telemetry.description":
-    "Telemetri, VS Code'un yerleşik telemetri ayarı tarafından kontrol edilir. Devre dışı bırakmak için Ayarlar > Telemetri > Telemetri Düzeyi'ne gidin ve \"off\" olarak ayarlayın. Değişikliği uygulamak için VS Code'u yeniden başlatın.",
-  "settings.aboutKiloCode.telemetry.openSettings": "Telemetri Ayarlarını Aç",
-
   "settings.agentBehaviour.subtab.agents": "Ajanlar",
   "settings.agentBehaviour.subtab.mcpServers": "MCP Sunucuları",
   "settings.agentBehaviour.subtab.rules": "Kurallar",
   "settings.agentBehaviour.subtab.workflows": "İş Akışları",
   "settings.agentBehaviour.subtab.skills": "Beceriler",
-
-  "settings.browser.description":
-    "Playwright ile çalışan yerleşik tarayıcı otomasyonunu yapılandırın. Kilo, oturumlarınızda web sayfalarında gezinebilir, bunlarla etkileşime girebilir ve ekran görüntüsü alabilir.",
-  "settings.browser.enable.title": "Tarayıcı Otomasyonunu Etkinleştir",
-  "settings.browser.enable.description":
-    "Yerel uygulamalar ve herkese açık HTTPS sayfaları için oturuma özel Agent Manager tarayıcısını etkinleştir.",
-  "settings.browser.systemChrome.title": "Sistem Chrome'unu Kullan",
-  "settings.browser.systemChrome.description": "Ayrı bir Chromium örneği yerine yüklü Chrome tarayıcınızı kullanın.",
-  "settings.browser.headless.title": "Başsız Mod",
-  "settings.browser.headless.description": "Başsız modda çalıştır (görünür tarayıcı penceresi yok).",
 
   "settings.language.description":
     '"Otomatik" VS Code görüntüleme dilinizi kullanır. Harness Code arayüzü için dil seçin.',
@@ -846,15 +752,6 @@ export const dict = {
   "settings.language.current": "Mevcut:",
 
   "common.add": "Ekle",
-
-  "settings.autocomplete.autoTrigger.title": "Otomatik satır içi tamamlamaları etkinleştir",
-  "settings.autocomplete.autoTrigger.description": "Yazarken satır içi tamamlama önerilerini otomatik göster",
-  "settings.autocomplete.smartKeybinding.title": "Akıllı satır içi görev tuş atamasını etkinleştir",
-  "settings.autocomplete.smartKeybinding.description": "Satır içi görevleri tetiklemek için akıllı tuş ataması kullan",
-  "settings.autocomplete.chatAutocomplete.title": "Sohbet metin alanı otomatik tamamlamasını etkinleştir",
-  "settings.autocomplete.chatAutocomplete.description": "Sohbet metin alanında otomatik tamamlama önerileri göster",
-  "settings.autocomplete.modelsHint":
-    "Otomatik tamamlama için kullanılacak modeli seçmek için Modeller ayarlarına bakın.",
 
   "settings.notifications.sounds": "Sesler",
   "settings.notifications.enable.title": "Sesli bildirimleri etkinleştir",
@@ -876,25 +773,9 @@ export const dict = {
   "settings.notifications.sound.description":
     "Varsayılan seçenekte tamamlanma, giriş ve hatalar için farklı sesler kullanılır. Diğer seçeneklerde tüm etkinlikler için tek bir ses kullanılır.",
 
-  "settings.experimental.share.title": "Paylaşım Modu",
-  "settings.experimental.share.description": "Oturum paylaşımının nasıl davranacağı",
-  "settings.experimental.share.manual": "Manuel",
-  "settings.experimental.share.auto": "Otomatik",
-  "settings.experimental.share.disabled": "Devre Dışı",
-  "settings.experimental.formatter.title": "Biçimlendirici",
-  "settings.experimental.formatter.description": "Otomatik kod biçimlendiriciyi etkinleştir",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "Dil sunucu protokolü entegrasyonunu etkinleştir",
-  "settings.experimental.batch.title": "Toplu Araç",
-  "settings.experimental.batch.description": "Birden fazla araç çağrısının toplu işlenmesini etkinleştir",
-  "settings.experimental.imageGeneration.title": "Görüntü oluşturma",
-  "settings.experimental.imageGeneration.description": "AI görüntü oluşturmayı etkinleştir",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Bir ana oturum ile görevlerini yürüten alt ajanları arasında, iç içe geçmiş alt ajanlar da dahil olmak üzere bir pano paylaşın. Her görev için değil, paralel çözüm denemeleri veya birbirini tamamlayan çalışmalar için kullanın.",
-  "settings.experimental.imageGenerationModel.title": "Görüntü modeli",
-  "settings.experimental.imageGenerationModel.description": "Görüntü oluşturma modeli",
-  "settings.experimental.imageGenerationModel.placeholder": "Varsayılan (Auto Router)",
 
   "settings.models.speechToTextModel.customDescription":
     "Kendi transkripsiyon uç noktanıza gönderilen model kimliği, örneğin whisper-1.",
@@ -913,45 +794,6 @@ export const dict = {
     "Sesli giriş uzak pencerelerde kullanılamaz. Mikrofonu kullanmak için Kilo'yu yerel bir pencerede açın.",
   "settings.models.speechToTextModel.title": "Sesten metne modeli",
   "settings.models.speechToTextModel.description": "Sesli giriş için Kilo Gateway transkripsiyon modelini seçin.",
-  "settings.experimental.nativeNotebookTools.title": "Yerel Not Defteri Araçları",
-  "settings.experimental.nativeNotebookTools.description":
-    "VS Code not defterlerini okumak, düzenlemek ve çalıştırmak için deneysel araçları etkinleştir",
-  "settings.experimental.continueOnDeny.title": "Reddetme Durumunda Devam Et",
-  "settings.experimental.continueOnDeny.description": "Bir izin reddedildiğinde ajan döngüsüne devam et",
-  "settings.sandboxing.title": "Sandbox",
-  "settings.sandboxing.network.title": "Ağ Erişimini Kısıtla",
-  "settings.sandboxing.network.description":
-    "Model kaynaklı komutlar ve HTTP araçlarından doğrudan dışa yönelik erişimi engelleyin. Yerel ve uzak MCP araçları, kısıtlama etkin durumdayken kullanılamaz. Sağlayıcı trafiği ve güvenilir eklenti kancaları bu kısıtlamanın dışında kalır.",
-
-  "settings.sandboxing.allowedHosts.title": "İzin Verilen Ağ Hedefleri",
-  "settings.sandboxing.allowedHosts.description":
-    "Korumalı alana alınmış HTTP ve HTTPS proxy trafiği için DNS ana bilgisayar ve bağlantı noktası hedefleri. GitHub CLI ve HTTPS Git genellikle github.com:443 ve api.github.com:443 gerektirir.",
-  "settings.sandboxing.writablePaths.title": "Ek Yazılabilir Yollar",
-  "settings.sandboxing.writablePaths.description":
-    "Sandığın yazılmasına izin veren ek dosya sistemi yolları (ör. /tmp, /var/log). Sandık etkinken varsayılan yazılabilir yollarla birleştirilir.",
-  "settings.experimental.multiProject.title": "Çoklu Proje Agent Manager",
-  "settings.experimental.claudeMigration.title": "Claude Code Geçişi",
-  "settings.experimental.claudeMigration.description":
-    "Desteklenen genel CLAUDE.md talimatlarını, basit becerileri ve devre dışı MCP tanımlarını bir kez içe aktarın. Orijinal Claude dosyaları değiştirilmez; etkinleştirdikten sonra arka ucu yeniden başlatın.",
-  "settings.experimental.multiProject.description":
-    "Agent Manager'da birden fazla depo genelinde oturum ve worktree yönetimini etkinleştirin. Mevcut çalışma alanı deposu her zaman varsayılan projedir.",
-  "settings.experimental.mcpTimeout.title": "MCP Zaman Aşımı (ms)",
-  "settings.experimental.mcpTimeout.description": "MCP sunucu istekleri için milisaniye cinsinden zaman aşımı",
-  "settings.experimental.remote.title": "Remote Kontrolü",
-  "settings.experimental.remote.description":
-    "Kilo Cloud üzerinden oturumların Remote kontrolünü etkinleştirin. Bu, bu makinedeki CLI'leri de etkileyecektir.",
-  "settings.experimental.remote.current": "Mevcut durum:",
-  "settings.experimental.remote.startup": "Başlangıçta otomatik etkinleştir:",
-  "settings.experimental.remote.active": "Aktif",
-  "settings.experimental.remote.inactive": "Pasif",
-  "settings.experimental.remote.hint": "Geçiş yapmak için sohbette /remote kullanın",
-  "settings.experimental.toolToggles": "Araç Açma/Kapatma",
-  "settings.experimental.codeMode.title": "Programatik Araç Çağrıları",
-  "settings.experimental.codeMode.description":
-    "MCP araç çağrılarını, her MCP aracını doğrudan sunmak yerine isteğe bağlı araç keşfiyle sınırlandırılmış bir JavaScript çalışma zamanı üzerinden yönlendirir. Çok sayıda MCP aracı bağlıyken bağlam tasarrufu sağlar.",
-  "settings.sandboxing.enabled.title": "Sandbox",
-  "settings.sandboxing.enabled.description":
-    "Agent shell komutlarını, proje ve Kilo durum dizinlerine yazmaları kısıtlanan işletim sistemi düzeyinde bir sandbox içinde çalıştırın",
 
   "settings.agentBehaviour.defaultAgent.title": "Varsayılan Ajan",
   "settings.agentBehaviour.defaultAgent.description": "Belirtilmediğinde kullanılacak ajan",
@@ -1080,81 +922,15 @@ export const dict = {
   "settings.autoApprove.tool.doom_loop":
     "Tekrarlanan aynı eylemleri önle. Aynı araç çağrısı aynı girdiyle tekrarlandığında tetiklenir.",
 
-  "settings.checkpoints.enable.title": "Anlık Görüntüleri Etkinleştir",
-  "settings.checkpoints.enable.description":
-    "Dosya düzenlemelerinden önce kontrol noktaları oluştur, böylece önceki durumları geri yükleyebilirsiniz",
-  "settings.autoCleanup.enable.title": "Otomatik oturum temizliğini etkinleştir",
-  "settings.autoCleanup.enable.description":
-    "Belirli bir gün sayısından sonra eski oturum geçmişini otomatik olarak siler, bu bilgisayardaki tüm projelerde ve tüm Kilo istemcilerinde, yalnızca bu pencerede değil. Şu anda çalışan oturumlar ve yeni çatallaması olan oturumlar asla silinmez. Silme kalıcıdır.",
-  "settings.autoCleanup.defaultRetention.title": "Oturumları saklama süresi (gün)",
-  "settings.autoCleanup.defaultRetention.description":
-    "Otomatik temizlik, oturum geçmişini silmeden önce ne kadar süreyle saklanır.",
-  "settings.autoCleanup.lastRun.title": "Son temizlik",
-  "settings.autoCleanup.lastRun.never": "Hiç çalıştırılmadı",
-  "settings.autoCleanup.result":
-    "{{date}}: {{scanned}} oturumdan {{deleted}} tanesi silindi ({{active}} etkin atlandı, {{failed}} başarısız) {{seconds}} sn içinde",
-  "settings.autoCleanup.starting": "Oturum temizliği başlatılıyor...",
-  "settings.autoCleanup.error.status": "Oturum temizliği durumu geçici olarak kullanılamıyor. Yeniden deneniyor...",
-  "settings.autoCleanup.error.timeout": "Temizlik durumu bekleniyor. Arka uç beklenenden uzun sürüyor.",
-  "settings.autoCleanup.error.run":
-    "Oturum temizliğinin tamamlandığı doğrulanamadı. Yeniden denemeden önce son temizlik sonucunu kontrol edin.",
-  "settings.autoCleanup.progress.scanning": "Oturumlar taranıyor: {{processed}}/{{total}} işlendi",
-  "settings.autoCleanup.progress.deleting":
-    "Oturumlar siliniyor: {{processed}}/{{total}} işlendi ({{deleted}} silindi, {{failed}} başarısız)",
-  "settings.autoCleanup.runNow": "Temizliği şimdi çalıştır",
-  "settings.autoCleanup.runNow.confirm":
-    "Süresi dolmuş oturumlar bu bilgisayardaki tüm projelerde ve tüm Kilo istemcilerinde kalıcı olarak silinsin mi?",
-  "settings.autoCleanup.stop": "Temizliği durdur",
-  "settings.autoCleanup.progress.cancelling": "Oturum temizliği durduruluyor...",
-  "settings.autoCleanup.lastRun.cancelled": "kesintiye uğradı",
-
-  "settings.context.autoCompaction.title": "Otomatik Sıkıştırma",
-  "settings.context.autoCompaction.description": "Bağlam sınıra ulaşmadan önce otomatik olarak sıkıştır",
-  "settings.context.compaction.title": "Sıkıştırma",
   "settings.context.compactionModel.title": "Sıkıştırma modeli",
   "settings.context.compactionModel.description":
     "Otomatik ve manuel sıkıştırma için kullanılan model. Sohbet modelini kullanmak için boş bırakın. Maliyet, hız ve özet kalitesi modele bağlıdır.",
   "settings.context.compactionModel.useChatModel": "Sohbet modelini kullan",
-  "settings.context.compactionModel.hint": "Sıkıştırma için kullanılacak modeli seçmek için Modeller ayarlarına bakın.",
-  "settings.context.compactionLimit.title": "Otomatik sıkıştırma sınırı",
-  "settings.context.compactionLimit.description":
-    "Bağlam model penceresinin bu yüzdesine ulaştığında sıkıştır. Yalnızca güvenlik tamponunu kullanmak için boş bırakın.",
-  "settings.context.prune.title": "Eski Çıktıları Temizle",
-  "settings.context.prune.description": "Sıkıştırma sırasında eski araç çıktılarını kaldır",
-  "settings.context.watcherPatterns": "Dosya İzleyici Yok Sayma Kalıpları",
-  "settings.context.watcherPatterns.description": "İzleyicinin yok sayması gereken dosyalar için glob kalıpları",
 
-  "settings.context.memory.title": "Bellek",
-  "settings.context.memory.project.title": "Proje belleği",
-  "settings.context.memory.autoSave.title": "Proje belleğini otomatik kaydet",
-  "settings.context.memory.autoSave.description":
-    "Bellek açıkken tamamlanan turlardan kalıcı proje gerçeklerini otomatik olarak kaydeder.",
-  "settings.context.memory.storage.title": "Storage",
-  "settings.context.memory.status.notLoaded": "Yüklenmedi",
-  "settings.context.memory.status.disabled": "Devre dışı",
-  "settings.context.memory.status.enabledTokens": "Enabled - ~{{tokens}} stored tokens",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "Enable memory to create project memory files.",
-  "settings.context.memory.inspect": "İncele",
   "chat.memory.project.disabled": "Proje belleği devre dışı",
-  "chat.memory.project.empty": "This project doesn't have any memory yet. It will start showing after you use Kilo.",
   "chat.memory.command.failed": "Bellek komutu başarısız oldu",
   "chat.memory.updated": "Memory updated",
   "chat.memory.rebuild": "Memory index rebuilt",
-
-  "settings.commitMessage.title": "Commit Message",
-  "settings.commitMessage.override.title": "Özel prompt Kullan",
-  "settings.commitMessage.override.description":
-    "Varsayılan commit message için olan prompt değerini geçersiz kıl. Etkinleştirildiğinde, özel prompt değeriniz yerleşik conventional commits için olan prompt değerini tamamen değiştirir.",
-  "settings.commitMessage.prompt.title": "Özel prompt",
-  "settings.commitMessage.prompt.description":
-    "commit messages oluşturulurken yapay zekaya gönderilen sistem prompt'u. Bu, varsayılan prompt'un tamamen yerini alır.",
-  "settings.commitMessage.prompt.placeholder":
-    "örn. conventional commits formatını izleyerek İspanyolca commit messages oluştur. SADECE commit message döndür.",
-
-  "settings.commitMessage.language.sync": "Kullanıcı Arayüzü Dili ile Senkronizasyon",
-  "settings.commitMessage.language.description":
-    "AI tarafından oluşturulan commit mesajları için hangi dili kullanacağınızı seçin:",
 
   "settings.display.preview.title": "Önizleme",
   "settings.display.presets.title": "Görüntüleme ön ayarları",
@@ -1320,10 +1096,6 @@ export const dict = {
   "notifications.action.close": "Kapat",
   "notifications.action.tryModel": "Dene {{model}}",
   "notifications.action.tryModelGeneric": "Modeli Dene",
-  "settings.indexing.kiloModel.title": "Kilo model önayarı",
-  "settings.indexing.kiloModel.description": "Desteklenen bir Kilo-hosted embeddings modeli seçin.",
-  "settings.indexing.kiloSignIn.title": "Kilo oturumu açmak gerekiyor",
-  "settings.indexing.kiloSignIn.description": "Hosted embeddings kullanmak için Kilo'da oturum açın.",
   // Missing translations - English fallbacks until translated
   "profile.switchingAccount": "Hesap değiştiriliyor…",
   "settings.agentBehaviour.createMode": "Yeni Mod Oluştur",
@@ -1407,12 +1179,6 @@ export const dict = {
   "chat.search.close": "Aramayı kapat",
   "chat.search.invalidRegex": "Geçersiz normal ifade",
   "chat.search.noResults": "Sonuç yok",
-  "settings.experimental.browserAutomation.title": "Entegre Tarayıcı",
-  "settings.experimental.browserAutomation.description":
-    "Agent Manager'da yerel uygulama önizlemelerini gösterin ve browser_open aracını Agent Manager oturumlarına sunun.",
-  "settings.experimental.browserAutomation.systemChrome.title": "Sistem Chrome'unu Kullan",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "Entegre Tarayıcı için yüklü Google Chrome'u kullanın. Yalnızca uyumlu bir Playwright Chromium tarayıcısı zaten yüklüyse devre dışı bırakın.",
   "chat.search.searchingHistory": "Önceki mesajlarda aranıyor…",
   "settings.harness.title": "Harness",
   "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
@@ -1471,4 +1237,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "Subagent reports",
   "settings.harness.human.checklist": "Your checklist (one per line)",
   "settings.harness.human.checklist.hint": "Things the AI cannot judge, such as taste.",
+  "settings.connections.title": "Models and providers",
 }

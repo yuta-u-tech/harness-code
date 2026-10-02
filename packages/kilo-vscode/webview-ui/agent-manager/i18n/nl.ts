@@ -36,24 +36,6 @@ export const dict = {
   "agentManager.section.worktrees": "WORKTREES",
   "agentManager.section.sessions": "SESSIES",
   "agentManager.projects": "PROJECTEN",
-  "agentManager.settings.title": "Agent Manager",
-  "agentManager.settings.autoBranchNaming.title": "Automatische branchnamen",
-  "agentManager.settings.autoBranchNaming.description":
-    "Geef branches automatisch een naam wanneer het gesprek een duidelijke taak beschrijft. Geldt voor alle projecten. Expliciet benoemde en gepubliceerde branches worden nooit hernoemd.",
-  "agentManager.settings.branchPrefix.title": "Branchprefix",
-  "agentManager.settings.branchPrefix.description":
-    "Prefix voor automatisch benoemde branches in alle projecten, bijvoorbeeld feature/. Geldt niet voor expliciete branchnamen. Laat leeg om geen prefix te gebruiken.",
-  "agentManager.settings.worktreePool.title": "Worktrees vooraf opwarmen",
-  "agentManager.settings.worktreePool.description":
-    "Bereid op de achtergrond een kant-en-klare worktree voor, zodat nieuwe Agent Manager-sessies sneller starten. Gebruikt extra schijfruimte voor één checkout per geopend project.",
-  "agentManager.settings.project.title": "Project",
-  "agentManager.settings.project.description": "Kies de repository waarvan je de worktree-instellingen wilt bewerken.",
-  "agentManager.settings.project.empty": "Er zijn geen Agent Manager-projecten beschikbaar.",
-  "agentManager.settings.defaultBaseBranch.description":
-    "De branch die als startpunt voor nieuwe worktrees wordt gebruikt.",
-  "agentManager.settings.setupScript.description": "Uitvoeren voordat een agent in een nieuwe worktree start.",
-  "agentManager.settings.setupScript.create": "script maken",
-  "agentManager.settings.setupScript.edit": "script bewerken",
   "agentManager.project.add": "Project toevoegen...",
   "agentManager.project.new": "Nieuw project...",
   "agentManager.project.openLocal": "Lokale map openen...",
@@ -81,7 +63,6 @@ export const dict = {
 
   "agentManager.worktree.settings": "Worktree instellingen",
   "agentManager.worktree.new": "Nieuwe worktree",
-  "agentManager.worktree.setupScript": "Worktree setup script",
   "agentManager.worktree.delete": "Worktree verwijderen",
   "agentManager.worktree.confirmDelete": "Verwijderen?",
   "agentManager.worktree.stale": "Verouderd",
@@ -90,8 +71,6 @@ export const dict = {
   "agentManager.worktree.doubleClickRename": "Dubbelklik om te hernoemen",
   "agentManager.worktree.versions": "{{count}} versies",
   "agentManager.worktree.advancedOptions": "Geavanceerde worktree opties",
-  "agentManager.worktree.defaultBaseBranch": "Standaard basis branch",
-  "agentManager.worktree.defaultBaseBranchAuto": "Automatisch detecteren",
   "agentManager.worktree.copyPath": "Pad kopiëren",
   "agentManager.worktree.openInVscode": "Openen in VS Code",
   "agentManager.worktree.rename": "Hernoemen",

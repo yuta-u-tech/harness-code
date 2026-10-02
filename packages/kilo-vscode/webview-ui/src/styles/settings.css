@@ -443,3 +443,13 @@
   flex: 1;
   min-width: 0;
 }
+
+.settings-section {
+  margin-top: 24px;
+}
+
+.settings-section h4 {
+  margin: 0 0 8px;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}

@@ -35,24 +35,6 @@ export const dict = {
   "agentManager.section.worktrees": "WORKTREE'LER",
   "agentManager.section.sessions": "OTURUMLAR",
   "agentManager.projects": "PROJELER",
-  "agentManager.settings.title": "Agent Manager",
-  "agentManager.settings.autoBranchNaming.title": "Otomatik dal adlandırma",
-  "agentManager.settings.autoBranchNaming.description":
-    "Konuşma net bir görevi tanımladığında dalları otomatik olarak adlandırır. Tüm projelere uygulanır. Açıkça adlandırılmış ve yayımlanmış dallar asla yeniden adlandırılmaz.",
-  "agentManager.settings.branchPrefix.title": "Dal öneki",
-  "agentManager.settings.branchPrefix.description":
-    "Tüm projelerde otomatik adlandırılan dallar için önek, örneğin feature/. Açıkça belirtilen dal adlarına uygulanmaz. Önek kullanmamak için boş bırakın.",
-  "agentManager.settings.worktreePool.title": "Worktree'leri önceden ısıtma",
-  "agentManager.settings.worktreePool.description":
-    "Yeni Agent Manager oturumlarının daha hızlı başlaması için arka planda hazır bir worktree oluşturun. Açık proje başına bir checkout için fazladan disk alanı kullanır.",
-  "agentManager.settings.project.title": "Proje",
-  "agentManager.settings.project.description": "Worktree ayarlarını düzenlemek istediğiniz repository'yi seçin.",
-  "agentManager.settings.project.empty": "Kullanılabilir Agent Manager projesi yok.",
-  "agentManager.settings.defaultBaseBranch.description":
-    "Yeni worktrees için başlangıç noktası olarak kullanılan branch.",
-  "agentManager.settings.setupScript.description": "Yeni bir worktree'de agent başlamadan önce çalıştırın.",
-  "agentManager.settings.setupScript.create": "script oluştur",
-  "agentManager.settings.setupScript.edit": "script düzenle",
   "agentManager.project.add": "Proje ekle...",
   "agentManager.project.new": "Yeni proje...",
   "agentManager.project.openLocal": "Yerel klasör aç...",
@@ -80,7 +62,6 @@ export const dict = {
 
   "agentManager.worktree.settings": "Worktree ayarları",
   "agentManager.worktree.new": "Yeni Worktree",
-  "agentManager.worktree.setupScript": "Worktree Kurulum Betiği",
   "agentManager.worktree.delete": "Worktree'yi sil",
   "agentManager.worktree.confirmDelete": "Silinsin mi?",
   "agentManager.worktree.stale": "Eskimiş",
@@ -89,8 +70,6 @@ export const dict = {
   "agentManager.worktree.doubleClickRename": "Yeniden adlandırmak için çift tıklayın",
   "agentManager.worktree.versions": "{{count}} sürüm",
   "agentManager.worktree.advancedOptions": "Gelişmiş worktree seçenekleri",
-  "agentManager.worktree.defaultBaseBranch": "Varsayılan Temel Dal",
-  "agentManager.worktree.defaultBaseBranchAuto": "Otomatik algıla",
   "agentManager.worktree.copyPath": "Yolu Kopyala",
   "agentManager.worktree.openInVscode": "VS Code'da Aç",
   "agentManager.worktree.rename": "Yeniden Adlandır",

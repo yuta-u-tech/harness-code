@@ -395,7 +395,7 @@ function withGlobalSpeechToTextMessage(message: unknown): unknown {
 }
 
 export class KiloProvider implements vscode.WebviewViewProvider, TelemetryPropertiesProvider {
-  public static readonly viewType = "kilo-code.SidebarProvider"
+  public static readonly viewType = "harness-code.SidebarProvider"
   private readonly instanceId = crypto.randomUUID()
 
   private webview: vscode.Webview | null = null
@@ -407,7 +407,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
   private loginAttempt = 0
   private isWebviewReady = false
   private readonly extensionVersion =
-    vscode.extensions.getExtension("kilocode.kilo-code")?.packageJSON?.version ?? "unknown"
+    vscode.extensions.getExtension("yuta-u-tech.harness-code")?.packageJSON?.version ?? "unknown"
   private cachedProvidersMessage: unknown = null
   /** Directory the cached provider payload was loaded for, so recovery is keyed to the active project. */
   private cachedProvidersDirectory: string | null = null
@@ -734,10 +734,10 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
 
   private openMarketplacePanel(directory: unknown): void {
     if (typeof directory === "string" && directory) {
-      vscode.commands.executeCommand("kilo-code.new.marketplaceButtonClicked", directory)
+      vscode.commands.executeCommand("harness-code.marketplaceButtonClicked", directory)
       return
     }
-    vscode.commands.executeCommand("kilo-code.new.marketplaceButtonClicked", this.projectDirectory)
+    vscode.commands.executeCommand("harness-code.marketplaceButtonClicked", this.projectDirectory)
   }
 
   // Strip metadata unused by the webview to keep session switches fast.
@@ -805,7 +805,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
 
     // Re-send ready so the webview can recover after refresh.
     if (serverInfo) {
-      const langConfig = vscode.workspace.getConfiguration("kilo-code.new")
+      const langConfig = vscode.workspace.getConfiguration("harness-code")
       this.postMessage({
         type: "ready",
         serverInfo,
@@ -874,7 +874,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
   private setSidebarVisible(visible: boolean): void {
     this.setStatsVisible(visible)
     this.setStreamVisibility(visible)
-    vscode.commands.executeCommand("setContext", "kilo-code.new.sidebarVisible", visible)
+    vscode.commands.executeCommand("setContext", "harness-code.sidebarVisible", visible)
     if (!visible) this.opts.onHidden?.()
     if (!visible && this.opts.focusContext) {
       void vscode.commands.executeCommand("setContext", this.opts.focusContext, false)
@@ -1213,7 +1213,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
           board: (msg) => this.handleBoardMessage(msg),
           cancelBackgroundJob: (jobID, sessionID, requestID) => this.cancelBackgroundJob(jobID, sessionID, requestID),
           promoteBackgroundJob: (jobID, sessionID) => this.promoteBackgroundJob(jobID, sessionID),
-          caffeination: () => void vscode.commands.executeCommand("kilo-code.new.toggleCaffeination"),
+          caffeination: () => void vscode.commands.executeCommand("harness-code.toggleCaffeination"),
         })
       ) {
         return
@@ -1233,10 +1233,10 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
       if (
         await handleSidebarWorktreeMessage(message, {
           post: (msg) => this.postMessage(msg),
-          openAgentManager: () => vscode.commands.executeCommand("kilo-code.new.agentManagerOpen"),
-          openAdvancedWorktree: () => vscode.commands.executeCommand("kilo-code.new.agentManager.advancedWorktree"),
+          openAgentManager: () => vscode.commands.executeCommand("harness-code.agentManagerOpen"),
+          openAdvancedWorktree: () => vscode.commands.executeCommand("harness-code.agentManager.advancedWorktree"),
           openChanges: (sessionId?: string, turnId?: string) => this.openChanges(sessionId, turnId),
-          openProfile: () => vscode.commands.executeCommand("kilo-code.new.profileButtonClicked"),
+          openProfile: () => vscode.commands.executeCommand("harness-code.profileButtonClicked"),
           currentSessionId: this.currentSession?.id,
           createWorktree: async (baseBranch, branchName) => {
             await this.createWorktreeHandler?.(baseBranch, branchName)
@@ -1363,7 +1363,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
           }
           break
         case "openSettingsPanel":
-          vscode.commands.executeCommand("kilo-code.new.settingsButtonClicked", message.tab, message.projectId)
+          vscode.commands.executeCommand("harness-code.settingsButtonClicked", message.tab, message.projectId)
           break
         case "openVSCodeSettings":
           vscode.commands.executeCommand("workbench.action.openSettings", message.query)
@@ -1390,7 +1390,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
           break
         case "openSubAgentViewer":
           vscode.commands.executeCommand(
-            "kilo-code.new.openSubAgentViewer",
+            "harness-code.openSubAgentViewer",
             message.sessionID,
             message.title,
             this.getWorkspaceDirectory(message.parentSessionID),
@@ -1543,12 +1543,12 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
           break
         case "openSettingsTab":
           if (message.tab === "indexing") {
-            await vscode.commands.executeCommand("kilo-code.new.openIndexingSettings")
+            await vscode.commands.executeCommand("harness-code.openIndexingSettings")
           }
           break
         case "setLanguage":
           await vscode.workspace
-            .getConfiguration("kilo-code.new")
+            .getConfiguration("harness-code")
             .update("language", message.locale || undefined, vscode.ConfigurationTarget.Global)
           this.connectionService.notifyLanguageChanged(message.locale as string)
           break
@@ -1840,7 +1840,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
       this.diffViewerProvider.openFromCommand(args)
       return
     }
-    await vscode.commands.executeCommand("kilo-code.new.showChanges", args)
+    await vscode.commands.executeCommand("harness-code.showChanges", args)
   }
 
   private handleEditorOpenMessage(message: Parameters<typeof handleEditorAction>[0]): boolean {
@@ -2116,7 +2116,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
       this.connectionState = this.connectionService.getConnectionState()
 
       if (serverInfo) {
-        const langConfig = vscode.workspace.getConfiguration("kilo-code.new")
+        const langConfig = vscode.workspace.getConfiguration("harness-code")
         this.postMessage({
           type: "ready",
           serverInfo,
@@ -2827,7 +2827,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
             continue
           }
           this.storedProviderKeys = storedKeys
-          const settings = vscode.workspace.getConfiguration("kilo-code.new.model")
+          const settings = vscode.workspace.getConfiguration("harness-code.model")
           const message = {
             type: "providersLoaded",
             providers: indexProvidersById(response.all),
@@ -3522,7 +3522,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
 
   /** Read attention settings from VS Code config and push to webview. */
   private sendNotificationSettings(): void {
-    const attention = vscode.workspace.getConfiguration("kilo-code.new.attention")
+    const attention = vscode.workspace.getConfiguration("harness-code.attention")
     this.postMessage({
       type: "notificationSettingsLoaded",
       settings: {
@@ -4197,22 +4197,22 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
   }
 
   private maxCostSetting(): number {
-    return this.setMaxCost(vscode.workspace.getConfiguration("kilo-code.new").get<number>("maxCost", 0))
+    return this.setMaxCost(vscode.workspace.getConfiguration("harness-code").get<number>("maxCost", 0))
   }
 
   private commitMessageLanguageSetting(): string {
-    return vscode.workspace.getConfiguration("kilo-code.new").get<string>("languageCommitMessage", "sync")
+    return vscode.workspace.getConfiguration("harness-code").get<string>("languageCommitMessage", "sync")
   }
 
   private multiProjectSetting(): boolean {
-    return vscode.workspace.getConfiguration("kilo-code.new.experimental").get<boolean>("multiProject", false)
+    return vscode.workspace.getConfiguration("harness-code.experimental").get<boolean>("multiProject", false)
   }
 
   private claudeMigrationSetting(): boolean {
-    return vscode.workspace.getConfiguration("kilo-code.new.experimental").get<boolean>("claudeMigration", false)
+    return vscode.workspace.getConfiguration("harness-code.experimental").get<boolean>("claudeMigration", false)
   }
   private browserAutomationSetting(): boolean {
-    return vscode.workspace.getConfiguration("kilo-code.new.experimental").get<boolean>("browserAutomation", false)
+    return vscode.workspace.getConfiguration("harness-code.experimental").get<boolean>("browserAutomation", false)
   }
 
   private async sendIndexingSettings(projectId?: string) {
@@ -4288,7 +4288,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
   }
 
   private configSettings() {
-    const naming = vscode.workspace.getConfiguration("kilo-code.new.agentManager")
+    const naming = vscode.workspace.getConfiguration("harness-code.agentManager")
     return {
       maxCost: this.maxCostSetting(),
       languageCommitMessage: this.commitMessageLanguageSetting(),
@@ -4976,7 +4976,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
     if (key === "maxCost") {
       const normalized = this.setMaxCost(value)
       await vscode.workspace
-        .getConfiguration("kilo-code.new")
+        .getConfiguration("harness-code")
         .update("maxCost", normalized, vscode.ConfigurationTarget.Global)
       for (const sid of this.trackedSessionIds) {
         const oldLimit = this.activeAlerts.get(sid)
@@ -4993,7 +4993,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
     if (section === "autocomplete" && !validAutocompleteSetting(leaf, value)) return
     if (section === "indexing" && !validIndexingSetting(leaf, value)) return
     if (section === "chat" && !validChatSetting(leaf, value)) return
-    const config = vscode.workspace.getConfiguration(`kilo-code.new${section ? `.${section}` : ""}`)
+    const config = vscode.workspace.getConfiguration(`harness-code${section ? `.${section}` : ""}`)
     // Normalize a webview-side clear to `undefined` so VS Code removes the
     // key from settings.json rather than persisting a literal `null`. This
     // lets the runtime fall back to the resolved default.
@@ -5003,9 +5003,9 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
   }
 
   /**
-   * Reset all "kilo-code.new.*" extension settings to their defaults by reading
+   * Reset all "harness-code.*" extension settings to their defaults by reading
    * contributes.configuration from the extension's package.json at runtime.
-   * Only resets settings under the "kilo-code.new." namespace to avoid touching
+   * Only resets settings under the "harness-code." namespace to avoid touching
    * settings from the previous version of the extension which shares the same
    * extension ID and "kilo-code.*" namespace.
    */
@@ -5017,8 +5017,8 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
     )
     if (confirmed !== "Reset") return
 
-    const prefix = "kilo-code.new."
-    const ext = vscode.extensions.getExtension("kilocode.kilo-code")
+    const prefix = "harness-code."
+    const ext = vscode.extensions.getExtension("yuta-u-tech.harness-code")
     const properties = ext?.packageJSON?.contributes?.configuration?.properties as Record<string, unknown> | undefined
     if (!properties) return
 
@@ -5066,7 +5066,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
    * Read the current browser automation settings and push them to the webview.
    */
   private sendBrowserSettings(): void {
-    const config = vscode.workspace.getConfiguration("kilo-code.new.browserAutomation")
+    const config = vscode.workspace.getConfiguration("harness-code.browserAutomation")
     this.postMessage({
       type: "browserSettingsLoaded",
       settings: {
@@ -5081,7 +5081,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
    * Read the current Claude Code compatibility setting and push it to the webview.
    */
   private sendClaudeCompatSetting(): void {
-    const enabled = vscode.workspace.getConfiguration("kilo-code.new").get<boolean>("claudeCodeCompat", false)
+    const enabled = vscode.workspace.getConfiguration("harness-code").get<boolean>("claudeCodeCompat", false)
     this.postMessage({
       type: "claudeCompatSettingLoaded",
       enabled: enabled ?? false,

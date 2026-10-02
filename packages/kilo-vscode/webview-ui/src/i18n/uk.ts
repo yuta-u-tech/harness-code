@@ -673,59 +673,13 @@ export const dict = {
 
   "settings.agentBehaviour.title": "Поведінка агента",
   "settings.autoApprove.title": "Автоматичне схвалення",
-  "settings.webTools.title": "Вебінструменти",
-  "settings.webTools.description": "Налаштуйте вебпошук і автоматизацію браузера.",
-  "settings.webTools.webSearch.enable": "Увімкнути для всіх постачальників",
-  "settings.webTools.browserAutomation": "Автоматизація браузера",
-  "settings.webTools.webSearch.title": "Вебпошук",
-  "settings.webTools.webSearch.description": "Зробіть вебпошук доступним для моделей усіх постачальників.",
   "settings.checkpoints.title": "Контрольні точки",
   "settings.display.title": "Відображення",
-  "settings.autocomplete.title": "Автодоповнення",
   "settings.autocomplete.model.title": "Модель автодоповнення",
   "settings.autocomplete.model.description": "Виберіть модель для вбудованого (inline) автодоповнення коду",
   "settings.notifications.title": "Сповіщення",
-  "settings.context.title": "Контекст",
-  "settings.indexing.title": "Індексування",
-  "settings.indexing.status.title": "Статус",
-  "settings.indexing.enable.title": "Увімкнути індексування",
-  "settings.indexing.enable.description": "Увімкніть або вимкніть семантичне індексування кодової бази.",
-  "settings.indexing.showButton.title": "Показувати кнопку, коли індексування вимкнено",
-  "settings.indexing.showButton.description":
-    "Показувати кнопку індексування під полем введення, поки індексування вимкнено. Якщо кнопку приховано, відкрийте «Налаштування > Індексування», щоб увімкнути індексування.",
-  "settings.indexing.globalEnable.title": "Увімкнути глобально",
-  "settings.indexing.globalEnable.description": "Увімкнути індексування для кожного робочого простору.",
-  "settings.indexing.projectEnable.title": "Увімкнути для цього проєкту",
-  "settings.indexing.projectEnable.description":
-    "Увімкнути індексування для цього робочого простору, коли глобальне індексування вимкнено.",
-  "settings.indexing.provider.title": "Провайдер ембедингів",
-  "settings.indexing.provider.description": "Виберіть провайдера для генерації ембедингів для семантичного пошуку.",
-  "settings.indexing.model.title": "Модель ембедингів",
-  "settings.indexing.model.description": "Перевизначити типову модель ембедингів для вибраного провайдера.",
-  "settings.indexing.dimension.title": "Розмірність вектора",
-  "settings.indexing.dimension.description":
-    "Залиште порожнім, щоб автоматично визначити розмірність ембедингу з моделі.",
-  "settings.indexing.dimension.placeholder": "Авто",
-  "settings.indexing.providerField.description": "Налаштування підключення, специфічне для провайдера.",
-  "settings.indexing.vectorStore.title": "Векторне сховище",
-  "settings.indexing.vectorStore.description": "Виберіть, де зберігаються проіндексовані ембединги.",
-  "settings.indexing.lancedbDirectory.title": "Директорія LanceDB",
-  "settings.indexing.lancedbDirectory.description": "Необов'язкова директорія для локального сховища LanceDB.",
-  "settings.indexing.lancedbDirectory.placeholder": "Залиште порожнім для типового значення",
-  "settings.indexing.qdrantUrl.title": "URL-адреса Qdrant",
-  "settings.indexing.qdrantUrl.description": "URL-адреса сервера для екземпляра Qdrant.",
-  "settings.indexing.qdrantApiKey.title": "Ключ API Qdrant",
-  "settings.indexing.qdrantApiKey.description": "Необов'язковий ключ API для екземпляра Qdrant.",
-  "settings.indexing.qdrantApiKey.placeholder": "Необов'язковий ключ API",
-  "settings.indexing.fileExtensions.title": "Розширення файлів",
-  "settings.indexing.fileExtensions.description":
-    "Список дозволених елементів, розділений комами. Залиште порожнім, щоб використовувати вбудовані значення за замовчуванням.",
-  "settings.indexing.fileExtensions.invalid": "Недійсне розширення: {{extension}}",
-  "settings.indexing.tuning.description": "Розширений параметр пошуку та пакетної обробки.",
 
-  "settings.experimental.title": "Експериментальне",
   "settings.language.title": "Мова",
-  "settings.aboutKiloCode.title": "Про Harness Code",
 
   "session.messages.welcome":
     "Harness Code — це асистент з кодування на базі ШІ. Попросіть його розробити функцію, виправити помилку або пояснити вашу кодову базу.",
@@ -787,59 +741,11 @@ export const dict = {
   "time.thisMonth": "Цього місяця",
   "time.older": "Раніше",
 
-  "settings.aboutKiloCode.status.connected": "Підключено",
-  "settings.aboutKiloCode.status.connecting": "Підключення...",
-  "settings.aboutKiloCode.status.disconnected": "Відключено",
-  "settings.aboutKiloCode.status.error": "Помилка",
-  "settings.aboutKiloCode.cliServer": "CLI-сервер",
-  "settings.aboutKiloCode.status.label": "Статус:",
-  "settings.aboutKiloCode.port.label": "Порт:",
-  "settings.aboutKiloCode.versionInfo": "Інформація про версію",
-  "settings.aboutKiloCode.version.label": "Версія:",
-  "settings.aboutKiloCode.community": "Спільнота і підтримка",
-  "settings.aboutKiloCode.feedback.prefix": "Якщо у вас є питання або відгуки, будь ласка, відкрийте тікет на:",
-  "settings.aboutKiloCode.feedback.or": "або",
-  "settings.aboutKiloCode.support.prefix": "З питань виставлення рахунків або акаунту зверніться до служби підтримки:",
-  "settings.aboutKiloCode.resetSettings.title": "Скидання налаштувань",
-  "settings.aboutKiloCode.resetSettings.description":
-    "Це скине лише налаштування, специфічні для розширення VS Code, до стандартних значень. Налаштування, що зберігаються в конфігурації CLI (такі як режими та правила автоматичного схвалення), не будуть скинуті.",
-  "settings.aboutKiloCode.resetSettings.button": "Скинути всі налаштування",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "Reset Read Notifications",
-  "settings.aboutKiloCode.settingsTransfer.title": "Перенесення налаштувань",
-  "settings.aboutKiloCode.settingsTransfer.description":
-    "Експортуйте або імпортуйте налаштування для перенесення між екземплярами VS Code.",
-  "settings.aboutKiloCode.exportSettings": "Експортувати",
-  "settings.aboutKiloCode.importSettings": "Імпортувати",
-  "settings.aboutKiloCode.importSettings.invalidJson":
-    "Недійсний файл JSON. Будь ласка, виберіть дійсний файл налаштувань.",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "Файл не містить дійсних налаштувань Kilo.",
-  "settings.aboutKiloCode.importSettings.tooLarge": "Файл занадто великий. Файли налаштувань мають бути менше 1 МБ.",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "Цей файл було експортовано з новішої версії Kilo. Деякі налаштування можуть бути проігноровані.",
-  "settings.aboutKiloCode.importSettings.success":
-    "Налаштування імпортовано. Перегляньте зміни вище, потім натисніть Зберегти.",
-
-  "settings.aboutKiloCode.telemetry.title": "Телеметрія",
-  "settings.aboutKiloCode.telemetry.description":
-    'Телеметрія керується вбудованим налаштуванням телеметрії VS Code. Щоб вимкнути її, перейдіть до Налаштування > Телеметрія > Рівень телеметрії та встановіть значення "off". Перезапустіть VS Code, щоб застосувати зміну.',
-  "settings.aboutKiloCode.telemetry.openSettings": "Відкрити налаштування телеметрії",
-
   "settings.agentBehaviour.subtab.agents": "Агенти",
   "settings.agentBehaviour.subtab.mcpServers": "MCP-сервери",
   "settings.agentBehaviour.subtab.rules": "Правила",
   "settings.agentBehaviour.subtab.workflows": "Робочі процеси",
   "settings.agentBehaviour.subtab.skills": "Навички",
-
-  "settings.browser.description":
-    "Налаштуйте вбудовану автоматизацію браузера на основі Playwright. Kilo може переходити веб-сторінками, взаємодіяти з ними та робити знімки екрана у ваших сесіях.",
-  "settings.browser.enable.title": "Увімкнути автоматизацію браузера",
-  "settings.browser.enable.description":
-    "Увімкнути прив'язаний до сесії браузер Agent Manager для локальних програм і загальнодоступних HTTPS-сторінок.",
-  "settings.browser.systemChrome.title": "Використовувати системний Chrome",
-  "settings.browser.systemChrome.description":
-    "Використовувати встановлений браузер Chrome замість окремого екземпляра Chromium.",
-  "settings.browser.headless.title": "Безголовий режим",
-  "settings.browser.headless.description": "Запускати в безголовому режимі (без видимого вікна браузера).",
 
   "settings.language.description":
     '"Автоматично" використовує мову відображення VS Code. Виберіть мову для інтерфейсу Harness Code.',
@@ -847,15 +753,6 @@ export const dict = {
   "settings.language.current": "Поточна:",
 
   "common.add": "Додати",
-
-  "settings.autocomplete.autoTrigger.title": "Увімкнути автоматичні підказки",
-  "settings.autocomplete.autoTrigger.description": "Автоматично показувати підказки під час введення",
-  "settings.autocomplete.smartKeybinding.title": "Увімкнути розумне прив'язування клавіш",
-  "settings.autocomplete.smartKeybinding.description":
-    "Використовувати розумне прив'язування клавіш для активації підказок",
-  "settings.autocomplete.chatAutocomplete.title": "Увімкнути автодоповнення в полі чату",
-  "settings.autocomplete.chatAutocomplete.description": "Показувати підказки автодоповнення в полі введення чату",
-  "settings.autocomplete.modelsHint": "Щоб вибрати модель для автодоповнення, див. Налаштування моделей.",
 
   "settings.notifications.sounds": "Звуки",
   "settings.notifications.enable.title": "Увімкнути звукові сповіщення",
@@ -877,25 +774,9 @@ export const dict = {
   "settings.notifications.sound.description":
     "За замовчуванням для завершення, запиту на введення та помилок використовуються різні звуки. В інших варіантах для всіх подій використовується один і той самий звук.",
 
-  "settings.experimental.share.title": "Режим публікації",
-  "settings.experimental.share.description": "Як поводиться публікація сесій",
-  "settings.experimental.share.manual": "Вручну",
-  "settings.experimental.share.auto": "Автоматично",
-  "settings.experimental.share.disabled": "Вимкнено",
-  "settings.experimental.formatter.title": "Форматер",
-  "settings.experimental.formatter.description": "Увімкнути автоматичне форматування коду",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "Увімкнути інтеграцію з мовним сервером",
-  "settings.experimental.batch.title": "Пакетний інструмент",
-  "settings.experimental.batch.description": "Увімкнути пакетну обробку кількох викликів інструментів",
-  "settings.experimental.imageGeneration.title": "Генерація зображень",
-  "settings.experimental.imageGeneration.description": "Увімкнути генерацію зображень за допомогою ШІ",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Надайте спільну дошку головному сеансу та його субагентам, які виконують завдання, включно з вкладеними субагентами. Використовуйте її для паралельних спроб знайти розв'язання або взаємодоповнювальної роботи, а не для кожного завдання.",
-  "settings.experimental.imageGenerationModel.title": "Модель зображень",
-  "settings.experimental.imageGenerationModel.description": "Модель генерації зображень",
-  "settings.experimental.imageGenerationModel.placeholder": "За замовчуванням (Auto Router)",
 
   "settings.models.speechToTextModel.customDescription":
     "Ідентифікатор моделі, який надсилається до вашої власної кінцевої точки транскрипції, наприклад whisper-1.",
@@ -914,45 +795,6 @@ export const dict = {
     "Голосове введення недоступне у віддалених вікнах. Відкрийте Kilo у локальному вікні, щоб використовувати мікрофон.",
   "settings.models.speechToTextModel.title": "Модель мовлення в текст",
   "settings.models.speechToTextModel.description": "Виберіть модель транскрипції Kilo Gateway для голосового введення.",
-  "settings.experimental.nativeNotebookTools.title": "Власні інструменти для блокнотів",
-  "settings.experimental.nativeNotebookTools.description":
-    "Увімкнути експериментальні інструменти для читання, редагування та виконання блокнотів VS Code",
-  "settings.experimental.continueOnDeny.title": "Продовжувати при відхиленні",
-  "settings.experimental.continueOnDeny.description": "Продовжувати цикл агента, коли дозвіл відхилено",
-  "settings.sandboxing.title": "Пісочниця",
-  "settings.sandboxing.network.title": "Обмежити доступ до мережі",
-  "settings.sandboxing.network.description":
-    "Блокуйте прямий вихідний доступ із команд, ініційованих моделлю, та інструментів HTTP. Локальні й віддалені інструменти MCP недоступні, коли обмеження активне. Трафік постачальника та довірені хуки плагінів не підпадають під це обмеження.",
-
-  "settings.sandboxing.allowedHosts.title": "Дозволені мережеві адреси",
-  "settings.sandboxing.allowedHosts.description":
-    "DNS-вузли та порти призначення для ізольованого proxy-трафіку HTTP і HTTPS. GitHub CLI та HTTPS Git зазвичай потребують github.com:443 і api.github.com:443.",
-  "settings.sandboxing.writablePaths.title": "Додаткові шляхи для запису",
-  "settings.sandboxing.writablePaths.description":
-    "Додаткові шляхи файлової системи, у які дозволено запис у пісочниці (наприклад, /tmp, /var/log). Вони об'єднуються зі шляхами запису за замовчуванням, коли пісочниця активна.",
-  "settings.experimental.multiProject.title": "Мультипроєктний Agent Manager",
-  "settings.experimental.claudeMigration.title": "Міграція Claude Code",
-  "settings.experimental.claudeMigration.description":
-    "Одноразово імпортуйте підтримувані глобальні інструкції CLAUDE.md, прості навички та вимкнені визначення MCP. Оригінальні файли Claude не змінюються; після ввімкнення перезапустіть бекенд.",
-  "settings.experimental.multiProject.description":
-    "Увімкніть керування сеансами та робочими деревами в кількох репозиторіях в Agent Manager. Поточний репозиторій робочого простору завжди є проєктом за замовчуванням.",
-  "settings.experimental.mcpTimeout.title": "Тайм-аут MCP (мс)",
-  "settings.experimental.mcpTimeout.description": "Тайм-аут у мілісекундах для запитів до MCP-сервера",
-  "settings.experimental.remote.title": "Керування Remote",
-  "settings.experimental.remote.description":
-    "Увімкніть керування Remote сеансами через Kilo Cloud. Це також вплине на CLI на цьому комп'ютері.",
-  "settings.experimental.remote.current": "Поточний стан:",
-  "settings.experimental.remote.startup": "Автоматичне ввімкнення під час запуску:",
-  "settings.experimental.remote.active": "Активний",
-  "settings.experimental.remote.inactive": "Неактивний",
-  "settings.experimental.remote.hint": "Використовуйте /remote у чаті для перемикання",
-  "settings.experimental.toolToggles": "Перемикачі інструментів",
-  "settings.experimental.codeMode.title": "Програмні виклики інструментів",
-  "settings.experimental.codeMode.description":
-    "Спрямовує виклики інструментів MCP через ізольоване середовище виконання JavaScript із виявленням інструментів на вимогу замість прямого надання кожного інструменту MCP. Економить контекст, коли підключено багато інструментів MCP.",
-  "settings.sandboxing.enabled.title": "Пісочниця",
-  "settings.sandboxing.enabled.description":
-    "Виконувати команди оболонки агента в пісочниці на рівні ОС, яка обмежує запис до каталогів стану проєкту та Kilo",
 
   "settings.agentBehaviour.defaultAgent.title": "Агент за замовчуванням",
   "settings.agentBehaviour.defaultAgent.description": "Агент, що використовується, якщо не вказано інший",
@@ -1079,82 +921,15 @@ export const dict = {
   "settings.autoApprove.tool.doom_loop":
     "Запобігати повторюваним діям. Спрацьовує, коли той самий виклик інструменту повторюється з однаковими вхідними даними.",
 
-  "settings.checkpoints.enable.title": "Увімкнути знімки",
-  "settings.checkpoints.enable.description":
-    "Створювати контрольні точки перед редагуванням файлів, щоб мати можливість відновити попередні стани",
-  "settings.autoCleanup.enable.title": "Увімкнути автоматичне очищення сесій",
-  "settings.autoCleanup.enable.description":
-    "Автоматично видаляє стару історію сесій після визначеної кількості днів, в усіх проєктах і в усіх клієнтах Kilo на цьому комп'ютері, а не лише в цьому вікні. Запущені сесії та сесії з нещодавнім форком ніколи не видаляються. Видалення необоротне.",
-  "settings.autoCleanup.defaultRetention.title": "Зберігати сесії (днів)",
-  "settings.autoCleanup.defaultRetention.description":
-    "Як довго зберігається історія сесій до видалення автоматичним очищенням.",
-  "settings.autoCleanup.lastRun.title": "Останнє очищення",
-  "settings.autoCleanup.lastRun.never": "Ніколи не запускалося",
-  "settings.autoCleanup.result":
-    "{{date}}: видалено {{deleted}} із {{scanned}} сесій ({{active}} активних пропущено, {{failed}} невдалих) за {{seconds}} с",
-  "settings.autoCleanup.starting": "Запуск очищення сесій...",
-  "settings.autoCleanup.error.status": "Статус очищення сесій тимчасово недоступний. Повторна спроба...",
-  "settings.autoCleanup.error.timeout":
-    "Очікування статусу очищення. Серверна частина відповідає довше, ніж очікувалося.",
-  "settings.autoCleanup.error.run":
-    "Не вдалося підтвердити завершення очищення сесій. Перевірте результат останнього очищення перед повторною спробою.",
-  "settings.autoCleanup.progress.scanning": "Сканування сесій: оброблено {{processed}}/{{total}}",
-  "settings.autoCleanup.progress.deleting":
-    "Видалення сесій: оброблено {{processed}}/{{total}} (видалено {{deleted}}, невдалих {{failed}})",
-  "settings.autoCleanup.runNow": "Запустити очищення зараз",
-  "settings.autoCleanup.runNow.confirm":
-    "Безповоротно видалити застарілі сесії в усіх проєктах і в усіх клієнтах Kilo на цьому комп'ютері?",
-  "settings.autoCleanup.stop": "Зупинити очищення",
-  "settings.autoCleanup.progress.cancelling": "Зупинка очищення сеансів...",
-  "settings.autoCleanup.lastRun.cancelled": "перервано",
-
-  "settings.context.autoCompaction.title": "Автоматичне стиснення",
-  "settings.context.autoCompaction.description": "Автоматично стискати контекст до досягнення ліміту",
-  "settings.context.compaction.title": "Стискання",
   "settings.context.compactionModel.title": "Модель стискання",
   "settings.context.compactionModel.description":
     "Модель, що використовується для автоматичного та ручного стискання. Залиште поле порожнім, щоб використовувати модель чату. Вартість, швидкість і якість підсумку залежать від моделі.",
   "settings.context.compactionModel.useChatModel": "Використовувати модель чату",
-  "settings.context.compactionModel.hint": "Щоб вибрати модель для стискання, див. Налаштування моделей.",
-  "settings.context.compactionLimit.title": "Ліміт автоматичного стискання",
-  "settings.context.compactionLimit.description":
-    "Стискати, коли контекст досягає цього відсотка вікна моделі. Залиште порожнім, щоб використовувати лише буфер безпеки.",
-  "settings.context.prune.title": "Очищати старі виводи",
-  "settings.context.prune.description": "Видаляти старі виводи інструментів під час стиснення",
-  "settings.context.watcherPatterns": "Шаблони ігнорування спостерігача файлів",
-  "settings.context.watcherPatterns.description": "Glob-шаблони для файлів, які спостерігач має ігнорувати",
 
-  "settings.context.memory.title": "Пам’ять",
-  "settings.context.memory.project.title": "Пам’ять проєкту",
-  "settings.context.memory.autoSave.title": "Автозбереження пам’яті проєкту",
-  "settings.context.memory.autoSave.description":
-    "Автоматично зберігає сталі факти проєкту із завершених ходів, коли пам’ять увімкнено.",
-  "settings.context.memory.storage.title": "Storage",
-  "settings.context.memory.status.notLoaded": "Не завантажено",
-  "settings.context.memory.status.disabled": "Вимкнено",
-  "settings.context.memory.status.enabledTokens": "Enabled - ~{{tokens}} stored tokens",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "Enable memory to create project memory files.",
-  "settings.context.memory.inspect": "Перевірити",
   "chat.memory.project.disabled": "Пам’ять проєкту вимкнено",
-  "chat.memory.project.empty": "This project doesn't have any memory yet. It will start showing after you use Kilo.",
   "chat.memory.command.failed": "Команду пам’яті не виконано",
   "chat.memory.updated": "Memory updated",
   "chat.memory.rebuild": "Memory index rebuilt",
-
-  "settings.commitMessage.title": "Commit Message",
-  "settings.commitMessage.override.title": "Використовувати власний prompt",
-  "settings.commitMessage.override.description":
-    "Перевизначити prompt за замовчуванням для commit message. Якщо ввімкнено, ваш власний prompt повністю замінює вбудований prompt для conventional commits.",
-  "settings.commitMessage.prompt.title": "Власний prompt",
-  "settings.commitMessage.prompt.description":
-    "Системний prompt, що надсилається ШІ під час генерації commit messages. Це повністю замінює prompt за замовчуванням.",
-  "settings.commitMessage.prompt.placeholder":
-    "напр., Згенеруй commit messages іспанською мовою у форматі conventional commits. Поверни ЛИШЕ commit message.",
-
-  "settings.commitMessage.language.sync": "Синхронізація з мовою інтерфейсу користувача",
-  "settings.commitMessage.language.description":
-    "Виберіть, яку мову використовувати для повідомлень, створених штучним інтелектом:",
 
   "settings.display.preview.title": "Попередній перегляд",
   "settings.display.presets.title": "Пресети відображення",
@@ -1319,10 +1094,6 @@ export const dict = {
   "notifications.action.close": "Закрити",
   "notifications.action.tryModel": "Спробувати {{model}}",
   "notifications.action.tryModelGeneric": "Спробувати модель",
-  "settings.indexing.kiloModel.title": "Пресет моделі Kilo",
-  "settings.indexing.kiloModel.description": "Виберіть підтримувану модель Kilo-hosted embeddings.",
-  "settings.indexing.kiloSignIn.title": "Потрібен вхід у Kilo",
-  "settings.indexing.kiloSignIn.description": "Увійдіть у Kilo, щоб використовувати hosted embeddings.",
   // Missing translations - English fallbacks until translated
   "profile.switchingAccount": "Перемикання акаунту…",
   "settings.agentBehaviour.createMode": "Створити новий режим",
@@ -1407,12 +1178,6 @@ export const dict = {
   "chat.search.close": "Закрити пошук",
   "chat.search.invalidRegex": "Недійсний регулярний вираз",
   "chat.search.noResults": "Немає результатів",
-  "settings.experimental.browserAutomation.title": "Вбудований браузер",
-  "settings.experimental.browserAutomation.description":
-    "Показуйте попередній перегляд локальних застосунків в Agent Manager і надавайте інструмент browser_open сесіям Agent Manager.",
-  "settings.experimental.browserAutomation.systemChrome.title": "Використовувати системний Chrome",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "Використовувати встановлений Google Chrome для вбудованого браузера. Вимкніть лише якщо сумісний браузер Playwright Chromium уже встановлено.",
   "chat.search.searchingHistory": "Пошук у попередніх повідомленнях…",
   "settings.harness.title": "Harness",
   "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
@@ -1471,4 +1236,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "Subagent reports",
   "settings.harness.human.checklist": "Your checklist (one per line)",
   "settings.harness.human.checklist.hint": "Things the AI cannot judge, such as taste.",
+  "settings.connections.title": "Models and providers",
 }

@@ -8,7 +8,7 @@ export function PRAvatar(props: { author: string; avatar?: string }) {
   const icons = (window as { ICONS_BASE_URI?: string }).ICONS_BASE_URI || ""
   const [failed, setFailed] = createSignal<string[]>([])
   const source = createMemo(() => {
-    const logo = BOTS.has(props.author.toLowerCase().replace(/\[bot\]$/, "")) ? `${icons}/kilo-light.svg` : undefined
+    const logo = BOTS.has(props.author.toLowerCase().replace(/\[bot\]$/, "")) ? `${icons}/harness-light.svg` : undefined
     return [githubUrl(props.avatar), logo].find((src) => src && !failed().includes(src))
   })
 

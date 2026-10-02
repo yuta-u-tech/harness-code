@@ -420,48 +420,6 @@ export const dict = {
 
   "prompt.action.indexing": "Indekseringsindstillinger",
 
-  "settings.indexing.title": "Indeksering",
-  "settings.indexing.enable.title": "Aktivér indeksering",
-  "settings.indexing.enable.description": "Slå semantisk kodebase-indeksering til eller fra.",
-  "settings.indexing.showButton.title": "Vis knappen, når indeksering er slået fra",
-  "settings.indexing.showButton.description":
-    "Vis indekseringsknappen under promptfeltet, mens indeksering er slået fra. Hvis knappen er skjult, skal du åbne Indstillinger > Indeksering for at slå indeksering til.",
-  "settings.indexing.globalEnable.title": "Aktivér globalt",
-  "settings.indexing.globalEnable.description": "Aktivér indeksering for alle arbejdsområder.",
-  "settings.indexing.projectEnable.title": "Aktivér for dette projekt",
-  "settings.indexing.projectEnable.description":
-    "Aktivér indeksering for dette arbejdsområde, når global indeksering er slået fra.",
-  "settings.indexing.provider.title": "Embedding-udbyder",
-  "settings.indexing.provider.description":
-    "Vælg udbyderen, der bruges til at generere embeddings til semantisk søgning.",
-  "settings.indexing.kiloModel.title": "Kilo-modelpreset",
-  "settings.indexing.kiloModel.description": "Vælg en understøttet Kilo-hostet embedding-model.",
-  "settings.indexing.kiloSignIn.title": "Kilo-login kræves",
-  "settings.indexing.kiloSignIn.description": "Log ind på Kilo for at bruge hostede embeddings.",
-  "settings.indexing.model.title": "Embedding-model",
-  "settings.indexing.model.description": "Overskriv standard embedding-modellen for den valgte udbyder.",
-  "settings.indexing.providerField.description": "Udbyderspecifik forbindelsesindstilling.",
-  "settings.indexing.vectorStore.title": "Vektorlager",
-  "settings.indexing.vectorStore.description": "Vælg hvor indekserede embeddings gemmes.",
-  "settings.indexing.qdrantUrl.title": "Qdrant URL",
-  "settings.indexing.qdrantUrl.description": "Server-URL til Qdrant-instansen.",
-  "settings.indexing.qdrantApiKey.title": "Qdrant API-nøgle",
-  "settings.indexing.qdrantApiKey.description": "Valgfri API-nøgle til Qdrant-instansen.",
-  "settings.indexing.qdrantApiKey.placeholder": "Valgfri API-nøgle",
-  "settings.indexing.fileExtensions.title": "Filtypenavne",
-  "settings.indexing.fileExtensions.description":
-    "Kommaadskilt tilladelsesliste. Lad feltet være tomt for at bruge de indbyggede standardindstillinger.",
-  "settings.indexing.fileExtensions.invalid": "Ugyldig filtype: {{extension}}",
-  "settings.indexing.lancedbDirectory.title": "LanceDB-mappe",
-  "settings.indexing.lancedbDirectory.description": "Valgfri mappe til det lokale LanceDB-lager.",
-  "settings.indexing.lancedbDirectory.placeholder": "Lad være tom for standard",
-  "settings.indexing.dimension.title": "Vektordimension",
-  "settings.indexing.dimension.description":
-    "Lad være tom for automatisk at registrere embedding-dimensionen fra modellen.",
-  "settings.indexing.dimension.placeholder": "Auto",
-  "settings.indexing.status.title": "Status",
-  "settings.indexing.tuning.description": "Avanceret søge- og batchparameter.",
-
   "settings.providers.title": "Udbydere",
   "settings.providers.section.connected": "Forbundne udbydere",
   "settings.providers.connected.empty": "Ingen forbundne udbydere",
@@ -721,23 +679,13 @@ export const dict = {
 
   "settings.agentBehaviour.title": "Agentadfærd",
   "settings.autoApprove.title": "Automatisk godkendelse",
-  "settings.webTools.title": "Webværktøjer",
-  "settings.webTools.description": "Konfigurer websøgning og browserautomatisering.",
-  "settings.webTools.webSearch.enable": "Aktivér for alle udbydere",
-  "settings.webTools.browserAutomation": "Browserautomatisering",
-  "settings.webTools.webSearch.title": "Websøgning",
-  "settings.webTools.webSearch.description": "Gør websøgning tilgængelig for modeller fra alle udbydere.",
   "settings.checkpoints.title": "Kontrolpunkter",
   "settings.display.title": "Visning",
-  "settings.autocomplete.title": "Autofuldførelse",
   "settings.autocomplete.model.title": "Autocomplete-model",
   "settings.autocomplete.model.description": "Vælg den model, der bruges til inline kodefuldførelse",
   "settings.notifications.title": "Notifikationer",
-  "settings.context.title": "Kontekst",
 
-  "settings.experimental.title": "Eksperimentelt",
   "settings.language.title": "Sprog",
-  "settings.aboutKiloCode.title": "Om Harness Code",
 
   "session.messages.welcome":
     "Harness Code er en AI-kodningsassistent. Bed den om at bygge funktioner, rette fejl eller forklare din kodebase.",
@@ -799,59 +747,11 @@ export const dict = {
   "time.thisMonth": "Denne måned",
   "time.older": "Ældre",
 
-  "settings.aboutKiloCode.status.connected": "Forbundet",
-  "settings.aboutKiloCode.status.connecting": "Forbinder...",
-  "settings.aboutKiloCode.status.disconnected": "Afbrudt",
-  "settings.aboutKiloCode.status.error": "Fejl",
-  "settings.aboutKiloCode.cliServer": "CLI-server",
-  "settings.aboutKiloCode.status.label": "Status:",
-  "settings.aboutKiloCode.port.label": "Port:",
-  "settings.aboutKiloCode.versionInfo": "Versionsinformation",
-  "settings.aboutKiloCode.version.label": "Version:",
-  "settings.aboutKiloCode.community": "Fællesskab og support",
-  "settings.aboutKiloCode.feedback.prefix":
-    "Hvis du har spørgsmål eller feedback, er du velkommen til at åbne en issue på",
-  "settings.aboutKiloCode.feedback.or": "eller",
-  "settings.aboutKiloCode.support.prefix": "For fakturerings- eller kontospørgsmål, kontakt kundesupport på",
-  "settings.aboutKiloCode.resetSettings.title": "Nulstil indstillinger",
-  "settings.aboutKiloCode.resetSettings.description":
-    "Dette nulstiller kun VS Code-udvidelsesspecifikke indstillinger til deres standardværdier. Indstillinger der deles med CLI, såsom tilstande og regler for automatisk godkendelse, er gemt i CLI-konfigurationen og vil ikke blive nulstillet.",
-  "settings.aboutKiloCode.resetSettings.button": "Nulstil alle indstillinger",
-  "settings.aboutKiloCode.resetSettings.notificationsButton": "Reset Read Notifications",
-  "settings.aboutKiloCode.settingsTransfer.title": "Overførsel af indstillinger",
-  "settings.aboutKiloCode.settingsTransfer.description":
-    "Eksportér eller importér dine indstillinger for at overføre dem mellem VS Code-instanser.",
-  "settings.aboutKiloCode.exportSettings": "Eksportér",
-  "settings.aboutKiloCode.importSettings": "Importér",
-  "settings.aboutKiloCode.importSettings.invalidJson": "Ugyldig JSON-fil. Vælg venligst en gyldig indstillingsfil.",
-  "settings.aboutKiloCode.importSettings.invalidConfig": "Filen indeholder ikke gyldige Kilo-indstillinger.",
-  "settings.aboutKiloCode.importSettings.tooLarge": "Filen er for stor. Indstillingsfiler skal være under 1 MB.",
-  "settings.aboutKiloCode.importSettings.newerVersion":
-    "Denne fil blev eksporteret fra en nyere version af Kilo. Nogle indstillinger kan blive ignoreret.",
-  "settings.aboutKiloCode.importSettings.success":
-    "Indstillinger importeret. Gennemgå ændringerne ovenfor, og klik derefter på Gem.",
-
-  "settings.aboutKiloCode.telemetry.title": "Telemetri",
-  "settings.aboutKiloCode.telemetry.description":
-    'Telemetri styres af VS Codes indbyggede telemetriindstilling. For at deaktivere den, gå til Indstillinger > Telemetry > Telemetry Level og sæt den til "off". Genstart VS Code for at anvende ændringen.',
-  "settings.aboutKiloCode.telemetry.openSettings": "Åbn telemetriindstillinger",
-
   "settings.agentBehaviour.subtab.agents": "Agenter",
   "settings.agentBehaviour.subtab.mcpServers": "MCP-servere",
   "settings.agentBehaviour.subtab.rules": "Regler",
   "settings.agentBehaviour.subtab.workflows": "Arbejdsgange",
   "settings.agentBehaviour.subtab.skills": "Færdigheder",
-
-  "settings.browser.description":
-    "Konfigurér indbygget browserautomatisering drevet af Playwright. Kilo kan navigere, interagere med og tage skærmbilleder af websider i dine sessioner.",
-  "settings.browser.enable.title": "Aktivér browserautomatisering",
-  "settings.browser.enable.description":
-    "Aktivér den sessionsspecifikke browser i Agent Manager til lokale applikationer og offentlige HTTPS-sider.",
-  "settings.browser.systemChrome.title": "Brug system-Chrome",
-  "settings.browser.systemChrome.description":
-    "Brug din installerede Chrome-browser i stedet for en separat Chromium-instans.",
-  "settings.browser.headless.title": "Headless-tilstand",
-  "settings.browser.headless.description": "Kør i headless-tilstand (intet synligt browservindue).",
 
   "settings.language.description": 'Vælg sproget til Harness Code-brugerfladen. "Auto" bruger VS Codes visningssprog.',
   "settings.language.auto": "Auto (VS Code-sprog)",
@@ -859,14 +759,6 @@ export const dict = {
 
   "common.add": "Tilføj",
 
-  "settings.autocomplete.autoTrigger.title": "Aktiver automatisk inline-fuldførelse",
-  "settings.autocomplete.autoTrigger.description": "Vis automatisk inline-fuldførelsesforslag under indtastning",
-  "settings.autocomplete.smartKeybinding.title": "Aktiver smart inline-opgave-tastaturgenvej",
-  "settings.autocomplete.smartKeybinding.description": "Brug en smart tastaturgenvej til at udløse inline-opgaver",
-  "settings.autocomplete.chatAutocomplete.title": "Aktiver chat-autofuldførelse",
-  "settings.autocomplete.chatAutocomplete.description": "Vis autofuldførelsesforslag i chatfeltet",
-  "settings.autocomplete.modelsHint":
-    "For at vælge hvilken model der bruges til autofuldførelse, se Modelindstillinger.",
   "settings.notifications.sounds": "Lyde",
   "settings.notifications.enable.title": "Aktivér lydnotifikationer",
   "settings.notifications.enable.description":
@@ -886,25 +778,9 @@ export const dict = {
   "settings.notifications.sound.system": "System",
   "settings.notifications.sound.description":
     "Standardindstillingen bruger forskellige lyde til afslutning, input og fejl. Andre valg bruger én lyd til alle hændelser.",
-  "settings.experimental.share.title": "Delingstilstand",
-  "settings.experimental.share.description": "Adfærd for sessionsdeling",
-  "settings.experimental.share.manual": "Manuel",
-  "settings.experimental.share.auto": "Automatisk",
-  "settings.experimental.share.disabled": "Deaktiveret",
-  "settings.experimental.formatter.title": "Formater",
-  "settings.experimental.formatter.description": "Aktiver automatisk kodeformatering",
-  "settings.experimental.lsp.title": "LSP",
-  "settings.experimental.lsp.description": "Aktiver sprogserverprotokol-integration",
-  "settings.experimental.batch.title": "Batchværktøj",
-  "settings.experimental.batch.description": "Aktiver batchbehandling af flere værktøjskald",
-  "settings.experimental.imageGeneration.title": "Billedgenerering",
-  "settings.experimental.imageGeneration.description": "Aktiver AI-billedgenerering",
   "settings.agentBehaviour.sharedAgentBoard.title": "Kilo Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Del et board mellem en hovedsession og dens underagenter til opgaveløsning, herunder indlejrede underagenter. Brug det til parallelle løsningsforsøg eller arbejdsopgaver, der supplerer hinanden, ikke til alle opgaver.",
-  "settings.experimental.imageGenerationModel.title": "Billedmodel",
-  "settings.experimental.imageGenerationModel.description": "Billedgenereringsmodel",
-  "settings.experimental.imageGenerationModel.placeholder": "Standard (Auto Router)",
 
   "settings.models.speechToTextModel.customDescription":
     "Model-id, der sendes til dit eget transskriptionsendpoint, for eksempel whisper-1.",
@@ -923,39 +799,7 @@ export const dict = {
     "Stemmeinput er ikke tilgængelig i fjernvinduer. Åbn Kilo i et lokalt vindue for at bruge mikrofonen.",
   "settings.models.speechToTextModel.title": "Model til tale til tekst",
   "settings.models.speechToTextModel.description": "Vælg Kilo Gateway-transskriptionsmodellen til stemmeinput.",
-  "settings.experimental.nativeNotebookTools.title": "Indbyggede notebook-værktøjer",
-  "settings.experimental.nativeNotebookTools.description":
-    "Aktivér eksperimentelle værktøjer til at læse, redigere og køre VS Code-notebooks",
-  "settings.experimental.continueOnDeny.title": "Fortsæt ved afvisning",
-  "settings.experimental.continueOnDeny.description": "Fortsæt agentløkken, når en tilladelse afvises",
-  "settings.sandboxing.title": "Sandboxing",
-  "settings.sandboxing.network.title": "Begræns netværksadgang",
-  "settings.sandboxing.network.description":
-    "Blokerer direkte udgående adgang fra modelgenererede kommandoer og HTTP-værktøjer. Lokale og eksterne MCP-værktøjer er ikke tilgængelige, mens begrænsningen er aktiv. Udbydertrafik og pålidelige plugin-hooks forbliver uden for denne begrænsning.",
 
-  "settings.sandboxing.allowedHosts.title": "Tilladte netværksdestinationer",
-  "settings.sandboxing.allowedHosts.description":
-    "DNS-værts- og portdestinationer for sandboxet HTTP- og HTTPS-proxytrafik. GitHub CLI og HTTPS Git kræver typisk github.com:443 og api.github.com:443.",
-  "settings.sandboxing.writablePaths.title": "Yderligere skrivbare stier",
-  "settings.sandboxing.writablePaths.description":
-    "Yderligere filsystemstier, som sandkassen tillader skrivning til (f.eks. /tmp, /var/log). Disse flettes med de standardskrivbare stier, når sandkassen er aktiv.",
-  "settings.experimental.multiProject.title": "Multi-projekt Agent Manager",
-  "settings.experimental.claudeMigration.title": "Claude Code-migrering",
-  "settings.experimental.claudeMigration.description":
-    "Importér understøttede globale CLAUDE.md-instruktioner, enkle færdigheder og deaktiverede MCP-definitioner én gang. Originale Claude-filer forbliver uændrede; genstart backend efter aktivering.",
-  "settings.experimental.multiProject.description":
-    "Aktivér styring af sessioner og worktrees på tværs af flere repositories i Agent Manager. Det nuværende workspace-repository er altid standardprojektet.",
-  "settings.experimental.mcpTimeout.title": "MCP-timeout (ms)",
-  "settings.experimental.mcpTimeout.description": "Timeout for MCP-serveranmodninger i millisekunder",
-  "settings.experimental.remote.title": "Remote-styring",
-  "settings.experimental.remote.description":
-    "Aktivér Remote-styring af sessioner via Kilo Cloud. Dette vil også påvirke CLI'er på denne maskine.",
-  "settings.experimental.remote.current": "Nuværende status:",
-  "settings.experimental.remote.startup": "Aktivér automatisk ved opstart:",
-  "settings.experimental.remote.active": "Aktiv",
-  "settings.experimental.remote.inactive": "Inaktiv",
-  "settings.experimental.remote.hint": "Brug /remote i chatten for at skifte",
-  "settings.experimental.toolToggles": "Værktøjsskift",
   "settings.agentBehaviour.defaultAgent.title": "Standardagent",
   "settings.agentBehaviour.defaultAgent.description": "Agent til brug, når ingen er angivet",
   "settings.agentBehaviour.availableAgents": "Tilgængelige agenter",
@@ -1077,12 +921,6 @@ export const dict = {
   "settings.agentBehaviour.workflows.model": "model",
   "settings.agentBehaviour.workflows.variant": "variant",
   "settings.agentBehaviour.workflows.modelDescription": "Global modeloverskrivelse",
-  "settings.experimental.codeMode.title": "Programmatiske værktøjskald",
-  "settings.experimental.codeMode.description":
-    "Ruter MCP-værktøjskald gennem en afgrænset JavaScript-runtime med behovsbaseret værktøjsregistrering i stedet for at eksponere hvert MCP-værktøj direkte. Sparer kontekst, når mange MCP-værktøjer er forbundet.",
-  "settings.sandboxing.enabled.title": "Sandbox",
-  "settings.sandboxing.enabled.description":
-    "Kør shell-kommandoer for agenten i en sandbox på operativsystemniveau, der begrænser skrivning til projekt- og Kilo-tilstandsmapperne",
 
   "settings.autoApprove.description":
     "Definer, hvordan værktøjer må køre. De fleste værktøjer er som standard indstillet til Tillad. doom_loop og external_directory er som standard indstillet til Spørg.",
@@ -1122,80 +960,15 @@ export const dict = {
     "Få adgang til filer uden for arbejdsområdet. Udløses ved adgang til filer uden for den aktuelle projektmappe.",
   "settings.autoApprove.tool.doom_loop":
     "Forhindr gentagne identiske handlinger. Udløses, når det samme værktøjskald gentages med identisk input.",
-  "settings.checkpoints.enable.title": "Aktiver snapshots",
-  "settings.checkpoints.enable.description": "Opret kontrolpunkter før filredigeringer",
-  "settings.autoCleanup.enable.title": "Aktivér automatisk oprydning af sessioner",
-  "settings.autoCleanup.enable.description":
-    "Sletter automatisk gammel sessionshistorik efter et fast antal dage, på tværs af alle projekter og alle Kilo-klienter på denne maskine, ikke kun i dette vindue. Kørende sessioner og sessioner med en nylig forgrening slettes aldrig. Sletning er permanent.",
-  "settings.autoCleanup.defaultRetention.title": "Behold sessioner i (dage)",
-  "settings.autoCleanup.defaultRetention.description":
-    "Hvor længe sessionshistorik bevares, før automatisk oprydning sletter den.",
-  "settings.autoCleanup.lastRun.title": "Sidste oprydning",
-  "settings.autoCleanup.lastRun.never": "Aldrig kørt",
-  "settings.autoCleanup.result":
-    "{{date}}: slettede {{deleted}} af {{scanned}} sessioner ({{active}} aktive sprunget over, {{failed}} fejlede) på {{seconds}}s",
-  "settings.autoCleanup.starting": "Starter oprydning af sessioner...",
-  "settings.autoCleanup.error.status": "Status for oprydning af sessioner er midlertidigt utilgængelig. Prøver igen...",
-  "settings.autoCleanup.error.timeout": "Venter på oprydningsstatus. Backend tager længere tid end forventet.",
-  "settings.autoCleanup.error.run":
-    "Kunne ikke bekræfte, at oprydningen af sessioner er fuldført. Kontrollér resultatet af den sidste oprydning, før du prøver igen.",
-  "settings.autoCleanup.progress.scanning": "Scanner sessioner: {{processed}}/{{total}} behandlet",
-  "settings.autoCleanup.progress.deleting":
-    "Sletter sessioner: {{processed}}/{{total}} behandlet ({{deleted}} slettet, {{failed}} fejlede)",
-  "settings.autoCleanup.runNow": "Kør oprydning nu",
-  "settings.autoCleanup.runNow.confirm":
-    "Slet udløbne sessioner permanent på tværs af alle projekter og alle Kilo-klienter på denne maskine?",
-  "settings.autoCleanup.stop": "Stop oprydning",
-  "settings.autoCleanup.progress.cancelling": "Stopper oprydning af sessioner...",
-  "settings.autoCleanup.lastRun.cancelled": "afbrudt",
-  "settings.context.autoCompaction.title": "Automatisk komprimering",
-  "settings.context.autoCompaction.description": "Komprimér automatisk kontekst, før den når grænsen",
-  "settings.context.compaction.title": "Komprimering",
   "settings.context.compactionModel.title": "Komprimeringsmodel",
   "settings.context.compactionModel.description":
     "Model, der bruges til automatisk og manuel komprimering. Lad feltet være tomt for at bruge chatmodellen. Omkostninger, hastighed og kvaliteten af opsummeringen afhænger af modellen.",
   "settings.context.compactionModel.useChatModel": "Brug chatmodel",
-  "settings.context.compactionModel.hint":
-    "For at vælge hvilken model der bruges til komprimering, se Modelindstillinger.",
-  "settings.context.compactionLimit.title": "Grænse for automatisk komprimering",
-  "settings.context.compactionLimit.description":
-    "Komprimér, når konteksten når denne procentdel af modelvinduet. Lad feltet være tomt for kun at bruge sikkerhedsbufferen.",
-  "settings.context.prune.title": "Fjern gamle output",
-  "settings.context.prune.description": "Fjern gamle værktøjsoutput under komprimering",
-  "settings.context.watcherPatterns": "Filvagt-ignormønstre",
-  "settings.context.watcherPatterns.description": "Glob-mønstre for filer, som vagten skal ignorere",
 
-  "settings.context.memory.title": "Hukommelse",
-  "settings.context.memory.project.title": "Projekthukommelse",
-  "settings.context.memory.autoSave.title": "Gem projekthukommelse automatisk",
-  "settings.context.memory.autoSave.description":
-    "Gemmer automatisk varige projektfakta fra afsluttede ture, når hukommelse er aktiveret.",
-  "settings.context.memory.storage.title": "Storage",
-  "settings.context.memory.status.notLoaded": "Ikke indlæst",
-  "settings.context.memory.status.disabled": "Deaktiveret",
-  "settings.context.memory.status.enabledTokens": "Enabled - ~{{tokens}} stored tokens",
-  "settings.context.memory.storage.path": "{{path}}",
-  "settings.context.memory.storage.enable": "Enable memory to create project memory files.",
-  "settings.context.memory.inspect": "Inspicér",
   "chat.memory.project.disabled": "Projekthukommelse deaktiveret",
-  "chat.memory.project.empty": "This project doesn't have any memory yet. It will start showing after you use Kilo.",
   "chat.memory.command.failed": "Hukommelseskommando mislykkedes",
   "chat.memory.updated": "Memory updated",
   "chat.memory.rebuild": "Memory index rebuilt",
-
-  "settings.commitMessage.title": "Commit Message",
-  "settings.commitMessage.override.title": "Brug brugerdefineret prompt",
-  "settings.commitMessage.override.description":
-    "Tilsidesæt standard prompt for commit message. Når dette er aktiveret, erstatter din brugerdefinerede prompt fuldstændigt den indbyggede prompt for conventional commits.",
-  "settings.commitMessage.prompt.title": "Brugerdefineret prompt",
-  "settings.commitMessage.prompt.description":
-    "System prompt sendt til AI'en ved generering af commit messages. Dette erstatter fuldstændigt standard prompt.",
-  "settings.commitMessage.prompt.placeholder":
-    "f.eks. Generer commit messages på spansk efter conventional commits formatet. Returner KUN commit message.",
-
-  "settings.commitMessage.language.sync": "Synkroniser med UI sprog",
-  "settings.commitMessage.language.description":
-    "Vælg hvilket sprog der skal bruges til AI-genererede commit-meddelelser:",
 
   "settings.display.preview.title": "Forhåndsvisning",
   "settings.display.presets.title": "Visningsforudindstillinger",
@@ -1391,12 +1164,6 @@ export const dict = {
   "chat.search.close": "Luk søgning",
   "chat.search.invalidRegex": "Ugyldigt regulært udtryk",
   "chat.search.noResults": "Ingen resultater",
-  "settings.experimental.browserAutomation.title": "Integreret browser",
-  "settings.experimental.browserAutomation.description":
-    "Vis forhåndsvisninger af lokale applikationer i Agent Manager, og gør værktøjet browser_open tilgængeligt for Agent Manager-sessioner.",
-  "settings.experimental.browserAutomation.systemChrome.title": "Brug system-Chrome",
-  "settings.experimental.browserAutomation.systemChrome.description":
-    "Brug den installerede Google Chrome til den integrerede browser. Deaktivér kun, når en kompatibel Playwright Chromium-browser allerede er installeret.",
   "chat.search.searchingHistory": "Søger i tidligere beskeder…",
   "settings.harness.title": "Harness",
   "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
@@ -1455,4 +1222,5 @@ export const dict = {
   "settings.harness.human.show.subagents": "Subagent reports",
   "settings.harness.human.checklist": "Your checklist (one per line)",
   "settings.harness.human.checklist.hint": "Things the AI cannot judge, such as taste.",
+  "settings.connections.title": "Models and providers",
 }
