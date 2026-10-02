@@ -4,7 +4,7 @@
   "version": "7.8.3",
   "type": "module",
   "license": "MIT",
-  "description": "Telemetry for Kilo CLI - PostHog analytics integration",
+  "description": "Telemetry hooks. Nothing is collected or sent.",
   "exports": {
     ".": "./src/index.ts"
   },
@@ -18,7 +18,6 @@
     "test:ci": "mkdir -p .artifacts/unit && bun test --reporter=junit --reporter-outfile=.artifacts/unit/junit.xml"
   },
   "dependencies": {
-    "posthog-node": "4.4.0",
     "@kilocode/kilo-gateway": "workspace:*"
   },
   "devDependencies": {
