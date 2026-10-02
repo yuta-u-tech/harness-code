@@ -16,6 +16,7 @@ import { ConfigPluginV1 } from "./plugin"
 import { ConfigProviderV1 } from "./provider"
 import { ConfigServerV1 } from "./server"
 import { ConfigSkillsV1 } from "./skills"
+import { ConfigHarnessV1 } from "./harness" // kilocode_change
 // kilocode_change start
 import { ZodOverride } from "../../effect-zod"
 import {
@@ -70,6 +71,7 @@ export const Info = Schema.Struct({
     description: "Command configuration, see https://kilo.ai/docs/customize/workflows", // kilocode_change
   }),
   skills: Schema.optional(ConfigSkillsV1.Info).annotate({ description: "Additional skill folder paths" }),
+  harness: Schema.optional(ConfigHarnessV1.Info), // kilocode_change
   references: Schema.optional(ConfigReference.Info).annotate({
     description: "Named git or local directory references",
   }),

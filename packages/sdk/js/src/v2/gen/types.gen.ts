@@ -2522,6 +2522,84 @@ export type Config = {
     paths?: Array<string>
     urls?: Array<string>
   }
+  /**
+   * Ordered flow of agent, check and human steps
+   */
+  harness?: {
+    steps: Array<
+      | {
+          id: string
+          kind: "agent"
+          name: string
+          /**
+           * Key of an entry in the top-level agent config.
+           */
+          agent: string
+          subagents?: Array<string>
+        }
+      | {
+          id: string
+          kind: "check"
+          name: string
+          /**
+           * Earlier step id to return to when a required check fails.
+           */
+          failTo: string
+          retries: number
+          checks: Array<
+            | {
+                id: string
+                type: "command"
+                name: string
+                /**
+                 * Shell command. Exit code 0 passes.
+                 */
+                command: string
+                /**
+                 * A failing required check sends the flow back to failTo.
+                 */
+                required: boolean
+              }
+            | {
+                id: string
+                type: "rubric"
+                name: string
+                /**
+                 * Judge model as provider/model.
+                 */
+                model: string
+                variant?: string
+                /**
+                 * How many times to score. The median is used.
+                 */
+                runs: number
+                pass: number
+                required: boolean
+                items: Array<{
+                  id: string
+                  name: string
+                  weight: number
+                  /**
+                   * What earns the top score for this item.
+                   */
+                  criterion: string
+                }>
+              }
+          >
+        }
+      | {
+          id: string
+          kind: "human"
+          name: string
+          /**
+           * Earlier step id to return to when the reviewer rejects.
+           */
+          failTo: string
+          show: Array<string>
+          checklist: Array<string>
+        }
+    >
+  }
   references?: {
     [key: string]: string | ConfigV2ReferenceGit | ConfigV2ReferenceLocal
   }

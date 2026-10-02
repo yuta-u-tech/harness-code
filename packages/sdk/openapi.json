@@ -35375,6 +35375,215 @@
             },
             "additionalProperties": false
           },
+          "harness": {
+            "type": "object",
+            "properties": {
+              "steps": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": ["agent"]
+                        },
+                        "name": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "agent": {
+                          "type": "string",
+                          "description": "Key of an entry in the top-level agent config."
+                        },
+                        "subagents": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": ["id", "kind", "name", "agent"],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": ["check"]
+                        },
+                        "name": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "failTo": {
+                          "type": "string",
+                          "minLength": 1,
+                          "description": "Earlier step id to return to when a required check fails."
+                        },
+                        "retries": {
+                          "type": "integer",
+                          "exclusiveMinimum": 0
+                        },
+                        "checks": {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "type": {
+                                    "type": "string",
+                                    "enum": ["command"]
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "command": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "description": "Shell command. Exit code 0 passes."
+                                  },
+                                  "required": {
+                                    "type": "boolean",
+                                    "description": "A failing required check sends the flow back to failTo."
+                                  }
+                                },
+                                "required": ["id", "type", "name", "command", "required"],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "type": {
+                                    "type": "string",
+                                    "enum": ["rubric"]
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "model": {
+                                    "type": "string",
+                                    "description": "Judge model as provider/model."
+                                  },
+                                  "variant": {
+                                    "type": "string"
+                                  },
+                                  "runs": {
+                                    "type": "integer",
+                                    "exclusiveMinimum": 0,
+                                    "description": "How many times to score. The median is used."
+                                  },
+                                  "pass": {
+                                    "type": "number",
+                                    "minimum": 1,
+                                    "maximum": 5
+                                  },
+                                  "required": {
+                                    "type": "boolean"
+                                  },
+                                  "items": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "string",
+                                          "minLength": 1
+                                        },
+                                        "name": {
+                                          "type": "string",
+                                          "minLength": 1
+                                        },
+                                        "weight": {
+                                          "type": "integer",
+                                          "minimum": 1,
+                                          "maximum": 3
+                                        },
+                                        "criterion": {
+                                          "type": "string",
+                                          "description": "What earns the top score for this item."
+                                        }
+                                      },
+                                      "required": ["id", "name", "weight", "criterion"],
+                                      "additionalProperties": false
+                                    }
+                                  }
+                                },
+                                "required": ["id", "type", "name", "model", "runs", "pass", "required", "items"],
+                                "additionalProperties": false
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "required": ["id", "kind", "name", "failTo", "retries", "checks"],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": ["human"]
+                        },
+                        "name": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "failTo": {
+                          "type": "string",
+                          "minLength": 1,
+                          "description": "Earlier step id to return to when the reviewer rejects."
+                        },
+                        "show": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "checklist": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": ["id", "kind", "name", "failTo", "show", "checklist"],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              }
+            },
+            "required": ["steps"],
+            "additionalProperties": false,
+            "description": "Ordered flow of agent, check and human steps"
+          },
           "references": {
             "type": "object",
             "additionalProperties": {
