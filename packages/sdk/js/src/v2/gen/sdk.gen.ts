@@ -139,6 +139,16 @@ import type {
   GlobalHealthResponses,
   GlobalUpgradeErrors,
   GlobalUpgradeResponses,
+  HarnessGetErrors,
+  HarnessGetResponses,
+  HarnessListErrors,
+  HarnessListResponses,
+  HarnessReviewErrors,
+  HarnessReviewResponses,
+  HarnessStartErrors,
+  HarnessStartResponses,
+  HarnessStopErrors,
+  HarnessStopResponses,
   IndexingConsentErrors,
   IndexingConsentResponses,
   IndexingModelsErrors,
@@ -6565,6 +6575,180 @@ export class CommitMessage extends HeyApiClient {
   }
 }
 
+export class Harness extends HeyApiClient {
+  /**
+   * List harness runs
+   *
+   * Get the harness runs of this project.
+   */
+  public list<ThrowOnError extends boolean = false>(
+    parameters?: {
+      directory?: string
+      workspace?: string
+    },
+    options?: Options<never, ThrowOnError>,
+  ) {
+    const params = buildClientParams(
+      [parameters],
+      [
+        {
+          args: [
+            { in: "query", key: "directory" },
+            { in: "query", key: "workspace" },
+          ],
+        },
+      ],
+    )
+    return (options?.client ?? this.client).get<HarnessListResponses, HarnessListErrors, ThrowOnError>({
+      url: "/harness/run",
+      ...options,
+      ...params,
+    })
+  }
+
+  /**
+   * Start a harness run
+   *
+   * Run the project's harness flow for a task. The run continues in the background.
+   */
+  public start<ThrowOnError extends boolean = false>(
+    parameters: {
+      directory?: string
+      workspace?: string
+      task: string
+    },
+    options?: Options<never, ThrowOnError>,
+  ) {
+    const params = buildClientParams(
+      [parameters],
+      [
+        {
+          args: [
+            { in: "query", key: "directory" },
+            { in: "query", key: "workspace" },
+            { in: "body", key: "task" },
+          ],
+        },
+      ],
+    )
+    return (options?.client ?? this.client).post<HarnessStartResponses, HarnessStartErrors, ThrowOnError>({
+      url: "/harness/run",
+      ...options,
+      ...params,
+      headers: {
+        "Content-Type": "application/json",
+        ...options?.headers,
+        ...params.headers,
+      },
+    })
+  }
+
+  /**
+   * Get a harness run
+   *
+   * Get the current state of a harness run.
+   */
+  public get<ThrowOnError extends boolean = false>(
+    parameters: {
+      runID: string
+      directory?: string
+      workspace?: string
+    },
+    options?: Options<never, ThrowOnError>,
+  ) {
+    const params = buildClientParams(
+      [parameters],
+      [
+        {
+          args: [
+            { in: "path", key: "runID" },
+            { in: "query", key: "directory" },
+            { in: "query", key: "workspace" },
+          ],
+        },
+      ],
+    )
+    return (options?.client ?? this.client).get<HarnessGetResponses, HarnessGetErrors, ThrowOnError>({
+      url: "/harness/run/{runID}",
+      ...options,
+      ...params,
+    })
+  }
+
+  /**
+   * Approve or reject a run
+   *
+   * Answer a run that is waiting for your review.
+   */
+  public review<ThrowOnError extends boolean = false>(
+    parameters: {
+      runID: string
+      directory?: string
+      workspace?: string
+      approve: boolean
+      comment?: string
+    },
+    options?: Options<never, ThrowOnError>,
+  ) {
+    const params = buildClientParams(
+      [parameters],
+      [
+        {
+          args: [
+            { in: "path", key: "runID" },
+            { in: "query", key: "directory" },
+            { in: "query", key: "workspace" },
+            { in: "body", key: "approve" },
+            { in: "body", key: "comment" },
+          ],
+        },
+      ],
+    )
+    return (options?.client ?? this.client).post<HarnessReviewResponses, HarnessReviewErrors, ThrowOnError>({
+      url: "/harness/run/{runID}/review",
+      ...options,
+      ...params,
+      headers: {
+        "Content-Type": "application/json",
+        ...options?.headers,
+        ...params.headers,
+      },
+    })
+  }
+
+  /**
+   * Stop a harness run
+   *
+   * Stop a run that is still going.
+   */
+  public stop<ThrowOnError extends boolean = false>(
+    parameters: {
+      runID: string
+      directory?: string
+      workspace?: string
+    },
+    options?: Options<never, ThrowOnError>,
+  ) {
+    const params = buildClientParams(
+      [parameters],
+      [
+        {
+          args: [
+            { in: "path", key: "runID" },
+            { in: "query", key: "directory" },
+            { in: "query", key: "workspace" },
+          ],
+        },
+      ],
+    )
+    return (options?.client ?? this.client).post<HarnessStopResponses, HarnessStopErrors, ThrowOnError>({
+      url: "/harness/run/{runID}/stop",
+      ...options,
+      ...params,
+    })
+  }
+}
+
 export class EnhancePrompt extends HeyApiClient {
   /**
    * Enhance prompt
@@ -12163,6 +12347,11 @@ export class KiloClient extends HeyApiClient {
   private _commitMessage?: CommitMessage
   get commitMessage(): CommitMessage {
     return (this._commitMessage ??= new CommitMessage({ client: this.client }))
+  }
+
+  private _harness?: Harness
+  get harness(): Harness {
+    return (this._harness ??= new Harness({ client: this.client }))
   }
 
   private _enhancePrompt?: EnhancePrompt

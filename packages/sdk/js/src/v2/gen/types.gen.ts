@@ -4001,6 +4001,42 @@ export type CommitMessageFailedError = {
   message: string
 }
 
+export type HarnessLogEntry = {
+  step: string
+  attempt: number | "NaN" | "Infinity" | "-Infinity" | "Infinity" | "-Infinity" | "NaN"
+  outcome: "ok" | "failed" | "approved" | "rejected" | "error"
+  detail: string
+}
+
+export type HarnessPendingReview = {
+  step: string
+  name: string
+  checklist: Array<string>
+  show: Array<string>
+  notes: Array<string>
+  diff: string
+}
+
+export type HarnessRun = {
+  id: string
+  directory: string
+  task: string
+  sessionID: string
+  status: "running" | "awaiting_review" | "done" | "failed" | "stopped"
+  step?: string
+  attempt: number | "NaN" | "Infinity" | "-Infinity" | "Infinity" | "-Infinity" | "NaN"
+  log: Array<HarnessLogEntry>
+  notes: Array<string>
+  reason?: string
+  pending?: HarnessPendingReview
+  startedAt: number | "NaN" | "Infinity" | "-Infinity" | "Infinity" | "-Infinity" | "NaN"
+  finishedAt?: number | "NaN" | "Infinity" | "-Infinity" | "Infinity" | "-Infinity" | "NaN"
+}
+
+export type HarnessStartError = {
+  message: string
+}
+
 export type ConfigOverlayResponse = {
   scope: "global" | "project"
   effective: Config
@@ -15707,6 +15743,176 @@ export type CommitMessageGenerateResponses = {
 }
 
 export type CommitMessageGenerateResponse = CommitMessageGenerateResponses[keyof CommitMessageGenerateResponses]
+
+export type HarnessListData = {
+  body?: never
+  path?: never
+  query?: {
+    directory?: string
+    workspace?: string
+  }
+  url: "/harness/run"
+}
+
+export type HarnessListErrors = {
+  /**
+   * Bad request
+   */
+  400: BadRequestError
+}
+
+export type HarnessListError = HarnessListErrors[keyof HarnessListErrors]
+
+export type HarnessListResponses = {
+  /**
+   * Runs for this project, newest first
+   */
+  200: Array<HarnessRun>
+}
+
+export type HarnessListResponse = HarnessListResponses[keyof HarnessListResponses]
+
+export type HarnessStartData = {
+  body?: {
+    /**
+     * What the flow should get done
+     */
+    task: string
+  }
+  path?: never
+  query?: {
+    directory?: string
+    workspace?: string
+  }
+  url: "/harness/run"
+}
+
+export type HarnessStartErrors = {
+  /**
+   * BadRequest | InvalidRequestError
+   */
+  400: EffectHttpApiErrorBadRequest | InvalidRequestError
+  /**
+   * HarnessStartError
+   */
+  422: HarnessStartError
+}
+
+export type HarnessStartError2 = HarnessStartErrors[keyof HarnessStartErrors]
+
+export type HarnessStartResponses = {
+  /**
+   * The run that was started
+   */
+  200: HarnessRun
+}
+
+export type HarnessStartResponse = HarnessStartResponses[keyof HarnessStartResponses]
+
+export type HarnessGetData = {
+  body?: never
+  path: {
+    runID: string
+  }
+  query?: {
+    directory?: string
+    workspace?: string
+  }
+  url: "/harness/run/{runID}"
+}
+
+export type HarnessGetErrors = {
+  /**
+   * Bad request
+   */
+  400: BadRequestError
+  /**
+   * Not found
+   */
+  404: NotFoundError
+}
+
+export type HarnessGetError = HarnessGetErrors[keyof HarnessGetErrors]
+
+export type HarnessGetResponses = {
+  /**
+   * The run
+   */
+  200: HarnessRun
+}
+
+export type HarnessGetResponse = HarnessGetResponses[keyof HarnessGetResponses]
+
+export type HarnessReviewData = {
+  body?: {
+    approve: boolean
+    comment?: string
+  }
+  path: {
+    runID: string
+  }
+  query?: {
+    directory?: string
+    workspace?: string
+  }
+  url: "/harness/run/{runID}/review"
+}
+
+export type HarnessReviewErrors = {
+  /**
+   * BadRequest | InvalidRequestError
+   */
+  400: EffectHttpApiErrorBadRequest | InvalidRequestError
+  /**
+   * Not found
+   */
+  404: NotFoundError
+}
+
+export type HarnessReviewError = HarnessReviewErrors[keyof HarnessReviewErrors]
+
+export type HarnessReviewResponses = {
+  /**
+   * The review was recorded
+   */
+  200: boolean
+}
+
+export type HarnessReviewResponse = HarnessReviewResponses[keyof HarnessReviewResponses]
+
+export type HarnessStopData = {
+  body?: never
+  path: {
+    runID: string
+  }
+  query?: {
+    directory?: string
+    workspace?: string
+  }
+  url: "/harness/run/{runID}/stop"
+}
+
+export type HarnessStopErrors = {
+  /**
+   * Bad request
+   */
+  400: BadRequestError
+  /**
+   * Not found
+   */
+  404: NotFoundError
+}
+
+export type HarnessStopError = HarnessStopErrors[keyof HarnessStopErrors]
+
+export type HarnessStopResponses = {
+  /**
+   * The run was stopped
+   */
+  200: boolean
+}
+
+export type HarnessStopResponse = HarnessStopResponses[keyof HarnessStopResponses]
 
 export type ConfigOverlayData = {
   body?: never
