@@ -1,6 +1,7 @@
 import type { PermissionConfig } from "./permissions"
 import type { AgentConfig } from "./agents"
 import type { ProviderConfig } from "./providers"
+import type { HarnessConfig } from "./harness"
 
 type SdkIndexingStatus = import("@kilocode/sdk/v2/client").IndexingStatus
 
@@ -159,6 +160,7 @@ export interface Config {
   command?: Record<string, CommandConfig>
   instructions?: string[]
   skills?: SkillsConfig
+  harness?: HarnessConfig
   snapshot?: boolean
   retention?: RetentionConfig
   remote_control?: boolean
