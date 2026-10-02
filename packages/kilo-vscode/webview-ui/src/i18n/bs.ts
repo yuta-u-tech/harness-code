@@ -331,7 +331,7 @@ export const dict = {
   "session.messages.loadEarlier": "Učitaj ranije poruke",
   "session.messages.loading": "Učitavanje poruka...",
 
-  "sidebar.topBar.label": "Navigacija Kilo Code",
+  "sidebar.topBar.label": "Navigacija Harness Code",
   "sidebar.topBar.newTask": "Novi Zadatak",
   "sidebar.topBar.history": "Historija",
   "sidebar.topBar.agentManager": "Agent Manager",
@@ -738,10 +738,10 @@ export const dict = {
 
   "settings.experimental.title": "Eksperimentalno",
   "settings.language.title": "Jezik",
-  "settings.aboutKiloCode.title": "O Kilo Code-u",
+  "settings.aboutKiloCode.title": "O Harness Code-u",
 
   "session.messages.welcome":
-    "Kilo Code je AI asistent za programiranje. Zatražite da gradi funkcionalnosti, ispravlja greške ili objasni vašu bazu koda.",
+    "Harness Code je AI asistent za programiranje. Zatražite da gradi funkcionalnosti, ispravlja greške ili objasni vašu bazu koda.",
   "session.messages.scrollToBottom": "Pomakni se na dno",
   "session.messages.initializing": "Inicijalizacija...",
   "session.messages.taskStarting": "Pokretanje...",
@@ -853,7 +853,7 @@ export const dict = {
   "settings.browser.headless.title": "Headless način",
   "settings.browser.headless.description": "Pokreni u headless načinu (bez vidljivog prozora preglednika).",
 
-  "settings.language.description": 'Odaberite jezik za Kilo Code sučelje. "Auto" koristi jezik prikaza VS Code-a.',
+  "settings.language.description": 'Odaberite jezik za Harness Code sučelje. "Auto" koristi jezik prikaza VS Code-a.',
   "settings.language.auto": "Auto (VS Code jezik)",
   "settings.language.current": "Trenutni:",
 

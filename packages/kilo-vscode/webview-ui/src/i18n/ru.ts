@@ -328,7 +328,7 @@ export const dict = {
   "session.messages.loadEarlier": "Загрузить предыдущие сообщения",
   "session.messages.loading": "Загрузка сообщений...",
 
-  "sidebar.topBar.label": "Навигация Kilo Code",
+  "sidebar.topBar.label": "Навигация Harness Code",
   "sidebar.topBar.newTask": "Новая задача",
   "sidebar.topBar.history": "История",
   "sidebar.topBar.agentManager": "Agent Manager",
@@ -735,10 +735,10 @@ export const dict = {
 
   "settings.experimental.title": "Экспериментальное",
   "settings.language.title": "Язык",
-  "settings.aboutKiloCode.title": "О Kilo Code",
+  "settings.aboutKiloCode.title": "О Harness Code",
 
   "session.messages.welcome":
-    "Kilo Code — это AI-помощник для программирования. Попросите его создать функции, исправить ошибки или объяснить вашу кодовую базу.",
+    "Harness Code — это AI-помощник для программирования. Попросите его создать функции, исправить ошибки или объяснить вашу кодовую базу.",
   "session.messages.scrollToBottom": "Прокрутить вниз",
   "session.messages.initializing": "Инициализация...",
   "session.messages.taskStarting": "Запуск...",
@@ -850,7 +850,7 @@ export const dict = {
   "settings.browser.headless.title": "Безголовый режим",
   "settings.browser.headless.description": "Запуск в безголовом режиме (без видимого окна браузера).",
 
-  "settings.language.description": "Выберите язык интерфейса Kilo Code. «Авто» использует язык отображения VS Code.",
+  "settings.language.description": "Выберите язык интерфейса Harness Code. «Авто» использует язык отображения VS Code.",
   "settings.language.auto": "Авто (язык VS Code)",
   "settings.language.current": "Текущий:",
 

@@ -330,7 +330,7 @@ export const dict = {
   "session.messages.loadEarlier": "이전 메시지 로드",
   "session.messages.loading": "메시지 로드 중...",
 
-  "sidebar.topBar.label": "Kilo Code 탐색",
+  "sidebar.topBar.label": "Harness Code 탐색",
   "sidebar.topBar.newTask": "새 작업",
   "sidebar.topBar.history": "기록",
   "sidebar.topBar.agentManager": "에이전트 관리자",
@@ -691,7 +691,7 @@ export const dict = {
 
   "settings.experimental.title": "실험적",
   "settings.language.title": "언어",
-  "settings.aboutKiloCode.title": "Kilo Code 정보",
+  "settings.aboutKiloCode.title": "Harness Code 정보",
 
   "prompt.action.indexing": "인덱싱 설정",
   "settings.indexing.dimension.description": "비워두면 모델에서 임베딩 차원을 자동으로 감지합니다.",
@@ -735,7 +735,7 @@ export const dict = {
   "settings.indexing.vectorStore.title": "벡터 저장소",
 
   "session.messages.welcome":
-    "Kilo Code는 AI 코딩 어시스턴트입니다. 기능 구축, 버그 수정 또는 코드베이스 설명을 요청하세요.",
+    "Harness Code는 AI 코딩 어시스턴트입니다. 기능 구축, 버그 수정 또는 코드베이스 설명을 요청하세요.",
   "session.messages.scrollToBottom": "하단으로 스크롤",
   "session.messages.initializing": "초기화 중...",
   "session.messages.taskStarting": "시작 중...",
@@ -844,7 +844,7 @@ export const dict = {
   "settings.browser.headless.title": "헤드리스 모드",
   "settings.browser.headless.description": "헤드리스 모드로 실행합니다 (브라우저 창이 표시되지 않음).",
 
-  "settings.language.description": 'Kilo Code UI의 언어를 선택하세요. "자동"은 VS Code 표시 언어를 사용합니다.',
+  "settings.language.description": 'Harness Code UI의 언어를 선택하세요. "자동"은 VS Code 표시 언어를 사용합니다.',
   "settings.language.auto": "자동 (VS Code 언어)",
   "settings.language.current": "현재:",
 

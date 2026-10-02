@@ -338,7 +338,7 @@ export const dict = {
   "session.messages.loadEarlier": "Frühere Nachrichten laden",
   "session.messages.loading": "Lade Nachrichten...",
 
-  "sidebar.topBar.label": "Kilo Code Navigation",
+  "sidebar.topBar.label": "Harness Code Navigation",
   "sidebar.topBar.newTask": "Neue Aufgabe",
   "sidebar.topBar.history": "Verlauf",
   "sidebar.topBar.agentManager": "Agent Manager",
@@ -749,10 +749,10 @@ export const dict = {
 
   "settings.experimental.title": "Experimentell",
   "settings.language.title": "Sprache",
-  "settings.aboutKiloCode.title": "Über Kilo Code",
+  "settings.aboutKiloCode.title": "Über Harness Code",
 
   "session.messages.welcome":
-    "Kilo Code ist ein KI-Programmierassistent. Bitten Sie ihn, Funktionen zu erstellen, Fehler zu beheben oder Ihre Codebasis zu erklären.",
+    "Harness Code ist ein KI-Programmierassistent. Bitten Sie ihn, Funktionen zu erstellen, Fehler zu beheben oder Ihre Codebasis zu erklären.",
   "session.messages.scrollToBottom": "Nach unten scrollen",
   "session.messages.initializing": "Initialisierung...",
   "session.messages.taskStarting": "Wird gestartet...",
@@ -869,7 +869,7 @@ export const dict = {
   "settings.browser.headless.description": "Im Headless-Modus ausführen (kein sichtbares Browserfenster).",
 
   "settings.language.description":
-    'Wählen Sie die Sprache für die Kilo Code Oberfläche. „Auto" verwendet die VS Code Anzeigesprache.',
+    'Wählen Sie die Sprache für die Harness Code Oberfläche. „Auto" verwendet die VS Code Anzeigesprache.',
   "settings.language.auto": "Auto (VS Code Sprache)",
   "settings.language.current": "Aktuell:",
 

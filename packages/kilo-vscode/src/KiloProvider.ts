@@ -5011,7 +5011,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
    */
   private async handleResetAllSettings(): Promise<void> {
     const confirmed = await vscode.window.showWarningMessage(
-      "Reset all Kilo Code extension settings to defaults?",
+      "Reset all Harness Code extension settings to defaults?",
       { modal: true },
       "Reset",
     )
@@ -5059,7 +5059,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
     // Re-fetch notifications to reflect cleared dismissed IDs
     await this.fetchAndSendNotifications()
 
-    vscode.window.showInformationMessage("Kilo Code settings have been reset to defaults.")
+    vscode.window.showInformationMessage("Harness Code settings have been reset to defaults.")
   }
 
   /**
@@ -6050,7 +6050,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
       styleUri: webview.asWebviewUri(vscode.Uri.joinPath(this.extensionUri, "dist", "webview.css")),
       iconsBaseUri: webview.asWebviewUri(vscode.Uri.joinPath(this.extensionUri, "assets", "icons")),
       workerUri: webview.asWebviewUri(vscode.Uri.joinPath(this.extensionUri, "dist", "shiki-worker.js")),
-      title: "Kilo Code",
+      title: "Harness Code",
       port: this.connectionService.getServerInfo()?.port,
       extraStyles: `.container { height: 100vh; }`,
       // Dedicated single-purpose panels (Settings, Profile, Sub-Agent Viewer)

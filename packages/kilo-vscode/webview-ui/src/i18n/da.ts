@@ -329,7 +329,7 @@ export const dict = {
   "session.messages.loadEarlier": "Indlæs tidligere beskeder",
   "session.messages.loading": "Indlæser beskeder...",
 
-  "sidebar.topBar.label": "Kilo Code-navigation",
+  "sidebar.topBar.label": "Harness Code-navigation",
   "sidebar.topBar.newTask": "Ny Opgave",
   "sidebar.topBar.history": "Historik",
   "sidebar.topBar.agentManager": "Agent Manager",
@@ -737,10 +737,10 @@ export const dict = {
 
   "settings.experimental.title": "Eksperimentelt",
   "settings.language.title": "Sprog",
-  "settings.aboutKiloCode.title": "Om Kilo Code",
+  "settings.aboutKiloCode.title": "Om Harness Code",
 
   "session.messages.welcome":
-    "Kilo Code er en AI-kodningsassistent. Bed den om at bygge funktioner, rette fejl eller forklare din kodebase.",
+    "Harness Code er en AI-kodningsassistent. Bed den om at bygge funktioner, rette fejl eller forklare din kodebase.",
   "session.messages.scrollToBottom": "Rul til bunden",
   "session.messages.initializing": "Initialiserer...",
   "session.messages.taskStarting": "Starter...",
@@ -853,7 +853,7 @@ export const dict = {
   "settings.browser.headless.title": "Headless-tilstand",
   "settings.browser.headless.description": "Kør i headless-tilstand (intet synligt browservindue).",
 
-  "settings.language.description": 'Vælg sproget til Kilo Code-brugerfladen. "Auto" bruger VS Codes visningssprog.',
+  "settings.language.description": 'Vælg sproget til Harness Code-brugerfladen. "Auto" bruger VS Codes visningssprog.',
   "settings.language.auto": "Auto (VS Code-sprog)",
   "settings.language.current": "Nuværende:",
 

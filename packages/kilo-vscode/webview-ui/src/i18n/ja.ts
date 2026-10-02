@@ -330,7 +330,7 @@ export const dict = {
   "session.messages.loadEarlier": "以前のメッセージを読み込む",
   "session.messages.loading": "メッセージを読み込み中...",
 
-  "sidebar.topBar.label": "Kilo Code ナビゲーション",
+  "sidebar.topBar.label": "Harness Code ナビゲーション",
   "sidebar.topBar.newTask": "新規タスク",
   "sidebar.topBar.history": "履歴",
   "sidebar.topBar.agentManager": "エージェントマネージャー",
@@ -732,10 +732,10 @@ export const dict = {
 
   "settings.experimental.title": "実験的機能",
   "settings.language.title": "言語",
-  "settings.aboutKiloCode.title": "Kilo Codeについて",
+  "settings.aboutKiloCode.title": "Harness Codeについて",
 
   "session.messages.welcome":
-    "Kilo CodeはAIコーディングアシスタントです。機能の構築、バグの修正、コードベースの説明を依頼できます。",
+    "Harness CodeはAIコーディングアシスタントです。機能の構築、バグの修正、コードベースの説明を依頼できます。",
   "session.messages.scrollToBottom": "下にスクロール",
   "session.messages.initializing": "初期化中...",
   "session.messages.taskStarting": "開始中...",
@@ -848,7 +848,7 @@ export const dict = {
   "settings.browser.headless.title": "ヘッドレスモード",
   "settings.browser.headless.description": "ヘッドレスモードで実行します（ブラウザウィンドウは表示されません）。",
 
-  "settings.language.description": "Kilo Code UIの言語を選択します。「自動」はVS Codeの表示言語を使用します。",
+  "settings.language.description": "Harness Code UIの言語を選択します。「自動」はVS Codeの表示言語を使用します。",
   "settings.language.auto": "自動（VS Code言語）",
   "settings.language.current": "現在：",
 

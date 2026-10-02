@@ -333,7 +333,7 @@ export const dict = {
   "session.messages.loadEarlier": "Carregar mensagens anteriores",
   "session.messages.loading": "Carregando mensagens...",
 
-  "sidebar.topBar.label": "Navegação do Kilo Code",
+  "sidebar.topBar.label": "Navegação do Harness Code",
   "sidebar.topBar.newTask": "Nova Tarefa",
   "sidebar.topBar.history": "Histórico",
   "sidebar.topBar.agentManager": "Agent Manager",
@@ -740,10 +740,10 @@ export const dict = {
   "settings.indexing.status.title": "Status",
   "settings.indexing.tuning.description": "Parâmetro avançado de busca e lote.",
   "settings.indexing.providerField.description": "Configuração de conexão específica do provedor.",
-  "settings.aboutKiloCode.title": "Sobre o Kilo Code",
+  "settings.aboutKiloCode.title": "Sobre o Harness Code",
 
   "session.messages.welcome":
-    "Kilo Code é um assistente de programação com IA. Peça para criar funcionalidades, corrigir bugs ou explicar sua base de código.",
+    "Harness Code é um assistente de programação com IA. Peça para criar funcionalidades, corrigir bugs ou explicar sua base de código.",
   "session.messages.scrollToBottom": "Rolar para o final",
   "session.messages.initializing": "O teraouiñ...",
   "session.messages.taskStarting": "O kregiñ...",
@@ -859,7 +859,7 @@ export const dict = {
   "settings.browser.headless.description": "Executar em modo headless (sem janela do navegador visível).",
 
   "settings.language.description":
-    'Escolha o idioma da interface do Kilo Code. "Auto" usa o idioma de exibição do VS Code.',
+    'Escolha o idioma da interface do Harness Code. "Auto" usa o idioma de exibição do VS Code.',
   "settings.language.auto": "Auto (idioma do VS Code)",
   "settings.language.current": "Atual:",
 

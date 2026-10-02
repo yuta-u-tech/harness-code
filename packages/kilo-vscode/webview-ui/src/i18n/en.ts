@@ -680,10 +680,10 @@ export const dict = {
   "settings.indexing.tuning.description": "Advanced search and batching parameter.",
   "settings.experimental.title": "Experimental",
   "settings.language.title": "Language",
-  "settings.aboutKiloCode.title": "About Kilo Code",
+  "settings.aboutKiloCode.title": "About Harness Code",
 
   "session.messages.welcome":
-    "Kilo Code is an AI coding assistant. Ask it to build features, fix bugs, or explain your codebase.",
+    "Harness Code is an AI coding assistant. Ask it to build features, fix bugs, or explain your codebase.",
   "session.messages.scrollToBottom": "Scroll to bottom",
   "session.messages.initializing": "Initializing...",
   "session.messages.taskStarting": "Starting...",
@@ -723,7 +723,7 @@ export const dict = {
   "session.costAlert.question":
     "This session just went above your {{limit}} per-session alert threshold and cost {{cost}}. Keep going?",
   "session.costAlert.stop": "Stop",
-  "sidebar.topBar.label": "Kilo Code navigation",
+  "sidebar.topBar.label": "Harness Code navigation",
   "sidebar.topBar.newTask": "New Task",
   "sidebar.topBar.history": "History",
   "sidebar.topBar.agentManager": "Agent Manager",
@@ -826,7 +826,7 @@ export const dict = {
   "settings.browser.headless.description": "Run in headless mode (no visible browser window).",
 
   "settings.language.description":
-    'Choose the language for the Kilo Code UI. "Auto" uses your VS Code display language.',
+    'Choose the language for the Harness Code UI. "Auto" uses your VS Code display language.',
   "settings.language.auto": "Auto (VS Code language)",
   "settings.language.current": "Current:",
 

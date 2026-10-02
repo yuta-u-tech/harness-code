@@ -333,7 +333,7 @@ export const dict = {
   "session.messages.loadEarlier": "Завантажити попередні повідомлення",
   "session.messages.loading": "Завантаження повідомлень...",
 
-  "sidebar.topBar.label": "Навігація Kilo Code",
+  "sidebar.topBar.label": "Навігація Harness Code",
   "sidebar.topBar.newTask": "Нове завдання",
   "sidebar.topBar.history": "Історія",
   "sidebar.topBar.agentManager": "Agent Manager",
@@ -725,10 +725,10 @@ export const dict = {
 
   "settings.experimental.title": "Експериментальне",
   "settings.language.title": "Мова",
-  "settings.aboutKiloCode.title": "Про Kilo Code",
+  "settings.aboutKiloCode.title": "Про Harness Code",
 
   "session.messages.welcome":
-    "Kilo Code — це асистент з кодування на базі ШІ. Попросіть його розробити функцію, виправити помилку або пояснити вашу кодову базу.",
+    "Harness Code — це асистент з кодування на базі ШІ. Попросіть його розробити функцію, виправити помилку або пояснити вашу кодову базу.",
   "session.messages.scrollToBottom": "Прокрутити до низу",
   "session.messages.initializing": "Ініціалізація...",
   "session.messages.taskStarting": "Запуск...",
@@ -842,7 +842,7 @@ export const dict = {
   "settings.browser.headless.description": "Запускати в безголовому режимі (без видимого вікна браузера).",
 
   "settings.language.description":
-    '"Автоматично" використовує мову відображення VS Code. Виберіть мову для інтерфейсу Kilo Code.',
+    '"Автоматично" використовує мову відображення VS Code. Виберіть мову для інтерфейсу Harness Code.',
   "settings.language.auto": "Автоматично (мова VS Code)",
   "settings.language.current": "Поточна:",
 

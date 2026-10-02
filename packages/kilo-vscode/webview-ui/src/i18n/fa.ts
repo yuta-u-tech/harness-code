@@ -689,10 +689,10 @@ export const dict = {
   "settings.indexing.tuning.description": "پارامتر پیشرفته جستجو و دسته‌بندی.",
   "settings.experimental.title": "آزمایشی",
   "settings.language.title": "زبان",
-  "settings.aboutKiloCode.title": "درباره Kilo Code",
+  "settings.aboutKiloCode.title": "درباره Harness Code",
 
   "session.messages.welcome":
-    "Kilo Code یک دستیار هوش مصنوعی برای کدنویسی است. از آن بخواهید ویژگی‌ها بسازد، باگ‌ها را رفع کند یا کدبیس شما را توضیح دهد.",
+    "Harness Code یک دستیار هوش مصنوعی برای کدنویسی است. از آن بخواهید ویژگی‌ها بسازد، باگ‌ها را رفع کند یا کدبیس شما را توضیح دهد.",
   "session.messages.scrollToBottom": "رفتن به پایین",
   "session.messages.initializing": "در حال راه‌اندازی...",
   "session.messages.taskStarting": "در حال شروع...",
@@ -728,7 +728,7 @@ export const dict = {
   "session.costAlert.continue": "ادامه",
   "session.costAlert.question": "هزینه این جلسه از آستانه هشدار {{limit}} شما فراتر رفت و {{cost}} شد. ادامه می‌دهید؟",
   "session.costAlert.stop": "توقف",
-  "sidebar.topBar.label": "پیمایش Kilo Code",
+  "sidebar.topBar.label": "پیمایش Harness Code",
   "sidebar.topBar.newTask": "وظیفه جدید",
   "sidebar.topBar.history": "تاریخچه",
   "sidebar.topBar.agentManager": "مدیر عامل‌ها",
@@ -835,7 +835,7 @@ export const dict = {
   "settings.browser.headless.description": "در حالت headless اجرا شود (بدون پنجره مرورگر قابل مشاهده).",
 
   "settings.language.description":
-    "زبان رابط کاربری Kilo Code را انتخاب کنید. «Auto» از زبان نمایشی VS Code شما استفاده می‌کند.",
+    "زبان رابط کاربری Harness Code را انتخاب کنید. «Auto» از زبان نمایشی VS Code شما استفاده می‌کند.",
   "settings.language.auto": "خودکار (زبان VS Code)",
   "settings.language.current": "فعلی:",
 

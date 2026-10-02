@@ -333,7 +333,7 @@ export const dict = {
   "session.messages.loadEarlier": "Eerdere berichten laden",
   "session.messages.loading": "Berichten laden...",
 
-  "sidebar.topBar.label": "Kilo Code-navigatie",
+  "sidebar.topBar.label": "Harness Code-navigatie",
   "sidebar.topBar.newTask": "Nieuwe Taak",
   "sidebar.topBar.history": "Geschiedenis",
   "sidebar.topBar.agentManager": "Agent Manager",
@@ -727,10 +727,10 @@ export const dict = {
 
   "settings.experimental.title": "Experimenteel",
   "settings.language.title": "Taal",
-  "settings.aboutKiloCode.title": "Over Kilo Code",
+  "settings.aboutKiloCode.title": "Over Harness Code",
 
   "session.messages.welcome":
-    "Kilo Code is een AI-codeerassistent. Vraag het om features te bouwen, bugs op te lossen of je codebase uit te leggen.",
+    "Harness Code is een AI-codeerassistent. Vraag het om features te bouwen, bugs op te lossen of je codebase uit te leggen.",
   "session.messages.scrollToBottom": "Scroll naar beneden",
   "session.messages.initializing": "Initialiseren...",
   "session.messages.taskStarting": "Starten...",
@@ -845,7 +845,7 @@ export const dict = {
   "settings.browser.headless.title": "Headless Modus",
   "settings.browser.headless.description": "Draai in headless modus (geen zichtbaar browservenster).",
 
-  "settings.language.description": 'Kies de taal voor de Kilo Code UI. "Auto" gebruikt je VS Code schermtaal.',
+  "settings.language.description": 'Kies de taal voor de Harness Code UI. "Auto" gebruikt je VS Code schermtaal.',
   "settings.language.auto": "Auto (VS Code taal)",
   "settings.language.current": "Huidig:",
 

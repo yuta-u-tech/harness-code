@@ -312,7 +312,7 @@ export const dict = {
   "session.messages.loadEarlier": "載入更早的訊息",
   "session.messages.loading": "正在載入訊息...",
 
-  "sidebar.topBar.label": "Kilo Code 導覽",
+  "sidebar.topBar.label": "Harness Code 導覽",
   "sidebar.topBar.newTask": "新建任務",
   "sidebar.topBar.history": "歷史記錄",
   "sidebar.topBar.agentManager": "代理管理器",
@@ -669,9 +669,9 @@ export const dict = {
 
   "settings.experimental.title": "實驗性功能",
   "settings.language.title": "語言",
-  "settings.aboutKiloCode.title": "關於 Kilo Code",
+  "settings.aboutKiloCode.title": "關於 Harness Code",
 
-  "session.messages.welcome": "Kilo Code 是一個 AI 程式設計助手。讓它幫你建構功能、修復 bug 或解釋程式碼庫。",
+  "session.messages.welcome": "Harness Code 是一個 AI 程式設計助手。讓它幫你建構功能、修復 bug 或解釋程式碼庫。",
   "session.messages.scrollToBottom": "捲動至底部",
   "session.messages.initializing": "初始化中...",
   "session.messages.taskStarting": "啟動中...",
@@ -777,7 +777,7 @@ export const dict = {
   "settings.browser.headless.title": "無頭模式",
   "settings.browser.headless.description": "以無頭模式執行（無可見瀏覽器視窗）。",
 
-  "settings.language.description": "選擇 Kilo Code 介面的語言。「自動」使用 VS Code 的顯示語言。",
+  "settings.language.description": "選擇 Harness Code 介面的語言。「自動」使用 VS Code 的顯示語言。",
   "settings.language.auto": "自動（VS Code 語言）",
   "settings.language.current": "目前：",
 

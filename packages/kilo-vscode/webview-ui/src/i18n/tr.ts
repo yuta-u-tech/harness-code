@@ -329,7 +329,7 @@ export const dict = {
   "session.messages.loadEarlier": "Önceki mesajları yükle",
   "session.messages.loading": "Mesajlar yükleniyor...",
 
-  "sidebar.topBar.label": "Kilo Code Gezinme",
+  "sidebar.topBar.label": "Harness Code Gezinme",
   "sidebar.topBar.newTask": "Yeni Görev",
   "sidebar.topBar.history": "Geçmiş",
   "sidebar.topBar.agentManager": "Agent Manager",
@@ -725,10 +725,10 @@ export const dict = {
 
   "settings.experimental.title": "Deneysel",
   "settings.language.title": "Dil",
-  "settings.aboutKiloCode.title": "Kilo Code Hakkında",
+  "settings.aboutKiloCode.title": "Harness Code Hakkında",
 
   "session.messages.welcome":
-    "Kilo Code bir yapay zeka kodlama asistanıdır. Özellik geliştirmesini, hata düzeltmesini veya kod tabanınızı açıklamasını isteyin.",
+    "Harness Code bir yapay zeka kodlama asistanıdır. Özellik geliştirmesini, hata düzeltmesini veya kod tabanınızı açıklamasını isteyin.",
   "session.messages.scrollToBottom": "En alta kaydır",
   "session.messages.initializing": "Başlatılıyor...",
   "session.messages.taskStarting": "Başlıyor...",
@@ -841,7 +841,7 @@ export const dict = {
   "settings.browser.headless.description": "Başsız modda çalıştır (görünür tarayıcı penceresi yok).",
 
   "settings.language.description":
-    '"Otomatik" VS Code görüntüleme dilinizi kullanır. Kilo Code arayüzü için dil seçin.',
+    '"Otomatik" VS Code görüntüleme dilinizi kullanır. Harness Code arayüzü için dil seçin.',
   "settings.language.auto": "Otomatik (VS Code dili)",
   "settings.language.current": "Mevcut:",
 

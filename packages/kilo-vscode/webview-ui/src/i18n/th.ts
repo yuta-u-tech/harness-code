@@ -328,7 +328,7 @@ export const dict = {
   "session.messages.loadEarlier": "โหลดข้อความก่อนหน้า",
   "session.messages.loading": "กำลังโหลดข้อความ...",
 
-  "sidebar.topBar.label": "การนำทาง Kilo Code",
+  "sidebar.topBar.label": "การนำทาง Harness Code",
   "sidebar.topBar.newTask": "งานใหม่",
   "sidebar.topBar.history": "ประวัติ",
   "sidebar.topBar.agentManager": "ตัวจัดการเอเจนต์",
@@ -728,9 +728,9 @@ export const dict = {
 
   "settings.experimental.title": "ทดลอง",
   "settings.language.title": "ภาษา",
-  "settings.aboutKiloCode.title": "เกี่ยวกับ Kilo Code",
+  "settings.aboutKiloCode.title": "เกี่ยวกับ Harness Code",
 
-  "session.messages.welcome": "Kilo Code เป็นผู้ช่วยเขียนโค้ด AI ขอให้สร้างฟีเจอร์ แก้ไขบัก หรืออธิบายโค้ดเบสของคุณ",
+  "session.messages.welcome": "Harness Code เป็นผู้ช่วยเขียนโค้ด AI ขอให้สร้างฟีเจอร์ แก้ไขบัก หรืออธิบายโค้ดเบสของคุณ",
   "session.messages.scrollToBottom": "เลื่อนไปด้านล่าง",
   "session.messages.initializing": "กำลังเริ่มต้น...",
   "session.messages.taskStarting": "กำลังเริ่มทำงาน...",
@@ -839,7 +839,7 @@ export const dict = {
   "settings.browser.headless.title": "โหมด Headless",
   "settings.browser.headless.description": "ทำงานในโหมด headless (ไม่มีหน้าต่างเบราว์เซอร์ที่มองเห็นได้)",
 
-  "settings.language.description": 'เลือกภาษาสำหรับ UI ของ Kilo Code "อัตโนมัติ" จะใช้ภาษาการแสดงผลของ VS Code',
+  "settings.language.description": 'เลือกภาษาสำหรับ UI ของ Harness Code "อัตโนมัติ" จะใช้ภาษาการแสดงผลของ VS Code',
   "settings.language.auto": "อัตโนมัติ (ภาษา VS Code)",
   "settings.language.current": "ปัจจุบัน:",
 

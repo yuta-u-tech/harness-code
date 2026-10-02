@@ -314,7 +314,7 @@ export const dict = {
   "session.messages.loadEarlier": "加载更早的消息",
   "session.messages.loading": "正在加载消息...",
 
-  "sidebar.topBar.label": "Kilo Code 导航",
+  "sidebar.topBar.label": "Harness Code 导航",
   "sidebar.topBar.newTask": "新建任务",
   "sidebar.topBar.history": "历史记录",
   "sidebar.topBar.agentManager": "代理管理器",
@@ -709,9 +709,9 @@ export const dict = {
 
   "settings.experimental.title": "实验性功能",
   "settings.language.title": "语言",
-  "settings.aboutKiloCode.title": "关于 Kilo Code",
+  "settings.aboutKiloCode.title": "关于 Harness Code",
 
-  "session.messages.welcome": "Kilo Code 是一个 AI 编程助手。让它帮你构建功能、修复 bug 或解释代码库。",
+  "session.messages.welcome": "Harness Code 是一个 AI 编程助手。让它帮你构建功能、修复 bug 或解释代码库。",
   "session.messages.scrollToBottom": "滚动到底部",
   "session.messages.initializing": "初始化中...",
   "session.messages.taskStarting": "启动中...",
@@ -816,7 +816,7 @@ export const dict = {
   "settings.browser.headless.title": "无头模式",
   "settings.browser.headless.description": "以无头模式运行（无可见浏览器窗口）。",
 
-  "settings.language.description": '"自动"将使用 VS Code 的显示语言。选择 Kilo Code 界面的语言。',
+  "settings.language.description": '"自动"将使用 VS Code 的显示语言。选择 Harness Code 界面的语言。',
   "settings.language.auto": "自动（VS Code 语言）",
   "settings.language.current": "当前：",
 

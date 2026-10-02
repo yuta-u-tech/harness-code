@@ -322,7 +322,7 @@ export const dict = {
   "session.messages.loadEarlier": "تحميل الرسائل السابقة",
   "session.messages.loading": "جارٍ تحميل الرسائل...",
 
-  "sidebar.topBar.label": "التنقل في Kilo Code",
+  "sidebar.topBar.label": "التنقل في Harness Code",
   "sidebar.topBar.newTask": "مهمة جديدة",
   "sidebar.topBar.history": "السجل",
   "sidebar.topBar.agentManager": "مدير الوكلاء",
@@ -721,10 +721,10 @@ export const dict = {
   "prompt.action.indexing": "إعدادات الفهرسة",
   "settings.experimental.title": "تجريبي",
   "settings.language.title": "اللغة",
-  "settings.aboutKiloCode.title": "حول Kilo Code",
+  "settings.aboutKiloCode.title": "حول Harness Code",
 
   "session.messages.welcome":
-    "Kilo Code هو مساعد ترميز بالذكاء الاصطناعي. اطلب منه بناء ميزات أو إصلاح أخطاء أو شرح قاعدة الشيفرة.",
+    "Harness Code هو مساعد ترميز بالذكاء الاصطناعي. اطلب منه بناء ميزات أو إصلاح أخطاء أو شرح قاعدة الشيفرة.",
   "session.messages.scrollToBottom": "التمرير إلى الأسفل",
   "session.messages.initializing": "جاري التهيئة...",
   "session.messages.taskStarting": "جاري البدء...",
@@ -832,7 +832,7 @@ export const dict = {
   "settings.browser.headless.title": "الوضع بدون واجهة",
   "settings.browser.headless.description": "التشغيل في الوضع بدون واجهة (بدون نافذة متصفح مرئية).",
 
-  "settings.language.description": 'اختر اللغة لواجهة Kilo Code. "تلقائي" يستخدم لغة عرض VS Code.',
+  "settings.language.description": 'اختر اللغة لواجهة Harness Code. "تلقائي" يستخدم لغة عرض VS Code.',
   "settings.language.auto": "تلقائي (لغة VS Code)",
   "settings.language.current": "الحالية:",
 
