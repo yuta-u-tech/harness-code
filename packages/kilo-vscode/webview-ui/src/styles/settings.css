@@ -247,3 +247,199 @@
   white-space: normal;
   overflow-wrap: anywhere;
 }
+
+/* Harness tab: step list on the left, the selected step's editor on the right. */
+.harness-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.harness-intro {
+  margin: 0;
+  color: var(--text-weak-base, var(--vscode-descriptionForeground));
+  font-size: var(--font-size-small);
+}
+
+.harness-summary {
+  font-size: var(--font-size-small);
+  color: var(--text-weak-base, var(--vscode-descriptionForeground));
+  font-variant-numeric: tabular-nums;
+}
+
+.harness-issues {
+  padding: 8px 12px;
+  border: 1px solid var(--vscode-inputValidation-warningBorder, var(--border-base));
+  border-radius: 6px;
+  font-size: var(--font-size-small);
+
+  ul {
+    margin: 4px 0 0;
+    padding-left: 18px;
+  }
+}
+
+.harness-cols {
+  display: grid;
+  grid-template-columns: minmax(180px, 260px) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  .harness-cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.harness-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.harness-step-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.harness-step {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+}
+
+.harness-step[data-selected="true"] {
+  border-color: var(--vscode-focusBorder, var(--border-base));
+  background: var(--vscode-list-inactiveSelectionBackground, var(--bg-subtle-base));
+}
+
+.harness-step:not([data-selected="true"]):hover {
+  background: var(--vscode-list-hoverBackground, var(--bg-subtle-base));
+}
+
+.harness-step-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  text-align: left;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.harness-step-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.harness-step-name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.harness-step-sub {
+  font-family: var(--vscode-editor-font-family);
+  font-size: var(--font-size-small);
+  color: var(--text-weak-base, var(--vscode-descriptionForeground));
+  overflow-wrap: anywhere;
+}
+
+.harness-step-actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.harness-flip {
+  display: inline-flex;
+  transform: rotate(180deg);
+}
+
+.harness-add {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.harness-add-label {
+  font-size: var(--font-size-small);
+  color: var(--text-weak-base, var(--vscode-descriptionForeground));
+}
+
+.harness-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.harness-label {
+  margin-bottom: 8px;
+}
+
+.harness-hint {
+  margin-top: 6px;
+  font-size: var(--font-size-small);
+  color: var(--text-weak-base, var(--vscode-descriptionForeground));
+}
+
+.harness-check {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--border-base, var(--vscode-panel-border));
+  border-radius: 6px;
+}
+
+.harness-check-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.harness-check-head > :first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.harness-rubric,
+.harness-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.harness-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid var(--border-weak-base);
+  border-radius: 6px;
+}
+
+.harness-item-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.harness-item-row > :first-child {
+  flex: 1;
+  min-width: 0;
+}

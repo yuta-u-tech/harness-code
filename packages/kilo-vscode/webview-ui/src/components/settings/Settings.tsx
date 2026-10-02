@@ -10,6 +10,7 @@ import { useLanguage } from "../../context/language"
 import { useConfig } from "../../context/config"
 import { useSession } from "../../context/session"
 import ModelsTab from "./ModelsTab"
+import HarnessTab from "./harness/HarnessTab"
 import ProvidersTab from "./ProvidersTab"
 import AgentBehaviourTab from "./AgentBehaviourTab"
 import AutoApproveTab from "./AutoApproveTab"
@@ -354,6 +355,10 @@ const Settings: Component<SettingsProps> = (props) => {
         style={{ flex: 1, overflow: "hidden" }}
       >
         <Tabs.List>
+          <Tabs.Trigger value="harness" aria-label={language.t("settings.harness.title")}>
+            <Icon name="layers" />
+            <span class="label">{language.t("settings.harness.title")}</span>
+          </Tabs.Trigger>
           <Tabs.Trigger value="models" aria-label={language.t("settings.models.title")}>
             <Icon name="models" />
             <span class="label">{language.t("settings.models.title")}</span>
@@ -431,6 +436,10 @@ const Settings: Component<SettingsProps> = (props) => {
           </Tabs.Trigger>
         </Tabs.List>
 
+        <Tabs.Content value="harness">
+          <h3>{language.t("settings.harness.title")}</h3>
+          <HarnessTab />
+        </Tabs.Content>
         <Tabs.Content value="models">
           <h3>{language.t("settings.models.title")}</h3>
           <ModelsTab />

@@ -23,6 +23,7 @@ export const KNOWN_KEYS: ReadonlyArray<string> = [
   "command",
   "instructions",
   "skills",
+  "harness",
   "snapshot",
   "retention",
   "remote_control",

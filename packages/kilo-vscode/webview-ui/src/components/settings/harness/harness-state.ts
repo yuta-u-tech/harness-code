@@ -24,6 +24,9 @@ export interface HarnessSummary {
   humans: number
 }
 
+/** Values stored in HumanStep.show. Labels come from i18n so the saved config stays language-neutral. */
+export const REVIEW_PANELS = ["diff", "scores", "tests", "plan", "subagents"] as const
+
 export const agentKey = (stepId: string) => `harness-${stepId}`
 
 const uniqueId = (prefix: string, taken: readonly string[]) => {
@@ -36,8 +39,18 @@ const uniqueId = (prefix: string, taken: readonly string[]) => {
 const stepIds = (h: HarnessConfig) => h.steps.map((s) => s.id)
 
 const rubricItems = (): HarnessRubricItem[] => [
-  { id: "i1", name: "可読性", weight: 3, criterion: "名前から役割が読み取れる。関数が1画面に収まる。ネストが3段以内。" },
-  { id: "i2", name: "既存コードとの一貫性", weight: 2, criterion: "周辺のファイルと同じ命名・エラー処理になっている。" },
+  {
+    id: "i1",
+    name: "可読性",
+    weight: 3,
+    criterion: "名前から役割が読み取れる。関数が1画面に収まる。ネストが3段以内。",
+  },
+  {
+    id: "i2",
+    name: "既存コードとの一貫性",
+    weight: 2,
+    criterion: "周辺のファイルと同じ命名・エラー処理になっている。",
+  },
   { id: "i3", name: "変更範囲", weight: 2, criterion: "計画にない変更が混ざっていない。" },
 ]
 
@@ -72,14 +85,14 @@ export function defaultHarness(): HarnessConfig {
         kind: "human",
         name: "あなたの確認",
         failTo: "impl",
-        show: ["差分", "AI採点のスコアと理由", "テスト結果"],
+        show: ["diff", "scores", "tests"],
         checklist: ["読んで意図が分かるか", "名前の付け方が好みに合うか"],
       },
     ],
   }
 }
 
-const lastAgentId = (h: HarnessConfig) => h.steps.findLast((s) => s.kind === "agent")?.id ?? h.steps[0]?.id ?? ""
+const lastAgentId = (h: HarnessConfig) => h.steps.findLast((s) => s.kind === "agent")?.id ?? h.steps.at(0)?.id ?? ""
 
 export function addStep(h: HarnessConfig, kind: HarnessStep["kind"]): HarnessConfig {
   const id = uniqueId(kind === "agent" ? "step" : kind, stepIds(h))
@@ -95,14 +108,14 @@ export function addStep(h: HarnessConfig, kind: HarnessStep["kind"]): HarnessCon
             retries: 3,
             checks: [{ id: "c1", type: "command", name: "テスト", command: "bun test", required: true }],
           }
-        : { id, kind, name: "あなたの確認", failTo: lastAgentId(h), show: ["差分"], checklist: [] }
+        : { id, kind, name: "あなたの確認", failTo: lastAgentId(h), show: ["diff"], checklist: [] }
   return { steps: [...h.steps, step] }
 }
 
 export function removeStep(h: HarnessConfig, id: string): HarnessConfig {
   const index = h.steps.findIndex((s) => s.id === id)
   if (index < 0) return h
-  const fallback = h.steps[index - 1]?.id
+  const fallback = index > 0 ? h.steps.at(index - 1)?.id : undefined
   const steps = h.steps
     .filter((s) => s.id !== id)
     .map((s) => (s.kind !== "agent" && s.failTo === id && fallback ? { ...s, failTo: fallback } : s))
@@ -114,8 +127,8 @@ export function moveStep(h: HarnessConfig, id: string, delta: -1 | 1): HarnessCo
   const to = from + delta
   if (from < 0 || to < 0 || to >= h.steps.length) return h
   const steps = [...h.steps]
-  const moved = steps[from]
-  const other = steps[to]
+  const moved = steps.at(from)
+  const other = steps.at(to)
   if (!moved || !other) return h
   steps[from] = other
   steps[to] = moved
@@ -126,18 +139,20 @@ export function updateStep(h: HarnessConfig, id: string, patch: StepPatch): Harn
   return { steps: h.steps.map((s) => (s.id === id ? { ...s, ...patch } : s)) }
 }
 
-const mapChecks = (h: HarnessConfig, stepId: string, fn: (checks: HarnessCheck[]) => HarnessCheck[]): HarnessConfig => ({
+const mapChecks = (
+  h: HarnessConfig,
+  stepId: string,
+  fn: (checks: HarnessCheck[]) => HarnessCheck[],
+): HarnessConfig => ({
   steps: h.steps.map((s) => (s.id === stepId && s.kind === "check" ? { ...s, checks: fn(s.checks) } : s)),
 })
 
-export function addCheck(
-  h: HarnessConfig,
-  stepId: string,
-  type: HarnessCheck["type"],
-  judgeModel = "",
-): HarnessConfig {
+export function addCheck(h: HarnessConfig, stepId: string, type: HarnessCheck["type"], judgeModel = ""): HarnessConfig {
   return mapChecks(h, stepId, (checks) => {
-    const id = uniqueId("c", checks.map((c) => c.id))
+    const id = uniqueId(
+      "c",
+      checks.map((c) => c.id),
+    )
     const added: HarnessCheck =
       type === "command"
         ? { id, type, name: "新しいチェック", command: "bun run lint", required: true }
@@ -167,7 +182,15 @@ const mapItems = (
 export function addRubricItem(h: HarnessConfig, stepId: string, checkId: string): HarnessConfig {
   return mapItems(h, stepId, checkId, (items) => [
     ...items,
-    { id: uniqueId("i", items.map((i) => i.id)), name: "新しい観点", weight: 2, criterion: "" },
+    {
+      id: uniqueId(
+        "i",
+        items.map((i) => i.id),
+      ),
+      name: "新しい観点",
+      weight: 2,
+      criterion: "",
+    },
   ])
 }
 
