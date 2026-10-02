@@ -1,5 +1,12 @@
 /** Mirrors packages/core/src/v1/config/harness.ts. */
 
+/** Runs a step through an official CLI that is already signed in, instead of through the model catalog. */
+export interface HarnessRunner {
+  kind: "codex" | "claude"
+  model?: string
+  effort?: string
+}
+
 export interface HarnessCommandCheck {
   id: string
   type: "command"
@@ -21,6 +28,7 @@ export interface HarnessRubricCheck {
   name: string
   model: string
   variant?: string | null
+  runner?: HarnessRunner
   runs: number
   pass: number
   required: boolean
@@ -35,6 +43,7 @@ export interface HarnessAgentStep {
   name: string
   agent: string
   subagents?: string[]
+  runner?: HarnessRunner
 }
 
 export interface HarnessCheckStep {

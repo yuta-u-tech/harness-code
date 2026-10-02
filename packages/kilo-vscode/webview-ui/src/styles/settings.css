@@ -453,3 +453,81 @@
   font-size: var(--font-size-base);
   font-weight: 600;
 }
+
+.harness-run {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.harness-run-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.harness-run-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.harness-run-error {
+  margin-top: 8px;
+  color: var(--vscode-errorForeground);
+  font-size: var(--font-size-small);
+  overflow-wrap: anywhere;
+}
+
+.harness-run-log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.harness-run-log summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.harness-run-step {
+  font-weight: 600;
+}
+
+.harness-run-log pre,
+.harness-review pre {
+  margin: 6px 0 0;
+  padding: 8px;
+  max-height: 260px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: var(--vscode-editor-font-family);
+  font-size: var(--font-size-small);
+  background: var(--vscode-textCodeBlock-background, var(--bg-subtle-base));
+  border-radius: 6px;
+}
+
+.harness-review {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--vscode-focusBorder, var(--border-base));
+  border-radius: 6px;
+}
+
+.harness-run-checklist {
+  margin: 0;
+  padding-left: 18px;
+}

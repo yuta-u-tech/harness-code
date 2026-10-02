@@ -8,6 +8,8 @@ type Context = {
   post: (message: unknown) => void
   error: (error: unknown) => string
   before?: Interceptor | null
+  /** Handles a message somewhere else and returns true when it did, so the main handler skips it. */
+  route?: (msg: Record<string, unknown>) => boolean
 }
 
 export async function interceptMessage(
@@ -25,6 +27,7 @@ export async function interceptMessage(
     }
     return null
   }
+  if (ctx.route?.(next)) return null
   if (next.type !== "requestGitChangesContext") return next
   const sid = typeof next.sessionID === "string" ? next.sessionID : undefined
   const dir = ctx.workspaceDir(sid)

@@ -10,11 +10,12 @@ import type { AgentConfig, HarnessAgentStep, PermissionConfig } from "../../../t
 import PermissionEditor from "../PermissionEditor"
 import SettingsRow from "../SettingsRow"
 import HarnessModelPicker from "./HarnessModelPicker"
+import HarnessRunnerPicker from "./HarnessRunnerPicker"
 import { toggled } from "./harness-lists"
 
 interface Props {
   step: HarnessAgentStep
-  onChange: (patch: Partial<Pick<HarnessAgentStep, "name" | "subagents">>) => void
+  onChange: (patch: Partial<Pick<HarnessAgentStep, "name" | "subagents" | "runner">>) => void
 }
 
 /** A step's model, prompt and tools live in the regular `agent` config entry named by step.agent. */
@@ -49,13 +50,16 @@ const HarnessAgentStepEditor: Component<Props> = (props) => {
         <SettingsRow title={language.t("settings.harness.name")}>
           <TextField value={props.step.name} onChange={(name) => name && props.onChange({ name })} />
         </SettingsRow>
-        <HarnessModelPicker
-          title={language.t("settings.harness.model")}
-          model={cfg().model}
-          variant={cfg().variant}
-          onChange={update}
-          last
-        />
+        <HarnessRunnerPicker runner={props.step.runner} onChange={(runner) => props.onChange({ runner })} />
+        <Show when={!props.step.runner}>
+          <HarnessModelPicker
+            title={language.t("settings.harness.model")}
+            model={cfg().model}
+            variant={cfg().variant}
+            onChange={update}
+            last
+          />
+        </Show>
       </Card>
 
       <Card>

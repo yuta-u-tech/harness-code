@@ -1,4 +1,4 @@
-import { Component, For } from "solid-js"
+import { Component, For, Show } from "solid-js"
 import { Button } from "@kilocode/kilo-ui/button"
 import { IconButton } from "@kilocode/kilo-ui/icon-button"
 import { Select } from "@kilocode/kilo-ui/select"
@@ -8,6 +8,7 @@ import { useLanguage } from "../../../context/language"
 import type { HarnessRubricCheck, HarnessRubricItem } from "../../../types/messages"
 import SettingsRow from "../SettingsRow"
 import HarnessModelPicker from "./HarnessModelPicker"
+import HarnessRunnerPicker from "./HarnessRunnerPicker"
 
 interface Props {
   check: HarnessRubricCheck
@@ -26,14 +27,17 @@ const HarnessRubricEditor: Component<Props> = (props) => {
 
   return (
     <div class="harness-rubric">
-      <HarnessModelPicker
-        title={language.t("settings.harness.rubric.judge")}
-        model={props.check.model}
-        variant={props.check.variant}
-        onChange={({ model, ...rest }) =>
-          props.onChange({ ...rest, ...(model === undefined ? {} : { model: model ?? "" }) })
-        }
-      />
+      <HarnessRunnerPicker runner={props.check.runner} onChange={(runner) => props.onChange({ runner })} />
+      <Show when={!props.check.runner}>
+        <HarnessModelPicker
+          title={language.t("settings.harness.rubric.judge")}
+          model={props.check.model}
+          variant={props.check.variant}
+          onChange={({ model, ...rest }) =>
+            props.onChange({ ...rest, ...(model === undefined ? {} : { model: model ?? "" }) })
+          }
+        />
+      </Show>
       <SettingsRow title={language.t("settings.harness.rubric.runs")}>
         <Select
           options={RUNS}

@@ -141,6 +141,7 @@ import {
   fetchAndSendPendingQuestions,
 } from "./kilo-provider/handlers/question"
 import { fetchAndSendPendingSuggestions } from "./kilo-provider/handlers/suggestion"
+import { parseHarnessMessage, routeHarnessWebviewMessage } from "./kilo-provider/handlers/harness"
 import { nativeTitle } from "./kilo-provider/native-tab-title"
 import { isActivity, type Activity } from "../webview-ui/src/utils/session-activity"
 import type { PRReviewCommentData, ReviewMessageData } from "./shared/review-comments"
@@ -1185,6 +1186,7 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
         post: (m) => this.postMessage(m),
         error: getErrorMessage,
         before: this.onBeforeMessage,
+        route: (m) => this.routeHarness(m),
       })
       if (intercepted === null) return
       message = intercepted
@@ -4881,6 +4883,21 @@ export class KiloProvider implements vscode.WebviewViewProvider, TelemetryProper
       isPermissionResponseClaimed: (id) => this.connectionService.isPermissionResponseClaimed(id),
       clearPermissionResponse: (id) => this.connectionService.clearPermissionResponse(id),
     }
+  }
+
+  /** Sends a harness request to its handler. Returns false for any other message. */
+  private routeHarness(message: Record<string, unknown>): boolean {
+    const parsed = parseHarnessMessage(message)
+    if (!parsed) return false
+    void routeHarnessWebviewMessage(
+      {
+        client: this.client,
+        postMessage: (msg: unknown) => this.postMessage(msg),
+        getWorkspaceDirectory: () => this.getWorkspaceDirectory(),
+      },
+      parsed,
+    )
+    return true
   }
 
   private get questionCtx() {

@@ -6,6 +6,7 @@ import type { HarnessConfig, HarnessStep } from "../../../types/messages"
 import HarnessAgentStepEditor from "./HarnessAgentStep"
 import HarnessCheckStepEditor from "./HarnessCheckStep"
 import HarnessHumanStepEditor from "./HarnessHumanStep"
+import HarnessRunPanel from "./HarnessRunPanel"
 import HarnessStepList from "./HarnessStepList"
 import { addStep, defaultHarness, harnessIssues, moveStep, removeStep, summarize, updateStep } from "./harness-state"
 
@@ -38,6 +39,11 @@ const HarnessTab: Component = () => {
   const edit = (fn: (h: HarnessConfig) => HarnessConfig) => updateConfig({ harness: fn(harness()) })
 
   const describe = (step: HarnessStep) => {
+    if (step.kind === "agent" && step.runner) {
+      const detail = [step.runner.model, step.runner.effort].filter(Boolean).join(" · ")
+      const name = language.t(`settings.harness.runner.${step.runner.kind}`)
+      return detail ? `${name} · ${detail}` : name
+    }
     if (step.kind === "agent") return config().agent?.[step.agent]?.model ?? language.t("settings.harness.modelDefault")
     if (step.kind === "check") {
       const commands = step.checks.filter((c) => c.type === "command").length
@@ -71,6 +77,8 @@ const HarnessTab: Component = () => {
           </ul>
         </div>
       </Show>
+
+      <HarnessRunPanel steps={harness().steps} />
 
       <div class="harness-cols">
         <HarnessStepList

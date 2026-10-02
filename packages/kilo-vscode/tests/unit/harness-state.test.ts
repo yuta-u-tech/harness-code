@@ -145,6 +145,27 @@ describe("checks", () => {
   })
 })
 
+describe("runners", () => {
+  it("puts an agent step on a CLI and takes it off again", () => {
+    const on = updateStep(defaultHarness(), "plan", { runner: { kind: "codex", model: "gpt-5", effort: "high" } })
+    expect(on.steps[0]).toMatchObject({ runner: { kind: "codex", model: "gpt-5", effort: "high" } })
+    const off = updateStep(on, "plan", { runner: undefined })
+    expect(off.steps[0]?.kind === "agent" && off.steps[0].runner).toBeUndefined()
+  })
+
+  it("puts a rubric check on a CLI", () => {
+    const next = updateCheck(defaultHarness(), "verify", "c3", { runner: { kind: "claude", effort: "low" } })
+    const verify = next.steps.find((s) => s.id === "verify")
+    const rubric = verify?.kind === "check" ? verify.checks.find((c) => c.id === "c3") : undefined
+    expect(rubric).toMatchObject({ runner: { kind: "claude", effort: "low" } })
+  })
+
+  it("does not count a CLI step as a model call in the summary", () => {
+    const next = updateStep(defaultHarness(), "plan", { runner: { kind: "claude" } })
+    expect(summarize(next).agents).toBe(summarize(defaultHarness()).agents)
+  })
+})
+
 describe("summarize", () => {
   it("counts agent calls, judge runs, commands and human gates", () => {
     expect(summarize(defaultHarness())).toEqual({ agents: 2, commands: 2, judgeRuns: 3, humans: 1 })
