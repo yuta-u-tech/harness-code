@@ -11719,8 +11719,8 @@
     },
     "/harness/run": {
       "post": {
-        "tags": ["harness"],
-        "operationId": "harness.start",
+        "tags": ["harnessRun"],
+        "operationId": "harnessRun.start",
         "parameters": [
           {
             "name": "directory",
@@ -11801,13 +11801,13 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harness.start({\n  ...\n})"
+            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harnessRun.start({\n  ...\n})"
           }
         ]
       },
       "get": {
-        "tags": ["harness"],
-        "operationId": "harness.list",
+        "tags": ["harnessRun"],
+        "operationId": "harnessRun.list",
         "parameters": [
           {
             "name": "directory",
@@ -11857,15 +11857,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harness.list({\n  ...\n})"
+            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harnessRun.list({\n  ...\n})"
           }
         ]
       }
     },
     "/harness/run/{runID}": {
       "get": {
-        "tags": ["harness"],
-        "operationId": "harness.get",
+        "tags": ["harnessRun"],
+        "operationId": "harnessRun.get",
         "parameters": [
           {
             "name": "runID",
@@ -11929,15 +11929,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harness.get({\n  ...\n})"
+            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harnessRun.get({\n  ...\n})"
           }
         ]
       }
     },
     "/harness/run/{runID}/review": {
       "post": {
-        "tags": ["harness"],
-        "operationId": "harness.review",
+        "tags": ["harnessRun"],
+        "operationId": "harnessRun.review",
         "parameters": [
           {
             "name": "runID",
@@ -12028,15 +12028,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harness.review({\n  ...\n})"
+            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harnessRun.review({\n  ...\n})"
           }
         ]
       }
     },
     "/harness/run/{runID}/stop": {
       "post": {
-        "tags": ["harness"],
-        "operationId": "harness.stop",
+        "tags": ["harnessRun"],
+        "operationId": "harnessRun.stop",
         "parameters": [
           {
             "name": "runID",
@@ -12101,7 +12101,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harness.stop({\n  ...\n})"
+            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harnessRun.stop({\n  ...\n})"
           }
         ]
       }
@@ -62543,8 +62543,8 @@
       "description": "Kilo commit message routes."
     },
     {
-      "name": "harness",
-      "description": "Kilo harness routes."
+      "name": "harnessRun",
+      "description": "Harness run routes."
     },
     {
       "name": "config-console",

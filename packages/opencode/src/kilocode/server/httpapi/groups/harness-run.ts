@@ -58,9 +58,9 @@ export class HarnessStartError extends Schema.ErrorClass<HarnessStartError>("Har
 
 const params = { runID: Schema.String }
 
-export const HarnessApi = HttpApi.make("harness")
+export const HarnessRunApi = HttpApi.make("harnessRun")
   .add(
-    HttpApiGroup.make("harness")
+    HttpApiGroup.make("harnessRun")
       .add(
         HttpApiEndpoint.post("start", root, {
           query: WorkspaceRoutingQuery,
@@ -69,7 +69,7 @@ export const HarnessApi = HttpApi.make("harness")
           error: [HttpApiError.BadRequest, HarnessStartError],
         }).annotateMerge(
           OpenApi.annotations({
-            identifier: "harness.start",
+            identifier: "harnessRun.start",
             summary: "Start a harness run",
             description: "Run the project's harness flow for a task. The run continues in the background.",
           }),
@@ -79,7 +79,7 @@ export const HarnessApi = HttpApi.make("harness")
           success: described(Schema.Array(RunState), "Runs for this project, newest first"),
         }).annotateMerge(
           OpenApi.annotations({
-            identifier: "harness.list",
+            identifier: "harnessRun.list",
             summary: "List harness runs",
             description: "Get the harness runs of this project.",
           }),
@@ -91,7 +91,7 @@ export const HarnessApi = HttpApi.make("harness")
           error: [HttpApiError.NotFound],
         }).annotateMerge(
           OpenApi.annotations({
-            identifier: "harness.get",
+            identifier: "harnessRun.get",
             summary: "Get a harness run",
             description: "Get the current state of a harness run.",
           }),
@@ -104,7 +104,7 @@ export const HarnessApi = HttpApi.make("harness")
           error: [HttpApiError.BadRequest, HttpApiError.NotFound],
         }).annotateMerge(
           OpenApi.annotations({
-            identifier: "harness.review",
+            identifier: "harnessRun.review",
             summary: "Approve or reject a run",
             description: "Answer a run that is waiting for your review.",
           }),
@@ -116,7 +116,7 @@ export const HarnessApi = HttpApi.make("harness")
           error: [HttpApiError.NotFound],
         }).annotateMerge(
           OpenApi.annotations({
-            identifier: "harness.stop",
+            identifier: "harnessRun.stop",
             summary: "Stop a harness run",
             description: "Stop a run that is still going.",
           }),
@@ -124,8 +124,8 @@ export const HarnessApi = HttpApi.make("harness")
       )
       .annotateMerge(
         OpenApi.annotations({
-          title: "harness",
-          description: "Kilo harness routes.",
+          title: "harnessRun",
+          description: "Harness run routes.",
         }),
       )
       .middleware(InstanceContextMiddleware)

@@ -17,7 +17,7 @@ function setup(overrides: Record<string, unknown> = {}) {
     return { data }
   }
   const client = {
-    harness: {
+    harnessRun: {
       start: record("start", run),
       list: record("list", [run]),
       get: record("get", run),

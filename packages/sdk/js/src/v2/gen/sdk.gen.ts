@@ -139,16 +139,16 @@ import type {
   GlobalHealthResponses,
   GlobalUpgradeErrors,
   GlobalUpgradeResponses,
-  HarnessGetErrors,
-  HarnessGetResponses,
-  HarnessListErrors,
-  HarnessListResponses,
-  HarnessReviewErrors,
-  HarnessReviewResponses,
-  HarnessStartErrors,
-  HarnessStartResponses,
-  HarnessStopErrors,
-  HarnessStopResponses,
+  HarnessRunGetErrors,
+  HarnessRunGetResponses,
+  HarnessRunListErrors,
+  HarnessRunListResponses,
+  HarnessRunReviewErrors,
+  HarnessRunReviewResponses,
+  HarnessRunStartErrors,
+  HarnessRunStartResponses,
+  HarnessRunStopErrors,
+  HarnessRunStopResponses,
   IndexingConsentErrors,
   IndexingConsentResponses,
   IndexingModelsErrors,
@@ -6575,7 +6575,7 @@ export class CommitMessage extends HeyApiClient {
   }
 }
 
-export class Harness extends HeyApiClient {
+export class HarnessRun extends HeyApiClient {
   /**
    * List harness runs
    *
@@ -6599,7 +6599,7 @@ export class Harness extends HeyApiClient {
         },
       ],
     )
-    return (options?.client ?? this.client).get<HarnessListResponses, HarnessListErrors, ThrowOnError>({
+    return (options?.client ?? this.client).get<HarnessRunListResponses, HarnessRunListErrors, ThrowOnError>({
       url: "/harness/run",
       ...options,
       ...params,
@@ -6631,7 +6631,7 @@ export class Harness extends HeyApiClient {
         },
       ],
     )
-    return (options?.client ?? this.client).post<HarnessStartResponses, HarnessStartErrors, ThrowOnError>({
+    return (options?.client ?? this.client).post<HarnessRunStartResponses, HarnessRunStartErrors, ThrowOnError>({
       url: "/harness/run",
       ...options,
       ...params,
@@ -6668,7 +6668,7 @@ export class Harness extends HeyApiClient {
         },
       ],
     )
-    return (options?.client ?? this.client).get<HarnessGetResponses, HarnessGetErrors, ThrowOnError>({
+    return (options?.client ?? this.client).get<HarnessRunGetResponses, HarnessRunGetErrors, ThrowOnError>({
       url: "/harness/run/{runID}",
       ...options,
       ...params,
@@ -6704,7 +6704,7 @@ export class Harness extends HeyApiClient {
         },
       ],
     )
-    return (options?.client ?? this.client).post<HarnessReviewResponses, HarnessReviewErrors, ThrowOnError>({
+    return (options?.client ?? this.client).post<HarnessRunReviewResponses, HarnessRunReviewErrors, ThrowOnError>({
       url: "/harness/run/{runID}/review",
       ...options,
       ...params,
@@ -6741,7 +6741,7 @@ export class Harness extends HeyApiClient {
         },
       ],
     )
-    return (options?.client ?? this.client).post<HarnessStopResponses, HarnessStopErrors, ThrowOnError>({
+    return (options?.client ?? this.client).post<HarnessRunStopResponses, HarnessRunStopErrors, ThrowOnError>({
       url: "/harness/run/{runID}/stop",
       ...options,
       ...params,
@@ -12349,9 +12349,9 @@ export class KiloClient extends HeyApiClient {
     return (this._commitMessage ??= new CommitMessage({ client: this.client }))
   }
 
-  private _harness?: Harness
-  get harness(): Harness {
-    return (this._harness ??= new Harness({ client: this.client }))
+  private _harnessRun?: HarnessRun
+  get harnessRun(): HarnessRun {
+    return (this._harnessRun ??= new HarnessRun({ client: this.client }))
   }
 
   private _enhancePrompt?: EnhancePrompt

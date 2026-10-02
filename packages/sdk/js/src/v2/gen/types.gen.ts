@@ -15752,7 +15752,7 @@ export type CommitMessageGenerateResponses = {
 
 export type CommitMessageGenerateResponse = CommitMessageGenerateResponses[keyof CommitMessageGenerateResponses]
 
-export type HarnessListData = {
+export type HarnessRunListData = {
   body?: never
   path?: never
   query?: {
@@ -15762,25 +15762,25 @@ export type HarnessListData = {
   url: "/harness/run"
 }
 
-export type HarnessListErrors = {
+export type HarnessRunListErrors = {
   /**
    * Bad request
    */
   400: BadRequestError
 }
 
-export type HarnessListError = HarnessListErrors[keyof HarnessListErrors]
+export type HarnessRunListError = HarnessRunListErrors[keyof HarnessRunListErrors]
 
-export type HarnessListResponses = {
+export type HarnessRunListResponses = {
   /**
    * Runs for this project, newest first
    */
   200: Array<HarnessRun>
 }
 
-export type HarnessListResponse = HarnessListResponses[keyof HarnessListResponses]
+export type HarnessRunListResponse = HarnessRunListResponses[keyof HarnessRunListResponses]
 
-export type HarnessStartData = {
+export type HarnessRunStartData = {
   body?: {
     /**
      * What the flow should get done
@@ -15795,7 +15795,7 @@ export type HarnessStartData = {
   url: "/harness/run"
 }
 
-export type HarnessStartErrors = {
+export type HarnessRunStartErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
@@ -15806,18 +15806,18 @@ export type HarnessStartErrors = {
   422: HarnessStartError
 }
 
-export type HarnessStartError2 = HarnessStartErrors[keyof HarnessStartErrors]
+export type HarnessRunStartError = HarnessRunStartErrors[keyof HarnessRunStartErrors]
 
-export type HarnessStartResponses = {
+export type HarnessRunStartResponses = {
   /**
    * The run that was started
    */
   200: HarnessRun
 }
 
-export type HarnessStartResponse = HarnessStartResponses[keyof HarnessStartResponses]
+export type HarnessRunStartResponse = HarnessRunStartResponses[keyof HarnessRunStartResponses]
 
-export type HarnessGetData = {
+export type HarnessRunGetData = {
   body?: never
   path: {
     runID: string
@@ -15829,7 +15829,7 @@ export type HarnessGetData = {
   url: "/harness/run/{runID}"
 }
 
-export type HarnessGetErrors = {
+export type HarnessRunGetErrors = {
   /**
    * Bad request
    */
@@ -15840,18 +15840,18 @@ export type HarnessGetErrors = {
   404: NotFoundError
 }
 
-export type HarnessGetError = HarnessGetErrors[keyof HarnessGetErrors]
+export type HarnessRunGetError = HarnessRunGetErrors[keyof HarnessRunGetErrors]
 
-export type HarnessGetResponses = {
+export type HarnessRunGetResponses = {
   /**
    * The run
    */
   200: HarnessRun
 }
 
-export type HarnessGetResponse = HarnessGetResponses[keyof HarnessGetResponses]
+export type HarnessRunGetResponse = HarnessRunGetResponses[keyof HarnessRunGetResponses]
 
-export type HarnessReviewData = {
+export type HarnessRunReviewData = {
   body?: {
     approve: boolean
     comment?: string
@@ -15866,7 +15866,7 @@ export type HarnessReviewData = {
   url: "/harness/run/{runID}/review"
 }
 
-export type HarnessReviewErrors = {
+export type HarnessRunReviewErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
@@ -15877,18 +15877,18 @@ export type HarnessReviewErrors = {
   404: NotFoundError
 }
 
-export type HarnessReviewError = HarnessReviewErrors[keyof HarnessReviewErrors]
+export type HarnessRunReviewError = HarnessRunReviewErrors[keyof HarnessRunReviewErrors]
 
-export type HarnessReviewResponses = {
+export type HarnessRunReviewResponses = {
   /**
    * The review was recorded
    */
   200: boolean
 }
 
-export type HarnessReviewResponse = HarnessReviewResponses[keyof HarnessReviewResponses]
+export type HarnessRunReviewResponse = HarnessRunReviewResponses[keyof HarnessRunReviewResponses]
 
-export type HarnessStopData = {
+export type HarnessRunStopData = {
   body?: never
   path: {
     runID: string
@@ -15900,7 +15900,7 @@ export type HarnessStopData = {
   url: "/harness/run/{runID}/stop"
 }
 
-export type HarnessStopErrors = {
+export type HarnessRunStopErrors = {
   /**
    * Bad request
    */
@@ -15911,16 +15911,16 @@ export type HarnessStopErrors = {
   404: NotFoundError
 }
 
-export type HarnessStopError = HarnessStopErrors[keyof HarnessStopErrors]
+export type HarnessRunStopError = HarnessRunStopErrors[keyof HarnessRunStopErrors]
 
-export type HarnessStopResponses = {
+export type HarnessRunStopResponses = {
   /**
    * The run was stopped
    */
   200: boolean
 }
 
-export type HarnessStopResponse = HarnessStopResponses[keyof HarnessStopResponses]
+export type HarnessRunStopResponse = HarnessRunStopResponses[keyof HarnessRunStopResponses]
 
 export type ConfigOverlayData = {
   body?: never

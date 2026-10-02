@@ -15,7 +15,7 @@ import { anacondaDesktopHandlers } from "./handlers/anaconda-desktop"
 import { backgroundProcessHandlers } from "./handlers/background-process"
 import { branchNameHandlers } from "./handlers/branch-name"
 import { commitMessageHandlers } from "./handlers/commit-message"
-import { harnessHandlers } from "./handlers/harness"
+import { harnessRunHandlers } from "./handlers/harness-run"
 import { configConsoleHandlers } from "./handlers/config-console"
 import { enhancePromptHandlers } from "./handlers/enhance-prompt"
 import { indexingHandlers } from "./handlers/indexing"
@@ -37,7 +37,7 @@ export const provide = Layer.provide([
   backgroundProcessHandlers,
   branchNameHandlers,
   commitMessageHandlers,
-  harnessHandlers,
+  harnessRunHandlers,
   configConsoleHandlers,
   enhancePromptHandlers,
   indexingHandlers,

@@ -51,30 +51,30 @@ export async function routeHarnessWebviewMessage(ctx: HarnessContext, message: H
   const once = { throwOnError: true } as const
 
   const show = async (runID: string) => {
-    const res = await client.harness.get({ runID, directory }, once)
+    const res = await client.harnessRun.get({ runID, directory }, once)
     ctx.postMessage({ type: "harnessRun", run: res.data })
   }
 
   const handle = async () => {
     if (message.type === "harnessStart") {
-      const res = await client.harness.start({ directory, task: message.task }, once)
+      const res = await client.harnessRun.start({ directory, task: message.task }, once)
       ctx.postMessage({ type: "harnessRun", run: res.data })
       return
     }
     if (message.type === "harnessList") {
-      const res = await client.harness.list({ directory }, once)
+      const res = await client.harnessRun.list({ directory }, once)
       ctx.postMessage({ type: "harnessRuns", runs: res.data })
       return
     }
     if (message.type === "harnessGet") return show(message.runID)
     if (message.type === "harnessReview") {
-      await client.harness.review(
+      await client.harnessRun.review(
         { runID: message.runID, directory, approve: message.approve, comment: message.comment },
         once,
       )
       return show(message.runID)
     }
-    await client.harness.stop({ runID: message.runID, directory }, once)
+    await client.harnessRun.stop({ runID: message.runID, directory }, once)
     return show(message.runID)
   }
 

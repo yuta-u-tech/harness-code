@@ -30,7 +30,7 @@ import { WorkspaceApi } from "./groups/workspace"
 import { AgentBuilderApi } from "@/kilocode/server/httpapi/groups/agent-builder"
 import { BranchNameApi } from "@/kilocode/server/httpapi/groups/branch-name"
 import { CommitMessageApi } from "@/kilocode/server/httpapi/groups/commit-message"
-import { HarnessApi } from "@/kilocode/server/httpapi/groups/harness" // kilocode_change
+import { HarnessRunApi } from "@/kilocode/server/httpapi/groups/harness-run" // kilocode_change
 import { BackgroundProcessApi } from "@/kilocode/server/httpapi/groups/background-process"
 import { ConfigConsoleApi } from "@/kilocode/server/httpapi/groups/config-console"
 import { EnhancePromptApi } from "@/kilocode/server/httpapi/groups/enhance-prompt"
@@ -102,7 +102,7 @@ export const InstanceHttpApi = HttpApi.make("opencode-instance")
   .addHttpApi(BackgroundProcessApi)
   .addHttpApi(BranchNameApi)
   .addHttpApi(CommitMessageApi)
-  .addHttpApi(HarnessApi) // kilocode_change
+  .addHttpApi(HarnessRunApi) // kilocode_change
   .addHttpApi(ConfigConsoleApi)
   .addHttpApi(EnhancePromptApi)
   .addHttpApi(IndexingApi)
