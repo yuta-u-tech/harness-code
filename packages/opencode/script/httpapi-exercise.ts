@@ -1,4 +1,3 @@
-// kilocode_change start - `--shards N` fans a pass out across N child processes, each
 // running `--shard i/N`. Children are fully isolated: the exerciser keys its database
 // and global root by PID (test/server/httpapi-exercise/environment.ts), so shards never
 // share SQLite files or on-disk state. Route coverage (missing/extra) stays correct
@@ -15,11 +14,11 @@ if (shardsIndex !== -1 && (!Number.isInteger(shards) || shards < 1)) {
 if (shards > 1) {
   const passthrough = args.filter((_, index) => index !== shardsIndex && index !== shardsIndex + 1)
   // Children must key their database and global root by their own PID. If the parent's
-  // environment pins these (KILO_HTTPAPI_EXERCISE_*), every child would inherit the same
+  // environment pins these (HARNESS_HTTPAPI_EXERCISE_*), every child would inherit the same
   // SQLite file and XDG root and shards would collide — strip them so isolation holds.
   const env = { ...process.env }
-  delete env["KILO_HTTPAPI_EXERCISE_DB"]
-  delete env["KILO_HTTPAPI_EXERCISE_GLOBAL"]
+  delete env["HARNESS_HTTPAPI_EXERCISE_DB"]
+  delete env["HARNESS_HTTPAPI_EXERCISE_GLOBAL"]
   const children = Array.from({ length: shards }, (_, index) =>
     Bun.spawn(
       [process.execPath, "run", import.meta.path, ...passthrough, "--shard", `${index}/${shards}`],
@@ -46,6 +45,5 @@ if (shards > 1) {
   )
   process.exit(codes.every((code) => code === 0) ? 0 : 1)
 }
-// kilocode_change end
 
 await import("../test/server/httpapi-exercise/index")

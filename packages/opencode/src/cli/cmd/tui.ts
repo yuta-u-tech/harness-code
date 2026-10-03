@@ -9,30 +9,27 @@ import { errorMessage } from "@opencode-ai/tui/util/error"
 import { withTimeout } from "@/util/timeout"
 import { withNetworkOptions, resolveNetworkOptionsNoConfig, hasArg } from "@/cli/network"
 import { Filesystem } from "@/util/filesystem"
-import type { GlobalEvent } from "@kilocode/sdk/v2"
+import type { GlobalEvent } from "@harness/sdk/v2"
 import type { EventSource } from "@opencode-ai/tui/context/sdk"
 import { writeHeapSnapshot } from "v8"
-import type { StartInput } from "@/kilocode/cli/cmd/tui/thread" // kilocode_change - runtime imports deferred into handlers
+import type { StartInput } from "@/harness/cli/cmd/tui/thread"
 import { win32InstallCtrlCGuard } from "@opencode-ai/tui/terminal-win32"
-import { validate as validateSession } from "@/kilocode/cli/cmd/tui" // kilocode_change
-// kilocode_change start - correlate the TUI worker with its parent process
+import { validate as validateSession } from "@/harness/cli/cmd/tui"
 import {
-  KILO_PROCESS_ROLE,
-  KILO_RUN_ID,
+  HARNESS_PROCESS_ROLE,
+  HARNESS_RUN_ID,
   ensureRunID,
   sanitizedProcessEnv,
 } from "@opencode-ai/core/util/opencode-process"
-// kilocode_change end
-import type { RemoteExitBridgeClient } from "@/kilocode/cli/cmd/tui/remote-exit-bridge" // kilocode_change - runtime import deferred
-import type { Exit } from "@opencode-ai/tui/context/exit" // kilocode_change
+import type { RemoteExitBridgeClient } from "@/harness/cli/cmd/tui/remote-exit-bridge"
+import type { Exit } from "@opencode-ai/tui/context/exit"
 
 declare global {
-  const KILO_WORKER_PATH: string
+  const HARNESS_WORKER_PATH: string
 }
 
 type RpcClient = ReturnType<typeof Rpc.client<typeof rpc>>
 
-// kilocode_change start - bridge remote exit only for the embedded worker transport
 export function embeddedRemoteExitClient<T>(external: boolean, client: T | undefined): T | undefined {
   return external ? undefined : client
 }
@@ -43,7 +40,7 @@ export async function runEmbeddedRemoteExitBridge(input: {
   done: Promise<unknown>
   timeoutMs?: number
 }) {
-  const { createParentRemoteExitBridge } = await import("@/kilocode/cli/cmd/tui/remote-exit-bridge")
+  const { createParentRemoteExitBridge } = await import("@/harness/cli/cmd/tui/remote-exit-bridge")
   const timeoutMs = input.timeoutMs ?? 5_000
   const bridge = createParentRemoteExitBridge(input.client, input.exit)
   let ready = false
@@ -59,9 +56,7 @@ export async function runEmbeddedRemoteExitBridge(input: {
     if (ready) await bridge.dispose(timeoutMs).catch(() => {})
   }
 }
-// kilocode_change end
 
-// kilocode_change start - share the extracted TUI runner between daemon and worker paths
 async function start(input: StartInput, remoteExitClient?: RpcClient) {
   const { Effect } = await import("effect")
   const { run } = await import("../tui/layer")
@@ -78,7 +73,6 @@ async function start(input: StartInput, remoteExitClient?: RpcClient) {
   if (!exit) return
   await runEmbeddedRemoteExitBridge({ client: remoteExitClient, exit, done })
 }
-// kilocode_change end
 
 function createWorkerFetch(client: RpcClient): typeof fetch {
   const fn = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
@@ -109,7 +103,7 @@ function createEventSource(client: RpcClient): EventSource {
 }
 
 async function target() {
-  if (typeof KILO_WORKER_PATH !== "undefined") return KILO_WORKER_PATH
+  if (typeof HARNESS_WORKER_PATH !== "undefined") return HARNESS_WORKER_PATH
   const dist = new URL("./cli/tui/worker.js", import.meta.url)
   if (await Filesystem.exists(fileURLToPath(dist))) return dist
   return new URL("../tui/worker.ts", import.meta.url)
@@ -123,27 +117,25 @@ async function input(value?: string) {
 }
 
 export function resolveThreadDirectory(project?: string, envPWD = process.env.PWD, cwd = process.cwd()) {
-  // kilocode_change start - ignore stale PWD from wrappers such as `bun --cwd`, except kilo-dev's caller cwd
-  const dev = process.env.KILO_DEV_CWD
+  const dev = process.env.HARNESS_DEV_CWD
   const real = Filesystem.resolve(cwd)
   const root = dev
     ? Filesystem.resolve(dev)
     : envPWD && Filesystem.resolve(envPWD) === real
       ? Filesystem.resolve(envPWD)
       : real
-  // kilocode_change end
   if (project) return Filesystem.resolve(path.isAbsolute(project) ? project : path.join(root, project))
-  return dev ? root : real // kilocode_change
+  return dev ? root : real
 }
 
 export const TuiThreadCommand = cmd({
   command: "$0 [project]",
-  describe: "start kilo tui", // kilocode_change
+  describe: "start harness tui",
   builder: (yargs) =>
     withNetworkOptions(yargs)
       .positional("project", {
         type: "string",
-        describe: "path to start kilo in", // kilocode_change
+        describe: "path to start harness in",
       })
       .option("model", {
         type: "string",
@@ -168,12 +160,10 @@ export const TuiThreadCommand = cmd({
         type: "boolean",
         describe: "fetch session from cloud and continue locally (use with --session)",
       })
-      // kilocode_change start - create/reuse a git worktree before starting
       .option("worktree", {
         type: "string",
-        describe: "create (or reuse) a git worktree with this name and start kilo there",
+        describe: "create (or reuse) a git worktree with this name and start harness there",
       })
-      // kilocode_change end
       .option("prompt", {
         type: "string",
         describe: "prompt to use",
@@ -263,50 +253,41 @@ export const TuiThreadCommand = cmd({
       return
     }
 
-    // kilocode_change start - lazy Kilo implementations so other CLI commands
     // don't pay their module cost at startup
-    const { importCloudSession, localSessionID, validateCloudFork, reportCloudImportError } = await import("@/kilocode/cloud-session")
-    const { KiloTuiThreadDaemon } = await import("@/kilocode/cli/cmd/tui/thread")
-    const { preload } = await import("@/kilocode/cli/cmd/tui")
-    const { resolveTuiDirectory } = await import("@/kilocode/cli/cmd/tui-worktree")
-    // kilocode_change end
+    const { importCloudSession, localSessionID, validateCloudFork, reportCloudImportError } = await import("@/harness/cloud-session")
+    const { HarnessTuiThreadDaemon } = await import("@/harness/cli/cmd/tui/thread")
+    const { preload } = await import("@/harness/cli/cmd/tui")
+    const { resolveTuiDirectory } = await import("@/harness/cli/cmd/tui-worktree")
     const unguard = win32InstallCtrlCGuard()
     const shutdown = {
       pending: undefined as Promise<void> | undefined,
       exiting: false,
     }
     try {
-      // kilocode_change
       if (args.fork && !args.continue && !args.session) {
         UI.error("--fork requires --continue or --session")
         process.exitCode = 1
         return
       }
-      // kilocode_change start
       const cloudForkError = validateCloudFork(args)
       if (cloudForkError) {
         UI.error(cloudForkError)
         process.exitCode = 1
         return
       }
-      // kilocode_change end
 
       // Resolve relative --project paths from PWD, then use the real cwd after
       // chdir so the thread and worker share the same directory key.
-      // kilocode_change start - `--worktree <name>` creates/reuses a worktree; resuming
       // an explicit `--session <id>` tries to restart in that session's worktree
       const next = await resolveTuiDirectory(args, resolveThreadDirectory(args.project)).catch((error) => {
         UI.error(errorMessage(error))
         process.exitCode = 1
       })
       if (!next) return
-      // kilocode_change end
       const file = await target()
-      // kilocode_change start
-      const preloads = preload(typeof KILO_WORKER_PATH !== "undefined", () =>
+      const preloads = preload(typeof HARNESS_WORKER_PATH !== "undefined", () =>
         import.meta.resolve("@opentui/solid/preload"),
       )
-      // kilocode_change end
       try {
         process.chdir(next)
       } catch {
@@ -314,21 +295,17 @@ export const TuiThreadCommand = cmd({
         return
       }
       const cwd = Filesystem.resolve(process.cwd())
-      // kilocode_change start - default TUI sessions attach to the daemon unless explicitly disabled
-      if (await KiloTuiThreadDaemon.attach({ args, cwd, input: () => input(args.prompt), start })) return
-      // kilocode_change end
-      const auth = KiloTuiThreadDaemon.workerAuth() // kilocode_change - protect TUI-owned HTTP routes from unauthenticated local callers
-      // kilocode_change start - propagate stable run metadata and an explicit worker role
+      if (await HarnessTuiThreadDaemon.attach({ args, cwd, input: () => input(args.prompt), start })) return
+      const auth = HarnessTuiThreadDaemon.workerAuth()
       const env = sanitizedProcessEnv({
-        [KILO_PROCESS_ROLE]: "worker",
-        [KILO_RUN_ID]: ensureRunID(),
+        [HARNESS_PROCESS_ROLE]: "worker",
+        [HARNESS_RUN_ID]: ensureRunID(),
         ...auth.env,
-        KILO_BACKGROUND_PROCESS_PORTS: "true",
+        HARNESS_BACKGROUND_PROCESS_PORTS: "true",
       })
-      // kilocode_change end
       const worker = new Worker(file, {
-        preload: preloads, // kilocode_change
-        env, // kilocode_change
+        preload: preloads,
+        env,
       })
       worker.onerror = (e) => {
         console.error("TUI worker error", e.error ?? e.message)
@@ -349,7 +326,6 @@ export const TuiThreadCommand = cmd({
         )
         worker.terminate()
       }
-      // kilocode_change start - graceful shutdown on external signals
       // The worker's postMessage for the RPC result may never be delivered
       // after shutdown because the worker's event loop drains. Send the
       // shutdown request without awaiting the response, wait for the worker
@@ -380,7 +356,6 @@ export const TuiThreadCommand = cmd({
       }
       process.once("SIGHUP", () => shutdownAndExit({ reason: "signal", signal: "SIGHUP", code: 129 }))
       process.once("SIGTERM", () => shutdownAndExit({ reason: "signal", signal: "SIGTERM", code: 143 }))
-      // kilocode_change - external kill -INT takes the same graceful path as SIGHUP/SIGTERM.
       // Interactive Ctrl-C in the TUI is a raw-mode keypress, not a signal.
       process.once("SIGINT", () => shutdownAndExit({ reason: "signal", signal: "SIGINT", code: 130 }))
       // In some terminal/tab-close paths the parent shell is terminated without
@@ -415,10 +390,9 @@ export const TuiThreadCommand = cmd({
         shutdownAndExit({ reason: "parent-exit", code: 0 })
       }, 1000)
       orphanWatch.unref()
-      // kilocode_change end
 
       const prompt = await input(args.prompt)
-      const { TuiConfig } = await import("@/config/tui") // kilocode_change
+      const { TuiConfig } = await import("@/config/tui")
       const config = await TuiConfig.get()
 
       const network = resolveNetworkOptionsNoConfig(args)
@@ -428,31 +402,29 @@ export const TuiThreadCommand = cmd({
         ? {
             url: (await client.call("server", network)).url,
             fetch: undefined,
-            headers: auth.headers, // kilocode_change
+            headers: auth.headers,
             events: undefined,
           }
         : {
             url: "http://kilo.internal",
             fetch: createWorkerFetch(client),
-            headers: auth.headers, // kilocode_change
+            headers: auth.headers,
             events: createEventSource(client),
           }
 
-      // kilocode_change - upstream validates here, but --cloud-fork's session id is only local after
       // the import below; the guarded validateSession further down covers both paths.
       setTimeout(() => {
         client.call("checkUpgrade", { directory: cwd }).catch((err) => console.error("Upgrade check failed", err))
       }, 1000).unref?.()
 
       try {
-        // kilocode_change start - import cloud session before TUI renders
         if (args.cloudFork && args.session) {
           UI.println("Importing session from cloud...")
-          const { createKiloClient } = await import("@kilocode/sdk/v2")
-          const sdk = createKiloClient({
+          const { createHarnessClient } = await import("@harness/sdk/v2")
+          const sdk = createHarnessClient({
             baseUrl: transport.url,
             fetch: transport.fetch,
-            headers: transport.headers, // kilocode_change
+            headers: transport.headers,
             directory: cwd,
           })
           try {
@@ -465,15 +437,14 @@ export const TuiThreadCommand = cmd({
             return
           }
         }
-        // kilocode_change end
 
         try {
           await validateSession({
-            url: transport.url, // kilocode_change
-            sessionID: localSessionID(args), // kilocode_change
+            url: transport.url,
+            sessionID: localSessionID(args),
             directory: cwd,
             fetch: transport.fetch,
-            headers: transport.headers, // kilocode_change
+            headers: transport.headers,
           })
         } catch (error) {
           UI.error(errorMessage(error))
@@ -481,10 +452,8 @@ export const TuiThreadCommand = cmd({
           return
         }
 
-        // kilocode_change start
         await start(
           {
-            // kilocode_change - shared lazy loader also supports daemon attach
             url: transport.url,
             async onSnapshot() {
               const tui = writeHeapSnapshot("tui.heapsnapshot")
@@ -508,7 +477,6 @@ export const TuiThreadCommand = cmd({
           },
           embeddedRemoteExitClient(external, client),
         )
-        // kilocode_change end
       } finally {
         await stop()
       }

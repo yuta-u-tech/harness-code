@@ -1,4 +1,4 @@
-import type { TuiPlugin, TuiPluginApi } from "@kilocode/plugin/tui"
+import type { TuiPlugin, TuiPluginApi } from "@harness/plugin/tui"
 import type { BuiltinTuiPlugin } from "../builtins"
 import { createMemo, Show } from "solid-js"
 import { abbreviateHome } from "../../runtime"
@@ -53,9 +53,7 @@ function View(props: { api: TuiPluginApi; sessionID: string }) {
                 ✕
               </text>
             </box>
-            {/* kilocode_change start */}
-            <text fg={theme().textMuted}>Kilo includes free models so you can start immediately.</text>
-            {/* kilocode_change end */}
+            <text fg={theme().textMuted}>Harness includes free models so you can start immediately.</text>
             <text fg={theme().textMuted}>
               Connect from 75+ providers to use other models, including Claude, GPT, Gemini etc
             </text>
@@ -70,11 +68,9 @@ function View(props: { api: TuiPluginApi; sessionID: string }) {
         <span style={{ fg: theme().textMuted }}>{path().parent}/</span>
         <span style={{ fg: theme().text }}>{path().name}</span>
       </text>
-      {/* kilocode_change start */}
       <text fg={theme().textMuted}>
-        <span style={{ fg: theme().success }}>•</span> <b>Kilo</b> <span>{props.api.app.version}</span>
+        <span style={{ fg: theme().success }}>•</span> <b>Harness</b> <span>{props.api.app.version}</span>
       </text>
-      {/* kilocode_change end */}
     </box>
   )
 }

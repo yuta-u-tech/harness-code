@@ -1,20 +1,19 @@
-// kilocode_change - new file
-// Launch the kilo CLI dev build against a locally running cloud dev server.
-//   bun dev:local <project-dir> [--cloud <dir>] [--no-ingest] [--no-events] [--print] [-- <kilo args>]
+// Launch the harness CLI dev build against a locally running cloud dev server.
+//   bun dev:local <project-dir> [--cloud <dir>] [--no-ingest] [--no-events] [--print] [-- <harness args>]
 //
 // Reads ports from <cloud>/dev/logs/manifest.json (+ .dev-port), probes the web
-// server, and points the CLI at it (KILO_API_URL / KILO_SESSION_INGEST_URL /
+// server, and points the CLI at it (HARNESS_API_URL / HARNESS_SESSION_INGEST_URL /
 // EVENT_SERVICE_URL).
-// Auth/config/state/cache are isolated under ~/.kilo-dev so it can't clash with
-// your main kilo install; real HOME is kept so git/ssh still work.
+// Auth/config/state/cache are isolated under ~/.harness-dev so it can't clash with
+// your main harness install; real HOME is kept so git/ssh still work.
 
 import os from "node:os"
 import path from "node:path"
 import fs from "node:fs"
 import net from "node:net"
 
-const kilo = path.resolve(import.meta.dir, "../../..")
-const home = path.join(os.homedir(), ".kilo-dev")
+const harness = path.resolve(import.meta.dir, "../../..")
+const home = path.join(os.homedir(), ".harness-dev")
 const dim = "\x1b[2m", red = "\x1b[31m", grn = "\x1b[32m", ylw = "\x1b[33m", rst = "\x1b[0m"
 
 function die(m: string): never {
@@ -72,16 +71,16 @@ async function main() {
   for (const [k, d] of [["XDG_DATA_HOME", "data"], ["XDG_CONFIG_HOME", "config"], ["XDG_STATE_HOME", "state"], ["XDG_CACHE_HOME", "cache"]] as const) {
     const p = path.join(home, d); fs.mkdirSync(p, { recursive: true }); env[k] = p
   }
-  env.KILO_API_URL = `http://localhost:${webPort}`
-  env.KILO_DEV_CWD = project
-  env.KILO_DISABLE_AUTOUPDATE = "1"
-  if (ingestPort) env.KILO_SESSION_INGEST_URL = `http://localhost:${ingestPort}`
-  else env.KILO_DISABLE_SESSION_INGEST = "1"
+  env.HARNESS_API_URL = `http://localhost:${webPort}`
+  env.HARNESS_DEV_CWD = project
+  env.HARNESS_DISABLE_AUTOUPDATE = "1"
+  if (ingestPort) env.HARNESS_SESSION_INGEST_URL = `http://localhost:${ingestPort}`
+  else env.HARNESS_DISABLE_SESSION_INGEST = "1"
   if (eventsPort) {
     env.EVENT_SERVICE_URL = `ws://localhost:${eventsPort}`
-    delete env.KILO_DISABLE_PRESENCE
-    delete env.KILO_EVENT_SERVICE_URL
-  } else env.KILO_DISABLE_PRESENCE = "1"
+    delete env.HARNESS_DISABLE_PRESENCE
+    delete env.HARNESS_EVENT_SERVICE_URL
+  } else env.HARNESS_DISABLE_PRESENCE = "1"
 
   const webUp = await alive(webPort)
   console.log(`${dim}project${rst}  ${project}`)
@@ -93,7 +92,7 @@ async function main() {
   if (dry) { if (!webUp) console.warn(`${ylw}web down — start it (pnpm dev:start)${rst}`); return }
   if (!webUp) die(`web on :${webPort} is not responding — start it first (pnpm dev:start)`)
 
-  process.exit(await Bun.spawn({ cmd: ["bun", "run", "--cwd", "packages/opencode", "--conditions=browser", "src/index.ts", ...pass], cwd: kilo, env, stdio: ["inherit", "inherit", "inherit"] }).exited)
+  process.exit(await Bun.spawn({ cmd: ["bun", "run", "--cwd", "packages/opencode", "--conditions=browser", "src/index.ts", ...pass], cwd: harness, env, stdio: ["inherit", "inherit", "inherit"] }).exited)
 }
 
 void main().catch((e) => die(e instanceof Error ? e.message : String(e)))

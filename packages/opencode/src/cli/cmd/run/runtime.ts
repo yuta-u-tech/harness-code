@@ -12,7 +12,7 @@
 //   3. starts the stream transport (SDK event subscription), lazily for fresh
 //      local sessions,
 //   4. runs the prompt queue until the footer closes.
-import { createKiloClient } from "@kilocode/sdk/v2"
+import { createHarnessClient } from "@harness/sdk/v2"
 import { Flag } from "@opencode-ai/core/flag/flag"
 import { MessageID } from "@/session/schema"
 import { createRunDemo } from "./demo"
@@ -20,8 +20,7 @@ import { resolveModelInfo, resolveRunTuiConfig, resolveSessionInfo } from "./run
 import { createRuntimeLifecycle } from "./runtime.lifecycle"
 import { trace } from "./trace"
 import { cycleVariant, formatModelLabel, resolveSavedVariant, resolveVariant, saveVariant } from "./variant.shared"
-// kilocode_change - preserve compatible variants when switching models
-import { resolvePreservedVariant } from "@/kilocode/cli/cmd/run/variant" // kilocode_change
+import { resolvePreservedVariant } from "@/harness/cli/cmd/run/variant"
 import type { LocalReplayAnchor, LocalReplayRow, RunInput, RunPrompt, RunProvider, StreamCommit } from "./types"
 
 /** @internal Exported for testing */
@@ -288,7 +287,6 @@ async function runInteractiveRuntime(input: RunRuntimeInput, deps: RunRuntimeDep
         return
       }
 
-      // kilocode_change start - preserve the active effort across model switches
       const previous = state.activeVariant
       state.model = model
       state.variants = variantsFor(state.providers, model)
@@ -298,12 +296,10 @@ async function runInteractiveRuntime(input: RunRuntimeInput, deps: RunRuntimeDep
           return
         }
 
-        // kilocode_change - prefer the active effort over a model-specific saved preference
         state.activeVariant =
           resolvePreservedVariant(ctx.variant, previous, state.variants) ??
           resolveVariant(ctx.variant, undefined, saved, state.variants)
       })
-      // kilocode_change end
       state.switching = switching
       await switching
       if (state.switching === switching) {
@@ -411,7 +407,7 @@ async function runInteractiveRuntime(input: RunRuntimeInput, deps: RunRuntimeDep
     .then(loadCatalog)
     .catch(() => {})
 
-  if (Flag.KILO_SHOW_TTFD) {
+  if (Flag.HARNESS_SHOW_TTFD) {
     footer.append({
       kind: "system",
       text: `startup ${Math.max(0, Math.round(performance.now() - start))}ms`,
@@ -439,14 +435,12 @@ async function runInteractiveRuntime(input: RunRuntimeInput, deps: RunRuntimeDep
     state.variants = variantsFor(state.providers, state.model)
     state.limits = info.limits
 
-    // kilocode_change start - preserve the active effort when the model catalog arrives asynchronously
     const next =
       resolvePreservedVariant(ctx.variant, state.activeVariant, state.variants) ??
       resolveVariant(ctx.variant, session.variant, savedVariant, state.variants)
     if (next !== state.activeVariant) {
       state.activeVariant = next
     }
-    // kilocode_change end
 
     if (footer.isClosed) {
       return
@@ -744,7 +738,7 @@ async function runInteractiveRuntime(input: RunRuntimeInput, deps: RunRuntimeDep
 // Local in-process mode. Creates an SDK client backed by a direct fetch to
 // the in-process server, so no external HTTP server is needed.
 export async function runInteractiveLocalMode(input: RunLocalInput): Promise<void> {
-  const sdk = createKiloClient({
+  const sdk = createHarnessClient({
     baseUrl: "http://kilo.internal",
     fetch: input.fetch,
     directory: input.directory,

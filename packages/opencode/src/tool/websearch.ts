@@ -1,21 +1,21 @@
-import { Effect, Option, Schema } from "effect" // kilocode_change - Option added for kilo-exa transport dispatch
+import { Effect, Option, Schema } from "effect"
 import { HttpClient } from "effect/unstable/http"
 import * as Tool from "./tool"
 import * as McpWebSearch from "./mcp-websearch"
-import * as KiloExa from "@/kilocode/tool/websearch-kilo-exa" // kilocode_change - Kilo-REST Exa transport
+import * as HarnessExa from "@/harness/tool/websearch-harness-exa"
 import DESCRIPTION from "./websearch.txt"
 import { checksum } from "@opencode-ai/core/util/encode"
 import { InstallationVersion } from "@opencode-ai/core/installation/version"
 import { RuntimeFlags } from "@/effect/runtime-flags"
-import { Auth } from "@/auth" // kilocode_change - source Kilo bearer for Kilo-REST transport
-import { Env } from "@/env" // kilocode_change - config via Env.Service instead of process.env reads
+import { Auth } from "@/auth"
+import { Env } from "@/env"
 
-const MAX_RESULTS = 10 // kilocode_change - cap numResults across all transports
+const MAX_RESULTS = 10
 
 export const Parameters = Schema.Struct({
   query: Schema.String.annotate({ description: "Websearch query" }),
   numResults: Schema.optional(Schema.Number).annotate({
-    description: "Number of search results to return (default: 8, maximum: 10)", // kilocode_change - note MAX_RESULTS cap
+    description: "Number of search results to return (default: 8, maximum: 10)",
   }),
   livecrawl: Schema.optional(Schema.Literals(["fallback", "preferred"])).annotate({
     description:
@@ -29,17 +29,15 @@ export const Parameters = Schema.Struct({
   }),
 })
 
-const WebSearchProviderSchema = Schema.Literals(["exa", "parallel", "kilo-exa"]) // kilocode_change - kilo-exa env override
+const WebSearchProviderSchema = Schema.Literals(["exa", "parallel", "harness-exa"])
 export type WebSearchProvider = Schema.Schema.Type<typeof WebSearchProviderSchema>
 
-// kilocode_change start - signature reflowed by the added override parameter (KILO_WEBSEARCH_PROVIDER resolved via Env.Service by the caller)
 export function selectWebSearchProvider(
   sessionID: string,
   flags = { exa: false, parallel: false },
   override?: string,
 ): WebSearchProvider {
-  // kilocode_change end
-  if (override === "exa" || override === "parallel" || override === "kilo-exa") return override // kilocode_change - kilo-exa env override
+  if (override === "exa" || override === "parallel" || override === "harness-exa") return override
   if (flags.parallel) return "parallel"
   if (flags.exa) return "exa"
 
@@ -48,7 +46,7 @@ export function selectWebSearchProvider(
 
 export function webSearchProviderLabel(provider: unknown) {
   if (provider === "parallel") return "Parallel Web Search"
-  if (provider === "exa" || provider === "kilo-exa") return "Exa Web Search" // kilocode_change - kilo-exa shares label
+  if (provider === "exa" || provider === "harness-exa") return "Exa Web Search"
   return "Web Search"
 }
 
@@ -61,20 +59,18 @@ export function webSearchModelName(extra: Tool.Context["extra"]) {
   return (apiID ?? id)?.slice(0, 100)
 }
 
-// kilocode_change start - API keys are resolved via Env.Service in the tool and passed down
 function parallelAuthHeaders(apiKey: string | undefined) {
   const headers = { "User-Agent": `opencode/${InstallationVersion}` }
   if (!apiKey) return headers
   return { ...headers, Authorization: `Bearer ${apiKey}` }
 }
-// kilocode_change end
 
 function callProvider(
   http: HttpClient.HttpClient,
   provider: WebSearchProvider,
   params: Schema.Schema.Type<typeof Parameters>,
   ctx: Tool.Context,
-  keys: { exa: string | undefined; parallel: string | undefined }, // kilocode_change
+  keys: { exa: string | undefined; parallel: string | undefined },
 ) {
   if (provider === "parallel") {
     return McpWebSearch.call(
@@ -89,19 +85,19 @@ function callProvider(
         model_name: webSearchModelName(ctx.extra),
       },
       "25 seconds",
-      parallelAuthHeaders(keys.parallel), // kilocode_change
+      parallelAuthHeaders(keys.parallel),
     )
   }
 
   return McpWebSearch.call(
     http,
-    McpWebSearch.exaUrl(keys.exa), // kilocode_change
+    McpWebSearch.exaUrl(keys.exa),
     "web_search_exa",
     McpWebSearch.SearchArgs,
     {
       query: params.query,
       type: params.type || "auto",
-      numResults: Math.min(params.numResults || 8, MAX_RESULTS), // kilocode_change - cap at MAX_RESULTS
+      numResults: Math.min(params.numResults || 8, MAX_RESULTS),
       livecrawl: params.livecrawl || "fallback",
       contextMaxCharacters: params.contextMaxCharacters,
     },
@@ -114,8 +110,8 @@ export const WebSearchTool = Tool.define(
   Effect.gen(function* () {
     const http = yield* HttpClient.HttpClient
     const flags = yield* RuntimeFlags.Service
-    const authSvc = yield* Auth.Service // kilocode_change - source Kilo bearer for Kilo-REST transport
-    const env = yield* Env.Service // kilocode_change - config via Env.Service instead of process.env reads
+    const authSvc = yield* Auth.Service
+    const env = yield* Env.Service
 
     return {
       get description() {
@@ -124,9 +120,8 @@ export const WebSearchTool = Tool.define(
       parameters: Parameters,
       execute: (params: Schema.Schema.Type<typeof Parameters>, ctx: Tool.Context) =>
         Effect.gen(function* () {
-          // kilocode_change start - config via Env.Service instead of process.env reads
           const [override, exaKey, parallelKey] = yield* Effect.all([
-            env.get("KILO_WEBSEARCH_PROVIDER"),
+            env.get("HARNESS_WEBSEARCH_PROVIDER"),
             env.get("EXA_API_KEY"),
             env.get("PARALLEL_API_KEY"),
           ])
@@ -138,38 +133,33 @@ export const WebSearchTool = Tool.define(
             },
             override,
           )
-          // kilocode_change end
           const title = webSearchProviderLabel(provider)
-          // kilocode_change start - Kilo-REST Exa transport
           // Precedence:
-          //   provider="kilo-exa"          -> kilo-rest  (auth required)
+          //   provider="harness-exa"          -> harness-rest  (auth required)
           //   provider="exa" + EXA_API_KEY -> mcp-exa-byok     (BYOK wins)
-          //   provider="exa" + Kilo auth   -> kilo-rest        (new default for authed users)
+          //   provider="exa" + Harness auth   -> harness-rest        (new default for authed users)
           //   provider="exa" + no auth     -> mcp-exa-unauth   (preserves current fallback)
           //   provider="parallel"          -> mcp-parallel     (unchanged)
-          const kiloToken = yield* Effect.gen(function* () {
-            if (provider !== "exa" && provider !== "kilo-exa") return undefined as string | undefined
-            const info = yield* authSvc.get("kilo")
+          const harnessToken = yield* Effect.gen(function* () {
+            if (provider !== "exa" && provider !== "harness-exa") return undefined as string | undefined
+            const info = yield* authSvc.get("harness")
             if (!info) return undefined
             return info.type === "api" ? info.key : info.type === "oauth" ? info.access : undefined
           })
           const transport =
-            provider === "kilo-exa"
-              ? "kilo-rest"
+            provider === "harness-exa"
+              ? "harness-rest"
               : provider === "parallel"
                 ? "mcp-parallel"
                 : provider === "exa" && exaKey
                   ? "mcp-exa-byok"
-                  : provider === "exa" && kiloToken
-                    ? "kilo-rest"
+                  : provider === "exa" && harnessToken
+                    ? "harness-rest"
                     : "mcp-exa-unauth"
-          // kilocode_change end
-          // kilocode_change start - add transport to metadata
           yield* ctx.metadata({
             title: `${title} "${params.query}"`,
             metadata: { provider, transport },
           })
-          // kilocode_change end
 
           yield* ctx.ask({
             permission: "websearch",
@@ -185,26 +175,24 @@ export const WebSearchTool = Tool.define(
             },
           })
 
-          // kilocode_change start - dispatch Kilo-REST transport
-          const result = yield* transport === "kilo-rest"
-            ? kiloToken
-              ? KiloExa.callKiloExa(
+          const result = yield* transport === "harness-rest"
+            ? harnessToken
+              ? HarnessExa.callHarnessExa(
                   http,
                   {
                     query: params.query,
                     type: params.type,
                     numResults: params.numResults,
                   },
-                  kiloToken,
+                  harnessToken,
                 )
-              : Effect.die(new Error("KILO_WEBSEARCH_PROVIDER=kilo-exa requires Kilo auth; run `kilo auth login`"))
-            : callProvider(http, provider, params, ctx, { exa: exaKey, parallel: parallelKey }) // kilocode_change
-          // kilocode_change end
+              : Effect.die(new Error("HARNESS_WEBSEARCH_PROVIDER=harness-exa requires Harness auth; run `harness auth login`"))
+            : callProvider(http, provider, params, ctx, { exa: exaKey, parallel: parallelKey })
 
           return {
             output: result ?? "No search results found. Please try a different query.",
             title: `${title}: ${params.query}`,
-            metadata: { provider, transport }, // kilocode_change - add transport
+            metadata: { provider, transport },
           }
         }).pipe(Effect.orDie),
     }

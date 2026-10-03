@@ -1,2 +1,1 @@
-// kilocode_change - new file
-// Moved to test/kilocode/suggestion/suggestion.test.ts.
+// Moved to test/harness/suggestion/suggestion.test.ts.

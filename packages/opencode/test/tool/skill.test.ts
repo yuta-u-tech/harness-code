@@ -10,7 +10,7 @@ import type { Tool } from "@/tool/tool"
 import { SkillTool } from "../../src/tool/skill"
 import { ToolRegistry } from "@/tool/registry"
 import { ToolJsonSchema } from "@/tool/json-schema"
-import { disposeAllInstances, provideTmpdirInstance, TestInstance } from "../fixture/fixture" // kilocode_change
+import { disposeAllInstances, provideTmpdirInstance, TestInstance } from "../fixture/fixture"
 import { SessionID, MessageID } from "../../src/session/schema"
 import { testEffect } from "../lib/effect"
 
@@ -30,14 +30,13 @@ afterEach(async () => {
 
 const it = testEffect(LayerNode.compile(LayerNode.group([ToolRegistry.node, CrossSpawnSpawner.node, Ripgrep.node])))
 
-// kilocode_change - skip on windows: address windows ci failures #9496
 const unix = process.platform !== "win32" ? it.instance : it.instance.skip
 
 describe("tool.skill", () => {
   unix("execute returns skill content block with files", () =>
     Effect.gen(function* () {
       const dir = (yield* TestInstance).directory
-      const skill = path.join(dir, ".kilo", "skill", "tool-skill") // kilocode_change
+      const skill = path.join(dir, ".harness", "skill", "tool-skill")
       yield* Effect.promise(() =>
         Bun.write(
           path.join(skill, "SKILL.md"),
@@ -54,11 +53,11 @@ Use this skill.
       )
       yield* Effect.promise(() => Bun.write(path.join(skill, "scripts", "demo.txt"), "demo"))
 
-      const home = process.env.KILO_TEST_HOME
-      process.env.KILO_TEST_HOME = dir
+      const home = process.env.HARNESS_TEST_HOME
+      process.env.HARNESS_TEST_HOME = dir
       yield* Effect.addFinalizer(() =>
         Effect.sync(() => {
-          process.env.KILO_TEST_HOME = home
+          process.env.HARNESS_TEST_HOME = home
         }),
       )
 
@@ -110,11 +109,11 @@ Use this skill.
   it.instance("execute preserves not found message", () =>
     Effect.gen(function* () {
       const dir = (yield* TestInstance).directory
-      const home = process.env.KILO_TEST_HOME
-      process.env.KILO_TEST_HOME = dir
+      const home = process.env.HARNESS_TEST_HOME
+      process.env.HARNESS_TEST_HOME = dir
       yield* Effect.addFinalizer(() =>
         Effect.sync(() => {
-          process.env.KILO_TEST_HOME = home
+          process.env.HARNESS_TEST_HOME = home
         }),
       )
 
@@ -146,16 +145,15 @@ Use this skill.
     }),
   )
 
-  // kilocode_change start
-  it.live("built-in kilo-config keeps rendered shell examples inert", () =>
+  it.live("built-in harness-config keeps rendered shell examples inert", () =>
     provideTmpdirInstance(
       (dir) =>
         Effect.gen(function* () {
-          const home = process.env.KILO_TEST_HOME
-          process.env.KILO_TEST_HOME = dir
+          const home = process.env.HARNESS_TEST_HOME
+          process.env.HARNESS_TEST_HOME = dir
           yield* Effect.addFinalizer(() =>
             Effect.sync(() => {
-              process.env.KILO_TEST_HOME = home
+              process.env.HARNESS_TEST_HOME = home
             }),
           )
 
@@ -177,12 +175,12 @@ Use this skill.
               }),
           }
 
-          const result = yield* tool.execute({ name: "kilo-config" }, ctx)
+          const result = yield* tool.execute({ name: "harness-config" }, ctx)
 
           expect(result.metadata.dir).toBe("builtin")
           expect(result.output).toContain("Finding a named command")
-          expect(result.output).toContain("~/.config/kilo/")
-          expect(result.output).toContain("~/.kilocode/")
+          expect(result.output).toContain("~/.config/harness/")
+          expect(result.output).toContain("~/.harness/")
           expect(result.output).toContain("**/command/")
           expect(result.output).toContain("explicit search")
           expect(result.output).toContain("`` !`cmd` ``")
@@ -192,5 +190,4 @@ Use this skill.
       { git: true },
     ),
   )
-  // kilocode_change end
 })

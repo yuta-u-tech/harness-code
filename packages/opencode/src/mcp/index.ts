@@ -1,11 +1,9 @@
-// kilocode_change start
 // The MCP SDK only sets windowsHide:true in Electron (checks `'type' in process`).
 // Bun's process object lacks `type`, so stdio transports flash a CMD window on
 // every MCP server start. We patch it before the SDK is imported.
 if (process.platform === "win32" && !("type" in process)) {
-  Object.defineProperty(process, "type", { value: "kilo-bun", configurable: true })
+  Object.defineProperty(process, "type", { value: "harness-bun", configurable: true })
 }
-// kilocode_change end
 
 import path from "node:path"
 import { pathToFileURL } from "node:url"
@@ -33,16 +31,16 @@ import { FSUtil } from "@opencode-ai/core/fs-util"
 import { McpOAuthPendingProvider, McpOAuthProvider, OAUTH_CALLBACK_PATH } from "./oauth-provider"
 import { McpOAuthCallback } from "./oauth-callback"
 import { McpAuth } from "./auth"
-import { probe } from "@/kilocode/mcp/sse-probe" // kilocode_change - normalize the optional GET stream probe
+import { probe } from "@/harness/mcp/sse-probe"
 import { EventV2Bridge } from "@/event-v2-bridge"
 import { TuiEvent } from "@/server/tui-event"
 import { Cause, Effect, Exit, Layer, Context, Schema, Stream } from "effect"
 import { EffectBridge } from "@/effect/bridge"
-import { model as modelEnv } from "@/kilocode/process/env" // kilocode_change
+import { model as modelEnv } from "@/harness/process/env"
 import { InstanceState } from "@/effect/instance-state"
 import { ChildProcess, ChildProcessSpawner } from "effect/unstable/process"
 import { CrossSpawnSpawner } from "@opencode-ai/core/cross-spawn-spawner"
-import * as SandboxNetwork from "@/kilocode/sandbox/network" // kilocode_change
+import * as SandboxNetwork from "@/harness/sandbox/network"
 import { McpCatalog } from "./catalog"
 import { McpEvent } from "@opencode-ai/schema/mcp-event"
 import { McpBrowser } from "./browser"
@@ -50,18 +48,17 @@ import { McpBrowser } from "./browser"
 const DEFAULT_TIMEOUT = 30_000
 const CLIENT_OPTIONS = {
   capabilities: {
-    // Upstream issue anomalyco/opencode#11948 // kilocode_change
+    // Upstream issue anomalyco/opencode#11948
     // sampling: {},
-    // Upstream issue anomalyco/opencode#23066 // kilocode_change
+    // Upstream issue anomalyco/opencode#23066
     // elicitation: {},
-    // Upstream issue anomalyco/opencode#2308 // kilocode_change
+    // Upstream issue anomalyco/opencode#2308
     roots: {},
-    // Upstream issue anomalyco/opencode#28567 // kilocode_change
+    // Upstream issue anomalyco/opencode#28567
     // tasks: {},
   },
 } satisfies ClientOptions
 
-// kilocode_change start - inject --rm for Docker containers to prevent stopped container accumulation
 export function ensureDockerRm(cmd: string, args: string[]): string[] {
   const isDocker = cmd === "docker" || cmd === "podman"
   if (!isDocker) return args
@@ -73,7 +70,6 @@ export function ensureDockerRm(cmd: string, args: string[]): string[] {
   result.splice(runIdx + 1, 0, "--rm")
   return result
 }
-// kilocode_change end
 
 export const Resource = Schema.Struct({
   name: Schema.String,
@@ -99,7 +95,7 @@ export class NotFoundError extends Schema.TaggedErrorClass<NotFoundError>()("MCP
 type MCPClient = Client
 
 function createClient(directory: string) {
-  const client = new Client({ name: "kilo", version: InstallationVersion }, CLIENT_OPTIONS) // kilocode_change
+  const client = new Client({ name: "harness", version: InstallationVersion }, CLIENT_OPTIONS)
   client.setRequestHandler(ListRootsRequestSchema, () =>
     Promise.resolve({ roots: [{ uri: pathToFileURL(directory).href }] }),
   )
@@ -136,7 +132,6 @@ export type Status = Schema.Schema.Type<typeof Status>
 type TransportWithAuth = StreamableHTTPClientTransport | SSEClientTransport
 const pendingOAuthTransports = new Map<string, { transport: TransportWithAuth; provider?: McpOAuthPendingProvider }>()
 
-// kilocode_change start - a pending flow is pinned by identity so the token exchange never
 // re-resolves it by name after a yield, and every failing exit releases it
 type PendingFlow = { transport: TransportWithAuth; provider?: McpOAuthPendingProvider }
 
@@ -147,7 +142,6 @@ function releaseFlow(mcpName: string, flow: PendingFlow): Effect.Effect<void> {
   if (!pending || pending.provider === flow.provider) pendingOAuthTransports.delete(mcpName)
   return Effect.tryPromise(() => flow.transport.close()).pipe(Effect.ignore)
 }
-// kilocode_change end
 
 // Prompt cache types
 type PromptInfo = Awaited<ReturnType<MCPClient["listPrompts"]>>["prompts"][number]
@@ -174,13 +168,10 @@ interface AuthResult {
   authorizationUrl: string
   oauthState: string
   client?: MCPClient
-  // kilocode_change start - identifies the flow that opened the browser
   provider?: McpOAuthPendingProvider
   transport?: TransportWithAuth
-  // kilocode_change end
 }
 
-// kilocode_change start - the SDK puts an empty `message` and the OAuth error code on
 // `errorCode`, so a failure must fall back to the code instead of printing nothing
 type BrowserCallback = { ok: true; code: string } | { ok: false; error: Error }
 
@@ -191,7 +182,6 @@ function oauthReason(error: unknown): string {
   if (message && code) return `${message} (${code})`
   return message || code || error.name
 }
-// kilocode_change end
 
 // --- Effect Service ---
 
@@ -214,10 +204,8 @@ export interface McpTool {
   /** Shared cached definition; consumers must copy rather than mutate it. */
   readonly def: MCPToolDef
   readonly client: MCPClient
-  // kilocode_change start - identifies the owning server for MCP Apps routing
   /** The MCP server name this tool belongs to. */
   readonly clientName: string
-  // kilocode_change end
   readonly timeout?: number
 }
 
@@ -332,7 +320,7 @@ const layer = Layer.effect(
           transport: new StreamableHTTPClientTransport(url, {
             authProvider,
             requestInit: mcp.headers ? { headers: mcp.headers } : undefined,
-            fetch: probe(), // kilocode_change - a non-SSE body on the GET probe must not start a reconnect loop
+            fetch: probe(),
           }),
         },
         {
@@ -375,7 +363,7 @@ const layer = Layer.effect(
                 return events
                   .publish(TuiEvent.ToastShow, {
                     title: "MCP Authentication Required",
-                    message: `Server "${key}" requires authentication. Run: kilo mcp auth ${key}`, // kilocode_change
+                    message: `Server "${key}" requires authentication. Run: harness mcp auth ${key}`,
                     variant: "warning",
                     duration: 8000,
                   })
@@ -403,27 +391,23 @@ const layer = Layer.effect(
       mcp: ConfigMCPV1.Info & { type: "local" },
     ) {
       const [cmd, ...args] = mcp.command
-      const finalArgs = ensureDockerRm(cmd, args) // kilocode_change
+      const finalArgs = ensureDockerRm(cmd, args)
       const baseDir = yield* InstanceState.directory
       const cwd = mcp.cwd ? path.resolve(baseDir, mcp.cwd) : baseDir
-      const bridge = yield* EffectBridge.make() // kilocode_change - drain child stderr without writing over the TUI
+      const bridge = yield* EffectBridge.make()
       const transport = new StdioClientTransport({
         stderr: "pipe",
         command: cmd,
-        args: finalArgs, // kilocode_change
+        args: finalArgs,
         cwd,
-        // kilocode_change start - local MCPs must not inherit backend credentials
         env: modelEnv({
           ...(cmd === "opencode" ? { BUN_BE_BUN: "1" } : {}),
           ...mcp.environment,
         }),
-        // kilocode_change end
       })
-      // kilocode_change start - a piped stderr stream must be consumed or verbose MCP servers can block
       transport.stderr?.on("data", (chunk: Buffer) => {
         bridge.fork(Effect.logInfo("mcp stderr", { key, output: chunk.toString() }))
       })
-      // kilocode_change end
 
       const connectTimeout = mcp.timeout ?? DEFAULT_TIMEOUT
       return yield* connectTransport(transport, connectTimeout).pipe(
@@ -751,11 +735,9 @@ const layer = Layer.effect(
         }
         const timeout = requestTimeout(s, clientName, mcpConfig, defaultTimeout)
         for (const def of listed) {
-          const tool = { def, client, clientName, timeout } // kilocode_change - clientName for MCP Apps routing
-          // kilocode_change start - preserve remote MCP authority on the native entry for every execution path
+          const tool = { def, client, clientName, timeout }
           result[McpCatalog.toolName(clientName, def.name)] =
             entry?.type === "remote" ? SandboxNetwork.remote(tool) : tool
-          // kilocode_change end
         }
       }
       return result
@@ -776,7 +758,6 @@ const layer = Layer.effect(
           ),
           ([clientName, client]) =>
             McpCatalog.collect(
-              // kilocode_change - distinguish collection from direct network fetch
               clientName,
               client,
               (c) => listFn(c, requestTimeout(s, clientName, cfg.mcp?.[clientName], cfg.experimental?.mcp_timeout)),
@@ -878,9 +859,7 @@ const layer = Layer.effect(
       return mcpConfig
     })
 
-    // kilocode_change start - `opts?: { callback?: boolean }` parameter is Kilo-specific
     const startAuth = Effect.fn("MCP.startAuth")(function* (mcpName: string, opts?: { callback?: boolean }) {
-      // kilocode_change end
       const mcpConfig = yield* requireMcpConfig(mcpName)
       if (mcpConfig.type !== "remote") throw new Error(`MCP server ${mcpName} is not a remote server`)
       if (mcpConfig.oauth === false) throw new Error(`MCP server ${mcpName} has OAuth explicitly disabled`)
@@ -895,11 +874,9 @@ const layer = Layer.effect(
         oauthConfig?.redirectUri ??
         (oauthConfig?.callbackPort ? `http://127.0.0.1:${oauthConfig.callbackPort}${OAUTH_CALLBACK_PATH}` : undefined)
 
-      // kilocode_change start - authenticate() defers binding the callback port until a redirect is needed
       if (opts?.callback !== false) {
         yield* Effect.promise(() => McpOAuthCallback.ensureRunning(effectiveRedirectUri))
       }
-      // kilocode_change end
 
       const oauthState = Array.from(crypto.getRandomValues(new Uint8Array(32)))
         .map((b) => b.toString(16).padStart(2, "0"))
@@ -921,7 +898,6 @@ const layer = Layer.effect(
         },
         auth,
       )
-      // kilocode_change - the flow owns its state in memory; it must not be read back
       // from the process-shared mcp-auth.json when the browser returns
       authProvider.pinState(oauthState)
 
@@ -960,7 +936,7 @@ const layer = Layer.effect(
       mcpName: string,
       onAuthorization?: (authorizationUrl: string) => void,
     ) {
-      const result: AuthResult = yield* startAuth(mcpName, { callback: false }) // kilocode_change
+      const result: AuthResult = yield* startAuth(mcpName, { callback: false })
       if (!result.authorizationUrl) {
         const client = "client" in result ? result.client : undefined
         const mcpConfig = yield* requireMcpConfig(mcpName).pipe(
@@ -980,7 +956,6 @@ const layer = Layer.effect(
         const s = yield* InstanceState.get(state)
         return yield* storeClient(s, mcpName, client, listed, client.getInstructions()?.trim(), mcpConfig.timeout)
       }
-      // kilocode_change start - bind only after redirect exists, and clean up if binding fails
       const mcpConfig = yield* getMcpConfig(mcpName)
       if (!mcpConfig) return { status: "failed", error: "MCP config not found after auth" } as Status
       if (mcpConfig.type !== "remote")
@@ -1004,7 +979,6 @@ const layer = Layer.effect(
         yield* Effect.tryPromise(() => pending?.transport.close() ?? Promise.resolve()).pipe(Effect.ignore)
         return { status: "failed", error: err.message } as Status
       }
-      // kilocode_change end
 
       yield* Effect.logInfo("opening browser for oauth", {
         mcpName,
@@ -1013,14 +987,12 @@ const layer = Layer.effect(
       })
 
       const callbackPromise = McpOAuthCallback.waitForCallback(result.oauthState, mcpName)
-      // kilocode_change start - settle the callback before the browser can fire it: a
       // rejection with no handler attached is reported as an unhandled rejection, and the
       // failing step has to be named instead of escaping as an unnamed defect
       const callbackSettled = callbackPromise.then(
         (code): BrowserCallback => ({ ok: true, code }),
         (error): BrowserCallback => ({ ok: false, error: error instanceof Error ? error : new Error(String(error)) }),
       )
-      // kilocode_change end
       onAuthorization?.(result.authorizationUrl)
 
       yield* browser.open(result.authorizationUrl).pipe(
@@ -1029,12 +1001,11 @@ const layer = Layer.effect(
         }),
       )
 
-      // kilocode_change start
       const callback = yield* Effect.promise(() => callbackSettled)
       const flow: PendingFlow = { transport: result.transport!, provider: result.provider }
       if (!callback.ok) {
         // A newer attempt for the same server can take this flow's callback listener over
-        // (another `kilo mcp auth` process); the replaced flow is named, not a browser failure.
+        // (another `harness mcp auth` process); the replaced flow is named, not a browser failure.
         if (McpOAuthCallback.isReplaced(callback.error)) {
           yield* releaseFlow(mcpName, flow)
           return {
@@ -1063,10 +1034,8 @@ const layer = Layer.effect(
       }
 
       return yield* completeAuth(mcpName, callback.code, flow)
-      // kilocode_change end
     })
 
-    // kilocode_change start - complete a flow that was already matched to its owner, so the
     // token exchange cannot be redirected onto another attempt that replaced the entry
     const completeAuth = Effect.fnUntraced(function* (mcpName: string, authorizationCode: string, flow: PendingFlow) {
       const failure = yield* Effect.tryPromise({
@@ -1099,7 +1068,6 @@ const layer = Layer.effect(
 
       return yield* completeAuth(mcpName, authorizationCode, pending)
     })
-    // kilocode_change end
 
     const removeAuth = Effect.fn("MCP.removeAuth")(function* (mcpName: string) {
       yield* auth.remove(mcpName)

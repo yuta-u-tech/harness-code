@@ -1,2 +1,1 @@
-// kilocode_change - new file
-export { SuggestTool } from "../kilocode/suggestion/tool"
+export { SuggestTool } from "../harness/suggestion/tool"

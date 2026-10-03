@@ -14,17 +14,15 @@ import { resetDatabase } from "../fixture/db"
 import { disposeAllInstances, tmpdir, tmpdirScoped } from "../fixture/fixture"
 import { testEffect } from "../lib/effect"
 
-// kilocode_change start - PTY route tests do not need an indexing worker per temp project;
 // detached indexing startup races PTY setup and can exhaust the Darwin test deadline.
-process.env.KILO_DISABLE_CODEBASE_INDEXING = "vscode-no-workspace"
-// kilocode_change end
+process.env.HARNESS_DISABLE_CODEBASE_INDEXING = "vscode-no-workspace"
 
 const context = Context.empty() as Context.Context<unknown>
 const testPty = process.platform === "win32" ? test.skip : test
 
 function request(route: string, directory: string, init: RequestInit = {}) {
   const headers = new Headers(init.headers)
-  headers.set("x-kilo-directory", directory)
+  headers.set("x-harness-directory", directory)
   return HttpApiApp.webHandler().handler(
     new Request(`http://localhost${route}`, {
       ...init,
@@ -58,7 +56,7 @@ const effectIt = testEffect(
   ),
 )
 
-const directoryHeader = (dir: string) => HttpClientRequest.setHeader("x-kilo-directory", dir)
+const directoryHeader = (dir: string) => HttpClientRequest.setHeader("x-harness-directory", dir)
 
 const serverUrl = () => HttpServer.HttpServer.use((server) => Effect.succeed(HttpServer.formatAddress(server.address)))
 
@@ -122,7 +120,7 @@ describe("v2 pty HttpApi", () => {
 
       const token = await request(`/api/pty/${info.id}/connect-token`, tmp.path, {
         method: "POST",
-        headers: { "x-kilo-ticket": "1" },
+        headers: { "x-harness-ticket": "1" },
       })
       expect(token.status).toBe(200)
       const ticket = Schema.decodeUnknownSync(Location.response(PtyTicket.ConnectToken))(await token.json()).data.ticket
@@ -134,7 +132,6 @@ describe("v2 pty HttpApi", () => {
       await request(`/api/pty/${info.id}`, tmp.path, { method: "DELETE" })
     }
   })
-  // kilocode_change start - portable live PTY coverage on Linux, macOS, and Windows CI
   effectIt.live("serves Agent Manager script terminal create, resize, input, output, exit, and remove routes", () =>
     Effect.gen(function* () {
       const dir = yield* tmpdirScoped({ git: true, config: { formatter: false, lsp: false } })
@@ -230,28 +227,26 @@ describe("v2 pty HttpApi", () => {
       expect(removed.status).toBe(204)
     }),
   )
-  // kilocode_change end
   ;(process.platform === "win32" ? effectIt.live.skip : effectIt.live)(
     "applies plugin shell environment before forced PTY values",
     () =>
       Effect.gen(function* () {
         const dir = yield* tmpdirScoped({ git: true, config: { formatter: false, lsp: false } })
-        // kilocode_change start - verify child env precedence and credential stripping through the canonical PTY route
         const previous = {
-          password: process.env.KILO_SERVER_PASSWORD,
-          username: process.env.KILO_SERVER_USERNAME,
+          password: process.env.HARNESS_SERVER_PASSWORD,
+          username: process.env.HARNESS_SERVER_USERNAME,
         }
         yield* Effect.acquireRelease(
           Effect.sync(() => {
-            process.env.KILO_SERVER_PASSWORD = "host-password"
-            process.env.KILO_SERVER_USERNAME = "host-username"
+            process.env.HARNESS_SERVER_PASSWORD = "host-password"
+            process.env.HARNESS_SERVER_USERNAME = "host-username"
           }),
           () =>
             Effect.sync(() => {
-              if (previous.password === undefined) delete process.env.KILO_SERVER_PASSWORD
-              else process.env.KILO_SERVER_PASSWORD = previous.password
-              if (previous.username === undefined) delete process.env.KILO_SERVER_USERNAME
-              else process.env.KILO_SERVER_USERNAME = previous.username
+              if (previous.password === undefined) delete process.env.HARNESS_SERVER_PASSWORD
+              else process.env.HARNESS_SERVER_PASSWORD = previous.password
+              if (previous.username === undefined) delete process.env.HARNESS_SERVER_USERNAME
+              else process.env.HARNESS_SERVER_USERNAME = previous.username
             }),
         )
         const plugin = path.join(dir, "plugin.ts")
@@ -266,10 +261,10 @@ describe("v2 pty HttpApi", () => {
               '    output.env.SHARED = "plugin"',
               '    output.env.PLUGIN = "plugin"',
               '    output.env.TERM = "plugin"',
-              '    output.env.KILO_TERMINAL = "plugin"',
-              '    output.env.KILO_PTY_ID = "plugin"',
-              '    output.env.KILO_SERVER_PASSWORD = "plugin-password"',
-              '    output.env.KILO_SERVER_USERNAME = "plugin-username"',
+              '    output.env.HARNESS_TERMINAL = "plugin"',
+              '    output.env.HARNESS_PTY_ID = "plugin"',
+              '    output.env.HARNESS_SERVER_PASSWORD = "plugin-password"',
+              '    output.env.HARNESS_SERVER_USERNAME = "plugin-username"',
               "    output.env.HOOK_CWD = input.cwd",
               "  },",
               "})",
@@ -290,17 +285,17 @@ describe("v2 pty HttpApi", () => {
             command: "/bin/sh",
             args: [
               "-c",
-              'printf "%s|%s|%s|%s|%s|%s|%s|%s|%s\\n" "$CALLER" "$SHARED" "$PLUGIN" "$TERM" "$KILO_TERMINAL" "$KILO_PTY_ID" "${KILO_SERVER_PASSWORD-unset}" "${KILO_SERVER_USERNAME-unset}" "$HOOK_CWD"; sleep 5',
+              'printf "%s|%s|%s|%s|%s|%s|%s|%s|%s\\n" "$CALLER" "$SHARED" "$PLUGIN" "$TERM" "$HARNESS_TERMINAL" "$HARNESS_PTY_ID" "${HARNESS_SERVER_PASSWORD-unset}" "${HARNESS_SERVER_USERNAME-unset}" "$HOOK_CWD"; sleep 5',
             ],
             cwd,
             env: {
               CALLER: "caller",
               SHARED: "caller",
               TERM: "caller",
-              KILO_TERMINAL: "caller",
-              KILO_PTY_ID: "caller",
-              KILO_SERVER_PASSWORD: "caller-password",
-              KILO_SERVER_USERNAME: "caller-username",
+              HARNESS_TERMINAL: "caller",
+              HARNESS_PTY_ID: "caller",
+              HARNESS_SERVER_PASSWORD: "caller-password",
+              HARNESS_SERVER_USERNAME: "caller-username",
             },
           }),
           Effect.flatMap(HttpClient.execute),
@@ -332,10 +327,9 @@ describe("v2 pty HttpApi", () => {
 
         const output = yield* takeUntil("caller|plugin|plugin|xterm-256color")
         expect(output).toContain(`caller|plugin|plugin|xterm-256color|1|${info.id}|||${cwd}`)
-        // kilocode_change end
         yield* write(new Socket.CloseEvent(1000, "done")).pipe(Effect.catch(() => Effect.void))
         yield* HttpClientRequest.delete(`/api/pty/${info.id}`).pipe(directoryHeader(dir), HttpClient.execute)
       }),
-    30_000, // kilocode_change - external plugin loading and websocket setup can exceed Bun's 5s default
+    30_000,
   )
 })

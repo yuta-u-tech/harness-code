@@ -15,14 +15,14 @@ import { Plugin } from "../../src/plugin"
 import { Provider } from "../../src/provider/provider"
 import { Skill } from "../../src/skill"
 import { Truncate } from "../../src/tool/truncate"
-import { MCP } from "../../src/mcp" // kilocode_change
+import { MCP } from "../../src/mcp"
 import { LocationServiceMap } from "@opencode-ai/core/location-services"
 import { InstanceBootstrap } from "../../src/project/bootstrap-service"
 import { InstanceBootstrap as InstanceBootstrapNode } from "../../src/project/bootstrap"
 
 const agentLayer = (flags: Partial<RuntimeFlags.Info> = {}) =>
   AppNodeBuilder.build(Agent.node, [
-    [MCP.node, Layer.mock(MCP.Service)({})], // kilocode_change
+    [MCP.node, Layer.mock(MCP.Service)({})],
     [RuntimeFlags.node, RuntimeFlags.layer(flags)],
     [
       InstanceBootstrapNode.node,
@@ -31,7 +31,7 @@ const agentLayer = (flags: Partial<RuntimeFlags.Info> = {}) =>
   ])
 
 const it = testEffect(agentLayer())
-const scout = testEffect(agentLayer({ experimentalScout: true })) // kilocode_change
+const scout = testEffect(agentLayer({ experimentalScout: true }))
 
 // Helper to evaluate permission for a tool with wildcard pattern
 function evalPerm(agent: Agent.Info | undefined, permission: string): PermissionV1.Action | undefined {
@@ -61,7 +61,7 @@ it.instance("returns default native agents when no config", () =>
     expect(names).toContain("plan")
     expect(names).toContain("general")
     expect(names).toContain("explore")
-    expect(names).not.toContain("scout") // kilocode_change
+    expect(names).not.toContain("scout")
     expect(names).toContain("compaction")
     expect(names).toContain("title")
     expect(names).toContain("summary")
@@ -144,7 +144,6 @@ it.instance("explore agent asks for external directories and allows whitelisted 
   }),
 )
 
-// kilocode_change start - Scout is opt-in and owns repository research permissions
 scout.instance("scout agent allows repo cloning and repo cache reads", () =>
   Effect.gen(function* () {
     const agent = yield* load((svc) => svc.get("scout"))
@@ -176,7 +175,6 @@ scout.instance(
     }),
   {
     config: {
-      // kilocode_change - Scout-backed Kilo agents use the supported references config
       references: {
         effect: "github.com/effect/effect-smol",
         effectFull: {
@@ -191,7 +189,6 @@ scout.instance(
     },
   },
 )
-// kilocode_change end
 
 it.instance("general agent denies todo tools", () =>
   Effect.gen(function* () {
@@ -631,7 +628,7 @@ it.instance(
   () =>
     Effect.gen(function* () {
       const test = yield* TestInstance
-      const skillDir = path.join(test.directory, ".kilo", "skill", "perm-skill") // kilocode_change
+      const skillDir = path.join(test.directory, ".harness", "skill", "perm-skill")
       yield* Effect.promise(() =>
         Bun.write(
           path.join(skillDir, "SKILL.md"),

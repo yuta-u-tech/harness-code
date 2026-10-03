@@ -11,33 +11,27 @@ const Color = Schema.Union([
 
 const AgentSchema = Schema.StructWithRest(
   Schema.Struct({
-    model: Schema.optional(Schema.NullOr(Schema.String)), // kilocode_change - nullable for delete sentinel
-    // kilocode_change start - nullable for delete sentinel
+    model: Schema.optional(Schema.NullOr(Schema.String)),
     variant: Schema.optional(Schema.NullOr(Schema.String)).annotate({
       description: "Default model variant for this agent (applies only when using the agent's configured model).",
     }),
-    // kilocode_change end
-    temperature: Schema.optional(Schema.NullOr(Schema.Finite)), // kilocode_change - nullable for delete sentinel
-    top_p: Schema.optional(Schema.NullOr(Schema.Finite)), // kilocode_change - nullable for delete sentinel
-    prompt: Schema.optional(Schema.NullOr(Schema.String)), // kilocode_change - nullable for delete sentinel
+    temperature: Schema.optional(Schema.NullOr(Schema.Finite)),
+    top_p: Schema.optional(Schema.NullOr(Schema.Finite)),
+    prompt: Schema.optional(Schema.NullOr(Schema.String)),
     tools: Schema.optional(Schema.Record(Schema.String, Schema.Boolean)).annotate({
       description: "@deprecated Use 'permission' field instead",
     }),
     disable: Schema.optional(Schema.Boolean),
-    // kilocode_change start - nullable for delete sentinel
     description: Schema.optional(Schema.NullOr(Schema.String)).annotate({
       description: "Description of when to use the agent",
     }),
-    // kilocode_change end
     mode: Schema.optional(Schema.Literals(["subagent", "primary", "all"])),
-    // kilocode_change start - typed metadata carriers so they never fall into `options` (provider params)
     displayName: Schema.optional(Schema.String).annotate({
       description: "Human-readable name shown in the UI (e.g. for organization or marketplace agents)",
     }),
     source: Schema.optional(Schema.String).annotate({
       description: "Origin marker for managed agents (organization | global | project)",
     }),
-    // kilocode_change end
     hidden: Schema.optional(Schema.Boolean).annotate({
       description: "Hide this subagent from the @ autocomplete menu (default: false, only applies to mode: subagent)",
     }),
@@ -45,11 +39,9 @@ const AgentSchema = Schema.StructWithRest(
     color: Schema.optional(Color).annotate({
       description: "Hex color code (e.g., #FF5733) or theme color (e.g., primary)",
     }),
-    // kilocode_change start - nullable for delete sentinel
     steps: Schema.optional(Schema.NullOr(PositiveInt)).annotate({
       description: "Maximum number of agentic iterations before forcing text-only response",
     }),
-    // kilocode_change end
     maxSteps: Schema.optional(PositiveInt).annotate({ description: "@deprecated Use 'steps' field instead." }),
     permission: Schema.optional(ConfigPermissionV1.Info),
   }),
@@ -65,8 +57,8 @@ const KNOWN_KEYS = new Set([
   "temperature",
   "top_p",
   "mode",
-  "displayName", // kilocode_change
-  "source", // kilocode_change
+  "displayName",
+  "source",
   "hidden",
   "color",
   "steps",
@@ -75,7 +67,7 @@ const KNOWN_KEYS = new Set([
   "permission",
   "disable",
   "tools",
-  "requirements", // kilocode_change - ignore declarations from removed agent requirements feature
+  "requirements",
 ])
 
 const normalize = (agent: Schema.Schema.Type<typeof AgentSchema>): Schema.Schema.Type<typeof AgentSchema> => {
@@ -95,10 +87,8 @@ const normalize = (agent: Schema.Schema.Type<typeof AgentSchema>): Schema.Schema
   }
   globalThis.Object.assign(permission, agent.permission)
 
-  // kilocode_change start - preserve null delete sentinel (?? would collapse null to maxSteps)
   const steps = agent.steps !== undefined ? agent.steps : agent.maxSteps
   return { ...agent, options, permission, ...(steps !== undefined ? { steps } : {}) }
-  // kilocode_change end
 }
 
 export const Info = AgentSchema.pipe(

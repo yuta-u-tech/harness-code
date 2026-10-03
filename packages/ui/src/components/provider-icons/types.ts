@@ -70,7 +70,7 @@ export const iconNames = [
   "kuae-cloud-coding-plan",
   "kiro",
   "kimi-for-coding",
-  "kilo",
+  "harness",
   "jiekou",
   "io-net",
   "inference",

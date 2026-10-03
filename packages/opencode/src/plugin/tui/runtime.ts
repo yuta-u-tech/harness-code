@@ -10,7 +10,7 @@ import {
   type TuiPluginStatus,
   type TuiSlotPlugin,
   type TuiTheme,
-} from "@kilocode/plugin/tui"
+} from "@harness/plugin/tui"
 import path from "path"
 import { fileURLToPath } from "url"
 import { TuiConfig } from "@/config/tui"
@@ -252,13 +252,11 @@ function createThemeInstaller(
     const src = Filesystem.resolveFilePath(root, file)
     const name = path.basename(src, path.extname(src))
     const source_dir = path.dirname(meta.source)
-    // kilocode_change start - install local themes into supported Kilo config directories
     const base = path.basename(source_dir)
     const local_dir =
-      base === ".kilo" || base === ".kilocode"
+      base === ".harness" || base === ".harness"
         ? path.join(source_dir, "themes")
-        : path.join(source_dir, ".kilo", "themes")
-    // kilocode_change end
+        : path.join(source_dir, ".harness", "themes")
     const dest_dir = meta.scope === "local" ? local_dir : path.join(Global.Path.config, "themes")
     const dest = path.join(dest_dir, `${name}.json`)
     const stat = await Filesystem.statAsync(src)
@@ -817,7 +815,7 @@ function defaultPluginOrigin(state: RuntimeState, spec: string): ConfigPlugin.Or
   return {
     spec,
     scope: "local",
-    source: state.api.state.path.config || path.join(state.directory, ".kilo", "tui.json"), // kilocode_change
+    source: state.api.state.path.config || path.join(state.directory, ".harness", "tui.json"),
   }
 }
 
@@ -1089,8 +1087,8 @@ async function load(input: {
       }).pipe(Effect.provide(AppNodeBuilder.build(RuntimeFlags.node))),
     )
     const pluginOrigins = config.plugin_origins ?? (await TuiConfig.pluginOrigins())
-    const records = Flag.KILO_PURE ? [] : pluginOrigins
-    if (Flag.KILO_PURE && pluginOrigins.length) {
+    const records = Flag.HARNESS_PURE ? [] : pluginOrigins
+    if (Flag.HARNESS_PURE && pluginOrigins.length) {
     }
 
     for (const item of internalTuiPlugins(flags)) {

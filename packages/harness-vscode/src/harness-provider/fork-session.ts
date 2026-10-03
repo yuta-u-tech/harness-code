@@ -1,0 +1,51 @@
+import type { Session, SessionStatus } from "@harness/sdk/v2/client"
+import type { HarnessConnectionService } from "../services/cli-backend"
+import { forkSession } from "../agent-manager/fork-session"
+import { isRunningStatus } from "../session-status"
+
+export interface ForkContext {
+  connection: HarnessConnectionService
+  post: (message: { type: "error"; message: string }) => void
+  register: (session: Session) => void
+  forked: (session: Session, sourceID: string) => void
+  status: (sessionID: string) => SessionStatus["type"] | undefined
+  directory: (sessionID: string) => string
+}
+
+export async function handleForkSession(ctx: ForkContext, sessionId: string, messageId?: string): Promise<void> {
+  const status =
+    ctx.status(sessionId) ??
+    (await Promise.resolve()
+      .then(() =>
+        ctx.connection.getClient().session.status({ directory: ctx.directory(sessionId) }, { throwOnError: true }),
+      )
+      .then((result) => result.data?.[sessionId]?.type ?? "idle")
+      .catch((e) => {
+        console.error("[Harness New] refreshForkStatus failed:", e)
+        return "busy" as SessionStatus["type"]
+      }))
+  if (isRunningStatus(status)) {
+    ctx.post({ type: "error", message: "Wait for the session to finish before forking it." })
+    return
+  }
+
+  await forkSession(
+    {
+      getClient: () => ctx.connection.getClient(),
+      state: undefined,
+      directory: ctx.directory(sessionId),
+      postError: (message) => ctx.post({ type: "error", message }),
+      registerWorktreeSession: () => {},
+      pushState: () => {},
+      notifyForked: (session) => {
+        ctx.register(session)
+        ctx.forked(session, sessionId)
+      },
+      registerSession: () => {},
+      log: (...args) => console.log("[Harness New] HarnessProvider:", ...args),
+    },
+    sessionId,
+    undefined,
+    messageId,
+  )
+}

@@ -5,9 +5,9 @@ import type {
   Plugin as PluginInstance,
   PluginModule,
   WorkspaceAdapter as PluginWorkspaceAdapter,
-} from "@kilocode/plugin"
+} from "@harness/plugin"
 import { Config } from "@/config/config"
-import { createKiloClient } from "@kilocode/sdk"
+import { createHarnessClient } from "@harness/sdk"
 import { ServerAuth } from "@/server/auth"
 import { CodexAuthPlugin } from "./openai/codex"
 import { Session } from "@/session/session"
@@ -28,9 +28,9 @@ import { InstanceState } from "@/effect/instance-state"
 import { errorMessage } from "@/util/error"
 import { PluginLoader } from "./loader"
 import { parsePluginSpecifier, readPluginId, readV1Plugin, resolvePluginId } from "./shared"
-import { KiloAuthPlugin } from "@kilocode/kilo-gateway" // kilocode_change
-import { AtomicChatPlugin } from "@kilocode/plugin-atomic-chat" // kilocode_change
-import { AnacondaDesktopPlugin } from "@/kilocode/anaconda-desktop/provider" // kilocode_change
+import { HarnessAuthPlugin } from "@harness/harness-gateway"
+import { AtomicChatPlugin } from "@harness/plugin-atomic-chat"
+import { AnacondaDesktopPlugin } from "@/harness/anaconda-desktop/provider"
 import { registerAdapter } from "@/control-plane/adapters"
 import type { WorkspaceAdapter } from "@/control-plane/types"
 import { RuntimeFlags } from "@/effect/runtime-flags"
@@ -69,9 +69,9 @@ export function experimentalWebSocketsEnabled(input: { enabled: boolean; channel
 // Built-in plugins that are directly imported (not installed from npm)
 function internalPlugins(flags: RuntimeFlags.Info): PluginInstance[] {
   return [
-    KiloAuthPlugin, // kilocode_change
-    AtomicChatPlugin, // kilocode_change
-    AnacondaDesktopPlugin, // kilocode_change
+    HarnessAuthPlugin,
+    AtomicChatPlugin,
+    AnacondaDesktopPlugin,
     // Temporary rollout: pre-release builds use WebSockets by default; releases require explicit opt-in.
     (input) =>
       CodexAuthPlugin(input, {
@@ -79,11 +79,8 @@ function internalPlugins(flags: RuntimeFlags.Info): PluginInstance[] {
       }),
     CopilotAuthPlugin,
     ModalPlugin,
-    // kilocode_change start
-    // kilocode_change - external auth plugins ship against @opencode-ai/plugin; bridge to our @kilocode/plugin types
     GitlabAuthPlugin as unknown as PluginInstance,
     PoeAuthPlugin as unknown as PluginInstance,
-    // kilocode_change end
     CloudflareWorkersAuthPlugin,
     CloudflareAIGatewayAuthPlugin,
     AzureAuthPlugin,
@@ -113,8 +110,7 @@ function getLegacyPlugins(mod: Record<string, unknown>) {
     if (seen.has(entry)) continue
     seen.add(entry)
     const plugin = getServerPlugin(entry)
-    // kilocode_change: skip named exports (e.g. constants from @kilocode/plugin-atomic-chat)
-    if (!plugin) continue // kilocode_change
+    if (!plugin) continue
     result.push(plugin)
   }
 
@@ -153,7 +149,7 @@ const layer = Layer.effect(
         const { Server } = yield* Effect.promise(() => import("../server/server"))
 
         const serverUrl = Server.url
-        const client = createKiloClient({
+        const client = createHarnessClient({
           baseUrl: serverUrl?.toString() ?? "http://localhost:4096",
           directory: ctx.directory,
           headers: ServerAuth.headers(),

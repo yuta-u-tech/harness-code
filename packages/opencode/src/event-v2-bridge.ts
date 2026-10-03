@@ -3,9 +3,9 @@
 import { LayerNode } from "@opencode-ai/core/effect/layer-node"
 import { InstanceRef, WorkspaceRef } from "@/effect/instance-ref"
 import { GlobalBus } from "@/bus/global"
-import { EventManifest } from "@/event-manifest" // kilocode_change
-import * as EventWire from "@/kilocode/event-wire" // kilocode_change
-import { batch } from "@/kilocode/event-v2-bridge" // kilocode_change
+import { EventManifest } from "@/event-manifest"
+import * as EventWire from "@/harness/event-wire"
+import { batch } from "@/harness/event-v2-bridge"
 import { EventV2 } from "@opencode-ai/core/event"
 import { Location } from "@opencode-ai/core/location"
 import { Project } from "@opencode-ai/core/project"
@@ -39,15 +39,12 @@ export const layer = Layer.effect(
       Effect.gen(function* () {
         const ctx = yield* InstanceRef
         const workspaceID = (yield* WorkspaceRef) ?? event.location?.workspaceID
-        // kilocode_change start - legacy bus and SSE consumers require the schema's encoded representation
-        const definition = EventManifest.Latest.get(event.type) // kilocode_change
+        const definition = EventManifest.Latest.get(event.type)
         const data = definition ? EventWire.encode(definition.data, event.data) : event.data
-        // kilocode_change end
         GlobalBus.emit("event", {
-          directory: event.location?.directory ?? ctx?.directory ?? "global", // kilocode_change - instance-less events are tagged "global" on the wire
+          directory: event.location?.directory ?? ctx?.directory ?? "global",
           project: ctx?.project.id,
           workspace: workspaceID,
-          // kilocode_change start - preserve encoded data and error phase for legacy consumers
           payload: {
             id: event.id,
             type: event.type,
@@ -57,14 +54,13 @@ export const layer = Layer.effect(
                 metadata: { phase: event.metadata.phase },
               }),
           },
-          // kilocode_change end
         })
         if (event.durable === undefined) return
         GlobalBus.emit("event", {
-          directory: event.location?.directory ?? ctx?.directory ?? "global", // kilocode_change - instance-less events are tagged "global" on the wire
+          directory: event.location?.directory ?? ctx?.directory ?? "global",
           project: ctx?.project.id,
           workspace: workspaceID,
-          ...(event.metadata?.fork === true && { [EventWire.copied]: true }), // kilocode_change
+          ...(event.metadata?.fork === true && { [EventWire.copied]: true }),
           payload: {
             type: "sync",
             syncEvent: {
@@ -72,7 +68,7 @@ export const layer = Layer.effect(
               type: EventV2.versionedType(event.type, event.durable.version),
               seq: event.durable.seq,
               aggregateID: event.durable.aggregateID,
-              data, // kilocode_change - encoded
+              data,
             },
           },
         })
@@ -80,11 +76,10 @@ export const layer = Layer.effect(
     )
     yield* Effect.addFinalizer(() => unsubscribe)
 
-    return Service.of({ ...events, publish, publishAll: batch(events) }) // kilocode_change
+    return Service.of({ ...events, publish, publishAll: batch(events) })
   }),
 )
 
-// kilocode_change - preserve legacy layer composition while EventV2 uses nodes
 export const defaultLayer = layer.pipe(Layer.provide(LayerNode.compile(EventV2.node)))
 
 export const node = LayerNode.make({ service: Service, layer: layer, deps: [EventV2.node] })

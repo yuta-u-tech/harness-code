@@ -4,8 +4,8 @@ import { Effect } from "effect"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { FileSystem } from "../filesystem"
-import { DecodeError, PixelLimitError, ResizerUnavailableError, SizeError } from "../image" // kilocode_change
-import { allowed, dimensions, MAX_DIMENSION, MAX_PIXELS } from "../kilocode/image-size" // kilocode_change
+import { DecodeError, PixelLimitError, ResizerUnavailableError, SizeError } from "../image"
+import { allowed, dimensions, MAX_DIMENSION, MAX_PIXELS } from "../harness/image-size"
 
 const JPEG_QUALITIES = [80, 85, 70, 55, 40]
 
@@ -28,7 +28,6 @@ export const make = Effect.gen(function* () {
       readonly maxBase64Bytes: number
     },
   ) {
-    // kilocode_change start - reject decompression bombs before Photon allocates native pixels
     const input = Buffer.from(content.content, "base64")
     const size = yield* Effect.try({
       try: () => dimensions(input),
@@ -42,10 +41,9 @@ export const make = Effect.gen(function* () {
         maxDimension: MAX_DIMENSION,
         maxPixels: MAX_PIXELS,
       })
-    // kilocode_change end
     const photon = yield* loadPhoton
     const decoded = yield* Effect.try({
-      try: () => photon.PhotonImage.new_from_byteslice(input), // kilocode_change
+      try: () => photon.PhotonImage.new_from_byteslice(input),
       catch: () => new DecodeError({ resource }),
     })
     try {

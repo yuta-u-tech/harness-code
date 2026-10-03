@@ -1,5 +1,5 @@
-import { KiloLogo } from "./kilo-logo" // kilocode_change
+import { HarnessLogo } from "./harness-logo"
 
 export function Logo() {
-  return <KiloLogo /> // kilocode_change
+  return <HarnessLogo />
 }

@@ -13,13 +13,13 @@ import { testEffect } from "../lib/effect"
 const testStateLayer = Layer.effectDiscard(
   Effect.gen(function* () {
     const original = {
-      KILO_SERVER_PASSWORD: Flag.KILO_SERVER_PASSWORD,
+      HARNESS_SERVER_PASSWORD: Flag.HARNESS_SERVER_PASSWORD,
     }
-    Flag.KILO_SERVER_PASSWORD = "secret"
+    Flag.HARNESS_SERVER_PASSWORD = "secret"
     yield* Effect.promise(() => resetDatabase())
     yield* Effect.addFinalizer(() =>
       Effect.promise(async () => {
-        Flag.KILO_SERVER_PASSWORD = original.KILO_SERVER_PASSWORD
+        Flag.HARNESS_SERVER_PASSWORD = original.HARNESS_SERVER_PASSWORD
         await resetDatabase()
       }),
     )
@@ -64,16 +64,14 @@ describe("HttpApi CORS", () => {
     Effect.gen(function* () {
       const handler = HttpRouter.toWebHandler(
         HttpApiApp.createRoutes().pipe(
-          // kilocode_change start - keep the filewatcher-disable flag visible (see httpapi-instance-route-auth.test.ts)
           Layer.provide(
             ConfigProvider.layer(
               ConfigProvider.fromUnknown({
-                KILO_SERVER_PASSWORD: "secret",
-                KILO_EXPERIMENTAL_DISABLE_FILEWATCHER: process.env.KILO_EXPERIMENTAL_DISABLE_FILEWATCHER ?? "true",
+                HARNESS_SERVER_PASSWORD: "secret",
+                HARNESS_EXPERIMENTAL_DISABLE_FILEWATCHER: process.env.HARNESS_EXPERIMENTAL_DISABLE_FILEWATCHER ?? "true",
               }),
             ),
           ),
-          // kilocode_change end
         ),
         { disableLogger: true },
       ).handler

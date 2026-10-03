@@ -112,12 +112,12 @@ export type Event =
   | EventSuggestionShown
   | EventSuggestionAccepted
   | EventSuggestionDismissed
-  | EventKilocodeAgentManagerStart
-  | EventKilocodeAgentManagerRequested
-  | EventKilocodeAgentManagerCancelled
-  | EventKilocodeNotebookRequested
-  | EventKilocodeNotebookCancelled
-  | EventKiloSessionsRemoteStatusChanged
+  | EventHarnessAgentManagerStart
+  | EventHarnessAgentManagerRequested
+  | EventHarnessAgentManagerCancelled
+  | EventHarnessNotebookRequested
+  | EventHarnessNotebookCancelled
+  | EventHarnessSessionsRemoteStatusChanged
   | EventLspClientDiagnostics
   | EventMemoryStatus1
   | EventMemoryUpdated1
@@ -1161,12 +1161,12 @@ export type GlobalEvent = {
     | EventSuggestionShown
     | EventSuggestionAccepted
     | EventSuggestionDismissed
-    | EventKilocodeAgentManagerStart
-    | EventKilocodeAgentManagerRequested
-    | EventKilocodeAgentManagerCancelled
-    | EventKilocodeNotebookRequested
-    | EventKilocodeNotebookCancelled
-    | EventKiloSessionsRemoteStatusChanged
+    | EventHarnessAgentManagerStart
+    | EventHarnessAgentManagerRequested
+    | EventHarnessAgentManagerCancelled
+    | EventHarnessNotebookRequested
+    | EventHarnessNotebookCancelled
+    | EventHarnessSessionsRemoteStatusChanged
     | EventLspClientDiagnostics
     | EventMemoryStatus
     | EventMemoryUpdated
@@ -2217,7 +2217,7 @@ export type GlobalEvent = {
 export type LogLevel = "DEBUG" | "INFO" | "WARN" | "ERROR"
 
 /**
- * Server configuration for the kilo serve command
+ * Server configuration for the harness serve command
  */
 export type ServerConfig = {
   port?: number
@@ -2236,7 +2236,7 @@ export type HarnessRunner = {
 export type IndexingConfig = {
   enabled?: boolean
   provider?:
-    | "kilo"
+    | "harness"
     | "openai"
     | "ollama"
     | "openai-compatible"
@@ -2249,7 +2249,7 @@ export type IndexingConfig = {
   model?: string | null
   dimension?: number | null
   vectorStore?: "lancedb" | "qdrant"
-  kilo?: {
+  harness?: {
     apiKey?: string
     baseUrl?: string
     organizationId?: string
@@ -2649,7 +2649,7 @@ export type Config = {
   indexing?: IndexingConfig
   console?: {
     /**
-     * Width of the Kilo Console project context sidebar in pixels
+     * Width of the Harness Console project context sidebar in pixels
      */
     context_sidebar_width?: number
     diff_style?: "unified" | "split"
@@ -4232,7 +4232,7 @@ export type TuiKeybindListResponse = {
   keybinds: Array<TuiKeybindInfo>
 }
 
-export type KiloEmbeddingModelCatalog = {
+export type HarnessEmbeddingModelCatalog = {
   defaultModel: string
   models: Array<{
     id: string
@@ -4523,7 +4523,7 @@ export type ProviderUsageError = {
 export type ProviderUsageSnapshot = {
   id: string
   providerID: string
-  sourceKind: "kilo_managed" | "direct"
+  sourceKind: "harness_managed" | "direct"
   providerLabel: string
   planLabel: string
   sourceLabel: string
@@ -4812,7 +4812,7 @@ export type AnacondaDesktopOperationError = {
   message: string
 }
 
-export type KilocodeMigrateSessionsMigrated = {
+export type HarnessMigrateSessionsMigrated = {
   /**
    * Source session UUID.
    */
@@ -4835,11 +4835,11 @@ export type KilocodeMigrateSessionsMigrated = {
   dropped: Array<string>
 }
 
-export type KilocodeMigrateSessionsResult = {
+export type HarnessMigrateSessionsResult = {
   /**
    * Per-source outcomes, most recently modified source first.
    */
-  sessions: Array<KilocodeMigrateSessionsMigrated>
+  sessions: Array<HarnessMigrateSessionsMigrated>
   /**
    * Number of sources migrated by this call.
    */
@@ -4858,12 +4858,12 @@ export type MigrateFailedError = {
   message: string
 }
 
-export type KilocodeMigrateSessionsModel = {
+export type HarnessMigrateSessionsModel = {
   providerID: string
   modelID: string
 }
 
-export type KilocodeMigrateSessionsDiscovered = {
+export type HarnessMigrateSessionsDiscovered = {
   /**
    * Session UUID parsed from the transcript filename.
    */
@@ -4889,22 +4889,22 @@ export type KilocodeMigrateSessionsDiscovered = {
    * Number of user + assistant steps in the transcript.
    */
   messages: number
-  model?: KilocodeMigrateSessionsModel
+  model?: HarnessMigrateSessionsModel
   sessionID?: string
 }
 
-export type KilocodeMigrateSessionsDiscoverResult = {
+export type HarnessMigrateSessionsDiscoverResult = {
   /**
    * Discovered migratable sessions, most recently modified first.
    */
-  sessions: Array<KilocodeMigrateSessionsDiscovered>
+  sessions: Array<HarnessMigrateSessionsDiscovered>
   /**
    * Human-readable reasons for transcripts that were found but could not be previewed.
    */
   dropped: Array<string>
 }
 
-export type KilocodeSessionImportResult = {
+export type HarnessSessionImportResult = {
   ok: boolean
   id: string
   skipped?: boolean
@@ -5366,9 +5366,9 @@ export type EventSuggestionDismissed = {
   }
 }
 
-export type EventKilocodeAgentManagerStart = {
+export type EventHarnessAgentManagerStart = {
   id: string
-  type: "kilocode.agent_manager.start"
+  type: "harness.agent_manager.start"
   properties: {
     requestID: string
     sessionID: string
@@ -5389,15 +5389,15 @@ export type EventKilocodeAgentManagerStart = {
   }
 }
 
-export type EventKilocodeAgentManagerRequested = {
+export type EventHarnessAgentManagerRequested = {
   id: string
-  type: "kilocode.agent_manager.requested"
+  type: "harness.agent_manager.requested"
   properties: AgentManagerRequest
 }
 
-export type EventKilocodeAgentManagerCancelled = {
+export type EventHarnessAgentManagerCancelled = {
   id: string
-  type: "kilocode.agent_manager.cancelled"
+  type: "harness.agent_manager.cancelled"
   properties: {
     requestID: AgentManagerRequestId
     sessionID: string
@@ -5405,15 +5405,15 @@ export type EventKilocodeAgentManagerCancelled = {
   }
 }
 
-export type EventKilocodeNotebookRequested = {
+export type EventHarnessNotebookRequested = {
   id: string
-  type: "kilocode.notebook.requested"
+  type: "harness.notebook.requested"
   properties: NotebookRequest
 }
 
-export type EventKilocodeNotebookCancelled = {
+export type EventHarnessNotebookCancelled = {
   id: string
-  type: "kilocode.notebook.cancelled"
+  type: "harness.notebook.cancelled"
   properties: {
     requestID: NotebookRequestId
     sessionID: string
@@ -5421,9 +5421,9 @@ export type EventKilocodeNotebookCancelled = {
   }
 }
 
-export type EventKiloSessionsRemoteStatusChanged = {
+export type EventHarnessSessionsRemoteStatusChanged = {
   id: string
-  type: "kilo-sessions.remote-status-changed"
+  type: "harness-sessions.remote-status-changed"
   properties: {
     enabled: boolean
     connected: boolean
@@ -16401,9 +16401,9 @@ export type IndexingModelsError = IndexingModelsErrors[keyof IndexingModelsError
 
 export type IndexingModelsResponses = {
   /**
-   * Kilo embedding model catalog
+   * Harness embedding model catalog
    */
-  200: KiloEmbeddingModelCatalog
+  200: HarnessEmbeddingModelCatalog
 }
 
 export type IndexingModelsResponse = IndexingModelsResponses[keyof IndexingModelsResponses]
@@ -16470,26 +16470,26 @@ export type InstanceReloadResponses = {
 
 export type InstanceReloadResponse = InstanceReloadResponses[keyof InstanceReloadResponses]
 
-export type KiloProfileData = {
+export type GatewayProfileData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilo/profile"
+  url: "/harness/profile"
 }
 
-export type KiloProfileErrors = {
+export type GatewayProfileErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KiloProfileError = KiloProfileErrors[keyof KiloProfileErrors]
+export type GatewayProfileError = GatewayProfileErrors[keyof GatewayProfileErrors]
 
-export type KiloProfileResponses = {
+export type GatewayProfileResponses = {
   /**
    * Profile data
    */
@@ -16508,7 +16508,7 @@ export type KiloProfileResponses = {
     balance: {
       balance: number
     } | null
-    kiloPass: {
+    harnessPass: {
       currentPeriodBaseCreditsUsd: number
       currentPeriodUsageUsd: number
       currentPeriodBonusCreditsUsd: number
@@ -16518,30 +16518,30 @@ export type KiloProfileResponses = {
   }
 }
 
-export type KiloProfileResponse = KiloProfileResponses[keyof KiloProfileResponses]
+export type GatewayProfileResponse = GatewayProfileResponses[keyof GatewayProfileResponses]
 
-export type KiloAuthStatusData = {
+export type GatewayAuthStatusData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilo/auth-status"
+  url: "/harness/auth-status"
 }
 
-export type KiloAuthStatusErrors = {
+export type GatewayAuthStatusErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KiloAuthStatusError = KiloAuthStatusErrors[keyof KiloAuthStatusErrors]
+export type GatewayAuthStatusError = GatewayAuthStatusErrors[keyof GatewayAuthStatusErrors]
 
-export type KiloAuthStatusResponses = {
+export type GatewayAuthStatusResponses = {
   /**
-   * Kilo authentication status
+   * Harness authentication status
    */
   200: {
     authenticated: boolean
@@ -16550,28 +16550,28 @@ export type KiloAuthStatusResponses = {
   }
 }
 
-export type KiloAuthStatusResponse = KiloAuthStatusResponses[keyof KiloAuthStatusResponses]
+export type GatewayAuthStatusResponse = GatewayAuthStatusResponses[keyof GatewayAuthStatusResponses]
 
-export type KiloModesData = {
+export type GatewayModesData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilo/modes"
+  url: "/harness/modes"
 }
 
-export type KiloModesErrors = {
+export type GatewayModesErrors = {
   /**
    * Bad request
    */
   400: BadRequestError
 }
 
-export type KiloModesError = KiloModesErrors[keyof KiloModesErrors]
+export type GatewayModesError = GatewayModesErrors[keyof GatewayModesErrors]
 
-export type KiloModesResponses = {
+export type GatewayModesResponses = {
   /**
    * Organization modes list
    */
@@ -16604,9 +16604,9 @@ export type KiloModesResponses = {
   }
 }
 
-export type KiloModesResponse = KiloModesResponses[keyof KiloModesResponses]
+export type GatewayModesResponse = GatewayModesResponses[keyof GatewayModesResponses]
 
-export type KiloFimData = {
+export type GatewayFimData = {
   body?: {
     prefix: string
     suffix: string
@@ -16620,19 +16620,19 @@ export type KiloFimData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilo/fim"
+  url: "/harness/fim"
 }
 
-export type KiloFimErrors = {
+export type GatewayFimErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KiloFimError = KiloFimErrors[keyof KiloFimErrors]
+export type GatewayFimError = GatewayFimErrors[keyof GatewayFimErrors]
 
-export type KiloFimResponses = {
+export type GatewayFimResponses = {
   /**
    * Streaming FIM completion response
    */
@@ -16651,9 +16651,9 @@ export type KiloFimResponses = {
   }
 }
 
-export type KiloFimResponse = KiloFimResponses[keyof KiloFimResponses]
+export type GatewayFimResponse = GatewayFimResponses[keyof GatewayFimResponses]
 
-export type KiloEditData = {
+export type GatewayEditData = {
   body?: {
     provider?: string
     model?: string
@@ -16675,19 +16675,19 @@ export type KiloEditData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilo/edit"
+  url: "/harness/edit"
 }
 
-export type KiloEditErrors = {
+export type GatewayEditErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KiloEditError = KiloEditErrors[keyof KiloEditErrors]
+export type GatewayEditError = GatewayEditErrors[keyof GatewayEditErrors]
 
-export type KiloEditResponses = {
+export type GatewayEditResponses = {
   /**
    * Next Edit completion
    */
@@ -16700,9 +16700,9 @@ export type KiloEditResponses = {
   }
 }
 
-export type KiloEditResponse = KiloEditResponses[keyof KiloEditResponses]
+export type GatewayEditResponse = GatewayEditResponses[keyof GatewayEditResponses]
 
-export type KiloAudioTranscriptionsData = {
+export type GatewayAudioTranscriptionsData = {
   body?: {
     model: string
     input_audio: {
@@ -16718,19 +16718,19 @@ export type KiloAudioTranscriptionsData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilo/audio/transcriptions"
+  url: "/harness/audio/transcriptions"
 }
 
-export type KiloAudioTranscriptionsErrors = {
+export type GatewayAudioTranscriptionsErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KiloAudioTranscriptionsError = KiloAudioTranscriptionsErrors[keyof KiloAudioTranscriptionsErrors]
+export type GatewayAudioTranscriptionsError = GatewayAudioTranscriptionsErrors[keyof GatewayAudioTranscriptionsErrors]
 
-export type KiloAudioTranscriptionsResponses = {
+export type GatewayAudioTranscriptionsResponses = {
   /**
    * Transcription response
    */
@@ -16740,28 +16740,29 @@ export type KiloAudioTranscriptionsResponses = {
   }
 }
 
-export type KiloAudioTranscriptionsResponse = KiloAudioTranscriptionsResponses[keyof KiloAudioTranscriptionsResponses]
+export type GatewayAudioTranscriptionsResponse =
+  GatewayAudioTranscriptionsResponses[keyof GatewayAudioTranscriptionsResponses]
 
-export type KiloModelsImagesData = {
+export type GatewayModelsImagesData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilo/models/images"
+  url: "/harness/models/images"
 }
 
-export type KiloModelsImagesErrors = {
+export type GatewayModelsImagesErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KiloModelsImagesError = KiloModelsImagesErrors[keyof KiloModelsImagesErrors]
+export type GatewayModelsImagesError = GatewayModelsImagesErrors[keyof GatewayModelsImagesErrors]
 
-export type KiloModelsImagesResponses = {
+export type GatewayModelsImagesResponses = {
   /**
    * Image-capable model list
    */
@@ -16772,28 +16773,29 @@ export type KiloModelsImagesResponses = {
   }>
 }
 
-export type KiloModelsImagesResponse = KiloModelsImagesResponses[keyof KiloModelsImagesResponses]
+export type GatewayModelsImagesResponse = GatewayModelsImagesResponses[keyof GatewayModelsImagesResponses]
 
-export type KiloModelsTranscriptionsData = {
+export type GatewayModelsTranscriptionsData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilo/models/transcriptions"
+  url: "/harness/models/transcriptions"
 }
 
-export type KiloModelsTranscriptionsErrors = {
+export type GatewayModelsTranscriptionsErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KiloModelsTranscriptionsError = KiloModelsTranscriptionsErrors[keyof KiloModelsTranscriptionsErrors]
+export type GatewayModelsTranscriptionsError =
+  GatewayModelsTranscriptionsErrors[keyof GatewayModelsTranscriptionsErrors]
 
-export type KiloModelsTranscriptionsResponses = {
+export type GatewayModelsTranscriptionsResponses = {
   /**
    * Speech-to-text model list
    */
@@ -16803,29 +16805,29 @@ export type KiloModelsTranscriptionsResponses = {
   }>
 }
 
-export type KiloModelsTranscriptionsResponse =
-  KiloModelsTranscriptionsResponses[keyof KiloModelsTranscriptionsResponses]
+export type GatewayModelsTranscriptionsResponse =
+  GatewayModelsTranscriptionsResponses[keyof GatewayModelsTranscriptionsResponses]
 
-export type KiloNotificationsData = {
+export type GatewayNotificationsData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilo/notifications"
+  url: "/harness/notifications"
 }
 
-export type KiloNotificationsErrors = {
+export type GatewayNotificationsErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KiloNotificationsError = KiloNotificationsErrors[keyof KiloNotificationsErrors]
+export type GatewayNotificationsError = GatewayNotificationsErrors[keyof GatewayNotificationsErrors]
 
-export type KiloNotificationsResponses = {
+export type GatewayNotificationsResponses = {
   /**
    * Notifications list
    */
@@ -16842,9 +16844,9 @@ export type KiloNotificationsResponses = {
   }>
 }
 
-export type KiloNotificationsResponse = KiloNotificationsResponses[keyof KiloNotificationsResponses]
+export type GatewayNotificationsResponse = GatewayNotificationsResponses[keyof GatewayNotificationsResponses]
 
-export type KiloOrganizationSetData = {
+export type GatewayOrganizationSetData = {
   body?: {
     organizationId: string | null
   }
@@ -16853,28 +16855,28 @@ export type KiloOrganizationSetData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilo/organization"
+  url: "/harness/organization"
 }
 
-export type KiloOrganizationSetErrors = {
+export type GatewayOrganizationSetErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KiloOrganizationSetError = KiloOrganizationSetErrors[keyof KiloOrganizationSetErrors]
+export type GatewayOrganizationSetError = GatewayOrganizationSetErrors[keyof GatewayOrganizationSetErrors]
 
-export type KiloOrganizationSetResponses = {
+export type GatewayOrganizationSetResponses = {
   /**
    * Organization updated successfully
    */
   200: boolean
 }
 
-export type KiloOrganizationSetResponse = KiloOrganizationSetResponses[keyof KiloOrganizationSetResponses]
+export type GatewayOrganizationSetResponse = GatewayOrganizationSetResponses[keyof GatewayOrganizationSetResponses]
 
-export type KiloCloudSessionsData = {
+export type GatewayCloudSessionsData = {
   body?: never
   path?: never
   query?: {
@@ -16884,19 +16886,19 @@ export type KiloCloudSessionsData = {
     limit?: number
     gitUrl?: string
   }
-  url: "/kilo/cloud-sessions"
+  url: "/harness/cloud-sessions"
 }
 
-export type KiloCloudSessionsErrors = {
+export type GatewayCloudSessionsErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KiloCloudSessionsError = KiloCloudSessionsErrors[keyof KiloCloudSessionsErrors]
+export type GatewayCloudSessionsError = GatewayCloudSessionsErrors[keyof GatewayCloudSessionsErrors]
 
-export type KiloCloudSessionsResponses = {
+export type GatewayCloudSessionsResponses = {
   /**
    * Cloud sessions list
    */
@@ -16912,9 +16914,9 @@ export type KiloCloudSessionsResponses = {
   }
 }
 
-export type KiloCloudSessionsResponse = KiloCloudSessionsResponses[keyof KiloCloudSessionsResponses]
+export type GatewayCloudSessionsResponse = GatewayCloudSessionsResponses[keyof GatewayCloudSessionsResponses]
 
-export type KiloCloudSessionGetData = {
+export type GatewayCloudSessionGetData = {
   body?: never
   path: {
     id: string
@@ -16923,10 +16925,10 @@ export type KiloCloudSessionGetData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilo/cloud/session/{id}"
+  url: "/harness/cloud/session/{id}"
 }
 
-export type KiloCloudSessionGetErrors = {
+export type GatewayCloudSessionGetErrors = {
   /**
    * Bad request
    */
@@ -16937,9 +16939,9 @@ export type KiloCloudSessionGetErrors = {
   404: NotFoundError
 }
 
-export type KiloCloudSessionGetError = KiloCloudSessionGetErrors[keyof KiloCloudSessionGetErrors]
+export type GatewayCloudSessionGetError = GatewayCloudSessionGetErrors[keyof GatewayCloudSessionGetErrors]
 
-export type KiloCloudSessionGetResponses = {
+export type GatewayCloudSessionGetResponses = {
   /**
    * Cloud session data
    */
@@ -16972,9 +16974,9 @@ export type KiloCloudSessionGetResponses = {
   }
 }
 
-export type KiloCloudSessionGetResponse = KiloCloudSessionGetResponses[keyof KiloCloudSessionGetResponses]
+export type GatewayCloudSessionGetResponse = GatewayCloudSessionGetResponses[keyof GatewayCloudSessionGetResponses]
 
-export type KiloCloudSessionImportData = {
+export type GatewayCloudSessionImportData = {
   body?: {
     sessionId: string
   }
@@ -16983,10 +16985,10 @@ export type KiloCloudSessionImportData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilo/cloud/session/import"
+  url: "/harness/cloud/session/import"
 }
 
-export type KiloCloudSessionImportErrors = {
+export type GatewayCloudSessionImportErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
@@ -17001,9 +17003,9 @@ export type KiloCloudSessionImportErrors = {
   500: CloudSessionImportError
 }
 
-export type KiloCloudSessionImportError = KiloCloudSessionImportErrors[keyof KiloCloudSessionImportErrors]
+export type GatewayCloudSessionImportError = GatewayCloudSessionImportErrors[keyof GatewayCloudSessionImportErrors]
 
-export type KiloCloudSessionImportResponses = {
+export type GatewayCloudSessionImportResponses = {
   /**
    * Imported session info
    */
@@ -17017,9 +17019,10 @@ export type KiloCloudSessionImportResponses = {
   }
 }
 
-export type KiloCloudSessionImportResponse = KiloCloudSessionImportResponses[keyof KiloCloudSessionImportResponses]
+export type GatewayCloudSessionImportResponse =
+  GatewayCloudSessionImportResponses[keyof GatewayCloudSessionImportResponses]
 
-export type KilocodeResumeSessionData = {
+export type HarnessResumeSessionData = {
   body?: {
     messageID: string
     snapshotInitialization?: "wait"
@@ -17031,10 +17034,10 @@ export type KilocodeResumeSessionData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/session/{sessionID}/resume"
+  url: "/harness/session/{sessionID}/resume"
 }
 
-export type KilocodeResumeSessionErrors = {
+export type HarnessResumeSessionErrors = {
   /**
    * InvalidRequestError
    */
@@ -17045,18 +17048,18 @@ export type KilocodeResumeSessionErrors = {
   404: NotFoundError
 }
 
-export type KilocodeResumeSessionError = KilocodeResumeSessionErrors[keyof KilocodeResumeSessionErrors]
+export type HarnessResumeSessionError = HarnessResumeSessionErrors[keyof HarnessResumeSessionErrors]
 
-export type KilocodeResumeSessionResponses = {
+export type HarnessResumeSessionResponses = {
   /**
    * Session continuation accepted
    */
   200: boolean
 }
 
-export type KilocodeResumeSessionResponse = KilocodeResumeSessionResponses[keyof KilocodeResumeSessionResponses]
+export type HarnessResumeSessionResponse = HarnessResumeSessionResponses[keyof HarnessResumeSessionResponses]
 
-export type KilocodeDrainSessionData = {
+export type HarnessDrainSessionData = {
   body?: {
     token: string
   }
@@ -17067,10 +17070,10 @@ export type KilocodeDrainSessionData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/session/{sessionID}/drain"
+  url: "/harness/session/{sessionID}/drain"
 }
 
-export type KilocodeDrainSessionErrors = {
+export type HarnessDrainSessionErrors = {
   /**
    * Bad request
    */
@@ -17081,18 +17084,18 @@ export type KilocodeDrainSessionErrors = {
   404: NotFoundError
 }
 
-export type KilocodeDrainSessionError = KilocodeDrainSessionErrors[keyof KilocodeDrainSessionErrors]
+export type HarnessDrainSessionError = HarnessDrainSessionErrors[keyof HarnessDrainSessionErrors]
 
-export type KilocodeDrainSessionResponses = {
+export type HarnessDrainSessionResponses = {
   /**
    * Session work drained
    */
   200: boolean
 }
 
-export type KilocodeDrainSessionResponse = KilocodeDrainSessionResponses[keyof KilocodeDrainSessionResponses]
+export type HarnessDrainSessionResponse = HarnessDrainSessionResponses[keyof HarnessDrainSessionResponses]
 
-export type KilocodeSessionBoardData = {
+export type HarnessSessionBoardData = {
   body?: never
   path: {
     sessionID: string
@@ -17103,10 +17106,10 @@ export type KilocodeSessionBoardData = {
     before?: string
     limit?: number
   }
-  url: "/kilocode/session/{sessionID}/board"
+  url: "/harness/session/{sessionID}/board"
 }
 
-export type KilocodeSessionBoardErrors = {
+export type HarnessSessionBoardErrors = {
   /**
    * InvalidRequestError
    */
@@ -17125,18 +17128,18 @@ export type KilocodeSessionBoardErrors = {
   500: UnknownError1
 }
 
-export type KilocodeSessionBoardError = KilocodeSessionBoardErrors[keyof KilocodeSessionBoardErrors]
+export type HarnessSessionBoardError = HarnessSessionBoardErrors[keyof HarnessSessionBoardErrors]
 
-export type KilocodeSessionBoardResponses = {
+export type HarnessSessionBoardResponses = {
   /**
    * Shared board snapshot
    */
   200: SessionBoard
 }
 
-export type KilocodeSessionBoardResponse = KilocodeSessionBoardResponses[keyof KilocodeSessionBoardResponses]
+export type HarnessSessionBoardResponse = HarnessSessionBoardResponses[keyof HarnessSessionBoardResponses]
 
-export type KilocodeResetSessionBoardData = {
+export type HarnessResetSessionBoardData = {
   body?: {
     revision: number
   }
@@ -17147,10 +17150,10 @@ export type KilocodeResetSessionBoardData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/session/{sessionID}/board/reset"
+  url: "/harness/session/{sessionID}/board/reset"
 }
 
-export type KilocodeResetSessionBoardErrors = {
+export type HarnessResetSessionBoardErrors = {
   /**
    * InvalidRequestError
    */
@@ -17169,75 +17172,75 @@ export type KilocodeResetSessionBoardErrors = {
   500: UnknownError1
 }
 
-export type KilocodeResetSessionBoardError = KilocodeResetSessionBoardErrors[keyof KilocodeResetSessionBoardErrors]
+export type HarnessResetSessionBoardError = HarnessResetSessionBoardErrors[keyof HarnessResetSessionBoardErrors]
 
-export type KilocodeResetSessionBoardResponses = {
+export type HarnessResetSessionBoardResponses = {
   /**
    * Shared board after reset
    */
   200: SessionBoard
 }
 
-export type KilocodeResetSessionBoardResponse =
-  KilocodeResetSessionBoardResponses[keyof KilocodeResetSessionBoardResponses]
+export type HarnessResetSessionBoardResponse =
+  HarnessResetSessionBoardResponses[keyof HarnessResetSessionBoardResponses]
 
-export type KilocodeHeapSnapshotData = {
+export type HarnessHeapSnapshotData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/heap/snapshot"
+  url: "/harness/heap/snapshot"
 }
 
-export type KilocodeHeapSnapshotErrors = {
+export type HarnessHeapSnapshotErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KilocodeHeapSnapshotError = KilocodeHeapSnapshotErrors[keyof KilocodeHeapSnapshotErrors]
+export type HarnessHeapSnapshotError = HarnessHeapSnapshotErrors[keyof HarnessHeapSnapshotErrors]
 
-export type KilocodeHeapSnapshotResponses = {
+export type HarnessHeapSnapshotResponses = {
   /**
    * Heap snapshot file path
    */
   200: string
 }
 
-export type KilocodeHeapSnapshotResponse = KilocodeHeapSnapshotResponses[keyof KilocodeHeapSnapshotResponses]
+export type HarnessHeapSnapshotResponse = HarnessHeapSnapshotResponses[keyof HarnessHeapSnapshotResponses]
 
-export type KilocodeCommandFilesData = {
+export type HarnessCommandFilesData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/command/files"
+  url: "/harness/command/files"
 }
 
-export type KilocodeCommandFilesErrors = {
+export type HarnessCommandFilesErrors = {
   /**
    * Bad request
    */
   400: BadRequestError
 }
 
-export type KilocodeCommandFilesError = KilocodeCommandFilesErrors[keyof KilocodeCommandFilesErrors]
+export type HarnessCommandFilesError = HarnessCommandFilesErrors[keyof HarnessCommandFilesErrors]
 
-export type KilocodeCommandFilesResponses = {
+export type HarnessCommandFilesResponses = {
   /**
    * Command files
    */
   200: Array<CommandFile>
 }
 
-export type KilocodeCommandFilesResponse = KilocodeCommandFilesResponses[keyof KilocodeCommandFilesResponses]
+export type HarnessCommandFilesResponse = HarnessCommandFilesResponses[keyof HarnessCommandFilesResponses]
 
-export type KilocodeRemoveCommandData = {
+export type HarnessRemoveCommandData = {
   body?: {
     location: string
   }
@@ -17246,28 +17249,28 @@ export type KilocodeRemoveCommandData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/command/remove"
+  url: "/harness/command/remove"
 }
 
-export type KilocodeRemoveCommandErrors = {
+export type HarnessRemoveCommandErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KilocodeRemoveCommandError = KilocodeRemoveCommandErrors[keyof KilocodeRemoveCommandErrors]
+export type HarnessRemoveCommandError = HarnessRemoveCommandErrors[keyof HarnessRemoveCommandErrors]
 
-export type KilocodeRemoveCommandResponses = {
+export type HarnessRemoveCommandResponses = {
   /**
    * Command removed
    */
   200: boolean
 }
 
-export type KilocodeRemoveCommandResponse = KilocodeRemoveCommandResponses[keyof KilocodeRemoveCommandResponses]
+export type HarnessRemoveCommandResponse = HarnessRemoveCommandResponses[keyof HarnessRemoveCommandResponses]
 
-export type KilocodeRemoveSkillData = {
+export type HarnessRemoveSkillData = {
   body?: {
     location: string
   }
@@ -17276,28 +17279,28 @@ export type KilocodeRemoveSkillData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/skill/remove"
+  url: "/harness/skill/remove"
 }
 
-export type KilocodeRemoveSkillErrors = {
+export type HarnessRemoveSkillErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KilocodeRemoveSkillError = KilocodeRemoveSkillErrors[keyof KilocodeRemoveSkillErrors]
+export type HarnessRemoveSkillError = HarnessRemoveSkillErrors[keyof HarnessRemoveSkillErrors]
 
-export type KilocodeRemoveSkillResponses = {
+export type HarnessRemoveSkillResponses = {
   /**
    * Skill removed
    */
   200: boolean
 }
 
-export type KilocodeRemoveSkillResponse = KilocodeRemoveSkillResponses[keyof KilocodeRemoveSkillResponses]
+export type HarnessRemoveSkillResponse = HarnessRemoveSkillResponses[keyof HarnessRemoveSkillResponses]
 
-export type KilocodeRemoveAgentData = {
+export type HarnessRemoveAgentData = {
   body?: {
     name: string
     scope?: "global" | "project"
@@ -17307,56 +17310,56 @@ export type KilocodeRemoveAgentData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/agent/remove"
+  url: "/harness/agent/remove"
 }
 
-export type KilocodeRemoveAgentErrors = {
+export type HarnessRemoveAgentErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KilocodeRemoveAgentError = KilocodeRemoveAgentErrors[keyof KilocodeRemoveAgentErrors]
+export type HarnessRemoveAgentError = HarnessRemoveAgentErrors[keyof HarnessRemoveAgentErrors]
 
-export type KilocodeRemoveAgentResponses = {
+export type HarnessRemoveAgentResponses = {
   /**
    * Agent removed
    */
   200: boolean
 }
 
-export type KilocodeRemoveAgentResponse = KilocodeRemoveAgentResponses[keyof KilocodeRemoveAgentResponses]
+export type HarnessRemoveAgentResponse = HarnessRemoveAgentResponses[keyof HarnessRemoveAgentResponses]
 
-export type KilocodeMarketplaceListData = {
+export type HarnessMarketplaceListData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/marketplace"
+  url: "/harness/marketplace"
 }
 
-export type KilocodeMarketplaceListErrors = {
+export type HarnessMarketplaceListErrors = {
   /**
    * Bad request
    */
   400: BadRequestError
 }
 
-export type KilocodeMarketplaceListError = KilocodeMarketplaceListErrors[keyof KilocodeMarketplaceListErrors]
+export type HarnessMarketplaceListError = HarnessMarketplaceListErrors[keyof HarnessMarketplaceListErrors]
 
-export type KilocodeMarketplaceListResponses = {
+export type HarnessMarketplaceListResponses = {
   /**
    * Marketplace catalog and installed metadata
    */
   200: MarketplaceListResult
 }
 
-export type KilocodeMarketplaceListResponse = KilocodeMarketplaceListResponses[keyof KilocodeMarketplaceListResponses]
+export type HarnessMarketplaceListResponse = HarnessMarketplaceListResponses[keyof HarnessMarketplaceListResponses]
 
-export type KilocodeMarketplaceInstallData = {
+export type HarnessMarketplaceInstallData = {
   body?: {
     item: MarketplaceInstallItem
     target?: "project" | "global"
@@ -17369,29 +17372,29 @@ export type KilocodeMarketplaceInstallData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/marketplace/install"
+  url: "/harness/marketplace/install"
 }
 
-export type KilocodeMarketplaceInstallErrors = {
+export type HarnessMarketplaceInstallErrors = {
   /**
    * Bad request
    */
   400: BadRequestError
 }
 
-export type KilocodeMarketplaceInstallError = KilocodeMarketplaceInstallErrors[keyof KilocodeMarketplaceInstallErrors]
+export type HarnessMarketplaceInstallError = HarnessMarketplaceInstallErrors[keyof HarnessMarketplaceInstallErrors]
 
-export type KilocodeMarketplaceInstallResponses = {
+export type HarnessMarketplaceInstallResponses = {
   /**
    * Marketplace install result
    */
   200: MarketplaceInstallResult
 }
 
-export type KilocodeMarketplaceInstallResponse =
-  KilocodeMarketplaceInstallResponses[keyof KilocodeMarketplaceInstallResponses]
+export type HarnessMarketplaceInstallResponse =
+  HarnessMarketplaceInstallResponses[keyof HarnessMarketplaceInstallResponses]
 
-export type KilocodeMarketplaceRemoveData = {
+export type HarnessMarketplaceRemoveData = {
   body?: {
     item: MarketplaceItemRef
     scope: "project" | "global"
@@ -17401,29 +17404,29 @@ export type KilocodeMarketplaceRemoveData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/marketplace/remove"
+  url: "/harness/marketplace/remove"
 }
 
-export type KilocodeMarketplaceRemoveErrors = {
+export type HarnessMarketplaceRemoveErrors = {
   /**
    * Bad request
    */
   400: BadRequestError
 }
 
-export type KilocodeMarketplaceRemoveError = KilocodeMarketplaceRemoveErrors[keyof KilocodeMarketplaceRemoveErrors]
+export type HarnessMarketplaceRemoveError = HarnessMarketplaceRemoveErrors[keyof HarnessMarketplaceRemoveErrors]
 
-export type KilocodeMarketplaceRemoveResponses = {
+export type HarnessMarketplaceRemoveResponses = {
   /**
    * Marketplace removal result
    */
   200: MarketplaceRemoveResult
 }
 
-export type KilocodeMarketplaceRemoveResponse =
-  KilocodeMarketplaceRemoveResponses[keyof KilocodeMarketplaceRemoveResponses]
+export type HarnessMarketplaceRemoveResponse =
+  HarnessMarketplaceRemoveResponses[keyof HarnessMarketplaceRemoveResponses]
 
-export type KilocodeRemoveSnapshotData = {
+export type HarnessRemoveSnapshotData = {
   body?: {
     worktree: string
   }
@@ -17432,28 +17435,28 @@ export type KilocodeRemoveSnapshotData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/snapshot/remove"
+  url: "/harness/snapshot/remove"
 }
 
-export type KilocodeRemoveSnapshotErrors = {
+export type HarnessRemoveSnapshotErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KilocodeRemoveSnapshotError = KilocodeRemoveSnapshotErrors[keyof KilocodeRemoveSnapshotErrors]
+export type HarnessRemoveSnapshotError = HarnessRemoveSnapshotErrors[keyof HarnessRemoveSnapshotErrors]
 
-export type KilocodeRemoveSnapshotResponses = {
+export type HarnessRemoveSnapshotResponses = {
   /**
    * Snapshot repository removed
    */
   200: boolean
 }
 
-export type KilocodeRemoveSnapshotResponse = KilocodeRemoveSnapshotResponses[keyof KilocodeRemoveSnapshotResponses]
+export type HarnessRemoveSnapshotResponse = HarnessRemoveSnapshotResponses[keyof HarnessRemoveSnapshotResponses]
 
-export type KilocodeTeardownWorktreeData = {
+export type HarnessTeardownWorktreeData = {
   body?: {
     worktree: string
   }
@@ -17462,19 +17465,19 @@ export type KilocodeTeardownWorktreeData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/worktree/teardown"
+  url: "/harness/worktree/teardown"
 }
 
-export type KilocodeTeardownWorktreeErrors = {
+export type HarnessTeardownWorktreeErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KilocodeTeardownWorktreeError = KilocodeTeardownWorktreeErrors[keyof KilocodeTeardownWorktreeErrors]
+export type HarnessTeardownWorktreeError = HarnessTeardownWorktreeErrors[keyof HarnessTeardownWorktreeErrors]
 
-export type KilocodeTeardownWorktreeResponses = {
+export type HarnessTeardownWorktreeResponses = {
   /**
    * Worktree backend teardown result
    */
@@ -17483,29 +17486,28 @@ export type KilocodeTeardownWorktreeResponses = {
   }
 }
 
-export type KilocodeTeardownWorktreeResponse =
-  KilocodeTeardownWorktreeResponses[keyof KilocodeTeardownWorktreeResponses]
+export type HarnessTeardownWorktreeResponse = HarnessTeardownWorktreeResponses[keyof HarnessTeardownWorktreeResponses]
 
-export type KilocodeSnapshotPrepareData = {
+export type HarnessSnapshotPrepareData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/snapshot/prepare"
+  url: "/harness/snapshot/prepare"
 }
 
-export type KilocodeSnapshotPrepareErrors = {
+export type HarnessSnapshotPrepareErrors = {
   /**
    * Bad request
    */
   400: BadRequestError
 }
 
-export type KilocodeSnapshotPrepareError = KilocodeSnapshotPrepareErrors[keyof KilocodeSnapshotPrepareErrors]
+export type HarnessSnapshotPrepareError = HarnessSnapshotPrepareErrors[keyof HarnessSnapshotPrepareErrors]
 
-export type KilocodeSnapshotPrepareResponses = {
+export type HarnessSnapshotPrepareResponses = {
   /**
    * Snapshot repository preparation result
    */
@@ -17515,19 +17517,19 @@ export type KilocodeSnapshotPrepareResponses = {
   }
 }
 
-export type KilocodeSnapshotPrepareResponse = KilocodeSnapshotPrepareResponses[keyof KilocodeSnapshotPrepareResponses]
+export type HarnessSnapshotPrepareResponse = HarnessSnapshotPrepareResponses[keyof HarnessSnapshotPrepareResponses]
 
-export type KilocodeProviderUsageGetData = {
+export type HarnessProviderUsageGetData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/provider-usage"
+  url: "/harness/provider-usage"
 }
 
-export type KilocodeProviderUsageGetErrors = {
+export type HarnessProviderUsageGetErrors = {
   /**
    * Bad request
    */
@@ -17538,29 +17540,28 @@ export type KilocodeProviderUsageGetErrors = {
   503: EffectHttpApiErrorServiceUnavailable
 }
 
-export type KilocodeProviderUsageGetError = KilocodeProviderUsageGetErrors[keyof KilocodeProviderUsageGetErrors]
+export type HarnessProviderUsageGetError = HarnessProviderUsageGetErrors[keyof HarnessProviderUsageGetErrors]
 
-export type KilocodeProviderUsageGetResponses = {
+export type HarnessProviderUsageGetResponses = {
   /**
    * Current provider usage
    */
   200: ProviderUsage
 }
 
-export type KilocodeProviderUsageGetResponse =
-  KilocodeProviderUsageGetResponses[keyof KilocodeProviderUsageGetResponses]
+export type HarnessProviderUsageGetResponse = HarnessProviderUsageGetResponses[keyof HarnessProviderUsageGetResponses]
 
-export type KilocodeProviderUsageRefreshData = {
+export type HarnessProviderUsageRefreshData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/provider-usage/refresh"
+  url: "/harness/provider-usage/refresh"
 }
 
-export type KilocodeProviderUsageRefreshErrors = {
+export type HarnessProviderUsageRefreshErrors = {
   /**
    * Bad request
    */
@@ -17571,48 +17572,48 @@ export type KilocodeProviderUsageRefreshErrors = {
   503: EffectHttpApiErrorServiceUnavailable
 }
 
-export type KilocodeProviderUsageRefreshError =
-  KilocodeProviderUsageRefreshErrors[keyof KilocodeProviderUsageRefreshErrors]
+export type HarnessProviderUsageRefreshError =
+  HarnessProviderUsageRefreshErrors[keyof HarnessProviderUsageRefreshErrors]
 
-export type KilocodeProviderUsageRefreshResponses = {
+export type HarnessProviderUsageRefreshResponses = {
   /**
    * Refreshed provider usage
    */
   200: ProviderUsage
 }
 
-export type KilocodeProviderUsageRefreshResponse =
-  KilocodeProviderUsageRefreshResponses[keyof KilocodeProviderUsageRefreshResponses]
+export type HarnessProviderUsageRefreshResponse =
+  HarnessProviderUsageRefreshResponses[keyof HarnessProviderUsageRefreshResponses]
 
-export type KilocodeNotebookListData = {
+export type HarnessNotebookListData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/notebook"
+  url: "/harness/notebook"
 }
 
-export type KilocodeNotebookListErrors = {
+export type HarnessNotebookListErrors = {
   /**
    * Bad request
    */
   400: BadRequestError
 }
 
-export type KilocodeNotebookListError = KilocodeNotebookListErrors[keyof KilocodeNotebookListErrors]
+export type HarnessNotebookListError = HarnessNotebookListErrors[keyof HarnessNotebookListErrors]
 
-export type KilocodeNotebookListResponses = {
+export type HarnessNotebookListResponses = {
   /**
    * Pending notebook host requests
    */
   200: Array<NotebookRequest>
 }
 
-export type KilocodeNotebookListResponse = KilocodeNotebookListResponses[keyof KilocodeNotebookListResponses]
+export type HarnessNotebookListResponse = HarnessNotebookListResponses[keyof HarnessNotebookListResponses]
 
-export type KilocodeNotebookReplyData = {
+export type HarnessNotebookReplyData = {
   body?: {
     result: NotebookResult
   }
@@ -17623,10 +17624,10 @@ export type KilocodeNotebookReplyData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/notebook/{requestID}/reply"
+  url: "/harness/notebook/{requestID}/reply"
 }
 
-export type KilocodeNotebookReplyErrors = {
+export type HarnessNotebookReplyErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
@@ -17637,18 +17638,18 @@ export type KilocodeNotebookReplyErrors = {
   404: NotFoundError
 }
 
-export type KilocodeNotebookReplyError = KilocodeNotebookReplyErrors[keyof KilocodeNotebookReplyErrors]
+export type HarnessNotebookReplyError = HarnessNotebookReplyErrors[keyof HarnessNotebookReplyErrors]
 
-export type KilocodeNotebookReplyResponses = {
+export type HarnessNotebookReplyResponses = {
   /**
    * Notebook reply accepted
    */
   200: boolean
 }
 
-export type KilocodeNotebookReplyResponse = KilocodeNotebookReplyResponses[keyof KilocodeNotebookReplyResponses]
+export type HarnessNotebookReplyResponse = HarnessNotebookReplyResponses[keyof HarnessNotebookReplyResponses]
 
-export type KilocodeNotebookRejectData = {
+export type HarnessNotebookRejectData = {
   body?: {
     error: NotebookFailure
   }
@@ -17659,10 +17660,10 @@ export type KilocodeNotebookRejectData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/notebook/{requestID}/reject"
+  url: "/harness/notebook/{requestID}/reject"
 }
 
-export type KilocodeNotebookRejectErrors = {
+export type HarnessNotebookRejectErrors = {
   /**
    * Bad request
    */
@@ -17673,47 +17674,46 @@ export type KilocodeNotebookRejectErrors = {
   404: NotFoundError
 }
 
-export type KilocodeNotebookRejectError = KilocodeNotebookRejectErrors[keyof KilocodeNotebookRejectErrors]
+export type HarnessNotebookRejectError = HarnessNotebookRejectErrors[keyof HarnessNotebookRejectErrors]
 
-export type KilocodeNotebookRejectResponses = {
+export type HarnessNotebookRejectResponses = {
   /**
    * Notebook rejection accepted
    */
   200: boolean
 }
 
-export type KilocodeNotebookRejectResponse = KilocodeNotebookRejectResponses[keyof KilocodeNotebookRejectResponses]
+export type HarnessNotebookRejectResponse = HarnessNotebookRejectResponses[keyof HarnessNotebookRejectResponses]
 
-export type KilocodeAgentManagerListData = {
+export type HarnessAgentManagerListData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/agent-manager"
+  url: "/harness/agent-manager"
 }
 
-export type KilocodeAgentManagerListErrors = {
+export type HarnessAgentManagerListErrors = {
   /**
    * Bad request
    */
   400: BadRequestError
 }
 
-export type KilocodeAgentManagerListError = KilocodeAgentManagerListErrors[keyof KilocodeAgentManagerListErrors]
+export type HarnessAgentManagerListError = HarnessAgentManagerListErrors[keyof HarnessAgentManagerListErrors]
 
-export type KilocodeAgentManagerListResponses = {
+export type HarnessAgentManagerListResponses = {
   /**
    * Pending Agent Manager host requests
    */
   200: Array<AgentManagerRequest>
 }
 
-export type KilocodeAgentManagerListResponse =
-  KilocodeAgentManagerListResponses[keyof KilocodeAgentManagerListResponses]
+export type HarnessAgentManagerListResponse = HarnessAgentManagerListResponses[keyof HarnessAgentManagerListResponses]
 
-export type KilocodeAgentManagerReplyData = {
+export type HarnessAgentManagerReplyData = {
   body?: {
     result: AgentManagerResult
   }
@@ -17724,10 +17724,10 @@ export type KilocodeAgentManagerReplyData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/agent-manager/{requestID}/reply"
+  url: "/harness/agent-manager/{requestID}/reply"
 }
 
-export type KilocodeAgentManagerReplyErrors = {
+export type HarnessAgentManagerReplyErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
@@ -17738,19 +17738,19 @@ export type KilocodeAgentManagerReplyErrors = {
   404: NotFoundError
 }
 
-export type KilocodeAgentManagerReplyError = KilocodeAgentManagerReplyErrors[keyof KilocodeAgentManagerReplyErrors]
+export type HarnessAgentManagerReplyError = HarnessAgentManagerReplyErrors[keyof HarnessAgentManagerReplyErrors]
 
-export type KilocodeAgentManagerReplyResponses = {
+export type HarnessAgentManagerReplyResponses = {
   /**
    * Agent Manager reply accepted
    */
   200: boolean
 }
 
-export type KilocodeAgentManagerReplyResponse =
-  KilocodeAgentManagerReplyResponses[keyof KilocodeAgentManagerReplyResponses]
+export type HarnessAgentManagerReplyResponse =
+  HarnessAgentManagerReplyResponses[keyof HarnessAgentManagerReplyResponses]
 
-export type KilocodeAgentManagerRejectData = {
+export type HarnessAgentManagerRejectData = {
   body?: {
     error: AgentManagerFailure
   }
@@ -17761,10 +17761,10 @@ export type KilocodeAgentManagerRejectData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/agent-manager/{requestID}/reject"
+  url: "/harness/agent-manager/{requestID}/reject"
 }
 
-export type KilocodeAgentManagerRejectErrors = {
+export type HarnessAgentManagerRejectErrors = {
   /**
    * Bad request
    */
@@ -17775,19 +17775,19 @@ export type KilocodeAgentManagerRejectErrors = {
   404: NotFoundError
 }
 
-export type KilocodeAgentManagerRejectError = KilocodeAgentManagerRejectErrors[keyof KilocodeAgentManagerRejectErrors]
+export type HarnessAgentManagerRejectError = HarnessAgentManagerRejectErrors[keyof HarnessAgentManagerRejectErrors]
 
-export type KilocodeAgentManagerRejectResponses = {
+export type HarnessAgentManagerRejectResponses = {
   /**
    * Agent Manager rejection accepted
    */
   200: boolean
 }
 
-export type KilocodeAgentManagerRejectResponse =
-  KilocodeAgentManagerRejectResponses[keyof KilocodeAgentManagerRejectResponses]
+export type HarnessAgentManagerRejectResponse =
+  HarnessAgentManagerRejectResponses[keyof HarnessAgentManagerRejectResponses]
 
-export type KilocodeSessionModelUsageData = {
+export type HarnessSessionModelUsageData = {
   body?: never
   path: {
     sessionID: string
@@ -17799,7 +17799,7 @@ export type KilocodeSessionModelUsageData = {
   url: "/session/{sessionID}/model-usage"
 }
 
-export type KilocodeSessionModelUsageErrors = {
+export type HarnessSessionModelUsageErrors = {
   /**
    * Bad request
    */
@@ -17810,9 +17810,9 @@ export type KilocodeSessionModelUsageErrors = {
   404: NotFoundError
 }
 
-export type KilocodeSessionModelUsageError = KilocodeSessionModelUsageErrors[keyof KilocodeSessionModelUsageErrors]
+export type HarnessSessionModelUsageError = HarnessSessionModelUsageErrors[keyof HarnessSessionModelUsageErrors]
 
-export type KilocodeSessionModelUsageResponses = {
+export type HarnessSessionModelUsageResponses = {
   /**
    * Model usage for a session tree
    */
@@ -17850,10 +17850,10 @@ export type KilocodeSessionModelUsageResponses = {
   }
 }
 
-export type KilocodeSessionModelUsageResponse =
-  KilocodeSessionModelUsageResponses[keyof KilocodeSessionModelUsageResponses]
+export type HarnessSessionModelUsageResponse =
+  HarnessSessionModelUsageResponses[keyof HarnessSessionModelUsageResponses]
 
-export type KilocodeBackgroundJobsData = {
+export type HarnessBackgroundJobsData = {
   body?: never
   path?: never
   query: {
@@ -17861,19 +17861,19 @@ export type KilocodeBackgroundJobsData = {
     workspace?: string
     sessionID: string
   }
-  url: "/kilocode/background-jobs"
+  url: "/harness/background-jobs"
 }
 
-export type KilocodeBackgroundJobsErrors = {
+export type HarnessBackgroundJobsErrors = {
   /**
    * Bad request
    */
   400: BadRequestError
 }
 
-export type KilocodeBackgroundJobsError = KilocodeBackgroundJobsErrors[keyof KilocodeBackgroundJobsErrors]
+export type HarnessBackgroundJobsError = HarnessBackgroundJobsErrors[keyof HarnessBackgroundJobsErrors]
 
-export type KilocodeBackgroundJobsResponses = {
+export type HarnessBackgroundJobsResponses = {
   /**
    * Background jobs
    */
@@ -17891,9 +17891,9 @@ export type KilocodeBackgroundJobsResponses = {
   }>
 }
 
-export type KilocodeBackgroundJobsResponse = KilocodeBackgroundJobsResponses[keyof KilocodeBackgroundJobsResponses]
+export type HarnessBackgroundJobsResponse = HarnessBackgroundJobsResponses[keyof HarnessBackgroundJobsResponses]
 
-export type KilocodeBackgroundJobCancelData = {
+export type HarnessBackgroundJobCancelData = {
   body?: never
   path: {
     jobID: string
@@ -17902,10 +17902,10 @@ export type KilocodeBackgroundJobCancelData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/background-jobs/{jobID}/cancel"
+  url: "/harness/background-jobs/{jobID}/cancel"
 }
 
-export type KilocodeBackgroundJobCancelErrors = {
+export type HarnessBackgroundJobCancelErrors = {
   /**
    * Bad request
    */
@@ -17916,20 +17916,19 @@ export type KilocodeBackgroundJobCancelErrors = {
   404: NotFoundError
 }
 
-export type KilocodeBackgroundJobCancelError =
-  KilocodeBackgroundJobCancelErrors[keyof KilocodeBackgroundJobCancelErrors]
+export type HarnessBackgroundJobCancelError = HarnessBackgroundJobCancelErrors[keyof HarnessBackgroundJobCancelErrors]
 
-export type KilocodeBackgroundJobCancelResponses = {
+export type HarnessBackgroundJobCancelResponses = {
   /**
    * Background job cancelled
    */
   200: boolean
 }
 
-export type KilocodeBackgroundJobCancelResponse =
-  KilocodeBackgroundJobCancelResponses[keyof KilocodeBackgroundJobCancelResponses]
+export type HarnessBackgroundJobCancelResponse =
+  HarnessBackgroundJobCancelResponses[keyof HarnessBackgroundJobCancelResponses]
 
-export type KilocodeBackgroundJobPromoteData = {
+export type HarnessBackgroundJobPromoteData = {
   body?: never
   path: {
     jobID: string
@@ -17938,10 +17937,10 @@ export type KilocodeBackgroundJobPromoteData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/background-jobs/{jobID}/promote"
+  url: "/harness/background-jobs/{jobID}/promote"
 }
 
-export type KilocodeBackgroundJobPromoteErrors = {
+export type HarnessBackgroundJobPromoteErrors = {
   /**
    * Bad request
    */
@@ -17952,39 +17951,39 @@ export type KilocodeBackgroundJobPromoteErrors = {
   404: NotFoundError
 }
 
-export type KilocodeBackgroundJobPromoteError =
-  KilocodeBackgroundJobPromoteErrors[keyof KilocodeBackgroundJobPromoteErrors]
+export type HarnessBackgroundJobPromoteError =
+  HarnessBackgroundJobPromoteErrors[keyof HarnessBackgroundJobPromoteErrors]
 
-export type KilocodeBackgroundJobPromoteResponses = {
+export type HarnessBackgroundJobPromoteResponses = {
   /**
    * Background job promoted
    */
   200: boolean
 }
 
-export type KilocodeBackgroundJobPromoteResponse =
-  KilocodeBackgroundJobPromoteResponses[keyof KilocodeBackgroundJobPromoteResponses]
+export type HarnessBackgroundJobPromoteResponse =
+  HarnessBackgroundJobPromoteResponses[keyof HarnessBackgroundJobPromoteResponses]
 
-export type KilocodeWakeupsData = {
+export type HarnessWakeupsData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/wakeups"
+  url: "/harness/wakeups"
 }
 
-export type KilocodeWakeupsErrors = {
+export type HarnessWakeupsErrors = {
   /**
    * Bad request
    */
   400: BadRequestError
 }
 
-export type KilocodeWakeupsError = KilocodeWakeupsErrors[keyof KilocodeWakeupsErrors]
+export type HarnessWakeupsError = HarnessWakeupsErrors[keyof HarnessWakeupsErrors]
 
-export type KilocodeWakeupsResponses = {
+export type HarnessWakeupsResponses = {
   /**
    * Pending wakeups for the routed directory
    */
@@ -17994,28 +17993,28 @@ export type KilocodeWakeupsResponses = {
   }>
 }
 
-export type KilocodeWakeupsResponse = KilocodeWakeupsResponses[keyof KilocodeWakeupsResponses]
+export type HarnessWakeupsResponse = HarnessWakeupsResponses[keyof HarnessWakeupsResponses]
 
-export type KilocodeRetentionStatusData = {
+export type HarnessRetentionStatusData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/retention"
+  url: "/harness/retention"
 }
 
-export type KilocodeRetentionStatusErrors = {
+export type HarnessRetentionStatusErrors = {
   /**
    * Bad request
    */
   400: BadRequestError
 }
 
-export type KilocodeRetentionStatusError = KilocodeRetentionStatusErrors[keyof KilocodeRetentionStatusErrors]
+export type HarnessRetentionStatusError = HarnessRetentionStatusErrors[keyof HarnessRetentionStatusErrors]
 
-export type KilocodeRetentionStatusResponses = {
+export type HarnessRetentionStatusResponses = {
   /**
    * Session retention policy and last run
    */
@@ -18045,9 +18044,9 @@ export type KilocodeRetentionStatusResponses = {
   }
 }
 
-export type KilocodeRetentionStatusResponse = KilocodeRetentionStatusResponses[keyof KilocodeRetentionStatusResponses]
+export type HarnessRetentionStatusResponse = HarnessRetentionStatusResponses[keyof HarnessRetentionStatusResponses]
 
-export type KilocodeRetentionRunData = {
+export type HarnessRetentionRunData = {
   body?: {
     force?: boolean
   }
@@ -18056,19 +18055,19 @@ export type KilocodeRetentionRunData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/retention/run"
+  url: "/harness/retention/run"
 }
 
-export type KilocodeRetentionRunErrors = {
+export type HarnessRetentionRunErrors = {
   /**
    * Bad request
    */
   400: BadRequestError
 }
 
-export type KilocodeRetentionRunError = KilocodeRetentionRunErrors[keyof KilocodeRetentionRunErrors]
+export type HarnessRetentionRunError = HarnessRetentionRunErrors[keyof HarnessRetentionRunErrors]
 
-export type KilocodeRetentionRunResponses = {
+export type HarnessRetentionRunResponses = {
   /**
    * Retention pass outcome
    */
@@ -18098,28 +18097,28 @@ export type KilocodeRetentionRunResponses = {
   }
 }
 
-export type KilocodeRetentionRunResponse = KilocodeRetentionRunResponses[keyof KilocodeRetentionRunResponses]
+export type HarnessRetentionRunResponse = HarnessRetentionRunResponses[keyof HarnessRetentionRunResponses]
 
-export type KilocodeRetentionCancelData = {
+export type HarnessRetentionCancelData = {
   body?: never
   path?: never
   query?: {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/retention/cancel"
+  url: "/harness/retention/cancel"
 }
 
-export type KilocodeRetentionCancelErrors = {
+export type HarnessRetentionCancelErrors = {
   /**
    * Bad request
    */
   400: BadRequestError
 }
 
-export type KilocodeRetentionCancelError = KilocodeRetentionCancelErrors[keyof KilocodeRetentionCancelErrors]
+export type HarnessRetentionCancelError = HarnessRetentionCancelErrors[keyof HarnessRetentionCancelErrors]
 
-export type KilocodeRetentionCancelResponses = {
+export type HarnessRetentionCancelResponses = {
   /**
    * Retention cancel request outcome; false when no pass was running
    */
@@ -18128,7 +18127,7 @@ export type KilocodeRetentionCancelResponses = {
   }
 }
 
-export type KilocodeRetentionCancelResponse = KilocodeRetentionCancelResponses[keyof KilocodeRetentionCancelResponses]
+export type HarnessRetentionCancelResponse = HarnessRetentionCancelResponses[keyof HarnessRetentionCancelResponses]
 
 export type AnacondaDesktopStatusData = {
   body?: never
@@ -18137,7 +18136,7 @@ export type AnacondaDesktopStatusData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/anaconda-desktop/status"
+  url: "/harness/anaconda-desktop/status"
 }
 
 export type AnacondaDesktopStatusErrors = {
@@ -18165,7 +18164,7 @@ export type AnacondaDesktopOpenData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/anaconda-desktop/open"
+  url: "/harness/anaconda-desktop/open"
 }
 
 export type AnacondaDesktopOpenErrors = {
@@ -18203,7 +18202,7 @@ export type AnacondaDesktopSyncData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/anaconda-desktop/sync"
+  url: "/harness/anaconda-desktop/sync"
 }
 
 export type AnacondaDesktopSyncErrors = {
@@ -18242,7 +18241,7 @@ export type AnacondaDesktopSyncResponses = {
 
 export type AnacondaDesktopSyncResponse = AnacondaDesktopSyncResponses[keyof AnacondaDesktopSyncResponses]
 
-export type KilocodeMigrateSessionsData = {
+export type HarnessMigrateSessionsData = {
   body?: {
     cwd?: string
     formats?: Array<"claude" | "codex">
@@ -18256,10 +18255,10 @@ export type KilocodeMigrateSessionsData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/migrate/sessions"
+  url: "/harness/migrate/sessions"
 }
 
-export type KilocodeMigrateSessionsErrors = {
+export type HarnessMigrateSessionsErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
@@ -18270,18 +18269,18 @@ export type KilocodeMigrateSessionsErrors = {
   422: MigrateFailedError
 }
 
-export type KilocodeMigrateSessionsError = KilocodeMigrateSessionsErrors[keyof KilocodeMigrateSessionsErrors]
+export type HarnessMigrateSessionsError = HarnessMigrateSessionsErrors[keyof HarnessMigrateSessionsErrors]
 
-export type KilocodeMigrateSessionsResponses = {
+export type HarnessMigrateSessionsResponses = {
   /**
    * Session migration result
    */
-  200: KilocodeMigrateSessionsResult
+  200: HarnessMigrateSessionsResult
 }
 
-export type KilocodeMigrateSessionsResponse = KilocodeMigrateSessionsResponses[keyof KilocodeMigrateSessionsResponses]
+export type HarnessMigrateSessionsResponse = HarnessMigrateSessionsResponses[keyof HarnessMigrateSessionsResponses]
 
-export type KilocodeMigrateDiscoverData = {
+export type HarnessMigrateDiscoverData = {
   body?: {
     cwd?: string
     formats?: Array<"claude" | "codex">
@@ -18291,10 +18290,10 @@ export type KilocodeMigrateDiscoverData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/migrate/sessions/discover"
+  url: "/harness/migrate/sessions/discover"
 }
 
-export type KilocodeMigrateDiscoverErrors = {
+export type HarnessMigrateDiscoverErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
@@ -18305,16 +18304,16 @@ export type KilocodeMigrateDiscoverErrors = {
   422: MigrateFailedError
 }
 
-export type KilocodeMigrateDiscoverError = KilocodeMigrateDiscoverErrors[keyof KilocodeMigrateDiscoverErrors]
+export type HarnessMigrateDiscoverError = HarnessMigrateDiscoverErrors[keyof HarnessMigrateDiscoverErrors]
 
-export type KilocodeMigrateDiscoverResponses = {
+export type HarnessMigrateDiscoverResponses = {
   /**
    * Discovered migratable sessions
    */
-  200: KilocodeMigrateSessionsDiscoverResult
+  200: HarnessMigrateSessionsDiscoverResult
 }
 
-export type KilocodeMigrateDiscoverResponse = KilocodeMigrateDiscoverResponses[keyof KilocodeMigrateDiscoverResponses]
+export type HarnessMigrateDiscoverResponse = HarnessMigrateDiscoverResponses[keyof HarnessMigrateDiscoverResponses]
 
 export type NetworkListData = {
   body?: never
@@ -18616,7 +18615,7 @@ export type SandboxToggleResponses = {
 
 export type SandboxToggleResponse = SandboxToggleResponses[keyof SandboxToggleResponses]
 
-export type KilocodeSessionImportProjectData = {
+export type HarnessSessionImportProjectData = {
   body?: {
     id: string
     worktree: string
@@ -18637,30 +18636,30 @@ export type KilocodeSessionImportProjectData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/session-import/project"
+  url: "/harness/session-import/project"
 }
 
-export type KilocodeSessionImportProjectErrors = {
+export type HarnessSessionImportProjectErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KilocodeSessionImportProjectError =
-  KilocodeSessionImportProjectErrors[keyof KilocodeSessionImportProjectErrors]
+export type HarnessSessionImportProjectError =
+  HarnessSessionImportProjectErrors[keyof HarnessSessionImportProjectErrors]
 
-export type KilocodeSessionImportProjectResponses = {
+export type HarnessSessionImportProjectResponses = {
   /**
    * Project import result
    */
-  200: KilocodeSessionImportResult
+  200: HarnessSessionImportResult
 }
 
-export type KilocodeSessionImportProjectResponse =
-  KilocodeSessionImportProjectResponses[keyof KilocodeSessionImportProjectResponses]
+export type HarnessSessionImportProjectResponse =
+  HarnessSessionImportProjectResponses[keyof HarnessSessionImportProjectResponses]
 
-export type KilocodeSessionImportSessionData = {
+export type HarnessSessionImportSessionData = {
   body?: {
     id: string
     projectID: string
@@ -18700,30 +18699,30 @@ export type KilocodeSessionImportSessionData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/session-import/session"
+  url: "/harness/session-import/session"
 }
 
-export type KilocodeSessionImportSessionErrors = {
+export type HarnessSessionImportSessionErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KilocodeSessionImportSessionError =
-  KilocodeSessionImportSessionErrors[keyof KilocodeSessionImportSessionErrors]
+export type HarnessSessionImportSessionError =
+  HarnessSessionImportSessionErrors[keyof HarnessSessionImportSessionErrors]
 
-export type KilocodeSessionImportSessionResponses = {
+export type HarnessSessionImportSessionResponses = {
   /**
    * Session import result
    */
-  200: KilocodeSessionImportResult
+  200: HarnessSessionImportResult
 }
 
-export type KilocodeSessionImportSessionResponse =
-  KilocodeSessionImportSessionResponses[keyof KilocodeSessionImportSessionResponses]
+export type HarnessSessionImportSessionResponse =
+  HarnessSessionImportSessionResponses[keyof HarnessSessionImportSessionResponses]
 
-export type KilocodeSessionImportMessageData = {
+export type HarnessSessionImportMessageData = {
   body?: {
     id: string
     sessionID: string
@@ -18780,30 +18779,30 @@ export type KilocodeSessionImportMessageData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/session-import/message"
+  url: "/harness/session-import/message"
 }
 
-export type KilocodeSessionImportMessageErrors = {
+export type HarnessSessionImportMessageErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KilocodeSessionImportMessageError =
-  KilocodeSessionImportMessageErrors[keyof KilocodeSessionImportMessageErrors]
+export type HarnessSessionImportMessageError =
+  HarnessSessionImportMessageErrors[keyof HarnessSessionImportMessageErrors]
 
-export type KilocodeSessionImportMessageResponses = {
+export type HarnessSessionImportMessageResponses = {
   /**
    * Message import result
    */
-  200: KilocodeSessionImportResult
+  200: HarnessSessionImportResult
 }
 
-export type KilocodeSessionImportMessageResponse =
-  KilocodeSessionImportMessageResponses[keyof KilocodeSessionImportMessageResponses]
+export type HarnessSessionImportMessageResponse =
+  HarnessSessionImportMessageResponses[keyof HarnessSessionImportMessageResponses]
 
-export type KilocodeSessionImportPartData = {
+export type HarnessSessionImportPartData = {
   body?: {
     id: string
     messageID: string
@@ -18899,27 +18898,27 @@ export type KilocodeSessionImportPartData = {
     directory?: string
     workspace?: string
   }
-  url: "/kilocode/session-import/part"
+  url: "/harness/session-import/part"
 }
 
-export type KilocodeSessionImportPartErrors = {
+export type HarnessSessionImportPartErrors = {
   /**
    * BadRequest | InvalidRequestError
    */
   400: EffectHttpApiErrorBadRequest | InvalidRequestError
 }
 
-export type KilocodeSessionImportPartError = KilocodeSessionImportPartErrors[keyof KilocodeSessionImportPartErrors]
+export type HarnessSessionImportPartError = HarnessSessionImportPartErrors[keyof HarnessSessionImportPartErrors]
 
-export type KilocodeSessionImportPartResponses = {
+export type HarnessSessionImportPartResponses = {
   /**
    * Part import result
    */
-  200: KilocodeSessionImportResult
+  200: HarnessSessionImportResult
 }
 
-export type KilocodeSessionImportPartResponse =
-  KilocodeSessionImportPartResponses[keyof KilocodeSessionImportPartResponses]
+export type HarnessSessionImportPartResponse =
+  HarnessSessionImportPartResponses[keyof HarnessSessionImportPartResponses]
 
 export type SuggestionListData = {
   body?: never

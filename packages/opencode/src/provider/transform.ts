@@ -4,9 +4,9 @@ import type { JSONSchema7 } from "@ai-sdk/provider"
 import type * as Provider from "./provider"
 import type * as ModelsDev from "@opencode-ai/core/models-dev"
 import { iife } from "@/util/iife"
-import { kiloProviderOptions } from "@/kilocode/provider-options"
-import { isLing } from "@/kilocode/model-match" // kilocode_change
-import { reasoningSummary } from "@/kilocode/provider/reasoning-summary" // kilocode_change
+import { harnessProviderOptions } from "@/harness/provider-options"
+import { isLing } from "@/harness/model-match"
+import { reasoningSummary } from "@/harness/provider/reasoning-summary"
 
 type Modality = NonNullable<ModelsDev.Model["modalities"]>["input"][number]
 
@@ -32,12 +32,12 @@ export function sanitizeSurrogates(content: string) {
 function isKimiFamily(model: Provider.Model) {
   if (
     [model.providerID, model.api.id].some((id) => {
-      const value = id?.toLowerCase() ?? "" // kilocode_change - tolerate partial provider metadata
+      const value = id?.toLowerCase() ?? ""
       return value.includes("kimi") || value.includes("moonshot")
     })
   )
     return true
-  const url = model.api.url?.toLowerCase() ?? "" // kilocode_change - tolerate partial provider metadata
+  const url = model.api.url?.toLowerCase() ?? ""
   return ["api.kimi.com", "api.moonshot.ai", "api.moonshot.cn", "api.moonshotai.cn"].some((host) => url.includes(host))
 }
 
@@ -87,7 +87,7 @@ function sdkKey(npm: string): string | undefined {
       return "gateway"
     case "@openrouter/ai-sdk-provider":
       return "openrouter"
-    case "@kilocode/kilo-gateway": // kilocode_change
+    case "@harness/harness-gateway":
       return "openrouter"
     case "merge-gateway-ai-sdk-provider":
       return "mergeGateway"
@@ -200,10 +200,8 @@ function normalizeMessages(
   }
 
   // Bedrock specific transforms
-  // kilocode_change start - only filter for Claude models on Bedrock, not all Bedrock models
   const claude = model.api.id.includes("anthropic") || model.api.id.includes("claude") || model.id.includes("claude")
   if (model.api.npm === "@ai-sdk/amazon-bedrock" && claude) {
-    // kilocode_change end
     msgs = msgs
       .map((msg) => {
         if (typeof msg.content === "string") {
@@ -363,7 +361,6 @@ function normalizeMessages(
   return msgs
 }
 
-// kilocode_change start - explicit prompt cache breakpoints for GPT-5.6+ (excluding ChatGPT subscriptions)
 function isLikelyChatGPTSubscription(model: Provider.Model): boolean {
   return model.providerID === "openai" && model.cost?.input === 0 && model.cost?.output === 0
 }
@@ -385,7 +382,7 @@ function isFirstPartyBreakpointEndpoint(model: Provider.Model, options: Record<s
   if (model.providerID === "openai") return host === "openai.com" || host.endsWith(".openai.com")
   if (model.providerID === "azure" || model.providerID === "azure-cognitive-services")
     return [".azure.com", ".azure.us", ".azure.cn", ".azure-api.net"].some((s) => host.endsWith(s))
-  if (model.providerID === "kilo") return host === "api.kilo.ai" || host.endsWith(".kilo.ai")
+  if (model.providerID === "harness") return host === "api.kilo.ai" || host.endsWith(".kilo.ai")
   return false
 }
 
@@ -393,7 +390,7 @@ function supportsPromptCacheBreakpoint(model: Provider.Model, options: Record<st
   if (isLikelyChatGPTSubscription(model)) return false
   // Only first-party OpenAI-family deployments support explicit breakpoints;
   // custom @ai-sdk/openai endpoints reject prompt_cache_breakpoint (#13285).
-  if (!["openai", "azure", "azure-cognitive-services", "kilo"].includes(model.providerID)) return false
+  if (!["openai", "azure", "azure-cognitive-services", "harness"].includes(model.providerID)) return false
   if (!isFirstPartyBreakpointEndpoint(model, options)) return false
   const match = model.api.id.match(/gpt-(\d+)\.(\d+)/)
   if (match) {
@@ -405,9 +402,8 @@ function supportsPromptCacheBreakpoint(model: Provider.Model, options: Record<st
   if (majorMatch && Number(majorMatch[1]) >= 6) return true
   return false
 }
-// kilocode_change end
 
-function applyCaching(msgs: ModelMessage[], model: Provider.Model, options: Record<string, unknown> = {}): ModelMessage[] { // kilocode_change
+function applyCaching(msgs: ModelMessage[], model: Provider.Model, options: Record<string, unknown> = {}): ModelMessage[] {
   const system = msgs.filter((msg) => msg.role === "system").slice(0, 2)
   const final = msgs.filter((msg) => msg.role !== "system").slice(-2)
 
@@ -430,7 +426,6 @@ function applyCaching(msgs: ModelMessage[], model: Provider.Model, options: Reco
     alibaba: {
       cacheControl: { type: "ephemeral" },
     },
-    // kilocode_change start
     ...(supportsPromptCacheBreakpoint(model, options)
       ? {
           openai: {
@@ -441,7 +436,6 @@ function applyCaching(msgs: ModelMessage[], model: Provider.Model, options: Reco
           },
         }
       : {}),
-    // kilocode_change end
   }
 
   for (const msg of unique([...system, ...final])) {
@@ -451,7 +445,6 @@ function applyCaching(msgs: ModelMessage[], model: Provider.Model, options: Reco
       model.api.npm === "@ai-sdk/amazon-bedrock"
     const shouldUseContentOptions = !useMessageLevelOptions && Array.isArray(msg.content) && msg.content.length > 0
 
-    // kilocode_change start - place caching breakpoint on stable content before trailing <environment_details>
     if (shouldUseContentOptions && Array.isArray(msg.content)) {
       const parts = msg.content
       let targetIndex = -1
@@ -479,7 +472,6 @@ function applyCaching(msgs: ModelMessage[], model: Provider.Model, options: Reco
         continue
       }
     }
-    // kilocode_change end
 
     msg.providerOptions = mergeDeep(msg.providerOptions ?? {}, providerOptions)
   }
@@ -549,7 +541,6 @@ export function message(msgs: ModelMessage[], model: Provider.Model, options: Re
   const usesAnthropicAutomaticCaching =
     options.cacheControl !== undefined &&
     (model.api.npm === "@ai-sdk/anthropic" || model.api.npm === "@ai-sdk/google-vertex/anthropic")
-  // kilocode_change start - apply caching for anthropic, alibaba, and GPT-5.6+ openai/azure/kilo-gateway
   if (
     (model.providerID === "anthropic" ||
       model.providerID === "google-vertex-anthropic" ||
@@ -561,14 +552,13 @@ export function message(msgs: ModelMessage[], model: Provider.Model, options: Re
       model.api.npm === "@ai-sdk/alibaba" ||
       ((model.api.npm === "@ai-sdk/openai" ||
         model.api.npm === "@ai-sdk/azure" ||
-        model.api.npm === "@kilocode/kilo-gateway") &&
+        model.api.npm === "@harness/harness-gateway") &&
         supportsPromptCacheBreakpoint(model, options))) &&
     model.api.npm !== "@ai-sdk/gateway" &&
     !usesAnthropicAutomaticCaching
   ) {
     msgs = applyCaching(msgs, model, options)
   }
-  // kilocode_change end
 
   // Remap providerOptions keys from stored providerID to expected SDK key
   const key = sdkKey(model.api.npm)
@@ -627,7 +617,7 @@ export function temperature(model: Provider.Model) {
     }
     return 0.6
   }
-  if (isLing(model.api.id)) return 0.3 // kilocode_change
+  if (isLing(model.api.id)) return 0.3
   return undefined
 }
 
@@ -638,10 +628,10 @@ export function topP(model: Provider.Model) {
   if (["minimax-m2", "kimi-k2.5", "kimi-k2p5", "kimi-k2-5"].some((s) => id.includes(s))) {
     return 0.95
   }
-  if (isLing(model.api.id)) return 0.95 // kilocode_change
+  if (isLing(model.api.id)) return 0.95
   if (
     ["deepseek-v4-flash-0731", "deepseek-v4-flash:0731"].some((name) => id.includes(name)) ||
-    (model.providerID === "kilo" && id.includes("deepseek-v4-flash")) || // kilocode_change
+    (model.providerID === "harness" && id.includes("deepseek-v4-flash")) ||
     (id.includes("deepseek-v4-flash") && (model.providerID === "deepseek" || model.providerID.startsWith("opencode")))
   ) {
     return 0.95
@@ -657,7 +647,7 @@ export function topK(model: Provider.Model) {
   }
   if (id.includes("gemini"))
     return GEMINI_MODELS_WITH_SAMPLING_DEFAULTS.some((model) => model.test(id)) ? 64 : undefined
-  if (isLing(model.api.id)) return 20 // kilocode_change
+  if (isLing(model.api.id)) return 20
   return undefined
 }
 
@@ -850,15 +840,13 @@ function googleThinkingVariants(model: Provider.Model): Record<string, Record<st
 }
 
 export function variants(model: Provider.Model): Record<string, Record<string, any>> {
-  // kilocode_change start
   if (
-    ["@kilocode/kilo-gateway", "@ai-sdk/openai-compatible"].includes(model.api.npm) &&
+    ["@harness/harness-gateway", "@ai-sdk/openai-compatible"].includes(model.api.npm) &&
     model.variants &&
     Object.keys(model.variants).length > 0
   ) {
     return model.variants
   }
-  // kilocode_change end
 
   if (!model.capabilities.reasoning) return {}
 
@@ -1107,7 +1095,7 @@ export function variants(model: Provider.Model): Record<string, Record<string, a
           effort,
           {
             reasoningEffort: effort,
-            reasoningSummary: reasoningSummary(model), // kilocode_change
+            reasoningSummary: reasoningSummary(model),
             include: INCLUDE_ENCRYPTED_REASONING,
           },
         ]),
@@ -1217,7 +1205,7 @@ export function variants(model: Provider.Model): Record<string, Record<string, a
 
     case "@ai-sdk/mistral":
       // https://v5.ai-sdk.dev/providers/ai-sdk-providers/mistral
-      // https://docs.mistral.ai/studio-api/conversations/reasoning // kilocode_change
+      // https://docs.mistral.ai/studio-api/conversations/reasoning
       if (!model.capabilities.reasoning) return {}
       // Only Mistral Small 4 and Medium 3.5 support reasoning
       const MISTRAL_REASONING_IDS = [
@@ -1398,13 +1386,13 @@ function reasoningEffort(model: Provider.Model, effort: string) {
         reasoningEffort: effort,
         reasoningSummary: reasoningSummary(model),
         include: INCLUDE_ENCRYPTED_REASONING,
-      } // kilocode_change - keep gpt-5.6 detailed summaries
+      }
     case "@ai-sdk/azure":
       return {
         reasoningEffort: effort,
         reasoningSummary: reasoningSummary(model),
         include: INCLUDE_ENCRYPTED_REASONING,
-      } // kilocode_change
+      }
     case "@jerome-benoit/sap-ai-provider-v2":
       if (model.id.includes("anthropic"))
         return { modelParams: { thinking: { type: "adaptive", display: "summarized" }, output_config: { effort } } }
@@ -1420,8 +1408,8 @@ function reasoningEffort(model: Provider.Model, effort: string) {
     case "ai-gateway-provider":
     case "merge-gateway-ai-sdk-provider":
       return { reasoningEffort: effort }
-    case "@kilocode/kilo-gateway": // kilocode_change - OpenRouter-shaped reasoning effort
-      return { reasoning: { effort } } // kilocode_change
+    case "@harness/harness-gateway":
+      return { reasoning: { effort } }
     case "@ai-sdk/cohere":
     case "@ai-sdk/perplexity":
     case "@ai-sdk/vercel":
@@ -1533,7 +1521,7 @@ export function options(input: {
   if (
     input.model.api.npm === "@openrouter/ai-sdk-provider" ||
     input.model.api.npm === "@llmgateway/ai-sdk-provider" ||
-    input.model.api.npm === "@kilocode/kilo-gateway" // kilocode_change
+    input.model.api.npm === "@harness/harness-gateway"
   ) {
     result["usage"] = {
       include: true,
@@ -1616,7 +1604,6 @@ export function options(input: {
       input.model.api.npm === "@ai-sdk/xai" ||
       input.model.api.npm === "@ai-sdk/mistral" ||
       input.model.api.npm === "venice-ai-sdk-provider" ||
-      // kilocode_change - retain cache keys for OpenAI providers using nonstandard SDK packages
       (input.model.providerID === "openai" && input.model.api.npm !== "@ai-sdk/openai-compatible") ||
       input.providerOptions?.setCacheKey === true
     ) {
@@ -1646,11 +1633,11 @@ export function options(input: {
         input.model.api.npm === "@ai-sdk/openai" ||
         input.model.api.npm === "@ai-sdk/azure" ||
         input.model.api.npm === "@ai-sdk/github-copilot" ||
-        input.model.api.npm === "@openrouter/ai-sdk-provider" || // kilocode_change
-        input.model.api.npm === "@kilocode/kilo-gateway" || // kilocode_change
+        input.model.api.npm === "@openrouter/ai-sdk-provider" ||
+        input.model.api.npm === "@harness/harness-gateway" ||
         input.model.api.npm === "@ai-sdk/amazon-bedrock/mantle"
       ) {
-        result["reasoningSummary"] = reasoningSummary(input.model) // kilocode_change
+        result["reasoningSummary"] = reasoningSummary(input.model)
         if (input.model.api.npm === "@ai-sdk/openai" || input.model.api.npm === "@ai-sdk/amazon-bedrock/mantle") {
           result["include"] = INCLUDE_ENCRYPTED_REASONING
         }
@@ -1658,18 +1645,16 @@ export function options(input: {
     }
 
     if (
-      // kilocode_change start - gate textVerbosity to Responses-API providers
       (input.model.api.npm === "@ai-sdk/openai" ||
         input.model.api.npm === "@ai-sdk/azure" ||
         input.model.api.npm === "@ai-sdk/amazon-bedrock/mantle" ||
         input.model.api.npm === "@ai-sdk/github-copilot" ||
         input.model.api.npm === "@openrouter/ai-sdk-provider" ||
-        input.model.api.npm === "@kilocode/kilo-gateway") &&
+        input.model.api.npm === "@harness/harness-gateway") &&
       input.model.api.id.includes("gpt-5.") &&
       !input.model.api.id.includes("codex") &&
       !input.model.api.id.includes("-chat") &&
       input.model.providerID !== "azure"
-      // kilocode_change end
     ) {
       result["textVerbosity"] = "low"
     }
@@ -1700,10 +1685,9 @@ export function smallOptions(model: Provider.Model) {
       return { reasoning: { enabled: false } }
     }
   }
-  if (model.api.npm === "@kilocode/kilo-gateway") {
-    // kilocode_change
-    if (!model.capabilities.reasoning) return {} // kilocode_change - omit unsupported reasoning options
-    return { reasoning: { enabled: true } } // kilocode_change - use the model's supported default effort
+  if (model.api.npm === "@harness/harness-gateway") {
+    if (!model.capabilities.reasoning) return {}
+    return { reasoning: { enabled: true } }
   }
 
   if (model.providerID === "venice") {
@@ -1761,11 +1745,9 @@ export function providerOptions(model: Provider.Model, options: { [x: string]: a
     return result
   }
 
-  // kilocode_change start
-  if (model.api.npm === "@kilocode/kilo-gateway") {
-    return kiloProviderOptions(options)
+  if (model.api.npm === "@harness/harness-gateway") {
+    return harnessProviderOptions(options)
   }
-  // kilocode_change end
 
   // AI SDK packages that resolve providerOptionsName by splitting the
   // provider name on "." (e.g. "wafer.ai" -> "wafer") need the same
@@ -1791,7 +1773,6 @@ export function maxOutputTokens(model: Provider.Model, outputTokenMax = OUTPUT_T
   return Math.min(model.limit.output, outputTokenMax) || outputTokenMax
 }
 
-// kilocode_change start
 export function maxOutputTokensForRequest(input: {
   model: Provider.Model
   options: Record<string, any>
@@ -1802,7 +1783,6 @@ export function maxOutputTokensForRequest(input: {
   }
   return input.maxOutputTokens
 }
-// kilocode_change end
 
 type JsonRecord = Record<string, unknown>
 
@@ -2007,7 +1987,6 @@ export function schema(model: Provider.Model, schema: JSONSchema7): JSONSchema7 
       }
 
       // Filter required array to only include fields that exist in properties
-      // kilocode_change start - Gemini rejects required entries without matching properties
       if (result.type === "object" && Array.isArray(result.required)) {
         const properties = isPlainObject(result.properties) ? result.properties : undefined
         result.required = properties ? result.required.filter((field: any) => field in properties) : []
@@ -2015,7 +1994,6 @@ export function schema(model: Provider.Model, schema: JSONSchema7): JSONSchema7 
           delete result.required
         }
       }
-      // kilocode_change end
 
       if (result.type === "array" && !hasCombiner(result)) {
         if (result.items == null) {

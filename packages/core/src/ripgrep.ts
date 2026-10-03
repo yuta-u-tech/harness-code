@@ -4,9 +4,9 @@ import { Context, Duration, Effect, Fiber, Layer, Schema, Stream } from "effect"
 import { ChildProcess } from "effect/unstable/process"
 import { makeGlobalNode } from "./effect/app-node"
 import { Entry, Match } from "@opencode-ai/schema/filesystem"
-import * as KiloGrep from "./kilocode/ripgrep-grep" // kilocode_change
-import * as SpawnExit from "./kilocode/spawn-exit" // kilocode_change
-import * as SpawnValidation from "./kilocode/spawn-validation" // kilocode_change
+import * as HarnessGrep from "./harness/ripgrep-grep"
+import * as SpawnExit from "./harness/spawn-exit"
+import * as SpawnValidation from "./harness/spawn-validation"
 import { AppProcess, collectStream, waitForAbort } from "./process"
 import { NonNegativeInt, PositiveInt, RelativePath } from "./schema"
 import { RipgrepBinary } from "./ripgrep/binary"
@@ -23,7 +23,7 @@ const MAX_RECORD_BYTES = 64 * 1024
 const MAX_SUBMATCHES = 100
 
 const RawMatch = Schema.Struct({
-  type: Schema.Literals(["match", "context"]), // kilocode_change - retain requested context records
+  type: Schema.Literals(["match", "context"]),
   data: Schema.Struct({
     path: Schema.Struct({ text: Schema.String }),
     lines: Schema.Struct({ text: Schema.String }),
@@ -39,7 +39,7 @@ const RawMatch = Schema.Struct({
   }),
 })
 
-type RawMatchData = (typeof RawMatch.Type)["data"] & { readonly context: boolean } // kilocode_change
+type RawMatchData = (typeof RawMatch.Type)["data"] & { readonly context: boolean }
 
 export class Error extends Schema.TaggedErrorClass<Error>()("Ripgrep.Error", {
   message: Schema.String,
@@ -68,33 +68,30 @@ export interface GlobInput {
   readonly hidden?: boolean
   readonly follow?: boolean
   readonly signal?: AbortSignal
-  readonly validate?: Effect.Effect<void, unknown> // kilocode_change - bind approved searches at spawn
+  readonly validate?: Effect.Effect<void, unknown>
 }
 
-export interface GrepInput extends KiloGrep.Options {
-  // kilocode_change
+export interface GrepInput extends HarnessGrep.Options {
   readonly cwd: string
   readonly pattern: string
   readonly file?: string
   readonly include?: string
   readonly limit: number
   readonly signal?: AbortSignal
-  readonly validate?: Effect.Effect<void, unknown> // kilocode_change - bind approved searches at spawn
+  readonly validate?: Effect.Effect<void, unknown>
 }
 
 export interface Interface {
   readonly find: (input: FindInput) => Effect.Effect<readonly Entry[], Error>
-  readonly glob: (input: GlobInput) => Effect.Effect<SearchResult<Entry>, Error> // kilocode_change
-  readonly grep: (input: GrepInput) => Effect.Effect<SearchResult<KiloGrep.GrepMatch>, Error | InvalidPatternError> // kilocode_change
+  readonly glob: (input: GlobInput) => Effect.Effect<SearchResult<Entry>, Error>
+  readonly grep: (input: GrepInput) => Effect.Effect<SearchResult<HarnessGrep.GrepMatch>, Error | InvalidPatternError>
 }
 
-// kilocode_change start - retain truncation state through model-facing tools
 export interface SearchResult<A> {
   readonly items: readonly A[]
   readonly truncated: boolean
   readonly partial: boolean
 }
-// kilocode_change end
 
 export class Service extends Context.Service<Service, Interface>()("@opencode/v2/Ripgrep") {}
 
@@ -114,40 +111,38 @@ const layer = Layer.effect(
       readonly args: string[]
       readonly limit: number
       readonly signal?: AbortSignal
-      readonly timeout?: number // kilocode_change
+      readonly timeout?: number
       readonly parse: (line: string) => Effect.Effect<A | undefined, Error>
       readonly pattern?: string
       readonly onItem?: (item: A) => Effect.Effect<void>
-      readonly stop?: (item: A) => boolean // kilocode_change - stop bounded searches at the overflow match
-      readonly validate?: Effect.Effect<void, unknown> // kilocode_change - spawn-bound target validation
+      readonly stop?: (item: A) => boolean
+      readonly validate?: Effect.Effect<void, unknown>
     }) => {
       const program = Effect.scoped(
         Effect.gen(function* () {
           const filepath = yield* binary.filepath
-          // kilocode_change start - validate approved targets after all spawn preparation
           const command = ChildProcess.make(filepath, input.args, {
             cwd: input.cwd,
             extendEnv: true,
             stdin: "ignore",
-            forceKillAfter: input.stop || input.timeout != null ? Duration.seconds(1) : undefined, // kilocode_change - bound search interruption
+            forceKillAfter: input.stop || input.timeout != null ? Duration.seconds(1) : undefined,
           })
           const validated = input.validate ? SpawnValidation.attach(command, input.validate) : command
-          const spawned = input.stop || input.timeout != null ? SpawnExit.attach(validated) : validated // kilocode_change
+          const spawned = input.stop || input.timeout != null ? SpawnExit.attach(validated) : validated
           const handle = yield* process.spawn(spawned)
           const search = Effect.gen(function* () {
-            // kilocode_change end
             const stderrFiber = yield* collectStream(handle.stderr, ERROR_BYTES).pipe(
               Effect.map((output) => output.buffer.toString("utf8")),
               Effect.forkScoped,
             )
             let observed = 0
-            let stopped = false // kilocode_change
-            const take = input.stop // kilocode_change start
+            let stopped = false
+            const take = input.stop
               ? Stream.takeUntil<A>((row) => {
                   stopped = input.stop?.(row) ?? false
                   return stopped
                 })
-              : Stream.take(input.limit + 1) // kilocode_change end
+              : Stream.take(input.limit + 1)
             const rows = yield* Stream.decodeText(handle.stdout).pipe(
               Stream.splitLines,
               Stream.filter((line) => line.length > 0),
@@ -157,12 +152,12 @@ const layer = Layer.effect(
                 if (!input.onItem || observed++ >= input.limit) return Effect.void
                 return input.onItem(row)
               }),
-              take, // kilocode_change
+              take,
               Stream.runCollect,
               Effect.map((chunk) => [...chunk]),
             )
-            if (stopped) return { items: rows, truncated: true, partial: false } // kilocode_change
-            const truncated = input.stop ? false : rows.length > input.limit // kilocode_change - custom stop owns truncation
+            if (stopped) return { items: rows, truncated: true, partial: false }
+            const truncated = input.stop ? false : rows.length > input.limit
             if (truncated) return { items: rows.slice(0, input.limit), truncated, partial: false }
 
             const code = yield* handle.exitCode
@@ -174,7 +169,6 @@ const layer = Layer.effect(
               return yield* failure(stderr.trim() || `ripgrep failed with code ${code}`)
             }
             return { items: code === 1 ? [] : rows, truncated: false, partial: code === 2 }
-            // kilocode_change start
           })
           return yield* input.timeout == null
             ? search
@@ -185,18 +179,15 @@ const layer = Layer.effect(
                     Effect.fail(failure("Glob search timed out after 2 minutes. Narrow the search path or pattern.")),
                 }),
               )
-          // kilocode_change end
         }),
       )
       const abortable = input.signal ? program.pipe(Effect.raceFirst(waitForAbort(input.signal))) : program
       return abortable.pipe(
-        // kilocode_change start - surface the underlying reason instead of a bare wrapper message
         Effect.mapError((cause) => {
           if (cause instanceof Error || cause instanceof InvalidPatternError) return cause
           const detail = cause instanceof globalThis.Error && cause.message.trim() ? `: ${cause.message.trim()}` : ""
           return failure(`ripgrep execution failed${detail}`, cause)
         }),
-        // kilocode_change end
       )
     }
 
@@ -206,8 +197,8 @@ const layer = Layer.effect(
           cwd: input.cwd,
           limit: input.limit,
           signal: input.signal,
-          timeout: 2 * 60 * 1000, // kilocode_change
-          validate: input.validate, // kilocode_change - preserve spawn-bound target validation
+          timeout: 2 * 60 * 1000,
+          validate: input.validate,
           args: [
             "--no-config",
             "--files",
@@ -225,7 +216,6 @@ const layer = Layer.effect(
                 .replaceAll("\\", "/"),
             ),
         }).pipe(
-          // kilocode_change start - retain spawn metadata after mapping paths
           Effect.map((result) => ({
             ...result,
             items: result.items.map((relative) =>
@@ -235,7 +225,6 @@ const layer = Layer.effect(
               }),
             ),
           })),
-          // kilocode_change end
           Effect.catchTag("Ripgrep.InvalidPatternError", (cause) => Effect.fail(failure(cause.message, cause))),
         ),
       find: (input) =>
@@ -272,13 +261,13 @@ const layer = Layer.effect(
       grep: (input) =>
         run<RawMatchData>({
           ...input,
-          stop: KiloGrep.stop(input.limit), // kilocode_change
+          stop: HarnessGrep.stop(input.limit),
           args: [
             "--no-config",
             "--json",
             "--hidden",
             "--no-messages",
-            ...KiloGrep.flags(input), // kilocode_change
+            ...HarnessGrep.flags(input),
             ...(input.include ? [`--glob=${input.include}`] : []),
             "--glob=!**/.git/**",
             "--",
@@ -298,7 +287,7 @@ const layer = Layer.effect(
                   !json ||
                   typeof json !== "object" ||
                   !("type" in json) ||
-                  (json.type !== "match" && json.type !== "context") // kilocode_change
+                  (json.type !== "match" && json.type !== "context")
                 )
                   return Effect.succeed(undefined)
                 return Schema.decodeUnknownEffect(RawMatch)(json).pipe(
@@ -306,17 +295,16 @@ const layer = Layer.effect(
                     ...match.data,
                     path: { text: match.data.path.text.replace(/^\.[\\/]/, "") },
                     submatches: match.data.submatches.slice(0, MAX_SUBMATCHES),
-                    context: match.type === "context", // kilocode_change
+                    context: match.type === "context",
                   })),
                   Effect.mapError((cause) => failure("Invalid ripgrep match output", cause)),
                 )
               }),
             ),
         }).pipe(
-          // kilocode_change start - retain spawn metadata after mapping matches
           Effect.map((result) => ({
             ...result,
-            items: KiloGrep.select(input, result.items).map((match) => {
+            items: HarnessGrep.select(input, result.items).map((match) => {
               const relative = match.path.text
                 .replace(/^(?:\.[\\/])+/u, "")
                 .replace(/^[\\/]+/u, "")
@@ -338,10 +326,9 @@ const layer = Layer.effect(
                   end: submatch.end,
                 })),
               })
-              return KiloGrep.decorate(item, match.context, match.lines.text.length > 2_000)
+              return HarnessGrep.decorate(item, match.context, match.lines.text.length > 2_000)
             }),
           })),
-          // kilocode_change end
         ),
     })
   }),

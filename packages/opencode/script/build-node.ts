@@ -14,24 +14,22 @@ const generated = await import("./generate.ts")
 
 await Bun.build({
   target: "node",
-  // kilocode_change start
   entrypoints: [
     "./src/node.ts",
-    "../kilo-sandbox/src/kilo-sandbox-mutation-worker.ts",
-    "../kilo-sandbox/src/kilo-sandbox-network-relay.ts",
+    "../harness-sandbox/src/harness-sandbox-mutation-worker.ts",
+    "../harness-sandbox/src/harness-sandbox-network-relay.ts",
   ],
-  // kilocode_change end
   outdir: "./dist/node",
   format: "esm",
   sourcemap: "linked",
   external: ["jsonc-parser", "@lydell/node-pty"],
   define: {
-    KILO_MODELS_DEV: generated.modelsData,
-    KILO_VERSION: `'${Script.version}'`, // kilocode_change
-    KILO_SANDBOX_MUTATION_WORKER_PATH: `'./kilo-sandbox-mutation-worker.js'`, // kilocode_change
-    KILO_SANDBOX_NETWORK_RELAY_PATH: `'./kilo-sandbox-network-relay.js'`, // kilocode_change
-    KILO_SANDBOX_SECCOMP_PATH: "undefined", // kilocode_change
-    KILO_CHANNEL: `'${Script.channel}'`,
+    HARNESS_MODELS_DEV: generated.modelsData,
+    HARNESS_VERSION: `'${Script.version}'`,
+    HARNESS_SANDBOX_MUTATION_WORKER_PATH: `'./harness-sandbox-mutation-worker.js'`,
+    HARNESS_SANDBOX_NETWORK_RELAY_PATH: `'./harness-sandbox-network-relay.js'`,
+    HARNESS_SANDBOX_SECCOMP_PATH: "undefined",
+    HARNESS_CHANNEL: `'${Script.channel}'`,
   },
   files: {
     "opencode-web-ui.gen.ts": "",

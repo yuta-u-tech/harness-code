@@ -1,35 +1,34 @@
-// kilocode_change - new file
-import { fetchKiloModels, type KiloModelsResult } from "@kilocode/kilo-gateway"
+import { fetchHarnessModels, type HarnessModelsResult } from "@harness/harness-gateway"
 import { Context, Deferred, Duration, Effect, Exit, Layer, Schema, Scope } from "effect"
 import { FetchHttpClient, HttpClient, HttpClientRequest, HttpClientResponse } from "effect/unstable/http"
 import { Config } from "../config/config"
 import { Auth } from "../auth"
-import { compatible, organization, token } from "@/kilocode/provider/catalog"
+import { compatible, organization, token } from "@/harness/provider/catalog"
 import type { Provider } from "@opencode-ai/core/models-dev"
 import * as Log from "@opencode-ai/core/util/log"
 import { LayerNode } from "@opencode-ai/core/effect/layer-node"
-import { AppNodeBuilder } from "@opencode-ai/core/effect/app-node-builder" // kilocode_change
-import { httpClient } from "@opencode-ai/core/effect/app-node-platform" // kilocode_change
+import { AppNodeBuilder } from "@opencode-ai/core/effect/app-node-builder"
+import { httpClient } from "@opencode-ai/core/effect/app-node-platform"
 
 type Models = Provider["models"]
-type KiloOptions = NonNullable<Parameters<typeof fetchKiloModels>[0]>
-type Options = { -readonly [K in keyof KiloOptions]?: KiloOptions[K] } & { apiKey?: string }
-type Failure = NonNullable<KiloModelsResult["error"]>
+type HarnessOptions = NonNullable<Parameters<typeof fetchHarnessModels>[0]>
+type Options = { -readonly [K in keyof HarnessOptions]?: HarnessOptions[K] } & { apiKey?: string }
+type Failure = NonNullable<HarnessModelsResult["error"]>
 type Result = { readonly models: Models; readonly error?: Failure }
 type View = { models?: Models; timestamp?: number }
 type Flight = { readonly done: Deferred.Deferred<Result, unknown>; version: number }
 
-export interface KiloModels {
-  readonly fetch: (options: KiloOptions) => Effect.Effect<KiloModelsResult, unknown>
+export interface HarnessModels {
+  readonly fetch: (options: HarnessOptions) => Effect.Effect<HarnessModelsResult, unknown>
 }
 
-export class KiloModelsService extends Context.Service<KiloModelsService, KiloModels>()(
-  "@kilocode/ModelCache/KiloModels",
+export class HarnessModelsService extends Context.Service<HarnessModelsService, HarnessModels>()(
+  "@harness/ModelCache/HarnessModels",
 ) {}
 
-export const kiloModelsLayer = Layer.succeed(
-  KiloModelsService,
-  KiloModelsService.of({ fetch: (options) => Effect.tryPromise(() => fetchKiloModels(options)) }),
+export const harnessModelsLayer = Layer.succeed(
+  HarnessModelsService,
+  HarnessModelsService.of({ fetch: (options) => Effect.tryPromise(() => fetchHarnessModels(options)) }),
 )
 type Cell = {
   readonly providerID: string
@@ -48,7 +47,7 @@ export interface Interface {
   readonly clear: (providerID: string) => Effect.Effect<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@kilocode/ModelCache") {}
+export class Service extends Context.Service<Service, Interface>()("@harness/ModelCache") {}
 
 const log = Log.create({ service: "model-cache" })
 const ttl = Duration.minutes(5)
@@ -60,13 +59,13 @@ type ApertisItem = Schema.Schema.Type<typeof ApertisItem>
 export const layer: Layer.Layer<
   Service,
   never,
-  Auth.Service | Config.Service | KiloModelsService | HttpClient.HttpClient
+  Auth.Service | Config.Service | HarnessModelsService | HttpClient.HttpClient
 > = Layer.effect(
   Service,
   Effect.gen(function* () {
     const auth = yield* Auth.Service
     const cfg = yield* Config.Service
-    const kilo = yield* KiloModelsService
+    const harness = yield* HarnessModelsService
     const http = yield* HttpClient.HttpClient
     const scope = yield* Scope.Scope
     const cells = new Map<string, Cell>()
@@ -120,19 +119,19 @@ export const layer: Layer.Layer<
     })
 
     const authOptions = Effect.fn("ModelCache.authOptions")(function* (providerID: string) {
-      if (providerID !== "kilo" && providerID !== "apertis") return {}
+      if (providerID !== "harness" && providerID !== "apertis") return {}
       const config = yield* cfg.get()
       const options: Options = {}
 
-      if (providerID === "kilo") {
+      if (providerID === "harness") {
         const item = config.provider?.[providerID]
         const info = yield* auth.get(providerID)
-        options.kilocodeOrganizationId = organization(item?.options, info)
-        options.kilocodeToken = token(item?.options, info)
+        options.harnessOrganizationId = organization(item?.options, info)
+        options.harnessToken = token(item?.options, info)
         log.debug("auth options resolved", {
           providerID,
-          hasToken: !!options.kilocodeToken,
-          hasOrganizationId: !!options.kilocodeOrganizationId,
+          hasToken: !!options.harnessToken,
+          hasOrganizationId: !!options.harnessOrganizationId,
         })
       }
 
@@ -156,7 +155,7 @@ export const layer: Layer.Layer<
     })
 
     const fetchModels = (providerID: string, options: Options): Effect.Effect<Result, unknown> => {
-      if (providerID === "kilo") return kilo.fetch(options)
+      if (providerID === "harness") return harness.fetch(options)
       if (providerID === "apertis") return fetchApertisModels(options).pipe(Effect.map((models) => ({ models })))
       log.debug("provider not implemented", { providerID })
       return Effect.succeed({ models: {} })
@@ -172,13 +171,13 @@ export const layer: Layer.Layer<
         ),
       )
       const input = { ...resolved, ...options }
-      if (providerID === "kilo" && !compatible(input)) return { models: {}, error: { kind: "schema" as const } }
+      if (providerID === "harness" && !compatible(input)) return { models: {}, error: { kind: "schema" as const } }
       return yield* fetchModels(providerID, input)
     })
 
     const key = (providerID: string, options?: Options) => {
-      if (providerID === "kilo") {
-        return JSON.stringify([providerID, options?.baseURL, options?.kilocodeOrganizationId, options?.kilocodeToken])
+      if (providerID === "harness") {
+        return JSON.stringify([providerID, options?.baseURL, options?.harnessOrganizationId, options?.harnessToken])
       }
       if (providerID === "apertis") return JSON.stringify([providerID, options?.baseURL, options?.apiKey])
       return providerID
@@ -321,13 +320,13 @@ export const layer: Layer.Layer<
   }),
 )
 
-export const defaultLayer: Layer.Layer<Service> = Layer.suspend(() => AppNodeBuilder.build(node)) // kilocode_change - build from the LayerNode graph
+export const defaultLayer: Layer.Layer<Service> = Layer.suspend(() => AppNodeBuilder.build(node))
 
-const kiloModels = LayerNode.make({ name: "kilo-models", layer: kiloModelsLayer, deps: [] })
+const harnessModels = LayerNode.make({ name: "harness-models", layer: harnessModelsLayer, deps: [] })
 export const node = LayerNode.make({
   service: Service,
   layer,
-  deps: [Auth.node, Config.node, kiloModels, httpClient],
+  deps: [Auth.node, Config.node, harnessModels, httpClient],
 })
 
 export * as ModelCache from "./model-cache"

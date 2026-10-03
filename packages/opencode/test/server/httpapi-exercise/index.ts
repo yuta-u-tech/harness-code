@@ -6,7 +6,7 @@
  * requests, uses the right instance context, mutates storage when expected, and
  * returns the expected response shape.
  *
- * The script intentionally isolates `KILO_DB` before importing modules that touch
+ * The script intentionally isolates `HARNESS_DB` before importing modules that touch
  * storage. Scenarios may create/delete sessions and reset the database after each run,
  * so this must never point at a developer's real session database.
  *
@@ -17,7 +17,7 @@
  * - `.json(...)` / `.jsonEffect(...)` assert response shape and optional side effects.
  * - `.mutating()` tells the runner to reset isolated state after destructive routes.
  */
-import { Effect, Layer } from "effect" // kilocode_change
+import { Effect, Layer } from "effect"
 import { OpenApi } from "effect/unstable/httpapi"
 import { TestLLMServer } from "../../lib/llm-server"
 import path from "path"
@@ -31,13 +31,13 @@ import {
   exerciseGlobalRoot,
 } from "./environment"
 import { color, printHeader, printResults } from "./report"
-import { coverageResult, parseOptions, routeKey, routeKeys, selectedScenarios, shardScenarios } from "./routing" // kilocode_change
+import { coverageResult, parseOptions, routeKey, routeKeys, selectedScenarios, shardScenarios } from "./routing"
 import { runScenario } from "./runner"
 import { disposeApps } from "./backend"
-import { publicApi, runtime } from "./runtime" // kilocode_change
+import { publicApi, runtime } from "./runtime"
 import { type Scenario, type Result } from "./types"
-import { kiloScenarios } from "../../kilocode/server/httpapi-exercise-scenarios" // kilocode_change
-import { sessionAfterDefaultAgent } from "../../kilocode/server/httpapi-exercise-ready" // kilocode_change
+import { harnessScenarios } from "../../harness/server/httpapi-exercise-scenarios"
+import { sessionAfterDefaultAgent } from "../../harness/server/httpapi-exercise-ready"
 
 function cursor(input: Record<string, unknown>) {
   return Buffer.from(JSON.stringify(input)).toString("base64url")
@@ -117,13 +117,11 @@ const scenarios: Scenario[] = [
       },
       "status",
     ),
-  // kilocode_change start - opt into git init; the worktree assertion requires a git-backed project
   http.protected.get("/path", "path.get").inProject({ git: true }).json(200, (body, ctx) => {
     object(body)
-    check(body.directory === ctx.directory, "directory should resolve from x-kilo-directory")
-    check(body.worktree === ctx.directory, "worktree should resolve from x-kilo-directory")
+    check(body.directory === ctx.directory, "directory should resolve from x-harness-directory")
+    check(body.worktree === ctx.directory, "worktree should resolve from x-harness-directory")
   }),
-  // kilocode_change end
   http.protected.get("/vcs", "vcs.get").inProject({ git: true }).json(),
   http.protected.get("/vcs/status", "vcs.status").inProject({ git: true }).json(200, array),
   http.protected
@@ -168,7 +166,6 @@ const scenarios: Scenario[] = [
     .status(400),
   http.protected.get("/config/providers", "config.providers").json(),
   http.protected.get("/project", "project.list").json(200, array, "status"),
-  // kilocode_change start - opt into git init; the worktree assertion requires a git-backed project
   http.protected
     .get("/project/current", "project.current")
     .inProject({ git: true })
@@ -180,15 +177,12 @@ const scenarios: Scenario[] = [
       },
       "status",
     ),
-  // kilocode_change end
   http.protected
     .patch("/project/{projectID}", "project.update")
     .mutating()
-    // kilocode_change start - isolated git project: a non-git directory resolves to the
     // shared global project (worktree "/"), and this scenario PATCHes the row — without
     // isolation the mutation would leak into every later non-git scenario in the same pass.
     .inProject({ git: true })
-    // kilocode_change end
     .seeded((ctx) => ctx.project())
     .at((ctx) => ({
       path: route("/project/{projectID}", { projectID: ctx.state.id }),
@@ -312,12 +306,11 @@ const scenarios: Scenario[] = [
     }))
     .json(404, object, "status"),
   http.protected.get("/question", "question.list").json(200, array),
-  // kilocode_change start
-  http.protected.get("/kilocode/notebook", "kilocode.notebook.list").json(200, array),
+  http.protected.get("/harness/notebook", "harness.notebook.list").json(200, array),
   http.protected
-    .post("/kilocode/notebook/{requestID}/reply", "kilocode.notebook.reply")
+    .post("/harness/notebook/{requestID}/reply", "harness.notebook.reply")
     .at((ctx) => ({
-      path: route("/kilocode/notebook/{requestID}/reply", { requestID: "nbr_httpapi_reply" }),
+      path: route("/harness/notebook/{requestID}/reply", { requestID: "nbr_httpapi_reply" }),
       headers: ctx.headers(),
       body: {
         result: {
@@ -331,31 +324,30 @@ const scenarios: Scenario[] = [
     }))
     .json(404, object, "status"),
   http.protected
-    .post("/kilocode/notebook/{requestID}/reject", "kilocode.notebook.reject")
+    .post("/harness/notebook/{requestID}/reject", "harness.notebook.reject")
     .at((ctx) => ({
-      path: route("/kilocode/notebook/{requestID}/reject", { requestID: "nbr_httpapi_reject" }),
+      path: route("/harness/notebook/{requestID}/reject", { requestID: "nbr_httpapi_reject" }),
       headers: ctx.headers(),
       body: { error: { code: "not_found", message: "Notebook not found" } },
     }))
     .json(404, object, "status"),
-  http.protected.get("/kilocode/agent-manager", "kilocode.agentManager.list").json(200, array),
+  http.protected.get("/harness/agent-manager", "harness.agentManager.list").json(200, array),
   http.protected
-    .post("/kilocode/agent-manager/{requestID}/reply", "kilocode.agentManager.reply")
+    .post("/harness/agent-manager/{requestID}/reply", "harness.agentManager.reply")
     .at((ctx) => ({
-      path: route("/kilocode/agent-manager/{requestID}/reply", { requestID: "amr_httpapi_reply" }),
+      path: route("/harness/agent-manager/{requestID}/reply", { requestID: "amr_httpapi_reply" }),
       headers: ctx.headers(),
       body: { result: { operation: "overview", overview: { sections: [], ungrouped: [] } } },
     }))
     .json(404, object, "status"),
   http.protected
-    .post("/kilocode/agent-manager/{requestID}/reject", "kilocode.agentManager.reject")
+    .post("/harness/agent-manager/{requestID}/reject", "harness.agentManager.reject")
     .at((ctx) => ({
-      path: route("/kilocode/agent-manager/{requestID}/reject", { requestID: "amr_httpapi_reject" }),
+      path: route("/harness/agent-manager/{requestID}/reject", { requestID: "amr_httpapi_reject" }),
       headers: ctx.headers(),
       body: { error: { code: "unknown_session", message: "Managed session not found" } },
     }))
     .json(404, object, "status"),
-  // kilocode_change end
   http.protected
     .post("/question/{requestID}/reply", "question.reply.invalid")
     .at((ctx) => ({
@@ -591,7 +583,7 @@ const scenarios: Scenario[] = [
     }))
     .json(200, array, "status"),
   http.protected.get("/experimental/tool/ids", "tool.ids").json(200, array),
-  http.protected.get("/experimental/worktree", "worktree.list").inProject({ git: true }).json(200, array), // kilocode_change
+  http.protected.get("/experimental/worktree", "worktree.list").inProject({ git: true }).json(200, array),
   http.protected
     .post("/experimental/worktree", "worktree.create")
     .mutating()
@@ -641,12 +633,10 @@ const scenarios: Scenario[] = [
     .at((ctx) => ({ path: "/experimental/session?roots=false&archived=false", headers: ctx.headers() }))
     .json(200, array),
   http.protected.get("/experimental/capabilities", "experimental.capabilities.get").json(200, (body) => {
-    // kilocode_change start - background subagents are always available
     check(
       typeof body === "object" && body !== null && "backgroundSubagents" in body && body.backgroundSubagents === true,
       "capabilities should report background subagents as available",
     )
-    // kilocode_change end
   }),
   http.protected
     .post("/experimental/session/{sessionID}/background", "experimental.session.background")
@@ -855,7 +845,7 @@ const scenarios: Scenario[] = [
     .post("/api/pty/{ptyID}/connect-token", "v2.pty.connectToken")
     .at((ctx) => ({
       path: route("/api/pty/{ptyID}/connect-token", { ptyID: "pty_httpapi_missing" }),
-      headers: { ...ctx.headers(), "x-kilo-ticket": "1" },
+      headers: { ...ctx.headers(), "x-harness-ticket": "1" },
     }))
     .json(404, object, "status"),
   http.protected
@@ -882,20 +872,18 @@ const scenarios: Scenario[] = [
   }),
   http.protected
     .post("/api/session/{sessionID}/permission", "v2.session.permission.create")
-    .seeded((ctx) => sessionAfterDefaultAgent(ctx, "Permission create owner")) // kilocode_change
+    .seeded((ctx) => sessionAfterDefaultAgent(ctx, "Permission create owner"))
     .at((ctx) => ({
       path: route("/api/session/{sessionID}/permission", { sessionID: ctx.state.id }),
       headers: ctx.headers(),
       body: { action: "read", resources: [".env"] },
     }))
-    // kilocode_change start - opt into git init; the permission resolver consults VCS state for unknown resources
     .inProject({ git: true })
-    // kilocode_change end
     .json(200, (body) => {
       object(body)
       object(body.data)
       check(typeof body.data.id === "string", "permission create should return an ID")
-      check(body.data.effect === "ask", `permission create should create a pending request, got ${JSON.stringify(body.data.effect)}`) // kilocode_change
+      check(body.data.effect === "ask", `permission create should create a pending request, got ${JSON.stringify(body.data.effect)}`)
     }),
   http.protected
     .get("/api/session/{sessionID}/permission", "v2.session.permission.list")
@@ -1726,13 +1714,13 @@ const scenarios: Scenario[] = [
     .mutating()
     .seeded((ctx) => ctx.session({ title: "Share session" }))
     .at((ctx) => ({ path: route("/session/{sessionID}/share", { sessionID: ctx.state.id }), headers: ctx.headers() }))
-    .status(500, undefined, "status"), // kilocode_change
+    .status(500, undefined, "status"),
   http.protected
     .delete("/session/{sessionID}/share", "session.unshare")
     .mutating()
     .seeded((ctx) => ctx.session({ title: "Unshare session" }))
     .at((ctx) => ({ path: route("/session/{sessionID}/share", { sessionID: ctx.state.id }), headers: ctx.headers() }))
-    .status(500, undefined, "status"), // kilocode_change
+    .status(500, undefined, "status"),
   http.protected
     .post("/tui/append-prompt", "tui.appendPrompt")
     .at((ctx) => ({ path: "/tui/append-prompt", headers: ctx.headers(), body: { text: "hello" } }))
@@ -1778,7 +1766,7 @@ const scenarios: Scenario[] = [
     .json(200, boolean, "status"),
   http.protected
     .get("/tui/control/next", "tui.control.next")
-    .skipValidAuthProbe() // kilocode_change - valid requests intentionally block waiting for queued TUI input
+    .skipValidAuthProbe()
     .mutating()
     .seeded((ctx) => ctx.tuiRequest({ path: "/tui/exercise", body: { text: "queued" } }))
     .json(
@@ -1797,7 +1785,7 @@ const scenarios: Scenario[] = [
     .probe({ path: "/global/upgrade", body: { target: 1 } })
     .at(() => ({ path: "/global/upgrade", body: { target: 1 } }))
     .status(400),
-  ...kiloScenarios, // kilocode_change
+  ...harnessScenarios,
 ]
 
 const llmScenarios = new Set([
@@ -1815,7 +1803,6 @@ const main = Effect.gen(function* () {
       return yield* Effect.fail(new Error(`${scenario.name} must use TestLLMServer via .withLlm()`))
     }
   }
-  // kilocode_change start - coverage only needs the OpenAPI group; bypass runtime + LLM + DB allocation
   if (options.mode === "coverage") {
     const selected = selectedScenarios(options, scenarios)
     const effectRoutes = routeKeys(OpenApi.fromApi(yield* Effect.promise(() => publicApi())))
@@ -1836,8 +1823,6 @@ const main = Effect.gen(function* () {
     yield* cleanupExercisePaths
     return undefined
   }
-  // kilocode_change end
-  // kilocode_change start - dispose final non-mutating instances so shared test scopes can close; skip when coverage returned early so runtime() is never imported in static mode
   yield* Effect.addFinalizer(() =>
     Effect.gen(function* () {
       const modules = yield* Effect.promise(() => runtime())
@@ -1846,7 +1831,6 @@ const main = Effect.gen(function* () {
       yield* cleanupExercisePaths
     }),
   )
-  // kilocode_change end
   const modules = yield* Effect.promise(() => runtime())
   const effectRoutes = routeKeys(OpenApi.fromApi(modules.PublicApi))
   const selected = selectedScenarios(options, scenarios)
@@ -1864,7 +1848,6 @@ const main = Effect.gen(function* () {
     (scenario) =>
       Effect.gen(function* () {
         if (options.progress) console.log(`${color.dim}RUN ${routeKey(scenario)} ${scenario.name}${color.reset}`)
-        // kilocode_change start - retry a failed scenario before failing the pass, mirroring
         // the unit runner's pass-after-retry policy: contention flakes recover while real
         // regressions still fail every attempt. Retries stay visible in output.
         const result = yield* runScenario(options)(scenario)
@@ -1890,7 +1873,6 @@ const main = Effect.gen(function* () {
           }
         }
         return last
-        // kilocode_change end
       }),
     { concurrency: 1 },
   )
@@ -1905,7 +1887,6 @@ const main = Effect.gen(function* () {
   return undefined
 })
 
-// kilocode_change start - route-only coverage must not acquire a listening fake LLM server; effect/auth runs alone
 const initialOptions = parseOptions(Bun.argv.slice(2))
 const llm =
   initialOptions.mode === "coverage" ? Layer.mock(TestLLMServer)({ url: "http://coverage.invalid" }) : TestLLMServer.layer
@@ -1917,4 +1898,3 @@ Effect.runPromise(main.pipe(Effect.provide(llm), Effect.scoped)).then(
     process.exit(1)
   },
 )
-// kilocode_change end

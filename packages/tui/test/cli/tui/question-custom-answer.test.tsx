@@ -1,4 +1,3 @@
-// kilocode_change - new file
 /** @jsxImportSource @opentui/solid */
 import { TextareaRenderable } from "@opentui/core"
 import { createDefaultOpenTuiKeymap } from "@opentui/keymap/opentui"
@@ -7,7 +6,7 @@ import { expect, test } from "bun:test"
 import { mkdir } from "node:fs/promises"
 import path from "node:path"
 import { onCleanup } from "solid-js"
-import type { QuestionRequest } from "@kilocode/sdk/v2"
+import type { QuestionRequest } from "@harness/sdk/v2"
 import { tmpdir } from "../../fixture/fixture"
 import { createTuiResolvedConfig } from "../../fixture/tui-runtime"
 import { TestTuiContexts } from "../../fixture/tui-environment"

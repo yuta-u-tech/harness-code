@@ -7,7 +7,7 @@ import { Integration } from "@opencode-ai/core/integration"
 import { SkillV2 } from "@opencode-ai/core/skill"
 import { InstanceDisposed } from "@/server/event"
 import { Question } from "@/question"
-import { BusEvent } from "@/bus/bus-event" // kilocode_change - include legacy Kilo events until they migrate to EventV2
+import { BusEvent } from "@/bus/bus-event"
 import { ConfigApi } from "./groups/config"
 import { ControlApi } from "./groups/control"
 import { ControlPlaneApi } from "./groups/control-plane"
@@ -26,27 +26,25 @@ import { SessionApi } from "./groups/session"
 import { SyncApi } from "./groups/sync"
 import { TuiApi } from "./groups/tui"
 import { WorkspaceApi } from "./groups/workspace"
-// kilocode_change start - Kilo HttpApi groups
-import { AgentBuilderApi } from "@/kilocode/server/httpapi/groups/agent-builder"
-import { BranchNameApi } from "@/kilocode/server/httpapi/groups/branch-name"
-import { CommitMessageApi } from "@/kilocode/server/httpapi/groups/commit-message"
-import { HarnessRunApi } from "@/kilocode/server/httpapi/groups/harness-run" // kilocode_change
-import { BackgroundProcessApi } from "@/kilocode/server/httpapi/groups/background-process"
-import { ConfigConsoleApi } from "@/kilocode/server/httpapi/groups/config-console"
-import { EnhancePromptApi } from "@/kilocode/server/httpapi/groups/enhance-prompt"
-import { IndexingApi } from "@/kilocode/server/httpapi/groups/indexing"
-import { InstanceReloadApi } from "@/kilocode/server/httpapi/groups/instance-reload"
-import { KiloGatewayApi } from "@/kilocode/server/httpapi/groups/kilo-gateway"
-import { KilocodeApi } from "@/kilocode/server/httpapi/groups/kilocode"
-import { MigrateApi } from "@/kilocode/server/httpapi/groups/migrate"
-import { NetworkApi } from "@/kilocode/server/httpapi/groups/network"
-import { RemoteApi } from "@/kilocode/server/httpapi/groups/remote"
-import { SandboxApi } from "@/kilocode/server/httpapi/groups/sandbox"
-import { SessionImportApi } from "@/kilocode/server/httpapi/groups/session-import"
-import { SuggestionApi } from "@/kilocode/server/httpapi/groups/suggestion"
-import { TelemetryApi } from "@/kilocode/server/httpapi/groups/telemetry"
-import { MemoryApi } from "@/kilocode/server/httpapi/groups/memory" // kilocode_change
-// kilocode_change end
+import { AgentBuilderApi } from "@/harness/server/httpapi/groups/agent-builder"
+import { BranchNameApi } from "@/harness/server/httpapi/groups/branch-name"
+import { CommitMessageApi } from "@/harness/server/httpapi/groups/commit-message"
+import { HarnessRunApi } from "@/harness/server/httpapi/groups/harness-run"
+import { BackgroundProcessApi } from "@/harness/server/httpapi/groups/background-process"
+import { ConfigConsoleApi } from "@/harness/server/httpapi/groups/config-console"
+import { EnhancePromptApi } from "@/harness/server/httpapi/groups/enhance-prompt"
+import { IndexingApi } from "@/harness/server/httpapi/groups/indexing"
+import { InstanceReloadApi } from "@/harness/server/httpapi/groups/instance-reload"
+import { HarnessGatewayApi } from "@/harness/server/httpapi/groups/harness-gateway"
+import { HarnessApi } from "@/harness/server/httpapi/groups/harness"
+import { MigrateApi } from "@/harness/server/httpapi/groups/migrate"
+import { NetworkApi } from "@/harness/server/httpapi/groups/network"
+import { RemoteApi } from "@/harness/server/httpapi/groups/remote"
+import { SandboxApi } from "@/harness/server/httpapi/groups/sandbox"
+import { SessionImportApi } from "@/harness/server/httpapi/groups/session-import"
+import { SuggestionApi } from "@/harness/server/httpapi/groups/suggestion"
+import { TelemetryApi } from "@/harness/server/httpapi/groups/telemetry"
+import { MemoryApi } from "@/harness/server/httpapi/groups/memory"
 import { makeApi } from "@opencode-ai/protocol/api"
 import { LocationMiddleware } from "@opencode-ai/server/location"
 import { SessionLocationMiddleware } from "@opencode-ai/server/middleware/session-location"
@@ -64,7 +62,7 @@ const EventSchema = Schema.Union([
       }).annotate({ identifier: `Event.${definition.type}` }),
     )
     .toArray(),
-  ...BusEvent.effectPayloads(), // kilocode_change - include legacy Kilo events until they migrate to EventV2
+  ...BusEvent.effectPayloads(),
   InstanceDisposed,
 ]).annotate({ identifier: "Event" })
 
@@ -97,18 +95,17 @@ export const InstanceHttpApi = HttpApi.make("opencode-instance")
   .addHttpApi(SyncApi)
   .addHttpApi(TuiApi)
   .addHttpApi(WorkspaceApi)
-  // kilocode_change start - Kilo HttpApi groups
   .addHttpApi(AgentBuilderApi)
   .addHttpApi(BackgroundProcessApi)
   .addHttpApi(BranchNameApi)
   .addHttpApi(CommitMessageApi)
-  .addHttpApi(HarnessRunApi) // kilocode_change
+  .addHttpApi(HarnessRunApi)
   .addHttpApi(ConfigConsoleApi)
   .addHttpApi(EnhancePromptApi)
   .addHttpApi(IndexingApi)
   .addHttpApi(InstanceReloadApi)
-  .addHttpApi(KiloGatewayApi)
-  .addHttpApi(KilocodeApi)
+  .addHttpApi(HarnessGatewayApi)
+  .addHttpApi(HarnessApi)
   .addHttpApi(MigrateApi)
   .addHttpApi(NetworkApi)
   .addHttpApi(RemoteApi)
@@ -117,7 +114,6 @@ export const InstanceHttpApi = HttpApi.make("opencode-instance")
   .addHttpApi(SuggestionApi)
   .addHttpApi(TelemetryApi)
   .addHttpApi(MemoryApi)
-  // kilocode_change end
   .middleware(SchemaErrorMiddleware)
 
 export const OpenCodeHttpApi = HttpApi.make("opencode")

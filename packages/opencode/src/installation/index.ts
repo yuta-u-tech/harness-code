@@ -13,16 +13,14 @@ import { makeRuntime } from "@opencode-ai/core/effect/runtime"
 import semver from "semver"
 import { InstallationChannel, InstallationVersion } from "@opencode-ai/core/installation/version"
 import { NpmConfig } from "@opencode-ai/core/npm-config"
-// kilocode_change start
 import {
-  Brew as KiloBrew,
-  Choco as KiloChoco,
-  Npm as KiloNpm,
-  Release as KiloRelease,
-  Scoop as KiloScoop,
-} from "@/kilocode/installation"
-import { latest as kiloLatest } from "@/kilocode/installation/latest"
-// kilocode_change end
+  Brew as HarnessBrew,
+  Choco as HarnessChoco,
+  Npm as HarnessNpm,
+  Release as HarnessRelease,
+  Scoop as HarnessScoop,
+} from "@/harness/installation"
+import { latest as harnessLatest } from "@/harness/installation/latest"
 import { InstallationEvent } from "@opencode-ai/schema/installation-event"
 
 export type Method = "curl" | "npm" | "yarn" | "pnpm" | "bun" | "brew" | "scoop" | "choco" | "unknown"
@@ -49,7 +47,7 @@ export const Info = Schema.Struct({
 export type Info = Schema.Schema.Type<typeof Info>
 
 export function userAgent(client = "cli") {
-  return `kilo/${InstallationChannel}/${InstallationVersion}/${client}` // kilocode_change
+  return `harness/${InstallationChannel}/${InstallationVersion}/${client}`
 }
 
 export const USER_AGENT = userAgent()
@@ -136,11 +134,11 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
     )
 
     const getBrewFormula = Effect.fnUntraced(function* () {
-      const tapFormula = yield* text(["brew", "list", "--formula", KiloBrew.formula]) // kilocode_change
-      if (tapFormula.includes(KiloBrew.name)) return KiloBrew.formula // kilocode_change
-      const coreFormula = yield* text(["brew", "list", "--formula", KiloBrew.name]) // kilocode_change
-      if (coreFormula.includes(KiloBrew.name)) return KiloBrew.name // kilocode_change
-      return KiloBrew.formula // kilocode_change
+      const tapFormula = yield* text(["brew", "list", "--formula", HarnessBrew.formula])
+      if (tapFormula.includes(HarnessBrew.name)) return HarnessBrew.formula
+      const coreFormula = yield* text(["brew", "list", "--formula", HarnessBrew.name])
+      if (coreFormula.includes(HarnessBrew.name)) return HarnessBrew.name
+      return HarnessBrew.formula
     })
 
     const upgradeFailure = (method: Method, result?: { code: number; stdout: string; stderr: string }) => {
@@ -157,7 +155,7 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
 
     const upgradeCurl = Effect.fnUntraced(
       function* (target: string) {
-        const response = yield* httpOk.execute(HttpClientRequest.get(KiloRelease.install)) // kilocode_change
+        const response = yield* httpOk.execute(HttpClientRequest.get(HarnessRelease.install))
         const body = yield* response.text
         const bodyBytes = new TextEncoder().encode(body)
         const shell = yield* upgradeScriptShell()
@@ -185,7 +183,7 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
         }
       }),
       method: Effect.fn("Installation.method")(function* () {
-        if (process.execPath.includes(path.join(".kilo", "bin"))) return "curl" as Method // kilocode_change
+        if (process.execPath.includes(path.join(".harness", "bin"))) return "curl" as Method
         if (process.execPath.includes(path.join(".opencode", "bin"))) return "curl" as Method
         if (process.execPath.includes(path.join(".local", "bin"))) return "curl" as Method
         const exec = process.execPath.toLowerCase()
@@ -206,16 +204,16 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
           { name: "bun", command: () => text(["bun", "pm", "ls", "-g"]) },
           {
             name: "brew",
-            command: () => text(["brew", "list", "--formula", KiloBrew.formula]),
-          }, // kilocode_change
+            command: () => text(["brew", "list", "--formula", HarnessBrew.formula]),
+          },
           {
             name: "scoop",
-            command: () => text(["scoop", "list", KiloScoop.name]),
-          }, // kilocode_change
+            command: () => text(["scoop", "list", HarnessScoop.name]),
+          },
           {
             name: "choco",
-            command: () => text(["choco", "list", "--limit-output", KiloChoco.name]),
-          }, // kilocode_change
+            command: () => text(["choco", "list", "--limit-output", HarnessChoco.name]),
+          },
         ]
 
         checks.sort((a, b) => {
@@ -228,16 +226,14 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
 
         for (const check of checks) {
           const output = yield* check.command()
-          // kilocode_change start
           const installedName =
             check.name === "brew"
-              ? KiloBrew.name
+              ? HarnessBrew.name
               : check.name === "choco"
-                ? KiloChoco.name
+                ? HarnessChoco.name
                 : check.name === "scoop"
-                  ? KiloScoop.name
-                  : KiloNpm.name
-          // kilocode_change end
+                  ? HarnessScoop.name
+                  : HarnessNpm.name
           if (output.includes(installedName)) {
             return check.name
           }
@@ -256,7 +252,7 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
             return info.formulae[0].versions.stable
           }
           const response = yield* httpOk.execute(
-            HttpClientRequest.get(KiloBrew.api).pipe(HttpClientRequest.acceptJson), // kilocode_change
+            HttpClientRequest.get(HarnessBrew.api).pipe(HttpClientRequest.acceptJson),
           )
           const data = yield* HttpClientResponse.schemaBodyJson(BrewFormula)(response)
           return data.versions.stable
@@ -268,10 +264,9 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
           detectedMethod === "bun" ||
           detectedMethod === "pnpm"
         ) {
-          // kilocode_change
           const response = yield* httpOk.execute(
             HttpClientRequest.get(
-              `${yield* NpmConfig.registry(process.cwd())}/${KiloNpm.path}/${InstallationChannel}`, // kilocode_change
+              `${yield* NpmConfig.registry(process.cwd())}/${HarnessNpm.path}/${InstallationChannel}`,
             ).pipe(HttpClientRequest.acceptJson),
           )
           const data = yield* HttpClientResponse.schemaBodyJson(NpmPackage)(response)
@@ -281,7 +276,7 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
         if (detectedMethod === "choco") {
           const response = yield* httpOk.execute(
             HttpClientRequest.get(
-              KiloChoco.api, // kilocode_change
+              HarnessChoco.api,
             ).pipe(
               HttpClientRequest.setHeaders({
                 Accept: "application/json;odata=verbose",
@@ -295,14 +290,14 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
         if (detectedMethod === "scoop") {
           const response = yield* httpOk.execute(
             HttpClientRequest.get(
-              KiloScoop.manifest, // kilocode_change
+              HarnessScoop.manifest,
             ).pipe(HttpClientRequest.setHeaders({ Accept: "application/json" })),
           )
           const data = yield* HttpClientResponse.schemaBodyJson(ScoopManifest)(response)
           return data.version
         }
 
-        return yield* kiloLatest(httpOk, KiloNpm.path, InstallationChannel) // kilocode_change
+        return yield* harnessLatest(httpOk, HarnessNpm.path, InstallationChannel)
       }, Effect.orDie),
       upgrade: Effect.fn("Installation.upgrade")(function* (m: Method, target: string) {
         let upgradeResult: { code: number; stdout: string; stderr: string } | undefined
@@ -310,30 +305,28 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
           case "curl":
             upgradeResult = yield* upgradeCurl(target)
             break
-          // kilocode_change start
           case "npm":
-            upgradeResult = yield* run(["npm", "install", "-g", `${KiloNpm.name}@${target}`])
+            upgradeResult = yield* run(["npm", "install", "-g", `${HarnessNpm.name}@${target}`])
             break
           case "yarn":
-            upgradeResult = yield* run(["yarn", "global", "add", `${KiloNpm.name}@${target}`])
+            upgradeResult = yield* run(["yarn", "global", "add", `${HarnessNpm.name}@${target}`])
             break
-          // kilocode_change end
           case "pnpm":
-            upgradeResult = yield* run(["pnpm", "install", "-g", `${KiloNpm.name}@${target}`]) // kilocode_change
+            upgradeResult = yield* run(["pnpm", "install", "-g", `${HarnessNpm.name}@${target}`])
             break
           case "bun":
-            upgradeResult = yield* run(["bun", "install", "-g", `${KiloNpm.name}@${target}`]) // kilocode_change
+            upgradeResult = yield* run(["bun", "install", "-g", `${HarnessNpm.name}@${target}`])
             break
           case "brew": {
             const formula = yield* getBrewFormula()
             const env = { HOMEBREW_NO_AUTO_UPDATE: "1" }
             if (formula.includes("/")) {
-              const tap = yield* run(["brew", "tap", KiloBrew.tap], { env }) // kilocode_change
+              const tap = yield* run(["brew", "tap", HarnessBrew.tap], { env })
               if (tap.code !== 0) {
                 upgradeResult = tap
                 break
               }
-              const repo = yield* text(["brew", "--repo", KiloBrew.tap]) // kilocode_change
+              const repo = yield* text(["brew", "--repo", HarnessBrew.tap])
               const dir = repo.trim()
               if (dir) {
                 const pull = yield* run(["git", "pull", "--ff-only"], {
@@ -350,10 +343,10 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
             break
           }
           case "choco":
-            upgradeResult = yield* run(["choco", "upgrade", KiloChoco.name, `--version=${target}`, "-y"]) // kilocode_change
+            upgradeResult = yield* run(["choco", "upgrade", HarnessChoco.name, `--version=${target}`, "-y"])
             break
           case "scoop":
-            upgradeResult = yield* run(["scoop", "install", `${KiloScoop.name}@${target}`]) // kilocode_change
+            upgradeResult = yield* run(["scoop", "install", `${HarnessScoop.name}@${target}`])
             break
           default:
             return yield* new UpgradeFailedError({

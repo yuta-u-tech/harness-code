@@ -88,7 +88,6 @@ describe("global HttpApi", () => {
     }),
   )
 
-  // kilocode_change start - an omitted target upgrades to the latest version
   it.live("upgrades to the latest version when the request has no body", () =>
     Effect.gen(function* () {
       const response = yield* HttpClient.execute(HttpClientRequest.post(GlobalPaths.upgrade))
@@ -97,5 +96,4 @@ describe("global HttpApi", () => {
       expect(yield* response.json).toEqual({ success: true, version: "9.9.9" })
     }),
   )
-  // kilocode_change end
 })

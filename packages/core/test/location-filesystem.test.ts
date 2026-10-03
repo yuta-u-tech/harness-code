@@ -67,7 +67,6 @@ describe("FileSystem", () => {
     ),
   )
 
-  // kilocode_change start - canonical containment must reject in-worktree links to outside paths
   it.live("rejects symlink escapes for reads, lists, and searches", () =>
     withTmp((directory) =>
       withTmp((outside) =>
@@ -88,5 +87,4 @@ describe("FileSystem", () => {
       ),
     ),
   )
-  // kilocode_change end
 })

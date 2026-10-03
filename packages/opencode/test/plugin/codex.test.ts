@@ -135,7 +135,6 @@ describe("plugin.codex", () => {
     })
   })
 
-  // kilocode_change start
   describe("models filter", () => {
     test("filters out disallowed models for oauth users", async () => {
       const hooks = await CodexAuthPlugin({} as never)
@@ -211,7 +210,6 @@ describe("plugin.codex", () => {
       expect(provider).toHaveProperty(["other-model"])
     })
   })
-  // kilocode_change end
 
   describe("extractResidency", () => {
     test("extracts compute residency from the namespaced auth claims", () => {
@@ -393,11 +391,9 @@ describe("plugin.codex", () => {
 
     expect(models["gpt-5.4"]?.limit).toEqual(limit)
     expect(models["gpt-5.5"]?.limit).toEqual({ context: 400_000, input: 272_000, output: 128_000 })
-    // kilocode_change start - GPT-5.6 OAuth models use the current Codex limits
     expect(models["gpt-5.6-sol"]?.limit).toEqual(limit)
     expect(models["gpt-5.6-terra"]?.limit).toEqual(limit)
     expect(models["gpt-5.6-luna"]?.limit).toEqual(limit)
-    // kilocode_change end
     expect(models["gpt-5.4-pro"]).toBeUndefined()
     expect(models["gpt-5.7-pro"]).toBeDefined()
     expect(models["gpt-5.6-sol-high"]).toBeDefined()
@@ -406,7 +402,6 @@ describe("plugin.codex", () => {
     )
   })
 
-  // kilocode_change start - cover integer GPT major versions until the next upstream sync
   test.each([
     ["gpt-6-astra", true],
     ["gpt-6", true],
@@ -441,7 +436,6 @@ describe("plugin.codex", () => {
 
     expect(Object.keys(models)).toEqual(allowed ? [id] : [])
   })
-  // kilocode_change end
 
   test("deduplicates concurrent Codex token refreshes", async () => {
     const refreshedAccess = createTestJwt({

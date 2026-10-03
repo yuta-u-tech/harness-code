@@ -1,13 +1,11 @@
 declare global {
-  const KILO_VERSION: string
-  const KILO_CHANNEL: string
-  const KILO_BUILD_KIND: string // kilocode_change
+  const HARNESS_VERSION: string
+  const HARNESS_CHANNEL: string
+  const HARNESS_BUILD_KIND: string
 }
 
-export const InstallationVersion = typeof KILO_VERSION === "string" ? KILO_VERSION : "local"
-export const InstallationChannel = typeof KILO_CHANNEL === "string" ? KILO_CHANNEL : "local"
+export const InstallationVersion = typeof HARNESS_VERSION === "string" ? HARNESS_VERSION : "local"
+export const InstallationChannel = typeof HARNESS_CHANNEL === "string" ? HARNESS_CHANNEL : "local"
 export const InstallationLocal = InstallationChannel === "local"
-// kilocode_change start - distinguish release builds from source / local builds
 export const InstallationBuildKind: "source" | "release" =
-  typeof KILO_BUILD_KIND === "string" && KILO_BUILD_KIND === "release" ? "release" : "source"
-// kilocode_change end
+  typeof HARNESS_BUILD_KIND === "string" && HARNESS_BUILD_KIND === "release" ? "release" : "source"

@@ -3,7 +3,7 @@ import { HttpRouter } from "effect/unstable/http"
 import { parse } from "./assertions"
 import { runtime, type Runtime } from "./runtime"
 import type { ActiveScenario, BackendApp, CallResult, CaptureMode, SeededContext } from "./types"
-import type { Method, RequestSpec } from "./types" // kilocode_change
+import type { Method, RequestSpec } from "./types"
 
 type CallOptions = {
   auth?: {
@@ -18,7 +18,6 @@ export function call(scenario: ActiveScenario, ctx: SeededContext<unknown>, opti
   )
 }
 
-// kilocode_change start
 export function request(method: Method, spec: RequestSpec) {
   return Effect.promise(async () =>
     capture(
@@ -33,7 +32,6 @@ export function request(method: Method, spec: RequestSpec) {
     ),
   )
 }
-// kilocode_change end
 
 export function callAuthProbe(scenario: ActiveScenario, credentials: "missing" | "valid" = "missing") {
   return Effect.promise(async () => {
@@ -63,7 +61,6 @@ type CachedApp = BackendApp & { readonly dispose: () => Promise<void> }
 const appCache: Partial<Record<string, CachedApp>> = {}
 
 export async function disposeApps() {
-  // kilocode_change start - an in-flight SSE fiber can leave the in-process router scope unable
   // to close; bound disposal so a completed scenario run cannot wedge the exerciser or CI
   const apps = Object.entries(appCache)
   for (const key of Object.keys(appCache)) delete appCache[key]
@@ -81,7 +78,6 @@ export async function disposeApps() {
           ],
     ),
   )
-  // kilocode_change end
 }
 
 function app(modules: Runtime, options: CallOptions) {
@@ -93,15 +89,13 @@ function app(modules: Runtime, options: CallOptions) {
   const web = HttpRouter.toWebHandler(
     modules.HttpApiApp.routes.pipe(
       Layer.provide(
-        // kilocode_change start - keep the filewatcher-disable flag visible (see httpapi-instance-route-auth.test.ts)
         ConfigProvider.layer(
           ConfigProvider.fromUnknown({
-            KILO_SERVER_PASSWORD: password,
-            KILO_SERVER_USERNAME: username,
-            KILO_EXPERIMENTAL_DISABLE_FILEWATCHER: process.env.KILO_EXPERIMENTAL_DISABLE_FILEWATCHER ?? "true",
+            HARNESS_SERVER_PASSWORD: password,
+            HARNESS_SERVER_USERNAME: username,
+            HARNESS_EXPERIMENTAL_DISABLE_FILEWATCHER: process.env.HARNESS_EXPERIMENTAL_DISABLE_FILEWATCHER ?? "true",
           }),
         ),
-        // kilocode_change end
       ),
     ),
     { disableLogger: true, memoMap: modules.memoMap },
@@ -134,7 +128,7 @@ function toAuthProbeRequest(scenario: ActiveScenario, credentials: "missing" | "
   const headers = {
     ...(spec.body === undefined ? {} : { "content-type": "application/json" }),
     ...spec.headers,
-    ...(credentials === "valid" ? { authorization: basic("kilo", "secret") } : {}), // kilocode_change
+    ...(credentials === "valid" ? { authorization: basic("harness", "secret") } : {}),
   }
   return new Request(new URL(spec.path, "http://localhost"), {
     method: scenario.method,

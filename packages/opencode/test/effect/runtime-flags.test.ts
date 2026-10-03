@@ -15,23 +15,20 @@ describe("RuntimeFlags", () => {
       const flags = yield* readFlags.pipe(Effect.provide(fromConfig({})))
 
       expect(flags.autoShare).toBe(false)
-      expect(flags.experimentalBackgroundSubagents).toBe(true) // kilocode_change
+      expect(flags.experimentalBackgroundSubagents).toBe(true)
     }),
   )
 
-  // kilocode_change start - preserve the background-subagent kill switch
   it.effect("allows disabling background subagents explicitly", () =>
     Effect.gen(function* () {
       const flags = yield* readFlags.pipe(
-        Effect.provide(fromConfig({ KILO_EXPERIMENTAL_BACKGROUND_SUBAGENTS: "false" })),
+        Effect.provide(fromConfig({ HARNESS_EXPERIMENTAL_BACKGROUND_SUBAGENTS: "false" })),
       )
 
       expect(flags.experimentalBackgroundSubagents).toBe(false)
     }),
   )
-  // kilocode_change end
 
-  // kilocode_change start - shared agent board defaults on with a kill switch
   it.effect("enables the shared agent board by default", () =>
     Effect.gen(function* () {
       const flags = yield* readFlags.pipe(Effect.provide(fromConfig({})))
@@ -42,30 +39,29 @@ describe("RuntimeFlags", () => {
 
   it.effect("allows disabling the shared agent board explicitly", () =>
     Effect.gen(function* () {
-      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ KILO_EXPERIMENTAL_SHARED_AGENT_BOARD: "false" })))
+      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ HARNESS_EXPERIMENTAL_SHARED_AGENT_BOARD: "false" })))
 
       expect(flags.experimentalSharedAgentBoard).toBe(false)
     }),
   )
-  // kilocode_change end
 
   it.effect("layer parses plugin flags from the active ConfigProvider", () =>
     Effect.gen(function* () {
       const flags = yield* readFlags.pipe(
         Effect.provide(
           fromConfig({
-            KILO_PURE: "true",
-            KILO_DISABLE_DEFAULT_PLUGINS: "true",
-            KILO_AUTO_SHARE: "true",
-            KILO_DISABLE_EMBEDDED_WEB_UI: "true",
-            KILO_DISABLE_EXTERNAL_SKILLS: "true",
-            KILO_DISABLE_LSP_DOWNLOAD: "true",
-            KILO_EXPERIMENTAL: "true",
-            KILO_ENABLE_EXA: "true",
-            KILO_ENABLE_PARALLEL: "true",
-            KILO_ENABLE_EXPERIMENTAL_MODELS: "true",
-            KILO_ENABLE_QUESTION_TOOL: "true",
-            KILO_CLIENT: "desktop",
+            HARNESS_PURE: "true",
+            HARNESS_DISABLE_DEFAULT_PLUGINS: "true",
+            HARNESS_AUTO_SHARE: "true",
+            HARNESS_DISABLE_EMBEDDED_WEB_UI: "true",
+            HARNESS_DISABLE_EXTERNAL_SKILLS: "true",
+            HARNESS_DISABLE_LSP_DOWNLOAD: "true",
+            HARNESS_EXPERIMENTAL: "true",
+            HARNESS_ENABLE_EXA: "true",
+            HARNESS_ENABLE_PARALLEL: "true",
+            HARNESS_ENABLE_EXPERIMENTAL_MODELS: "true",
+            HARNESS_ENABLE_QUESTION_TOOL: "true",
+            HARNESS_CLIENT: "desktop",
           }),
         ),
       )
@@ -84,7 +80,7 @@ describe("RuntimeFlags", () => {
       expect(flags.experimentalReferences).toBe(true)
       expect(flags.experimentalLspTy).toBe(false)
       expect(flags.experimentalLspTool).toBe(true)
-      expect(flags.experimentalContextTools).toBe(true) // kilocode_change
+      expect(flags.experimentalContextTools).toBe(true)
       expect(flags.experimentalOxfmt).toBe(true)
       expect(flags.experimentalEventSystem).toBe(true)
       expect(flags.experimentalWorkspaces).toBe(true)
@@ -95,12 +91,12 @@ describe("RuntimeFlags", () => {
     }),
   )
 
-  it.effect("layer parses KILO_EXPERIMENTAL_LSP_TY", () =>
+  it.effect("layer parses HARNESS_EXPERIMENTAL_LSP_TY", () =>
     Effect.gen(function* () {
       const flags = yield* readFlags.pipe(
         Effect.provide(
           fromConfig({
-            KILO_EXPERIMENTAL_LSP_TY: "true",
+            HARNESS_EXPERIMENTAL_LSP_TY: "true",
           }),
         ),
       )
@@ -111,8 +107,8 @@ describe("RuntimeFlags", () => {
 
   it.effect("enables native LLM via dedicated flag only", () =>
     Effect.gen(function* () {
-      const explicit = yield* readFlags.pipe(Effect.provide(fromConfig({ KILO_EXPERIMENTAL_NATIVE_LLM: "true" })))
-      const umbrella = yield* readFlags.pipe(Effect.provide(fromConfig({ KILO_EXPERIMENTAL: "true" })))
+      const explicit = yield* readFlags.pipe(Effect.provide(fromConfig({ HARNESS_EXPERIMENTAL_NATIVE_LLM: "true" })))
+      const umbrella = yield* readFlags.pipe(Effect.provide(fromConfig({ HARNESS_EXPERIMENTAL: "true" })))
 
       expect(explicit.experimentalNativeLlm).toBe(true)
       expect(umbrella.experimentalNativeLlm).toBe(false)
@@ -121,8 +117,8 @@ describe("RuntimeFlags", () => {
 
   it.effect("enables WebSockets via dedicated flag only", () =>
     Effect.gen(function* () {
-      const explicit = yield* readFlags.pipe(Effect.provide(fromConfig({ KILO_EXPERIMENTAL_WEBSOCKETS: "true" })))
-      const umbrella = yield* readFlags.pipe(Effect.provide(fromConfig({ KILO_EXPERIMENTAL: "true" })))
+      const explicit = yield* readFlags.pipe(Effect.provide(fromConfig({ HARNESS_EXPERIMENTAL_WEBSOCKETS: "true" })))
+      const umbrella = yield* readFlags.pipe(Effect.provide(fromConfig({ HARNESS_EXPERIMENTAL: "true" })))
 
       expect(explicit.experimentalWebSockets).toBe(true)
       expect(umbrella.experimentalWebSockets).toBe(false)
@@ -169,9 +165,9 @@ describe("RuntimeFlags", () => {
     }),
   )
 
-  it.effect("disableExternalSkills reads KILO_DISABLE_EXTERNAL_SKILLS", () =>
+  it.effect("disableExternalSkills reads HARNESS_DISABLE_EXTERNAL_SKILLS", () =>
     Effect.gen(function* () {
-      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ KILO_DISABLE_EXTERNAL_SKILLS: "true" })))
+      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ HARNESS_DISABLE_EXTERNAL_SKILLS: "true" })))
 
       expect(flags.disableExternalSkills).toBe(true)
     }),
@@ -185,9 +181,9 @@ describe("RuntimeFlags", () => {
     }),
   )
 
-  it.effect("disableLspDownload reads KILO_DISABLE_LSP_DOWNLOAD", () =>
+  it.effect("disableLspDownload reads HARNESS_DISABLE_LSP_DOWNLOAD", () =>
     Effect.gen(function* () {
-      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ KILO_DISABLE_LSP_DOWNLOAD: "true" })))
+      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ HARNESS_DISABLE_LSP_DOWNLOAD: "true" })))
 
       expect(flags.disableLspDownload).toBe(true)
     }),
@@ -201,45 +197,45 @@ describe("RuntimeFlags", () => {
     }),
   )
 
-  it.effect("disableClaudeCodePrompt reads KILO_DISABLE_CLAUDE_CODE_PROMPT", () =>
+  it.effect("disableClaudeCodePrompt reads HARNESS_DISABLE_CLAUDE_CODE_PROMPT", () =>
     Effect.gen(function* () {
-      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ KILO_DISABLE_CLAUDE_CODE_PROMPT: "true" })))
+      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ HARNESS_DISABLE_CLAUDE_CODE_PROMPT: "true" })))
 
       expect(flags.disableClaudeCodePrompt).toBe(true)
     }),
   )
 
-  it.effect("disableClaudeCodePrompt inherits KILO_DISABLE_CLAUDE_CODE", () =>
+  it.effect("disableClaudeCodePrompt inherits HARNESS_DISABLE_CLAUDE_CODE", () =>
     Effect.gen(function* () {
-      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ KILO_DISABLE_CLAUDE_CODE: "true" })))
+      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ HARNESS_DISABLE_CLAUDE_CODE: "true" })))
 
       expect(flags.disableClaudeCodePrompt).toBe(true)
     }),
   )
 
-  it.effect("experimentalIconDiscovery reads KILO_EXPERIMENTAL_ICON_DISCOVERY", () =>
+  it.effect("experimentalIconDiscovery reads HARNESS_EXPERIMENTAL_ICON_DISCOVERY", () =>
     Effect.gen(function* () {
-      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ KILO_EXPERIMENTAL_ICON_DISCOVERY: "true" })))
+      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ HARNESS_EXPERIMENTAL_ICON_DISCOVERY: "true" })))
 
       expect(flags.experimentalIconDiscovery).toBe(true)
     }),
   )
 
-  it.effect("experimentalIconDiscovery inherits KILO_EXPERIMENTAL", () =>
+  it.effect("experimentalIconDiscovery inherits HARNESS_EXPERIMENTAL", () =>
     Effect.gen(function* () {
-      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ KILO_EXPERIMENTAL: "true" })))
+      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ HARNESS_EXPERIMENTAL: "true" })))
 
       expect(flags.experimentalIconDiscovery).toBe(true)
     }),
   )
 
-  it.effect("specific experimental flags override KILO_EXPERIMENTAL", () =>
+  it.effect("specific experimental flags override HARNESS_EXPERIMENTAL", () =>
     Effect.gen(function* () {
       const flags = yield* readFlags.pipe(
         Effect.provide(
           fromConfig({
-            KILO_EXPERIMENTAL: "true",
-            KILO_EXPERIMENTAL_ICON_DISCOVERY: "false",
+            HARNESS_EXPERIMENTAL: "true",
+            HARNESS_EXPERIMENTAL_ICON_DISCOVERY: "false",
           }),
         ),
       )
@@ -256,12 +252,12 @@ describe("RuntimeFlags", () => {
     }),
   )
 
-  it.effect("experimentalOxfmt is enabled by KILO_EXPERIMENTAL_OXFMT", () =>
+  it.effect("experimentalOxfmt is enabled by HARNESS_EXPERIMENTAL_OXFMT", () =>
     Effect.gen(function* () {
       const flags = yield* readFlags.pipe(
         Effect.provide(
           fromConfig({
-            KILO_EXPERIMENTAL_OXFMT: "true",
+            HARNESS_EXPERIMENTAL_OXFMT: "true",
           }),
         ),
       )
@@ -270,12 +266,12 @@ describe("RuntimeFlags", () => {
     }),
   )
 
-  it.effect("experimentalOxfmt inherits KILO_EXPERIMENTAL", () =>
+  it.effect("experimentalOxfmt inherits HARNESS_EXPERIMENTAL", () =>
     Effect.gen(function* () {
       const flags = yield* readFlags.pipe(
         Effect.provide(
           fromConfig({
-            KILO_EXPERIMENTAL: "true",
+            HARNESS_EXPERIMENTAL: "true",
           }),
         ),
       )
@@ -284,7 +280,6 @@ describe("RuntimeFlags", () => {
     }),
   )
 
-  // kilocode_change start - self-context tools
   it.effect("experimentalContextTools defaults to false", () =>
     Effect.gen(function* () {
       const flags = yield* readFlags.pipe(Effect.provide(fromConfig({})))
@@ -298,8 +293,8 @@ describe("RuntimeFlags", () => {
       const flags = yield* readFlags.pipe(
         Effect.provide(
           fromConfig({
-            KILO_EXPERIMENTAL: "true",
-            KILO_EXPERIMENTAL_CONTEXT_TOOLS: "false",
+            HARNESS_EXPERIMENTAL: "true",
+            HARNESS_EXPERIMENTAL_CONTEXT_TOOLS: "false",
           }),
         ),
       )
@@ -307,25 +302,24 @@ describe("RuntimeFlags", () => {
       expect(flags.experimentalContextTools).toBe(false)
     }),
   )
-  // kilocode_change end
 
   for (const input of [
     { name: "absent", config: {}, expected: undefined },
     {
       name: "valid positive integer",
-      config: { KILO_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS: "1234" },
+      config: { HARNESS_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS: "1234" },
       expected: 1234,
     },
     {
       name: "invalid string",
-      config: { KILO_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS: "nope" },
+      config: { HARNESS_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS: "nope" },
       expected: undefined,
     },
-    { name: "zero", config: { KILO_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS: "0" }, expected: undefined },
-    { name: "negative", config: { KILO_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS: "-1" }, expected: undefined },
+    { name: "zero", config: { HARNESS_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS: "0" }, expected: undefined },
+    { name: "negative", config: { HARNESS_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS: "-1" }, expected: undefined },
     {
       name: "non-integer",
-      config: { KILO_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS: "1.5" },
+      config: { HARNESS_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS: "1.5" },
       expected: undefined,
     },
   ]) {
@@ -342,19 +336,19 @@ describe("RuntimeFlags", () => {
     { name: "absent", config: {}, expected: undefined },
     {
       name: "valid positive integer",
-      config: { KILO_EXPERIMENTAL_OUTPUT_TOKEN_MAX: "1234" },
+      config: { HARNESS_EXPERIMENTAL_OUTPUT_TOKEN_MAX: "1234" },
       expected: 1234,
     },
     {
       name: "invalid string",
-      config: { KILO_EXPERIMENTAL_OUTPUT_TOKEN_MAX: "nope" },
+      config: { HARNESS_EXPERIMENTAL_OUTPUT_TOKEN_MAX: "nope" },
       expected: undefined,
     },
-    { name: "zero", config: { KILO_EXPERIMENTAL_OUTPUT_TOKEN_MAX: "0" }, expected: undefined },
-    { name: "negative", config: { KILO_EXPERIMENTAL_OUTPUT_TOKEN_MAX: "-1" }, expected: undefined },
+    { name: "zero", config: { HARNESS_EXPERIMENTAL_OUTPUT_TOKEN_MAX: "0" }, expected: undefined },
+    { name: "negative", config: { HARNESS_EXPERIMENTAL_OUTPUT_TOKEN_MAX: "-1" }, expected: undefined },
     {
       name: "non-integer",
-      config: { KILO_EXPERIMENTAL_OUTPUT_TOKEN_MAX: "1.5" },
+      config: { HARNESS_EXPERIMENTAL_OUTPUT_TOKEN_MAX: "1.5" },
       expected: undefined,
     },
   ]) {
@@ -374,14 +368,14 @@ describe("RuntimeFlags", () => {
         Effect.provide(
           ConfigProvider.layer(
             ConfigProvider.fromUnknown({
-              KILO_PURE: "true",
-              KILO_DISABLE_DEFAULT_PLUGINS: "true",
-              KILO_DISABLE_EXTERNAL_SKILLS: "true",
-              KILO_DISABLE_LSP_DOWNLOAD: "true",
-              KILO_EXPERIMENTAL: "true",
-              KILO_ENABLE_EXA: "true",
-              KILO_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS: "1234",
-              KILO_CLIENT: "desktop",
+              HARNESS_PURE: "true",
+              HARNESS_DISABLE_DEFAULT_PLUGINS: "true",
+              HARNESS_DISABLE_EXTERNAL_SKILLS: "true",
+              HARNESS_DISABLE_LSP_DOWNLOAD: "true",
+              HARNESS_EXPERIMENTAL: "true",
+              HARNESS_ENABLE_EXA: "true",
+              HARNESS_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS: "1234",
+              HARNESS_CLIENT: "desktop",
             }),
           ),
         ),
@@ -411,17 +405,17 @@ describe("RuntimeFlags", () => {
     }),
   )
 
-  it.effect("disableClaudeCodeSkills reads KILO_DISABLE_CLAUDE_CODE_SKILLS", () =>
+  it.effect("disableClaudeCodeSkills reads HARNESS_DISABLE_CLAUDE_CODE_SKILLS", () =>
     Effect.gen(function* () {
-      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ KILO_DISABLE_CLAUDE_CODE_SKILLS: "true" })))
+      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ HARNESS_DISABLE_CLAUDE_CODE_SKILLS: "true" })))
 
       expect(flags.disableClaudeCodeSkills).toBe(true)
     }),
   )
 
-  it.effect("disableClaudeCodeSkills inherits KILO_DISABLE_CLAUDE_CODE", () =>
+  it.effect("disableClaudeCodeSkills inherits HARNESS_DISABLE_CLAUDE_CODE", () =>
     Effect.gen(function* () {
-      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ KILO_DISABLE_CLAUDE_CODE: "true" })))
+      const flags = yield* readFlags.pipe(Effect.provide(fromConfig({ HARNESS_DISABLE_CLAUDE_CODE: "true" })))
 
       expect(flags.disableClaudeCodeSkills).toBe(true)
     }),

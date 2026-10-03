@@ -2,9 +2,7 @@ import { Effect, Schema } from "effect"
 import * as Tool from "./tool"
 import DESCRIPTION_WRITE from "./todowrite.txt"
 import { Todo } from "../session/todo"
-// kilocode_change start
-import { TodoView } from "../kilocode/todo-view"
-// kilocode_change end
+import { TodoView } from "../harness/todo-view"
 
 export const Parameters = Schema.Struct({
   todos: Schema.mutable(Schema.Array(Todo.Info)).annotate({ description: "The updated todo list" }),
@@ -12,9 +10,7 @@ export const Parameters = Schema.Struct({
 
 type Metadata = {
   todos: Todo.Info[]
-  // kilocode_change start
   view?: TodoView.Info
-  // kilocode_change end
 }
 
 export const TodoWriteTool = Tool.define<typeof Parameters, Metadata, Todo.Service>(
@@ -34,10 +30,8 @@ export const TodoWriteTool = Tool.define<typeof Parameters, Metadata, Todo.Servi
             metadata: {},
           })
 
-          // kilocode_change start
           const before = yield* todo.get(ctx.sessionID)
           const view = TodoView.calculate(before, params.todos)
-          // kilocode_change end
 
           yield* todo.update({
             sessionID: ctx.sessionID,
@@ -49,9 +43,7 @@ export const TodoWriteTool = Tool.define<typeof Parameters, Metadata, Todo.Servi
             output: JSON.stringify(params.todos, null, 2),
             metadata: {
               todos: params.todos,
-              // kilocode_change start
               view,
-              // kilocode_change end
             },
           }
         }),

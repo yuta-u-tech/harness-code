@@ -1,4 +1,3 @@
-// kilocode_change - new file
 import { describe, expect, test } from "bun:test"
 
 describe("Auto mode flag", () => {

@@ -7,10 +7,10 @@ import { Skill } from "../../src/skill"
 import { Permission } from "../../src/permission"
 import type { Provider } from "../../src/provider/provider"
 import { SystemPrompt } from "../../src/session/system"
-import { MCP } from "../../src/mcp" // kilocode_change - restore upstream MCP coverage in Kilo's AppNodeBuilder harness
+import { MCP } from "../../src/mcp"
 import { LocationServiceMap } from "@opencode-ai/core/location-services"
 import { testEffect } from "../lib/effect"
-import { Config } from "../../src/config/config" // kilocode_change
+import { Config } from "../../src/config/config"
 
 const skills: Skill.Info[] = [
   {
@@ -47,7 +47,6 @@ const build: Agent.Info = {
 
 const it = testEffect(
   AppNodeBuilder.build(SystemPrompt.node, [
-    // kilocode_change start - restore upstream MCP coverage in Kilo's AppNodeBuilder harness
     [
       MCP.node,
       Layer.mock(MCP.Service, {
@@ -66,7 +65,6 @@ const it = testEffect(
           ]),
       }),
     ],
-    // kilocode_change end
     [
       Skill.node,
       Layer.succeed(
@@ -133,7 +131,6 @@ describe("session.system", () => {
     }),
   )
 
-  // kilocode_change start - restore upstream MCP regression coverage omitted during conflict resolution
   it.effect("MCP output includes connected server instructions", () =>
     Effect.gen(function* () {
       const prompt = yield* SystemPrompt.Service
@@ -170,5 +167,4 @@ describe("session.system", () => {
       )
     }),
   )
-  // kilocode_change end
 })

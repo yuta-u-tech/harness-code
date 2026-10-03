@@ -16,7 +16,7 @@ import { tmpdir } from "../fixture/tmpdir"
 import { testEffect } from "../lib/effect"
 
 const describeWatcher =
-  Watcher.hasNativeBinding() && (!process.env.CI || process.env.KILO_TEST_PROFILE === "darwin") // kilocode_change
+  Watcher.hasNativeBinding() && (!process.env.CI || process.env.HARNESS_TEST_PROFILE === "darwin")
     ? describe
     : describe.skip
 
@@ -33,8 +33,8 @@ const configLayer = Layer.succeed(
 
 const flagsLayer = ConfigProvider.layer(
   ConfigProvider.fromUnknown({
-    KILO_EXPERIMENTAL_FILEWATCHER: "true",
-    KILO_EXPERIMENTAL_DISABLE_FILEWATCHER: "false",
+    HARNESS_EXPERIMENTAL_FILEWATCHER: "true",
+    HARNESS_EXPERIMENTAL_DISABLE_FILEWATCHER: "false",
   }),
 )
 
@@ -227,11 +227,9 @@ describeWatcher("Watcher", () => {
           const branch = `watch-${Math.random().toString(36).slice(2)}`
           yield* ready(directory)
           yield* Effect.promise(() => $`git branch ${branch}`.cwd(directory).quiet())
-          // kilocode_change start - FSEvents may classify this overwrite as an add.
           const event = yield* nextUpdate((event) => event.file === head, fs.writeFileString(head, `ref: refs/heads/${branch}\n`))
           expect(event.file).toBe(head)
           expect(["add", "change"]).toContain(event.event)
-          // kilocode_change end
         }),
       { git: true },
     ),

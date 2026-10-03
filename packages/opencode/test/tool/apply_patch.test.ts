@@ -25,7 +25,7 @@ const baseCtx = {
   sessionID: SessionID.make("ses_test"),
   messageID: MessageID.make("msg_test"),
   callID: "",
-  agent: "code", // kilocode_change
+  agent: "code",
   abort: AbortSignal.any([]),
   messages: [],
   metadata: () => Effect.void,

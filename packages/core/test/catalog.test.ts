@@ -27,13 +27,12 @@ const locationLayer = Layer.succeed(
   Location.Service,
   Location.Service.of(location({ directory: AbsolutePath.make("test") })),
 )
-// kilocode_change - Credential imports Global.data/auth.json on startup, so without this the suite
 // reads the developer's real credential store and its results depend on whether they are logged in.
 const dataDirs: string[] = []
 // Each Layer.fresh below rebuilds Credential, which re-imports data/auth.json, so a shared directory
 // would carry credentials from one test into the next. Give every layer its own.
 const globalLayer = () => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "kilo-catalog-test-"))
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "harness-catalog-test-"))
   dataDirs.push(dir)
   return Global.layerWith({ data: dir })
 }
@@ -44,7 +43,7 @@ const catalogLayer = AppNodeBuilder.build(
   LayerNode.group([Catalog.node, EventV2.node, Credential.node, Integration.node, Policy.node]),
   [
     [Location.node, locationLayer],
-    [Global.node, globalLayer()], // kilocode_change
+    [Global.node, globalLayer()],
   ],
 )
 const it = testEffect(catalogLayer)
@@ -70,7 +69,7 @@ describe("CatalogV2", () => {
     const localCatalogLayer = Layer.fresh(
       AppNodeBuilder.build(LayerNode.group([Catalog.node, Credential.node]), [
         [Location.node, locationLayer],
-        [Global.node, globalLayer()], // kilocode_change
+        [Global.node, globalLayer()],
       ]),
     )
 
@@ -102,7 +101,7 @@ describe("CatalogV2", () => {
     const localCatalogLayer = Layer.fresh(
       AppNodeBuilder.build(LayerNode.group([Catalog.node, Credential.node, Integration.node]), [
         [Location.node, locationLayer],
-        [Global.node, globalLayer()], // kilocode_change
+        [Global.node, globalLayer()],
       ]),
     )
 

@@ -14,9 +14,7 @@ import { testEffect } from "../lib/effect"
 
 const testPty = process.platform === "win32" ? test.skip : test
 
-// kilocode_change start - route PTY tests must not compete with per-project indexing workers.
-process.env.KILO_DISABLE_CODEBASE_INDEXING = "vscode-no-workspace"
-// kilocode_change end
+process.env.HARNESS_DISABLE_CODEBASE_INDEXING = "vscode-no-workspace"
 
 const testStateLayer = Layer.effectDiscard(
   Effect.gen(function* () {
@@ -54,7 +52,7 @@ function serverUrl() {
   return HttpServer.HttpServer.use((server) => Effect.succeed(HttpServer.formatAddress(server.address)))
 }
 
-const directoryHeader = (dir: string) => HttpClientRequest.setHeader("x-kilo-directory", dir)
+const directoryHeader = (dir: string) => HttpClientRequest.setHeader("x-harness-directory", dir)
 
 afterEach(async () => {
   await disposeAllInstances()
@@ -64,7 +62,7 @@ afterEach(async () => {
 describe("pty HttpApi bridge", () => {
   test("serves available shell list through experimental Effect routes", async () => {
     await using tmp = await tmpdir({ git: true, config: { formatter: false, lsp: false } })
-    const response = await app().request(PtyPaths.shells, { headers: { "x-kilo-directory": tmp.path } })
+    const response = await app().request(PtyPaths.shells, { headers: { "x-harness-directory": tmp.path } })
 
     expect(response.status).toBe(200)
     expect(await response.json()).toEqual(
@@ -80,12 +78,11 @@ describe("pty HttpApi bridge", () => {
 
   testPty("serves PTY JSON routes through experimental Effect routes", async () => {
     await using tmp = await tmpdir({ git: true, config: { formatter: false, lsp: false } })
-    const headers = { "x-kilo-directory": tmp.path }
+    const headers = { "x-harness-directory": tmp.path }
     const list = await app().request(PtyPaths.list, { headers })
     expect(list.status).toBe(200)
     expect(await list.json()).toEqual([])
 
-    // kilocode_change start - test initial spawn dimensions
     const created = await app().request(PtyPaths.create, {
       method: "POST",
       headers: { ...headers, "content-type": "application/json" },
@@ -96,7 +93,6 @@ describe("pty HttpApi bridge", () => {
         size: { cols: 50, rows: 20 },
       }),
     })
-    // kilocode_change end
     expect(created.status).toBe(200)
     const info = await created.json()
 
@@ -149,7 +145,7 @@ describe("pty HttpApi bridge", () => {
 
   testPty("hides exited sessions on the legacy surface", async () => {
     await using tmp = await tmpdir({ git: true, config: { formatter: false, lsp: false } })
-    const headers = { "x-kilo-directory": tmp.path }
+    const headers = { "x-harness-directory": tmp.path }
     const created = await app().request(PtyPaths.create, {
       method: "POST",
       headers: { ...headers, "content-type": "application/json" },
@@ -160,10 +156,8 @@ describe("pty HttpApi bridge", () => {
 
     // Exited sessions are retained by core for the canonical surface, but the legacy
     // routes preserve pre-retention behavior: exited sessions are invisible here.
-    // kilocode_change start - exit propagation can exceed 5s on a loaded CI shard; the loop
     // breaks as soon as the session disappears, so a generous deadline costs nothing when healthy.
     const deadline = Date.now() + 30_000
-    // kilocode_change end
     while (Date.now() < deadline) {
       const found = await app().request(PtyPaths.get.replace(":ptyID", info.id), { headers })
       if (found.status === 404) break
@@ -177,10 +171,9 @@ describe("pty HttpApi bridge", () => {
     expect(await list.json()).toEqual([])
   })
 
-  // kilocode_change start - location disposal must preserve the process-wide PTY registry.
   testPty("preserves PTY sessions across legacy instance disposal", async () => {
     await using tmp = await tmpdir({ git: true, config: { formatter: false, lsp: false } })
-    const headers = { "x-kilo-directory": tmp.path }
+    const headers = { "x-harness-directory": tmp.path }
     const created = await app().request(PtyPaths.create, {
       method: "POST",
       headers: { ...headers, "content-type": "application/json" },
@@ -199,12 +192,11 @@ describe("pty HttpApi bridge", () => {
       await app().request(PtyPaths.remove.replace(":ptyID", info.id), { method: "DELETE", headers })
     }
   })
-  // kilocode_change end
 
   test("returns 404 for missing PTY websocket before upgrade", async () => {
     await using tmp = await tmpdir({ git: true, config: { formatter: false, lsp: false } })
     const response = await app().request(PtyPaths.connect.replace(":ptyID", PtyID.ascending()), {
-      headers: { "x-kilo-directory": tmp.path },
+      headers: { "x-harness-directory": tmp.path },
     })
     expect(response.status).toBe(404)
   })
@@ -212,14 +204,14 @@ describe("pty HttpApi bridge", () => {
   test("returns 404 for missing PTY websocket before decoding cursor query", async () => {
     await using tmp = await tmpdir({ git: true, config: { formatter: false, lsp: false } })
     const response = await app().request(`${PtyPaths.connect.replace(":ptyID", PtyID.ascending())}?cursor=a&cursor=b`, {
-      headers: { "x-kilo-directory": tmp.path },
+      headers: { "x-harness-directory": tmp.path },
     })
     expect(response.status).toBe(404)
   })
 
   test("returns typed not found errors for missing PTY HTTP resources", async () => {
     await using tmp = await tmpdir({ git: true, config: { formatter: false, lsp: false } })
-    const headers = { "x-kilo-directory": tmp.path }
+    const headers = { "x-harness-directory": tmp.path }
     const missingID = String(PtyID.ascending())
     const expected = {
       _tag: "PtyNotFoundError",
@@ -246,7 +238,7 @@ describe("pty HttpApi bridge", () => {
 
   test("returns typed errors for PTY connect token failures", async () => {
     await using tmp = await tmpdir({ git: true, config: { formatter: false, lsp: false } })
-    const headers = { "x-kilo-directory": tmp.path }
+    const headers = { "x-harness-directory": tmp.path }
     const missingID = String(PtyID.ascending())
 
     const forbidden = await app().request(PtyPaths.connectToken.replace(":ptyID", missingID), {
@@ -263,7 +255,7 @@ describe("pty HttpApi bridge", () => {
       method: "POST",
       headers: {
         ...headers,
-        "x-kilo-ticket": "1",
+        "x-harness-ticket": "1",
       },
     })
     expect(missing.status).toBe(404)
@@ -273,7 +265,6 @@ describe("pty HttpApi bridge", () => {
       message: `PTY session not found: ${missingID}`,
     })
   })
-  // kilocode_change start - portable coverage for the exact legacy routes used by regular Agent Manager terminals
   effectIt.live("serves Agent Manager regular terminal create, resize, input, output, and remove routes", () =>
     Effect.gen(function* () {
       const dir = yield* tmpdirScoped({ git: true, config: { formatter: false, lsp: false } })
@@ -338,5 +329,4 @@ describe("pty HttpApi bridge", () => {
       expect(removed.status).toBe(200)
     }),
   )
-  // kilocode_change end
 })

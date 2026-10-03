@@ -37,11 +37,11 @@ a.out
 target
 .scripts
 .direnv/
-packages/kilo-jetbrains/build-tasks/.gradle/
+packages/harness-jetbrains/build-tasks/.gradle/
 
 # Local dev files
 opencode-dev
-.kilo-dev/
+.harness-dev/
 UPCOMING_CHANGELOG.md
 logs/
 *.bun-build
@@ -50,28 +50,28 @@ logs/
 telemetry-id
 tsconfig.tsbuildinfo
 
-# Kilo
-.kilo/.gitignore
-.kilo/package.json
-.kilo/package-lock.json
-.kilo/pnpm-lock.yaml
-.kilo/bun.lock
-.kilo/yarn.lock
-.kilo/node_modules
-.kilo/plans/*upstream-merge-report-*.md
-**/.kilo/jetbrains.json
-.kilocode/.gitignore
-.kilocode/package.json
-.kilocode/package-lock.json
-.kilocode/pnpm-lock.yaml
-.kilocode/bun.lock
-.kilocode/yarn.lock
-.kilocode/node_modules
+# Harness
+.harness/.gitignore
+.harness/package.json
+.harness/package-lock.json
+.harness/pnpm-lock.yaml
+.harness/bun.lock
+.harness/yarn.lock
+.harness/node_modules
+.harness/plans/*upstream-merge-report-*.md
+**/.harness/jetbrains.json
+.harness/.gitignore
+.harness/package.json
+.harness/package-lock.json
+.harness/pnpm-lock.yaml
+.harness/bun.lock
+.harness/yarn.lock
+.harness/node_modules
 
 # Runtime-generated per-directory TUI config (e.g. written by `PATCH /tui/config`
 # during local testing); should never be committed.
-packages/*/.kilo/tui.json
-packages/*/.kilo/tui.jsonc
+packages/*/.harness/tui.json
+packages/*/.harness/tui.jsonc
 
 # Test Artifacts
 packages/app/.artifacts/

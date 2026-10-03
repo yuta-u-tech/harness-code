@@ -20,7 +20,7 @@ import { cliIt } from "../../lib/cli-process"
 
 describe("opencode read-only commands (smoke)", () => {
   // `mcp list` reads MCP server config and pings each one. With the empty
-  // KILO_CONFIG_CONTENT={} we provide, no servers should be configured
+  // HARNESS_CONFIG_CONTENT={} we provide, no servers should be configured
   // and the command should report that cleanly.
   cliIt.live(
     "mcp list: exits 0",
@@ -75,7 +75,7 @@ describe("opencode read-only commands (smoke)", () => {
     60_000,
   )
 
-  // `session list` reads the session DB. Fresh KILO_TEST_HOME means
+  // `session list` reads the session DB. Fresh HARNESS_TEST_HOME means
   // empty DB. Exit 0 with no sessions.
   cliIt.live(
     "session list: exits 0",
@@ -87,9 +87,8 @@ describe("opencode read-only commands (smoke)", () => {
     60_000,
   )
 
-  // kilocode_change start
   // `session list --all` lists sessions across all projects via the global
-  // listing path (KiloSession.listGlobal). Regression: the handler used to
+  // listing path (HarnessSession.listGlobal). Regression: the handler used to
   // spread the Effect returned by Session.listGlobal instead of yielding it,
   // crashing the formatter with "undefined is not an object".
   cliIt.live(
@@ -101,7 +100,6 @@ describe("opencode read-only commands (smoke)", () => {
       }),
     60_000,
   )
-  // kilocode_change end
 
   // `stats` aggregates token usage from the session DB. Empty DB → all zeros.
   cliIt.live(
@@ -116,7 +114,7 @@ describe("opencode read-only commands (smoke)", () => {
 
   // `db path` prints the DB file location. Under harness isolation the DB
   // resolves to SQLite's `:memory:` (no on-disk pollution between tests);
-  // in production it'd be a path under KILO_TEST_HOME / XDG_DATA_HOME.
+  // in production it'd be a path under HARNESS_TEST_HOME / XDG_DATA_HOME.
   // Accept either form — both prove the resolver ran without crashing.
   cliIt.live(
     "db path: exits 0 and prints a path or :memory:",

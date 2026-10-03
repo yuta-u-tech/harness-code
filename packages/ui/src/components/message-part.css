@@ -21,7 +21,7 @@
   align-self: stretch;
   width: 100%;
   max-width: 100%;
-  gap: 8px; /* kilocode_change */
+  gap: 8px; 
 
   [data-slot="user-message-attachments"] {
     display: flex;
@@ -43,7 +43,7 @@
     overflow: hidden;
     background: var(--surface-weak);
     border: 1px solid var(--border-weak-base);
-    cursor: pointer; /* kilocode_change */
+    cursor: pointer; 
     transition:
       border-color 0.15s ease,
       opacity 0.3s ease;
@@ -182,7 +182,7 @@
     align-items: center;
     justify-content: flex-end;
     overflow: hidden;
-    gap: 6px; /* kilocode_change */
+    gap: 6px; 
   }
 
   [data-slot="user-message-meta-tail"] {
@@ -249,7 +249,6 @@
     pointer-events: auto;
   }
 
-  /* kilocode_change: always show copy button for the final turn response */
   [data-slot="text-part-copy-wrapper"][data-is-turn-copy] {
     opacity: 1;
     pointer-events: auto;
@@ -482,7 +481,6 @@
     white-space: nowrap;
     font-weight: var(--font-weight-regular);
 
-    /* kilocode_change start */
     &.clickable {
       cursor: pointer;
       transition: color 0.15s ease;
@@ -492,7 +490,6 @@
         color: var(--text-base);
       }
     }
-    /* kilocode_change end */
   }
 
   [data-slot="message-part-path"] {
@@ -510,7 +507,6 @@
     direction: rtl;
     text-align: left;
 
-    /* kilocode_change start */
     &.clickable {
       cursor: pointer;
       transition: color 0.15s ease;
@@ -520,7 +516,6 @@
         color: var(--text-base);
       }
     }
-    /* kilocode_change end */
   }
 
   [data-slot="message-part-filename"] {
@@ -1287,7 +1282,6 @@
     white-space: nowrap;
     flex-grow: 1;
 
-    /* kilocode_change start */
     &.clickable {
       cursor: pointer;
       transition: color 0.15s ease;
@@ -1297,7 +1291,6 @@
         color: var(--text-base);
       }
     }
-    /* kilocode_change end */
   }
 
   [data-slot="apply-patch-change"][data-type="added"] {
@@ -1342,7 +1335,6 @@
     color: var(--icon-weak);
   }
 
-  /* kilocode_change start */
   &.clickable {
     cursor: pointer;
     transition: color 0.15s ease;
@@ -1351,5 +1343,4 @@
       color: var(--text-base);
     }
   }
-  /* kilocode_change end */
 }

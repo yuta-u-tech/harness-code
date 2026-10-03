@@ -19,10 +19,10 @@ export function isLocalWorkspaceRoute(method: string, path: string) {
 
 export function getWorkspaceRouteSessionID(url: URL) {
   if (url.pathname === "/session/status") return null
-  if (url.pathname === "/session/viewed") return null // kilocode_change - Kilo static route is not a session ID
+  if (url.pathname === "/session/viewed") return null
 
   const id =
-    url.pathname.match(/^\/kilocode\/session\/([^/]+)\/(?:drain|board(?:\/reset)?)$/)?.[1] ?? // kilocode_change
+    url.pathname.match(/^\/harness\/session\/([^/]+)\/(?:drain|board(?:\/reset)?)$/)?.[1] ??
     url.pathname.match(/^\/session\/([^/]+)(?:\/|$)/)?.[1] ??
     url.pathname.match(/^\/experimental\/session\/([^/]+)\/background$/)?.[1]
   if (!id) return null
@@ -41,7 +41,7 @@ export function workspaceProxyURL(target: string | URL, requestURL: URL) {
   // the sandbox would `path.resolve` it against its own cwd, producing a bogus
   // path like `/home/daytona/workspace/repo/F:\proj` that does not exist and
   // crashes prompt handling. Drop it so the remote falls back to its own
-  // project root. This mirrors ProxyUtil.headers stripping `x-kilo-directory`.
+  // project root. This mirrors ProxyUtil.headers stripping `x-harness-directory`.
   proxyURL.searchParams.delete("directory")
   return proxyURL
 }

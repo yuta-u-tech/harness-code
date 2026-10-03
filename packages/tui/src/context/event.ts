@@ -1,6 +1,5 @@
-import type { Event, GlobalEvent } from "@kilocode/sdk/v2"
+import type { Event, GlobalEvent } from "@harness/sdk/v2"
 
-// kilocode_change start - normalize the runtime SyncEvent wire envelope to the legacy consumer shape
 type NormalizeSync<T> = T extends {
   type: "sync"
   syncEvent: infer Event extends { type: string; id: string; seq: number; aggregateID: string; data: unknown }
@@ -58,11 +57,10 @@ export function normalizeSyncEvent(payload: unknown): SyncEvent | undefined {
     data: event.data,
   } as SyncEvent
 }
-// kilocode_change end
 
 export function useEvent() {
   const sdk = useSDK()
-  const project = useProject() // kilocode_change
+  const project = useProject()
 
   function subscribe(handler: (event: Event, metadata: EventMetadata) => void) {
     return sdk.event.on("event", (event) => {
@@ -70,7 +68,7 @@ export function useEvent() {
         return
       }
 
-      if (event.directory !== "global" && event.project !== project.project()) return // kilocode_change
+      if (event.directory !== "global" && event.project !== project.project()) return
       handler(event.payload, { directory: event.directory, workspace: event.workspace })
     })
   }

@@ -9,7 +9,7 @@ import { EventV2Bridge } from "@/event-v2-bridge"
 import { Bus } from "@/bus"
 import { FetchHttpClient } from "effect/unstable/http"
 import { expect, spyOn } from "bun:test"
-import { Telemetry } from "@kilocode/kilo-telemetry"
+import { Telemetry } from "@harness/harness-telemetry"
 import { Cause, Deferred, Duration, Effect, Exit, Fiber, Layer } from "effect"
 import path from "path"
 import { fileURLToPath, pathToFileURL } from "url"
@@ -39,17 +39,15 @@ import { SessionCompaction } from "../../src/session/compaction"
 import { SessionSummary } from "../../src/session/summary"
 import { Instruction } from "../../src/session/instruction"
 import { SessionProcessor } from "../../src/session/processor"
-import { SessionProjector } from "@opencode-ai/core/session/projector" // kilocode_change
+import { SessionProjector } from "@opencode-ai/core/session/projector"
 import { SessionPrompt } from "../../src/session/prompt"
 import { SessionRevert } from "../../src/session/revert"
 import { SessionRunState } from "../../src/session/run-state"
-import { KiloSession } from "../../src/kilocode/session"
-// kilocode_change start - Item 14 cancel→reprompt proof helpers
-import { KiloSessionPrompt } from "../../src/kilocode/session/prompt"
-import { KiloSessionPromptQueue } from "../../src/kilocode/session/prompt-queue"
-// kilocode_change end
-import { KiloSessions } from "../../src/kilo-sessions/kilo-sessions"
-import { Suggestion } from "../../src/kilocode/suggestion"
+import { HarnessSession } from "../../src/harness/session"
+import { HarnessSessionPrompt } from "../../src/harness/session/prompt"
+import { HarnessSessionPromptQueue } from "../../src/harness/session/prompt-queue"
+import { HarnessSessions } from "../../src/harness-sessions/harness-sessions"
+import { Suggestion } from "../../src/harness/suggestion"
 import { MessageID, PartID, SessionID } from "../../src/session/schema"
 import { SessionStatus } from "../../src/session/status"
 import { SessionV2 } from "@opencode-ai/core/session"
@@ -67,7 +65,7 @@ import { TestInstance } from "../fixture/fixture"
 import { awaitWithTimeout, pollWithTimeout, testEffect } from "../lib/effect"
 import { reply, TestLLMServer } from "../lib/llm-server"
 import { RuntimeFlags } from "@/effect/runtime-flags"
-import { MemoryService } from "@kilocode/kilo-memory/effect/service"
+import { MemoryService } from "@harness/harness-memory/effect/service"
 import { RepositoryCache } from "@opencode-ai/core/repository-cache"
 import { ProviderV2 } from "@opencode-ai/core/provider"
 import { ModelV2 } from "@opencode-ai/core/model"
@@ -171,10 +169,9 @@ const lsp = Layer.succeed(
   }),
 )
 
-// kilocode_change start - one compiled graph per env. Effect v4 does not memoize nested layers, so
 // LayerNode.compile's cache is the only dedupe; building services with separate AppNodeBuilder.build
 // calls gave this file three Database instances and every prompt died with "Session not found".
-// Mirrors upstream's harness, with Kilo's KiloSessions/MemoryService/fastAgents deltas.
+// Mirrors upstream's harness, with Harness's HarnessSessions/MemoryService/fastAgents deltas.
 const agent: AgentSvc.Info = {
   name: "build",
   mode: "primary",
@@ -255,7 +252,7 @@ function makePrompt(input?: { mcpInstructions?: MCP.ServerInstructions[]; proces
     [LSP.node, lsp],
     [MCP.node, makeMcp(input?.mcpInstructions)],
     [RuntimeFlags.node, runtimeFlags],
-    [KiloSessions.node, KiloSessions.testLayer],
+    [HarnessSessions.node, HarnessSessions.testLayer],
   ] as const
   if (input?.processor === "blocking") {
     return LayerNode.compile(promptRoot, [
@@ -274,7 +271,7 @@ function makeHttp(input?: { mcpInstructions?: MCP.ServerInstructions[]; processo
     [LSP.node, lsp],
     [MCP.node, makeMcp(input?.mcpInstructions)],
     [RuntimeFlags.node, runtimeFlags],
-    [KiloSessions.node, KiloSessions.testLayer],
+    [HarnessSessions.node, HarnessSessions.testLayer],
   ] as const
   if (input?.processor === "blocking") {
     return LayerNode.compile(root, [
@@ -289,7 +286,6 @@ function makeHttp(input?: { mcpInstructions?: MCP.ServerInstructions[]; processo
 function makeHttpNoLLMServer(input?: { mcpInstructions?: MCP.ServerInstructions[]; processor?: "blocking" }) {
   return makePrompt(input)
 }
-// kilocode_change end
 
 const it = testEffect(makeHttp())
 const noLLMServer = testEffect(makeHttpNoLLMServer())
@@ -626,7 +622,6 @@ withMcpInstructions.instance(
   15_000,
 )
 
-// kilocode_change start - guard provider-compatible max-step request shape
 it.instance(
   "loop sends max steps instruction as a user message",
   () =>
@@ -658,7 +653,6 @@ it.instance(
     }),
   30_000,
 )
-// kilocode_change end
 
 noLLMServer.instance(
   "new prompt dismisses a pending question",
@@ -912,7 +906,6 @@ noLLMServer.instance.skip(
         ],
       })
 
-      // kilocode_change start - compile the v2 reader against this test's database graph
       const messages = yield* SessionV2.Service.use((session) => session.messages({ sessionID: chat.id })).pipe(
         Effect.provide(
           LayerNode.compile(SessionV2.node, [
@@ -921,7 +914,6 @@ noLLMServer.instance.skip(
           ]),
         ),
       )
-      // kilocode_change end
       const { db } = yield* Database.Service
       const row = yield* db
         .select()
@@ -1056,11 +1048,10 @@ it.instance("loop continues when finish is unknown", () =>
     yield* llm.text("second")
 
     const result = yield* prompt.loop({ sessionID: session.id })
-    // kilocode_change start - Kilo settles a finish-less response instead of
-    // continuing the prompt loop. Kilo preserves the AI SDK's unexpected
+    // continuing the prompt loop. Harness preserves the AI SDK's unexpected
     // provider finish reason as "other" (packages/llm/src/schema/ids.ts), which
     // is a terminal finish for the loop-exit check in session/prompt.ts, and
-    // src/kilocode/session/processor.ts only retries genuinely incomplete
+    // src/harness/session/processor.ts only retries genuinely incomplete
     // responses through its bounded recover budget. The second queued reply is
     // therefore never consumed and only one model call is made.
     expect(yield* llm.calls).toBe(1)
@@ -1070,7 +1061,6 @@ it.instance("loop continues when finish is unknown", () =>
       expect(result.parts.some((part) => part.type === "text" && part.text === "second")).toBe(false)
       expect(result.info.finish).toBe("other")
     }
-    // kilocode_change end
   }),
 )
 
@@ -1418,7 +1408,6 @@ it.instance(
   10_000,
 )
 
-// kilocode_change start - Item 14 CLI prove-it: cancel settles to Idle promptly,
 // then the same session accepts a new prompt to completion. Covers idle,
 // mid-stream, mid-tool, queued follow-up, and intake-abort paths that mobile
 // stop→send depends on.
@@ -1574,7 +1563,7 @@ it.instance(
       // Wait until the follow-up is actually on the queue (past intake) so cancel
       // proves the queued-drop path, not abortIntakes of a still-intaking prompt.
       yield* pollWithTimeout(
-        Effect.sync(() => (KiloSessionPromptQueue.hasFollowup(chat.id) ? (true as const) : undefined)),
+        Effect.sync(() => (HarnessSessionPromptQueue.hasFollowup(chat.id) ? (true as const) : undefined)),
         "follow-up prompt never queued behind the in-flight turn",
         "3 seconds",
       )
@@ -1585,7 +1574,7 @@ it.instance(
       )
       // Only the first (interrupted) turn may have hit the LLM; the queued one must not.
       expect(yield* llm.inputs.pipe(Effect.map((items) => items.length))).toBe(1)
-      expect(KiloSessionPromptQueue.hasFollowup(chat.id)).toBe(false)
+      expect(HarnessSessionPromptQueue.hasFollowup(chat.id)).toBe(false)
       expect((yield* status.get(chat.id)).type).toBe("idle")
       const free = yield* run.assertNotBusy(chat.id).pipe(Effect.exit)
       expect(Exit.isSuccess(free)).toBe(true)
@@ -1620,7 +1609,7 @@ it.instance(
       // abort it via abortIntakes so the session is free for the next prompt.
       const started = yield* Deferred.make<void>()
       const finished = yield* Deferred.make<void>()
-      const intake = yield* KiloSessionPrompt.intake(
+      const intake = yield* HarnessSessionPrompt.intake(
         sessionID,
         Effect.gen(function* () {
           yield* Deferred.succeed(started, undefined)
@@ -1650,7 +1639,6 @@ it.instance(
     }),
   20_000,
 )
-// kilocode_change end
 
 unix(
   "cancel records MessageAbortedError on interrupted process",
@@ -1934,7 +1922,7 @@ it.instance(
       }
     }),
   { git: true },
-  30_000, // kilocode_change - isolated suite load can delay queued live-loop cancellation
+  30_000,
 )
 
 // Queue semantics
@@ -2047,12 +2035,10 @@ it.instance("prompt submitted during an active run is included in the next LLM i
     expect(inputs).toHaveLength(2)
     const messages = inputs.at(-1)?.messages
     if (!Array.isArray(messages)) throw new Error("expected LLM messages")
-    // kilocode_change start - Kilo appends environment details to queued user prompts
     expect(messages.at(-1)).toMatchObject({
       role: "user",
       content: expect.arrayContaining([{ type: "text", text: "second" }]),
     })
-    // kilocode_change end
   }),
   10_000,
 )
@@ -2237,7 +2223,6 @@ unixNoLLMServer(
       const tool = completedTool(result.parts)
       if (!tool) return
 
-      // kilocode_change start - bind v2 execution and location services in the consolidated test graph
       const messages = yield* SessionV2.Service.use((session) => session.messages({ sessionID: chat.id })).pipe(
         Effect.provide(
           LayerNode.compile(SessionV2.node, [
@@ -2246,7 +2231,6 @@ unixNoLLMServer(
           ]),
         ),
       )
-      // kilocode_change end
       const shell = messages.find((message) => message.type === "shell")
 
       expect(shell).toMatchObject({
@@ -2615,7 +2599,7 @@ unixNoLLMServer(
       const opened = yield* Deferred.make<void>()
       yield* Effect.acquireRelease(
         Effect.sync(() =>
-          Bus.subscribe(KiloSession.Event.TurnOpen, (event) => {
+          Bus.subscribe(HarnessSession.Event.TurnOpen, (event) => {
             if (event.properties.sessionID !== chat.id) return
             Effect.runFork(Deferred.succeed(opened, undefined))
           }),

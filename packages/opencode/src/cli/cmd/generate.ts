@@ -8,41 +8,35 @@ export const GenerateCommand = {
   handler: async () => {
     const { Server } = await import("../../server/server")
     const specs = (await Server.openapi()) as {
-      info: { title: string; description: string } // kilocode_change
+      info: { title: string; description: string }
       paths: Record<string, Record<string, any>>
     }
-    // kilocode_change start
-    specs.info.title = "kilo"
-    specs.info.description = "kilo api"
-    // kilocode_change end
+    specs.info.title = "harness"
+    specs.info.description = "harness api"
     for (const item of Object.values(specs.paths)) {
       for (const method of ["get", "post", "put", "delete", "patch"] as const) {
         const operation = item[method]
         if (!operation?.operationId) continue
         operation["x-codeSamples"] = [
-          // kilocode_change start
           {
             lang: "js",
             source: [
-              `import { createKiloClient } from "@kilocode/sdk"`,
+              `import { createHarnessClient } from "@harness/sdk"`,
               ``,
-              `const client = createKiloClient()`,
+              `const client = createHarnessClient()`,
               `await client.${operation.operationId}({`,
               `  ...`,
               `})`,
             ].join("\n"),
           },
-          // kilocode_change end,
         ]
       }
     }
     const raw = JSON.stringify(specs, null, 2)
-      // kilocode_change start - replace upstream product name in all descriptions
-      .replaceAll("OpenCode", "Kilo")
-      .replaceAll("opencode.local", "kilo.local")
-      .replaceAll("opencode serve", "kilo serve")
+      .replaceAll("OpenCode", "Harness")
+      .replaceAll("opencode.local", "harness.local")
+      .replaceAll("opencode serve", "harness serve")
       .replaceAll("https://opencode.ai/", "https://kilo.ai/")
-    // kilocode_change end
 
     // Format through prettier so output is byte-identical to committed file
     // regardless of whether ./script/format.ts runs afterward.

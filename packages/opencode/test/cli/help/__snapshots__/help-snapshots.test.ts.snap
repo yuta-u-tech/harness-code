@@ -1,7 +1,7 @@
 // Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo acp --help 1`] = `
-"kilo acp
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness acp --help 1`] = `
+"harness acp
 
 start ACP (Agent Client Protocol) server
 
@@ -15,24 +15,24 @@ Options:
       --hostname     hostname to listen on                           [string] [default: "127.0.0.1"]
       --mdns         enable mDNS service discovery (defaults hostname to 0.0.0.0)
                                                                           [boolean] [default: false]
-      --mdns-domain  custom domain name for mDNS service (default: kilo.local)
-                                                                [string] [default: "kilo.local"]
+      --mdns-domain  custom domain name for mDNS service (default: harness.local)
+                                                                [string] [default: "harness.local"]
       --cors         additional domains to allow for CORS                      [array] [default: []]
       --cwd          working directory [string] [default: "<HOME>"]
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo mcp --help 1`] = `
-"kilo mcp
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness mcp --help 1`] = `
+"harness mcp
 
 manage MCP (Model Context Protocol) servers
 
 Commands:
-  kilo mcp add [name]     add an MCP server
-  kilo mcp list           list MCP servers and their status                        [aliases: ls]
-  kilo mcp auth [name]    authenticate with an OAuth-enabled MCP server
-  kilo mcp logout [name]  remove OAuth credentials for an MCP server
-  kilo mcp debug <name>   debug OAuth connection for an MCP server
+  harness mcp add [name]     add an MCP server
+  harness mcp list           list MCP servers and their status                        [aliases: ls]
+  harness mcp auth [name]    authenticate with an OAuth-enabled MCP server
+  harness mcp logout [name]  remove OAuth credentials for an MCP server
+  harness mcp debug <name>   debug OAuth connection for an MCP server
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -43,10 +43,10 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo attach --help 1`] = `
-"kilo attach <url>
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness attach --help 1`] = `
+"harness attach <url>
 
-attach to a running kilo server
+attach to a running harness server
 
 Positionals:
   url  http://localhost:4096                                                     [string] [required]
@@ -62,18 +62,18 @@ Options:
   -s, --session       session id to continue                                                [string]
       --fork          fork the session when continuing (use with --continue or --session)  [boolean]
       --cloud-fork    fetch session from cloud and continue locally (use with --session)   [boolean]
-  -p, --password      basic auth password (defaults to KILO_SERVER_PASSWORD)                [string]
-  -u, --username      basic auth username (defaults to KILO_SERVER_USERNAME or 'kilo')      [string]
+  -p, --password      basic auth password (defaults to HARNESS_SERVER_PASSWORD)                [string]
+  -u, --username      basic auth username (defaults to HARNESS_SERVER_USERNAME or 'harness')      [string]
       --mini          start the minimal interactive interface             [boolean] [default: false]
       --no-replay     disable mini session history replay on resume and after resize       [boolean]
       --replay-limit  cap visible mini replay to the newest N messages                      [number]
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo run --help 1`] = `
-"kilo run [message..]
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness run --help 1`] = `
+"harness run [message..]
 
-run kilo with a message
+run harness with a message
 
 Positionals:
   message  message to send                                                     [array] [default: []]
@@ -96,9 +96,9 @@ Options:
                                           [string] [choices: "default", "json"] [default: "default"]
   -f, --file         file(s) to attach to message                                            [array]
       --title        title for the session (uses truncated prompt if no value provided)     [string]
-      --attach       attach to a running kilo server (e.g., http://localhost:4096)          [string]
-  -p, --password     basic auth password (defaults to KILO_SERVER_PASSWORD)                 [string]
-  -u, --username     basic auth username (defaults to KILO_SERVER_USERNAME or 'kilo')       [string]
+      --attach       attach to a running harness server (e.g., http://localhost:4096)          [string]
+  -p, --password     basic auth password (defaults to HARNESS_SERVER_PASSWORD)                 [string]
+  -u, --username     basic auth username (defaults to HARNESS_SERVER_USERNAME or 'harness')       [string]
       --dir          directory to run in, path on remote server if attaching                [string]
       --port         port for the local server (defaults to random port if no value provided)
                                                                                             [number]
@@ -111,25 +111,25 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo debug --help 1`] = `
-"kilo debug
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness debug --help 1`] = `
+"harness debug
 
 debugging and troubleshooting tools
 
 Commands:
-  kilo debug config        show resolved configuration
-  kilo debug lsp           LSP debugging utilities
-  kilo debug rg            ripgrep debugging utilities
-  kilo debug file          file system debugging utilities
-  kilo debug scrap         list all known projects
-  kilo debug skill         list all available skills
-  kilo debug snapshot      snapshot debugging utilities
-  kilo debug startup       print startup timing
-  kilo debug agent <name>  show agent configuration details
-  kilo debug v2            debug v2 catalog and built-in plugins
-  kilo debug info          show debug information
-  kilo debug paths         show global paths (data, config, cache, state)
-  kilo debug wait          wait indefinitely (for debugging)
+  harness debug config        show resolved configuration
+  harness debug lsp           LSP debugging utilities
+  harness debug rg            ripgrep debugging utilities
+  harness debug file          file system debugging utilities
+  harness debug scrap         list all known projects
+  harness debug skill         list all available skills
+  harness debug snapshot      snapshot debugging utilities
+  harness debug startup       print startup timing
+  harness debug agent <name>  show agent configuration details
+  harness debug v2            debug v2 catalog and built-in plugins
+  harness debug info          show debug information
+  harness debug paths         show global paths (data, config, cache, state)
+  harness debug wait          wait indefinitely (for debugging)
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -140,15 +140,15 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo providers --help 1`] = `
-"kilo auth
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness providers --help 1`] = `
+"harness auth
 
 manage AI providers and credentials
 
 Commands:
-  kilo providers list               list providers and credentials                 [aliases: ls]
-  kilo providers login [url]        log in to a provider
-  kilo providers logout [provider]  log out from a configured provider
+  harness providers list               list providers and credentials                 [aliases: ls]
+  harness providers login [url]        log in to a provider
+  harness providers logout [provider]  log out from a configured provider
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -159,14 +159,14 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo agent --help 1`] = `
-"kilo agent
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness agent --help 1`] = `
+"harness agent
 
 manage agents
 
 Commands:
-  kilo agent create  create a new agent
-  kilo agent list    list all available agents
+  harness agent create  create a new agent
+  harness agent list    list all available agents
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -177,10 +177,10 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo upgrade --help 1`] = `
-"kilo upgrade [target]
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness upgrade --help 1`] = `
+"harness upgrade [target]
 
-upgrade kilo to the latest or a specific version
+upgrade harness to the latest or a specific version
 
 Positionals:
   target  version to upgrade to, for ex '0.1.48' or 'v0.1.48'                               [string]
@@ -196,10 +196,10 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo uninstall --help 1`] = `
-"kilo uninstall
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness uninstall --help 1`] = `
+"harness uninstall
 
-uninstall kilo and remove all related files
+uninstall harness and remove all related files
 
 Options:
   -h, --help         show help                                                             [boolean]
@@ -214,10 +214,10 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo serve --help 1`] = `
-"kilo serve
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness serve --help 1`] = `
+"harness serve
 
-starts a headless kilo server
+starts a headless harness server
 
 Options:
   -h, --help         show help                                                             [boolean]
@@ -229,14 +229,14 @@ Options:
       --hostname     hostname to listen on                           [string] [default: "127.0.0.1"]
       --mdns         enable mDNS service discovery (defaults hostname to 0.0.0.0)
                                                                           [boolean] [default: false]
-      --mdns-domain  custom domain name for mDNS service (default: kilo.local)
-                                                                [string] [default: "kilo.local"]
+      --mdns-domain  custom domain name for mDNS service (default: harness.local)
+                                                                [string] [default: "harness.local"]
       --cors         additional domains to allow for CORS                      [array] [default: []]
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo models --help 1`] = `
-"kilo models [provider]
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness models --help 1`] = `
+"harness models [provider]
 
 list all available models
 
@@ -254,8 +254,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo stats --help 1`] = `
-"kilo stats
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness stats --help 1`] = `
+"harness stats
 
 show token usage and cost statistics
 
@@ -273,8 +273,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo export --help 1`] = `
-"kilo export [sessionID]
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness export --help 1`] = `
+"harness export [sessionID]
 
 export session data as JSON
 
@@ -291,8 +291,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo import --help 1`] = `
-"kilo import <file>
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness import --help 1`] = `
+"harness import <file>
 
 import session data from JSON file or URL
 
@@ -308,14 +308,14 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo github --help 1`] = `
-"kilo github
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness github --help 1`] = `
+"harness github
 
 manage GitHub agent
 
 Commands:
-  kilo github install  install the GitHub agent
-  kilo github run      run the GitHub agent
+  harness github install  install the GitHub agent
+  harness github run      run the GitHub agent
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -326,16 +326,16 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo pr --help 1`] = `
-"kilo pr
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness pr --help 1`] = `
+"harness pr
 
 manage pull requests
 
 Commands:
-  kilo pr checkout <number>  fetch and checkout a GitHub PR branch, then run kilo
-  kilo pr link <url>         link a session to a pull request
-  kilo pr unlink             clear a session's linked pull request
-  kilo pr status             show a session's linked pull request
+  harness pr checkout <number>  fetch and checkout a GitHub PR branch, then run harness
+  harness pr link <url>         link a session to a pull request
+  harness pr unlink             clear a session's linked pull request
+  harness pr status             show a session's linked pull request
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -346,14 +346,14 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo session --help 1`] = `
-"kilo session
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness session --help 1`] = `
+"harness session
 
 manage sessions
 
 Commands:
-  kilo session list                list sessions
-  kilo session delete <sessionID>  delete a session
+  harness session list                list sessions
+  harness session delete <sessionID>  delete a session
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -364,8 +364,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo plugin --help 1`] = `
-"kilo plugin <module>
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness plugin --help 1`] = `
+"harness plugin <module>
 
 install plugin and update config
 
@@ -383,14 +383,14 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo db --help 1`] = `
-"kilo db
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness db --help 1`] = `
+"harness db
 
 database tools
 
 Commands:
-  kilo db [query]     open an interactive sqlite3 shell or run a query                     [default]
-  kilo db path        print the database path
+  harness db [query]     open an interactive sqlite3 shell or run a query                     [default]
+  harness db path        print the database path
 
 Positionals:
   query  SQL query to execute                                                               [string]
@@ -405,8 +405,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo mcp list --help 1`] = `
-"kilo mcp list
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness mcp list --help 1`] = `
+"harness mcp list
 
 list MCP servers and their status
 
@@ -419,8 +419,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo mcp add --help 1`] = `
-"kilo mcp add [name]
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness mcp add --help 1`] = `
+"harness mcp add [name]
 
 add an MCP server
 
@@ -439,13 +439,13 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo mcp auth --help 1`] = `
-"kilo mcp auth [name]
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness mcp auth --help 1`] = `
+"harness mcp auth [name]
 
 authenticate with an OAuth-enabled MCP server
 
 Commands:
-  kilo mcp auth list  list OAuth-capable MCP servers and their auth status         [aliases: ls]
+  harness mcp auth list  list OAuth-capable MCP servers and their auth status         [aliases: ls]
 
 Positionals:
   name  name of the MCP server                                                              [string]
@@ -459,8 +459,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo mcp logout --help 1`] = `
-"kilo mcp logout [name]
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness mcp logout --help 1`] = `
+"harness mcp logout [name]
 
 remove OAuth credentials for an MCP server
 
@@ -476,8 +476,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo providers list --help 1`] = `
-"kilo providers list
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness providers list --help 1`] = `
+"harness providers list
 
 list providers and credentials
 
@@ -490,13 +490,13 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo providers login --help 1`] = `
-"kilo providers login [url]
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness providers login --help 1`] = `
+"harness providers login [url]
 
 log in to a provider
 
 Positionals:
-  url  kilo auth provider                                                                   [string]
+  url  harness auth provider                                                                   [string]
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -509,8 +509,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo providers logout --help 1`] = `
-"kilo providers logout [provider]
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness providers logout --help 1`] = `
+"harness providers logout [provider]
 
 log out from a configured provider
 
@@ -526,8 +526,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo agent create --help 1`] = `
-"kilo agent create
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness agent create --help 1`] = `
+"harness agent create
 
 create a new agent
 
@@ -547,8 +547,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo agent list --help 1`] = `
-"kilo agent list
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness agent list --help 1`] = `
+"harness agent list
 
 list all available agents
 
@@ -561,8 +561,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo session list --help 1`] = `
-"kilo session list
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness session list --help 1`] = `
+"harness session list
 
 list sessions
 
@@ -579,8 +579,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo session delete --help 1`] = `
-"kilo session delete <sessionID>
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness session delete --help 1`] = `
+"harness session delete <sessionID>
 
 delete a session
 
@@ -596,8 +596,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo github install --help 1`] = `
-"kilo github install
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness github install --help 1`] = `
+"harness github install
 
 install the GitHub agent
 
@@ -610,8 +610,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo github run --help 1`] = `
-"kilo github run
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness github run --help 1`] = `
+"harness github run
 
 run the GitHub agent
 
@@ -626,8 +626,8 @@ Options:
 "
 `;
 
-exports[`Kilo CLI help-text snapshots every documented command emits stable help text: kilo db path --help 1`] = `
-"kilo db path
+exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness db path --help 1`] = `
+"harness db path
 
 print the database path
 

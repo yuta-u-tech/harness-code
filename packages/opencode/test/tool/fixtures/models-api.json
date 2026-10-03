@@ -107947,12 +107947,12 @@
       }
     }
   },
-  "kilo": {
-    "id": "kilo",
-    "env": ["KILO_API_KEY"],
+  "harness": {
+    "id": "harness",
+    "env": ["HARNESS_API_KEY"],
     "npm": "@ai-sdk/openai-compatible",
     "api": "https://api.kilo.ai/api/gateway",
-    "name": "Kilo Gateway",
+    "name": "Harness Gateway",
     "doc": "https://kilo.ai",
     "models": {
       "inclusionai/ling-2.6-1t": {
@@ -108473,9 +108473,9 @@
           "cache_write": 6.25
         }
       },
-      "kilo-auto/balanced": {
-        "id": "kilo-auto/balanced",
-        "name": "Kilo Auto Balanced",
+      "harness-auto/balanced": {
+        "id": "harness-auto/balanced",
+        "name": "Harness Auto Balanced",
         "description": "Automatic model router for matching prompts to suitable backends and budgets",
         "attachment": false,
         "reasoning": true,
@@ -108498,9 +108498,9 @@
           "output": 3
         }
       },
-      "kilo-auto/small": {
-        "id": "kilo-auto/small",
-        "name": "Kilo Auto Small",
+      "harness-auto/small": {
+        "id": "harness-auto/small",
+        "name": "Harness Auto Small",
         "description": "Automatic model router for matching prompts to suitable backends and budgets",
         "attachment": true,
         "reasoning": true,
@@ -108523,9 +108523,9 @@
           "output": 0.4
         }
       },
-      "kilo-auto/free": {
-        "id": "kilo-auto/free",
-        "name": "Kilo Auto Free",
+      "harness-auto/free": {
+        "id": "harness-auto/free",
+        "name": "Harness Auto Free",
         "description": "Automatic model router for matching prompts to suitable backends and budgets",
         "attachment": false,
         "reasoning": true,
@@ -108548,9 +108548,9 @@
           "output": 0
         }
       },
-      "kilo-auto/frontier": {
-        "id": "kilo-auto/frontier",
-        "name": "Kilo Auto Frontier",
+      "harness-auto/frontier": {
+        "id": "harness-auto/frontier",
+        "name": "Harness Auto Frontier",
         "description": "Automatic model router for matching prompts to suitable backends and budgets",
         "attachment": true,
         "reasoning": true,

@@ -7,11 +7,11 @@ import { Effect, Layer, Context, Schema } from "effect"
 import { Config } from "@/config/config"
 import { MCP } from "../mcp"
 import { Skill } from "../skill"
-import { reviewCommand } from "@/kilocode/review/command" // kilocode_change
-import { apply as applyOverride, type Override } from "@/kilocode/command/override" // kilocode_change
+import { reviewCommand } from "@/harness/review/command"
+import { apply as applyOverride, type Override } from "@/harness/command/override"
 import PROMPT_INITIALIZE from "./template/initialize.txt"
 import { LegacyEvent } from "@opencode-ai/schema/legacy-event"
-import { SessionResume } from "@/kilocode/session-resume" // kilocode_change
+import { SessionResume } from "@/harness/session-resume"
 
 type State = {
   commands: Record<string, Info>
@@ -26,9 +26,9 @@ export const Info = Schema.Struct({
   description: Schema.optional(Schema.String),
   agent: Schema.optional(Schema.String),
   model: Schema.optional(Schema.String),
-  variant: Schema.optional(Schema.String), // kilocode_change
+  variant: Schema.optional(Schema.String),
   source: Schema.optional(Schema.Literals(["command", "mcp", "skill"])),
-  trusted: Schema.optional(Schema.Boolean), // kilocode_change - skill-sourced templates only run `!`cmd`` shell when trusted
+  trusted: Schema.optional(Schema.Boolean),
   // Some command templates are lazy promises from MCP prompt resolution.
   template: Schema.Unknown,
   subtask: Schema.optional(Schema.Boolean),
@@ -57,7 +57,6 @@ export interface Interface {
   readonly list: () => Effect.Effect<Info[]>
 }
 
-// kilocode_change start - skills can share names with slash commands
 function fromSkill(item: Skill.Info, dir?: string): Info {
   return {
     name: item.name,
@@ -88,7 +87,6 @@ function skillName(name: string) {
 function mcpName(name: string) {
   return name.endsWith(":mcp") ? name.slice(0, -4) : undefined
 }
-// kilocode_change end
 
 export class Service extends Context.Service<Service, Interface>()("@opencode/Command") {}
 
@@ -113,7 +111,6 @@ const layer = Layer.effect(
         },
         hints: hints(PROMPT_INITIALIZE),
       }
-      // kilocode_change start
       commands[Default.REVIEW] = reviewCommand()
       commands.goal = {
         name: "goal",
@@ -125,19 +122,16 @@ const layer = Layer.effect(
       }
       commands["resume-claude"] = SessionResume.resumeClaude
       commands["resume-codex"] = SessionResume.resumeCodex
-      // kilocode_change end
 
-      // kilocode_change start - defer partial overrides until all command sources are registered
       const overrides: Array<{ name: string; command: Override }> = []
       for (const [name, command] of Object.entries(cfg.command ?? {})) {
         if (name === "goal")
           throw new Error("The /goal command is reserved for session goals. Rename the custom command.")
-        if (!applyOverride(commands, name, command, hints)) overrides.push({ name, command }) // kilocode_change
+        if (!applyOverride(commands, name, command, hints)) overrides.push({ name, command })
       }
-      // kilocode_change end
 
       for (const [name, prompt] of Object.entries(yield* mcp.prompts())) {
-        if (name === "goal") throw new Error("The /goal command is reserved for session goals. Rename the MCP prompt.") // kilocode_change
+        if (name === "goal") throw new Error("The /goal command is reserved for session goals. Rename the MCP prompt.")
         commands[name] = {
           name,
           source: "mcp",
@@ -168,10 +162,9 @@ const layer = Layer.effect(
 
       for (const item of yield* skill.all()) {
         if (commands[item.name]) continue
-        commands[item.name] = fromSkill(item, directory(item)) // kilocode_change
+        commands[item.name] = fromSkill(item, directory(item))
       }
 
-      // kilocode_change start - apply deferred overrides to their registered source
       for (const item of overrides) {
         const skillTarget = skillName(item.name)
         if (skillTarget) {
@@ -179,9 +172,9 @@ const layer = Layer.effect(
           if (found) {
             if (commands[skillTarget]?.source !== "skill") {
               commands[item.name] = fromSkill(found, directory(found))
-              applyOverride(commands, item.name, item.command, hints) // kilocode_change
+              applyOverride(commands, item.name, item.command, hints)
             } else {
-              applyOverride(commands, skillTarget, item.command, hints) // kilocode_change
+              applyOverride(commands, skillTarget, item.command, hints)
             }
           }
           continue
@@ -189,12 +182,11 @@ const layer = Layer.effect(
         const mcpTarget = mcpName(item.name)
         if (mcpTarget) {
           if (commands[mcpTarget]?.source !== "mcp") continue
-          applyOverride(commands, mcpTarget, item.command, hints) // kilocode_change
+          applyOverride(commands, mcpTarget, item.command, hints)
           continue
         }
-        applyOverride(commands, item.name, item.command, hints) // kilocode_change
+        applyOverride(commands, item.name, item.command, hints)
       }
-      // kilocode_change end
 
       return {
         commands,
@@ -205,10 +197,9 @@ const layer = Layer.effect(
 
     const get = Effect.fn("Command.get")(function* (name: string) {
       const s = yield* InstanceState.get(state)
-      const exact = s.commands[name] // kilocode_change
-      if (exact) return exact // kilocode_change
+      const exact = s.commands[name]
+      if (exact) return exact
 
-      // kilocode_change start
       const target = skillName(name)
       if (target) {
         const exact = s.commands[target]
@@ -217,18 +208,14 @@ const layer = Layer.effect(
         if (item) return fromSkill(item, directory(item))
         return undefined
       }
-      // kilocode_change end
-      // kilocode_change start
       const prompt = mcpName(name)
       if (prompt) {
         const cmd = s.commands[prompt]
         return cmd?.source === "mcp" ? cmd : undefined
       }
-      // kilocode_change end
-      return undefined // kilocode_change
+      return undefined
     })
 
-    // kilocode_change start
     const list = Effect.fn("Command.list")(function* () {
       const s = yield* InstanceState.get(state)
       const result = Object.values(s.commands)
@@ -239,7 +226,6 @@ const layer = Layer.effect(
       }
       return result
     })
-    // kilocode_change end
 
     return Service.of({ get, list })
   }),

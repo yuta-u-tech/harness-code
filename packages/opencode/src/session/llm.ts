@@ -4,7 +4,7 @@ import { PermissionV1 } from "@opencode-ai/core/v1/permission"
 import { Provider } from "@/provider/provider"
 import { SessionV1 } from "@opencode-ai/core/v1/session"
 import { serviceUse } from "@opencode-ai/core/effect/service-use"
-import { Log } from "@opencode-ai/core/util/log" // kilocode_change
+import { Log } from "@opencode-ai/core/util/log"
 import { Context, Effect, Layer } from "effect"
 import * as Stream from "effect/Stream"
 import { streamText, wrapLanguageModel, type ModelMessage, type Tool } from "ai"
@@ -16,7 +16,7 @@ import { ProviderTransform } from "@/provider/transform"
 import { Config } from "@/config/config"
 import type { Agent } from "@/agent/agent"
 import type { MessageV2 } from "./message-v2"
-import { usable } from "./overflow" // kilocode_change
+import { usable } from "./overflow"
 import { Plugin } from "@/plugin"
 import { Permission } from "@/permission"
 import { EventV2Bridge } from "@/event-v2-bridge"
@@ -24,23 +24,21 @@ import { EventV2 } from "@opencode-ai/core/event"
 import { Wildcard } from "@/util/wildcard"
 import { SessionID } from "@/session/schema"
 import { Auth } from "@/auth"
-// kilocode_change start
 import { InstanceState } from "@/effect/instance-state"
-import { KiloSession } from "@/kilocode/session"
-import { KiloLLM } from "@/kilocode/session/llm"
-import { KiloSessionOverflow } from "@/kilocode/session/overflow"
-import { KiloToolSchema } from "@/kilocode/session/tool-schema"
-import { SessionExport } from "@/kilocode/session-export"
-import { getActiveOrg } from "@/kilocode/session-export/eligibility"
-import { normalizeUsageForExport, observeFullStreamForExport } from "@/kilocode/session-export/llm"
-// kilocode_change end
+import { HarnessSession } from "@/harness/session"
+import { HarnessLLM } from "@/harness/session/llm"
+import { HarnessSessionOverflow } from "@/harness/session/overflow"
+import { HarnessToolSchema } from "@/harness/session/tool-schema"
+import { SessionExport } from "@/harness/session-export"
+import { getActiveOrg } from "@/harness/session-export/eligibility"
+import { normalizeUsageForExport, observeFullStreamForExport } from "@/harness/session-export/llm"
 import { EffectBridge } from "@/effect/bridge"
 import { RuntimeFlags } from "@/effect/runtime-flags"
 import { LLMAISDK } from "./llm/ai-sdk"
 import { LLMNativeRuntime } from "./llm/native-runtime"
 import { LLMRequestPrep } from "./llm/request"
 
-const log = Log.create({ service: "llm" }) // kilocode_change
+const log = Log.create({ service: "llm" })
 
 export const OUTPUT_TOKEN_MAX = ProviderTransform.OUTPUT_TOKEN_MAX
 
@@ -57,8 +55,8 @@ export type StreamInput = {
   tools: Record<string, Tool>
   retries?: number
   toolChoice?: "auto" | "required" | "none"
-  preflight?: boolean // kilocode_change - enable proactive threshold compaction for normal session turns
-  reportedContextTokens?: number // kilocode_change - provider-reported context size from the last finished turn, source of truth for the output cap
+  preflight?: boolean
+  reportedContextTokens?: number
 }
 
 export type StreamRequest = StreamInput & {
@@ -97,7 +95,7 @@ const live: Layer.Layer<
     const flags = yield* RuntimeFlags.Service
 
     const run = Effect.fn("LLM.run")(function* (input: StreamRequest) {
-      const l = log.clone().tag("providerID", input.model.providerID).tag("modelID", input.model.id) // kilocode_change
+      const l = log.clone().tag("providerID", input.model.providerID).tag("modelID", input.model.id)
       yield* Effect.logInfo("stream", {
         providerID: input.model.providerID,
         modelID: input.model.id,
@@ -126,8 +124,7 @@ const live: Layer.Layer<
         isWorkflow,
       })
 
-      // kilocode_change start - compact at the configured threshold before contacting the provider
-      const tools = yield* Effect.promise(() => KiloToolSchema.sanitize(base.tools))
+      const tools = yield* Effect.promise(() => HarnessToolSchema.sanitize(base.tools))
       const isOpenaiOauth = item.id === "openai" && info?.type === "oauth"
       const estimated: ModelMessage[] =
         isOpenaiOauth || isWorkflow
@@ -139,13 +136,13 @@ const live: Layer.Layer<
               ...base.messages,
             ]
           : base.messages
-      const preflight = input.preflight === true && KiloSessionOverflow.enabled({ cfg, model: input.model })
-      const cap = KiloLLM.needsEstimate({ model: input.model, configured: base.params.maxOutputTokens })
+      const preflight = input.preflight === true && HarnessSessionOverflow.enabled({ cfg, model: input.model })
+      const cap = HarnessLLM.needsEstimate({ model: input.model, configured: base.params.maxOutputTokens })
       const usage =
         cap || preflight
-          ? KiloSessionOverflow.measure({ messages: estimated, tools })
+          ? HarnessSessionOverflow.measure({ messages: estimated, tools })
           : undefined
-      const maxOutputTokens = KiloLLM.capOutputTokens({
+      const maxOutputTokens = HarnessLLM.capOutputTokens({
         model: input.model,
         messages: estimated,
         tools,
@@ -156,10 +153,10 @@ const live: Layer.Layer<
       if (
         preflight &&
         usage &&
-        KiloSessionOverflow.shouldCompact({
+        HarnessSessionOverflow.shouldCompact({
           cfg,
           model: input.model,
-          usable: usable({ cfg, model: input.model, outputTokenMax: flags.outputTokenMax }), // kilocode_change
+          usable: usable({ cfg, model: input.model, outputTokenMax: flags.outputTokenMax }),
           tokens: usage.normalized,
           tail: usage.tail,
           overhead: usage.overhead,
@@ -167,10 +164,9 @@ const live: Layer.Layer<
           reported: input.reportedContextTokens,
         })
       ) {
-        return yield* Effect.fail(new KiloSessionOverflow.PreflightError())
+        return yield* Effect.fail(new HarnessSessionOverflow.PreflightError())
       }
       const prepared = { ...base, tools, params: { ...base.params, maxOutputTokens } }
-      // kilocode_change end
 
       // Wire up toolExecutor for DWS workflow models so that tool calls
       // from the workflow service are executed via opencode's tool system
@@ -266,18 +262,17 @@ const live: Layer.Layer<
       }
 
       const instance = yield* InstanceState.context
-      // kilocode_change start - capture eligible session export request start
-      const isKilo = input.model.api.npm === "@kilocode/kilo-gateway"
+      const isHarness = input.model.api.npm === "@harness/harness-gateway"
       const exporting = SessionExport.enabled
-      const org = yield* exporting && isKilo && input.model.isFree === true
+      const org = yield* exporting && isHarness && input.model.isFree === true
         ? Effect.promise(() => getActiveOrg())
         : Effect.succeed({ type: "unknown" as const })
       const started = Date.now()
-      const parent = input.parentSessionID ?? KiloSession.resolveParent(input.sessionID)
-      const found = KiloSession.resolveRoot(input.sessionID)
+      const parent = input.parentSessionID ?? HarnessSession.resolveParent(input.sessionID)
+      const found = HarnessSession.resolveRoot(input.sessionID)
       const root = parent ? (found === input.sessionID ? parent : found) : input.sessionID
       const exportable =
-        exporting && isKilo && input.model.isFree === true && org.type === "personal" && input.agent.name !== "title"
+        exporting && isHarness && input.model.isFree === true && org.type === "personal" && input.agent.name !== "title"
       if (exportable) {
         SessionExport.beforeRequest({
           input: { model: input.model, org },
@@ -302,7 +297,6 @@ const live: Layer.Layer<
           },
         })
       }
-      // kilocode_change end
 
       // Runtime seam: native is an opt-in adapter over @opencode-ai/llm. It
       // either returns a ready LLMEvent stream or a concrete fallback reason.
@@ -318,15 +312,13 @@ const live: Layer.Layer<
           temperature: prepared.params.temperature,
           topP: prepared.params.topP,
           topK: prepared.params.topK,
-          // kilocode_change start
           maxOutputTokens: ProviderTransform.maxOutputTokensForRequest({
             model: input.model,
             options: prepared.params.options,
             maxOutputTokens: prepared.params.maxOutputTokens,
           }),
-          // kilocode_change end
           providerOptions: prepared.params.options,
-          messageTransformOptions: prepared.messageTransformOptions, // kilocode_change
+          messageTransformOptions: prepared.messageTransformOptions,
           headers: prepared.headers,
           abort: input.abort,
         })
@@ -382,23 +374,20 @@ const live: Layer.Layer<
         // Copilot returns the authoritative billed amount only in provider-specific response fields.
         includeRawChunks: input.model.providerID.includes("github-copilot"),
         async experimental_repairToolCall(failed) {
-          const lower = failed.toolCall.toolName.trim().toLowerCase() // kilocode_change
+          const lower = failed.toolCall.toolName.trim().toLowerCase()
           if (lower !== failed.toolCall.toolName && prepared.tools[lower]) {
-            l.info("repairing tool call", { tool: failed.toolCall.toolName, repaired: lower }) // kilocode_change
+            l.info("repairing tool call", { tool: failed.toolCall.toolName, repaired: lower })
             return { ...failed.toolCall, toolName: lower }
           }
-          // kilocode_change start - surface the original tool-name error instead of a
           // repaired call to the hidden "invalid" tool, which activeTools excludes and
           // therefore fails with a confusing "unavailable tool 'invalid'" error
           return null
-          // kilocode_change end
         },
         temperature: prepared.params.temperature,
         topP: prepared.params.topP,
         topK: prepared.params.topK,
         providerOptions: ProviderTransform.providerOptions(input.model, prepared.params.options),
         activeTools: Object.keys(prepared.tools).filter((x) => x !== "invalid"),
-        // kilocode_change start
         tools: prepared.tools,
         toolChoice: input.toolChoice,
         maxOutputTokens: ProviderTransform.maxOutputTokensForRequest({
@@ -406,12 +395,11 @@ const live: Layer.Layer<
           options: prepared.params.options,
           maxOutputTokens: prepared.params.maxOutputTokens,
         }),
-        // kilocode_change end
         abortSignal: input.abort,
-        ...KiloLLM.timeout({ options: prepared.params.options, fallback: item.options, log: l }), // kilocode_change
+        ...HarnessLLM.timeout({ options: prepared.params.options, fallback: item.options, log: l }),
         headers: prepared.headers,
         maxRetries: input.retries ?? 0,
-        allowSystemInMessages: true, // kilocode_change - system prompts are trusted and intentionally included in messages
+        allowSystemInMessages: true,
         messages: prepared.messages,
         model: wrapLanguageModel({
           model: language,
@@ -432,11 +420,8 @@ const live: Layer.Layer<
             },
           ],
         }),
-        // kilocode_change start - disable AI SDK span recording (ai.* / gen_ai.*)
         experimental_telemetry: { isEnabled: false },
       })
-      // kilocode_change end
-      // kilocode_change start - capture eligible session export request completion off the stream path
       if (!exportable) return { type: "ai-sdk" as const, result }
       return {
         type: "ai-sdk" as const,
@@ -452,7 +437,6 @@ const live: Layer.Layer<
           }),
         },
       }
-      // kilocode_change end
     })
 
     const stream: Interface["stream"] = (input) =>
@@ -485,9 +469,7 @@ const live: Layer.Layer<
   }),
 )
 
-// kilocode_change start - session export stream observer
 export { normalizeUsageForExport, observeFullStreamForExport }
-// kilocode_change end
 export const hasToolCalls = LLMRequestPrep.hasToolCalls
 
 export const node = LayerNode.make({

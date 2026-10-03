@@ -67,7 +67,7 @@ export const QuestionApi = HttpApi.make("question")
   )
   .annotateMerge(
     OpenApi.annotations({
-      title: "Kilo HttpApi", // kilocode_change
+      title: "Harness HttpApi",
       version: "0.0.1",
       description: "Effect HttpApi surface for instance routes.",
     }),

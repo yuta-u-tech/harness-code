@@ -14,7 +14,7 @@
 import type { TextareaRenderable } from "@opentui/core"
 import { useKeyboard, useTerminalDimensions } from "@opentui/solid"
 import { For, Match, Show, Switch, createEffect, createMemo, createSignal } from "solid-js"
-import type { PermissionRequest } from "@kilocode/sdk/v2"
+import type { PermissionRequest } from "@harness/sdk/v2"
 import {
   createPermissionBodyState,
   permissionAlwaysLines,
@@ -101,7 +101,7 @@ export function RejectField(props: {
       minHeight={1}
       maxHeight={3}
       wrapMode="word"
-      placeholder={"Tell Kilo what to do differently" /* kilocode_change */}
+      placeholder={"Tell Harness what to do differently" }
       placeholderColor={props.theme.muted}
       textColor={props.theme.text}
       focusedTextColor={props.theme.text}
@@ -142,8 +142,8 @@ export function RunPermissionBody(props: {
   const info = createMemo(() => permissionInfo(props.request))
   const ft = createMemo(() => toolFiletype(info().file))
   const narrow = createMemo(() => footerWidthPolicy(dims().width).dialog.narrow)
-  const temporary = createMemo(() => temporaryPermission(props.request)) // kilocode_change
-  const opts = createMemo(() => permissionOptions(state().stage, temporary())) // kilocode_change
+  const temporary = createMemo(() => temporaryPermission(props.request))
+  const opts = createMemo(() => permissionOptions(state().stage, temporary()))
   const busy = createMemo(() => state().submitting)
   const title = createMemo(() => {
     if (state().stage === "always") {
@@ -167,7 +167,7 @@ export function RunPermissionBody(props: {
   })
 
   const shift = (dir: -1 | 1) => {
-    setState((prev) => permissionShift(prev, dir, temporary())) // kilocode_change
+    setState((prev) => permissionShift(prev, dir, temporary()))
   }
 
   const submit = async (next: PermissionReply) => {
@@ -286,7 +286,7 @@ export function RunPermissionBody(props: {
           </Match>
           <Match when={state().stage === "reject"}>
             <box paddingLeft={1}>
-              <text fg={props.theme.muted}>{"Tell Kilo what to do differently" /* kilocode_change */}</text>
+              <text fg={props.theme.muted}>{"Tell Harness what to do differently" }</text>
             </box>
           </Match>
         </Switch>

@@ -41,7 +41,7 @@
   "dependencies": {
     "@kobalte/core": "catalog:",
     "@opencode-ai/core": "workspace:*",
-    "@kilocode/sdk": "workspace:*",
+    "@harness/sdk": "workspace:*",
     "@opencode-ai/ui": "workspace:*",
     "@pierre/diffs": "catalog:",
     "@shikijs/stream": "catalog:",

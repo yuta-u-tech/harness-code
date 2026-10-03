@@ -130,7 +130,6 @@ test("preserves failed transaction begin errors", async () => {
   }
 })
 
-// kilocode_change start - query errors must never expose bound credential values
 test("redacts bound values from query errors", async () => {
   await run(
     Effect.gen(function* () {
@@ -146,7 +145,6 @@ test("redacts bound values from query errors", async () => {
     }),
   )
 })
-// kilocode_change end
 
 test("supports returning and rejects empty update sets", async () => {
   await run(

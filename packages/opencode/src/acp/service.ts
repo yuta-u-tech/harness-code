@@ -31,7 +31,7 @@ import {
 } from "@agentclientprotocol/sdk"
 import { InstallationVersion } from "@opencode-ai/core/installation/version"
 import { AppNodeBuilder } from "@opencode-ai/core/effect/app-node-builder"
-import type { AssistantMessage, Message, KiloClient, SessionMessageResponse } from "@kilocode/sdk/v2"
+import type { AssistantMessage, Message, HarnessClient, SessionMessageResponse } from "@harness/sdk/v2"
 import { Context, Effect, Layer, ManagedRuntime } from "effect"
 import * as ACPError from "./error"
 import { buildConfigOptions, parseModelSelection } from "./config-option"
@@ -46,7 +46,7 @@ import { ModelV2 } from "@opencode-ai/core/model"
 import { Provider } from "@/provider/provider"
 import type { Command } from "@/command"
 
-export const AuthMethodID = "kilo-login" // kilocode_change
+export const AuthMethodID = "harness-login"
 
 export type Error = ACPError.Error
 type ServiceConnection = Pick<AgentSideConnection, "sessionUpdate"> &
@@ -73,7 +73,7 @@ export type Interface = {
 export class Service extends Context.Service<Service, Interface>()("@opencode/ACP/Service") {}
 
 export function make(input: {
-  sdk: KiloClient
+  sdk: HarnessClient
   connection?: ServiceConnection
   directory?: Directory.Interface
   session?: ACPSession.Interface
@@ -93,20 +93,18 @@ export function make(input: {
 
   const initialize = Effect.fn("ACP.initialize")(function* (params: InitializeRequest) {
     const started = performance.now()
-    // kilocode_change start
     const authMethod: AuthMethod = {
-      description: "Run `kilo auth login` in the terminal",
-      name: "Login with Kilo",
+      description: "Run `harness auth login` in the terminal",
+      name: "Login with Harness",
       id: AuthMethodID,
     }
-    // kilocode_change end
 
     if (params.clientCapabilities?._meta?.["terminal-auth"] === true) {
       authMethod._meta = {
         "terminal-auth": {
           command: "opencode",
           args: ["auth", "login"],
-          label: "Kilo Login",
+          label: "Harness Login",
         },
       }
     }
@@ -132,7 +130,7 @@ export function make(input: {
       },
       authMethods: [authMethod],
       agentInfo: {
-        name: "Kilo",
+        name: "Harness",
         version: InstallationVersion,
       },
     }
@@ -585,7 +583,7 @@ function makeSessionService() {
   )
 }
 
-function makeDirectoryService(sdk: KiloClient) {
+function makeDirectoryService(sdk: HarnessClient) {
   return ManagedRuntime.make(
     AppNodeBuilder.build(Directory.node, [
       [
@@ -601,7 +599,7 @@ function makeDirectoryService(sdk: KiloClient) {
   ).runSync(Directory.Service.use((service) => Effect.succeed(service)))
 }
 
-function makeUsageService(sdk: KiloClient) {
+function makeUsageService(sdk: HarnessClient) {
   const limits = new Map<string, Promise<number | undefined>>()
   const contextLimit: UsageService.Interface["contextLimit"] = Effect.fn("ACP.promptUsage.contextLimit")(
     function* (params) {
@@ -727,7 +725,7 @@ function profiledRequest<T>(name: string, fn: () => Promise<T | SdkResponse<T>>,
   return request(() => ACPProfile.measure(name, fn), service)
 }
 
-async function loadDirectorySnapshot(sdk: KiloClient, directory: string) {
+async function loadDirectorySnapshot(sdk: HarnessClient, directory: string) {
   return ACPProfile.measure("acp.directory.load", async () => {
     const [providersResponse, agentsResponse, commandsResponse, skillsResponse, configResponse] = await Promise.all([
       ACPProfile.measure("acp.directory.provider.list", () =>
@@ -794,9 +792,9 @@ function defaultModelFromConfig(
   // First-session ACP startup must not scan historical sessions just to infer
   // a default. Configured model, opencode provider, then sorted best model keep
   // the protocol response deterministic without extra session/message reads.
-  const kiloProvider = providers[ProviderV2.ID.make("kilo")] // kilocode_change
-  const kiloModel = kiloProvider ? Provider.sort(Object.values(kiloProvider.models))[0] : undefined // kilocode_change
-  if (kiloProvider && kiloModel) return { providerID: kiloProvider.id, modelID: kiloModel.id } // kilocode_change
+  const harnessProvider = providers[ProviderV2.ID.make("harness")]
+  const harnessModel = harnessProvider ? Provider.sort(Object.values(harnessProvider.models))[0] : undefined
+  if (harnessProvider && harnessModel) return { providerID: harnessProvider.id, modelID: harnessModel.id }
 
   const best = Provider.sort(Object.values(providers).flatMap((provider) => Object.values(provider.models)))[0]
   if (best) return { providerID: best.providerID, modelID: best.id }
@@ -876,12 +874,12 @@ const promptResponse = Effect.fn("ACP.promptResponse")(function* (
 
 function promptErrorMessage(error: AssistantError) {
   if ("message" in error.data && typeof error.data.message === "string") return error.data.message
-  return "Kilo prompt failed" // kilocode_change - user-visible ACP error
+  return "Harness prompt failed"
 }
 
 function sendUsageUpdate(
   usage: UsageService.Interface | undefined,
-  sdk: KiloClient,
+  sdk: HarnessClient,
   connection: ServiceConnection | undefined,
   sessionID: string,
   directory: string,
@@ -958,7 +956,7 @@ function sendAvailableCommands(
 }
 
 function registerMcpServers(
-  sdk: KiloClient,
+  sdk: HarnessClient,
   registered: Map<string, Set<string>>,
   directory: string,
   sessionId: string,

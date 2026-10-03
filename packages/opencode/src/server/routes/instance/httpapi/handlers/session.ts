@@ -1,11 +1,11 @@
-import { Image } from "@/image/image" // kilocode_change - classify user image validation defects
-import { busyMessage, isBusy } from "@/kilocode/database/sqlite-error" // kilocode_change
-import { KiloSessionHttpApi } from "@/kilocode/server/httpapi/session-fork" // kilocode_change
-import { KiloSessionPromptQueue } from "@/kilocode/session/prompt-queue" // kilocode_change
-import { mergeScheduled } from "@/kilocode/session/scheduled" // kilocode_change
-import { Wakeup } from "@/kilocode/wakeup" // kilocode_change
+import { Image } from "@/image/image"
+import { busyMessage, isBusy } from "@/harness/database/sqlite-error"
+import { HarnessSessionHttpApi } from "@/harness/server/httpapi/session-fork"
+import { HarnessSessionPromptQueue } from "@/harness/session/prompt-queue"
+import { mergeScheduled } from "@/harness/session/scheduled"
+import { Wakeup } from "@/harness/wakeup"
 import { PermissionV1 } from "@opencode-ai/core/v1/permission"
-import { KiloViewers } from "@/kilocode/presence/service" // kilocode_change
+import { HarnessViewers } from "@/harness/presence/service"
 import { Agent } from "@/agent/agent"
 import { SessionV1 } from "@opencode-ai/core/v1/session"
 import { EventV2Bridge } from "@/event-v2-bridge"
@@ -30,9 +30,9 @@ import { HttpServerRequest, HttpServerResponse } from "effect/unstable/http"
 import { HttpApiBuilder, HttpApiError, HttpApiSchema } from "effect/unstable/httpapi"
 import { InstanceHttpApi } from "../api"
 import {
-  AbortQuery, // kilocode_change
+  AbortQuery,
   CommandPayload,
-  DeleteMessageQuery, // kilocode_change
+  DeleteMessageQuery,
   DiffQuery,
   ForkPayload,
   InitPayload,
@@ -44,7 +44,7 @@ import {
   ShellPayload,
   SummarizePayload,
   UpdatePayload,
-  ViewedPayload, // kilocode_change
+  ViewedPayload,
 } from "../groups/session"
 import { PermissionNotFoundError } from "../errors"
 import * as SessionError from "./session-errors"
@@ -66,11 +66,11 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
     const agentSvc = yield* Agent.Service
     const permissionSvc = yield* Permission.Service
     const statusSvc = yield* SessionStatus.Service
-    const wake = yield* Wakeup.Service // kilocode_change
+    const wake = yield* Wakeup.Service
     const todoSvc = yield* Todo.Service
     const summary = yield* SessionSummary.Service
     const events = yield* EventV2Bridge.Service
-    const viewers = yield* KiloViewers.Service // kilocode_change
+    const viewers = yield* HarnessViewers.Service
     const scope = yield* Scope.Scope
 
     const list = Effect.fn("SessionHttpApi.list")(function* (ctx: { query: typeof ListQuery.Type }) {
@@ -87,13 +87,11 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
     })
 
     const status = Effect.fn("SessionHttpApi.status")(function* () {
-      // kilocode_change start - fold in a future wakeup so a session asleep on a
       // schedule is reported as `scheduled` instead of `idle`
       return mergeScheduled(
         Object.fromEntries(yield* statusSvc.list()),
         yield* wake.scheduled(yield* InstanceState.directory),
       )
-      // kilocode_change end
     })
 
     const requireSession = Effect.fn("SessionHttpApi.requireSession")(function* (sessionID: SessionID) {
@@ -118,14 +116,12 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
       params: { sessionID: SessionID }
       query: typeof DiffQuery.Type
     }) {
-      // kilocode_change start - pass full-content detail query fields through to the summary service
       return yield* summary.diff({
         sessionID: ctx.params.sessionID,
         messageID: ctx.query.messageID,
         full: ctx.query.full,
         file: ctx.query.file,
       })
-      // kilocode_change end
     })
 
     const messages = Effect.fn("SessionHttpApi.messages")(function* (ctx: {
@@ -240,9 +236,8 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
       )
     })
 
-    const forkRaw = KiloSessionHttpApi.forkRaw(fork) // kilocode_change - carry upstream bodyless full-session fork support
+    const forkRaw = HarnessSessionHttpApi.forkRaw(fork)
 
-    // kilocode_change start
     const abort = Effect.fn("SessionHttpApi.abort")(function* (ctx: {
       params: { sessionID: SessionID }
       query: typeof AbortQuery.Type
@@ -250,7 +245,6 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
       yield* promptSvc.cancel(ctx.params.sessionID, ctx.query.scope)
       return true
     })
-    // kilocode_change end
 
     const init = Effect.fn("SessionHttpApi.init")(function* (ctx: {
       params: { sessionID: SessionID }
@@ -316,9 +310,8 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
     }) {
       yield* requireSession(ctx.params.sessionID)
       const message = yield* promptSvc
-        .prompt({ ...ctx.payload, sessionID: ctx.params.sessionID } as unknown as SessionPrompt.PromptInput) // kilocode_change
+        .prompt({ ...ctx.payload, sessionID: ctx.params.sessionID } as unknown as SessionPrompt.PromptInput)
         .pipe(
-          // kilocode_change start - reject only typed user image validation defects as request errors
           Effect.catchCause((cause) => {
             const error = Cause.squash(cause)
             if (
@@ -329,7 +322,6 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
               return Effect.fail(new HttpApiError.BadRequest({}))
             return Effect.die(error)
           }),
-          // kilocode_change end
         )
       return HttpServerResponse.stream(Stream.make(JSON.stringify(message)).pipe(Stream.encodeText), {
         contentType: "application/json",
@@ -345,21 +337,19 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
         .prompt({ ...ctx.payload, sessionID: ctx.params.sessionID } as unknown as SessionPrompt.PromptInput)
         .pipe(
           Effect.catchCause((cause) => {
-            if (Cause.hasInterruptsOnly(cause)) return Effect.void // kilocode_change - Stop is not an error
+            if (Cause.hasInterruptsOnly(cause)) return Effect.void
             return Effect.gen(function* () {
               const error = Cause.squash(cause)
-              // kilocode_change start - keep SQLite lock failures out of local CLI logs
               const busy = isBusy(error)
               if (busy) {
                 yield* Effect.logWarning("prompt_async database busy", { sessionID: ctx.params.sessionID })
               }
               if (!busy) yield* Effect.logError("prompt_async failed", { sessionID: ctx.params.sessionID, cause })
-              // kilocode_change end
               yield* events.publish(Session.Event.Error, {
                 sessionID: ctx.params.sessionID,
-                error: busy // kilocode_change
-                    ? new NamedError.Unknown({ message: busyMessage }).toObject() // kilocode_change
-                    : new NamedError.Unknown({ message: Cause.pretty(cause) }).toObject(), // kilocode_change
+                error: busy
+                    ? new NamedError.Unknown({ message: busyMessage }).toObject()
+                    : new NamedError.Unknown({ message: Cause.pretty(cause) }).toObject(),
               })
             })
           }),
@@ -419,22 +409,20 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
 
     const deleteMessage = Effect.fn("SessionHttpApi.deleteMessage")(function* (ctx: {
       params: { sessionID: SessionID; messageID: MessageID }
-      query: typeof DeleteMessageQuery.Type // kilocode_change
+      query: typeof DeleteMessageQuery.Type
     }) {
       yield* requireSession(ctx.params.sessionID)
-      // kilocode_change start - allow deleting prompts that are queued behind the active turn
       const remove = yield* ctx.query.queued === true
-        ? KiloSessionPromptQueue.drop(ctx.params.sessionID, ctx.params.messageID)
+        ? HarnessSessionPromptQueue.drop(ctx.params.sessionID, ctx.params.messageID)
         : runState.assertNotBusy(ctx.params.sessionID).pipe(
             Effect.as(true),
             Effect.catchTag("SessionBusyError", () =>
-              KiloSessionPromptQueue.drop(ctx.params.sessionID, ctx.params.messageID),
+              HarnessSessionPromptQueue.drop(ctx.params.sessionID, ctx.params.messageID),
             ),
           )
       // A false result means the message is not in the waiting list. It may have
       // already started, or the ID may be stale. Leave the message untouched.
       if (!remove) return false
-      // kilocode_change end
       yield* session.removeMessage(ctx.params)
       return true
     })
@@ -463,12 +451,10 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
       return yield* session.updatePart(payload)
     })
 
-    // kilocode_change start
     const viewed = Effect.fn("SessionHttpApi.viewed")(function* (ctx: { payload: typeof ViewedPayload.Type }) {
       yield* viewers.update(ctx.payload)
       return true
     })
-    // kilocode_change end
 
     return handlers
       .handle("list", list)
@@ -482,7 +468,7 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
       .handleRaw("create", createRaw)
       .handle("remove", remove)
       .handle("update", update)
-      .handleRaw("fork", forkRaw) // kilocode_change - carry upstream bodyless full-session fork support
+      .handleRaw("fork", forkRaw)
       .handle("abort", abort)
       .handle("init", init)
       .handle("share", share)
@@ -498,6 +484,6 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
       .handle("deleteMessage", deleteMessage)
       .handle("deletePart", deletePart)
       .handle("updatePart", updatePart)
-      .handle("viewed", viewed) // kilocode_change
+      .handle("viewed", viewed)
   }),
 )

@@ -9,27 +9,25 @@ import type { MessageV2 } from "../message-v2"
 import type { Provider } from "@/provider/provider"
 import { ProviderTransform } from "@/provider/transform"
 import { SystemPrompt } from "../system"
-import { USER_AGENT } from "@/installation" // kilocode_change
+import { USER_AGENT } from "@/installation"
 import { Effect, Record } from "effect"
 import { jsonSchema, tool as aiTool, type ModelMessage, type Tool } from "ai"
 import type { Plugin } from "@/plugin"
 import { mergeDeep } from "remeda"
-import { DEFAULT_HEADERS } from "@/kilocode/const" // kilocode_change
-// kilocode_change start
-import { getKiloProjectId } from "@/kilocode/project-id"
+import { DEFAULT_HEADERS } from "@/harness/const"
+import { getHarnessProjectId } from "@/harness/project-id"
 import {
   HEADER_FEATURE,
   HEADER_PARENT_TASKID,
   HEADER_PROJECTID,
   HEADER_MACHINEID,
   HEADER_TASKID,
-} from "@kilocode/kilo-gateway"
-import { Identity } from "@kilocode/kilo-telemetry"
-import { KiloSession } from "@/kilocode/session"
-import { stripInternalOptions } from "@/kilocode/agent/options"
-import { KilocodeSystemPrompt } from "@/kilocode/system-prompt"
-import { KiloLLM } from "@/kilocode/session/llm"
-// kilocode_change end
+} from "@harness/harness-gateway"
+import { Identity } from "@harness/harness-telemetry"
+import { HarnessSession } from "@/harness/session"
+import { stripInternalOptions } from "@/harness/agent/options"
+import { HarnessSystemPrompt } from "@/harness/system-prompt"
+import { HarnessLLM } from "@/harness/session/llm"
 
 type PrepareInput = {
   readonly user: SessionV1.User
@@ -69,12 +67,10 @@ const mergeOptions = (target: Record<string, any>, source: Record<string, any> |
 
 export const prepare = Effect.fn("LLMRequestPrep.prepare")(function* (input: PrepareInput) {
   const isOpenaiOauth = input.provider.id === "openai" && input.auth?.type === "oauth"
-  const includePersona = KilocodeSystemPrompt.shouldIncludePersona(input.agent.name) // kilocode_change
+  const includePersona = HarnessSystemPrompt.shouldIncludePersona(input.agent.name)
   const system = [
     [
-      // kilocode_change start - soul defines core identity and personality
       ...(isOpenaiOauth || !includePersona ? [] : [SystemPrompt.soul()]),
-      // kilocode_change end
       ...(input.agent.prompt ? [input.agent.prompt] : SystemPrompt.provider(input.model)),
       ...input.system,
       ...(input.user.system ? [input.user.system] : []),
@@ -106,11 +102,9 @@ export const prepare = Effect.fn("LLMRequestPrep.prepare")(function* (input: Pre
         sessionID: input.sessionID,
         providerOptions: input.provider.options,
       })
-  // kilocode_change start - drop Kilo-internal agent metadata (id/displayName/source)
   // so it never leaks into providerOptions and gets rejected by strict providers
   const agentOptions = stripInternalOptions(input.agent.options)
   const options = mergeOptions(mergeOptions(mergeOptions(base, input.model.options), agentOptions), variant)
-  // kilocode_change end
   if (
     input.model.api.npm === "@ai-sdk/azure" &&
     (input.provider.options.useCompletionUrls || input.model.options.useCompletionUrls || options.useCompletionUrls)
@@ -119,9 +113,7 @@ export const prepare = Effect.fn("LLMRequestPrep.prepare")(function* (input: Pre
     delete options.include
   }
   if (isOpenaiOauth) {
-    // kilocode_change start - prepend soul to instructions
     options.instructions = [...(includePersona ? [SystemPrompt.soul()] : []), ...system].join("\n")
-    // kilocode_change end
   }
 
   const messages =
@@ -152,15 +144,13 @@ export const prepare = Effect.fn("LLMRequestPrep.prepare")(function* (input: Pre
         : undefined,
       topP: input.agent.topP ?? ProviderTransform.topP(input.model),
       topK: ProviderTransform.topK(input.model),
-      // kilocode_change start - gpt-5 via @ai-sdk/openai-compatible proxies (e.g. LiteLLM)
       // rejects `max_tokens`; OpenAI requires `max_completion_tokens` and the compatible
       // SDK cannot rename the field, so drop the cap and let the upstream default apply.
-      // Claude on first-party routes requests its full output limit, see KiloLLM.outputTokens.
+      // Claude on first-party routes requests its full output limit, see HarnessLLM.outputTokens.
       maxOutputTokens:
         input.model.api.npm === "@ai-sdk/openai-compatible" && input.model.api.id.toLowerCase().includes("gpt-5")
           ? undefined
-          : KiloLLM.outputTokens({ model: input.model, options, max: input.flags.outputTokenMax, small: input.small }),
-      // kilocode_change end
+          : HarnessLLM.outputTokens({ model: input.model, options, max: input.flags.outputTokenMax, small: input.small }),
       options,
     },
   )
@@ -179,19 +169,15 @@ export const prepare = Effect.fn("LLMRequestPrep.prepare")(function* (input: Pre
     },
   )
 
-  // kilocode_change start - resolve project ID and machine ID for kilo provider
-  const isKilo = input.model.api.npm === "@kilocode/kilo-gateway"
-  const kiloProjectId = yield* isKilo
-    ? Effect.promise(() => getKiloProjectId().catch(() => undefined))
+  const isHarness = input.model.api.npm === "@harness/harness-gateway"
+  const harnessProjectId = yield* isHarness
+    ? Effect.promise(() => getHarnessProjectId().catch(() => undefined))
     : Effect.succeed(undefined)
-  const machineId = yield* isKilo
+  const machineId = yield* isHarness
     ? Effect.promise(() => Identity.getMachineId().catch(() => undefined))
     : Effect.succeed(undefined)
-  const parent = input.parentSessionID ?? KiloSession.resolveParent(input.sessionID)
-  // kilocode_change end
-  // kilocode_change start - attribute Kilo gateway usage to the root product session
-  const attr = KiloSession.attribution(input.sessionID)
-  // kilocode_change end
+  const parent = input.parentSessionID ?? HarnessSession.resolveParent(input.sessionID)
+  const attr = HarnessSession.attribution(input.sessionID)
 
   const tools = resolveTools(input)
   // Codex parity: OpenAI Responses-family providers hardcode `strict: false`
@@ -231,7 +217,6 @@ export const prepare = Effect.fn("LLMRequestPrep.prepare")(function* (input: Pre
     messages,
     tools: Object.fromEntries(Object.entries(tools).toSorted(([a], [b]) => a.localeCompare(b))),
     params,
-    // kilocode_change start - surface provider-level endpoint overrides to message
     // transforms without leaking them into the wire params (options is also params.options)
     messageTransformOptions: {
       ...options,
@@ -239,7 +224,6 @@ export const prepare = Effect.fn("LLMRequestPrep.prepare")(function* (input: Pre
         ? { providerEndpointOverride: input.provider.options?.endpoint ?? input.provider.options?.baseURL }
         : {}),
     },
-    // kilocode_change end
     headers: {
       ...(input.model.providerID.startsWith("opencode")
         ? {
@@ -253,16 +237,14 @@ export const prepare = Effect.fn("LLMRequestPrep.prepare")(function* (input: Pre
             "x-session-affinity": input.sessionID,
             "X-Session-Id": input.sessionID,
             "User-Agent": USER_AGENT,
-            ...(input.model.providerID !== "anthropic" ? DEFAULT_HEADERS : undefined), // kilocode_change
+            ...(input.model.providerID !== "anthropic" ? DEFAULT_HEADERS : undefined),
           }),
-      // kilocode_change start - headers for kilo provider
-      ...(isKilo && input.agent.name ? { "x-kilocode-mode": input.agent.name.toLowerCase() } : {}),
-      ...(isKilo && kiloProjectId ? { [HEADER_PROJECTID]: kiloProjectId } : {}),
-      ...(isKilo && machineId ? { [HEADER_MACHINEID]: machineId } : {}),
-      ...(isKilo ? { [HEADER_TASKID]: input.sessionID } : {}),
-      ...(isKilo && parent ? { [HEADER_PARENT_TASKID]: parent } : {}),
-      ...(isKilo && attr.feature ? { [HEADER_FEATURE]: attr.feature } : {}),
-      // kilocode_change end
+      ...(isHarness && input.agent.name ? { "x-harness-mode": input.agent.name.toLowerCase() } : {}),
+      ...(isHarness && harnessProjectId ? { [HEADER_PROJECTID]: harnessProjectId } : {}),
+      ...(isHarness && machineId ? { [HEADER_MACHINEID]: machineId } : {}),
+      ...(isHarness ? { [HEADER_TASKID]: input.sessionID } : {}),
+      ...(isHarness && parent ? { [HEADER_PARENT_TASKID]: parent } : {}),
+      ...(isHarness && attr.feature ? { [HEADER_FEATURE]: attr.feature } : {}),
       ...(input.parentSessionID ? { "x-parent-session-id": input.parentSessionID } : {}),
       ...input.model.headers,
       ...headers,

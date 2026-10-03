@@ -1,8 +1,8 @@
-import { createKiloClient, createKiloServer } from "@kilocode/sdk"
+import { createHarnessClient, createHarnessServer } from "@harness/sdk"
 import { pathToFileURL } from "bun"
 
-const server = await createKiloServer()
-const client = createKiloClient({ baseUrl: server.url })
+const server = await createHarnessServer()
+const client = createHarnessClient({ baseUrl: server.url })
 
 const input = await Array.fromAsync(new Bun.Glob("packages/core/*.ts").scan())
 

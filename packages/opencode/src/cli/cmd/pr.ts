@@ -6,19 +6,18 @@ import { effectCmd, fail } from "../effect-cmd"
 import { Git } from "@/git"
 import { InstanceRef } from "@/effect/instance-ref"
 import { Process } from "@/util/process"
-import { existsSync } from "node:fs" // kilocode_change
+import { existsSync } from "node:fs"
 import {
   clearSessionLink,
   linkMatchesWorktree,
   parsePrUrl,
   readSessionPrLink,
   recordSessionLink,
-} from "@/kilo-sessions/pr-link" // kilocode_change
-import { refreshPrLink } from "@/kilo-sessions/pr-link-poller" // kilocode_change
+} from "@/harness-sessions/pr-link"
+import { refreshPrLink } from "@/harness-sessions/pr-link-poller"
 
-const subcommand = "pr" // kilocode_change
+const subcommand = "pr"
 
-// kilocode_change start - resolve the currently running CLI instead of hardcoding opencode
 export function cliCommand(
   input = {
     execPath: process.execPath,
@@ -28,17 +27,16 @@ export function cliCommand(
 ) {
   const script = input.argv[1]
   if (!script) return [input.execPath]
-  if (script === subcommand) return [input.execPath] // kilocode_change
+  if (script === subcommand) return [input.execPath]
   if (script.startsWith("/$bunfs/root/")) return [input.execPath]
   if (script.startsWith("B:/~BUN/root/")) return [input.execPath]
   if (input.exists(script)) return [input.execPath, script]
   return [input.execPath]
 }
-// kilocode_change end
 
 export const PrCommand = cmd({
   command: subcommand,
-  describe: "manage pull requests", // kilocode_change
+  describe: "manage pull requests",
   builder: (yargs: Argv) =>
     yargs
       .command(PrCheckoutCommand)
@@ -51,7 +49,7 @@ export const PrCommand = cmd({
 
 export const PrCheckoutCommand = effectCmd({
   command: "checkout <number>",
-  describe: "fetch and checkout a GitHub PR branch, then run kilo", // kilocode_change
+  describe: "fetch and checkout a GitHub PR branch, then run harness",
   builder: (yargs) =>
     yargs.positional("number", {
       type: "number",
@@ -70,7 +68,7 @@ export const PrCheckoutCommand = effectCmd({
 
     const prNumber = args.number
     const localBranchName = `pr/${prNumber}`
-    const cli = cliCommand() // kilocode_change
+    const cli = cliCommand()
     UI.println(`Fetching and checking out PR #${prNumber}...`)
 
     const checkout = yield* Effect.promise(() =>
@@ -118,17 +116,15 @@ export const PrCheckoutCommand = effectCmd({
       }
 
       if (prInfo?.body) {
-        const sessionMatch = prInfo.body.match(/https:\/\/app\.kilo\.ai\/s\/([a-zA-Z0-9_-]+)/) // kilocode_change
+        const sessionMatch = prInfo.body.match(/https:\/\/app\.harness\.ai\/s\/([a-zA-Z0-9_-]+)/)
         if (sessionMatch) {
           const sessionUrl = sessionMatch[0]
-          // kilocode_change start
           UI.println(`Found session: ${sessionUrl}`)
           UI.println(`Importing session...`)
 
           const importResult = yield* Effect.promise(() =>
             Process.text([...cli, "import", sessionUrl], { nothrow: true }),
           )
-          // kilocode_change end
           if (importResult.code === 0) {
             const sessionIdMatch = importResult.text.trim().match(/Imported session: ([a-zA-Z0-9_-]+)/)
             if (sessionIdMatch) {
@@ -142,10 +138,10 @@ export const PrCheckoutCommand = effectCmd({
 
     UI.println(`Successfully checked out PR #${prNumber} as branch '${localBranchName}'`)
     UI.println()
-    UI.println("Starting kilo...") // kilocode_change
+    UI.println("Starting harness...")
     UI.println()
 
-    const run = sessionId ? [...cli, "-s", sessionId] : cli // kilocode_change
+    const run = sessionId ? [...cli, "-s", sessionId] : cli
     const code = yield* Effect.promise(
       () =>
         Process.spawn(run, {
@@ -157,23 +153,22 @@ export const PrCheckoutCommand = effectCmd({
     )
     // Match legacy throw semantics — propagate as a defect so the top-level
     // index.ts catch handles it identically (exit 1, "Unexpected error" banner).
-    if (code !== 0) return yield* Effect.die(new Error(`kilo exited with code ${code}`)) // kilocode_change
+    if (code !== 0) return yield* Effect.die(new Error(`harness exited with code ${code}`))
   }),
 })
 
-// kilocode_change start - link/unlink/status act on one explicit session
 //
 // A PR belongs to a session, never to a worktree or a branch name, so these
-// commands require a session id: `--session <id>`, else the KILO_SESSION_ID /
-// KILO_SESSION the surrounding process exported. There is deliberately no
+// commands require a session id: `--session <id>`, else the HARNESS_SESSION_ID /
+// HARNESS_SESSION the surrounding process exported. There is deliberately no
 // worktree or branch fallback: guessing the session recreates the fan-out that
 // linked random pull requests to sessions.
-import { enabled as prEnabled } from "@/kilo-sessions/pr-link"
+import { enabled as prEnabled } from "@/harness-sessions/pr-link"
 
-const NO_SESSION = "No session specified. Pass --session <id> or set KILO_SESSION_ID."
+const NO_SESSION = "No session specified. Pass --session <id> or set HARNESS_SESSION_ID."
 
 function resolveSessionId(explicit?: string): string | undefined {
-  return explicit?.trim() || process.env.KILO_SESSION_ID?.trim() || process.env.KILO_SESSION?.trim() || undefined
+  return explicit?.trim() || process.env.HARNESS_SESSION_ID?.trim() || process.env.HARNESS_SESSION?.trim() || undefined
 }
 
 export const prLinkHandler = Effect.fn("Cli.pr.link")(function* (args: { url: string; session?: string }) {
@@ -281,4 +276,3 @@ export const PrStatusCommand = effectCmd({
     }),
   handler: prStatusHandler,
 })
-// kilocode_change end

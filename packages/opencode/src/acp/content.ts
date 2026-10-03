@@ -76,7 +76,6 @@ export function contentBlockToParts(block: ContentBlock): PromptPart[] {
 
     case "resource":
       if ("text" in block.resource) {
-        // kilocode_change - a non-URL uri is the expected fallback; only that is swallowed
         const parsed = URL.parse(block.resource.uri) ?? undefined
         if (parsed?.protocol === "file:") {
           const line = parsed.hash.match(/^#L(\d+)/)?.[1]

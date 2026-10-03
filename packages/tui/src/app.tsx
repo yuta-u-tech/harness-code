@@ -7,7 +7,7 @@ import { Flag } from "@opencode-ai/core/flag/flag"
 import { InstallationVersion } from "@opencode-ai/core/installation/version"
 import { ClipboardProvider, useClipboard } from "./context/clipboard"
 import { ExitProvider, useExit } from "./context/exit"
-import type { Exit } from "./context/exit" // kilocode_change
+import type { Exit } from "./context/exit"
 import { EpilogueProvider } from "./context/epilogue"
 import * as Selection from "./util/selection"
 import { createCliRenderer, MouseButton } from "@opentui/core"
@@ -24,7 +24,7 @@ import {
   batch,
   Show,
   on,
-  untrack, // kilocode_change
+  untrack,
 } from "solid-js"
 import { TuiPathsProvider, TuiStartupProvider, TuiTerminalEnvironmentProvider, useTuiStartup } from "./context/runtime"
 import { DialogProvider, useDialog } from "./ui/dialog"
@@ -58,10 +58,10 @@ import { Session } from "./routes/session"
 import { PromptHistoryProvider } from "./component/prompt/history"
 import { FrecencyProvider } from "./component/prompt/frecency"
 import { PromptStashProvider } from "./component/prompt/stash"
-import { NudgeProvider } from "@/kilocode/cli/cmd/tui/context/nudge" // kilocode_change
+import { NudgeProvider } from "@/harness/cli/cmd/tui/context/nudge"
 import { DialogAlert } from "./ui/dialog-alert"
 import { DialogConfirm } from "./ui/dialog-confirm"
-import { DialogHeadlessLink } from "@/kilocode/cli/cmd/tui/component/dialog-headless-link" // kilocode_change
+import { DialogHeadlessLink } from "@/harness/cli/cmd/tui/component/dialog-headless-link"
 import { ToastProvider, useToast } from "./ui/toast"
 import { KVProvider, useKV } from "./context/kv"
 import * as Model from "./util/model"
@@ -75,7 +75,7 @@ import { createPluginRuntime, PluginRuntimeProvider, usePluginRuntime, type TuiP
 import { CommandPaletteDialog } from "./component/command-palette"
 import {
   COMMAND_PALETTE_COMMAND,
-  KILO_BASE_MODE,
+  HARNESS_BASE_MODE,
   OpencodeKeymapProvider,
   registerOpencodeKeymap,
   useBindings,
@@ -89,9 +89,9 @@ import * as TuiAudio from "./audio"
 import { win32DisableProcessedInput, win32FlushInputBuffer } from "./terminal-win32"
 import { destroyRenderer } from "./util/renderer"
 import { cliErrorMessage, errorFormat } from "./util/error"
-import * as KiloApp from "@/kilocode/cli/cmd/tui/app" // kilocode_change
-import { kitty, resetTerminalState } from "@/kilocode/cli/cmd/tui/util/terminal" // kilocode_change
-import { hasDisplay } from "@/kilocode/cli/cmd/tui/util/display" // kilocode_change
+import * as HarnessApp from "@/harness/cli/cmd/tui/app"
+import { kitty, resetTerminalState } from "@/harness/cli/cmd/tui/util/terminal"
+import { hasDisplay } from "@/harness/cli/cmd/tui/util/display"
 
 registerOpencodeSpinner()
 
@@ -155,7 +155,7 @@ export type TuiInput = {
   headers?: RequestInit["headers"]
   events?: EventSource
   pluginHost: TuiPluginHost
-  onExit?: (exit: Exit) => void // kilocode_change - expose the extracted TUI exit to the CLI worker bridge
+  onExit?: (exit: Exit) => void
 }
 
 function errorMessage(error: unknown) {
@@ -195,7 +195,7 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
   const exit = { epilogue: undefined as string | undefined, reason: undefined as unknown }
   const result = yield* Effect.scoped(
     Effect.gen(function* () {
-      const keyboard = kitty() // kilocode_change
+      const keyboard = kitty()
       const renderer = yield* Effect.acquireRelease(
         Effect.tryPromise({
           try: () =>
@@ -204,10 +204,10 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
               targetFps: 60,
               gatherStats: false,
               exitOnCtrlC: false,
-              ...(keyboard ? { useKittyKeyboard: {} } : {}), // kilocode_change
+              ...(keyboard ? { useKittyKeyboard: {} } : {}),
               autoFocus: false,
               openConsoleOnError: false,
-              useMouse: !Flag.KILO_DISABLE_MOUSE && input.config.mouse,
+              useMouse: !Flag.HARNESS_DISABLE_MOUSE && input.config.mouse,
               consoleOptions: {
                 keyBindings: [{ name: "y", ctrl: true, action: "copy-selection" }],
               },
@@ -235,7 +235,7 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
         }),
       )
       yield* Effect.addFinalizer(() => Effect.sync(TuiAudio.dispose))
-      yield* Effect.addFinalizer(() => Effect.sync(resetTerminalState)) // kilocode_change
+      yield* Effect.addFinalizer(() => Effect.sync(resetTerminalState))
       const shutdown = yield* Deferred.make<unknown>()
       const onSighup = () => destroyRenderer(renderer)
       yield* Effect.acquireRelease(
@@ -251,18 +251,16 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
         const mode = (await renderer.waitForThemeMode(1000)) ?? "dark"
         if (renderer.isDestroyed) return
 
-        // kilocode_change start - expose the renderer-owned exit without moving remote RPC into the shared TUI
         const close: Exit = (reason) => {
           if (renderer.isDestroyed) return
           exit.reason = reason
           destroyRenderer(renderer)
         }
         input.onExit?.(close)
-        // kilocode_change end
 
         await render(() => {
           return (
-            <ExitProvider exit={close /* kilocode_change - reuse the externally registered renderer exit */}>
+            <ExitProvider exit={close }>
               <EpilogueProvider set={(value) => (exit.epilogue = value)}>
                 <ErrorBoundary fallback={(error, reset) => <ErrorComponent error={error} reset={reset} mode={mode} />}>
                   <TuiPathsProvider
@@ -286,8 +284,8 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
                     >
                       <TuiStartupProvider
                         value={{
-                          initialRoute: process.env.KILO_ROUTE ? JSON.parse(process.env.KILO_ROUTE) : undefined,
-                          skipInitialLoading: Boolean(process.env.KILO_FAST_BOOT),
+                          initialRoute: process.env.HARNESS_ROUTE ? JSON.parse(process.env.HARNESS_ROUTE) : undefined,
+                          skipInitialLoading: Boolean(process.env.HARNESS_FAST_BOOT),
                         }}
                       >
                         <ClipboardProvider>
@@ -305,8 +303,7 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
                                         : undefined
                                     }
                                   >
-                                    {/* kilocode_change - retain reactive Kilo TUI config hot reload after package extraction */}
-                                    <KiloApp.KiloTuiConfig.Provider config={input.config}>
+                                    <HarnessApp.HarnessTuiConfig.Provider config={input.config}>
                                       <PluginRuntimeProvider value={pluginRuntime}>
                                         <SDKProvider
                                           url={input.url}
@@ -323,7 +320,6 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
                                                     <LocalProvider>
                                                       <PromptStashProvider>
                                                         <DialogProvider>
-                                                          {/* kilocode_change start */}
                                                           <NudgeProvider>
                                                             <FrecencyProvider>
                                                               <PromptHistoryProvider>
@@ -340,7 +336,6 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
                                                               </PromptHistoryProvider>
                                                             </FrecencyProvider>
                                                           </NudgeProvider>
-                                                          {/* kilocode_change end */}
                                                         </DialogProvider>
                                                       </PromptStashProvider>
                                                     </LocalProvider>
@@ -351,7 +346,7 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
                                           </PermissionProvider>
                                         </SDKProvider>
                                       </PluginRuntimeProvider>
-                                    </KiloApp.KiloTuiConfig.Provider>
+                                    </HarnessApp.HarnessTuiConfig.Provider>
                                   </RouteProvider>
                                 </ToastProvider>
                               </KVProvider>
@@ -373,7 +368,7 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
   )
   yield* Effect.sync(() => {
     win32FlushInputBuffer()
-    resetTerminalState() // kilocode_change
+    resetTerminalState()
     if (result.reason !== undefined)
       process.stderr.write((cliErrorMessage(result.reason) ?? errorFormat(result.reason)) + "\n")
     if (result.epilogue) process.stdout.write(result.epilogue + "\n")
@@ -382,7 +377,7 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
 
 function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPluginHost }) {
   const startup = useTuiStartup()
-  const tuiConfig = KiloApp.KiloTuiConfig.use() // kilocode_change
+  const tuiConfig = HarnessApp.HarnessTuiConfig.use()
   const route = useRoute()
   const dimensions = useTerminalDimensions()
   const renderer = useRenderer()
@@ -441,7 +436,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
   const offSelectionKeys = keymap.intercept(
     "key",
     ({ event }) => {
-      if (!Flag.KILO_EXPERIMENTAL_DISABLE_COPY_ON_SELECT) return
+      if (!Flag.HARNESS_EXPERIMENTAL_DISABLE_COPY_ON_SELECT) return
       Selection.handleSelectionKey(renderer, toast, event, clipboard)
     },
     { priority: 1 },
@@ -463,24 +458,21 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
     renderer.clearSelection()
   }
   const [terminalTitleEnabled, setTerminalTitleEnabled] = createSignal(kv.get("terminal_title_enabled", true))
-  const [done, setDone] = createSignal<Record<string, true>>({}) // kilocode_change
+  const [done, setDone] = createSignal<Record<string, true>>({})
   const [pasteSummaryEnabled, setPasteSummaryEnabled] = createSignal(
     kv.get("paste_summary_enabled", !sync.data.config.experimental?.disable_paste_summary),
   )
 
-  // kilocode_change start
-  KiloApp.useSessionEffects({ route, sdk, sync })
-  KiloApp.useTuiConfigHotReload()
-  // kilocode_change end
+  HarnessApp.useSessionEffects({ route, sdk, sync })
+  HarnessApp.useTuiConfigHotReload()
 
   // Update terminal window title based on current route and session
   createEffect(() => {
-    if (!terminalTitleEnabled() || Flag.KILO_DISABLE_TERMINAL_TITLE) return
+    if (!terminalTitleEnabled() || Flag.HARNESS_DISABLE_TERMINAL_TITLE) return
 
-    // kilocode_change start
-    const title = KiloApp.getTerminalTitle({
+    const title = HarnessApp.getTerminalTitle({
       route,
-      base: KiloApp.APP_TITLE,
+      base: HarnessApp.APP_TITLE,
       sync,
       done: untrack(done),
       icon: tuiConfig.title_icon,
@@ -491,7 +483,6 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       }
       renderer.setTerminalTitle(title.title)
     }
-    // kilocode_change end
   })
 
   const args = useArgs()
@@ -630,9 +621,9 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
         name: "workspace.list",
         title: "Manage workspaces",
         category: "Workspace",
-        hidden: !Flag.KILO_EXPERIMENTAL_WORKSPACES,
+        hidden: !Flag.HARNESS_EXPERIMENTAL_WORKSPACES,
         slashName: "workspaces",
-        slashAliases: ["worktree", "worktrees"], // kilocode_change - `kilo --worktree` worktrees are workspaces too
+        slashAliases: ["worktree", "worktrees"],
         run: () => {
           dialog.replace(() => <DialogWorkspaceList />)
         },
@@ -839,13 +830,11 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
         name: "docs.open",
         title: "Open docs",
         run: () => {
-          // kilocode_change start
           if (!hasDisplay()) {
-            DialogHeadlessLink.show(dialog, KiloApp.DOCS_URL)
+            DialogHeadlessLink.show(dialog, HarnessApp.DOCS_URL)
             return
           }
-          open(KiloApp.DOCS_URL).catch((err) => console.error("Failed to open docs", err))
-          // kilocode_change end
+          open(HarnessApp.DOCS_URL).catch((err) => console.error("Failed to open docs", err))
           dialog.clear()
         },
         category: "System",
@@ -969,10 +958,9 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
           dialog.clear()
         },
       },
-      // kilocode_change - titled by scope. This toggles the in-memory mode that `--auto`/`--yolo`
       // seed, which lasts for the TUI process and survives switching sessions. It is also the only
-      // way to leave that mode without restarting; Kilo's `permission.allow_everything`
-      // (kilocode/cli/cmd/tui/app.tsx) saves a global rule instead. Consolidating the two is a
+      // way to leave that mode without restarting; Harness's `permission.allow_everything`
+      // (harness/cli/cmd/tui/app.tsx) saves a global rule instead. Consolidating the two is a
       // follow-up that has to cover VS Code and JetBrains as well.
       {
         name: "permission.mode",
@@ -980,7 +968,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
           local.permission.mode === "auto"
             ? "Disable auto-approve for this TUI run"
             : "Enable auto-approve for this TUI run",
-        desc: "Auto-approve permission prompts until you exit the TUI, nothing is saved", // kilocode_change
+        desc: "Auto-approve permission prompts until you exit the TUI, nothing is saved",
         category: "System",
         run: () => {
           local.permission.toggle()
@@ -998,7 +986,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
   }))
 
   useBindings(() => ({
-    mode: KILO_BASE_MODE,
+    mode: HARNESS_BASE_MODE,
     bindings: tuiConfig.keybinds.gather("app", appBindingCommands),
   }))
 
@@ -1007,7 +995,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
   }))
 
   useBindings(() => ({
-    mode: KILO_BASE_MODE,
+    mode: HARNESS_BASE_MODE,
     enabled: () => {
       const current = promptRef.current
       if (!current?.focused) return true
@@ -1016,7 +1004,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
     bindings: tuiConfig.keybinds.gather("app_exit", ["app.exit"]),
   }))
 
-  KiloApp.init() // kilocode_change
+  HarnessApp.init()
 
   event.on("tui.command.execute", (evt, { workspace }) => {
     if (workspace !== project.workspace.current()) return
@@ -1055,7 +1043,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
     if (workspace !== project.workspace.current()) return
     const error = evt.properties.error
     if (error && typeof error === "object" && error.name === "MessageAbortedError") return
-    if (KiloApp.handleSessionError(error, toast)) return // kilocode_change
+    if (HarnessApp.handleSessionError(error, toast)) return
     const message = errorMessage(error)
 
     toast.show({
@@ -1107,7 +1095,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
     await DialogAlert.show(
       dialog,
       "Update Complete",
-      `Successfully updated to ${KiloApp.APP_NAME} v${result.data.version}. Please restart the application.`, // kilocode_change
+      `Successfully updated to ${HarnessApp.APP_NAME} v${result.data.version}. Please restart the application.`,
     )
 
     void exit()
@@ -1128,7 +1116,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       flexDirection="column"
       backgroundColor={theme.background}
       onMouseDown={(evt) => {
-        if (!Flag.KILO_EXPERIMENTAL_DISABLE_COPY_ON_SELECT) return
+        if (!Flag.HARNESS_EXPERIMENTAL_DISABLE_COPY_ON_SELECT) return
         if (evt.button !== MouseButton.RIGHT) return
 
         if (!Selection.copy(renderer, toast, clipboard)) return
@@ -1136,10 +1124,10 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
         evt.stopPropagation()
       }}
       onMouseUp={
-        !Flag.KILO_EXPERIMENTAL_DISABLE_COPY_ON_SELECT ? () => Selection.copy(renderer, toast, clipboard) : undefined
+        !Flag.HARNESS_EXPERIMENTAL_DISABLE_COPY_ON_SELECT ? () => Selection.copy(renderer, toast, clipboard) : undefined
       }
     >
-      <Show when={Flag.KILO_SHOW_TTFD}>
+      <Show when={Flag.HARNESS_SHOW_TTFD}>
         <TimeToFirstDraw />
       </Show>
       <Show when={ready()}>

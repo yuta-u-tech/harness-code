@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@kilocode/plugin-atomic-chat",
+  "name": "@harness/plugin-atomic-chat",
   "version": "7.8.3",
-  "description": "Kilo Code plugin for Atomic Chat: auto-detection and dynamic model discovery (OpenAI-compatible local API)",
+  "description": "Harness Code plugin for Atomic Chat: auto-detection and dynamic model discovery (OpenAI-compatible local API)",
   "type": "module",
   "license": "MIT",
   "exports": {
@@ -18,7 +18,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@kilocode/plugin": "workspace:*"
+    "@harness/plugin": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/node22": "catalog:",

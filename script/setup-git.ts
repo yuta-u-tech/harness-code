@@ -1,5 +1,4 @@
 #!/usr/bin/env bun
-// kilocode_change - new file
 
 /**
  * Configures repo-local git settings for all contributors.

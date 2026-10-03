@@ -20,16 +20,16 @@ const PLIST_META = new Set([
 function systemManagedConfigDir(): string {
   switch (process.platform) {
     case "darwin":
-      return "/Library/Application Support/kilo" // kilocode_change
+      return "/Library/Application Support/harness"
     case "win32":
-      return path.join(process.env.ProgramData || "C:\\ProgramData", "kilo") // kilocode_change
+      return path.join(process.env.ProgramData || "C:\\ProgramData", "harness")
     default:
-      return "/etc/kilo" // kilocode_change
+      return "/etc/harness"
   }
 }
 
 export function managedConfigDir() {
-  return process.env.KILO_TEST_MANAGED_CONFIG_DIR || systemManagedConfigDir()
+  return process.env.HARNESS_TEST_MANAGED_CONFIG_DIR || systemManagedConfigDir()
 }
 
 export function parseManagedPlist(json: string): string {

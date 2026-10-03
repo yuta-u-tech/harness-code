@@ -1,4 +1,4 @@
-import type { Plugin } from "@kilocode/plugin"
+import type { Plugin } from "@harness/plugin"
 import { mkdir, rm } from "node:fs/promises"
 
 export const FolderWorkspacePlugin: Plugin = async ({ experimental_workspace }) => {

@@ -1,4 +1,3 @@
-// kilocode_change - new file
 export * as ConfigHarnessV1 from "./harness"
 
 import { Schema } from "effect"

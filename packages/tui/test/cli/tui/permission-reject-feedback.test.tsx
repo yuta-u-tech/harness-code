@@ -1,10 +1,10 @@
-/** @jsxImportSource @opentui/solid */ // kilocode_change - new file
+/** @jsxImportSource @opentui/solid */
 import { ScrollBoxRenderable, TextareaRenderable } from "@opentui/core"
 import { createDefaultOpenTuiKeymap } from "@opentui/keymap/opentui"
 import { createSlot, createSolidSlotRegistry, testRender, useRenderer } from "@opentui/solid"
 import { expect, test } from "bun:test"
 import { onCleanup, Show } from "solid-js"
-import type { PermissionRequest } from "@kilocode/sdk/v2"
+import type { PermissionRequest } from "@harness/sdk/v2"
 import { ArgsProvider } from "../../../src/context/args"
 import { KVProvider } from "../../../src/context/kv"
 import { LocationProvider } from "../../../src/context/location"
@@ -339,7 +339,7 @@ test("scrolls a large edit to the last changed line and opens rejection feedback
     expect(await capture(app, "after 200")).toContain("after 200")
     app.mockInput.pressEscape()
     await app.flush()
-    expect(await capture(app, "Reject permission")).toContain("Tell Kilo what to do differently")
+    expect(await capture(app, "Reject permission")).toContain("Tell Harness what to do differently")
   } finally {
     app.renderer.destroy()
   }

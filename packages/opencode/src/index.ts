@@ -1,18 +1,15 @@
 import yargs from "yargs"
 import { hideBin } from "yargs/helpers"
-// kilocode_change - upstream account console intentionally omitted; KiloCli registers `kilo console` for local settings
 import { UI } from "./cli/ui"
-import { TuiThreadCommand } from "./cli/cmd/tui" // kilocode_change - yargs requires the default command builder eagerly
+import { TuiThreadCommand } from "./cli/cmd/tui"
 import { InstallationVersion } from "@opencode-ai/core/installation/version"
 import { FormatError } from "./cli/error"
 import { EOL } from "os"
-// kilocode_change - upstream web command intentionally omitted; Kilo does not ship an embedded web UI
 import { errorMessage } from "./util/error"
 import { Heap } from "./cli/heap"
-import { KiloCli } from "@/kilocode/cli/setup" // kilocode_change
-import * as Log from "@opencode-ai/core/util/log" // kilocode_change
-import { ensureProcessMetadata } from "@opencode-ai/core/util/opencode-process" // kilocode_change
-// kilocode_change start - defer heavy command implementations until yargs selects them
+import { HarnessCli } from "@/harness/cli/setup"
+import * as Log from "@opencode-ai/core/util/log"
+import { ensureProcessMetadata } from "@opencode-ai/core/util/opencode-process"
 import {
   AcpCommand,
   AgentCommand,
@@ -35,13 +32,12 @@ import {
   UninstallCommand,
   UpgradeCommand,
   waitForLazyCommands,
-} from "@/kilocode/cli/lazy-commands"
-// kilocode_change end
+} from "@/harness/cli/lazy-commands"
 
 const args = hideBin(process.argv)
-const metadata = ensureProcessMetadata("main") // kilocode_change - correlate logs across the CLI and TUI worker
+const metadata = ensureProcessMetadata("main")
 
-if (await KiloCli.runner()) process.exit() // kilocode_change - run persistent process guardians before CLI bootstrap
+if (await HarnessCli.runner()) process.exit()
 
 function show(out: string) {
   const text = out.trimStart()
@@ -53,9 +49,9 @@ function show(out: string) {
   process.stderr.write(out)
 }
 
-let cli = yargs(args) // kilocode_change
+let cli = yargs(args)
   .parserConfiguration({ "populate--": true })
-  .scriptName("kilo") // kilocode_change
+  .scriptName("harness")
   .wrap(100)
   .help("help", "show help")
   .alias("help", "h")
@@ -75,26 +71,24 @@ let cli = yargs(args) // kilocode_change
     type: "boolean",
   })
   .middleware(async (opts) => {
-    if (opts.printLogs) process.env.KILO_PRINT_LOGS = "1"
-    if (opts.logLevel) process.env.KILO_LOG_LEVEL = opts.logLevel
+    if (opts.printLogs) process.env.HARNESS_PRINT_LOGS = "1"
+    if (opts.logLevel) process.env.HARNESS_LOG_LEVEL = opts.logLevel
     if (opts.pure) {
-      process.env.KILO_PURE = "1"
+      process.env.HARNESS_PURE = "1"
     }
 
     Heap.start()
 
     process.env.AGENT = "1"
     process.env.OPENCODE = "1"
-    process.env.KILO_PID = String(process.pid)
-    await KiloCli.bootstrap(opts) // kilocode_change - env tagging, telemetry init, legacy JSON-to-SQLite migration, and auth migration
-    // kilocode_change start - retain Kilo process/run correlation metadata in startup logs
+    process.env.HARNESS_PID = String(process.pid)
+    await HarnessCli.bootstrap(opts)
     Log.Default.info("opencode", {
       version: InstallationVersion,
       command: args[0] ?? "", // avoid persisting prompts, passwords, tokens, headers, or environment values
       process_role: metadata.processRole,
       run_id: metadata.runID,
     })
-    // kilocode_change end
   })
   .usage("")
   .completion("completion", "generate shell completion script")
@@ -105,13 +99,11 @@ let cli = yargs(args) // kilocode_change
   .command(RunCommand)
   .command(GenerateCommand)
   .command(DebugCommand)
-  // kilocode_change - upstream account console intentionally not registered; KiloConsole is added by KiloCli.register
   .command(ProvidersCommand)
   .command(AgentCommand)
   .command(UpgradeCommand)
   .command(UninstallCommand)
   .command(ServeCommand)
-  // kilocode_change - upstream web command intentionally omitted
   .command(ModelsCommand)
   .command(StatsCommand)
   .command(ExportCommand)
@@ -122,11 +114,9 @@ let cli = yargs(args) // kilocode_change
   .command(PluginCommand)
   .command(DbCommand)
 
-// kilocode_change start - register Kilo-specific commands after the upstream chain
-cli = KiloCli.register(cli)
-await waitForLazyCommands() // kilocode_change - yargs completion invokes builders synchronously
+cli = HarnessCli.register(cli)
+await waitForLazyCommands()
 cli = cli
-  // kilocode_change end
   .fail((msg, err) => {
     if (
       msg?.startsWith("Unknown argument") ||
@@ -160,7 +150,7 @@ try {
   }
   process.exitCode = 1
 } finally {
-  await KiloCli.shutdown() // kilocode_change - telemetry/session-export shutdown + instance disposal
+  await HarnessCli.shutdown()
 
   // Some subprocesses don't react properly to SIGTERM and similar signals.
   // Most notably, some docker-container-based MCP servers don't handle such signals unless

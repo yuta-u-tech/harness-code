@@ -1,0 +1,43 @@
+import { captureGitChangesContext } from "./git-changes-context"
+import { resolveGitChangesTarget } from "./git-changes-target"
+
+type Interceptor = (msg: Record<string, unknown>) => Promise<Record<string, unknown> | null>
+
+type Context = {
+  workspaceDir: (sessionID: string | undefined) => string
+  post: (message: unknown) => void
+  error: (error: unknown) => string
+  before?: Interceptor | null
+  /** Handles a message somewhere else and returns true when it did, so the main handler skips it. */
+  route?: (msg: Record<string, unknown>) => boolean
+}
+
+export async function interceptMessage(
+  msg: Record<string, unknown>,
+  ctx: Context,
+): Promise<Record<string, unknown> | null> {
+  const next = ctx.before
+    ? await ctx.before(msg).catch((e) => (console.error("[Harness New] interceptor error:", e), null))
+    : msg
+  if (next === null) {
+    // Permission messages are handled by HarnessProvider, never by an interceptor.
+    // A failed project route must release the webview's submitting state.
+    if (msg.type === "permissionResponse" && typeof msg.permissionId === "string") {
+      ctx.post({ type: "permissionError", permissionID: msg.permissionId })
+    }
+    return null
+  }
+  if (ctx.route?.(next)) return null
+  if (next.type !== "requestGitChangesContext") return next
+  const sid = typeof next.sessionID === "string" ? next.sessionID : undefined
+  const dir = ctx.workspaceDir(sid)
+  const resolved = await resolveGitChangesTarget(next, dir)
+  await captureGitChangesContext({
+    requestId: typeof resolved.requestId === "string" ? resolved.requestId : "",
+    dir: typeof resolved.contextDirectory === "string" ? resolved.contextDirectory : dir,
+    base: typeof resolved.gitChangesBase === "string" ? resolved.gitChangesBase : undefined,
+    post: ctx.post,
+    error: ctx.error,
+  }).catch((e) => console.error("[Harness New] git changes error:", e))
+  return null
+}

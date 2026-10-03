@@ -88,11 +88,9 @@ export function Sidebar(props: { sessionID: string; overlay?: boolean }) {
 
         <box flexShrink={0} gap={1} paddingTop={1}>
           <pluginRuntime.Slot name="sidebar_footer" mode="single_winner" session_id={props.sessionID}>
-            {/* kilocode_change start */}
             <text fg={theme.textMuted}>
-              <span style={{ fg: theme.success }}>•</span> <b>Kilo</b> <span>{InstallationVersion}</span>
+              <span style={{ fg: theme.success }}>•</span> <b>Harness</b> <span>{InstallationVersion}</span>
             </text>
-            {/* kilocode_change end */}
           </pluginRuntime.Slot>
         </box>
       </box>

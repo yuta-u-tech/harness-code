@@ -1,10 +1,9 @@
-// kilocode_change - new file
 import * as Core from "@opencode-ai/core/models-dev"
 import { Context, Effect, Layer } from "effect"
-import { AI_SDK_PROVIDERS, PROMPTS } from "@kilocode/kilo-gateway"
-import { overlay } from "@/kilocode/anaconda-desktop/provider"
+import { AI_SDK_PROVIDERS, PROMPTS } from "@harness/harness-gateway"
+import { overlay } from "@/harness/anaconda-desktop/provider"
 import { LayerNode } from "@opencode-ai/core/effect/layer-node"
-import { AppNodeBuilder } from "@opencode-ai/core/effect/app-node-builder" // kilocode_change
+import { AppNodeBuilder } from "@opencode-ai/core/effect/app-node-builder"
 
 export const Model = Core.Model
 export type Model = Core.Model
@@ -25,7 +24,7 @@ export const layer: Layer.Layer<Service, never, Core.Service> = Layer.effect(
     const get = Effect.fn("ModelsDev.get")(function* () {
       const providers = overlay(yield* core.get())
       // Hosted gateway catalogs are not offered, so nothing here is fetched from them.
-      delete providers.kilo
+      delete providers.harness
       delete providers.apertis
       return providers
     })
@@ -34,7 +33,7 @@ export const layer: Layer.Layer<Service, never, Core.Service> = Layer.effect(
   }),
 )
 
-export const defaultLayer: Layer.Layer<Service> = Layer.suspend(() => AppNodeBuilder.build(node)) // kilocode_change - build from the LayerNode graph
+export const defaultLayer: Layer.Layer<Service> = Layer.suspend(() => AppNodeBuilder.build(node))
 
 export const node = LayerNode.make({
   service: Service,

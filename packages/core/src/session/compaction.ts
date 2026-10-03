@@ -226,7 +226,7 @@ export const make = (dependencies: Dependencies) => {
       reason: "auto",
       text: summary,
       recent: selected.recent,
-      include: selected.recent, // kilocode_change - released v1 readers recognize this compatibility field
+      include: selected.recent,
     })
     return true
   })

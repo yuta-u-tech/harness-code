@@ -16,15 +16,13 @@ import { ConfigPluginV1 } from "./plugin"
 import { ConfigProviderV1 } from "./provider"
 import { ConfigServerV1 } from "./server"
 import { ConfigSkillsV1 } from "./skills"
-import { ConfigHarnessV1 } from "./harness" // kilocode_change
-// kilocode_change start
+import { ConfigHarnessV1 } from "./harness"
 import { ZodOverride } from "../../effect-zod"
 import {
-  IndexingConfig as KiloIndexingConfig,
-  IndexingSchema as KiloIndexingSchema,
-} from "@kilocode/kilo-indexing/config"
+  IndexingConfig as HarnessIndexingConfig,
+  IndexingSchema as HarnessIndexingSchema,
+} from "@harness/harness-indexing/config"
 import z from "zod"
-// kilocode_change end
 
 export type Layout = ConfigLayoutV1.Layout
 
@@ -33,20 +31,17 @@ export const WellKnown = Schema.Struct({
   remote_config: Schema.optional(Schema.Json),
 })
 
-// kilocode_change start - indexing configuration
-export const Indexing = KiloIndexingConfig
+export const Indexing = HarnessIndexingConfig
 export type Indexing = z.infer<typeof Indexing>
-// kilocode_change end
 
 const LogLevelRef = Schema.Literals(["DEBUG", "INFO", "WARN", "ERROR"]).annotate({
   identifier: "LogLevel",
   description: "Log level",
 })
-const Percent = Schema.Number.check(Schema.isGreaterThan(0), Schema.isLessThanOrEqualTo(100)) // kilocode_change
+const Percent = Schema.Number.check(Schema.isGreaterThan(0), Schema.isLessThanOrEqualTo(100))
 
-const IndexingRef = KiloIndexingSchema.annotate({ [ZodOverride]: KiloIndexingConfig }) // kilocode_change
+const IndexingRef = HarnessIndexingSchema.annotate({ [ZodOverride]: HarnessIndexingConfig })
 
-// kilocode_change start
 /** Schema for AI-generated commit message configuration. */
 const CommitMessageSchema = Schema.optional(
   Schema.Struct({
@@ -56,7 +51,6 @@ const CommitMessageSchema = Schema.optional(
     }),
   }),
 ).annotate({ description: "Configuration for AI-generated commit messages" })
-// kilocode_change end
 
 export const Info = Schema.Struct({
   $schema: Schema.optional(Schema.String).annotate({
@@ -65,13 +59,13 @@ export const Info = Schema.Struct({
   shell: Schema.optional(Schema.String).annotate({ description: "Default shell to use for terminal and bash tool" }),
   logLevel: Schema.optional(LogLevelRef).annotate({ description: "Log level" }),
   server: Schema.optional(ConfigServerV1.Server).annotate({
-    description: "Server configuration for the kilo serve command", // kilocode_change
+    description: "Server configuration for the harness serve command",
   }),
   command: Schema.optional(Schema.Record(Schema.String, ConfigCommandV1.Info)).annotate({
-    description: "Command configuration, see https://kilo.ai/docs/customize/workflows", // kilocode_change
+    description: "Command configuration, see https://kilo.ai/docs/customize/workflows",
   }),
   skills: Schema.optional(ConfigSkillsV1.Info).annotate({ description: "Additional skill folder paths" }),
-  harness: Schema.optional(ConfigHarnessV1.Info), // kilocode_change
+  harness: Schema.optional(ConfigHarnessV1.Info),
   references: Schema.optional(ConfigReference.Info).annotate({
     description: "Named git or local directory references",
   }),
@@ -83,12 +77,11 @@ export const Info = Schema.Struct({
     description:
       "Enable or disable snapshot tracking. When false, filesystem snapshots are not recorded and undoing or reverting will not undo/redo file changes. Defaults to true.",
   }),
-  // kilocode_change start - machine-wide session retention policy, owned by the backend
   retention: Schema.optional(
     Schema.Struct({
       enabled: Schema.optional(Schema.Boolean).annotate({
         description:
-          "Enable automatic deletion of old sessions across all projects and every Kilo client on this machine. Defaults to false; deletion is permanent.",
+          "Enable automatic deletion of old sessions across all projects and every Harness client on this machine. Defaults to false; deletion is permanent.",
       }),
       maxAgeDays: Schema.optional(Schema.Number).annotate({
         description: "Days a session is kept before retention deletes it. Defaults to 30, minimum 1.",
@@ -97,7 +90,6 @@ export const Info = Schema.Struct({
   ).annotate({
     description: "Machine-wide session retention. Evaluated by the backend; clients only trigger runs.",
   }),
-  // kilocode_change end
   plugin: Schema.optional(Schema.mutable(Schema.Array(ConfigPluginV1.Spec))),
   share: Schema.optional(Schema.Literals(["manual", "auto", "disabled"])).annotate({
     description:
@@ -116,12 +108,11 @@ export const Info = Schema.Struct({
   enabled_providers: Schema.optional(Schema.mutable(Schema.Array(Schema.String))).annotate({
     description: "When set, ONLY these providers will be enabled. All other providers will be ignored",
   }),
-  // kilocode_change start
-  // NOTE: Any new kilocode_change key added to Config.Info must also be mirrored in
+  // NOTE: Any new harness_change key added to Config.Info must also be mirrored in
   // apps/web/src/app/config.json/extras.ts in the cloud repo, otherwise
   // $schema: https://app.kilo.ai/config.json will not recognize it.
   remote_control: Schema.optional(Schema.Boolean).annotate({
-    description: "Enable remote control of sessions via Kilo Cloud. Equivalent to running /remote on startup.",
+    description: "Enable remote control of sessions via Harness Cloud. Equivalent to running /remote on startup.",
   }),
   auto_collapse_reasoning: Schema.optional(Schema.Boolean).annotate({
     description:
@@ -138,14 +129,14 @@ export const Info = Schema.Struct({
     Schema.Struct({
       context_sidebar_width: Schema.optional(
         Schema.Int.check(Schema.isBetween({ minimum: 250, maximum: 800 })).annotate({
-          description: "Width of the Kilo Console project context sidebar in pixels",
+          description: "Width of the Harness Console project context sidebar in pixels",
         }),
       ),
       diff_style: Schema.optional(Schema.Literals(["unified", "split"])).annotate({
-        description: "Default diff layout in Kilo Console project reviews",
+        description: "Default diff layout in Harness Console project reviews",
       }),
     }),
-  ).annotate({ description: "Kilo Console user interface configuration" }),
+  ).annotate({ description: "Harness Console user interface configuration" }),
   terminal_command_display: Schema.optional(Schema.Literals(["expanded", "collapsed"])).annotate({
     description: "Controls whether terminal command blocks are expanded or collapsed by default in the VS Code chat UI",
   }),
@@ -158,7 +149,7 @@ export const Info = Schema.Struct({
       "Controls whether MCP and generic tool blocks are expanded or collapsed by default in the VS Code chat UI",
   }),
   hide_prompt_training_models: Schema.optional(Schema.Boolean).annotate({
-    description: "Hide Kilo Gateway models that may train on your prompts from model listings",
+    description: "Hide Harness Gateway models that may train on your prompts from model listings",
   }),
   privacy_mode: Schema.optional(Schema.Boolean).annotate({
     description:
@@ -209,7 +200,6 @@ export const Info = Schema.Struct({
     description:
       "Default agent to use when none is specified. Must be a primary agent. Falls back to 'code' if not set or if the specified agent is invalid.",
   }),
-  // kilocode_change end
   subagent_depth: Schema.optional(NonNegativeInt).annotate({
     description: "Maximum subagent nesting depth. Defaults to 1, which prevents subagents from launching subagents.",
   }),
@@ -228,11 +218,9 @@ export const Info = Schema.Struct({
         // primary
         plan: Schema.optional(ConfigAgentV1.Info),
         build: Schema.optional(ConfigAgentV1.Info),
-        // kilocode_change start
         debug: Schema.optional(ConfigAgentV1.Info),
         orchestrator: Schema.optional(ConfigAgentV1.Info),
         ask: Schema.optional(ConfigAgentV1.Info),
-        // kilocode_change end
         // subagent
         general: Schema.optional(ConfigAgentV1.Info),
         explore: Schema.optional(ConfigAgentV1.Info),
@@ -244,10 +232,8 @@ export const Info = Schema.Struct({
       }),
       [Schema.Record(Schema.String, ConfigAgentV1.Info)],
     ),
-    // kilocode_change start
-  ).annotate({ description: "Agent configuration, see https://kilo.ai/docs/customize/custom-subagents" }), // kilocode_change
+  ).annotate({ description: "Agent configuration, see https://kilo.ai/docs/customize/custom-subagents" }),
   provider: Schema.optional(Schema.Record(Schema.String, Schema.NullOr(ConfigProviderV1.Info))).annotate({
-    // kilocode_change end
     description: "Custom provider configurations and model overrides",
   }),
   mcp: Schema.optional(
@@ -269,14 +255,14 @@ export const Info = Schema.Struct({
   tools: Schema.optional(Schema.Record(Schema.String, Schema.Boolean)),
   web_search: Schema.optional(Schema.Boolean).annotate({
     description: "Make web search available to models from all providers (default: false)",
-  }), // kilocode_change
+  }),
   attachment: Schema.optional(ConfigAttachmentV1.Info).annotate({
     description: "Attachment processing configuration, including image size limits and resizing behavior",
   }),
   enterprise: Schema.optional(
     Schema.Struct({ url: Schema.optional(Schema.String).annotate({ description: "Enterprise URL" }) }),
   ),
-  commit_message: CommitMessageSchema, // kilocode_change
+  commit_message: CommitMessageSchema,
   tool_output: Schema.optional(
     Schema.Struct({
       max_lines: Schema.optional(PositiveInt).annotate({
@@ -295,19 +281,16 @@ export const Info = Schema.Struct({
       auto: Schema.optional(Schema.Boolean).annotate({
         description: "Enable automatic compaction when context is full (default: true)",
       }),
-      // kilocode_change start
       threshold_percent: Schema.optional(Schema.NullOr(Percent)).annotate({
         description:
           "Percentage of the model input/context window that triggers automatic compaction. The reserved safety buffer still applies if it would compact sooner.",
       }),
-      // kilocode_change end
       prune: Schema.optional(Schema.Boolean).annotate({
         description: "Enable pruning of old tool outputs (default: true)",
       }),
       tail_turns: Schema.optional(NonNegativeInt).annotate({
-        // kilocode_change - Kilo pins an unset tail_turns to 2 turns, so the description must state the cap
         description:
-          "Maximum number of recent user turns, including their following assistant/tool responses, to keep verbatim during compaction. By default at most 2 turns are kept, further limited by the preserved token budget.", // kilocode_change
+          "Maximum number of recent user turns, including their following assistant/tool responses, to keep verbatim during compaction. By default at most 2 turns are kept, further limited by the preserved token budget.",
       }),
       preserve_recent_tokens: Schema.optional(NonNegativeInt).annotate({
         description: "Maximum number of tokens from recent turns to preserve verbatim after compaction",
@@ -321,7 +304,6 @@ export const Info = Schema.Struct({
     Schema.Struct({
       disable_paste_summary: Schema.optional(Schema.Boolean),
       batch_tool: Schema.optional(Schema.Boolean).annotate({ description: "Enable the batch tool" }),
-      // kilocode_change start
       image_generation: Schema.optional(Schema.Boolean).annotate({ description: "Enable AI image generation" }),
       image_generation_model: Schema.optional(Schema.String).annotate({
         description: "Model ID to use for image generation (default: openrouter/auto)",
@@ -338,7 +320,7 @@ export const Info = Schema.Struct({
       }),
       speech_to_text_base_url: Schema.optional(Schema.String).annotate({
         description:
-          "Base URL of an OpenAI-compatible transcription API to use instead of the Kilo Gateway, for example https://api.openai.com/v1",
+          "Base URL of an OpenAI-compatible transcription API to use instead of the Harness Gateway, for example https://api.openai.com/v1",
       }),
       speech_to_text_api_key: Schema.optional(Schema.String).annotate({
         description: "API key sent as a bearer token to the custom speech-to-text base URL",
@@ -346,17 +328,15 @@ export const Info = Schema.Struct({
       openTelemetry: Schema.Boolean.pipe(Schema.optional, Schema.withDecodingDefault(Effect.succeed(true))).annotate({
         description: "Enable telemetry. Set to false to opt-out.",
       }),
-      // kilocode_change end
       primary_tools: Schema.optional(Schema.mutable(Schema.Array(Schema.String))).annotate({
         description: "Tools that should only be available to primary agents.",
       }),
       continue_loop_on_deny: Schema.optional(Schema.Boolean).annotate({
         description: "Continue the agent loop when a tool call is denied",
       }),
-      // kilocode_change start
       sandbox: Schema.optional(Schema.Boolean).annotate({
         description:
-          "Run agent tools inside a sandbox that restricts writes to project and Kilo state directories and can restrict outbound network access",
+          "Run agent tools inside a sandbox that restricts writes to project and Harness state directories and can restrict outbound network access",
       }),
       sandbox_restrict_network: Schema.optional(Schema.Boolean).annotate({
         description:
@@ -366,7 +346,6 @@ export const Info = Schema.Struct({
         description:
           "Additional filesystem paths the sandbox allows writes to (e.g. ['/tmp', '/var/log']). These are merged with the default writable paths when the sandbox is active.",
       }),
-      // kilocode_change end
       mcp_timeout: Schema.optional(PositiveInt).annotate({
         description: "Timeout in milliseconds for model context protocol (MCP) requests",
       }),

@@ -24,7 +24,7 @@ import { useSDK } from "../../context/sdk"
 import { useRoute } from "../../context/route"
 import { useProject } from "../../context/project"
 import { useSync } from "../../context/sync"
-import { useNudge } from "@/kilocode/cli/cmd/tui/context/nudge" // kilocode_change
+import { useNudge } from "@/harness/cli/cmd/tui/context/nudge"
 import { useEvent } from "../../context/event"
 import { editorSelectionKey, useEditorContext, type EditorSelection } from "../../context/editor"
 import { normalizePromptContent, openEditor } from "../../editor"
@@ -38,7 +38,7 @@ import { usePromptStash } from "../../prompt/stash"
 import { DialogStash } from "../dialog-stash"
 import { type AutocompleteRef, Autocomplete } from "./autocomplete"
 import { useRenderer, useTerminalDimensions, type JSX } from "@opentui/solid"
-import type { AssistantMessage, FilePart, UserMessage } from "@kilocode/sdk/v2"
+import type { AssistantMessage, FilePart, UserMessage } from "@harness/sdk/v2"
 import { Locale } from "../../util/locale"
 import { errorMessage } from "../../util/error"
 import { running } from "../../util/session"
@@ -53,18 +53,14 @@ import { createFadeIn } from "../../util/signal"
 import { DialogSkill } from "../dialog-skill"
 import { DialogWorkspaceUnavailable } from "../dialog-workspace-unavailable"
 import { useArgs } from "../../context/args"
-// kilocode_change start
-import { KiloSessionTuiSync } from "@/kilocode/session/tui-sync"
-import { slashMatches } from "@/kilocode/cli/cmd/command-display"
-import { createCostAlertController } from "@/kilocode/cli/cmd/tui/cost-alert"
-import { MemoryPrompt } from "@/kilocode/cli/cmd/tui/component/memory-prompt"
-import { GoalPrompt } from "@/kilocode/cli/cmd/tui/component/goal"
-// kilocode_change end
-import { KILO_BASE_MODE, useBindings, useCommandShortcut, useLeaderActive, useOpencodeKeymap } from "../../keymap"
+import { HarnessSessionTuiSync } from "@/harness/session/tui-sync"
+import { slashMatches } from "@/harness/cli/cmd/command-display"
+import { createCostAlertController } from "@/harness/cli/cmd/tui/cost-alert"
+import { MemoryPrompt } from "@/harness/cli/cmd/tui/component/memory-prompt"
+import { GoalPrompt } from "@/harness/cli/cmd/tui/component/goal"
+import { HARNESS_BASE_MODE, useBindings, useCommandShortcut, useLeaderActive, useOpencodeKeymap } from "../../keymap"
 import { useTuiConfig } from "../../config"
-// kilocode_change start - vim modal editing for the prompt
-import { useVim, VimModeIndicator, vimToggleCommand } from "@/kilocode/cli/cmd/tui/component/prompt"
-// kilocode_change end
+import { useVim, VimModeIndicator, vimToggleCommand } from "@/harness/cli/cmd/tui/component/prompt"
 import { usePromptWorkspace } from "./workspace"
 import { usePromptMove } from "./move"
 import { readLocalAttachment } from "./local-attachment"
@@ -73,7 +69,7 @@ registerOpencodeSpinner()
 
 export type PromptProps = {
   sessionID?: string
-  directory?: string // kilocode_change
+  directory?: string
   visible?: boolean
   disabled?: boolean
   onSubmit?: () => void
@@ -173,9 +169,9 @@ export function Prompt(props: PromptProps) {
   const tuiConfig = useTuiConfig()
   const dialog = useDialog()
   const toast = useToast()
-  const nudge = useNudge() // kilocode_change
+  const nudge = useNudge()
   const status = createMemo(() => sync.data.session_status?.[props.sessionID ?? ""] ?? { type: "idle" })
-  const goal = createMemo(() => GoalPrompt.read(sync.session.get(props.sessionID ?? "")?.metadata)) // kilocode_change
+  const goal = createMemo(() => GoalPrompt.read(sync.session.get(props.sessionID ?? "")?.metadata))
   const history = usePromptHistory()
   const stash = usePromptStash()
   const keymap = useOpencodeKeymap()
@@ -226,7 +222,6 @@ export function Prompt(props: PromptProps) {
   const workspace = usePromptWorkspace(props.sessionID)
   const move = usePromptMove({ projectID: project.project, sessionID: () => props.sessionID })
   const [cursorVersion, setCursorVersion] = createSignal(0)
-  // kilocode_change start - vim modal editing for the prompt
   const vim = useVim({
     input: () => input,
     disabled: () => props.disabled ?? false,
@@ -238,7 +233,6 @@ export function Prompt(props: PromptProps) {
   const interruptible = createMemo(
     () => running(status().type) || (goal()?.active === true && (!vim.vimEnabled() || vim.vimMode() === "normal")),
   )
-  // kilocode_change end
   const currentProviderLabel = createMemo(() => local.model.parsed().provider)
   const hasRightContent = createMemo(() => Boolean(props.right))
 
@@ -280,7 +274,7 @@ export function Prompt(props: PromptProps) {
     if (!input || input.isDestroyed) return
     if (props.disabled) input.cursorColor = theme.backgroundElement
     if (!props.disabled) input.cursorColor = theme.text
-    if (tuiConfig.cursor && !vim.vimEnabled()) input.cursorStyle = tuiConfig.cursor // kilocode_change
+    if (tuiConfig.cursor && !vim.vimEnabled()) input.cursorStyle = tuiConfig.cursor
   })
 
   const lastUserMessage = createMemo(() => {
@@ -315,7 +309,7 @@ export function Prompt(props: PromptProps) {
     mode: "normal" | "shell"
     extmarkToPartIndex: Map<number, number>
     interrupt: number
-    exitPress: number // kilocode_change - track double ctrl+c to exit
+    exitPress: number
     placeholder: number
   }>({
     placeholder: randomIndex(list().length),
@@ -326,7 +320,7 @@ export function Prompt(props: PromptProps) {
     mode: "normal",
     extmarkToPartIndex: new Map(),
     interrupt: 0,
-    exitPress: 0, // kilocode_change
+    exitPress: 0,
   })
 
   createEffect(
@@ -339,7 +333,6 @@ export function Prompt(props: PromptProps) {
     ),
   )
 
-  // kilocode_change start - sync local agent/model whenever newest user message changes
   let syncedKey: string | undefined
   createEffect(() => {
     const sessionID = props.sessionID
@@ -347,7 +340,7 @@ export function Prompt(props: PromptProps) {
     if (!sessionID || !msg) return
     const parts = sync.data.part[msg.id]
     if (!parts) return
-    if (!KiloSessionTuiSync.model({ role: msg.role, parts })) return
+    if (!HarnessSessionTuiSync.model({ role: msg.role, parts })) return
 
     const key = [sessionID, msg.id].join(":")
     if (key === syncedKey) return
@@ -364,7 +357,6 @@ export function Prompt(props: PromptProps) {
       }
     }
   })
-  // kilocode_change end
 
   const promptCommands = createMemo(() =>
     [
@@ -428,9 +420,9 @@ export function Prompt(props: PromptProps) {
         name: "session.interrupt",
         category: "Session",
         hidden: true,
-        enabled: interruptible(), // kilocode_change
+        enabled: interruptible(),
         run: () => {
-          if (!interruptible()) return // kilocode_change
+          if (!interruptible()) return
           if (auto()?.visible) return
           if (!input.focused) return
           // TODO: this should be its own command
@@ -455,10 +447,9 @@ export function Prompt(props: PromptProps) {
           dialog.clear()
         },
       },
-      // kilocode_change start
       {
         title: "Cost alert",
-        desc: "Set Kilo's cost alert",
+        desc: "Set Harness's cost alert",
         name: "cost_alert",
         category: "Session",
         slashName: "cost-alert",
@@ -468,7 +459,6 @@ export function Prompt(props: PromptProps) {
           dialog.clear()
         },
       },
-      // kilocode_change end
       {
         title: "Open editor",
         category: "Session",
@@ -561,7 +551,6 @@ export function Prompt(props: PromptProps) {
           input.cursorOffset = Bun.stringWidth(normalized)
         },
       },
-      // kilocode_change start - vim modal editing toggle (palette + /vim)
       vimToggleCommand({
         vimEnabled: vim.vimEnabled,
         setVimEnabled: (value) => kv.set("vim_enabled", value),
@@ -569,7 +558,6 @@ export function Prompt(props: PromptProps) {
         clearDialog: () => dialog.clear(),
         showToast: (message) => toast.show({ message, variant: "info" }),
       }),
-      // kilocode_change end
       {
         title: "Skills",
         name: "prompt.skills",
@@ -595,7 +583,7 @@ export function Prompt(props: PromptProps) {
         desc: "Change the workspace for the session",
         name: "workspace.set",
         category: "Session",
-        enabled: Flag.KILO_EXPERIMENTAL_WORKSPACES,
+        enabled: Flag.HARNESS_EXPERIMENTAL_WORKSPACES,
         slashName: "warp",
         run: () => {
           workspace.open()
@@ -622,7 +610,7 @@ export function Prompt(props: PromptProps) {
   }))
 
   useBindings(() => ({
-    mode: KILO_BASE_MODE,
+    mode: HARNESS_BASE_MODE,
     bindings: tuiConfig.keybinds.gather("prompt.palette", [
       "prompt.submit",
       "prompt.editor",
@@ -630,8 +618,8 @@ export function Prompt(props: PromptProps) {
       "prompt.stash",
       "prompt.stash.pop",
       "prompt.stash.list",
-      "prompt.vim.toggle", // kilocode_change
-      "prompt.skills", // kilocode_change
+      "prompt.vim.toggle",
+      "prompt.skills",
       "session.interrupt",
       "workspace.set",
       "session.move",
@@ -665,7 +653,7 @@ export function Prompt(props: PromptProps) {
         parts: [],
       })
       setStore("extmarkToPartIndex", new Map())
-      vim.resetVim() // kilocode_change - return to insert mode after the prompt is cleared
+      vim.resetVim()
     },
     submit() {
       void submit()
@@ -692,13 +680,11 @@ export function Prompt(props: PromptProps) {
     props.ref?.(undefined)
   })
 
-  // kilocode_change start - close autocomplete while blocking overlays hide the prompt
   createEffect(() => {
     if (props.visible === false || props.disabled) {
       auto()?.dismiss()
     }
   })
-  // kilocode_change end
 
   createEffect(() => {
     if (!input || input.isDestroyed) return
@@ -818,7 +804,7 @@ export function Prompt(props: PromptProps) {
           input.clear()
           setStore("prompt", { input: "", parts: [] })
           setStore("extmarkToPartIndex", new Map())
-          vim.resetVim() // kilocode_change
+          vim.resetVim()
           dialog.clear()
         },
       },
@@ -834,7 +820,7 @@ export function Prompt(props: PromptProps) {
             setStore("prompt", { input: entry.input, parts: entry.parts })
             restoreExtmarksFromParts(entry.parts)
             input.gotoBufferEnd()
-            vim.resetVim() // kilocode_change
+            vim.resetVim()
           }
           dialog.clear()
         },
@@ -852,7 +838,7 @@ export function Prompt(props: PromptProps) {
                 setStore("prompt", { input: entry.input, parts: entry.parts })
                 restoreExtmarksFromParts(entry.parts)
                 input.gotoBufferEnd()
-                vim.resetVim() // kilocode_change
+                vim.resetVim()
               }}
             />
           ))
@@ -872,9 +858,7 @@ export function Prompt(props: PromptProps) {
     return {
       target: inputTarget,
       enabled: inputTarget() !== undefined && !props.disabled,
-      // kilocode_change start
       bindings: tuiConfig.keybinds.gather("prompt.input", ["prompt.paste", "input.buffer.home", "input.buffer.end"]),
-      // kilocode_change end
     }
   })
 
@@ -886,7 +870,6 @@ export function Prompt(props: PromptProps) {
     }
   })
 
-  // kilocode_change start - require a double Ctrl+C to exit from an empty focused prompt
   useBindings(() => ({
     target: inputTarget,
     enabled: inputTarget() !== undefined && !props.disabled && store.prompt.input === "",
@@ -905,7 +888,6 @@ export function Prompt(props: PromptProps) {
       },
     ],
   }))
-  // kilocode_change end
 
   useBindings(() => {
     return {
@@ -977,7 +959,7 @@ export function Prompt(props: PromptProps) {
             setStore("prompt", item)
             setStore("mode", item.mode ?? "normal")
             restoreExtmarksFromParts(item.parts)
-            vim.resetVim() // kilocode_change - recalled history starts in insert mode
+            vim.resetVim()
             input.cursorOffset = 0
           },
         },
@@ -1014,7 +996,7 @@ export function Prompt(props: PromptProps) {
             setStore("prompt", item)
             setStore("mode", item.mode ?? "normal")
             restoreExtmarksFromParts(item.parts)
-            vim.resetVim() // kilocode_change - recalled history starts in insert mode
+            vim.resetVim()
             input.cursorOffset = input.plainText.length
           },
         },
@@ -1054,9 +1036,7 @@ export function Prompt(props: PromptProps) {
     if (workspace.creating() || move.creating()) return false
     if (auto()?.visible) return false
     if (!store.prompt.input) return false
-    // kilocode_change start - in-memory cost alert command
     if (costAlert.handle(store.prompt.input.trim())) return true
-    // kilocode_change end
     const agent = local.agent.current()
     if (!agent) return false
     const trimmed = store.prompt.input.trim()
@@ -1064,7 +1044,6 @@ export function Prompt(props: PromptProps) {
       void exit()
       return true
     }
-    // kilocode_change start
     const memory = await MemoryPrompt.run({
       text: store.prompt.input,
       client: sdk.client,
@@ -1089,7 +1068,6 @@ export function Prompt(props: PromptProps) {
       },
     })
     if (memory) return true
-    // kilocode_change end
     const selectedModel = local.model.current()
     if (!selectedModel) {
       void promptModelWarning()
@@ -1185,7 +1163,7 @@ export function Prompt(props: PromptProps) {
       move.startSubmit()
       void sdk.client.session.shell({
         sessionID,
-        agent: local.agent.current()?.name ?? "", // kilocode_change
+        agent: local.agent.current()?.name ?? "",
         model: {
           providerID: selectedModel.providerID,
           modelID: selectedModel.modelID,
@@ -1195,7 +1173,7 @@ export function Prompt(props: PromptProps) {
       setStore("mode", "normal")
     } else if (
       inputText.startsWith("/") &&
-      sync.data.command.some((x) => slashMatches(x, inputText.split("\n")[0].split(" ")[0].slice(1))) // kilocode_change
+      sync.data.command.some((x) => slashMatches(x, inputText.split("\n")[0].split(" ")[0].slice(1)))
     ) {
       move.startSubmit()
       // Parse command from first line, preserve multi-line content in arguments
@@ -1209,11 +1187,11 @@ export function Prompt(props: PromptProps) {
         sessionID,
         command: command.slice(1),
         arguments: args,
-        agent: local.agent.current()?.name ?? "", // kilocode_change
+        agent: local.agent.current()?.name ?? "",
         model: `${selectedModel.providerID}/${selectedModel.modelID}`,
         variant,
         parts: nonTextParts.filter((x) => x.type === "file"),
-      }).then((result) => GoalPrompt.feedback(command.slice(1), args, result, toast)) // kilocode_change
+      }).then((result) => GoalPrompt.feedback(command.slice(1), args, result, toast))
     } else {
       move.startSubmit()
       sdk.client.session
@@ -1244,7 +1222,7 @@ export function Prompt(props: PromptProps) {
         })
       if (editorParts.length > 0) editor.markSelectionSent()
     }
-    toast.dismiss() // kilocode_change - dismiss persistent config warning on first submit
+    toast.dismiss()
     history.append({
       ...store.prompt,
       mode: currentMode,
@@ -1309,7 +1287,6 @@ export function Prompt(props: PromptProps) {
   async function pasteInputText(text: string) {
     const normalizedText = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n")
     const pastedContent = normalizedText.trim()
-    // kilocode_change start - a second identical paste expands the collapsed placeholder
     if (expandPastedPlaceholder(input, promptPartTypeId, store.extmarkToPartIndex, store.prompt.parts, pastedContent)) {
       const value = input.plainText
       setStore("prompt", "input", value)
@@ -1317,7 +1294,6 @@ export function Prompt(props: PromptProps) {
       syncExtmarksWithPromptParts()
       return
     }
-    // kilocode_change end
     const filepath = pastedFilepath(pastedContent, terminalEnvironment.platform)
     const isUrl = /^(https?):\/\//.test(filepath)
     if (!isUrl) {
@@ -1340,7 +1316,7 @@ export function Prompt(props: PromptProps) {
 
     const lineCount = (pastedContent.match(/\n/g)?.length ?? 0) + 1
     if (
-      (lineCount >= 5 || pastedContent.length > 800) && // kilocode_change #7252 delay paste summary
+      (lineCount >= 5 || pastedContent.length > 800) &&
       kv.get("paste_summary_enabled", !sync.data.config.experimental?.disable_paste_summary)
     ) {
       pasteText(pastedContent, `[Pasted ~${lineCount} lines]`)
@@ -1418,10 +1394,9 @@ export function Prompt(props: PromptProps) {
       parts: [],
     })
     setStore("extmarkToPartIndex", new Map())
-    vim.resetVim() // kilocode_change - don't leak stale vim mode/selection into an emptied prompt
+    vim.resetVim()
   }
 
-  // kilocode_change start - cost-alert logic lives under kilocode/; only prompt mutation stays here
   const costAlert = createCostAlertController({
     prefill: () => {
       const value = "/cost-alert "
@@ -1434,14 +1409,13 @@ export function Prompt(props: PromptProps) {
     nudge,
     sessionID: () => props.sessionID,
   })
-  // kilocode_change end
 
   const highlight = createMemo(() => {
     if (leader()) return theme.border
     if (store.mode === "shell") return theme.primary
     const agent = local.agent.current()
     if (!agent) return theme.border
-    return local.agent.color(agent.name ?? "") // kilocode_change
+    return local.agent.color(agent.name ?? "")
   })
 
   const showVariant = createMemo(() => {
@@ -1475,7 +1449,7 @@ export function Prompt(props: PromptProps) {
       running(status().type)
         ? (local.agent.list().find((a) => a.name === lastUserMessage()?.agent) ?? local.agent.current())
         : local.agent.current()
-    const color = agent ? local.agent.color(agent.name ?? "") : theme.border // kilocode_change
+    const color = agent ? local.agent.color(agent.name ?? "") : theme.border
     return {
       frames: createFrames({
         color,
@@ -1532,22 +1506,20 @@ export function Prompt(props: PromptProps) {
                 syncExtmarksWithPromptParts()
                 setCursorVersion((value) => value + 1)
               }}
-              /* kilocode_change */ onCursorChange={() => {
+              onCursorChange={() => {
                 setCursorVersion((value) => value + 1)
                 if (store.mode === "normal") auto()?.onCursorChange()
               }}
-              /* kilocode_change - KeyEvent type for vim key routing */ onKeyDown={(e: KeyEvent) => {
+              onKeyDown={(e: KeyEvent) => {
                 if (props.disabled) {
                   e.preventDefault()
                   return
                 }
-                // kilocode_change start - route keys through the vim layer when enabled
                 if (!(e.name === "escape" && interruptible()) && vim.vimOnKey(e)) {
                   e.preventDefault()
                   e.stopPropagation()
                   return
                 }
-                // kilocode_change end
               }}
               onSubmit={() => {
                 // IME: double-defer so the last composed character (e.g. Korean
@@ -1593,7 +1565,7 @@ export function Prompt(props: PromptProps) {
                   // setTimeout is a workaround and needs to be addressed properly
                   if (!input || input.isDestroyed) return
                   input.cursorColor = theme.text
-                  if (tuiConfig.cursor && !vim.vimEnabled()) input.cursorStyle = tuiConfig.cursor // kilocode_change
+                  if (tuiConfig.cursor && !vim.vimEnabled()) input.cursorStyle = tuiConfig.cursor
                 }, 0)
               }}
               onMouseDown={(r: MouseEvent) => r.target?.focus()}
@@ -1608,14 +1580,11 @@ export function Prompt(props: PromptProps) {
                   {(agent) => (
                     <>
                       <text fg={fadeColor(highlight(), agentMetaAlpha())}>
-                        {/* kilocode_change start */}
                         {store.mode === "shell"
                           ? "Shell"
                           : (local.agent.current()?.displayName ??
                             Locale.titlecase(local.agent.current()?.name ?? ""))}{" "}
-                        {/* kilocode_change end */}
                       </text>
-                      {/* kilocode_change start - vim mode indicator */}
                       <VimModeIndicator
                         when={() => vim.vimEnabled() && store.mode !== "shell"}
                         mode={vim.vimMode}
@@ -1626,7 +1595,6 @@ export function Prompt(props: PromptProps) {
                         success={() => theme.success}
                         alpha={agentMetaAlpha}
                       />
-                      {/* kilocode_change end */}
                       <Show when={store.mode === "normal" && local.permission.mode === "auto"}>
                         <text fg={fadeColor(theme.textMuted, agentMetaAlpha())}>auto</text>
                       </Show>
@@ -1664,7 +1632,7 @@ export function Prompt(props: PromptProps) {
         </box>
         <box
           height={1}
-          /* kilocode_change */ flexShrink={0}
+          flexShrink={0}
           border={["left"]}
           borderColor={borderHighlight()}
           customBorderChars={{
@@ -1691,7 +1659,7 @@ export function Prompt(props: PromptProps) {
         </box>
         <box width="100%" flexDirection="row" justifyContent="space-between">
           <Switch>
-            <Match when={running(status().type) || goal()?.active /* kilocode_change */}>
+            <Match when={running(status().type) || goal()?.active }>
               <box
                 flexDirection="row"
                 gap={1}
@@ -1708,9 +1676,7 @@ export function Prompt(props: PromptProps) {
                     {(() => {
                       const retry = createMemo(() => {
                         const s = status()
-                        // kilocode_change start - render the offline state in this inline error line too
                         if (s.type !== "retry" && s.type !== "offline") return
-                        // kilocode_change end
                         return s
                       })
                       const message = createMemo(() => {
@@ -1729,10 +1695,8 @@ export function Prompt(props: PromptProps) {
                       const [seconds, setSeconds] = createSignal(0)
                       onMount(() => {
                         const timer = setInterval(() => {
-                          // kilocode_change start - only the retry state has a countdown target
                           const s = retry()
                           const next = s?.type === "retry" ? s.next : undefined
-                          // kilocode_change end
                           if (next) setSeconds(Math.round((next - Date.now()) / 1000))
                         }, 1000)
 
@@ -1752,9 +1716,7 @@ export function Prompt(props: PromptProps) {
                         const r = retry()
                         if (!r) return ""
                         const baseMessage = message()
-                        // kilocode_change start - offline waits on the network probe instead of counting down attempts
                         if (r.type === "offline") return `${baseMessage} [waiting for network]`
-                        // kilocode_change end
                         const truncatedHint = isTruncated() ? " (click to expand)" : ""
                         const duration = formatDuration(seconds())
                         const retryInfo = ` [retrying ${duration ? `in ${duration} ` : ""}attempt #${r.attempt}]`
@@ -1829,19 +1791,15 @@ export function Prompt(props: PromptProps) {
                 <text fg={theme.accent}>(new working copy)</text>
               </box>
             </Match>
-            {/* kilocode_change start - Kilo already shows the working directory in its sidebar */}
             <Match when={true}>{props.hint ?? <text />}</Match>
-            {/* kilocode_change end */}
           </Switch>
           <Show when={status().type !== "retry"}>
             <box gap={2} flexDirection="row">
-              {/* kilocode_change start - show "ctrl+c again to exit" hint */}
               <Show when={store.exitPress > 0}>
                 <text fg={theme.primary}>
                   ctrl+c <span style={{ fg: theme.primary }}>again to exit</span>
                 </text>
               </Show>
-              {/* kilocode_change end */}
               <Show when={editorContextLabelState() !== "none" ? editorFileLabelDisplay() : undefined}>
                 {(file) => (
                   <text fg={editorContextLabelState() === "pending" ? theme.secondary : theme.textMuted}>{file()}</text>

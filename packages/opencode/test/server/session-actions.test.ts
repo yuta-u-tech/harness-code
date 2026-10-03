@@ -1,33 +1,31 @@
 import { afterEach, describe, expect, mock } from "bun:test"
 import { LayerNode } from "@opencode-ai/core/effect/layer-node"
-import { ConfigProvider, Effect, Fiber, Layer } from "effect" // kilocode_change
-import { BackgroundJob } from "@/background/job" // kilocode_change
+import { ConfigProvider, Effect, Fiber, Layer } from "effect"
+import { BackgroundJob } from "@/background/job"
 import { Session as SessionNs } from "@/session/session"
 import { disposeAllInstances, TestInstance } from "../fixture/fixture"
-import { pollWithTimeout, testEffect } from "../lib/effect" // kilocode_change
+import { pollWithTimeout, testEffect } from "../lib/effect"
 import { httpApiLayer, requestInDirectory } from "./httpapi-layer"
 
-// kilocode_change start - provide the background-job service for promotion coverage
 const it = testEffect(
   Layer.mergeAll(
     LayerNode.compile(SessionNs.node),
     LayerNode.compile(BackgroundJob.node),
     httpApiLayer,
-  ), // kilocode_change
+  ),
 )
 const disabled = testEffect(
   Layer.mergeAll(LayerNode.compile(SessionNs.node), LayerNode.compile(BackgroundJob.node), httpApiLayer).pipe(
     Layer.provide(
       ConfigProvider.layer(
         ConfigProvider.fromUnknown({
-          KILO_EXPERIMENTAL_BACKGROUND_SUBAGENTS: "false",
-          KILO_EXPERIMENTAL_DISABLE_FILEWATCHER: "true",
+          HARNESS_EXPERIMENTAL_BACKGROUND_SUBAGENTS: "false",
+          HARNESS_EXPERIMENTAL_DISABLE_FILEWATCHER: "true",
         }),
       ),
     ),
   ),
 )
-// kilocode_change end
 
 afterEach(async () => {
   mock.restore()
@@ -35,7 +33,6 @@ afterEach(async () => {
 })
 
 describe("session action routes", () => {
-  // kilocode_change start - background subagents are enabled by default
   it.instance(
     "reports background subagents as available",
     () =>
@@ -48,7 +45,6 @@ describe("session action routes", () => {
       }),
     { git: true },
   )
-  // kilocode_change end
 
   it.instance(
     "session routes expose metadata on create, update, get, and fork",
@@ -151,7 +147,7 @@ describe("session action routes", () => {
         const jobs = yield* BackgroundJob.Service
         const job = yield* jobs.start({ type: "task", metadata: { parentSessionId: "ses_parent" }, run: Effect.never })
 
-        const res = yield* requestInDirectory(`/kilocode/background-jobs/${job.id}/promote`, test.directory, {
+        const res = yield* requestInDirectory(`/harness/background-jobs/${job.id}/promote`, test.directory, {
           method: "POST",
         })
 
@@ -163,7 +159,6 @@ describe("session action routes", () => {
     { git: true },
   )
 
-  // kilocode_change start - verify HTTP promotion of a running task
   it.instance(
     "experimental background route backgrounds a synchronous subagent",
     () =>
@@ -196,5 +191,4 @@ describe("session action routes", () => {
       }),
     { git: true },
   )
-  // kilocode_change end
 })

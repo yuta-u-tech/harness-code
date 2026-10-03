@@ -72,7 +72,7 @@ export const dict: Record<string, string> = {
   "ui.sessionTurn.error.addCredits": "Dodajte kredite",
   "dialog.usageExceeded.freeTier.title": "Brezplačna omejitev je dosežena",
   "dialog.usageExceeded.freeTier.description":
-    "Naročite se na Kilo Go za zanesljiv dostop do najboljših odprtokodnih modelov za 10 $/mesec.", // kilocode_change
+    "Naročite se na Harness Go za zanesljiv dostop do najboljših odprtokodnih modelov za 10 $/mesec.",
   "dialog.usageExceeded.freeTier.actionLabel": "Naročite se",
   "dialog.usageExceeded.accountRateLimit.title": "Dosežena omejitev",
   "dialog.usageExceeded.accountRateLimit.description":

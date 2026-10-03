@@ -253,7 +253,6 @@ describe("ShareNext", () => {
             })
             .run()
             .pipe(Effect.orDie)
-          // kilocode_change start
           yield* pollWithTimeout(
             Effect.gen(function* () {
               if (seen.length > 0) return true as const
@@ -276,7 +275,6 @@ describe("ShareNext", () => {
           yield* Effect.sync(() => {
             seen.length = 0
           })
-          // kilocode_change end
 
           yield* events.publish(Session.Event.Diff, {
             sessionID: info.id,
@@ -311,10 +309,9 @@ describe("ShareNext", () => {
           )
 
           expect(seen).toHaveLength(1)
-          expect(sync.url).toBe("https://legacy-share.example.com/api/share/shr_abc/sync") // kilocode_change
+          expect(sync.url).toBe("https://legacy-share.example.com/api/share/shr_abc/sync")
 
           const body = JSON.parse(sync.body) as {
-            // kilocode_change
             secret: string
             data: Array<{
               type: string

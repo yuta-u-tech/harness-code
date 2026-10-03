@@ -1,9 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "kilo",
+    "title": "harness",
     "version": "1.0.0",
-    "description": "kilo api"
+    "description": "harness api"
   },
   "paths": {
     "/auth/{providerID}": {
@@ -64,7 +64,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.auth.set({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.auth.set({\n  ...\n})"
           }
         ]
       },
@@ -116,7 +116,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.auth.remove({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.auth.remove({\n  ...\n})"
           }
         ]
       }
@@ -207,7 +207,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.app.log({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.app.log({\n  ...\n})"
           }
         ]
       }
@@ -267,7 +267,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.controlPlane.moveSession({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.controlPlane.moveSession({\n  ...\n})"
           }
         ]
       }
@@ -311,12 +311,12 @@
             }
           }
         },
-        "description": "Get health information about the Kilo server.",
+        "description": "Get health information about the Harness server.",
         "summary": "Get health",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.global.health({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.global.health({\n  ...\n})"
           }
         ]
       }
@@ -348,12 +348,12 @@
             }
           }
         },
-        "description": "Subscribe to global events from the Kilo system using server-sent events.",
+        "description": "Subscribe to global events from the Harness system using server-sent events.",
         "summary": "Get global events",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.global.event({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.global.event({\n  ...\n})"
           }
         ]
       }
@@ -385,12 +385,12 @@
             }
           }
         },
-        "description": "Retrieve the current global Kilo configuration settings and preferences.",
+        "description": "Retrieve the current global Harness configuration settings and preferences.",
         "summary": "Get global configuration",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.global.config.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.global.config.get({\n  ...\n})"
           }
         ]
       },
@@ -427,7 +427,7 @@
             }
           }
         },
-        "description": "Update global Kilo configuration settings and preferences.",
+        "description": "Update global Harness configuration settings and preferences.",
         "summary": "Update global configuration",
         "requestBody": {
           "content": {
@@ -441,7 +441,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.global.config.update({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.global.config.update({\n  ...\n})"
           }
         ]
       }
@@ -474,12 +474,12 @@
             }
           }
         },
-        "description": "Clean up and dispose all Kilo instances, releasing all resources.",
+        "description": "Clean up and dispose all Harness instances, releasing all resources.",
         "summary": "Dispose instance",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.global.dispose({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.global.dispose({\n  ...\n})"
           }
         ]
       }
@@ -548,8 +548,8 @@
             }
           }
         },
-        "description": "Upgrade kilo to the specified version or latest if not specified.",
-        "summary": "Upgrade kilo",
+        "description": "Upgrade harness to the specified version or latest if not specified.",
+        "summary": "Upgrade harness",
         "requestBody": {
           "content": {
             "application/json": {
@@ -568,7 +568,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.global.upgrade({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.global.upgrade({\n  ...\n})"
           }
         ]
       }
@@ -612,7 +612,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.event.subscribe({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.event.subscribe({\n  ...\n})"
           }
         ]
       }
@@ -661,12 +661,12 @@
             }
           }
         },
-        "description": "Retrieve the current Kilo configuration settings and preferences.",
+        "description": "Retrieve the current Harness configuration settings and preferences.",
         "summary": "Get configuration",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.config.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.config.get({\n  ...\n})"
           }
         ]
       },
@@ -720,7 +720,7 @@
             }
           }
         },
-        "description": "Update Kilo configuration settings and preferences.",
+        "description": "Update Harness configuration settings and preferences.",
         "summary": "Update configuration",
         "requestBody": {
           "content": {
@@ -734,7 +734,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.config.update({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.config.update({\n  ...\n})"
           }
         ]
       }
@@ -805,7 +805,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.config.warnings({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.config.warnings({\n  ...\n})"
           }
         ]
       }
@@ -876,7 +876,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.config.providers({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.config.providers({\n  ...\n})"
           }
         ]
       }
@@ -925,12 +925,12 @@
             }
           }
         },
-        "description": "Get experimental features enabled on the Kilo server.",
+        "description": "Get experimental features enabled on the Harness server.",
         "summary": "Get experimental capabilities",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.capabilities.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.capabilities.get({\n  ...\n})"
           }
         ]
       }
@@ -994,7 +994,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.console.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.console.get({\n  ...\n})"
           }
         ]
       }
@@ -1091,7 +1091,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.console.listOrgs({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.console.listOrgs({\n  ...\n})"
           }
         ]
       }
@@ -1131,7 +1131,7 @@
             }
           }
         },
-        "description": "Persist a new active Console account/org selection for the current local Kilo state.",
+        "description": "Persist a new active Console account/org selection for the current local Harness state.",
         "summary": "Switch active Console org",
         "requestBody": {
           "content": {
@@ -1155,7 +1155,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.console.switchOrg({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.console.switchOrg({\n  ...\n})"
           }
         ]
       }
@@ -1232,7 +1232,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tool.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tool.list({\n  ...\n})"
           }
         ]
       }
@@ -1293,7 +1293,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tool.ids({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tool.ids({\n  ...\n})"
           }
         ]
       }
@@ -1353,12 +1353,12 @@
             }
           }
         },
-        "description": "List all git worktrees for the current project and whether Kilo manages them.",
+        "description": "List all git worktrees for the current project and whether Harness manages them.",
         "summary": "List worktrees",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.worktree.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.worktree.list({\n  ...\n})"
           }
         ]
       },
@@ -1426,7 +1426,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.worktree.create({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.worktree.create({\n  ...\n})"
           }
         ]
       },
@@ -1495,7 +1495,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.worktree.remove({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.worktree.remove({\n  ...\n})"
           }
         ]
       }
@@ -1566,7 +1566,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.worktree.reset({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.worktree.reset({\n  ...\n})"
           }
         ]
       }
@@ -1639,7 +1639,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.worktree.diff({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.worktree.diff({\n  ...\n})"
           }
         ]
       }
@@ -1712,7 +1712,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.worktree.diffSummary({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.worktree.diffSummary({\n  ...\n})"
           }
         ]
       }
@@ -1789,7 +1789,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.worktree.diffFile({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.worktree.diffFile({\n  ...\n})"
           }
         ]
       }
@@ -1931,12 +1931,12 @@
             }
           }
         },
-        "description": "Get a list of all Kilo sessions across projects, sorted by most recently updated. Archived sessions are excluded by default.",
+        "description": "Get a list of all Harness sessions across projects, sorted by most recently updated. Archived sessions are excluded by default.",
         "summary": "List sessions",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.session.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.session.list({\n  ...\n})"
           }
         ]
       }
@@ -2007,7 +2007,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.session.background({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.session.background({\n  ...\n})"
           }
         ]
       }
@@ -2065,7 +2065,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.resource.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.resource.list({\n  ...\n})"
           }
         ]
       }
@@ -2191,7 +2191,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.find.text({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.find.text({\n  ...\n})"
           }
         ]
       }
@@ -2285,7 +2285,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.find.files({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.find.files({\n  ...\n})"
           }
         ]
       }
@@ -2351,7 +2351,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.find.symbols({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.find.symbols({\n  ...\n})"
           }
         ]
       }
@@ -2417,7 +2417,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.file.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.file.list({\n  ...\n})"
           }
         ]
       }
@@ -2479,7 +2479,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.file.read({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.file.read({\n  ...\n})"
           }
         ]
       }
@@ -2537,7 +2537,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.file.status({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.file.status({\n  ...\n})"
           }
         ]
       }
@@ -2587,12 +2587,12 @@
             }
           }
         },
-        "description": "Clean up and dispose the current Kilo instance, releasing all resources.",
+        "description": "Clean up and dispose the current Harness instance, releasing all resources.",
         "summary": "Dispose instance",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.instance.dispose({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.instance.dispose({\n  ...\n})"
           }
         ]
       }
@@ -2641,12 +2641,12 @@
             }
           }
         },
-        "description": "Retrieve the current working directory and related path information for the Kilo instance.",
+        "description": "Retrieve the current working directory and related path information for the Harness instance.",
         "summary": "Get paths",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.path.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.path.get({\n  ...\n})"
           }
         ]
       }
@@ -2700,7 +2700,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.vcs.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.vcs.get({\n  ...\n})"
           }
         ]
       }
@@ -2758,7 +2758,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.vcs.status({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.vcs.status({\n  ...\n})"
           }
         ]
       }
@@ -2834,7 +2834,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.vcs.diff({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.vcs.diff({\n  ...\n})"
           }
         ]
       }
@@ -2888,7 +2888,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.vcs.diff.raw({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.vcs.diff.raw({\n  ...\n})"
           }
         ]
       }
@@ -2973,7 +2973,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.vcs.apply({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.vcs.apply({\n  ...\n})"
           }
         ]
       }
@@ -3026,12 +3026,12 @@
             }
           }
         },
-        "description": "Get a list of all available commands in the Kilo system.",
+        "description": "Get a list of all available commands in the Harness system.",
         "summary": "List commands",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.command.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.command.list({\n  ...\n})"
           }
         ]
       }
@@ -3084,12 +3084,12 @@
             }
           }
         },
-        "description": "Get a list of all available AI agents in the Kilo system.",
+        "description": "Get a list of all available AI agents in the Harness system.",
         "summary": "List agents",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.app.agents({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.app.agents({\n  ...\n})"
           }
         ]
       }
@@ -3161,12 +3161,12 @@
             }
           }
         },
-        "description": "Get a list of all available skills in the Kilo system.",
+        "description": "Get a list of all available skills in the Harness system.",
         "summary": "List skills",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.app.skills({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.app.skills({\n  ...\n})"
           }
         ]
       }
@@ -3224,7 +3224,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.lsp.status({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.lsp.status({\n  ...\n})"
           }
         ]
       }
@@ -3282,7 +3282,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.formatter.status({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.formatter.status({\n  ...\n})"
           }
         ]
       }
@@ -3340,7 +3340,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.mcp.status({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.mcp.status({\n  ...\n})"
           }
         ]
       },
@@ -3429,7 +3429,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.mcp.add({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.mcp.add({\n  ...\n})"
           }
         ]
       }
@@ -3519,7 +3519,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.mcp.auth.start({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.mcp.auth.start({\n  ...\n})"
           }
         ]
       },
@@ -3598,7 +3598,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.mcp.auth.remove({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.mcp.auth.remove({\n  ...\n})"
           }
         ]
       }
@@ -3693,7 +3693,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.mcp.auth.callback({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.mcp.auth.callback({\n  ...\n})"
           }
         ]
       }
@@ -3772,7 +3772,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.mcp.auth.authenticate({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.mcp.auth.authenticate({\n  ...\n})"
           }
         ]
       }
@@ -3844,7 +3844,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.mcp.connect({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.mcp.connect({\n  ...\n})"
           }
         ]
       }
@@ -3916,7 +3916,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.mcp.disconnect({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.mcp.disconnect({\n  ...\n})"
           }
         ]
       }
@@ -4023,7 +4023,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.mcp.readResource({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.mcp.readResource({\n  ...\n})"
           }
         ]
       }
@@ -4130,7 +4130,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.mcp.callTool({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.mcp.callTool({\n  ...\n})"
           }
         ]
       }
@@ -4183,12 +4183,12 @@
             }
           }
         },
-        "description": "Get a list of projects that have been opened with Kilo.",
+        "description": "Get a list of projects that have been opened with Harness.",
         "summary": "List all projects",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.project.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.project.list({\n  ...\n})"
           }
         ]
       }
@@ -4237,12 +4237,12 @@
             }
           }
         },
-        "description": "Retrieve the currently active project that Kilo is working with.",
+        "description": "Retrieve the currently active project that Harness is working with.",
         "summary": "Get current project",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.project.current({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.project.current({\n  ...\n})"
           }
         ]
       }
@@ -4296,7 +4296,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.project.initGit({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.project.initGit({\n  ...\n})"
           }
         ]
       }
@@ -4396,7 +4396,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.project.update({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.project.update({\n  ...\n})"
           }
         ]
       }
@@ -4458,7 +4458,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.project.directories({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.project.directories({\n  ...\n})"
           }
         ]
       }
@@ -4542,7 +4542,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.projectCopy.generateName({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.projectCopy.generateName({\n  ...\n})"
           }
         ]
       }
@@ -4613,7 +4613,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.pty.shells({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.pty.shells({\n  ...\n})"
           }
         ]
       }
@@ -4666,12 +4666,12 @@
             }
           }
         },
-        "description": "Get a list of all active pseudo-terminal (PTY) sessions managed by Kilo.",
+        "description": "Get a list of all active pseudo-terminal (PTY) sessions managed by Harness.",
         "summary": "List PTY sessions",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.pty.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.pty.list({\n  ...\n})"
           }
         ]
       },
@@ -4778,7 +4778,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.pty.create({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.pty.create({\n  ...\n})"
           }
         ]
       }
@@ -4851,7 +4851,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.pty.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.pty.get({\n  ...\n})"
           }
         ]
       },
@@ -4970,7 +4970,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.pty.update({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.pty.update({\n  ...\n})"
           }
         ]
       },
@@ -5042,7 +5042,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.pty.remove({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.pty.remove({\n  ...\n})"
           }
         ]
       }
@@ -5125,7 +5125,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.pty.connectToken({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.pty.connectToken({\n  ...\n})"
           }
         ]
       }
@@ -5183,7 +5183,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.question.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.question.list({\n  ...\n})"
           }
         ]
       }
@@ -5284,7 +5284,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.question.reply({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.question.reply({\n  ...\n})"
           }
         ]
       }
@@ -5365,7 +5365,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.question.reject({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.question.reject({\n  ...\n})"
           }
         ]
       }
@@ -5423,7 +5423,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.permission.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.permission.list({\n  ...\n})"
           }
         ]
       }
@@ -5527,7 +5527,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.permission.reply({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.permission.reply({\n  ...\n})"
           }
         ]
       }
@@ -5625,7 +5625,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.permission.saveAlwaysRules({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.permission.saveAlwaysRules({\n  ...\n})"
           }
         ]
       }
@@ -5719,7 +5719,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.permission.allowEverything({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.permission.allowEverything({\n  ...\n})"
           }
         ]
       }
@@ -5802,7 +5802,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.provider.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.provider.list({\n  ...\n})"
           }
         ]
       }
@@ -5863,7 +5863,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.provider.auth({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.provider.auth({\n  ...\n})"
           }
         ]
       }
@@ -5955,7 +5955,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.provider.oauth.authorize({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.provider.oauth.authorize({\n  ...\n})"
           }
         ]
       }
@@ -6045,7 +6045,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.provider.oauth.callback({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.provider.oauth.callback({\n  ...\n})"
           }
         ]
       }
@@ -6155,12 +6155,12 @@
             }
           }
         },
-        "description": "Get a list of all Kilo sessions, sorted by most recently updated.",
+        "description": "Get a list of all Harness sessions, sorted by most recently updated.",
         "summary": "List sessions",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.list({\n  ...\n})"
           }
         ]
       },
@@ -6214,7 +6214,7 @@
             }
           }
         },
-        "description": "Create a new Kilo session for interacting with AI assistants and managing conversations.",
+        "description": "Create a new Harness session for interacting with AI assistants and managing conversations.",
         "summary": "Create session",
         "requestBody": {
           "content": {
@@ -6273,7 +6273,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.create({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.create({\n  ...\n})"
           }
         ]
       }
@@ -6338,7 +6338,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.status({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.status({\n  ...\n})"
           }
         ]
       }
@@ -6413,12 +6413,12 @@
             }
           }
         },
-        "description": "Retrieve detailed information about a specific Kilo session.",
+        "description": "Retrieve detailed information about a specific Harness session.",
         "summary": "Get session",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.get({\n  ...\n})"
           }
         ]
       },
@@ -6497,7 +6497,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.delete({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.delete({\n  ...\n})"
           }
         ]
       },
@@ -6605,7 +6605,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.update({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.update({\n  ...\n})"
           }
         ]
       }
@@ -6689,7 +6689,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.children({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.children({\n  ...\n})"
           }
         ]
       }
@@ -6773,7 +6773,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.todo({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.todo({\n  ...\n})"
           }
         ]
       }
@@ -6866,7 +6866,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.diff({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.diff({\n  ...\n})"
           }
         ]
       }
@@ -6981,7 +6981,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.messages({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.messages({\n  ...\n})"
           }
         ]
       },
@@ -7175,7 +7175,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.prompt({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.prompt({\n  ...\n})"
           }
         ]
       }
@@ -7278,7 +7278,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.message({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.message({\n  ...\n})"
           }
         ]
       },
@@ -7392,7 +7392,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.deleteMessage({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.deleteMessage({\n  ...\n})"
           }
         ]
       }
@@ -7488,7 +7488,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.fork({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.fork({\n  ...\n})"
           }
         ]
       }
@@ -7569,7 +7569,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.abort({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.abort({\n  ...\n})"
           }
         ]
       }
@@ -7673,7 +7673,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.init({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.init({\n  ...\n})"
           }
         ]
       }
@@ -7756,7 +7756,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.share({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.share({\n  ...\n})"
           }
         ]
       },
@@ -7837,7 +7837,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.unshare({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.unshare({\n  ...\n})"
           }
         ]
       }
@@ -7940,7 +7940,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.summarize({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.summarize({\n  ...\n})"
           }
         ]
       }
@@ -8117,7 +8117,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.prompt_async({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.prompt_async({\n  ...\n})"
           }
         ]
       }
@@ -8275,7 +8275,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.command({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.command({\n  ...\n})"
           }
         ]
       }
@@ -8415,7 +8415,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.shell({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.shell({\n  ...\n})"
           }
         ]
       }
@@ -8526,7 +8526,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.revert({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.revert({\n  ...\n})"
           }
         ]
       }
@@ -8616,7 +8616,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.unrevert({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.unrevert({\n  ...\n})"
           }
         ]
       }
@@ -8731,7 +8731,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.permission.respond({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.permission.respond({\n  ...\n})"
           }
         ]
       }
@@ -8829,7 +8829,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.part.delete({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.part.delete({\n  ...\n})"
           }
         ]
       },
@@ -8933,7 +8933,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.part.update({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.part.update({\n  ...\n})"
           }
         ]
       }
@@ -9041,7 +9041,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.session.viewed({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.session.viewed({\n  ...\n})"
           }
         ]
       }
@@ -9096,7 +9096,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.sync.start({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.sync.start({\n  ...\n})"
           }
         ]
       }
@@ -9209,7 +9209,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.sync.replay({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.sync.replay({\n  ...\n})"
           }
         ]
       }
@@ -9296,7 +9296,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.sync.steal({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.sync.steal({\n  ...\n})"
           }
         ]
       }
@@ -9395,7 +9395,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.sync.history.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.sync.history.list({\n  ...\n})"
           }
         ]
       }
@@ -9473,7 +9473,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.appendPrompt({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.appendPrompt({\n  ...\n})"
           }
         ]
       }
@@ -9528,7 +9528,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.openHelp({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.openHelp({\n  ...\n})"
           }
         ]
       }
@@ -9583,7 +9583,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.openSessions({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.openSessions({\n  ...\n})"
           }
         ]
       }
@@ -9638,7 +9638,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.openThemes({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.openThemes({\n  ...\n})"
           }
         ]
       }
@@ -9693,7 +9693,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.openModels({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.openModels({\n  ...\n})"
           }
         ]
       }
@@ -9748,7 +9748,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.submitPrompt({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.submitPrompt({\n  ...\n})"
           }
         ]
       }
@@ -9803,7 +9803,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.clearPrompt({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.clearPrompt({\n  ...\n})"
           }
         ]
       }
@@ -9881,7 +9881,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.executeCommand({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.executeCommand({\n  ...\n})"
           }
         ]
       }
@@ -9963,7 +9963,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.showToast({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.showToast({\n  ...\n})"
           }
         ]
       }
@@ -10047,7 +10047,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.publish({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.publish({\n  ...\n})"
           }
         ]
       }
@@ -10137,7 +10137,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.selectSession({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.selectSession({\n  ...\n})"
           }
         ]
       }
@@ -10200,7 +10200,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.control.next({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.control.next({\n  ...\n})"
           }
         ]
       }
@@ -10262,7 +10262,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.control.response({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.control.response({\n  ...\n})"
           }
         ]
       }
@@ -10333,7 +10333,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.workspace.adapter.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.workspace.adapter.list({\n  ...\n})"
           }
         ]
       }
@@ -10391,7 +10391,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.workspace.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.workspace.list({\n  ...\n})"
           }
         ]
       },
@@ -10491,7 +10491,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.workspace.create({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.workspace.create({\n  ...\n})"
           }
         ]
       }
@@ -10538,7 +10538,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.workspace.syncList({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.workspace.syncList({\n  ...\n})"
           }
         ]
       }
@@ -10596,7 +10596,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.workspace.status({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.workspace.status({\n  ...\n})"
           }
         ]
       }
@@ -10666,7 +10666,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.workspace.remove({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.workspace.remove({\n  ...\n})"
           }
         ]
       }
@@ -10764,7 +10764,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.experimental.workspace.warp({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.experimental.workspace.warp({\n  ...\n})"
           }
         ]
       }
@@ -10918,7 +10918,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.agentBuilder.preview({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.agentBuilder.preview({\n  ...\n})"
           }
         ]
       }
@@ -11083,7 +11083,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.agentBuilder.save({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.agentBuilder.save({\n  ...\n})"
           }
         ]
       }
@@ -11141,7 +11141,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.backgroundProcess.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.backgroundProcess.list({\n  ...\n})"
           }
         ]
       }
@@ -11214,7 +11214,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.backgroundProcess.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.backgroundProcess.get({\n  ...\n})"
           }
         ]
       }
@@ -11287,7 +11287,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.backgroundProcess.logs({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.backgroundProcess.logs({\n  ...\n})"
           }
         ]
       }
@@ -11360,7 +11360,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.backgroundProcess.stop({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.backgroundProcess.stop({\n  ...\n})"
           }
         ]
       }
@@ -11433,7 +11433,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.backgroundProcess.restart({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.backgroundProcess.restart({\n  ...\n})"
           }
         ]
       }
@@ -11497,7 +11497,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.backgroundProcess.stopSession({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.backgroundProcess.stopSession({\n  ...\n})"
           }
         ]
       }
@@ -11597,7 +11597,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.branchName.generate({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.branchName.generate({\n  ...\n})"
           }
         ]
       }
@@ -11712,7 +11712,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.commitMessage.generate({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.commitMessage.generate({\n  ...\n})"
           }
         ]
       }
@@ -11801,7 +11801,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harnessRun.start({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harnessRun.start({\n  ...\n})"
           }
         ]
       },
@@ -11857,7 +11857,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harnessRun.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harnessRun.list({\n  ...\n})"
           }
         ]
       }
@@ -11929,7 +11929,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harnessRun.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harnessRun.get({\n  ...\n})"
           }
         ]
       }
@@ -12028,7 +12028,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harnessRun.review({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harnessRun.review({\n  ...\n})"
           }
         ]
       }
@@ -12101,7 +12101,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.harnessRun.stop({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harnessRun.stop({\n  ...\n})"
           }
         ]
       }
@@ -12165,7 +12165,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.config.overlay({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.config.overlay({\n  ...\n})"
           }
         ]
       },
@@ -12269,7 +12269,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.config.overlayUpdate({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.config.overlayUpdate({\n  ...\n})"
           }
         ]
       }
@@ -12323,7 +12323,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.config.sources({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.config.sources({\n  ...\n})"
           }
         ]
       }
@@ -12377,7 +12377,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.config.effective({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.config.effective({\n  ...\n})"
           }
         ]
       }
@@ -12436,12 +12436,12 @@
             }
           }
         },
-        "description": "List project instruction files used by Kilo and return their current contents.",
+        "description": "List project instruction files used by Harness and return their current contents.",
         "summary": "Get project rules",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.config.rules({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.config.rules({\n  ...\n})"
           }
         ]
       },
@@ -12514,7 +12514,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.config.rulesUpdate({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.config.rulesUpdate({\n  ...\n})"
           }
         ]
       }
@@ -12568,7 +12568,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.config.modelState({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.config.modelState({\n  ...\n})"
           }
         ]
       },
@@ -12615,7 +12615,7 @@
             }
           }
         },
-        "description": "Patch TUI-compatible model selections shared with Kilo Console.",
+        "description": "Patch TUI-compatible model selections shared with Harness Console.",
         "summary": "Update model state",
         "requestBody": {
           "content": {
@@ -12648,7 +12648,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.config.modelStateUpdate({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.config.modelStateUpdate({\n  ...\n})"
           }
         ]
       }
@@ -12702,7 +12702,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.config.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.config.get({\n  ...\n})"
           }
         ]
       },
@@ -12907,7 +12907,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.config.update({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.config.update({\n  ...\n})"
           }
         ]
       }
@@ -12961,7 +12961,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.tui.keybind.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.tui.keybind.list({\n  ...\n})"
           }
         ]
       }
@@ -13048,7 +13048,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.enhancePrompt.enhance({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.enhancePrompt.enhance({\n  ...\n})"
           }
         ]
       }
@@ -13102,7 +13102,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.indexing.status({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.indexing.status({\n  ...\n})"
           }
         ]
       }
@@ -13160,7 +13160,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.indexing.warnings({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.indexing.warnings({\n  ...\n})"
           }
         ]
       }
@@ -13189,11 +13189,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Kilo embedding model catalog",
+            "description": "Harness embedding model catalog",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KiloEmbeddingModelCatalog"
+                  "$ref": "#/components/schemas/HarnessEmbeddingModelCatalog"
                 }
               }
             }
@@ -13209,12 +13209,12 @@
             }
           }
         },
-        "description": "Retrieve the embedding models available through the active Kilo account.",
-        "summary": "List Kilo embedding models",
+        "description": "Retrieve the embedding models available through the active Harness account.",
+        "summary": "List Harness embedding models",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.indexing.models({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.indexing.models({\n  ...\n})"
           }
         ]
       }
@@ -13284,7 +13284,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.indexing.consent({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.indexing.consent({\n  ...\n})"
           }
         ]
       }
@@ -13349,15 +13349,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.instance.reload({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.instance.reload({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilo/profile": {
+    "/harness/profile": {
       "get": {
-        "tags": ["kilo"],
-        "operationId": "kilo.profile",
+        "tags": ["harness"],
+        "operationId": "gateway.profile",
         "parameters": [
           {
             "name": "directory",
@@ -13439,7 +13439,7 @@
                         }
                       ]
                     },
-                    "kiloPass": {
+                    "harnessPass": {
                       "anyOf": [
                         {
                           "type": "object",
@@ -13487,7 +13487,7 @@
                       ]
                     }
                   },
-                  "required": ["profile", "balance", "kiloPass", "currentOrgId"],
+                  "required": ["profile", "balance", "harnessPass", "currentOrgId"],
                   "additionalProperties": false,
                   "description": "Profile data"
                 }
@@ -13512,20 +13512,20 @@
             }
           }
         },
-        "description": "Fetch user profile and organizations from Kilo Gateway",
-        "summary": "Get Kilo Gateway profile",
+        "description": "Fetch user profile and organizations from Harness Gateway",
+        "summary": "Get Harness Gateway profile",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilo.profile({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.gateway.profile({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilo/auth-status": {
+    "/harness/auth-status": {
       "get": {
-        "tags": ["kilo"],
-        "operationId": "kilo.authStatus",
+        "tags": ["harness"],
+        "operationId": "gateway.authStatus",
         "parameters": [
           {
             "name": "directory",
@@ -13546,7 +13546,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Kilo authentication status",
+            "description": "Harness authentication status",
             "content": {
               "application/json": {
                 "schema": {
@@ -13565,7 +13565,7 @@
                   },
                   "required": ["authenticated"],
                   "additionalProperties": false,
-                  "description": "Kilo authentication status"
+                  "description": "Harness authentication status"
                 }
               }
             }
@@ -13588,20 +13588,20 @@
             }
           }
         },
-        "description": "Check whether a locally stored Kilo credential can authenticate Gateway requests",
-        "summary": "Get Kilo authentication status",
+        "description": "Check whether a locally stored Harness credential can authenticate Gateway requests",
+        "summary": "Get Harness authentication status",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilo.authStatus({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.gateway.authStatus({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilo/modes": {
+    "/harness/modes": {
       "get": {
-        "tags": ["kilo"],
-        "operationId": "kilo.modes",
+        "tags": ["harness"],
+        "operationId": "gateway.modes",
         "parameters": [
           {
             "name": "directory",
@@ -13756,15 +13756,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilo.modes({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.gateway.modes({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilo/fim": {
+    "/harness/fim": {
       "post": {
-        "tags": ["kilo"],
-        "operationId": "kilo.fim",
+        "tags": ["harness"],
+        "operationId": "gateway.fim",
         "parameters": [
           {
             "name": "directory",
@@ -13847,7 +13847,7 @@
             }
           }
         },
-        "description": "Proxy a Fill-in-the-Middle completion request to the Kilo Gateway",
+        "description": "Proxy a Fill-in-the-Middle completion request to the Harness Gateway",
         "summary": "FIM completion",
         "requestBody": {
           "content": {
@@ -13883,15 +13883,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilo.fim({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.gateway.fim({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilo/edit": {
+    "/harness/edit": {
       "post": {
-        "tags": ["kilo"],
-        "operationId": "kilo.edit",
+        "tags": ["harness"],
+        "operationId": "gateway.edit",
         "parameters": [
           {
             "name": "directory",
@@ -14035,15 +14035,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilo.edit({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.gateway.edit({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilo/audio/transcriptions": {
+    "/harness/audio/transcriptions": {
       "post": {
-        "tags": ["kilo"],
-        "operationId": "kilo.audio.transcriptions",
+        "tags": ["harness"],
+        "operationId": "gateway.audio.transcriptions",
         "parameters": [
           {
             "name": "directory",
@@ -14100,7 +14100,7 @@
             }
           }
         },
-        "description": "Proxy an audio transcription request to the Kilo Gateway",
+        "description": "Proxy an audio transcription request to the Harness Gateway",
         "summary": "Speech to text transcription",
         "requestBody": {
           "content": {
@@ -14143,15 +14143,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilo.audio.transcriptions({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.gateway.audio.transcriptions({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilo/models/images": {
+    "/harness/models/images": {
       "get": {
-        "tags": ["kilo"],
-        "operationId": "kilo.models.images",
+        "tags": ["harness"],
+        "operationId": "gateway.models.images",
         "parameters": [
           {
             "name": "directory",
@@ -14216,20 +14216,20 @@
             }
           }
         },
-        "description": "List image-capable models from the Kilo Gateway OpenRouter passthrough",
+        "description": "List image-capable models from the Harness Gateway OpenRouter passthrough",
         "summary": "Image generation models",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilo.models.images({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.gateway.models.images({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilo/models/transcriptions": {
+    "/harness/models/transcriptions": {
       "get": {
-        "tags": ["kilo"],
-        "operationId": "kilo.models.transcriptions",
+        "tags": ["harness"],
+        "operationId": "gateway.models.transcriptions",
         "parameters": [
           {
             "name": "directory",
@@ -14291,20 +14291,20 @@
             }
           }
         },
-        "description": "List transcription-capable models from the Kilo Gateway catalog",
+        "description": "List transcription-capable models from the Harness Gateway catalog",
         "summary": "Speech-to-text models",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilo.models.transcriptions({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.gateway.models.transcriptions({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilo/notifications": {
+    "/harness/notifications": {
       "get": {
-        "tags": ["kilo"],
-        "operationId": "kilo.notifications",
+        "tags": ["harness"],
+        "operationId": "gateway.notifications",
         "parameters": [
           {
             "name": "directory",
@@ -14391,20 +14391,20 @@
             }
           }
         },
-        "description": "Fetch notifications from Kilo Gateway for CLI display",
-        "summary": "Get Kilo notifications",
+        "description": "Fetch notifications from Harness Gateway for CLI display",
+        "summary": "Get Harness notifications",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilo.notifications({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.gateway.notifications({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilo/organization": {
+    "/harness/organization": {
       "post": {
-        "tags": ["kilo"],
-        "operationId": "kilo.organization.set",
+        "tags": ["harness"],
+        "operationId": "gateway.organization.set",
         "parameters": [
           {
             "name": "directory",
@@ -14453,8 +14453,8 @@
             }
           }
         },
-        "description": "Switch to a different Kilo Gateway organization",
-        "summary": "Update Kilo Gateway organization",
+        "description": "Switch to a different Harness Gateway organization",
+        "summary": "Update Harness Gateway organization",
         "requestBody": {
           "content": {
             "application/json": {
@@ -14481,15 +14481,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilo.organization.set({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.gateway.organization.set({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilo/cloud-sessions": {
+    "/harness/cloud-sessions": {
       "get": {
-        "tags": ["kilo"],
-        "operationId": "kilo.cloudSessions",
+        "tags": ["harness"],
+        "operationId": "gateway.cloudSessions",
         "parameters": [
           {
             "name": "directory",
@@ -14608,20 +14608,20 @@
             }
           }
         },
-        "description": "Fetch cloud CLI sessions from Kilo API",
+        "description": "Fetch cloud CLI sessions from Harness API",
         "summary": "Get cloud sessions",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilo.cloudSessions({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.gateway.cloudSessions({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilo/cloud/session/{id}": {
+    "/harness/cloud/session/{id}": {
       "get": {
-        "tags": ["kilo"],
-        "operationId": "kilo.cloud.session.get",
+        "tags": ["harness"],
+        "operationId": "gateway.cloud.session.get",
         "parameters": [
           {
             "name": "id",
@@ -14769,20 +14769,20 @@
             }
           }
         },
-        "description": "Fetch full session data from the Kilo cloud for preview",
+        "description": "Fetch full session data from the Harness cloud for preview",
         "summary": "Get cloud session",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilo.cloud.session.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.gateway.cloud.session.get({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilo/cloud/session/import": {
+    "/harness/cloud/session/import": {
       "post": {
-        "tags": ["kilo"],
-        "operationId": "kilo.cloud.session.import",
+        "tags": ["harness"],
+        "operationId": "gateway.cloud.session.import",
         "parameters": [
           {
             "name": "directory",
@@ -14894,15 +14894,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilo.cloud.session.import({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.gateway.cloud.session.import({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/session/{sessionID}/resume": {
+    "/harness/session/{sessionID}/resume": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.resumeSession",
+        "tags": ["harness"],
+        "operationId": "harness.resumeSession",
         "parameters": [
           {
             "name": "sessionID",
@@ -14996,15 +14996,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.resumeSession({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.resumeSession({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/session/{sessionID}/drain": {
+    "/harness/session/{sessionID}/drain": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.drainSession",
+        "tags": ["harness"],
+        "operationId": "harness.drainSession",
         "parameters": [
           {
             "name": "sessionID",
@@ -15088,15 +15088,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.drainSession({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.drainSession({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/session/{sessionID}/board": {
+    "/harness/session/{sessionID}/board": {
       "get": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.sessionBoard",
+        "tags": ["harness"],
+        "operationId": "harness.sessionBoard",
         "parameters": [
           {
             "name": "sessionID",
@@ -15206,15 +15206,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.sessionBoard({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.sessionBoard({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/session/{sessionID}/board/reset": {
+    "/harness/session/{sessionID}/board/reset": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.resetSessionBoard",
+        "tags": ["harness"],
+        "operationId": "harness.resetSessionBoard",
         "parameters": [
           {
             "name": "sessionID",
@@ -15323,15 +15323,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.resetSessionBoard({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.resetSessionBoard({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/heap/snapshot": {
+    "/harness/heap/snapshot": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.heap.snapshot",
+        "tags": ["harness"],
+        "operationId": "harness.heap.snapshot",
         "parameters": [
           {
             "name": "directory",
@@ -15385,15 +15385,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.heap.snapshot({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.heap.snapshot({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/command/files": {
+    "/harness/command/files": {
       "get": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.commandFiles",
+        "tags": ["harness"],
+        "operationId": "harness.commandFiles",
         "parameters": [
           {
             "name": "directory",
@@ -15443,15 +15443,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.commandFiles({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.commandFiles({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/command/remove": {
+    "/harness/command/remove": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.removeCommand",
+        "tags": ["harness"],
+        "operationId": "harness.removeCommand",
         "parameters": [
           {
             "name": "directory",
@@ -15521,15 +15521,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.removeCommand({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.removeCommand({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/skill/remove": {
+    "/harness/skill/remove": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.removeSkill",
+        "tags": ["harness"],
+        "operationId": "harness.removeSkill",
         "parameters": [
           {
             "name": "directory",
@@ -15599,15 +15599,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.removeSkill({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.removeSkill({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/agent/remove": {
+    "/harness/agent/remove": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.removeAgent",
+        "tags": ["harness"],
+        "operationId": "harness.removeAgent",
         "parameters": [
           {
             "name": "directory",
@@ -15681,15 +15681,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.removeAgent({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.removeAgent({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/marketplace": {
+    "/harness/marketplace": {
       "get": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.marketplace.list",
+        "tags": ["harness"],
+        "operationId": "harness.marketplace.list",
         "parameters": [
           {
             "name": "directory",
@@ -15735,15 +15735,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.marketplace.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.marketplace.list({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/marketplace/install": {
+    "/harness/marketplace/install": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.marketplace.install",
+        "tags": ["harness"],
+        "operationId": "harness.marketplace.install",
         "parameters": [
           {
             "name": "directory",
@@ -15784,7 +15784,7 @@
             }
           }
         },
-        "description": "Install a marketplace MCP server, agent, skill, or plugin into project or global Kilo config.",
+        "description": "Install a marketplace MCP server, agent, skill, or plugin into project or global Harness config.",
         "summary": "Install a marketplace item",
         "requestBody": {
           "content": {
@@ -15812,15 +15812,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.marketplace.install({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.marketplace.install({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/marketplace/remove": {
+    "/harness/marketplace/remove": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.marketplace.remove",
+        "tags": ["harness"],
+        "operationId": "harness.marketplace.remove",
         "parameters": [
           {
             "name": "directory",
@@ -15861,7 +15861,7 @@
             }
           }
         },
-        "description": "Remove a marketplace MCP server, agent, skill, or plugin from project or global Kilo config.",
+        "description": "Remove a marketplace MCP server, agent, skill, or plugin from project or global Harness config.",
         "summary": "Remove a marketplace item",
         "requestBody": {
           "content": {
@@ -15886,15 +15886,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.marketplace.remove({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.marketplace.remove({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/snapshot/remove": {
+    "/harness/snapshot/remove": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.removeSnapshot",
+        "tags": ["harness"],
+        "operationId": "harness.removeSnapshot",
         "parameters": [
           {
             "name": "directory",
@@ -15964,15 +15964,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.removeSnapshot({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.removeSnapshot({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/worktree/teardown": {
+    "/harness/worktree/teardown": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.teardownWorktree",
+        "tags": ["harness"],
+        "operationId": "harness.teardownWorktree",
         "parameters": [
           {
             "name": "directory",
@@ -16049,15 +16049,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.teardownWorktree({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.teardownWorktree({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/snapshot/prepare": {
+    "/harness/snapshot/prepare": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.snapshot.prepare",
+        "tags": ["harness"],
+        "operationId": "harness.snapshot.prepare",
         "parameters": [
           {
             "name": "directory",
@@ -16134,15 +16134,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.snapshot.prepare({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.snapshot.prepare({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/provider-usage": {
+    "/harness/provider-usage": {
       "get": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.providerUsage.get",
+        "tags": ["harness"],
+        "operationId": "harness.providerUsage.get",
         "parameters": [
           {
             "name": "directory",
@@ -16198,15 +16198,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.providerUsage.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.providerUsage.get({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/provider-usage/refresh": {
+    "/harness/provider-usage/refresh": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.providerUsage.refresh",
+        "tags": ["harness"],
+        "operationId": "harness.providerUsage.refresh",
         "parameters": [
           {
             "name": "directory",
@@ -16262,15 +16262,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.providerUsage.refresh({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.providerUsage.refresh({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/notebook": {
+    "/harness/notebook": {
       "get": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.notebook.list",
+        "tags": ["harness"],
+        "operationId": "harness.notebook.list",
         "parameters": [
           {
             "name": "directory",
@@ -16320,15 +16320,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.notebook.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.notebook.list({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/notebook/{requestID}/reply": {
+    "/harness/notebook/{requestID}/reply": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.notebook.reply",
+        "tags": ["harness"],
+        "operationId": "harness.notebook.reply",
         "parameters": [
           {
             "name": "requestID",
@@ -16416,15 +16416,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.notebook.reply({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.notebook.reply({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/notebook/{requestID}/reject": {
+    "/harness/notebook/{requestID}/reject": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.notebook.reject",
+        "tags": ["harness"],
+        "operationId": "harness.notebook.reject",
         "parameters": [
           {
             "name": "requestID",
@@ -16505,15 +16505,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.notebook.reject({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.notebook.reject({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/agent-manager": {
+    "/harness/agent-manager": {
       "get": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.agentManager.list",
+        "tags": ["harness"],
+        "operationId": "harness.agentManager.list",
         "parameters": [
           {
             "name": "directory",
@@ -16563,15 +16563,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.agentManager.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.agentManager.list({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/agent-manager/{requestID}/reply": {
+    "/harness/agent-manager/{requestID}/reply": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.agentManager.reply",
+        "tags": ["harness"],
+        "operationId": "harness.agentManager.reply",
         "parameters": [
           {
             "name": "requestID",
@@ -16659,15 +16659,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.agentManager.reply({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.agentManager.reply({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/agent-manager/{requestID}/reject": {
+    "/harness/agent-manager/{requestID}/reject": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.agentManager.reject",
+        "tags": ["harness"],
+        "operationId": "harness.agentManager.reject",
         "parameters": [
           {
             "name": "requestID",
@@ -16748,15 +16748,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.agentManager.reject({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.agentManager.reject({\n  ...\n})"
           }
         ]
       }
     },
     "/session/{sessionID}/model-usage": {
       "get": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.sessionModelUsage",
+        "tags": ["harness"],
+        "operationId": "harness.sessionModelUsage",
         "parameters": [
           {
             "name": "sessionID",
@@ -16941,15 +16941,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.sessionModelUsage({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.sessionModelUsage({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/background-jobs": {
+    "/harness/background-jobs": {
       "get": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.backgroundJobs",
+        "tags": ["harness"],
+        "operationId": "harness.backgroundJobs",
         "parameters": [
           {
             "name": "directory",
@@ -17077,15 +17077,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.backgroundJobs({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.backgroundJobs({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/background-jobs/{jobID}/cancel": {
+    "/harness/background-jobs/{jobID}/cancel": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.backgroundJob.cancel",
+        "tags": ["harness"],
+        "operationId": "harness.backgroundJob.cancel",
         "parameters": [
           {
             "name": "jobID",
@@ -17150,15 +17150,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.backgroundJob.cancel({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.backgroundJob.cancel({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/background-jobs/{jobID}/promote": {
+    "/harness/background-jobs/{jobID}/promote": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.backgroundJob.promote",
+        "tags": ["harness"],
+        "operationId": "harness.backgroundJob.promote",
         "parameters": [
           {
             "name": "jobID",
@@ -17223,15 +17223,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.backgroundJob.promote({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.backgroundJob.promote({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/wakeups": {
+    "/harness/wakeups": {
       "get": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.wakeups",
+        "tags": ["harness"],
+        "operationId": "harness.wakeups",
         "parameters": [
           {
             "name": "directory",
@@ -17293,15 +17293,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.wakeups({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.wakeups({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/retention": {
+    "/harness/retention": {
       "get": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.retention.status",
+        "tags": ["harness"],
+        "operationId": "harness.retention.status",
         "parameters": [
           {
             "name": "directory",
@@ -17587,15 +17587,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.retention.status({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.retention.status({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/retention/run": {
+    "/harness/retention/run": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.retention.run",
+        "tags": ["harness"],
+        "operationId": "harness.retention.run",
         "parameters": [
           {
             "name": "directory",
@@ -17876,7 +17876,7 @@
             }
           }
         },
-        "description": "Run one machine-wide session retention pass. Does nothing unless the retention policy is enabled in kilo.json; `force` bypasses the minimum spacing between scheduled passes, never the enable check.",
+        "description": "Run one machine-wide session retention pass. Does nothing unless the retention policy is enabled in harness.json; `force` bypasses the minimum spacing between scheduled passes, never the enable check.",
         "summary": "Run session retention",
         "requestBody": {
           "content": {
@@ -17896,15 +17896,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.retention.run({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.retention.run({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/retention/cancel": {
+    "/harness/retention/cancel": {
       "post": {
-        "tags": ["kilocode"],
-        "operationId": "kilocode.retention.cancel",
+        "tags": ["harness"],
+        "operationId": "harness.retention.cancel",
         "parameters": [
           {
             "name": "directory",
@@ -17958,12 +17958,12 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.retention.cancel({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.retention.cancel({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/anaconda-desktop/status": {
+    "/harness/anaconda-desktop/status": {
       "get": {
         "tags": ["anaconda-desktop"],
         "operationId": "anacondaDesktop.status",
@@ -18012,12 +18012,12 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.anacondaDesktop.status({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.anacondaDesktop.status({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/anaconda-desktop/open": {
+    "/harness/anaconda-desktop/open": {
       "post": {
         "tags": ["anaconda-desktop"],
         "operationId": "anacondaDesktop.open",
@@ -18088,12 +18088,12 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.anacondaDesktop.open({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.anacondaDesktop.open({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/anaconda-desktop/sync": {
+    "/harness/anaconda-desktop/sync": {
       "post": {
         "tags": ["anaconda-desktop"],
         "operationId": "anacondaDesktop.sync",
@@ -18202,7 +18202,7 @@
             }
           }
         },
-        "description": "Discover the active local inference server and replace Kilo provider authentication metadata.",
+        "description": "Discover the active local inference server and replace Harness provider authentication metadata.",
         "summary": "Synchronize Anaconda Desktop provider",
         "requestBody": {
           "content": {
@@ -18222,15 +18222,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.anacondaDesktop.sync({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.anacondaDesktop.sync({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/migrate/sessions": {
+    "/harness/migrate/sessions": {
       "post": {
         "tags": ["migrate"],
-        "operationId": "kilocode.migrate.sessions",
+        "operationId": "harness.migrate.sessions",
         "parameters": [
           {
             "name": "directory",
@@ -18255,7 +18255,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KilocodeMigrateSessionsResult"
+                  "$ref": "#/components/schemas/HarnessMigrateSessionsResult"
                 }
               }
             }
@@ -18288,8 +18288,8 @@
             }
           }
         },
-        "description": "Discover Claude Code and OpenAI Codex JSONL transcripts for a directory and migrate them into new Kilo sessions, one session per transcript. Sources that were already migrated are skipped, so calling this repeatedly is a no-op once everything has landed.",
-        "summary": "Migrate external sessions into Kilo",
+        "description": "Discover Claude Code and OpenAI Codex JSONL transcripts for a directory and migrate them into new Harness sessions, one session per transcript. Sources that were already migrated are skipped, so calling this repeatedly is a no-op once everything has landed.",
+        "summary": "Migrate external sessions into Harness",
         "requestBody": {
           "content": {
             "application/json": {
@@ -18330,15 +18330,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.migrate.sessions({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.migrate.sessions({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/migrate/sessions/discover": {
+    "/harness/migrate/sessions/discover": {
       "post": {
         "tags": ["migrate"],
-        "operationId": "kilocode.migrate.discover",
+        "operationId": "harness.migrate.discover",
         "parameters": [
           {
             "name": "directory",
@@ -18363,7 +18363,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KilocodeMigrateSessionsDiscoverResult"
+                  "$ref": "#/components/schemas/HarnessMigrateSessionsDiscoverResult"
                 }
               }
             }
@@ -18423,7 +18423,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.migrate.discover({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.migrate.discover({\n  ...\n})"
           }
         ]
       }
@@ -18481,7 +18481,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.network.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.network.list({\n  ...\n})"
           }
         ]
       }
@@ -18562,7 +18562,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.network.reply({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.network.reply({\n  ...\n})"
           }
         ]
       }
@@ -18643,7 +18643,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.network.reject({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.network.reject({\n  ...\n})"
           }
         ]
       }
@@ -18708,7 +18708,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.remote.enable({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.remote.enable({\n  ...\n})"
           }
         ]
       }
@@ -18773,7 +18773,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.remote.disable({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.remote.disable({\n  ...\n})"
           }
         ]
       }
@@ -18838,7 +18838,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.remote.status({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.remote.status({\n  ...\n})"
           }
         ]
       }
@@ -18903,7 +18903,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.sandbox.support({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.sandbox.support({\n  ...\n})"
           }
         ]
       }
@@ -18996,7 +18996,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.sandbox.status({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.sandbox.status({\n  ...\n})"
           }
         ]
       }
@@ -19089,15 +19089,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.sandbox.toggle({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.sandbox.toggle({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/session-import/project": {
+    "/harness/session-import/project": {
       "post": {
         "tags": ["session-import"],
-        "operationId": "kilocode.sessionImport.project",
+        "operationId": "harness.sessionImport.project",
         "parameters": [
           {
             "name": "directory",
@@ -19122,7 +19122,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KilocodeSessionImportResult"
+                  "$ref": "#/components/schemas/HarnessSessionImportResult"
                 }
               }
             }
@@ -19205,15 +19205,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.sessionImport.project({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.sessionImport.project({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/session-import/session": {
+    "/harness/session-import/session": {
       "post": {
         "tags": ["session-import"],
-        "operationId": "kilocode.sessionImport.session",
+        "operationId": "harness.sessionImport.session",
         "parameters": [
           {
             "name": "directory",
@@ -19238,7 +19238,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KilocodeSessionImportResult"
+                  "$ref": "#/components/schemas/HarnessSessionImportResult"
                 }
               }
             }
@@ -19369,15 +19369,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.sessionImport.session({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.sessionImport.session({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/session-import/message": {
+    "/harness/session-import/message": {
       "post": {
         "tags": ["session-import"],
-        "operationId": "kilocode.sessionImport.message",
+        "operationId": "harness.sessionImport.message",
         "parameters": [
           {
             "name": "directory",
@@ -19402,7 +19402,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KilocodeSessionImportResult"
+                  "$ref": "#/components/schemas/HarnessSessionImportResult"
                 }
               }
             }
@@ -19607,15 +19607,15 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.sessionImport.message({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.sessionImport.message({\n  ...\n})"
           }
         ]
       }
     },
-    "/kilocode/session-import/part": {
+    "/harness/session-import/part": {
       "post": {
         "tags": ["session-import"],
-        "operationId": "kilocode.sessionImport.part",
+        "operationId": "harness.sessionImport.part",
         "parameters": [
           {
             "name": "directory",
@@ -19640,7 +19640,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KilocodeSessionImportResult"
+                  "$ref": "#/components/schemas/HarnessSessionImportResult"
                 }
               }
             }
@@ -19906,7 +19906,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.kilocode.sessionImport.part({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.harness.sessionImport.part({\n  ...\n})"
           }
         ]
       }
@@ -19964,7 +19964,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.suggestion.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.suggestion.list({\n  ...\n})"
           }
         ]
       }
@@ -20062,7 +20062,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.suggestion.accept({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.suggestion.accept({\n  ...\n})"
           }
         ]
       }
@@ -20142,7 +20142,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.suggestion.dismiss({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.suggestion.dismiss({\n  ...\n})"
           }
         ]
       }
@@ -20199,7 +20199,7 @@
             }
           }
         },
-        "description": "Forward a telemetry event to PostHog via kilo-telemetry.",
+        "description": "Forward a telemetry event to PostHog via harness-telemetry.",
         "summary": "Capture telemetry event",
         "requestBody": {
           "content": {
@@ -20224,7 +20224,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.telemetry.capture({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.telemetry.capture({\n  ...\n})"
           }
         ]
       }
@@ -20281,7 +20281,7 @@
             }
           }
         },
-        "description": "Update the PostHog client's opt-in/out state at runtime. The CLI reads KILO_TELEMETRY_LEVEL once at spawn — this route lets clients (e.g. the VS Code extension) propagate runtime telemetry consent changes.",
+        "description": "Update the PostHog client's opt-in/out state at runtime. The CLI reads HARNESS_TELEMETRY_LEVEL once at spawn — this route lets clients (e.g. the VS Code extension) propagate runtime telemetry consent changes.",
         "summary": "Set PostHog telemetry enabled state",
         "requestBody": {
           "content": {
@@ -20302,7 +20302,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.telemetry.setEnabled({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.telemetry.setEnabled({\n  ...\n})"
           }
         ]
       }
@@ -20561,7 +20561,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.memory.status({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.memory.status({\n  ...\n})"
           }
         ]
       }
@@ -20819,7 +20819,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.memory.show({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.memory.show({\n  ...\n})"
           }
         ]
       }
@@ -21068,7 +21068,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.memory.enable({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.memory.enable({\n  ...\n})"
           }
         ]
       }
@@ -21298,7 +21298,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.memory.disable({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.memory.disable({\n  ...\n})"
           }
         ]
       }
@@ -21546,7 +21546,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.memory.configure({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.memory.configure({\n  ...\n})"
           }
         ]
       }
@@ -21795,7 +21795,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.memory.rebuild({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.memory.rebuild({\n  ...\n})"
           }
         ]
       }
@@ -21951,7 +21951,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.memory.remember({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.memory.remember({\n  ...\n})"
           }
         ]
       }
@@ -22098,7 +22098,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.memory.correct({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.memory.correct({\n  ...\n})"
           }
         ]
       }
@@ -22241,7 +22241,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.memory.forget({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.memory.forget({\n  ...\n})"
           }
         ]
       }
@@ -22340,14 +22340,14 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.memory.purge({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.memory.purge({\n  ...\n})"
           }
         ]
       }
     },
     "/api/health": {
       "get": {
-        "tags": ["Kilo HttpApi"],
+        "tags": ["Harness HttpApi"],
         "operationId": "v2.health.get",
         "parameters": [],
         "security": [],
@@ -22396,14 +22396,14 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.health.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.health.get({\n  ...\n})"
           }
         ]
       }
     },
     "/api/location": {
       "get": {
-        "tags": ["Kilo HttpApi"],
+        "tags": ["Harness HttpApi"],
         "operationId": "v2.location.get",
         "parameters": [
           {
@@ -22464,14 +22464,14 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.location.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.location.get({\n  ...\n})"
           }
         ]
       }
     },
     "/api/agent": {
       "get": {
-        "tags": ["Kilo HttpApi"],
+        "tags": ["Harness HttpApi"],
         "operationId": "v2.agent.list",
         "parameters": [
           {
@@ -22545,7 +22545,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.agent.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.agent.list({\n  ...\n})"
           }
         ]
       }
@@ -22671,7 +22671,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.list({\n  ...\n})"
           }
         ]
       },
@@ -22750,7 +22750,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.create({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.create({\n  ...\n})"
           }
         ]
       }
@@ -22805,12 +22805,12 @@
             }
           }
         },
-        "description": "Retrieve foreground Session drains currently owned by this Kilo process. Sessions absent from the result are inactive.",
+        "description": "Retrieve foreground Session drains currently owned by this Harness process. Sessions absent from the result are inactive.",
         "summary": "List active sessions",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.active({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.active({\n  ...\n})"
           }
         ]
       }
@@ -22892,7 +22892,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.get({\n  ...\n})"
           }
         ]
       }
@@ -22977,7 +22977,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.switchAgent({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.switchAgent({\n  ...\n})"
           }
         ]
       }
@@ -23062,7 +23062,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.switchModel({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.switchModel({\n  ...\n})"
           }
         ]
       }
@@ -23182,7 +23182,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.prompt({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.prompt({\n  ...\n})"
           }
         ]
       }
@@ -23260,7 +23260,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.compact({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.compact({\n  ...\n})"
           }
         ]
       }
@@ -23338,7 +23338,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.wait({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.wait({\n  ...\n})"
           }
         ]
       }
@@ -23454,7 +23454,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.revert.stage({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.revert.stage({\n  ...\n})"
           }
         ]
       }
@@ -23531,7 +23531,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.revert.clear({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.revert.clear({\n  ...\n})"
           }
         ]
       }
@@ -23598,7 +23598,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.revert.commit({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.revert.commit({\n  ...\n})"
           }
         ]
       }
@@ -23693,7 +23693,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.context({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.context({\n  ...\n})"
           }
         ]
       }
@@ -23784,7 +23784,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.history({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.history({\n  ...\n})"
           }
         ]
       }
@@ -23941,7 +23941,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.events({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.events({\n  ...\n})"
           }
         ]
       }
@@ -24004,12 +24004,12 @@
             }
           }
         },
-        "description": "Interrupt active execution owned by this Kilo process. Idle interruption is a no-op.",
+        "description": "Interrupt active execution owned by this Harness process. Idle interruption is a no-op.",
         "summary": "Interrupt session execution",
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.interrupt({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.interrupt({\n  ...\n})"
           }
         ]
       }
@@ -24103,7 +24103,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.message({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.message({\n  ...\n})"
           }
         ]
       }
@@ -24221,7 +24221,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.messages({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.messages({\n  ...\n})"
           }
         ]
       }
@@ -24312,7 +24312,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.model.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.model.list({\n  ...\n})"
           }
         ]
       }
@@ -24403,7 +24403,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.provider.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.provider.list({\n  ...\n})"
           }
         ]
       }
@@ -24509,7 +24509,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.provider.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.provider.get({\n  ...\n})"
           }
         ]
       }
@@ -24590,7 +24590,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.integration.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.integration.list({\n  ...\n})"
           }
         ]
       }
@@ -24676,7 +24676,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.integration.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.integration.get({\n  ...\n})"
           }
         ]
       }
@@ -24772,7 +24772,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.integration.connect.key({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.integration.connect.key({\n  ...\n})"
           }
         ]
       }
@@ -24891,7 +24891,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.integration.connect.oauth({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.integration.connect.oauth({\n  ...\n})"
           }
         ]
       }
@@ -24977,7 +24977,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.integration.attempt.status({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.integration.attempt.status({\n  ...\n})"
           }
         ]
       },
@@ -25044,7 +25044,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.integration.attempt.cancel({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.integration.attempt.cancel({\n  ...\n})"
           }
         ]
       }
@@ -25136,14 +25136,14 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.integration.attempt.complete({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.integration.attempt.complete({\n  ...\n})"
           }
         ]
       }
     },
     "/api/credential/{credentialID}": {
       "patch": {
-        "tags": ["Kilo HttpApi"],
+        "tags": ["Harness HttpApi"],
         "operationId": "v2.credential.update",
         "parameters": [
           {
@@ -25222,12 +25222,12 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.credential.update({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.credential.update({\n  ...\n})"
           }
         ]
       },
       "delete": {
-        "tags": ["Kilo HttpApi"],
+        "tags": ["Harness HttpApi"],
         "operationId": "v2.credential.remove",
         "parameters": [
           {
@@ -25289,7 +25289,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.credential.remove({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.credential.remove({\n  ...\n})"
           }
         ]
       }
@@ -25370,7 +25370,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.permission.request.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.permission.request.list({\n  ...\n})"
           }
         ]
       }
@@ -25437,7 +25437,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.permission.saved.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.permission.saved.list({\n  ...\n})"
           }
         ]
       }
@@ -25487,7 +25487,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.permission.saved.remove({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.permission.saved.remove({\n  ...\n})"
           }
         ]
       }
@@ -25622,7 +25622,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.permission.create({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.permission.create({\n  ...\n})"
           }
         ]
       },
@@ -25705,7 +25705,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.permission.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.permission.list({\n  ...\n})"
           }
         ]
       }
@@ -25799,7 +25799,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.permission.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.permission.get({\n  ...\n})"
           }
         ]
       }
@@ -25899,7 +25899,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.permission.reply({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.permission.reply({\n  ...\n})"
           }
         ]
       }
@@ -25976,7 +25976,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.fs.read({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.fs.read({\n  ...\n})"
           }
         ]
       }
@@ -26065,7 +26065,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.fs.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.fs.list({\n  ...\n})"
           }
         ]
       }
@@ -26171,7 +26171,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.fs.find({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.fs.find({\n  ...\n})"
           }
         ]
       }
@@ -26252,7 +26252,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.command.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.command.list({\n  ...\n})"
           }
         ]
       }
@@ -26333,7 +26333,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.skill.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.skill.list({\n  ...\n})"
           }
         ]
       }
@@ -26381,7 +26381,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.event.subscribe({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.event.subscribe({\n  ...\n})"
           }
         ]
       }
@@ -26462,7 +26462,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.pty.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.pty.list({\n  ...\n})"
           }
         ]
       },
@@ -26587,7 +26587,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.pty.create({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.pty.create({\n  ...\n})"
           }
         ]
       }
@@ -26684,7 +26684,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.pty.get({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.pty.get({\n  ...\n})"
           }
         ]
       },
@@ -26810,7 +26810,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.pty.update({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.pty.update({\n  ...\n})"
           }
         ]
       },
@@ -26888,7 +26888,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.pty.remove({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.pty.remove({\n  ...\n})"
           }
         ]
       }
@@ -26995,7 +26995,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.pty.connectToken({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.pty.connectToken({\n  ...\n})"
           }
         ]
       }
@@ -27109,7 +27109,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.pty.connect({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.pty.connect({\n  ...\n})"
           }
         ]
       }
@@ -27190,7 +27190,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.question.request.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.question.request.list({\n  ...\n})"
           }
         ]
       }
@@ -27275,7 +27275,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.question.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.question.list({\n  ...\n})"
           }
         ]
       }
@@ -27365,7 +27365,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.question.reply({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.question.reply({\n  ...\n})"
           }
         ]
       }
@@ -27445,7 +27445,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.session.question.reject({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.session.question.reject({\n  ...\n})"
           }
         ]
       }
@@ -27526,7 +27526,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.reference.list({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.reference.list({\n  ...\n})"
           }
         ]
       }
@@ -27618,7 +27618,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.projectCopy.create({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.projectCopy.create({\n  ...\n})"
           }
         ]
       },
@@ -27698,7 +27698,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.projectCopy.remove({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.projectCopy.remove({\n  ...\n})"
           }
         ]
       }
@@ -27761,7 +27761,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.v2.projectCopy.refresh({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.v2.projectCopy.refresh({\n  ...\n})"
           }
         ]
       }
@@ -27847,7 +27847,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createKiloClient } from \"@kilocode/sdk\"\n\nconst client = createKiloClient()\nawait client.pty.connect({\n  ...\n})"
+            "source": "import { createHarnessClient } from \"@harness/sdk\"\n\nconst client = createHarnessClient()\nawait client.pty.connect({\n  ...\n})"
           }
         ]
       }
@@ -28179,22 +28179,22 @@
             "$ref": "#/components/schemas/EventSuggestionDismissed"
           },
           {
-            "$ref": "#/components/schemas/EventKilocodeAgent_managerStart"
+            "$ref": "#/components/schemas/EventHarnessAgent_managerStart"
           },
           {
-            "$ref": "#/components/schemas/EventKilocodeAgent_managerRequested"
+            "$ref": "#/components/schemas/EventHarnessAgent_managerRequested"
           },
           {
-            "$ref": "#/components/schemas/EventKilocodeAgent_managerCancelled"
+            "$ref": "#/components/schemas/EventHarnessAgent_managerCancelled"
           },
           {
-            "$ref": "#/components/schemas/EventKilocodeNotebookRequested"
+            "$ref": "#/components/schemas/EventHarnessNotebookRequested"
           },
           {
-            "$ref": "#/components/schemas/EventKilocodeNotebookCancelled"
+            "$ref": "#/components/schemas/EventHarnessNotebookCancelled"
           },
           {
-            "$ref": "#/components/schemas/EventKilo-sessionsRemote-status-changed"
+            "$ref": "#/components/schemas/EventHarness-sessionsRemote-status-changed"
           },
           {
             "$ref": "#/components/schemas/EventLspClientDiagnostics"
@@ -31316,22 +31316,22 @@
                 "$ref": "#/components/schemas/EventSuggestionDismissed"
               },
               {
-                "$ref": "#/components/schemas/EventKilocodeAgent_managerStart"
+                "$ref": "#/components/schemas/EventHarnessAgent_managerStart"
               },
               {
-                "$ref": "#/components/schemas/EventKilocodeAgent_managerRequested"
+                "$ref": "#/components/schemas/EventHarnessAgent_managerRequested"
               },
               {
-                "$ref": "#/components/schemas/EventKilocodeAgent_managerCancelled"
+                "$ref": "#/components/schemas/EventHarnessAgent_managerCancelled"
               },
               {
-                "$ref": "#/components/schemas/EventKilocodeNotebookRequested"
+                "$ref": "#/components/schemas/EventHarnessNotebookRequested"
               },
               {
-                "$ref": "#/components/schemas/EventKilocodeNotebookCancelled"
+                "$ref": "#/components/schemas/EventHarnessNotebookCancelled"
               },
               {
-                "$ref": "#/components/schemas/EventKilo-sessionsRemote-status-changed"
+                "$ref": "#/components/schemas/EventHarness-sessionsRemote-status-changed"
               },
               {
                 "$ref": "#/components/schemas/EventLspClientDiagnostics"
@@ -34915,7 +34915,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "Server configuration for the kilo serve command"
+        "description": "Server configuration for the harness serve command"
       },
       "HarnessRunner": {
         "type": "object",
@@ -34943,7 +34943,7 @@
           "provider": {
             "type": "string",
             "enum": [
-              "kilo",
+              "harness",
               "openai",
               "ollama",
               "openai-compatible",
@@ -34980,7 +34980,7 @@
             "type": "string",
             "enum": ["lancedb", "qdrant"]
           },
-          "kilo": {
+          "harness": {
             "type": "object",
             "properties": {
               "apiKey": {
@@ -36153,7 +36153,7 @@
                 "type": "integer",
                 "minimum": 250,
                 "maximum": 800,
-                "description": "Width of the Kilo Console project context sidebar in pixels"
+                "description": "Width of the Harness Console project context sidebar in pixels"
               },
               "diff_style": {
                 "type": "string",
@@ -41089,7 +41089,7 @@
         "required": ["keybinds"],
         "additionalProperties": false
       },
-      "KiloEmbeddingModelCatalog": {
+      "HarnessEmbeddingModelCatalog": {
         "type": "object",
         "properties": {
           "defaultModel": {
@@ -42023,7 +42023,7 @@
           },
           "sourceKind": {
             "type": "string",
-            "enum": ["kilo_managed", "direct"]
+            "enum": ["harness_managed", "direct"]
           },
           "providerLabel": {
             "type": "string"
@@ -42927,7 +42927,7 @@
         "required": ["operation", "message"],
         "additionalProperties": false
       },
-      "KilocodeMigrateSessionsMigrated": {
+      "HarnessMigrateSessionsMigrated": {
         "type": "object",
         "properties": {
           "id": {
@@ -42966,13 +42966,13 @@
         "required": ["id", "format", "skipped", "dropped"],
         "additionalProperties": false
       },
-      "KilocodeMigrateSessionsResult": {
+      "HarnessMigrateSessionsResult": {
         "type": "object",
         "properties": {
           "sessions": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/KilocodeMigrateSessionsMigrated"
+              "$ref": "#/components/schemas/HarnessMigrateSessionsMigrated"
             },
             "description": "Per-source outcomes, most recently modified source first."
           },
@@ -43005,7 +43005,7 @@
         "required": ["message"],
         "additionalProperties": false
       },
-      "KilocodeMigrateSessionsModel": {
+      "HarnessMigrateSessionsModel": {
         "type": "object",
         "properties": {
           "providerID": {
@@ -43018,7 +43018,7 @@
         "required": ["providerID", "modelID"],
         "additionalProperties": false
       },
-      "KilocodeMigrateSessionsDiscovered": {
+      "HarnessMigrateSessionsDiscovered": {
         "type": "object",
         "properties": {
           "id": {
@@ -43050,7 +43050,7 @@
             "description": "Number of user + assistant steps in the transcript."
           },
           "model": {
-            "$ref": "#/components/schemas/KilocodeMigrateSessionsModel"
+            "$ref": "#/components/schemas/HarnessMigrateSessionsModel"
           },
           "sessionID": {
             "type": "string"
@@ -43059,13 +43059,13 @@
         "required": ["id", "format", "path", "mtime", "version", "messages"],
         "additionalProperties": false
       },
-      "KilocodeMigrateSessionsDiscoverResult": {
+      "HarnessMigrateSessionsDiscoverResult": {
         "type": "object",
         "properties": {
           "sessions": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/KilocodeMigrateSessionsDiscovered"
+              "$ref": "#/components/schemas/HarnessMigrateSessionsDiscovered"
             },
             "description": "Discovered migratable sessions, most recently modified first."
           },
@@ -43080,7 +43080,7 @@
         "required": ["sessions", "dropped"],
         "additionalProperties": false
       },
-      "KilocodeSessionImportResult": {
+      "HarnessSessionImportResult": {
         "type": "object",
         "properties": {
           "ok": {
@@ -44471,7 +44471,7 @@
         "required": ["id", "type", "properties"],
         "additionalProperties": false
       },
-      "EventKilocodeAgent_managerStart": {
+      "EventHarnessAgent_managerStart": {
         "type": "object",
         "properties": {
           "id": {
@@ -44479,7 +44479,7 @@
           },
           "type": {
             "type": "string",
-            "enum": ["kilocode.agent_manager.start"]
+            "enum": ["harness.agent_manager.start"]
           },
           "properties": {
             "type": "object",
@@ -44548,7 +44548,7 @@
         "required": ["id", "type", "properties"],
         "additionalProperties": false
       },
-      "EventKilocodeAgent_managerRequested": {
+      "EventHarnessAgent_managerRequested": {
         "type": "object",
         "properties": {
           "id": {
@@ -44556,7 +44556,7 @@
           },
           "type": {
             "type": "string",
-            "enum": ["kilocode.agent_manager.requested"]
+            "enum": ["harness.agent_manager.requested"]
           },
           "properties": {
             "$ref": "#/components/schemas/AgentManagerRequest"
@@ -44565,7 +44565,7 @@
         "required": ["id", "type", "properties"],
         "additionalProperties": false
       },
-      "EventKilocodeAgent_managerCancelled": {
+      "EventHarnessAgent_managerCancelled": {
         "type": "object",
         "properties": {
           "id": {
@@ -44573,7 +44573,7 @@
           },
           "type": {
             "type": "string",
-            "enum": ["kilocode.agent_manager.cancelled"]
+            "enum": ["harness.agent_manager.cancelled"]
           },
           "properties": {
             "type": "object",
@@ -44597,7 +44597,7 @@
         "required": ["id", "type", "properties"],
         "additionalProperties": false
       },
-      "EventKilocodeNotebookRequested": {
+      "EventHarnessNotebookRequested": {
         "type": "object",
         "properties": {
           "id": {
@@ -44605,7 +44605,7 @@
           },
           "type": {
             "type": "string",
-            "enum": ["kilocode.notebook.requested"]
+            "enum": ["harness.notebook.requested"]
           },
           "properties": {
             "$ref": "#/components/schemas/NotebookRequest"
@@ -44614,7 +44614,7 @@
         "required": ["id", "type", "properties"],
         "additionalProperties": false
       },
-      "EventKilocodeNotebookCancelled": {
+      "EventHarnessNotebookCancelled": {
         "type": "object",
         "properties": {
           "id": {
@@ -44622,7 +44622,7 @@
           },
           "type": {
             "type": "string",
-            "enum": ["kilocode.notebook.cancelled"]
+            "enum": ["harness.notebook.cancelled"]
           },
           "properties": {
             "type": "object",
@@ -44646,7 +44646,7 @@
         "required": ["id", "type", "properties"],
         "additionalProperties": false
       },
-      "EventKilo-sessionsRemote-status-changed": {
+      "EventHarness-sessionsRemote-status-changed": {
         "type": "object",
         "properties": {
           "id": {
@@ -44654,7 +44654,7 @@
           },
           "type": {
             "type": "string",
-            "enum": ["kilo-sessions.remote-status-changed"]
+            "enum": ["harness-sessions.remote-status-changed"]
           },
           "properties": {
             "type": "object",
@@ -62528,19 +62528,19 @@
     },
     {
       "name": "agent-builder",
-      "description": "Kilo agent builder routes."
+      "description": "Harness agent builder routes."
     },
     {
       "name": "background-process",
-      "description": "Kilo background process routes."
+      "description": "Harness background process routes."
     },
     {
       "name": "branch-name",
-      "description": "Kilo branch name routes."
+      "description": "Harness branch name routes."
     },
     {
       "name": "commit-message",
-      "description": "Kilo commit message routes."
+      "description": "Harness commit message routes."
     },
     {
       "name": "harnessRun",
@@ -62548,27 +62548,27 @@
     },
     {
       "name": "config-console",
-      "description": "Kilo Console config routes."
+      "description": "Harness Console config routes."
     },
     {
       "name": "enhance-prompt",
-      "description": "Kilo enhance prompt routes."
+      "description": "Harness enhance prompt routes."
     },
     {
       "name": "indexing",
-      "description": "Kilo indexing routes."
+      "description": "Harness indexing routes."
     },
     {
       "name": "instance-reload",
-      "description": "Kilo instance reload route."
+      "description": "Harness instance reload route."
     },
     {
-      "name": "kilo",
-      "description": "Kilo Gateway routes."
+      "name": "harness",
+      "description": "Harness Gateway routes."
     },
     {
-      "name": "kilocode",
-      "description": "Kilo-specific routes."
+      "name": "harness",
+      "description": "Harness-specific routes."
     },
     {
       "name": "anaconda-desktop",
@@ -62576,46 +62576,46 @@
     },
     {
       "name": "migrate",
-      "description": "Kilo routes for migrating sessions from other coding agents into Kilo."
+      "description": "Harness routes for migrating sessions from other coding agents into Harness."
     },
     {
       "name": "network",
-      "description": "Kilo network routes."
+      "description": "Harness network routes."
     },
     {
       "name": "remote",
-      "description": "Kilo remote connection routes."
+      "description": "Harness remote connection routes."
     },
     {
       "name": "sandbox",
-      "description": "Kilo session sandbox routes."
+      "description": "Harness session sandbox routes."
     },
     {
       "name": "session-import",
-      "description": "Kilo legacy session import routes."
+      "description": "Harness legacy session import routes."
     },
     {
       "name": "suggestion",
-      "description": "Kilo suggestion routes."
+      "description": "Harness suggestion routes."
     },
     {
       "name": "telemetry",
-      "description": "Kilo telemetry routes."
+      "description": "Harness telemetry routes."
     },
     {
       "name": "memory",
-      "description": "Kilo memory routes."
+      "description": "Harness memory routes."
     },
     {
-      "name": "Kilo HttpApi",
+      "name": "Harness HttpApi",
       "description": "Experimental HttpApi surface for selected instance routes."
     },
     {
-      "name": "Kilo HttpApi",
+      "name": "Harness HttpApi",
       "description": "Experimental HttpApi surface for selected instance routes."
     },
     {
-      "name": "Kilo HttpApi",
+      "name": "Harness HttpApi",
       "description": "Experimental HttpApi surface for selected instance routes."
     },
     {
@@ -62639,7 +62639,7 @@
       "description": "Integration discovery and authentication routes."
     },
     {
-      "name": "Kilo HttpApi",
+      "name": "Harness HttpApi",
       "description": "Experimental HttpApi surface for selected instance routes."
     },
     {

@@ -81,7 +81,6 @@ function run(msg: Msg) {
   })
 }
 
-// kilocode_change start - make worker finalization await the process close event without a Windows race
 const closed = new WeakMap<ReturnType<typeof spawn>, Promise<void>>()
 
 function spawnWorker(msg: Msg) {
@@ -110,7 +109,6 @@ async function stopWorker(proc: ReturnType<typeof spawnWorker>) {
   proc.kill()
   return close
 }
-// kilocode_change end
 
 async function readJson<T>(p: string): Promise<T> {
   return JSON.parse(await fs.readFile(p, "utf8"))
@@ -181,7 +179,7 @@ describe("util.flock", () => {
       expect(seen.length).toBeGreaterThan(0)
       expect(seen.every((x) => x === key)).toBe(true)
     } finally {
-      await stopWorker(proc).catch(() => undefined) // kilocode_change - stopWorker now awaits close before returning
+      await stopWorker(proc).catch(() => undefined)
     }
   }, 15_000)
 
@@ -200,7 +198,7 @@ describe("util.flock", () => {
     })
 
     await wait(ready, 5_000)
-    await stopWorker(proc) // kilocode_change - stopWorker now awaits close before returning
+    await stopWorker(proc)
 
     let hit = false
     await Flock.withLock(

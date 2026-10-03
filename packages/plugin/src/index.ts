@@ -1,6 +1,6 @@
 import type {
   Event,
-  createKiloClient,
+  createHarnessClient,
   Project,
   Model,
   Provider,
@@ -9,8 +9,8 @@ import type {
   Message,
   Part,
   Config as SDKConfig,
-} from "@kilocode/sdk"
-import type { Provider as ProviderV2, Model as ModelV2, Auth } from "@kilocode/sdk/v2"
+} from "@harness/sdk"
+import type { Provider as ProviderV2, Model as ModelV2, Auth } from "@harness/sdk/v2"
 
 import type { BunShell } from "./shell.js"
 import { type ToolDefinition } from "./tool.js"
@@ -54,7 +54,7 @@ export type WorkspaceAdapter = {
 }
 
 export type PluginInput = {
-  client: ReturnType<typeof createKiloClient>
+  client: ReturnType<typeof createHarnessClient>
   project: Project
   directory: string
   worktree: string

@@ -1,19 +1,18 @@
 #!/usr/bin/env bun
-// kilocode_change - new file
 
 // This is a CI-only architecture test, not production network enforcement. Model tools run
-// inside the trusted kilo serve process, so macOS Seatbelt can only confine their spawned
+// inside the trusted harness serve process, so macOS Seatbelt can only confine their spawned
 // children. In-process tools must use the policy-aware HTTP capability instead of direct fetch,
 // sockets, or ad hoc clients. Keep this narrow scan to prevent future tool implementations from
 // accidentally bypassing that boundary; trusted provider and model-inference code is intentionally
-// outside the scanned directories. Runtime enforcement remains in @kilocode/sandbox.
+// outside the scanned directories. Runtime enforcement remains in @harness/sandbox.
 
 import path from "node:path"
-import { host, opaque } from "../packages/opencode/src/kilocode/sandbox/network-tools"
+import { host, opaque } from "../packages/opencode/src/harness/sandbox/network-tools"
 
 const root = path.resolve(import.meta.dir, "..")
 const source = path.join(root, "packages", "opencode", "src")
-const dirs = ["tool", "kilocode/tool", "mcp"]
+const dirs = ["tool", "harness/tool", "mcp"]
 const checks = [
   { name: "direct fetch", pattern: /\b(?:globalThis\.)?fetch\s*\(/g },
   { name: "raw FetchHttpClient layer", pattern: /\bFetchHttpClient\.layer\b/g },
@@ -94,19 +93,18 @@ const tools = (
 ).flat()
 const drift = [...clients, ...tools]
 
-const network = await Bun.file(path.join(source, "kilocode", "sandbox", "network.ts")).text()
+const network = await Bun.file(path.join(source, "harness", "sandbox", "network.ts")).text()
 const registry = await Bun.file(path.join(source, "tool", "registry.ts")).text()
 const session = await Bun.file(path.join(source, "session", "tools.ts")).text()
 const mcp = await Bun.file(path.join(source, "mcp", "index.ts")).text()
 const structure = [
   ...(!network.includes('import { host, opaque } from "./network-tools"') ||
   !network.includes("opaque.map((item) => item.id)")
-    ? ["  kilocode/sandbox/network.ts must derive runtime opaque tool IDs from network-tools.ts"]
+    ? ["  harness/sandbox/network.ts must derive runtime opaque tool IDs from network-tools.ts"]
     : []),
   ...(!network.includes("host.map((item) => item.id)")
-    ? ["  kilocode/sandbox/network.ts must derive host-executed tool IDs from network-tools.ts"]
+    ? ["  harness/sandbox/network.ts must derive host-executed tool IDs from network-tools.ts"]
     : []),
-  // kilocode_change - v1.17.13 moved registry wiring from Layer.provide onto the LayerNode graph
   ...(!registry.includes("Layer.provide(ToolNetwork.httpLayer)") &&
   !/LayerNode\.make\(\{\s*service:\s*HttpClient\.HttpClient,\s*layer:\s*ToolNetwork\.httpLayer/.test(registry)
     ? ["  tool/registry.ts must provide the policy-aware ToolNetwork HTTP layer"]
@@ -123,7 +121,6 @@ const structure = [
   ...(!mcp.includes("SandboxNetwork.remote(tool)")
     ? ["  mcp/index.ts must classify remote MCP delegated authority"]
     : []),
-  // kilocode_change - v1.18 preserves remote authority on the native MCP entry before adapting it to an AI SDK tool
   ...(!/SandboxPolicy\.executeMcp\(\s*ctx\.sessionID,\s*entry,/.test(session)
     ? ["  session/tools.ts must route MCP delegated authority through session-aware executeMcp"]
     : []),
@@ -146,7 +143,7 @@ if (invalid.length > 0 || drift.length > 0 || structure.length > 0) {
     console.error("")
   }
   console.error(
-    "Use the @kilocode/sandbox network capability or classify an opaque client at the common tool boundary.",
+    "Use the @harness/sandbox network capability or classify an opaque client at the common tool boundary.",
   )
   process.exit(1)
 }

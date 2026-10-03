@@ -41,8 +41,8 @@ export const migrations = (
     import("./migration/20260622170816_reset_v2_session_state"),
     import("./migration/20260622202450_simplify_session_input"),
     import("./migration/20260714141136_session-message-legacy-writer-compat"),
-    import("./migration/20260828074139_kilocode_board"), // kilocode_change
-    import("./migration/20260903104806_kilocode_board_reset"), // kilocode_change
-    import("./migration/20260907102000_kilocode_model_usage_index"), // kilocode_change
+    import("./migration/20260828074139_harness_board"),
+    import("./migration/20260903104806_harness_board_reset"),
+    import("./migration/20260907102000_harness_model_usage_index"),
   ])
 ).map((module) => module.default) satisfies DatabaseMigration.Migration[]

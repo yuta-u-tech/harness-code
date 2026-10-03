@@ -8,21 +8,21 @@ import { Effect, Context, Layer, ManagedRuntime } from "effect"
 import type * as PlatformError from "effect/PlatformError"
 import type * as Scope from "effect/Scope"
 import { CrossSpawnSpawner } from "@opencode-ai/core/cross-spawn-spawner"
-import { Database } from "@opencode-ai/core/database/database" // kilocode_change
-import { ProjectV2 } from "@opencode-ai/core/project" // kilocode_change
-import { ProjectTable } from "@opencode-ai/core/project/sql" // kilocode_change
-import { AbsolutePath } from "@opencode-ai/core/schema" // kilocode_change
+import { Database } from "@opencode-ai/core/database/database"
+import { ProjectV2 } from "@opencode-ai/core/project"
+import { ProjectTable } from "@opencode-ai/core/project/sql"
+import { AbsolutePath } from "@opencode-ai/core/schema"
 import { AppNodeBuilder } from "@opencode-ai/core/effect/app-node-builder"
 import { ChildProcess, ChildProcessSpawner } from "effect/unstable/process"
 import type { Config } from "@/config/config"
 import { LayerNode } from "@opencode-ai/core/effect/layer-node"
 import { InstanceRef } from "../../src/effect/instance-ref"
 import { InstanceBootstrap } from "../../src/project/bootstrap-service"
-import { context as instanceContext, type InstanceContext } from "../../src/project/instance-context" // kilocode_change
+import { context as instanceContext, type InstanceContext } from "../../src/project/instance-context"
 import { InstanceRuntime } from "../../src/project/instance-runtime"
 import { InstanceStore } from "../../src/project/instance-store"
 import { TestLLMServer } from "../lib/llm-server"
-import { remove as cleanup } from "../kilocode/cleanup" // kilocode_change
+import { remove as cleanup } from "../harness/cleanup"
 
 const noopBootstrap = Layer.succeed(InstanceBootstrap.Service, InstanceBootstrap.Service.of({ run: Effect.void }))
 export const testInstanceStoreLayer = LayerNode.compile(InstanceStore.node, [
@@ -49,19 +49,17 @@ export async function provideTestInstance<R>(input: {
   const ctx = await runTestInstanceStore((store) => store.load({ directory: input.directory }))
   try {
     if (input.init) await runtime().runPromise(input.init.pipe(Effect.provideService(InstanceRef, ctx)))
-    return await instanceContext.provide(ctx, () => input.fn(ctx)) // kilocode_change
+    return await instanceContext.provide(ctx, () => input.fn(ctx))
   } finally {
-    // kilocode_change start
     await instanceContext.provide(ctx, () =>
       runTestInstanceStore((store) => store.dispose(ctx).pipe(Effect.provideService(InstanceRef, ctx))),
     )
-    // kilocode_change end
   }
 }
 
 export async function withTestInstance<R>(input: { directory: string; fn: (ctx: InstanceContext) => R }) {
   const ctx = await runTestInstanceStore((store) => store.load({ directory: input.directory }))
-  return instanceContext.provide(ctx, () => input.fn(ctx)) // kilocode_change
+  return instanceContext.provide(ctx, () => input.fn(ctx))
 }
 
 export async function reloadTestInstance(input: { directory: string }) {
@@ -72,14 +70,12 @@ export async function disposeAllInstances() {
   await Promise.all([InstanceRuntime.disposeAllInstances(), runTestInstanceStore((store) => store.disposeAll())])
 }
 
-// kilocode_change start - dispose a directory's instance (and its watchers) before the directory is deleted
 async function disposeInstancesFor(directory: string) {
   await Promise.allSettled([
     InstanceRuntime.disposeDirectory(directory),
     runTestInstanceStore((store) => store.disposeDirectory(directory)),
   ])
 }
-// kilocode_change end
 
 // Strip null bytes from paths (defensive fix for CI environment issues)
 function sanitizePath(p: string): string {
@@ -94,7 +90,7 @@ function exists(dir: string) {
 }
 
 function clean(dir: string) {
-  return cleanup(dir) // kilocode_change
+  return cleanup(dir)
 }
 
 async function stop(dir: string) {
@@ -135,7 +131,7 @@ export async function tmpdir<T>(options?: TmpDirOptions<T>) {
       try {
         await options?.dispose?.(realpath)
       } finally {
-        await disposeInstancesFor(realpath) // kilocode_change - see disposeInstancesFor
+        await disposeInstancesFor(realpath)
         if (options?.git) await stop(realpath).catch(() => undefined)
         await clean(realpath).catch(() => undefined)
       }
@@ -160,7 +156,7 @@ export function tmpdirScoped<E = never, R = never>(options?: {
 
     yield* Effect.addFinalizer(() =>
       Effect.promise(async () => {
-        await disposeInstancesFor(dir) // kilocode_change - see disposeInstancesFor
+        await disposeInstancesFor(dir)
         if (options?.git) await stop(dir).catch(() => undefined)
         await clean(dir).catch(() => undefined)
       }),
@@ -183,7 +179,7 @@ export function tmpdirScoped<E = never, R = never>(options?: {
       yield* Effect.promise(() =>
         fs.writeFile(
           path.join(dir, "opencode.json"),
-          JSON.stringify({ $schema: "https://app.kilo.ai/config.json", ...resolved }), // kilocode_change
+          JSON.stringify({ $schema: "https://app.kilo.ai/config.json", ...resolved }),
         ),
       )
     }
@@ -219,7 +215,6 @@ export function provideTmpdirInstance<A, E, R>(
   }).pipe(Effect.provide(testInstanceStoreLayer))
 }
 
-// kilocode_change start - custom test runtimes need the instance project in their core database
 export const seedProject = Effect.gen(function* () {
   const ctx = yield* InstanceRef
   if (!ctx) return yield* Effect.die(new Error("missing test instance"))
@@ -243,7 +238,6 @@ export function provideTmpdirProject<A, E, R>(
 ) {
   return provideTmpdirInstance((path) => seedProject.pipe(Effect.andThen(self(path))), options)
 }
-// kilocode_change end
 
 export class TestInstance extends Context.Service<TestInstance, { readonly directory: string }>()("@test/Instance") {}
 

@@ -333,7 +333,6 @@ describe("Vcs diff", () => {
     { git: true },
   )
 
-  // kilocode_change start
   it.instance(
     "diff('last-commit') returns changes from the most recent commit only",
     () =>
@@ -398,5 +397,4 @@ describe("Vcs diff", () => {
       }),
     { git: true, timeout: 60_000 },
   )
-  // kilocode_change end
 })

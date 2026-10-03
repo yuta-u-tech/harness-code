@@ -7,12 +7,11 @@ import { Context, Effect, Layer, Schema } from "effect"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 
-export const MAX_BASE64_BYTES = 5 * 1024 * 1024 // kilocode_change - share user file pre-read limit
+export const MAX_BASE64_BYTES = 5 * 1024 * 1024
 const MAX_WIDTH = 2000
 const MAX_HEIGHT = 2000
 const AUTO_RESIZE = true
 const JPEG_QUALITIES = [80, 85, 70, 55, 40]
-// kilocode_change start - preserve valid in-limit images when Photon is unavailable
 function dimensions(mime: string, data: Buffer) {
   if (
     mime === "image/png" &&
@@ -95,7 +94,6 @@ export function fallback(
     })
   return input
 }
-// kilocode_change end
 export class ResizerUnavailableError extends Schema.TaggedErrorClass<ResizerUnavailableError>()(
   "ImageResizerUnavailableError",
   {},
@@ -148,7 +146,7 @@ const layer = Layer.effect(
       Effect.sync(() => {
         const wasm = path.isAbsolute(photonWasm) ? photonWasm : fileURLToPath(new URL(photonWasm, import.meta.url))
         ;(globalThis as typeof globalThis & { __OPENCODE_PHOTON_WASM_PATH?: string }).__OPENCODE_PHOTON_WASM_PATH = wasm
-        ;(globalThis as typeof globalThis & { __KILOCODE_PHOTON_WASM_PATH?: string }).__KILOCODE_PHOTON_WASM_PATH = wasm
+        ;(globalThis as typeof globalThis & { __HARNESS_PHOTON_WASM_PATH?: string }).__HARNESS_PHOTON_WASM_PATH = wasm
       }).pipe(
         Effect.andThen(() => Effect.tryPromise(() => import("@silvia-odwyer/photon-node"))),
         Effect.tapError((error) => Effect.logWarning("failed to load photon", { error })),

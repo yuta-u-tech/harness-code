@@ -3,20 +3,20 @@ import { Effect, Schema } from "effect"
 import { InstanceState } from "@/effect/instance-state"
 import { FSUtil } from "@opencode-ai/core/fs-util"
 import { Ripgrep } from "@opencode-ai/core/ripgrep"
-import * as KiloGrep from "@/kilocode/tool/grep-signal-controls" // kilocode_change
+import * as HarnessGrep from "@/harness/tool/grep-signal-controls"
 import { assertExternalDirectoryEffect } from "./external-directory"
 import DESCRIPTION from "./grep.txt"
 import * as Tool from "./tool"
 
 export const Parameters = Schema.Struct({
-  pattern: Schema.String.annotate({ description: "Pattern to search for in file contents (regex by default)" }), // kilocode_change
+  pattern: Schema.String.annotate({ description: "Pattern to search for in file contents (regex by default)" }),
   path: Schema.optional(Schema.String).annotate({
     description: "The directory to search in. Defaults to the current working directory.",
   }),
   include: Schema.optional(Schema.String).annotate({
     description: 'File pattern to include in the search (e.g. "*.js", "*.{ts,tsx}")',
   }),
-  ...KiloGrep.fields, // kilocode_change
+  ...HarnessGrep.fields,
 })
 
 export const GrepTool = Tool.define(
@@ -25,12 +25,12 @@ export const GrepTool = Tool.define(
     const fs = yield* FSUtil.Service
     const ripgrep = yield* Ripgrep.Service
     return {
-      description: KiloGrep.describe(DESCRIPTION), // kilocode_change
+      description: HarnessGrep.describe(DESCRIPTION),
       parameters: Parameters,
       execute: (params: Schema.Schema.Type<typeof Parameters>, ctx: Tool.Context) =>
         Effect.gen(function* () {
-          const limit = params.limit ?? KiloGrep.DEFAULT_LIMIT // kilocode_change
-          const context = params.context ?? 0 // kilocode_change
+          const limit = params.limit ?? HarnessGrep.DEFAULT_LIMIT
+          const context = params.context ?? 0
           const empty = {
             title: params.pattern,
             metadata: { matches: 0, truncated: false },
@@ -48,7 +48,7 @@ export const GrepTool = Tool.define(
               pattern: params.pattern,
               path: params.path,
               include: params.include,
-              ...KiloGrep.metadata(params, limit, context), // kilocode_change
+              ...HarnessGrep.metadata(params, limit, context),
             },
           })
 
@@ -64,39 +64,36 @@ export const GrepTool = Tool.define(
 
           const search = FSUtil.resolve(requested)
           const info = yield* fs.stat(search).pipe(Effect.catch(() => Effect.succeed(undefined)))
-          if (!info || (info.type !== "File" && info.type !== "Directory")) return empty // kilocode_change
+          if (!info || (info.type !== "File" && info.type !== "Directory")) return empty
           const cwd = info?.type === "Directory" ? search : path.dirname(search)
           const result = yield* ripgrep.grep({
             cwd,
-            file: info?.type === "File" ? path.basename(search) : undefined, // kilocode_change - constrain exact-file searches
+            file: info?.type === "File" ? path.basename(search) : undefined,
             pattern: params.pattern,
             include: params.include,
-            ...KiloGrep.options(params, limit, context), // kilocode_change
-            signal: ctx.abort, // kilocode_change - stop ripgrep when the tool call is cancelled
+            ...HarnessGrep.options(params, limit, context),
+            signal: ctx.abort,
           })
-          // kilocode_change start
           const matches = result.items
           if (matches.length === 0) return empty
-          // kilocode_change end
 
           const rows = matches.map((item) => ({
-            // kilocode_change
             path: path.resolve(
               requestedInfo?.type === "Directory" ? requested : path.dirname(requested),
               item.entry.path,
             ),
             line: item.line,
             text: item.text,
-            context: item.context, // kilocode_change
-            textTruncated: item.textTruncated, // kilocode_change
+            context: item.context,
+            textTruncated: item.textTruncated,
           }))
 
-          const truncated = result.truncated // kilocode_change
+          const truncated = result.truncated
           const final = rows
           if (final.length === 0) return empty
 
-          const total = rows.filter((row) => !row.context).length // kilocode_change
-          const hasMore = truncated // kilocode_change
+          const total = rows.filter((row) => !row.context).length
+          const hasMore = truncated
           const output = [`Found ${total} matches${hasMore ? " (more matches available)" : ""}`]
 
           let current = ""
@@ -106,15 +103,15 @@ export const GrepTool = Tool.define(
               current = match.path
               output.push(`${match.path}:`)
             }
-            output.push(KiloGrep.line(match, context)) // kilocode_change
+            output.push(HarnessGrep.line(match, context))
           }
 
           if (truncated) {
             output.push("")
-            output.push(KiloGrep.limitNotice(limit)) // kilocode_change
+            output.push(HarnessGrep.limitNotice(limit))
           }
-          output.push(...KiloGrep.notices(rows)) // kilocode_change
-          if (result.partial) output.push("", "(Some paths were inaccessible.)") // kilocode_change
+          output.push(...HarnessGrep.notices(rows))
+          if (result.partial) output.push("", "(Some paths were inaccessible.)")
 
           return {
             title: params.pattern,

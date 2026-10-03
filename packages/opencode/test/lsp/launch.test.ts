@@ -5,14 +5,13 @@ import { spawn } from "../../src/lsp/launch"
 import { tmpdir } from "../fixture/fixture"
 
 describe("lsp.launch", () => {
-  // kilocode_change start
   test("does not expose backend credentials or config", async () => {
     const keys = [
-      "KILO_SERVER_PASSWORD",
-      "KILO_SERVER_USERNAME",
-      "KILO_CONFIG",
-      "KILO_CONFIG_CONTENT",
-      "KILO_CONFIG_DIR",
+      "HARNESS_SERVER_PASSWORD",
+      "HARNESS_SERVER_USERNAME",
+      "HARNESS_CONFIG",
+      "HARNESS_CONFIG_CONTENT",
+      "HARNESS_CONFIG_DIR",
     ] as const
     const saved = Object.fromEntries(keys.map((key) => [key, process.env[key]]))
     for (const key of keys) process.env[key] = "secret"
@@ -34,7 +33,6 @@ describe("lsp.launch", () => {
       }
     }
   })
-  // kilocode_change end
 
   test("spawns cmd scripts with spaces on Windows", async () => {
     if (process.platform !== "win32") return

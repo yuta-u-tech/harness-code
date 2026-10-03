@@ -16,9 +16,9 @@ import { Location } from "../location"
 import { lazy } from "../util/lazy"
 import { Ignore } from "./ignore"
 import { Protected } from "./protected"
-import { allowed } from "../kilocode/fff" // kilocode_change
+import { allowed } from "../harness/fff"
 
-declare const KILO_LIBC: string | undefined
+declare const HARNESS_LIBC: string | undefined
 
 const SUBSCRIBE_TIMEOUT_MS = 10_000
 
@@ -26,7 +26,7 @@ export const Event = FileSystemWatcher.Event
 
 const watcher = lazy((): typeof import("@parcel/watcher") | undefined => {
   try {
-    const libc = typeof KILO_LIBC === "undefined" ? undefined : KILO_LIBC
+    const libc = typeof HARNESS_LIBC === "undefined" ? undefined : HARNESS_LIBC
     const binding = require(
       `@parcel/watcher-${process.platform}-${process.arch}${process.platform === "linux" ? `-${libc || "glibc"}` : ""}`,
     )
@@ -58,7 +58,7 @@ export class Service extends Context.Service<Service, Interface>()("@opencode/v2
 const layer = Layer.effect(
   Service,
   Effect.gen(function* () {
-    if (yield* Flag.KILO_EXPERIMENTAL_DISABLE_FILEWATCHER) return Service.of({})
+    if (yield* Flag.HARNESS_EXPERIMENTAL_DISABLE_FILEWATCHER) return Service.of({})
 
     const backend = getBackend()
     const location = yield* Location.Service
@@ -107,13 +107,11 @@ const layer = Layer.effect(
     const config = (yield* (yield* Config.Service).entries())
       .filter((entry): entry is Config.Document => entry.type === "document")
       .flatMap((item) => item.info.watcher?.ignore ?? [])
-    // kilocode_change start
-    if (location.vcs && (yield* Flag.KILO_EXPERIMENTAL_FILEWATCHER) && allowed(location.directory)) {
+    if (location.vcs && (yield* Flag.HARNESS_EXPERIMENTAL_FILEWATCHER) && allowed(location.directory)) {
       yield* Effect.forkScoped(
         subscribe(location.directory, [...Ignore.PATTERNS, ...config, ...protecteds(location.directory)]),
       )
     }
-    // kilocode_change end
 
     if (location.vcs?.type === "git") {
       const resolved = (yield* git.repo.discover(location.directory))?.gitDirectory

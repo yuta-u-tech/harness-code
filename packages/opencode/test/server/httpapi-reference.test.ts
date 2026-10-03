@@ -30,7 +30,7 @@ describe("reference HttpApi", () => {
       pollWithTimeout(
         Effect.promise(async () => {
           const response = await Server.Default().app.request("/api/reference", {
-            headers: { "x-kilo-directory": tmp.path },
+            headers: { "x-harness-directory": tmp.path },
           })
           expect(response.status).toBe(200)
           const body = await response.json()
@@ -61,7 +61,6 @@ describe("reference HttpApi", () => {
     ])
   })
 
-  // kilocode_change start - reference reads must reconcile config changes after instance disposal.
   test("refreshes references after project config updates", async () => {
     await using tmp = await tmpdir({
       config: {
@@ -70,7 +69,7 @@ describe("reference HttpApi", () => {
         references: { docs: "./docs" },
       },
     })
-    const headers = { "content-type": "application/json", "x-kilo-directory": tmp.path }
+    const headers = { "content-type": "application/json", "x-harness-directory": tmp.path }
 
     const initial = await Server.Default().app.request("/api/reference", { headers })
     expect(initial.status).toBe(200)
@@ -95,12 +94,10 @@ describe("reference HttpApi", () => {
       description: "Updated documentation",
     })
   })
-  // kilocode_change end
 
-  // kilocode_change start - direct clients must observe effective Kilo config before Agent initialization.
-  test("lists KILO_CONFIG_CONTENT references with metadata on the first request", async () => {
-    const previous = process.env.KILO_CONFIG_CONTENT
-    process.env.KILO_CONFIG_CONTENT = JSON.stringify({
+  test("lists HARNESS_CONFIG_CONTENT references with metadata on the first request", async () => {
+    const previous = process.env.HARNESS_CONFIG_CONTENT
+    process.env.HARNESS_CONFIG_CONTENT = JSON.stringify({
       references: {
         private: {
           path: "./private-docs",
@@ -113,7 +110,7 @@ describe("reference HttpApi", () => {
     try {
       await using tmp = await tmpdir({ config: { formatter: false, lsp: false } })
       const response = await Server.Default().app.request("/api/reference", {
-        headers: { "x-kilo-directory": tmp.path },
+        headers: { "x-harness-directory": tmp.path },
       })
 
       expect(response.status).toBe(200)
@@ -133,9 +130,8 @@ describe("reference HttpApi", () => {
         },
       ])
     } finally {
-      if (previous === undefined) delete process.env.KILO_CONFIG_CONTENT
-      else process.env.KILO_CONFIG_CONTENT = previous
+      if (previous === undefined) delete process.env.HARNESS_CONFIG_CONTENT
+      else process.env.HARNESS_CONFIG_CONTENT = previous
     }
   })
-  // kilocode_change end
 })

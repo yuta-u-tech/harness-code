@@ -1,0 +1,133 @@
+import { describe, expect, it } from "bun:test"
+
+import {
+  canChangeProviderKey,
+  disabledProviderOptions,
+  providersWithHarnessFallback,
+  visibleConnectedIds,
+} from "../../webview-ui/src/components/settings/provider-visibility"
+
+describe("canChangeProviderKey", () => {
+  const item = { id: "vercel", name: "Vercel", models: {}, source: "config" as const }
+
+  it("offers replacement for configured and stored built-in API keys", () => {
+    expect(canChangeProviderKey(item, undefined, undefined)).toBe(true)
+    expect(canChangeProviderKey({ ...item, source: "api" }, undefined, [{ type: "api", label: "API key" }])).toBe(true)
+  })
+
+  it("excludes environment, OAuth and unknown sources", () => {
+    for (const source of ["env", "custom", undefined] as const) {
+      expect(canChangeProviderKey({ ...item, source }, undefined, undefined)).toBe(false)
+    }
+  })
+
+  it("excludes custom providers and special credential flows", () => {
+    expect(canChangeProviderKey(item, { npm: "@ai-sdk/openai-compatible" }, undefined)).toBe(false)
+    for (const id of [
+      "harness",
+      "anaconda-desktop",
+      "atomic-chat",
+      "lmstudio",
+      "ollama",
+      "amazon-bedrock",
+      "google-vertex",
+      "google-vertex-anthropic",
+    ]) {
+      expect(canChangeProviderKey({ ...item, id }, undefined, undefined)).toBe(false)
+    }
+  })
+
+  it("excludes config keys that override a replacement stored key", () => {
+    expect(canChangeProviderKey(item, { options: { apiKey: "configured" } }, undefined)).toBe(false)
+    expect(canChangeProviderKey(item, { api_key: "configured" }, undefined)).toBe(false)
+    expect(canChangeProviderKey(item, { models: {} }, undefined)).toBe(true)
+  })
+
+  it("excludes dialogs that select OAuth or require extra credentials", () => {
+    expect(canChangeProviderKey(item, undefined, [])).toBe(false)
+    expect(canChangeProviderKey(item, undefined, [{ type: "oauth", label: "Sign in" }])).toBe(false)
+    expect(
+      canChangeProviderKey(item, undefined, [
+        { type: "api", label: "API key" },
+        { type: "oauth", label: "Sign in" },
+      ]),
+    ).toBe(false)
+    expect(
+      canChangeProviderKey(item, undefined, [
+        { type: "api", label: "Credentials", prompts: [{ type: "text", key: "project", message: "Project" }] },
+      ]),
+    ).toBe(false)
+  })
+})
+
+describe("visibleConnectedIds", () => {
+  it("hides Harness from the connected list when auth is missing", () => {
+    const ids = visibleConnectedIds(["harness", "openrouter"], { openrouter: "api" })
+
+    expect(ids).toEqual(["openrouter"])
+  })
+
+  it("keeps Harness in the connected list when auth exists", () => {
+    const ids = visibleConnectedIds(["harness", "openrouter"], { harness: "oauth", openrouter: "api" })
+
+    expect(ids).toEqual(["harness", "openrouter"])
+  })
+
+  it("leaves non-Harness providers untouched", () => {
+    const ids = visibleConnectedIds(["anthropic"], {})
+
+    expect(ids).toEqual(["anthropic"])
+  })
+})
+
+describe("disabledProviderOptions", () => {
+  it("includes Harness and excludes already disabled providers", () => {
+    const options = disabledProviderOptions(
+      {
+        harness: { id: "harness", name: "Harness Gateway", env: [], models: {} },
+        openai: { id: "openai", name: "OpenAI", env: [], models: {} },
+        anthropic: { id: "anthropic", name: "Anthropic", env: [], models: {} },
+      },
+      ["openai"],
+    )
+
+    expect(options).toEqual([
+      { value: "anthropic", label: "Anthropic" },
+      { value: "harness", label: "Harness Gateway" },
+    ])
+  })
+
+  it("sorts options by provider name", () => {
+    const options = disabledProviderOptions(
+      {
+        zed: { id: "zed", name: "Zed", env: [], models: {} },
+        alpha: { id: "alpha", name: "Alpha", env: [], models: {} },
+      },
+      [],
+    )
+
+    expect(options).toEqual([
+      { value: "alpha", label: "Alpha" },
+      { value: "zed", label: "Zed" },
+    ])
+  })
+})
+
+describe("providersWithHarnessFallback", () => {
+  it("adds Harness when backend providers omit it", () => {
+    const providers = providersWithHarnessFallback({
+      anthropic: { id: "anthropic", name: "Anthropic", env: [], models: {} },
+    })
+
+    expect(providers.harness?.name).toBe("Harness Gateway")
+    expect(providers.anthropic?.name).toBe("Anthropic")
+  })
+
+  it("keeps the backend Harness provider when present", () => {
+    const providers = providersWithHarnessFallback({
+      harness: { id: "harness", name: "Custom Harness Name", env: [], models: {} },
+    })
+
+    expect(providers.harness?.name).toBe("Custom Harness Name")
+  })
+})

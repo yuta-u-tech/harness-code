@@ -3,8 +3,8 @@ import { chmod } from "node:fs/promises"
 import path from "node:path"
 import { pathToFileURL } from "node:url"
 import { tmpdir } from "../fixture/fixture"
-import type { Hooks } from "@kilocode/plugin"
-import type { Auth, Provider } from "@kilocode/sdk/v2"
+import type { Hooks } from "@harness/plugin"
+import type { Auth, Provider } from "@harness/sdk/v2"
 import { OAUTH_DUMMY_KEY } from "../../src/auth"
 import { AzureAuthPlugin, createAzureAuthHooks } from "../../src/plugin/azure"
 import { Process } from "../../src/util/process"
@@ -133,7 +133,7 @@ describe("plugin.azure", () => {
         assert.deepEqual(hooks.auth.methods.map((method) => method.type), ${JSON.stringify(installed ? ["api", "oauth"] : ["api"])})
         if (${installed}) {
           const method = hooks.auth.methods.find((method) => method.type === "oauth")
-          assert.equal(method.prompts.find((prompt) => prompt.key === "resourceName").type, "text") // kilocode_change - Kilo prepends an endpointType select prompt
+          assert.equal(method.prompts.find((prompt) => prompt.key === "resourceName").type, "text")
           const authorization = await method.authorize({ resourceName: "test-resource" })
           const auth = await authorization.callback()
           assert.equal(auth.type, "success")
@@ -163,7 +163,6 @@ describe("plugin.azure", () => {
     const hooks = await AzureAuthPlugin()
 
     expect(await cli.calls()).toEqual([])
-    // kilocode_change - Kilo prepends an endpointType select prompt before the resource name prompt
     expect(oauthMethod(hooks).prompts?.[0].type).toBe("select")
   })
 
@@ -176,7 +175,6 @@ describe("plugin.azure", () => {
       ["api", "API key"],
       ["oauth", "Microsoft Entra ID (Azure CLI)"],
     ])
-    // kilocode_change start - Kilo prepends an endpointType select and gates the resource name/base URL prompts
     expect(hooks.auth?.methods[0]).toEqual({
       type: "api",
       label: "API key",
@@ -214,7 +212,6 @@ describe("plugin.azure", () => {
         },
       ],
     })
-    // kilocode_change end
     expect(hooks.auth?.methods[1].prompts).toEqual(hooks.auth?.methods[0].prompts)
   })
 
@@ -303,6 +300,6 @@ describe("plugin.azure", () => {
     expect(requests[0].get("api-key")).toBeNull()
     expect(requests[0].get("x-keep")).toBe("yes")
     expect(requests[2].get("x-api-key")).toBeNull()
-    expect(requests.every((headers) => headers.get("user-agent")?.startsWith("kilocode/"))).toBe(true) // kilocode_change - Kilo sets a kilocode User-Agent
+    expect(requests.every((headers) => headers.get("user-agent")?.startsWith("harness/"))).toBe(true)
   })
 })

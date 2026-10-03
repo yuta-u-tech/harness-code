@@ -177,7 +177,6 @@ describe("markdown stream", () => {
     ])
   })
 
-  // kilocode_change start
   test("keeps the streamed block layout when the stream ends", () => {
     const live = project(undefined, "one\n\ntwo\n\nthree", true)
     const done = project(live, live.text, false)
@@ -210,7 +209,6 @@ describe("markdown stream", () => {
     expect(done.blocks.map((block) => block.mode)).toEqual(["full", "full", "full"])
     expect(done.blocks.at(-1)).toEqual({ raw: "three", src: "three", mode: "full" })
   })
-  // kilocode_change end
 
   test("closes tilde fences split across provider deltas", () => {
     const open = project(undefined, "~~~ts\nconst x = 1\n", true)

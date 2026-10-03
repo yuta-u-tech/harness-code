@@ -10,8 +10,8 @@ An open source AI coding agent for VS Code that works through a **harness**: a f
 
 | Path | What it is |
 |---|---|
-| `packages/kilo-vscode/` | The VS Code extension, including the Harness settings tab |
-| `packages/opencode/` | The backend: agents, sessions, providers and the harness engine (`src/kilocode/harness/`) |
+| `packages/harness-vscode/` | The VS Code extension, including the Harness settings tab |
+| `packages/opencode/` | The backend: agents, sessions, providers and the harness engine (`src/harness/run/`) |
 | `packages/core/` | Shared schemas, including the `harness` config (`src/v1/config/harness.ts`) |
 
 ## Develop

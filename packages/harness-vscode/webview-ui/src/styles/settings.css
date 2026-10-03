@@ -1,0 +1,533 @@
+.settings-display {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+@container (min-width: 1050px) {
+  .settings-display {
+    grid-template-columns: minmax(320px, 1fr) minmax(360px, 1fr);
+  }
+
+  .settings-session-preview {
+    position: sticky;
+    top: 0;
+  }
+}
+
+.settings-display-controls {
+  min-width: 0;
+}
+
+.settings-display-presets {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-block: 16px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border-weak-base);
+}
+
+.settings-display-presets-title {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+.settings-display-presets-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.settings-display-presets-description {
+  font-size: var(--font-size-small);
+  color: var(--text-weak-base);
+}
+
+.settings-session-preview {
+  min-width: 0;
+  border: 1px solid var(--border-weak-base);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--background-base);
+}
+
+.settings-session-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-weak-base);
+}
+
+.settings-session-preview-title {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  margin: 0;
+}
+
+.settings-session-preview-body {
+  padding: 16px;
+  height: min(640px, 65vh);
+  overflow: auto;
+  overflow-wrap: anywhere;
+}
+
+/* Matches .message-list-content; the rows bring their own turn spacing. */
+.settings-session-preview-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Settings save bar */
+.settings-save-bar-wrap {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border-weak-base);
+}
+
+.settings-save-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 8px 16px;
+}
+
+.settings-save-bar-label {
+  font-size: var(--font-size-small);
+  color: var(--foreground-secondary);
+  margin-right: auto;
+}
+
+/* Save error — mirrors the startup-error-banner style */
+.settings-save-bar-error {
+  border: 1px solid var(--vscode-inputValidation-errorBorder, #f14c4c);
+  border-radius: 4px;
+  background: var(--vscode-inputValidation-errorBackground, rgba(241, 76, 76, 0.1));
+  margin: 8px 16px 0 16px;
+  font-size: var(--font-size-small);
+}
+
+.settings-save-bar-error-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  cursor: pointer;
+  user-select: none;
+  min-width: 0;
+}
+
+.settings-save-bar-error-title {
+  flex: 1;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.settings-save-bar-error-firstline {
+  font-weight: 400;
+}
+
+.settings-save-bar-error-chevron {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform 150ms;
+}
+
+.settings-save-bar-error-chevron-expanded {
+  transform: rotate(90deg);
+}
+
+.settings-save-bar-error-details {
+  margin: 0;
+  padding: 8px 10px;
+  border-top: 1px solid var(--vscode-inputValidation-errorBorder, #f14c4c);
+  background: var(--vscode-editor-background);
+  font-family: var(--vscode-editor-font-family, monospace);
+  font-size: var(--font-size-small);
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+[data-slot="settings-row"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+
+  [data-slot="settings-row-label"] {
+    flex: 1 1 0%;
+    min-width: 150px;
+
+    [data-slot="settings-row-label-title"] {
+      font-size: var(--font-size-base);
+      font-weight: 500;
+      min-height: var(--harness-font-size-16);
+      margin-bottom: 4px;
+    }
+
+    [data-slot="settings-row-label-subtitle"] {
+      font-size: var(--font-size-small);
+      min-height: var(--harness-font-size-14);
+      color: var(--text-weak-base, var(--vscode-descriptionForeground));
+    }
+  }
+
+  [data-slot="settings-row-input"] {
+    flex: 0 0 auto;
+    max-width: 160px;
+
+    & > * {
+      max-width: 100%;
+    }
+
+    [data-slot="popover-trigger"] {
+      min-width: 0;
+      max-width: 100%;
+    }
+  }
+}
+
+.settings-branch-trigger {
+  max-width: 160px;
+}
+
+.settings-branch-trigger-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Wider inputs inside cards with data-variant="wide-input" (e.g. edit mode config) */
+[data-variant="wide-input"] [data-slot="settings-row-input"] {
+  flex: 1 1 0%;
+  max-width: none;
+}
+
+.settings-font-size-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 160px;
+
+  input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  span {
+    min-width: 34px;
+    color: var(--text-weak-base, var(--vscode-descriptionForeground));
+    font-size: var(--font-size-small);
+    text-align: right;
+  }
+}
+
+/* Skill Folder Paths / Skill URLs row: tooltip trigger that grows in the
+   flex row and lets the inner span truncate. Applied via Tooltip class. */
+.settings-skills-row-trigger {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Wrap long skill paths/URLs within the shared 320px tooltip width. */
+.settings-skills-tooltip-content {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Harness tab: step list on the left, the selected step's editor on the right. */
+.harness-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.harness-intro {
+  margin: 0;
+  color: var(--text-weak-base, var(--vscode-descriptionForeground));
+  font-size: var(--font-size-small);
+}
+
+.harness-summary {
+  font-size: var(--font-size-small);
+  color: var(--text-weak-base, var(--vscode-descriptionForeground));
+  font-variant-numeric: tabular-nums;
+}
+
+.harness-issues {
+  padding: 8px 12px;
+  border: 1px solid var(--vscode-inputValidation-warningBorder, var(--border-base));
+  border-radius: 6px;
+  font-size: var(--font-size-small);
+
+  ul {
+    margin: 4px 0 0;
+    padding-left: 18px;
+  }
+}
+
+.harness-cols {
+  display: grid;
+  grid-template-columns: minmax(180px, 260px) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  .harness-cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.harness-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.harness-step-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.harness-step {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+}
+
+.harness-step[data-selected="true"] {
+  border-color: var(--vscode-focusBorder, var(--border-base));
+  background: var(--vscode-list-inactiveSelectionBackground, var(--bg-subtle-base));
+}
+
+.harness-step:not([data-selected="true"]):hover {
+  background: var(--vscode-list-hoverBackground, var(--bg-subtle-base));
+}
+
+.harness-step-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  text-align: left;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.harness-step-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.harness-step-name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.harness-step-sub {
+  font-family: var(--vscode-editor-font-family);
+  font-size: var(--font-size-small);
+  color: var(--text-weak-base, var(--vscode-descriptionForeground));
+  overflow-wrap: anywhere;
+}
+
+.harness-step-actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.harness-flip {
+  display: inline-flex;
+  transform: rotate(180deg);
+}
+
+.harness-add {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.harness-add-label {
+  font-size: var(--font-size-small);
+  color: var(--text-weak-base, var(--vscode-descriptionForeground));
+}
+
+.harness-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.harness-label {
+  margin-bottom: 8px;
+}
+
+.harness-hint {
+  margin-top: 6px;
+  font-size: var(--font-size-small);
+  color: var(--text-weak-base, var(--vscode-descriptionForeground));
+}
+
+.harness-check {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--border-base, var(--vscode-panel-border));
+  border-radius: 6px;
+}
+
+.harness-check-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.harness-check-head > :first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.harness-rubric,
+.harness-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.harness-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid var(--border-weak-base);
+  border-radius: 6px;
+}
+
+.harness-item-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.harness-item-row > :first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.settings-section {
+  margin-top: 24px;
+}
+
+.settings-section h4 {
+  margin: 0 0 8px;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+.harness-run {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.harness-run-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.harness-run-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.harness-run-error {
+  margin-top: 8px;
+  color: var(--vscode-errorForeground);
+  font-size: var(--font-size-small);
+  overflow-wrap: anywhere;
+}
+
+.harness-run-log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.harness-run-log summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.harness-run-step {
+  font-weight: 600;
+}
+
+.harness-run-log pre,
+.harness-review pre {
+  margin: 6px 0 0;
+  padding: 8px;
+  max-height: 260px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: var(--vscode-editor-font-family);
+  font-size: var(--font-size-small);
+  background: var(--vscode-textCodeBlock-background, var(--bg-subtle-base));
+  border-radius: 6px;
+}
+
+.harness-review {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--vscode-focusBorder, var(--border-base));
+  border-radius: 6px;
+}
+
+.harness-run-checklist {
+  margin: 0;
+  padding-left: 18px;
+}

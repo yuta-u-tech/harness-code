@@ -1,0 +1,394 @@
+/**
+ * Architecture test: package.json ↔ source command sync
+ *
+ * Every command declared in package.json contributes.commands must have a
+ * matching registerCommand() call somewhere in src/. A declaration without
+ * an implementation causes a silent "command not found" error at runtime
+ * that is hard to diagnose — VS Code shows no warning at activation time.
+ */
+
+import { describe, it, expect } from "bun:test"
+import fs from "node:fs"
+import path from "node:path"
+
+const ROOT = path.resolve(import.meta.dir, "../..")
+const PKG_JSON_FILE = path.join(ROOT, "package.json")
+const SRC_DIR = path.join(ROOT, "src")
+const EXTENSION_FILE = path.join(ROOT, "src/extension.ts")
+const HARNESS_PROVIDER_FILE = path.join(ROOT, "src/HarnessProvider.ts")
+const SETTINGS_PROVIDER_FILE = path.join(ROOT, "src/SettingsEditorProvider.ts")
+const VSCODE_HOST_FILE = path.join(ROOT, "src/agent-manager/vscode-host.ts")
+
+function sliceBlock(source: string, start: number): string {
+  const open = source.indexOf("{", start)
+  expect(open, "block opening brace must exist").toBeGreaterThan(-1)
+
+  const state = { depth: 0, end: -1 }
+  Array.from(source.slice(open)).some((ch, i) => {
+    if (ch === "{") state.depth++
+    if (ch === "}") state.depth--
+    if (state.depth !== 0) return false
+    state.end = open + i
+    return true
+  })
+
+  if (state.end > -1) return source.slice(start, state.end + 1)
+
+  throw new Error("block closing brace not found")
+}
+
+function readSrcFiles(dir: string): string {
+  const parts: string[] = []
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name)
+    if (entry.isDirectory()) {
+      parts.push(readSrcFiles(full))
+    } else if (entry.name.endsWith(".ts") && !entry.name.endsWith(".test.ts") && !entry.name.endsWith(".spec.ts")) {
+      parts.push(fs.readFileSync(full, "utf-8"))
+    }
+  }
+  return parts.join("\n")
+}
+
+describe("Extension — package.json command sync", () => {
+  const pkg = JSON.parse(fs.readFileSync(PKG_JSON_FILE, "utf-8"))
+  const declared: string[] = pkg.contributes?.commands?.map((c: { command: string }) => c.command) ?? []
+  const source = readSrcFiles(SRC_DIR)
+
+  // Extract command IDs that appear in registerCommand() calls specifically.
+  // This avoids false positives from executeCommand() or other string references.
+  const registered = new Set([...source.matchAll(/registerCommand\s*\(\s*["']([^"']+)["']/g)].map((m) => m[1]))
+
+  /**
+   * Every command declared in package.json must be registered via registerCommand()
+   * somewhere in src/. A bare string match would accept executeCommand() references,
+   * which don't actually register a handler.
+   *
+   * Commands registered via template literals (e.g. jumpTo${i}) are detected by
+   * checking the dynamic registerCommand pattern in source instead.
+   */
+  it("every contributes.commands entry has a registerCommand() call", () => {
+    // Commands generated via template literals can't be extracted by regex,
+    // so verify the dynamic registration pattern exists in source instead.
+    const dynamic: Record<string, string> = {
+      "harness-code.agentManager.jumpTo": "registerCommand(`harness-code.agentManager.jumpTo${",
+    }
+
+    const missing: string[] = []
+    for (const cmd of declared) {
+      const entry = Object.entries(dynamic).find(([prefix]) => cmd.startsWith(prefix))
+      if (entry) {
+        const [, pattern] = entry
+        if (!source.includes(pattern)) missing.push(`${cmd} (dynamic pattern not found)`)
+        continue
+      }
+      if (!registered.has(cmd)) missing.push(cmd)
+    }
+
+    expect(
+      missing,
+      `Commands declared in package.json but not registered via registerCommand().\n` +
+        `Add registerCommand("...", ...) or remove the declaration:\n` +
+        missing.map((m) => `  - ${m}`).join("\n"),
+    ).toEqual([])
+  })
+
+  /**
+   * All declared commands must use the harness-code. prefix.
+   * The legacy harness-code.* namespace (without .new.) belongs to the old
+   * extension and must not be reintroduced.
+   */
+  it("all declared commands use the harness-code. prefix", () => {
+    const bad = declared.filter((cmd) => !cmd.startsWith("harness-code."))
+    expect(
+      bad,
+      `Commands without "harness-code." prefix — use the namespaced form:\n` + bad.map((b) => `  - ${b}`).join("\n"),
+    ).toEqual([])
+  })
+
+  it("scopes Agent Manager search to the panel and leaves the integrated terminal alone", () => {
+    const binding = pkg.contributes?.keybindings?.find(
+      (item: { command: string }) => item.command === "harness-code.agentManager.search",
+    )
+    expect(binding).toMatchObject({
+      key: "ctrl+f",
+      mac: "cmd+f",
+      when: "activeWebviewPanelId == 'harness-code.AgentManagerPanel' && !terminalFocus",
+    })
+  })
+
+  it("keeps Agent Manager session and terminal shortcuts focus-aware", () => {
+    const terminal = pkg.contributes?.keybindings?.find(
+      (item: { command: string }) => item.command === "harness-code.agentManager.showTerminal",
+    )
+    const create = pkg.contributes?.keybindings?.find(
+      (item: { command: string }) => item.command === "harness-code.agentManager.newTerminalTab",
+    )
+    const sessionCreate = pkg.contributes?.keybindings?.find(
+      (item: { command: string }) => item.command === "harness-code.agentManager.newTab",
+    )
+    expect(terminal).toMatchObject({
+      key: "ctrl+/",
+      mac: "cmd+/",
+      when: "activeWebviewPanelId == 'harness-code.AgentManagerPanel' && !harness-code.sidebarFocused",
+    })
+    expect(create).toMatchObject({
+      key: "ctrl+shift+t",
+      mac: "cmd+shift+t",
+      when: "activeWebviewPanelId == 'harness-code.AgentManagerPanel' && !harness-code.agentManagerSideTerminalFocused",
+    })
+    expect(sessionCreate).toMatchObject({
+      key: "ctrl+t",
+      mac: "cmd+t",
+      when: "activeWebviewPanelId == 'harness-code.AgentManagerPanel' && !harness-code.agentManagerSideTerminalFocused",
+    })
+    const terminalCreate = pkg.contributes?.keybindings?.find(
+      (item: { command: string; key?: string; mac?: string; when?: string }) =>
+        item.command === "harness-code.agentManager.newSideTerminal" && item.key === "ctrl+t",
+    )
+    expect(terminalCreate).toMatchObject({
+      key: "ctrl+t",
+      mac: "cmd+t",
+      when: "activeWebviewPanelId == 'harness-code.AgentManagerPanel' && harness-code.agentManagerSideTerminalFocused",
+    })
+    expect(
+      pkg.contributes?.keybindings?.some(
+        (item: { command: string }) =>
+          item.command === "harness-code.agentManager.newTerminal" ||
+          item.command === "harness-code.agentManager.newMainTerminal",
+      ),
+    ).toBe(false)
+  })
+
+  it("declares the Agent Manager terminal destination setting", () => {
+    const setting = pkg.contributes?.configuration?.properties?.["harness-code.agentManager.terminalButtonDestination"]
+    expect(setting).toMatchObject({
+      type: "string",
+      scope: "application",
+      default: "agentManager",
+      enum: ["vscode", "agentManager"],
+    })
+    expect(setting.enumDescriptions).toHaveLength(setting.enum.length)
+  })
+
+  it("scopes the open PR shortcut to Agent Manager", () => {
+    const binding = pkg.contributes?.keybindings?.find(
+      (item: { command: string }) => item.command === "harness-code.agentManager.openPR",
+    )
+    expect(binding).toMatchObject({
+      key: "ctrl+shift+r",
+      mac: "cmd+shift+r",
+      when: "activeWebviewPanelId == 'harness-code.AgentManagerPanel'",
+    })
+  })
+
+  it("scopes agent mode shortcuts to focused Harness webviews", () => {
+    const bindings = pkg.contributes?.keybindings?.filter(
+      (item: { command: string }) =>
+        item.command === "harness-code.cycleAgentMode" || item.command === "harness-code.cyclePreviousAgentMode",
+    )
+    const when =
+      "harness-code.sidebarFocused || activeWebviewPanelId == 'harness-code.AgentManagerPanel' || activeWebviewPanelId == 'harness-code.TabPanel'"
+
+    expect(bindings).toHaveLength(2)
+    expect(bindings).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ command: "harness-code.cycleAgentMode", when }),
+        expect.objectContaining({ command: "harness-code.cyclePreviousAgentMode", when }),
+      ]),
+    )
+  })
+
+  it("routes task-close commands to the focused Harness surface", () => {
+    const commands = pkg.contributes?.commands ?? []
+    expect(commands).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ command: "harness-code.closeTask", title: "Close Task", category: "Harness Code" }),
+        expect.objectContaining({
+          command: "harness-code.closeAllTasks",
+          title: "Close All Tasks",
+          category: "Harness Code",
+        }),
+      ]),
+    )
+
+    const source = fs.readFileSync(EXTENSION_FILE, "utf-8")
+    const closeTask = sliceBlock(source, source.indexOf('vscode.commands.registerCommand("harness-code.closeTask"'))
+    const closeAll = sliceBlock(source, source.indexOf('vscode.commands.registerCommand("harness-code.closeAllTasks"'))
+    expect(closeTask).toContain('taskTarget().postMessage({ type: "action", action: "closeTask" })')
+    expect(closeAll).toContain('taskTarget().postMessage({ type: "action", action: "closeAllTasks" })')
+
+    // A panel can stay "active" while the user is in the sidebar, and on Agent
+    // Manager these commands stop sessions, so the remembered surface decides.
+    // It must be the tracked one, never focus sampled when the command runs:
+    // the Command Palette blurs the webview before it executes.
+    const target = sliceBlock(source, source.indexOf("const taskTarget = () =>"))
+    expect(target).toContain("focused: focus.current()")
+    expect(target).toContain("agentManager: agentManagerProvider.isActive() ? agentManagerProvider : undefined")
+
+    // Every surface has to report focus, or the remembered one goes stale and
+    // commands keep targeting a surface the user has already left.
+    for (const surface of ["sidebar", "tab", "agentManager"]) {
+      expect(source, `${surface} should report focus gains`).toContain(`focus.gained("${surface}")`)
+      expect(source, `${surface} should be forgotten when it goes away`).toContain(`focus.lost("${surface}")`)
+    }
+  })
+})
+
+// ---------------------------------------------------------------------------
+// HarnessProvider handler wiring — every new HarnessProvider() must get
+// setContinueInWorktreeHandler() called before resolving its webview.
+//
+// Regression: tab panels created via openHarnessInNewTab() and the TabPanel
+// deserializer were missing the handler, causing "Capturing changes..." to
+// spin forever because the webview message was silently dropped.
+// ---------------------------------------------------------------------------
+
+describe("Extension — HarnessProvider handler wiring", () => {
+  const ext = fs.readFileSync(EXTENSION_FILE, "utf-8")
+
+  /**
+   * Every `new HarnessProvider(` in extension.ts must be followed (before the
+   * next `new HarnessProvider(`) by a `setContinueInWorktreeHandler` call.
+   * This prevents future tab/panel additions from silently missing the handler.
+   */
+  it("every HarnessProvider instance gets setContinueInWorktreeHandler wired", () => {
+    const pattern = /new HarnessProvider\(/g
+    const instances: number[] = []
+    let match
+    while ((match = pattern.exec(ext)) !== null) {
+      instances.push(match.index)
+    }
+
+    expect(instances.length, "expected sidebar and shared tab HarnessProvider constructors").toBeGreaterThanOrEqual(2)
+
+    const missing: string[] = []
+    for (let i = 0; i < instances.length; i++) {
+      const start = instances[i]
+      const end = instances[i + 1] ?? ext.length
+      const region = ext.slice(start, end)
+
+      if (!region.includes("setContinueInWorktreeHandler")) {
+        const line = ext.slice(0, start).split("\n").length
+        missing.push(`HarnessProvider at line ${line}`)
+      }
+    }
+
+    expect(
+      missing,
+      `These HarnessProvider instances are missing setContinueInWorktreeHandler.\n` +
+        `Without it, "Continue in Worktree" silently no-ops and the spinner\n` +
+        `stays stuck on "Capturing changes..." forever.\n\n` +
+        missing.map((m) => `  - ${m}`).join("\n"),
+    ).toEqual([])
+  })
+
+  it("shared tab setup wires services and handlers before resolveWebviewPanel", () => {
+    const start = ext.indexOf("const attach =")
+    expect(start, "shared tab setup must exist").toBeGreaterThan(-1)
+    const body = sliceBlock(ext, start)
+    const resolve = body.indexOf("resolveWebviewPanel")
+    expect(resolve, "resolveWebviewPanel must be called").toBeGreaterThan(-1)
+    for (const name of [
+      "setRemoteService",
+      "setAutoApproveController",
+      "setContinueInWorktreeHandler",
+      "setCreateWorktreeHandler",
+      "setDiffVirtualProvider",
+      "setDiffViewerProvider",
+      "setReviewCommentsHandler",
+    ]) {
+      const handler = body.indexOf(name)
+      expect(handler, `${name} must be called`).toBeGreaterThan(-1)
+      expect(handler, `${name} must be wired before resolving the panel`).toBeLessThan(resolve)
+    }
+    expect(body).toContain("tabPanels.set(panel, tabProvider)")
+    expect(body).toContain("return tabProvider")
+  })
+
+  it("new and restored tabs use shared setup and retain disposal", () => {
+    expect(ext).toContain("openHarnessInNewTab(context, tabPanels, attach)")
+    for (const name of ["function openHarnessInNewTab", '"harness-code.TabPanel"']) {
+      const start = ext.indexOf(name)
+      expect(start, `${name} must exist`).toBeGreaterThan(-1)
+      const body = sliceBlock(ext, start)
+      expect(body).toContain("const tabProvider = attach(panel)")
+      expect(body).toContain("panel.onDidDispose(")
+      expect(body).toContain("tabPanels.delete(panel)")
+      expect(body).toContain("tabProvider.dispose()")
+    }
+  })
+})
+
+describe("Extension — editor panel placement", () => {
+  const ext = fs.readFileSync(EXTENSION_FILE, "utf-8")
+  const settings = fs.readFileSync(SETTINGS_PROVIDER_FILE, "utf-8")
+
+  it("opens Harness as a tab in the active editor group", () => {
+    const fn = ext.indexOf("function openHarnessInNewTab")
+    expect(fn, "openHarnessInNewTab must exist").toBeGreaterThan(-1)
+    const body = sliceBlock(ext, fn)
+
+    expect(body).toContain("vscode.ViewColumn.Active")
+    expect(body).not.toContain("visibleTextEditors")
+    expect(body).not.toContain("workbench.action.newGroupRight")
+    expect(body).not.toContain("workbench.action.lockEditorGroup")
+  })
+
+  it("opens and reveals Settings in the active editor group", () => {
+    const fn = settings.indexOf("openPanel(view")
+    expect(fn, "SettingsEditorProvider.openPanel must exist").toBeGreaterThan(-1)
+    const body = sliceBlock(settings, fn)
+
+    expect(body).toContain("existing.reveal(vscode.ViewColumn.Active)")
+    expect(body.match(/vscode\.ViewColumn\.Active/g)).toHaveLength(2)
+    expect(body).not.toContain("vscode.ViewColumn.One")
+  })
+})
+
+// ---------------------------------------------------------------------------
+// HarnessProvider — continueInWorktree error fallback
+//
+// Regression: when continueInWorktreeHandler is null, the message handler
+// must send an error back to the webview so the spinner resets. Previously
+// it silently no-op'd, leaving the UI stuck.
+// ---------------------------------------------------------------------------
+
+describe("Extension — Agent Manager remote wiring", () => {
+  const ext = fs.readFileSync(EXTENSION_FILE, "utf-8")
+  const host = fs.readFileSync(VSCODE_HOST_FILE, "utf-8")
+
+  it("passes the shared remote service to Agent Manager", () => {
+    expect(ext).toContain("new VscodeHost(context.extensionUri, connectionService, context, remoteService, controls)")
+  })
+
+  it("wires the remote service before attaching the Agent Manager webview", () => {
+    const remote = host.indexOf("provider.setRemoteService(this.remoteService)")
+    const attach = host.indexOf("provider.attachToWebview")
+    expect(remote).toBeGreaterThan(-1)
+    expect(attach).toBeGreaterThan(-1)
+    expect(remote).toBeLessThan(attach)
+  })
+})
+
+describe("HarnessProvider — remote focus lifecycle", () => {
+  const provider = fs.readFileSync(HARNESS_PROVIDER_FILE, "utf-8")
+
+  it("registers newly created sessions and uses the synchronous session ID", () => {
+    const create = sliceBlock(provider, provider.indexOf("private async handleCreateSession"))
+    const resolve = sliceBlock(provider, provider.indexOf("private async resolveSession"))
+    expect(create).toContain("this.focusSession(session.id)")
+    expect(resolve).toContain("this.focusSession(session.id)")
+    expect(provider).toContain("this.focusSession(webviewView.visible ? this.contextSessionID : undefined)")
+  })
+})
+
+describe("HarnessProvider — continueInWorktree error fallback", () => {
+  const helper = fs.readFileSync(path.join(ROOT, "src/harness-provider/continue-worktree.ts"), "utf-8")
+
+  it("sends error progress when handler is missing", () => {
+    expect(helper, "must send error status back to webview").toContain('"error"')
+    expect(helper, "must use continueInWorktreeProgress message type").toContain("continueInWorktreeProgress")
+    expect(helper, "must handle missing handler case").toContain("no handler registered")
+  })
+})

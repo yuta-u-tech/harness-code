@@ -1,16 +1,16 @@
 import { MCP } from "@/mcp"
-import { RuntimeFlags } from "@/effect/runtime-flags" // kilocode_change
+import { RuntimeFlags } from "@/effect/runtime-flags"
 import { Effect, Schema } from "effect"
 import { HttpApiBuilder, HttpApiError } from "effect/unstable/httpapi"
 import { InstanceHttpApi } from "../api"
 import { McpServerNotFoundError } from "../errors"
 import { AddPayload, AuthCallbackPayload, StatusMap, UnsupportedOAuthError } from "../groups/mcp"
-import { McpApps } from "@/kilocode/mcp/apps" // kilocode_change
+import { McpApps } from "@/harness/mcp/apps"
 
 export const mcpHandlers = HttpApiBuilder.group(InstanceHttpApi, "mcp", (handlers) =>
   Effect.gen(function* () {
     const mcp = yield* MCP.Service
-    const flags = yield* RuntimeFlags.Service // kilocode_change
+    const flags = yield* RuntimeFlags.Service
 
     const status = Effect.fn("McpHttpApi.status")(function* () {
       return yield* mcp.status()
@@ -101,10 +101,8 @@ export const mcpHandlers = HttpApiBuilder.group(InstanceHttpApi, "mcp", (handler
       return true
     })
 
-    // kilocode_change start - MCP Apps experimental resource/tool endpoints; logic lives in @/kilocode/mcp/apps
     const readResource = McpApps.readResource(mcp, flags)
     const callTool = McpApps.callTool(mcp, flags)
-    // kilocode_change end
 
     return handlers
       .handle("status", status)
@@ -115,7 +113,7 @@ export const mcpHandlers = HttpApiBuilder.group(InstanceHttpApi, "mcp", (handler
       .handle("authRemove", authRemove)
       .handle("connect", connect)
       .handle("disconnect", disconnect)
-      .handle("readResource", readResource) // kilocode_change
-      .handle("callTool", callTool) // kilocode_change
+      .handle("readResource", readResource)
+      .handle("callTool", callTool)
   }),
 )

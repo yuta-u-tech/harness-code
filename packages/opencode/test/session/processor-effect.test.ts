@@ -17,8 +17,8 @@ import { SessionProcessor } from "../../src/session/processor"
 import { MessageID, PartID, SessionID } from "../../src/session/schema"
 import { SessionStatus } from "../../src/session/status"
 import { SessionSummary } from "../../src/session/summary"
-import { SessionNetwork } from "../../src/session/network" // kilocode_change
-import { Bus } from "../../src/bus" // kilocode_change
+import { SessionNetwork } from "../../src/session/network"
+import { Bus } from "../../src/bus"
 import { CrossSpawnSpawner } from "@opencode-ai/core/cross-spawn-spawner"
 import { provideTmpdirInstance, provideTmpdirServer } from "../fixture/fixture"
 import { testEffect } from "../lib/effect"
@@ -187,7 +187,6 @@ const env = LayerNode.compile(
 )
 
 const it = testEffect(env)
-// kilocode_change start - exercise non-default output token ceilings in the processor
 const capped = testEffect(
   LayerNode.compile(
     LayerNode.group([root, LayerNode.make({ service: TestLLMServer, layer: TestLLMServer.layer, deps: [] })]),
@@ -197,7 +196,6 @@ const capped = testEffect(
     ],
   ),
 )
-// kilocode_change end
 
 const providerErrorLLM = Layer.succeed(
   LLM.Service,
@@ -222,7 +220,6 @@ const providerErrorLLM = Layer.succeed(
 const providerErrorEnv = LayerNode.compile(root, [...replacements, [LLM.node, providerErrorLLM]])
 const itProviderError = testEffect(providerErrorEnv)
 
-// kilocode_change start
 const lateToolInputLLM = Layer.succeed(
   LLM.Service,
   LLM.Service.of({
@@ -248,7 +245,6 @@ const lateToolInputLLM = Layer.succeed(
 )
 const lateToolInputEnv = LayerNode.compile(root, [...replacements, [LLM.node, lateToolInputLLM]])
 const itLateToolInput = testEffect(lateToolInputEnv)
-// kilocode_change end
 
 const fragmentFailureLLM = Layer.succeed(
   LLM.Service,
@@ -459,7 +455,6 @@ it.live("session.processor effect tests stop after token overflow requests compa
   ),
 )
 
-// kilocode_change start - configured output ceiling must reach finish-step overflow accounting
 capped.live("session.processor respects the configured output token ceiling", () =>
   provideTmpdirServer(
     ({ dir, llm }) =>
@@ -499,7 +494,6 @@ capped.live("session.processor respects the configured output token ceiling", ()
     { git: true, config: (url) => providerCfg(url) },
   ),
 )
-// kilocode_change end
 
 it.live("session.processor effect tests capture reasoning from http mock", () =>
   provideTmpdirServer(
@@ -555,11 +549,9 @@ it.live("session.processor effect tests reset reasoning state across retries", (
     ({ dir, llm }) =>
       Effect.gen(function* () {
         const { processors, session, provider } = yield* boot()
-        // kilocode_change start — auto-reply to network reconnection prompts triggered by reset()
         const offAsk = Bus.subscribe(SessionNetwork.Event.Asked, (event) => {
           void SessionNetwork.reply({ requestID: event.properties.id })
         })
-        // kilocode_change end
 
         yield* llm.push(reply().reason("one").reset(), reply().reason("two").stop())
 
@@ -597,7 +589,7 @@ it.live("session.processor effect tests reset reasoning state across retries", (
         expect(yield* llm.calls).toBe(2)
         expect(reasoning.some((part) => part.text === "two")).toBe(true)
         expect(reasoning.some((part) => part.text === "onetwo")).toBe(false)
-        offAsk() // kilocode_change — cleanup subscriber
+        offAsk()
       }),
     { config: (url) => providerCfg(url) },
   ),
@@ -1204,9 +1196,8 @@ itProviderError.live("session.processor effect tests fail provider-executed erro
       }),
     { config: cfg },
   ),
-) // kilocode_change
+)
 
-// kilocode_change start
 itLateToolInput.live("session.processor effect tests ignore tool input after the call settles", () =>
   provideTmpdirInstance(
     (dir) =>
@@ -1261,7 +1252,6 @@ itLateToolInput.live("session.processor effect tests ignore tool input after the
     { config: cfg },
   ),
 )
-// kilocode_change end
 
 itFragmentFailure.live("session.processor effect tests retain partial legacy parts without v2 events", () =>
   provideTmpdirInstance(
@@ -1315,7 +1305,6 @@ itFragmentFailure.live("session.processor effect tests retain partial legacy par
     { config: cfg },
   ),
 )
-// kilocode_change start — send_file delivery attachments must skip image normalization.
 // An image near the 4 MiB tool cap base64-encodes to ~5.5 MiB, exceeding the 5 MiB
 // normalization limit. If normalized, the attachment would be omitted or rewritten
 // after send_file reports success. The processor must preserve send_file attachments
@@ -1407,4 +1396,3 @@ itSendFileDelivery.live("session.processor preserves send_file delivery attachme
     { config: (url: string) => providerCfg(url) },
   ),
 )
-// kilocode_change end

@@ -10,7 +10,7 @@ import { Hash } from "@opencode-ai/core/util/hash"
 import { Plugin } from "../plugin"
 import { serviceUse } from "@opencode-ai/core/effect/service-use"
 import { type LanguageModelV3 } from "@ai-sdk/provider"
-import * as ModelsDev from "./models" // kilocode_change - assemble dynamic Kilo models around upstream core catalog
+import * as ModelsDev from "./models"
 import { Auth } from "../auth"
 import { Env } from "../env"
 import { InstallationVersion } from "@opencode-ai/core/installation/version"
@@ -24,33 +24,31 @@ import { InstanceState } from "@/effect/instance-state"
 import { EffectPromise } from "@/effect/promise"
 import { FSUtil } from "@opencode-ai/core/fs-util"
 import { isRecord } from "@/util/record"
-import { optional, optionalOmitUndefined } from "@opencode-ai/core/schema" // kilocode_change
+import { optional, optionalOmitUndefined } from "@opencode-ai/core/schema"
 import { ProviderTransform } from "./transform"
 import { ProviderV2 } from "@opencode-ai/core/provider"
 import { ModelV2 } from "@opencode-ai/core/model"
 import { ModelStatus } from "./model-status"
 import { RuntimeFlags } from "@/effect/runtime-flags"
-// kilocode_change start
 import {
-  KILO_BUNDLED_PROVIDERS,
-  kiloCustomLoaders,
-  KILO_MODEL_SCHEMA_EXTENSIONS,
-  patchModelsDevModel as patchKiloModel,
-  patchConfigModel as patchKiloConfigModel,
+  HARNESS_BUNDLED_PROVIDERS,
+  harnessCustomLoaders,
+  HARNESS_MODEL_SCHEMA_EXTENSIONS,
+  patchModelsDevModel as patchHarnessModel,
+  patchConfigModel as patchHarnessConfigModel,
   customProviderVariants,
   patchCustomLoaderResult,
-  patchKiloProviderPrivacy,
-  patchKiloProviderAuth,
-  publicKiloProvider,
-  kiloSmallModelPriority,
-  hasKiloCredentials,
+  patchHarnessProviderPrivacy,
+  patchHarnessProviderAuth,
+  publicHarnessProvider,
+  harnessSmallModelPriority,
+  hasHarnessCredentials,
   buildTimeoutSignal,
   requestTimeout,
   wrapFirstByte,
-} from "@/kilocode/provider/provider"
-import * as ModelsRefresh from "@/kilocode/provider/models-refresh"
-import { bedrockAuth, providerKey, vertexAuth, vertexCredentials, vertexOptions } from "@/kilocode/provider/cloud-auth"
-// kilocode_change end
+} from "@/harness/provider/provider"
+import * as ModelsRefresh from "@/harness/provider/models-refresh"
+import { bedrockAuth, providerKey, vertexAuth, vertexCredentials, vertexOptions } from "@/harness/provider/cloud-auth"
 import { ProviderError } from "./error"
 
 const OPENAI_HEADER_TIMEOUT_DEFAULT = 300_000
@@ -67,7 +65,7 @@ function wrapSSE(res: Response, ms: number, ctl: AbortController) {
         const id = setTimeout(() => {
           const err = new ProviderError.ResponseStreamError("SSE read timed out")
           ctl.abort(err)
-          void reader.cancel(err).catch(() => undefined) // kilocode_change - handle Bun 1.4 cancellation rejection
+          void reader.cancel(err).catch(() => undefined)
           reject(err)
         }, ms)
 
@@ -158,7 +156,7 @@ const BUNDLED_PROVIDERS: Record<string, () => Promise<(opts: any) => BundledSDK>
   "@ai-sdk/github-copilot": () =>
     import("@opencode-ai/core/github-copilot/copilot-provider").then((m) => m.createOpenaiCompatible),
   "venice-ai-sdk-provider": () => import("venice-ai-sdk-provider").then((m) => m.createVenice),
-  ...KILO_BUNDLED_PROVIDERS, // kilocode_change
+  ...HARNESS_BUNDLED_PROVIDERS,
 }
 
 type CustomModelLoader = (sdk: any, modelID: string, options?: Record<string, any>, model?: Model) => Promise<any>
@@ -268,7 +266,6 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
     azure: Effect.fnUntraced(function* (provider: Info) {
       const env = yield* dep.env()
       const auth = yield* dep.auth(provider.id)
-      // kilocode_change start - prefer explicit Azure endpoint over resource name to avoid conflicting SDK options
       const endpoint = iife(() => {
         return [
           provider.options?.baseURL,
@@ -287,15 +284,13 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
               env["AZURE_OPENAI_RESOURCE_NAME"],
             ].find((name) => typeof name === "string" && name.trim() !== "")
           })
-      // kilocode_change end
 
       if (!resource && !endpoint) {
-        // kilocode_change
         return {
           autoload: false,
           async getModel() {
             throw new Error(
-              "Azure resource name or endpoint is missing. Set AZURE_RESOURCE_NAME, AZURE_OPENAI_RESOURCE_NAME, AZURE_OPENAI_ENDPOINT, or reconnect the azure provider.", // kilocode_change
+              "Azure resource name or endpoint is missing. Set AZURE_RESOURCE_NAME, AZURE_OPENAI_RESOURCE_NAME, AZURE_OPENAI_ENDPOINT, or reconnect the azure provider.",
             )
           },
         }
@@ -307,7 +302,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
           return selectAzureLanguageModel(sdk, modelID, Boolean(options?.["useCompletionUrls"]))
         },
         options: {
-          ...(endpoint ? { baseURL: endpoint } : { resourceName: resource }), // kilocode_change
+          ...(endpoint ? { baseURL: endpoint } : { resourceName: resource }),
         },
         vars(_options): Record<string, string> {
           if (resource) {
@@ -336,13 +331,13 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
     "amazon-bedrock": Effect.fnUntraced(function* () {
       const providerConfig = (yield* dep.config()).provider?.["amazon-bedrock"]
       const auth = yield* dep.auth("amazon-bedrock")
-      const stored = bedrockAuth(auth) // kilocode_change
+      const stored = bedrockAuth(auth)
       const env = yield* dep.env()
 
-      // Region precedence: 1) config file, 2) stored credentials, 3) env var, 4) default // kilocode_change
+      // Region precedence: 1) config file, 2) stored credentials, 3) env var, 4) default
       const configRegion = providerConfig?.options?.region
       const envRegion = env["AWS_REGION"]
-      const defaultRegion = configRegion ?? stored?.region ?? envRegion ?? "us-east-1" // kilocode_change
+      const defaultRegion = configRegion ?? stored?.region ?? envRegion ?? "us-east-1"
 
       // Profile: config file takes precedence over env var
       const configProfile = providerConfig?.options?.profile
@@ -352,10 +347,8 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
       const awsAccessKeyId = env["AWS_ACCESS_KEY_ID"]
       const configApiKey = providerConfig?.options?.apiKey
 
-      // kilocode_change start - pass stored bearer tokens directly without leaking them into process.env
       const awsBearerToken =
         process.env.AWS_BEARER_TOKEN_BEDROCK ?? (auth?.type === "api" && !stored ? auth.key : undefined)
-      // kilocode_change end
 
       const awsWebIdentityTokenFile = env["AWS_WEB_IDENTITY_TOKEN_FILE"]
 
@@ -366,7 +359,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
       if (
         !profile &&
         !awsAccessKeyId &&
-        !stored && // kilocode_change
+        !stored &&
         !awsBearerToken &&
         !configApiKey &&
         !awsWebIdentityTokenFile &&
@@ -378,19 +371,17 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
 
       const providerOptions: Record<string, any> = {
         region: defaultRegion,
-        ...(stored ? { credentialProvider: async () => stored.credentials } : {}), // kilocode_change
+        ...(stored ? { credentialProvider: async () => stored.credentials } : {}),
       }
 
       // Only use credential chain if no bearer token exists
       // Bearer token takes precedence over credential chain (profiles, access keys, IAM roles, web identity tokens)
-      // kilocode_change start - stored static credentials use the credential provider above
       if (!awsBearerToken && !configApiKey && !stored) {
         // Build credential provider options (only pass profile if specified)
         const credentialProviderOptions = profile ? { profile } : {}
 
         providerOptions.credentialProvider = fromNodeProviderChain(credentialProviderOptions)
       }
-      // kilocode_change end
 
       // Add custom endpoint if specified (endpoint takes precedence over baseURL)
       const endpoint = providerConfig?.options?.endpoint ?? providerConfig?.options?.baseURL
@@ -498,9 +489,9 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://kilo.ai/", // kilocode_change
-            "X-Title": "Kilo Code", // kilocode_change
-            "X-Source": "kilo", // kilocode_change
+            "HTTP-Referer": "https://kilo.ai/",
+            "X-Title": "Harness Code",
+            "X-Source": "harness",
           },
         },
       }),
@@ -509,8 +500,8 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://kilo.ai/", // kilocode_change
-            "X-Title": "Kilo Code", // kilocode_change
+            "HTTP-Referer": "https://kilo.ai/",
+            "X-Title": "Harness Code",
           },
         },
       }),
@@ -519,9 +510,9 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: provider.source === "config",
         options: {
           headers: {
-            "HTTP-Referer": "https://kilo.ai/", // kilocode_change
-            "X-Title": "Kilo Code", // kilocode_change
-            "X-BILLING-INVOKE-ORIGIN": "KiloCode", // kilocode_change
+            "HTTP-Referer": "https://kilo.ai/",
+            "X-Title": "Harness Code",
+            "X-BILLING-INVOKE-ORIGIN": "HarnessCode",
           },
         },
       }),
@@ -530,19 +521,19 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "http-referer": "https://kilo.ai/", // kilocode_change
-            "x-title": "Kilo Code", // kilocode_change
+            "http-referer": "https://kilo.ai/",
+            "x-title": "Harness Code",
           },
         },
       }),
     "google-vertex": Effect.fnUntraced(function* (provider: Info) {
       const env = yield* dep.env()
-      const stored = vertexAuth(yield* dep.auth("google-vertex")) // kilocode_change
+      const stored = vertexAuth(yield* dep.auth("google-vertex"))
       // models.dev advertises GOOGLE_VERTEX_PROJECT for Vertex; keep the wider
       // Google Cloud project env names as fallbacks for existing ADC setups.
       const project =
         provider.options?.project ??
-        stored?.project ?? // kilocode_change
+        stored?.project ??
         env["GOOGLE_VERTEX_PROJECT"] ??
         env["GOOGLE_CLOUD_PROJECT"] ??
         env["GCP_PROJECT"] ??
@@ -550,7 +541,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
 
       const location = String(
         provider.options?.location ??
-          stored?.location ?? // kilocode_change
+          stored?.location ??
           env["GOOGLE_VERTEX_LOCATION"] ??
           env["GOOGLE_CLOUD_LOCATION"] ??
           env["VERTEX_LOCATION"] ??
@@ -571,15 +562,13 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         options: {
           project,
           location,
-          ...(stored ? vertexCredentials(stored.credentials) : {}), // kilocode_change
+          ...(stored ? vertexCredentials(stored.credentials) : {}),
           fetch: async (input: RequestInfo | URL, init?: RequestInit) => {
             const { GoogleAuth } = await import("google-auth-library")
-            // kilocode_change start - authenticate OpenAI-compatible Vertex endpoints with stored credentials
             const auth = new GoogleAuth({
               scopes: ["https://www.googleapis.com/auth/cloud-platform"],
               ...(stored ? { credentials: stored.credentials } : {}),
             })
-            // kilocode_change end
             const client = await auth.getClient()
             const token = await client.getAccessToken()
 
@@ -644,8 +633,8 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://kilo.ai/", // kilocode_change
-            "X-Title": "Kilo Code", // kilocode_change
+            "HTTP-Referer": "https://kilo.ai/",
+            "X-Title": "Harness Code",
           },
         },
       }),
@@ -666,7 +655,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
       const directory = yield* InstanceState.directory
 
       const aiGatewayHeaders = {
-        "User-Agent": `kilo/${InstallationVersion} gitlab-ai-provider/${GITLAB_PROVIDER_VERSION} (${os.platform()} ${os.release()}; ${os.arch()})`, // kilocode_change
+        "User-Agent": `harness/${InstallationVersion} gitlab-ai-provider/${GITLAB_PROVIDER_VERSION} (${os.platform()} ${os.release()}; ${os.arch()})`,
         "anthropic-beta": "context-1m-2025-08-07",
         ...providerConfig?.options?.aiGatewayHeaders,
       }
@@ -844,7 +833,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
       if (!apiToken) {
         throw new Error(
           "CLOUDFLARE_API_TOKEN (or CF_AIG_TOKEN) is required for Cloudflare AI Gateway. " +
-            "Set it via environment variable or run `kilo auth cloudflare-ai-gateway`.",
+            "Set it via environment variable or run `harness auth cloudflare-ai-gateway`.",
         )
       }
 
@@ -925,17 +914,17 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "X-Cerebras-3rd-Party-Integration": "Kilo Code", // kilocode_change
+            "X-Cerebras-3rd-Party-Integration": "Harness Code",
           },
         },
       }),
-    kilo: () =>
+    harness: () =>
       Effect.succeed({
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://kilo.ai/", // kilocode_change
-            "X-Title": "Kilo Code", // kilocode_change
+            "HTTP-Referer": "https://kilo.ai/",
+            "X-Title": "Harness Code",
           },
         },
       }),
@@ -962,7 +951,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
           autoload: false,
           async getModel() {
             throw new Error(
-              `Snowflake Cortex: missing credentials (${missing}). Provide a bearer token (OAuth, JWT, or PAT) via env var, Kilo auth, or provider options.`, // kilocode_change
+              `Snowflake Cortex: missing credentials (${missing}). Provide a bearer token (OAuth, JWT, or PAT) via env var, Harness auth, or provider options.`,
             )
           },
         }
@@ -1115,13 +1104,11 @@ const ProviderLimit = Schema.Struct({
   output: Schema.Finite,
 })
 
-// kilocode_change start
 const ProviderMetadata = Schema.Struct({
   noteKey: optionalOmitUndefined(Schema.String),
   icon: optionalOmitUndefined(Schema.String),
   priority: optionalOmitUndefined(Schema.Int),
 })
-// kilocode_change end
 
 export const Model = Schema.Struct({
   id: ModelV2.ID,
@@ -1137,18 +1124,18 @@ export const Model = Schema.Struct({
   headers: Schema.Record(Schema.String, Schema.String),
   release_date: Schema.String,
   variants: optional(Schema.Record(Schema.String, Schema.Record(Schema.String, Schema.Any))),
-  ...KILO_MODEL_SCHEMA_EXTENSIONS, // kilocode_change
+  ...HARNESS_MODEL_SCHEMA_EXTENSIONS,
 }).annotate({ identifier: "Model" })
 export type Model = Types.DeepMutable<Schema.Schema.Type<typeof Model>>
 
 export const Info = Schema.Struct({
   id: ProviderV2.ID,
   name: Schema.String,
-  description: optionalOmitUndefined(Schema.String), // kilocode_change
+  description: optionalOmitUndefined(Schema.String),
   source: Schema.Literals(["env", "config", "custom", "api"]),
   env: Schema.Array(Schema.String),
   key: optional(Schema.String),
-  metadata: optionalOmitUndefined(ProviderMetadata), // kilocode_change
+  metadata: optionalOmitUndefined(ProviderMetadata),
   options: Schema.Record(Schema.String, Schema.Any),
   models: Schema.Record(Schema.String, Model),
 }).annotate({ identifier: "Provider" })
@@ -1160,7 +1147,7 @@ export const ListResult = Schema.Struct({
   all: Schema.Array(Info),
   default: DefaultModelIDs,
   connected: Schema.Array(Schema.String),
-  failed: Schema.Array(Schema.String), // kilocode_change
+  failed: Schema.Array(Schema.String),
 })
 export type ListResult = Types.DeepMutable<Schema.Schema.Type<typeof ListResult>>
 
@@ -1174,7 +1161,7 @@ export function toPublicInfo(provider: Info): Info {
   return JSON.parse(
     JSON.stringify(
       {
-        ...publicKiloProvider(provider), // kilocode_change
+        ...publicHarnessProvider(provider),
         models: Object.fromEntries(Object.entries(provider.models).filter(([, model]) => Schema.is(Model)(model))),
       },
       (_, value) => {
@@ -1194,7 +1181,7 @@ export class ModelNotFoundError extends Schema.TaggedErrorClass<ModelNotFoundErr
   providerID: ProviderV2.ID,
   modelID: ModelV2.ID,
   suggestions: Schema.optional(Schema.Array(Schema.String)),
-  modelsEmpty: Schema.optional(Schema.Boolean), // kilocode_change
+  modelsEmpty: Schema.optional(Schema.Boolean),
   cause: Schema.optional(Schema.Defect()),
 }) {
   override get message() {
@@ -1363,12 +1350,12 @@ function fromModelsDevModel(provider: ModelsDev.Provider, model: ModelsDev.Model
     release_date: model.release_date ?? "",
     variants: {},
   }
-  Object.assign(base, patchKiloModel(provider.id, model)) // kilocode_change
-  const variants = ProviderTransform.reasoningVariants(model, base) ?? ProviderTransform.variants(base) // kilocode_change
+  Object.assign(base, patchHarnessModel(provider.id, model))
+  const variants = ProviderTransform.reasoningVariants(model, base) ?? ProviderTransform.variants(base)
 
   return {
     ...base,
-    variants: mapValues(variants, (v) => v), // kilocode_change
+    variants: mapValues(variants, (v) => v),
   }
 }
 
@@ -1393,7 +1380,7 @@ export function fromModelsDevProvider(provider: ModelsDev.Provider): Info {
     id: ProviderV2.ID.make(provider.id),
     source: "custom",
     name: provider.name,
-    description: provider.description, // kilocode_change
+    description: provider.description,
     env: [...(provider.env ?? [])],
     options: {},
     models,
@@ -1534,7 +1521,7 @@ const layer = Layer.effect(
 
         // extend database from config
         for (const [providerID, provider] of configProviders) {
-          if (!provider) continue // kilocode_change - null entries are transient delete sentinels
+          if (!provider) continue
           const existing = database[providerID]
           const parsed: Info = {
             id: ProviderV2.ID.make(providerID),
@@ -1546,7 +1533,7 @@ const layer = Layer.effect(
           }
 
           for (const [modelID, model] of Object.entries(provider.models ?? {})) {
-            if (!model) continue // kilocode_change - null entries are transient delete sentinels
+            if (!model) continue
             const existingModel = parsed.models[model.id ?? modelID]
             const apiID = model.id ?? existingModel?.api.id ?? modelID
             const apiNpm =
@@ -1619,10 +1606,9 @@ const layer = Layer.effect(
               headers: mergeDeep(existingModel?.headers ?? {}, model.headers ?? {}),
               family: model.family ?? existingModel?.family ?? "",
               release_date: model.release_date ?? existingModel?.release_date ?? "",
-              // variants: {}, // kilocode_change, moved into patchKiloConfigModel
-              ...patchKiloConfigModel(model, existingModel), // kilocode_change
+              // variants: {},
+              ...patchHarnessConfigModel(model, existingModel),
             }
-            // kilocode_change start
             const baseGenerate = (m: typeof parsedModel) =>
               existingModel?.api.npm === m.api.npm
                 ? (existingModel.variants ?? ProviderTransform.variants(m))
@@ -1633,9 +1619,8 @@ const layer = Layer.effect(
               baseGenerate,
             )
             const merged = mergeDeep(generated, model.variants ?? {})
-            // kilocode_change end
             parsedModel.variants = mapValues(
-              pickBy(merged, (v): v is NonNullable<typeof v> => !!v && !v.disabled), // kilocode_change - drop null delete sentinels
+              pickBy(merged, (v): v is NonNullable<typeof v> => !!v && !v.disabled),
               (v) => omit(v, ["disabled"]),
             )
             parsed.models[modelID] = parsedModel
@@ -1643,15 +1628,12 @@ const layer = Layer.effect(
           database[providerID] = parsed
         }
 
-        // kilocode_change start - load auths before env so OAuth plugins can override inherited credentials
         const auths = yield* auth.all().pipe(Effect.orDie)
-        // kilocode_change end
         // load env
         const envs = yield* env.all()
         for (const [id, provider] of Object.entries(database)) {
           const providerID = ProviderV2.ID.make(id)
           if (disabled.has(providerID)) continue
-          // kilocode_change start - prefer explicit OAuth auth over inherited env credentials
           if (
             auths[providerID]?.type === "oauth" &&
             plugins.some((x) => x.auth?.provider === providerID && x.auth.loader)
@@ -1659,7 +1641,6 @@ const layer = Layer.effect(
             continue
           }
           const apiKey = provider.env.map((item) => envs[item]).find(Boolean)
-          // kilocode_change end
           if (!apiKey) continue
           mergeProvider(providerID, {
             source: "env",
@@ -1674,7 +1655,7 @@ const layer = Layer.effect(
           if (provider.type === "api") {
             mergeProvider(providerID, {
               source: "api",
-              key: providerKey(providerID, provider), // kilocode_change - keep structured credentials provider-specific
+              key: providerKey(providerID, provider),
             })
           }
         }
@@ -1683,12 +1664,10 @@ const layer = Layer.effect(
         for (const plugin of plugins) {
           if (!plugin.auth) continue
           const providerID = ProviderV2.ID.make(plugin.auth.provider)
-          if (!isProviderAllowed(providerID)) continue // kilocode_change - honor enabled_providers
+          if (!isProviderAllowed(providerID)) continue
 
-          // kilocode_change start - the catalog entry is absent when the provider is filtered out
           const entry = database[plugin.auth.provider]
           if (!entry) continue
-          // kilocode_change end
 
           const stored = yield* auth.get(providerID).pipe(Effect.orDie)
           if (!stored) continue
@@ -1697,7 +1676,7 @@ const layer = Layer.effect(
           const options = yield* Effect.promise(() =>
             plugin.auth!.loader!(
               () => bridge.promise(auth.get(providerID).pipe(Effect.orDie)) as any,
-              toPublicInfo(entry), // kilocode_change - hide Kilo credentials from the loader input
+              toPublicInfo(entry),
             ),
           )
           const opts = options ?? {}
@@ -1705,11 +1684,8 @@ const layer = Layer.effect(
           mergeProvider(providerID, patch)
         }
 
-        // kilocode_change start - resolve env once for patchCustomLoaderResult (azure env fallback)
-        const kiloEnv = yield* env.all()
-        // kilocode_change end
-        for (const [id, fn] of Object.entries({ ...custom(dep), ...kiloCustomLoaders(dep) })) {
-          // kilocode_change
+        const harnessEnv = yield* env.all()
+        for (const [id, fn] of Object.entries({ ...custom(dep), ...harnessCustomLoaders(dep) })) {
           const providerID = ProviderV2.ID.make(id)
           if (disabled.has(providerID)) continue
           const data = database[providerID]
@@ -1717,7 +1693,7 @@ const layer = Layer.effect(
             continue
           }
           const result = yield* fn(data)
-          if (result) patchCustomLoaderResult(id, result, kiloEnv) // kilocode_change
+          if (result) patchCustomLoaderResult(id, result, harnessEnv)
           if (result && (result.autoload || providers[providerID])) {
             if (result.getModel) modelLoaders[providerID] = result.getModel
             if (result.vars) varsLoaders[providerID] = result.vars
@@ -1730,24 +1706,21 @@ const layer = Layer.effect(
 
         // load config - re-apply with updated data
         for (const [id, provider] of configProviders) {
-          if (!provider) continue // kilocode_change - null entries are transient delete sentinels
+          if (!provider) continue
           const providerID = ProviderV2.ID.make(id)
-          // kilocode_change start - keep OAuth plugin source when config and Codex auth coexist
           const oauth =
             auths[providerID]?.type === "oauth" && plugins.some((x) => x.auth?.provider === providerID && x.auth.loader)
           const partial: Partial<Info> = oauth ? {} : { source: "config" }
           if (provider.env) partial.env = provider.env
-          // kilocode_change end
           if (provider.name) partial.name = provider.name
           if (provider.options) partial.options = provider.options
           mergeProvider(providerID, partial)
         }
-        patchKiloProviderPrivacy(providers[ProviderV2.ID.make("kilo")], cfg) // kilocode_change
-        patchKiloProviderAuth(providers[ProviderV2.ID.make("kilo")], cfg, auths["kilo"]) // kilocode_change
+        patchHarnessProviderPrivacy(providers[ProviderV2.ID.make("harness")], cfg)
+        patchHarnessProviderAuth(providers[ProviderV2.ID.make("harness")], cfg, auths["harness"])
 
         const gitlab = ProviderV2.ID.make("gitlab")
         if (discoveryLoaders[gitlab] && providers[gitlab] && isProviderAllowed(gitlab)) {
-          // kilocode_change start - keep discovery failures visible instead of swallowing them
           const discovered = yield* Effect.tryPromise(() => discoveryLoaders[gitlab]()).pipe(
             Effect.catch((err) =>
               Effect.logWarning("gitlab model discovery failed", { err }).pipe(Effect.as({} as Record<string, Model>)),
@@ -1756,7 +1729,6 @@ const layer = Layer.effect(
           for (const [modelID, model] of Object.entries(discovered)) {
             if (!providers[gitlab].models[modelID]) providers[gitlab].models[modelID] = model
           }
-          // kilocode_change end
         }
 
         for (const [id, provider] of Object.entries(providers)) {
@@ -1797,7 +1769,7 @@ const layer = Layer.effect(
             if (configVariants && model.variants) {
               const merged = mergeDeep(model.variants, configVariants)
               model.variants = mapValues(
-                pickBy(merged, (v): v is NonNullable<typeof v> => !!v && !v.disabled), // kilocode_change - drop null delete sentinels
+                pickBy(merged, (v): v is NonNullable<typeof v> => !!v && !v.disabled),
                 (v) => omit(v, ["disabled"]),
               )
             }
@@ -1819,7 +1791,7 @@ const layer = Layer.effect(
         }
       }),
     )
-    yield* ModelsRefresh.watch(state) // kilocode_change
+    yield* ModelsRefresh.watch(state)
 
     const list = Effect.fn("Provider.list")(() => InstanceState.use(state, (s) => s.providers))
 
@@ -1827,7 +1799,7 @@ const layer = Layer.effect(
       try {
         const provider = s.providers[model.providerID]
         const options = { ...provider.options }
-        vertexOptions(model.providerID, model.api.npm, options) // kilocode_change - hydrate stored credentials
+        vertexOptions(model.providerID, model.api.npm, options)
 
         if (
           model.providerID === "google-vertex" &&
@@ -1898,12 +1870,10 @@ const layer = Layer.effect(
           const fetchFn = customFetch ?? fetch
           const opts = init ?? {}
           const chunkAbortCtl = typeof chunkTimeout === "number" && chunkTimeout > 0 ? new AbortController() : undefined
-          const timeout = buildTimeoutSignal(options) // kilocode_change - use cancellable timeout for connection phase
-          // kilocode_change start - extend the same deadline to the first response byte
+          const timeout = buildTimeoutSignal(options)
           const firstByteMs = requestTimeout(options)
           const firstByteCtl = firstByteMs === undefined ? undefined : new AbortController()
           const deadline = firstByteMs === undefined ? undefined : Date.now() + firstByteMs
-          // kilocode_change end
           const headerTimeoutMs = headerTimeout === false ? undefined : headerTimeout
           const headerTimeoutCtl = typeof headerTimeoutMs === "number" ? timeoutController(headerTimeoutMs) : undefined
           const signals: AbortSignal[] = []
@@ -1911,13 +1881,12 @@ const layer = Layer.effect(
           if (opts.signal) signals.push(opts.signal)
           if (chunkAbortCtl) signals.push(chunkAbortCtl.signal)
           if (headerTimeoutCtl) signals.push(headerTimeoutCtl.signal)
-          if (timeout.signal) signals.push(timeout.signal) // kilocode_change
-          if (firstByteCtl) signals.push(firstByteCtl.signal) // kilocode_change
+          if (timeout.signal) signals.push(timeout.signal)
+          if (firstByteCtl) signals.push(firstByteCtl.signal)
 
           const combined = signals.length === 0 ? null : signals.length === 1 ? signals[0] : AbortSignal.any(signals)
           if (combined) opts.signal = combined
 
-          // kilocode_change start - clear connection-phase timeout once headers arrive
           try {
             const res = await fetchFn(input, {
               ...opts,
@@ -1925,18 +1894,15 @@ const layer = Layer.effect(
               timeout: false,
             }).finally(() => headerTimeoutCtl?.clear())
             timeout.clear()
-            // kilocode_change start - hand the remaining deadline to the first-byte guard
             const remaining = deadline !== undefined ? deadline - Date.now() : undefined
             const live =
               remaining !== undefined && firstByteCtl ? wrapFirstByte(res, Math.max(remaining, 1), firstByteCtl) : res
             if (!chunkAbortCtl) return live
             return wrapSSE(live, chunkTimeout, chunkAbortCtl)
-            // kilocode_change end
           } catch (err) {
             timeout.clear()
             throw err
           }
-          // kilocode_change end
         }
 
         const bundledLoader = BUNDLED_PROVIDERS[model.api.npm]
@@ -1990,8 +1956,8 @@ const layer = Layer.effect(
           : fuzzysort
               .go(providerID, Object.keys({ ...s.catalog, ...s.providers }), { limit: 3, threshold: -10000 })
               .map((m) => m.target)
-        const empty = false // kilocode_change
-        return yield* new ModelNotFoundError({ providerID, modelID, suggestions, modelsEmpty: empty }) // kilocode_change
+        const empty = false
+        return yield* new ModelNotFoundError({ providerID, modelID, suggestions, modelsEmpty: empty })
       }
 
       const info = provider.models[modelID]
@@ -2000,8 +1966,8 @@ const layer = Layer.effect(
         const suggestions = current.length
           ? current
           : modelSuggestions(s.catalog[providerID], modelID, runtimeFlags.enableExperimentalModels)
-        const empty = Object.keys(provider.models).length === 0 // kilocode_change
-        return yield* new ModelNotFoundError({ providerID, modelID, suggestions, modelsEmpty: empty }) // kilocode_change
+        const empty = Object.keys(provider.models).length === 0
+        return yield* new ModelNotFoundError({ providerID, modelID, suggestions, modelsEmpty: empty })
       }
       return info
     })
@@ -2081,15 +2047,13 @@ const layer = Layer.effect(
         return undefined
       }
 
-      // kilocode_change start - Kilo's auto model is an ID, while upstream priorities are model families.
-      const kiloPriority = kiloSmallModelPriority(providerID)
-      if (kiloPriority) {
-        for (const id of kiloPriority) {
+      const harnessPriority = harnessSmallModelPriority(providerID)
+      if (harnessPriority) {
+        for (const id of harnessPriority) {
           const model = provider.models[id]
           if (model) return model
         }
       }
-      // kilocode_change end
 
       const priority = providerID.startsWith("opencode")
         ? ["gpt-nano"]
@@ -2125,20 +2089,18 @@ const layer = Layer.effect(
         if (candidates[0]) return candidates[0]
       }
 
-      // kilocode_change start - fall back to kilo's auto small model only when the user actually has
-      // kilo credentials. The kilo provider is always autoloaded (anonymous key), so checking it
+      // harness credentials. The harness provider is always autoloaded (anonymous key), so checking it
       // unconditionally would route auxiliary tasks (session titles, commit messages, branch names)
-      // to the cloud for users without kilo access and break offline/local-only setups.
-      const kiloFallback = s.providers[ProviderV2.ID.make("kilo")]
-      if (kiloFallback?.models["kilo-auto/small"]) {
-        const hasCreds = hasKiloCredentials(
+      // to the cloud for users without harness access and break offline/local-only setups.
+      const harnessFallback = s.providers[ProviderV2.ID.make("harness")]
+      if (harnessFallback?.models["harness-auto/small"]) {
+        const hasCreds = hasHarnessCredentials(
           cfg,
-          yield* auth.get(ProviderV2.ID.make("kilo")).pipe(Effect.orDie),
+          yield* auth.get(ProviderV2.ID.make("harness")).pipe(Effect.orDie),
           yield* env.all(),
         )
-        if (hasCreds) return kiloFallback.models["kilo-auto/small"]
+        if (hasCreds) return harnessFallback.models["harness-auto/small"]
       }
-      // kilocode_change end
 
       return undefined
     })

@@ -1,0 +1,5 @@
+2026/10/02-13:52:40.008 1257e53 Reusing MANIFEST /Users/uenoyuuta/kilocode/.kilo-dev/vscode/user-data/Local Storage/leveldb/MANIFEST-000001
+2026/10/02-13:52:40.010 1257e53 Recovering log #3
+2026/10/02-13:52:40.010 1257e53 Level-0 table #3: started
+2026/10/02-13:52:40.014 1257e53 Level-0 table #3: 25266 bytes OK
+2026/10/02-13:52:40.016 1257e53 Delete type=0 #3

@@ -1,40 +1,37 @@
-import { useTerminalDimensions } from "@opentui/solid" // kilocode_change
-import { createEffect, createMemo, createSignal, Show } from "solid-js" // kilocode_change
+import { useTerminalDimensions } from "@opentui/solid"
+import { createEffect, createMemo, createSignal, Show } from "solid-js"
 import { useLocal } from "../context/local"
 import { useSync } from "../context/sync"
-import { map, pipe, sortBy, take } from "remeda" // kilocode_change
+import { map, pipe, sortBy, take } from "remeda"
 import { DialogSelect } from "../ui/dialog-select"
 import { useDialog } from "../ui/dialog"
 import { createDialogProviderOptions, DialogProvider } from "./dialog-provider"
 import { DialogVariant } from "./dialog-variant"
-import type { Model } from "@kilocode/sdk/v2" // kilocode_change
+import type { Model } from "@harness/sdk/v2"
 import { useConnected } from "./use-connected"
-import { ModelInfoPanel } from "@/kilocode/components/model-info-panel" // kilocode_change
-import { FreeModelDisclosure } from "@/kilocode/components/free-model-disclosure" // kilocode_change
-import { buildModelPickerOptions, rankProviderOptions } from "../kilocode/model-picker" // kilocode_change
+import { ModelInfoPanel } from "@/harness/components/model-info-panel"
+import { FreeModelDisclosure } from "@/harness/components/free-model-disclosure"
+import { buildModelPickerOptions, rankProviderOptions } from "../harness/model-picker"
 
 export function DialogModel(props: { providerID?: string }) {
   const local = useLocal()
   const sync = useSync()
   const dialog = useDialog()
   const [query, setQuery] = createSignal("")
-  const dimensions = useTerminalDimensions() // kilocode_change
+  const dimensions = useTerminalDimensions()
 
   const connected = useConnected()
   const providers = createDialogProviderOptions()
-  // kilocode_change start
-  // Memoize anything that iterates all Kilo models to avoid calculating it for
-  // each Kilo model and tanking the UI at a couple hundred models
-  const kiloRank = createMemo(() => {
-    const provider = sync.data.provider.find((provider) => provider.id === "kilo")
+  // Memoize anything that iterates all Harness models to avoid calculating it for
+  // each Harness model and tanking the UI at a couple hundred models
+  const harnessRank = createMemo(() => {
+    const provider = sync.data.provider.find((provider) => provider.id === "harness")
     const models = provider?.models ?? {}
     return new Map(Object.entries(models).map(([id, info]) => [id, info.recommendedIndex ?? Infinity] as const))
   })
-  // kilocode_change end
 
   const showExtra = createMemo(() => connected() && !props.providerID)
 
-  // kilocode_change start
   const wide = createMemo(() => dimensions().width >= 108)
   const [preview, setPreview] = createSignal<{
     model: Model
@@ -65,16 +62,14 @@ export function DialogModel(props: { providerID?: string }) {
 
   const footer = (providerID: string, model: Model) => {
     const labels = [
-      providerID === "kilo" && FreeModelDisclosure.hasByok(model) ? FreeModelDisclosure.byok : undefined,
-      providerID === "kilo" && FreeModelDisclosure.collectsData(model) ? FreeModelDisclosure.label : undefined,
+      providerID === "harness" && FreeModelDisclosure.hasByok(model) ? FreeModelDisclosure.byok : undefined,
+      providerID === "harness" && FreeModelDisclosure.collectsData(model) ? FreeModelDisclosure.label : undefined,
       model.cost?.input === 0 && providerID === "opencode" ? "Free" : undefined,
     ].filter((label) => label !== undefined)
     return labels.length > 0 ? labels.join(" · ") : undefined
   }
-  // kilocode_change end
 
-  // kilocode_change start - option building lives in kilocode/model-picker so the
-  // Kilo Gateway grouping/search rules can be unit tested
+  // Harness Gateway grouping/search rules can be unit tested
   const options = createMemo(() => {
     const needle = query().trim()
     const modelOptions = buildModelPickerOptions({
@@ -87,7 +82,7 @@ export function DialogModel(props: { providerID?: string }) {
       query: needle,
       footer,
       onSelect,
-      sort: (items) => sortModelOptions(items, props.providerID !== undefined, kiloRank()),
+      sort: (items) => sortModelOptions(items, props.providerID !== undefined, harnessRank()),
     })
 
     const popularProviders = !connected()
@@ -103,7 +98,6 @@ export function DialogModel(props: { providerID?: string }) {
 
     return [...modelOptions, ...(needle ? rankProviderOptions(needle, popularProviders) : popularProviders)]
   })
-  // kilocode_change end
 
   const provider = createMemo(() =>
     props.providerID ? sync.data.provider.find((item) => item.id === props.providerID) : null,
@@ -130,7 +124,6 @@ export function DialogModel(props: { providerID?: string }) {
     dialog.clear()
   }
 
-  // kilocode_change start
   return (
     <box flexDirection="row">
       <box flexGrow={1} flexShrink={1}>
@@ -163,7 +156,6 @@ export function DialogModel(props: { providerID?: string }) {
             if (!next) return
             setPreview(next)
           }}
-          // kilocode_change: removed flat={true} to keep section headers visible while filtering
           skipFilter={true}
           title={title()}
           current={local.model.current()}
@@ -174,7 +166,6 @@ export function DialogModel(props: { providerID?: string }) {
       </Show>
     </box>
   )
-  // kilocode_change end
 }
 
 export function sortModelOptions<
@@ -182,29 +173,27 @@ export function sortModelOptions<
     footer?: string
     releaseDate: string | number
     title: string
-    value?: { providerID: string; modelID: string } // kilocode_change
+    value?: { providerID: string; modelID: string }
   },
 >(
   options: T[],
   newestFirst: boolean,
-  rank: ReadonlyMap<string, number> = new Map(), // kilocode_change
+  rank: ReadonlyMap<string, number> = new Map(),
 ) {
-  // kilocode_change start - Sort within Recommended / Kilo Gateway
   const recommended = (option: T) =>
-    option.value?.providerID === "kilo" ? (rank.get(option.value.modelID) ?? Infinity) : 0
-  // kilocode_change end
+    option.value?.providerID === "harness" ? (rank.get(option.value.modelID) ?? Infinity) : 0
   if (newestFirst)
     return sortBy(
       options,
-      recommended, // kilocode_change
+      recommended,
       [(option) => option.releaseDate, "desc"],
       (option) => option.title,
     )
   return sortBy(
     options,
-    recommended, // kilocode_change
+    recommended,
     (option) => option.footer === undefined,
-    [(option) => option.releaseDate, "desc"], // kilocode_change - free model footers include Kilo disclosure labels
+    [(option) => option.releaseDate, "desc"],
     (option) => option.title,
   )
 }

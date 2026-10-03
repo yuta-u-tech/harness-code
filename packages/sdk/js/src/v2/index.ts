@@ -1,18 +1,18 @@
 export * from "./client.js"
 export * from "./server.js"
 
-import { createKiloClient } from "./client.js"
-import { createKiloServer } from "./server.js"
+import { createHarnessClient } from "./client.js"
+import { createHarnessServer } from "./server.js"
 import type { ServerOptions } from "./server.js"
 
 export * as data from "./data.js"
 
-export async function createKilo(options?: ServerOptions) {
-  const server = await createKiloServer({
+export async function createHarness(options?: ServerOptions) {
+  const server = await createHarnessServer({
     ...options,
   })
 
-  const client = createKiloClient({
+  const client = createHarnessClient({
     baseUrl: server.url,
   })
 

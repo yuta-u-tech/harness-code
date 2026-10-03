@@ -1,4 +1,4 @@
-import { createKiloClient } from "@kilocode/sdk/v2"
+import { createHarnessClient } from "@harness/sdk/v2"
 import { SessionID } from "@/session/schema"
 import { Schema } from "effect"
 
@@ -20,7 +20,7 @@ export async function validateSession(input: {
     throw new Error(`Invalid session ID: ${error instanceof Error ? error.message : "unknown error"}`, { cause: error })
   }
 
-  await createKiloClient({
+  await createHarnessClient({
     baseUrl: input.url,
     directory: input.directory,
     fetch: input.fetch,

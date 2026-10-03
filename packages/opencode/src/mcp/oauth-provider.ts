@@ -7,18 +7,16 @@ import type {
 } from "@modelcontextprotocol/sdk/shared/auth.js"
 import { Effect } from "effect"
 import { McpAuth } from "./auth"
-import { clientMetadataUrl } from "../kilocode/mcp/client-metadata" // kilocode_change
+import { clientMetadataUrl } from "../harness/mcp/client-metadata"
 
 const OAUTH_CALLBACK_PORT = 19876
 const OAUTH_CALLBACK_PATH = "/mcp/oauth/callback"
 
-// kilocode_change start - shared state generator for both providers
 function generateState(): string {
   return Array.from(crypto.getRandomValues(new Uint8Array(32)))
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("")
 }
-// kilocode_change end
 
 export interface McpOAuthConfig {
   clientId?: string
@@ -41,14 +39,12 @@ export class McpOAuthProvider implements OAuthClientProvider {
     protected auth: McpAuth.Interface,
   ) {}
 
-  // kilocode_change start
   get clientMetadataUrl(): string | undefined {
     // The hosted document describes a public client with the default callback URI.
     if (this.config.clientId || this.config.clientSecret) return undefined
     if (this.redirectUrl !== `http://127.0.0.1:${OAUTH_CALLBACK_PORT}${OAUTH_CALLBACK_PATH}`) return undefined
     return clientMetadataUrl
   }
-  // kilocode_change end
 
   get redirectUrl(): string {
     if (this.config.redirectUri) {
@@ -61,7 +57,7 @@ export class McpOAuthProvider implements OAuthClientProvider {
   get clientMetadata(): OAuthClientMetadata {
     return {
       redirect_uris: [this.redirectUrl],
-      client_name: "Kilo",
+      client_name: "Harness",
       client_uri: "https://kilo.ai",
       grant_types: ["authorization_code", "refresh_token"],
       response_types: ["code"],
@@ -172,7 +168,7 @@ export class McpOAuthProvider implements OAuthClientProvider {
     // generator, not just a reader, so we need to produce a value even when
     // startAuth() hasn't pre-saved one (e.g. during automatic auth on first
     // connect).
-    const newState = generateState() // kilocode_change
+    const newState = generateState()
     await Effect.runPromise(this.auth.updateOAuthState(this.mcpName, newState))
     return newState
   }
@@ -199,8 +195,7 @@ export class McpOAuthProvider implements OAuthClientProvider {
 export class McpOAuthPendingProvider extends McpOAuthProvider {
   private pendingClientInfo?: OAuthClientInformationFull
   private pendingTokens?: OAuthTokens
-  // kilocode_change start - the authorization flow owns its state and PKCE verifier in
-  // memory. Reading them back from the process-shared mcp-auth.json let any other Kilo
+  // memory. Reading them back from the process-shared mcp-auth.json let any other Harness
   // process that connected the same server replace the verifier the authorization server
   // never saw, which failed the token exchange.
   private pendingState?: string
@@ -230,7 +225,6 @@ export class McpOAuthPendingProvider extends McpOAuthProvider {
     this.pendingState = state
     return state
   }
-  // kilocode_change end
 
   override async clientInformation(): Promise<OAuthClientInformation | undefined> {
     if (!this.config.clientId) return this.pendingClientInfo

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test"
 import type { AgentSideConnection } from "@agentclientprotocol/sdk"
 import { LayerNode } from "@opencode-ai/core/effect/layer-node"
-import type { Event, Message, KiloClient, Part, SessionMessageResponse, ToolPart } from "@kilocode/sdk/v2"
+import type { Event, Message, HarnessClient, Part, SessionMessageResponse, ToolPart } from "@harness/sdk/v2"
 import { Effect, ManagedRuntime } from "effect"
 import { ACPEvent } from "@/acp/event"
 import * as ACPService from "@/acp/service"
@@ -100,7 +100,7 @@ function createHarness(messages: Record<string, SessionMessageResponse> = {}) {
       get: () => Promise.resolve({ data: { id: "ses_loaded" } }),
       messages: () => Promise.resolve({ data: [] }),
     },
-  } as unknown as KiloClient
+  } as unknown as HarnessClient
   const connection = {
     sessionUpdate: (params: SessionUpdateParams) => {
       updates.push(params)
@@ -319,7 +319,6 @@ async function createKnownSession(
 }
 
 describe("acp event routing", () => {
-  // kilocode_change start
   it("waits for the current turn's idle after receiving a stale idle", async () => {
     const harness = createHarness()
     const called = Promise.withResolvers<void>()
@@ -364,7 +363,6 @@ describe("acp event routing", () => {
       harness.subscription.stop()
     }
   })
-  // kilocode_change end
 
   it("routes message.part.delta by sessionID without cross-session pollution", async () => {
     const harness = createHarness()
@@ -508,7 +506,7 @@ describe("acp event routing", () => {
               ],
             }),
         },
-      } as unknown as KiloClient,
+      } as unknown as HarnessClient,
       connection,
       directory: {
         get: () =>

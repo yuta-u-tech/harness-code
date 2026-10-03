@@ -7,68 +7,62 @@ const positiveInteger = (name: string) =>
     Config.map((value) => (Number.isInteger(value) && value > 0 ? value : undefined)),
     Config.orElse(() => Config.succeed(undefined)),
   )
-const experimental = bool("KILO_EXPERIMENTAL")
+const experimental = bool("HARNESS_EXPERIMENTAL")
 const enabledByExperimental = (name: string) =>
   Config.all({ experimental, enabled: Config.boolean(name).pipe(Config.option) }).pipe(
     Config.map((flags) => Option.getOrElse(flags.enabled, () => flags.experimental)),
   )
 
 export class Service extends ConfigService.Service<Service>()("@opencode/RuntimeFlags", {
-  autoShare: bool("KILO_AUTO_SHARE"),
-  pure: bool("KILO_PURE"),
-  disableDefaultPlugins: bool("KILO_DISABLE_DEFAULT_PLUGINS"),
-  disableChannelDb: bool("KILO_DISABLE_CHANNEL_DB"), // kilocode_change
-  disableEmbeddedWebUi: bool("KILO_DISABLE_EMBEDDED_WEB_UI"),
-  disableExternalSkills: bool("KILO_DISABLE_EXTERNAL_SKILLS"),
-  disableSkillShell: bool("KILO_DISABLE_SKILL_SHELL"), // kilocode_change - disable shell injection in skill bodies
-  disableLspDownload: bool("KILO_DISABLE_LSP_DOWNLOAD"),
-  skipMigrations: bool("KILO_SKIP_MIGRATIONS"), // kilocode_change
+  autoShare: bool("HARNESS_AUTO_SHARE"),
+  pure: bool("HARNESS_PURE"),
+  disableDefaultPlugins: bool("HARNESS_DISABLE_DEFAULT_PLUGINS"),
+  disableChannelDb: bool("HARNESS_DISABLE_CHANNEL_DB"),
+  disableEmbeddedWebUi: bool("HARNESS_DISABLE_EMBEDDED_WEB_UI"),
+  disableExternalSkills: bool("HARNESS_DISABLE_EXTERNAL_SKILLS"),
+  disableSkillShell: bool("HARNESS_DISABLE_SKILL_SHELL"),
+  disableLspDownload: bool("HARNESS_DISABLE_LSP_DOWNLOAD"),
+  skipMigrations: bool("HARNESS_SKIP_MIGRATIONS"),
   disableClaudeCodePrompt: Config.all({
-    broad: bool("KILO_DISABLE_CLAUDE_CODE"),
-    direct: bool("KILO_DISABLE_CLAUDE_CODE_PROMPT"),
+    broad: bool("HARNESS_DISABLE_CLAUDE_CODE"),
+    direct: bool("HARNESS_DISABLE_CLAUDE_CODE_PROMPT"),
   }).pipe(Config.map((flags) => flags.broad || flags.direct)),
   disableClaudeCodeSkills: Config.all({
-    broad: bool("KILO_DISABLE_CLAUDE_CODE"),
-    direct: bool("KILO_DISABLE_CLAUDE_CODE_SKILLS"),
+    broad: bool("HARNESS_DISABLE_CLAUDE_CODE"),
+    direct: bool("HARNESS_DISABLE_CLAUDE_CODE_SKILLS"),
   }).pipe(Config.map((flags) => flags.broad || flags.direct)),
   enableExa: Config.all({
     experimental,
-    enabled: bool("KILO_ENABLE_EXA"),
-    legacy: bool("KILO_EXPERIMENTAL_EXA"),
+    enabled: bool("HARNESS_ENABLE_EXA"),
+    legacy: bool("HARNESS_EXPERIMENTAL_EXA"),
   }).pipe(Config.map((flags) => flags.experimental || flags.enabled || flags.legacy)),
   enableParallel: Config.all({
-    enabled: bool("KILO_ENABLE_PARALLEL"),
-    legacy: bool("KILO_EXPERIMENTAL_PARALLEL"),
+    enabled: bool("HARNESS_ENABLE_PARALLEL"),
+    legacy: bool("HARNESS_EXPERIMENTAL_PARALLEL"),
   }).pipe(Config.map((flags) => flags.enabled || flags.legacy)),
-  enableExperimentalModels: bool("KILO_ENABLE_EXPERIMENTAL_MODELS"),
-  enableQuestionTool: bool("KILO_ENABLE_QUESTION_TOOL"),
-  experimentalScout: enabledByExperimental("KILO_EXPERIMENTAL_SCOUT"), // kilocode_change
-  experimentalReferences: enabledByExperimental("KILO_EXPERIMENTAL_REFERENCES"),
-  // kilocode_change start - enabled by default, with an opt-out kill switch
-  experimentalBackgroundSubagents: Config.boolean("KILO_EXPERIMENTAL_BACKGROUND_SUBAGENTS").pipe(
+  enableExperimentalModels: bool("HARNESS_ENABLE_EXPERIMENTAL_MODELS"),
+  enableQuestionTool: bool("HARNESS_ENABLE_QUESTION_TOOL"),
+  experimentalScout: enabledByExperimental("HARNESS_EXPERIMENTAL_SCOUT"),
+  experimentalReferences: enabledByExperimental("HARNESS_EXPERIMENTAL_REFERENCES"),
+  experimentalBackgroundSubagents: Config.boolean("HARNESS_EXPERIMENTAL_BACKGROUND_SUBAGENTS").pipe(
     Config.withDefault(true),
   ),
-  // kilocode_change end
-  experimentalLspTy: bool("KILO_EXPERIMENTAL_LSP_TY"),
-  experimentalLspTool: enabledByExperimental("KILO_EXPERIMENTAL_LSP_TOOL"),
-  // kilocode_change start - self-context tools
-  experimentalContextTools: enabledByExperimental("KILO_EXPERIMENTAL_CONTEXT_TOOLS"),
-  // kilocode_change end
-  experimentalOxfmt: enabledByExperimental("KILO_EXPERIMENTAL_OXFMT"),
-  experimentalCodeMode: enabledByExperimental("KILO_EXPERIMENTAL_CODE_MODE"),
-  experimentalEventSystem: enabledByExperimental("KILO_EXPERIMENTAL_EVENT_SYSTEM"),
-  experimentalSessionSwitcher: enabledByExperimental("KILO_EXPERIMENTAL_SESSION_SWITCHER"), // kilocode_change
-  // kilocode_change start - enabled by default, with an opt-out kill switch
-  experimentalSharedAgentBoard: Config.boolean("KILO_EXPERIMENTAL_SHARED_AGENT_BOARD").pipe(Config.withDefault(true)),
-  // kilocode_change end
-  experimentalWorkspaces: enabledByExperimental("KILO_EXPERIMENTAL_WORKSPACES"),
-  experimentalIconDiscovery: enabledByExperimental("KILO_EXPERIMENTAL_ICON_DISCOVERY"),
-  experimentalMcpApps: enabledByExperimental("KILO_EXPERIMENTAL_MCP_APPS"), // kilocode_change
-  outputTokenMax: positiveInteger("KILO_EXPERIMENTAL_OUTPUT_TOKEN_MAX"),
-  bashDefaultTimeoutMs: positiveInteger("KILO_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS"),
-  experimentalNativeLlm: bool("KILO_EXPERIMENTAL_NATIVE_LLM"),
-  experimentalWebSockets: bool("KILO_EXPERIMENTAL_WEBSOCKETS"),
-  client: Config.string("KILO_CLIENT").pipe(Config.withDefault("cli")),
+  experimentalLspTy: bool("HARNESS_EXPERIMENTAL_LSP_TY"),
+  experimentalLspTool: enabledByExperimental("HARNESS_EXPERIMENTAL_LSP_TOOL"),
+  experimentalContextTools: enabledByExperimental("HARNESS_EXPERIMENTAL_CONTEXT_TOOLS"),
+  experimentalOxfmt: enabledByExperimental("HARNESS_EXPERIMENTAL_OXFMT"),
+  experimentalCodeMode: enabledByExperimental("HARNESS_EXPERIMENTAL_CODE_MODE"),
+  experimentalEventSystem: enabledByExperimental("HARNESS_EXPERIMENTAL_EVENT_SYSTEM"),
+  experimentalSessionSwitcher: enabledByExperimental("HARNESS_EXPERIMENTAL_SESSION_SWITCHER"),
+  experimentalSharedAgentBoard: Config.boolean("HARNESS_EXPERIMENTAL_SHARED_AGENT_BOARD").pipe(Config.withDefault(true)),
+  experimentalWorkspaces: enabledByExperimental("HARNESS_EXPERIMENTAL_WORKSPACES"),
+  experimentalIconDiscovery: enabledByExperimental("HARNESS_EXPERIMENTAL_ICON_DISCOVERY"),
+  experimentalMcpApps: enabledByExperimental("HARNESS_EXPERIMENTAL_MCP_APPS"),
+  outputTokenMax: positiveInteger("HARNESS_EXPERIMENTAL_OUTPUT_TOKEN_MAX"),
+  bashDefaultTimeoutMs: positiveInteger("HARNESS_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS"),
+  experimentalNativeLlm: bool("HARNESS_EXPERIMENTAL_NATIVE_LLM"),
+  experimentalWebSockets: bool("HARNESS_EXPERIMENTAL_WEBSOCKETS"),
+  client: Config.string("HARNESS_CLIENT").pipe(Config.withDefault("cli")),
 }) {}
 
 export type Info = Context.Service.Shape<typeof Service>

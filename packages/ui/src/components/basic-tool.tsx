@@ -1,9 +1,9 @@
-import { createEffect, createMemo, For, Match, on, onCleanup, onMount, Show, Switch, type JSX } from "solid-js" // kilocode_change: added createMemo
+import { createEffect, createMemo, For, Match, on, onCleanup, onMount, Show, Switch, type JSX } from "solid-js"
 import { animate, type AnimationPlaybackControls } from "motion"
 import { useI18n } from "../context/i18n"
 import { createStore } from "solid-js/store"
 import { Collapsible } from "./collapsible"
-import { Icon, type IconProps } from "./icon" // kilocode_change: added Icon
+import { Icon, type IconProps } from "./icon"
 import { TextShimmer } from "./text-shimmer"
 
 export type TriggerTitle = {
@@ -24,7 +24,7 @@ const isTriggerTitle = (val: any): val is TriggerTitle => {
 
 export interface BasicToolProps {
   icon: IconProps["name"]
-  iconNode?: JSX.Element // kilocode_change
+  iconNode?: JSX.Element
   trigger: TriggerTitle | JSX.Element
   children?: JSX.Element
   status?: string
@@ -34,11 +34,11 @@ export interface BasicToolProps {
   onOpenChange?: (open: boolean) => void
   forceOpen?: boolean
   defer?: boolean
-  retainDetails?: boolean // kilocode_change
-  hasDetails?: boolean // kilocode_change
+  retainDetails?: boolean
+  hasDetails?: boolean
   locked?: boolean
   animated?: boolean
-  allowPendingToggle?: boolean // kilocode_change
+  allowPendingToggle?: boolean
   onSubtitleClick?: () => void
   onTriggerClick?: JSX.EventHandlerUnion<HTMLElement, MouseEvent>
   triggerHref?: string
@@ -49,7 +49,6 @@ const SPRING = { type: "spring" as const, visualDuration: 0.35, bounce: 0 }
 const deferredMounts: Array<{ active: boolean; fn: () => void }> = []
 let deferredFrame: number | undefined
 
-// kilocode_change start
 // Mount deferred tool bodies within a per-frame time budget. Mounting one body
 // per frame kept each diff card's render off a single frame, but an expanded
 // transcript with many cards then needed one frame per card before everything
@@ -74,7 +73,6 @@ function flushDeferredMounts() {
     deferredFrame = deferredMounts.length > 0 ? requestAnimationFrame(flushDeferredMounts) : undefined
   }
 }
-// kilocode_change end
 
 function scheduleDeferredFlush() {
   if (deferredFrame !== undefined) return
@@ -105,7 +103,6 @@ export function BasicTool(props: BasicToolProps) {
   const open = () => props.open ?? state.open
   const ready = () => state.ready
   const pending = () => props.status === "pending" || props.status === "running"
-  // kilocode_change start - read the trigger getter once. A JSX trigger is
   // rebuilt on every read of `props.trigger`, and the copy built only for the
   // Match condition is never inserted, so its mounted effects (fade
   // animations) outlive the card and leak the transcript row.
@@ -114,15 +111,12 @@ export function BasicTool(props: BasicToolProps) {
     const value = node()
     return isTriggerTitle(value) ? value : undefined
   }
-  // kilocode_change end
-  // kilocode_change start - testing for children must not evaluate them. Reading
   // the `children` getter constructs the whole collapsed body tree (and runs
   // Markdown/diff parsing inside it) on every mount, even while closed, which
   // dominated the cost of mounting tool cards. `"children" in props` only checks
   // presence, keeping the body lazy without changing how it renders.
   const hasChildren = () => "children" in props
-  // kilocode_change end
-  const hasDetails = () => props.hasDetails ?? !!hasChildren() // kilocode_change
+  const hasDetails = () => props.hasDetails ?? !!hasChildren()
 
   let cancelReady: (() => void) | undefined
 
@@ -164,7 +158,7 @@ export function BasicTool(props: BasicToolProps) {
         if (!props.defer) return
         if (!value) {
           cancel()
-          if (!props.retainDetails) setState("ready", false) // kilocode_change
+          if (!props.retainDetails) setState("ready", false)
           return
         }
 
@@ -203,27 +197,23 @@ export function BasicTool(props: BasicToolProps) {
   )
 
   onCleanup(() => {
-    // kilocode_change start - complete, not stop: a stopped animation keeps
-    // Motion's reference cycle to the removed element alive (see kilo-ui motion.tsx settle)
+    // Motion's reference cycle to the removed element alive (see harness-ui motion.tsx settle)
     heightAnim?.complete()
-    // kilocode_change end
   })
 
   const handleOpenChange = (value: boolean) => {
-    if (pending() && !props.allowPendingToggle) return // kilocode_change
-    if (props.hideDetails) return // kilocode_change
+    if (pending() && !props.allowPendingToggle) return
+    if (props.hideDetails) return
     if (props.locked && !value) return
     setOpen(value)
-    props.onOpenChange?.(value) // kilocode_change
+    props.onOpenChange?.(value)
   }
 
-  // kilocode_change start
   const end = (event: AnimationEvent) => {
     if (event.target !== event.currentTarget) return
     if (!props.retainDetails || open()) return
     setState("ready", false)
   }
-  // kilocode_change end
 
   const trigger = () => (
     <div
@@ -232,14 +222,12 @@ export function BasicTool(props: BasicToolProps) {
       data-hide-details={props.hideDetails ? "true" : undefined}
     >
       <div data-slot="basic-tool-tool-trigger-content">
-        {/* kilocode_change start */}
         <span data-slot="basic-tool-icon">
           {props.iconNode ?? <Icon name={props.icon} size="small" />}
         </span>
-        {/* kilocode_change end */}
         <div data-slot="basic-tool-tool-info">
           <Switch>
-            <Match when={title()}>{/* kilocode_change */}
+            <Match when={title()}>
               {(title) => (
                 <div data-slot="basic-tool-tool-info-structured">
                   <div data-slot="basic-tool-tool-info-main">
@@ -291,11 +279,10 @@ export function BasicTool(props: BasicToolProps) {
                 </div>
               )}
             </Match>
-            <Match when={true}>{node() as JSX.Element}</Match>{/* kilocode_change */}
+            <Match when={true}>{node() as JSX.Element}</Match>
           </Switch>
         </div>
       </div>
-      {/* kilocode_change start */}
       <Show
         when={
           (hasChildren() || hasDetails()) &&
@@ -306,7 +293,6 @@ export function BasicTool(props: BasicToolProps) {
       >
         <Collapsible.Arrow />
       </Show>
-      {/* kilocode_change end */}
     </div>
   )
 
@@ -347,13 +333,11 @@ export function BasicTool(props: BasicToolProps) {
           <Show when={!props.defer || ready()}>{props.children}</Show>
         </div>
       </Show>
-      {/* kilocode_change start */}
       <Show when={!props.animated && (hasChildren() || hasDetails()) && !props.hideDetails}>
         <Collapsible.Content onAnimationEnd={end}>
           <Show when={!props.defer || ready()}>{props.children}</Show>
         </Collapsible.Content>
       </Show>
-      {/* kilocode_change end */}
     </Collapsible>
   )
 }

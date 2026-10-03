@@ -1,4 +1,3 @@
-// kilocode_change - new file
 import { expect, test } from "bun:test"
 import { Marked } from "marked"
 import { markedCodeSpanBoundary } from "./marked-code-span"

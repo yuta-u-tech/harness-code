@@ -1,5 +1,5 @@
 import { EventV2 } from "@opencode-ai/core/event"
-import { KiloEvent } from "@opencode-ai/protocol/groups/event" // kilocode_change - encode the full Kilo event bus
+import { HarnessEvent } from "@opencode-ai/protocol/groups/event"
 import { Effect, Schema, Stream } from "effect"
 import { HttpServerResponse } from "effect/unstable/http"
 import { HttpApiBuilder } from "effect/unstable/httpapi"
@@ -13,7 +13,7 @@ function eventData(data: unknown): Sse.Event {
     _tag: "Event",
     event: "message",
     id: undefined,
-    data: JSON.stringify(Schema.encodeUnknownSync(KiloEvent)(data)), // kilocode_change
+    data: JSON.stringify(Schema.encodeUnknownSync(HarnessEvent)(data)),
   }
 }
 

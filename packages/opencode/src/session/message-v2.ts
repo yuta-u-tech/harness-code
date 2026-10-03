@@ -16,7 +16,7 @@ import {
   WithParts,
 } from "@opencode-ai/core/v1/session"
 
-export { EditorContext } from "@/kilocode/editor-context" // kilocode_change
+export { EditorContext } from "@/harness/editor-context"
 import { NamedError } from "@opencode-ai/core/util/error"
 import { APICallError, convertToModelMessages, LoadAPIKeyError, type ModelMessage, type UIMessage } from "ai"
 import { Database } from "@opencode-ai/core/database/database"
@@ -35,13 +35,13 @@ import { errorMessage } from "@/util/error"
 import { isMedia } from "@/util/media"
 import type { SystemError } from "bun"
 import type { Provider } from "@/provider/provider"
-import { Snapshot } from "@/snapshot" // kilocode_change
-import { SessionNetwork } from "./network" // kilocode_change
-import { CodexAuthExpiredError } from "@/kilocode/provider/codex-refresh" // kilocode_change
-import { KiloSessionMessageOrder } from "@/kilocode/session/message-order" // kilocode_change
-import { KiloPartLifecycle } from "@/kilocode/session/part-lifecycle" // kilocode_change
-import * as TextStream from "@/kilocode/text-stream" // kilocode_change
-import { BoardNotice } from "@/kilocode/board/notice" // kilocode_change
+import { Snapshot } from "@/snapshot"
+import { SessionNetwork } from "./network"
+import { CodexAuthExpiredError } from "@/harness/provider/codex-refresh"
+import { HarnessSessionMessageOrder } from "@/harness/session/message-order"
+import { HarnessPartLifecycle } from "@/harness/session/part-lifecycle"
+import * as TextStream from "@/harness/text-stream"
+import { BoardNotice } from "@/harness/board/notice"
 import { Effect, Schema } from "effect"
 
 /** Error shape thrown by Bun's fetch() when gzip/br decompression fails mid-stream */
@@ -54,7 +54,6 @@ interface FetchDecompressionError extends Error {
 export const SYNTHETIC_ATTACHMENT_PROMPT = "Attached media from tool result:"
 export { isMedia }
 
-// kilocode_change - upstream moved these message/part types to SessionV1; re-export them so the
 // existing MessageV2.<Type> call sites keep resolving.
 export {
   APIError,
@@ -81,11 +80,9 @@ export {
 
 function truncateToolOutput(text: string, maxChars?: number) {
   if (!maxChars || text.length <= maxChars) return text
-  // kilocode_change start - avoid persisting malformed Unicode in compacted tool output
   const sliced = TextStream.safeSlice(text, maxChars)
   const omitted = text.length - sliced.length
   return `${sliced}\n[Tool output truncated for compaction: omitted ${omitted} chars]`
-  // kilocode_change end
 }
 
 export const Event = {
@@ -113,7 +110,6 @@ export const cursor = {
   },
 }
 
-// kilocode_change start - strip bloated metadata fields from stored parts to prevent multi-MB payloads
 // This handles both legacy data that was stored with full file contents and keeps the API response lean.
 function stripPatch(value: unknown) {
   if (typeof value !== "string") return undefined
@@ -127,7 +123,6 @@ function withPatch(value: unknown) {
 }
 
 export function stripPartMetadata(part: Part): Part {
-  // kilocode_change - exported for testing
   if (part.type !== "tool") return part
   const { state } = part
   if (state.status !== "completed" && state.status !== "running") return part
@@ -182,7 +177,6 @@ export function stripPartMetadata(part: Part): Part {
 }
 
 export function stripMessageMetadata(info: Info): Info {
-  // kilocode_change - exported for testing
   // Strip oversized summary.diffs patches from user messages to limit SSE payload.
   // Small patches are preserved so the UI can render inline diffs.
   if (info.role !== "user") return info
@@ -198,9 +192,7 @@ export function stripMessageMetadata(info: Info): Info {
     },
   } as Info
 }
-// kilocode_change end
 
-// kilocode_change - apply stripping inside helpers so all read paths are covered
 const info = (row: typeof MessageTable.$inferSelect) =>
   stripMessageMetadata({
     ...row.data,
@@ -215,7 +207,6 @@ const part = (row: typeof PartTable.$inferSelect) =>
     sessionID: row.session_id,
     messageID: row.message_id,
   } as Part)
-// kilocode_change end
 
 const older = (row: Cursor) =>
   or(lt(MessageTable.time_created, row.time), and(eq(MessageTable.time_created, row.time), lt(MessageTable.id, row.id)))
@@ -400,8 +391,7 @@ export const toModelMessagesEffect = Effect.fnUntraced(function* (
         return part.metadata?.anthropic?.signature != null
       })
       for (const part of msg.parts) {
-        if (KiloPartLifecycle.transient(part)) continue // kilocode_change - never replay transient UI parts
-        // kilocode_change - !part.ignored keeps local UI warnings out of future prompts
+        if (HarnessPartLifecycle.transient(part)) continue
         if (part.type === "text" && !part.ignored) {
           const text = part.text === "" && hasSignedReasoning ? " " : part.text
           assistantMessage.parts.push({
@@ -420,16 +410,12 @@ export const toModelMessagesEffect = Effect.fnUntraced(function* (
             const outputText = part.state.time.compacted
               ? "[Old tool result content cleared]"
               : truncateToolOutput(part.state.output, options?.toolOutputMaxChars)
-            // kilocode_change start
             const text = BoardNotice.output(outputText, part.state.time.compacted ? undefined : part.state.metadata)
-            // kilocode_change end
-            // kilocode_change start — do not replay send_file delivery attachments to the model;
             // they are mobile delivery artifacts (up to 4 MiB base64), not model context.
             const attachments =
               part.state.time.compacted || options?.stripMedia || part.tool === "send_file"
                 ? []
                 : (part.state.attachments ?? [])
-            // kilocode_change end
 
             // For providers that don't support media in tool results, extract media files
             // (images, PDFs) to be sent as a separate user message
@@ -443,10 +429,10 @@ export const toModelMessagesEffect = Effect.fnUntraced(function* (
             const output =
               finalAttachments.length > 0
                 ? {
-                    text, // kilocode_change
+                    text,
                     attachments: finalAttachments,
                   }
-                : text // kilocode_change
+                : text
 
             assistantMessage.parts.push({
               type: ("tool-" + part.tool) as `tool-${string}`,
@@ -635,7 +621,7 @@ export function parts(messageID: MessageID) {
       .orderBy(PartTable.id)
       .all()
       .pipe(Effect.orDie)
-    return rows.map(part) // kilocode_change - part() applies stripPartMetadata to cover all read paths
+    return rows.map(part)
   })
 }
 
@@ -678,7 +664,7 @@ export function filterCompacted(msgs: Iterable<WithParts>) {
       completed.add(msg.info.parentID)
   }
   result.reverse()
-  KiloSessionMessageOrder.annotate(result) // kilocode_change - preserve chronology before retained-tail projection
+  HarnessSessionMessageOrder.annotate(result)
   const compactionIndex = result.findLastIndex(
     (msg) =>
       msg.info.role === "user" &&
@@ -762,18 +748,18 @@ export function fromError(
         },
         { cause: e },
       ).toObject()
-    case e instanceof CodexAuthExpiredError: // kilocode_change start
+    case e instanceof CodexAuthExpiredError:
       return new AuthError(
         {
           providerID: "openai",
           message: e.message,
         },
         { cause: e },
-      ).toObject() // kilocode_change end
-    case SessionNetwork.disconnected(e): // kilocode_change start
+      ).toObject()
+    case SessionNetwork.disconnected(e):
       return new APIError(
         {
-          message: SessionNetwork.message(e), // kilocode_change end
+          message: SessionNetwork.message(e),
           isRetryable: true,
           metadata: {
             code: (e as SystemError).code ?? "",

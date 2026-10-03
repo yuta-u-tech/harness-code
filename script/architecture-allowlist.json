@@ -1,26 +1,26 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Kilo Architecture Ratchet Allowlist",
-  "description": "Baseline exception list for Kilo-owned domain architecture boundaries and state ratchets. Upstream-owned shared opencode files are exempt to prevent upstream merge conflicts. As Kilo legacy sites are refactored into clean Effect layers, decrement counts or remove entries to lock in progress.",
+  "title": "Harness Architecture Ratchet Allowlist",
+  "description": "Baseline exception list for Harness-owned domain architecture boundaries and state ratchets. Upstream-owned shared opencode files are exempt to prevent upstream merge conflicts. As Harness legacy sites are refactored into clean Effect layers, decrement counts or remove entries to lock in progress.",
   "rules": {
-    "kilo-instance-state-singletons": {
-      "description": "Legacy InstanceState.make usages in Kilo-owned code (packages/opencode/src/kilocode/**, packages/opencode/src/kilo-*/**). Target: encapsulate in scoped Effect Services in packages/core.",
+    "harness-instance-state-singletons": {
+      "description": "Legacy InstanceState.make usages in Harness-owned code (packages/opencode/src/harness/**, packages/opencode/src/harness-*/**). Target: encapsulate in scoped Effect Services in packages/core.",
       "allowed": {
-        "packages/opencode/src/kilo-sessions/kilo-sessions.ts": { "count": 1, "owner": "session-runtime", "reason": "Kilo session coordination state" },
-        "packages/opencode/src/kilocode/background-process/index.ts": { "count": 1, "owner": "process-runtime", "reason": "Directory-keyed background process registry" },
-        "packages/opencode/src/kilocode/session/control.ts": { "count": 1, "owner": "session-runtime", "reason": "SessionPrompt-owned pause gates must remain isolated by directory and session in the shared backend" },
-        "packages/opencode/src/kilocode/session/goal/runner.ts": { "count": 1, "owner": "session-runtime", "reason": "SessionPrompt-owned goal worker scopes must remain isolated by directory in the shared backend and close on instance disposal" }
+        "packages/opencode/src/harness-sessions/harness-sessions.ts": { "count": 1, "owner": "session-runtime", "reason": "Harness session coordination state" },
+        "packages/opencode/src/harness/background-process/index.ts": { "count": 1, "owner": "process-runtime", "reason": "Directory-keyed background process registry" },
+        "packages/opencode/src/harness/session/control.ts": { "count": 1, "owner": "session-runtime", "reason": "SessionPrompt-owned pause gates must remain isolated by directory and session in the shared backend" },
+        "packages/opencode/src/harness/session/goal/runner.ts": { "count": 1, "owner": "session-runtime", "reason": "SessionPrompt-owned goal worker scopes must remain isolated by directory in the shared backend and close on instance disposal" }
       }
     },
-    "kilo-database-constructors": {
-      "description": "Direct new Database() / new DatabaseSync() instantiations in Kilo-owned code. Target: all persistence routes through core Database.Service.",
+    "harness-database-constructors": {
+      "description": "Direct new Database() / new DatabaseSync() instantiations in Harness-owned code. Target: all persistence routes through core Database.Service.",
       "allowed": {
-        "packages/opencode/src/kilocode/session-export/sequence.ts": { "count": 1, "owner": "export-runtime", "reason": "Read-only offline export database reader" },
-        "packages/opencode/src/kilocode/session-export/worker/storage.ts": { "count": 1, "owner": "export-runtime", "reason": "Worker-thread offline export database handle" }
+        "packages/opencode/src/harness/session-export/sequence.ts": { "count": 1, "owner": "export-runtime", "reason": "Read-only offline export database reader" },
+        "packages/opencode/src/harness/session-export/worker/storage.ts": { "count": 1, "owner": "export-runtime", "reason": "Worker-thread offline export database handle" }
       }
     },
-    "kilo-tool-process-env": {
-      "description": "Direct process.env reads in Kilo-owned tools. Target: pass configuration explicitly via Tool.Context or Env.Service.",
+    "harness-tool-process-env": {
+      "description": "Direct process.env reads in Harness-owned tools. Target: pass configuration explicitly via Tool.Context or Env.Service.",
       "allowed": {}
     }
   }

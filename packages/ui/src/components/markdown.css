@@ -61,7 +61,6 @@
     text-underline-offset: 2px;
   }
 
-  /* kilocode_change start — file-path links from markdown [text](path) */
   a.file-path-link {
     color: var(--syntax-string);
     font-family: var(--font-family-mono);
@@ -77,15 +76,14 @@
     color: var(--text-interactive-base);
     text-decoration-style: solid;
   }
-  /* kilocode_change end */
 
   /* Lists */
   ul,
   ol {
     margin-top: 8px;
     margin-bottom: 12px;
-    margin-inline-start: 0; /* kilocode_change */
-    padding-inline-start: 32px; /* kilocode_change */
+    margin-inline-start: 0; 
+    padding-inline-start: 32px; 
     list-style-position: outside;
   }
 
@@ -95,7 +93,7 @@
 
   ol {
     list-style-type: decimal;
-    padding-inline-start: 2.25rem; /* kilocode_change */
+    padding-inline-start: 2.25rem; 
   }
 
   li {
@@ -121,18 +119,18 @@
   li > ol {
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
-    padding-inline-start: 1rem; /* Minimal indent for nesting only */  /* kilocode_change */
+    padding-inline-start: 1rem; /* Minimal indent for nesting only */  
   }
 
   li > ol {
-    padding-inline-start: 1.75rem; /* kilocode_change */
+    padding-inline-start: 1.75rem; 
   }
 
   /* Blockquotes */
   blockquote {
-    border-inline-start: 2px solid var(--border-weak-base); /* kilocode_change */
+    border-inline-start: 2px solid var(--border-weak-base); 
     margin: 1.5rem 0;
-    padding-inline-start: 0.5rem; /* kilocode_change */
+    padding-inline-start: 0.5rem; 
     color: var(--text-weak);
     font-style: normal;
   }
@@ -250,7 +248,6 @@
     /* background: var(--surface-base); */
     /* box-shadow: 0 0 0 0.5px var(--border-weak-base); */
 
-    /* kilocode_change start */
     &.file-link {
       cursor: pointer;
       text-decoration-line: underline;
@@ -282,7 +279,6 @@
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-size: contain;
     }
-    /* kilocode_change end */
   }
 
   /* Tables */
@@ -300,7 +296,7 @@
     /* Minimal borders for structure, matching TUI "lines" roughly but keeping it web-clean */
     border-bottom: 1px solid var(--border-weaker-base);
     padding: 12px;
-    text-align: start; /* kilocode_change */
+    text-align: start; 
     vertical-align: top;
   }
 

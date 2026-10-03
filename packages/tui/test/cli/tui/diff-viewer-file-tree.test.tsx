@@ -109,10 +109,8 @@ describe("DiffViewerFileTree", () => {
 
     expect(focused).toContain("▾ src/config")
     expect(unfocused).toContain("▾ src/config")
-    // kilocode_change start - restore upstream absence assertions
     expect(focused.some((line) => line.includes("*"))).toBe(false)
     expect(unfocused.some((line) => line.includes("*"))).toBe(false)
-    // kilocode_change end
   })
 
   test("renders collapsed and expanded directory rows", async () => {
@@ -172,7 +170,6 @@ async function renderOnceSettled(app: Awaited<ReturnType<typeof testRender>>) {
 }
 
 async function captureSettledFrame(app: Awaited<ReturnType<typeof testRender>>) {
-  // kilocode_change start - the first painted frame can take longer than 125ms on a loaded CI runner
   const deadline = Date.now() + 5_000
   while (Date.now() < deadline) {
     const frame = app.captureCharFrame()
@@ -181,7 +178,6 @@ async function captureSettledFrame(app: Awaited<ReturnType<typeof testRender>>) 
     await app.renderOnce()
   }
   return app.captureCharFrame()
-  // kilocode_change end
 }
 
 function withTheme(component: () => JSX.Element) {

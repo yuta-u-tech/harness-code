@@ -1,4 +1,4 @@
-import type { TuiPluginApi, TuiRouteDefinition } from "@kilocode/plugin/tui"
+import type { TuiPluginApi, TuiRouteDefinition } from "@harness/plugin/tui"
 import { createSignal } from "solid-js"
 
 type RouteEntry = {

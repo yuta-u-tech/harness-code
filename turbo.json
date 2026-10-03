@@ -2,11 +2,11 @@
   "$schema": "https://v2-8-13.turborepo.dev/schema.json",
   "globalEnv": [
     "CI",
-    "KILO_DISABLE_SHARE"
+    "HARNESS_DISABLE_SHARE"
   ],
   "globalPassThroughEnv": [
     "CI",
-    "KILO_DISABLE_SHARE"
+    "HARNESS_DISABLE_SHARE"
   ],
   "tasks": {
     "typecheck": {
@@ -20,15 +20,15 @@
         "dist/**"
       ]
     },
-    "@kilocode/cli#build": {
+    "@harness/cli#build": {
       "dependsOn": [
-        "@kilocode/sdk#build"
+        "@harness/sdk#build"
       ],
       "outputs": [
         "dist/**"
       ]
     },
-    "@kilocode/cli#test": {
+    "@harness/cli#test": {
       "dependsOn": [
         "^build"
       ],
@@ -54,13 +54,13 @@
     "@opencode-ai/function#test": {
       "outputs": []
     },
-    "@kilocode/cli#test:ci": {
+    "@harness/cli#test:ci": {
       "dependsOn": [
         "^build"
       ],
       "env": [
-        "KILO_TEST_PROFILE",
-        "KILO_TEST_SHARD"
+        "HARNESS_TEST_PROFILE",
+        "HARNESS_TEST_SHARD"
       ],
       "inputs": [
         "$TURBO_DEFAULT$",
@@ -73,7 +73,7 @@
         "*"
       ]
     },
-    "@kilocode/cli#test:httpapi": {
+    "@harness/cli#test:httpapi": {
       "dependsOn": [
         "^build"
       ],
@@ -83,7 +83,7 @@
         "*"
       ]
     },
-    "@kilocode/kilo-gateway#test:ci": {
+    "@harness/harness-gateway#test:ci": {
       "outputs": [
         ".artifacts/unit/junit.xml"
       ]
