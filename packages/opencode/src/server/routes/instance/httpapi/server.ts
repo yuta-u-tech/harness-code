@@ -46,8 +46,6 @@ import { Session } from "@/session/session"
 import { SessionStatus } from "@/session/status"
 import { SessionSummary } from "@/session/summary"
 import { Todo } from "@/session/todo"
-import { SessionShare } from "@/share/session"
-import { ShareNext } from "@/share/share-next"
 import { Credential } from "@opencode-ai/core/credential"
 import { Skill } from "@/skill"
 import { Discovery } from "@/skill/discovery"
@@ -281,8 +279,6 @@ const app = LayerNode.group([
   Workspace.node,
   Worktree.node,
   Installation.node,
-  ShareNext.node,
-  SessionShare.node,
   InstanceStore.node,
   httpClient,
   EventV2.node,

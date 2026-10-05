@@ -29,7 +29,7 @@ import { MemoryPaths } from "@harness/harness-memory/effect/paths"
 import { MemoryMarker } from "@/harness/memory/marker"
 import { HarnessSystemPrompt } from "@/harness/system-prompt"
 import { HarnessToolRegistry } from "@/harness/tool/registry"
-import { consumeAutoTitle, markAutoTitle } from "@/harness-sessions/rename-adoptions"
+import { consumeAutoTitle, markAutoTitle } from "@/harness/session/rename-adoptions"
 
 export namespace HarnessSessionPrompt {
   const modes = ["ask", "plan", "architect"]

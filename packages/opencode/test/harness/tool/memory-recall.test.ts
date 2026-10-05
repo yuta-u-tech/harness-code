@@ -8,7 +8,6 @@ import path from "path"
 import { HarnessMemory } from "@harness/harness-memory/effect"
 import { MemoryRecallTool } from "@/harness/tool/memory-recall"
 import { MessageID, SessionID } from "@/session/schema"
-import { RemoteSender } from "@/harness-sessions/remote-sender"
 import type { Tool } from "@/tool/tool"
 import { resetDatabase } from "../../fixture/db"
 import { provideTestInstance, tmpdir } from "../../fixture/fixture"
@@ -41,7 +40,6 @@ function user(text: string): Tool.Context {
 
 beforeEach(() => {
   process.env.HARNESS_EXPERIMENTAL_DISABLE_FILEWATCHER = "true"
-  spyOn(RemoteSender, "create").mockReturnValue({ handle() {}, dispose() {} })
 })
 
 afterEach(async () => {

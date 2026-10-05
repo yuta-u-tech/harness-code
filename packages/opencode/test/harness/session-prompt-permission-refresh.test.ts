@@ -53,7 +53,6 @@ import { Truncate } from "../../src/tool/truncate"
 import { HarnessHeadless } from "../../src/harness/permission/headless"
 import { HarnessSessionPrompt } from "../../src/harness/session/prompt"
 import { HarnessReadObject } from "../../src/harness/tool/read-object"
-import { HarnessSessions } from "../../src/harness-sessions/harness-sessions"
 import { MemoryService } from "@harness/harness-memory/effect/service"
 import { provideTmpdirServer } from "../fixture/fixture"
 import { awaitWithTimeout, pollWithTimeout, testEffect } from "../lib/effect"
@@ -179,7 +178,6 @@ function makeHttp() {
     [SessionSummary.node, summary],
     [LSP.node, lsp],
     [MCP.node, mcp],
-    [HarnessSessions.node, HarnessSessions.testLayer],
   ])
 }
 const it = testEffect(makeHttp())

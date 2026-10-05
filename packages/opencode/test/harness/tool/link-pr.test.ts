@@ -10,11 +10,11 @@ import { MessageID, SessionID } from "@/session/schema"
 import * as Truncate from "@/tool/truncate"
 import type { Tool } from "@/tool/tool"
 import type { InstanceContext } from "@/project/instance-context"
-import type { SessionPrLink } from "@/harness-sessions/pr-link"
+import type { SessionPrLink } from "@/harness/pr-link/pr-link"
 
 // Replace the session-link recorder before the tool module loads, keeping the
 // real `parsePrUrl` so the tool still parses the URL for real.
-const realPrLink = await import("@/harness-sessions/pr-link")
+const realPrLink = await import("@/harness/pr-link/pr-link")
 
 const writes: { sessionId: string; record: unknown; worktree: string }[] = []
 let writeError: unknown
@@ -290,8 +290,6 @@ describe("link_pr tool", () => {
           browser: info("browser_open"),
           chart: info("chart"),
           image: info("generate_image"),
-          notify: info("notify_user"),
-          send: info("send_file"),
           linkPr,
         }
         return yield* HarnessToolRegistry.build(infos, { agent: agents, truncate, indexing: false })
@@ -310,8 +308,6 @@ describe("link_pr tool", () => {
         process: built.process,
         chart: built.chart,
         image: built.image,
-        notify: built.notify,
-        send: built.send,
         linkPr: built.linkPr,
       },
       {},

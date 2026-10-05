@@ -7,7 +7,7 @@ import {
   consumeRenameAdoption,
   markAutoTitle,
   markRenameAdopted,
-} from "../../../src/harness-sessions/rename-adoptions"
+} from "../../../src/harness/session/rename-adoptions"
 
 describe("rename-adoptions", () => {
   beforeEach(() => clearAll())

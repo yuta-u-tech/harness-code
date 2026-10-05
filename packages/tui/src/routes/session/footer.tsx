@@ -7,7 +7,6 @@ import { useSDK } from "../../context/sdk"
 import { createStore } from "solid-js/store"
 import { useRoute } from "../../context/route"
 import { useEvent } from "../../context/event"
-import { RemoteIndicator } from "@/harness/remote-tui"
 
 export function Footer() {
   const { theme } = useTheme()
@@ -58,12 +57,6 @@ export function Footer() {
     <box flexDirection="row" justifyContent="space-between" gap={1} flexShrink={0}>
       <text fg={theme.textMuted}>{directory()}</text>
       <box gap={2} flexDirection="row" flexShrink={0}>
-        <RemoteIndicator
-          sdk={sdk}
-          theme={theme}
-          harness={sync.data.provider_next.connected.includes("harness")}
-          event={event}
-        />
         <Switch>
           <Match when={store.welcome}>
             <text fg={theme.text}>

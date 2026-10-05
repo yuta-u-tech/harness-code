@@ -46,7 +46,6 @@ import { SessionRunState } from "../../src/session/run-state"
 import { HarnessSession } from "../../src/harness/session"
 import { HarnessSessionPrompt } from "../../src/harness/session/prompt"
 import { HarnessSessionPromptQueue } from "../../src/harness/session/prompt-queue"
-import { HarnessSessions } from "../../src/harness-sessions/harness-sessions"
 import { Suggestion } from "../../src/harness/suggestion"
 import { MessageID, PartID, SessionID } from "../../src/session/schema"
 import { SessionStatus } from "../../src/session/status"
@@ -252,7 +251,6 @@ function makePrompt(input?: { mcpInstructions?: MCP.ServerInstructions[]; proces
     [LSP.node, lsp],
     [MCP.node, makeMcp(input?.mcpInstructions)],
     [RuntimeFlags.node, runtimeFlags],
-    [HarnessSessions.node, HarnessSessions.testLayer],
   ] as const
   if (input?.processor === "blocking") {
     return LayerNode.compile(promptRoot, [
@@ -271,7 +269,6 @@ function makeHttp(input?: { mcpInstructions?: MCP.ServerInstructions[]; processo
     [LSP.node, lsp],
     [MCP.node, makeMcp(input?.mcpInstructions)],
     [RuntimeFlags.node, runtimeFlags],
-    [HarnessSessions.node, HarnessSessions.testLayer],
   ] as const
   if (input?.processor === "blocking") {
     return LayerNode.compile(root, [

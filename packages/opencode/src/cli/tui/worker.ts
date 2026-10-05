@@ -12,9 +12,7 @@ import { Effect } from "effect"
 import { disposeAllInstancesAndEmitGlobalDisposed } from "@/server/global-lifecycle"
 import { HarnessLog } from "@/harness/log"
 import { ensureProcessMetadata } from "@opencode-ai/core/util/opencode-process"
-import { createWorkerRemoteExit } from "@/harness/cli/cmd/tui/remote-exit-worker"
 import { createWorkerShutdown } from "@/cli/tui/worker-shutdown"
-import { HarnessSessions } from "@/harness-sessions/harness-sessions"
 
 ensureProcessMetadata("worker")
 await HarnessLog.init()
@@ -37,9 +35,7 @@ GlobalBus.on("event", (event) => {
 })
 
 let server: Awaited<ReturnType<typeof Server.listen>> | undefined
-const remoteExit = createWorkerRemoteExit(Rpc.emit)
 const runShutdown = createWorkerShutdown({
-  drain: () => HarnessSessions.drainIngestForShutdown(),
   dispose: () => InstanceRuntime.disposeAllInstances(),
   stopServer: async () => {
     if (server) await server.stop(true)
@@ -49,12 +45,8 @@ const runShutdown = createWorkerShutdown({
 })
 
 export const rpc = {
-  tuiReady() {
-    remoteExit.ready()
-  },
-  tuiGone() {
-    remoteExit.gone()
-  },
+  tuiReady() {},
+  tuiGone() {},
   async fetch(input: { url: string; method: string; headers: Record<string, string>; body?: string }) {
     const headers = { ...input.headers }
     const auth = ServerAuth.header()
@@ -97,7 +89,6 @@ export const rpc = {
     )
   },
   async shutdown() {
-    remoteExit.shutdown()
     await runShutdown()
     // exit naturally. Without this, the active onmessage handle keeps the
     // worker alive even after all async work is done.

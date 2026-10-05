@@ -17,7 +17,6 @@ const tools = {
   image: stub("image"),
   notify: stub("notify"),
   openPlan: stub("open_plan"),
-  send: stub("send_file"),
   linkPr: stub("link_pr"),
 }
 

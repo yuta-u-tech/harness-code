@@ -47,8 +47,6 @@ import { Workspace } from "@/control-plane/workspace"
 import { Worktree } from "@/worktree"
 import { Installation } from "@/installation"
 import { MemoryService } from "@harness/harness-memory/effect/service"
-import { ShareNext } from "@/share/share-next"
-import { SessionShare } from "@/share/session"
 import { Npm } from "@opencode-ai/core/npm"
 import { memoMap } from "@opencode-ai/core/effect/memo-map"
 import { BackgroundJob } from "@/background/job"
@@ -128,8 +126,6 @@ export const AppLayer = AppNodeBuilderV1.build(
     Workspace.node,
     Worktree.node,
     Installation.node,
-    ShareNext.node,
-    SessionShare.node,
     // when their layer is built, outside the server's own layer list
     EventV2.node,
     ProjectV2.node,

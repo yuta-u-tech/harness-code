@@ -3,6 +3,4 @@ export const dict = {
   "server.processSignaled": "CLI proces je prekinut signalom {{signal}} prije pokretanja servera",
   "server.spawnFailed": "Neuspjelo pokretanje CLI binarne datoteke ({{code}})",
   "server.startupTimeout": "Isteklo je vrijeme za pokretanje servera nakon {{seconds}} sekundi",
-  "remote.connected": "Harness Remote: Povezano",
-  "remote.connecting": "Harness Remote: Povezivanje\u2026",
 } as const

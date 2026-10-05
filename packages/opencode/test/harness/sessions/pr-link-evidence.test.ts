@@ -47,9 +47,9 @@ const fetchMock = spyOn(globalThis, "fetch").mockImplementation(
   ),
 )
 
-const prLink = await import("@/harness-sessions/pr-link")
+const prLink = await import("@/harness/pr-link/pr-link")
 const { clearSessionLink, loadSessionLinks, readSessionPrLink, recordPrCreate, recordPush } = prLink
-const { refreshPrLink } = await import("@/harness-sessions/pr-link-poller")
+const { refreshPrLink } = await import("@/harness/pr-link/pr-link-poller")
 
 const created: string[] = []
 

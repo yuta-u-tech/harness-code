@@ -18,7 +18,6 @@ import {
   DebugCommand,
   ExportCommand,
   GenerateCommand,
-  GithubCommand,
   ImportCommand,
   McpCommand,
   ModelsCommand,
@@ -108,7 +107,6 @@ let cli = yargs(args)
   .command(StatsCommand)
   .command(ExportCommand)
   .command(ImportCommand)
-  .command(GithubCommand)
   .command(PrCommand)
   .command(SessionCommand)
   .command(PluginCommand)

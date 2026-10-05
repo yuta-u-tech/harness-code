@@ -702,7 +702,6 @@ export const layer: Layer.Layer<
         yield* SandboxPolicy.dispose(
           sessionID,
           Effect.gen(function* () {
-            yield* Effect.promise(() => HarnessSession.removeSession(sessionID)).pipe(Effect.ignore)
             HarnessSession.clearPlatformOverride(sessionID)
             if (hasInstance) {
               yield* Effect.promise(() => BackgroundProcess.stopSession(sessionID)).pipe(Effect.ignore)

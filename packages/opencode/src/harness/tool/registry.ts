@@ -13,18 +13,15 @@ import { LinkPrTool } from "./link-pr"
 import { NotebookEditTool, NotebookExecuteTool, NotebookReadTool } from "./notebook-host"
 import { MemoryRecallTool } from "./memory-recall"
 import { MemorySaveTool } from "./memory-save"
-import { NotifyUserTool } from "./notify-user"
 import { OpenPlanTool } from "./open-plan"
 import { ScheduleWakeupTool } from "./schedule-wakeup"
-import { SendFileTool } from "./send-file"
 import * as Tool from "../../tool/tool"
 import { Flag } from "@opencode-ai/core/flag/flag"
 import { Effect } from "effect"
 import * as Network from "@/harness/sandbox/network"
 import { Notebook } from "@/harness/notebook/service"
 import { AgentManager, HostError } from "@/harness/agent-manager/service"
-import { HarnessSessions } from "@/harness-sessions/harness-sessions"
-import { enabled as prEnabled } from "@/harness-sessions/pr-link"
+import { enabled as prEnabled } from "@/harness/pr-link/pr-link"
 import * as Log from "@opencode-ai/core/util/log"
 import type { Config } from "@/config/config"
 import type { RuntimeFlags } from "@/effect/runtime-flags"
@@ -87,13 +84,7 @@ export namespace HarnessToolRegistry {
       const browser = Flag.HARNESS_CLIENT === "vscode" ? yield* BrowserOpenTool : undefined
       const chart = yield* ChartTool
       const image = yield* GenerateImageTool
-      // The notify_user tool depends on HarnessSessions.Service, which the tool-registry layer provides
-      // via HarnessSessions.defaultLayer (see src/tool/registry.ts). Grabs the service from the surrounding
-      // context here and injects it into the tool's init Effect.
-      const sessions = yield* HarnessSessions.Service
-      const notify = yield* NotifyUserTool.pipe(Effect.provideService(HarnessSessions.Service, sessions))
       const openPlan = yield* OpenPlanTool
-      const send = yield* SendFileTool
       const linkPr = yield* LinkPrTool
       // Wakeup.Service is provided by Wakeup.node in the tool-registry node graph.
       const schedule = yield* ScheduleWakeupTool
@@ -118,9 +109,7 @@ export namespace HarnessToolRegistry {
           browser,
           chart,
           image,
-          notify,
           openPlan,
-          send,
           linkPr,
           schedule,
           cancel,
@@ -144,9 +133,7 @@ export namespace HarnessToolRegistry {
         browser,
         chart,
         image,
-        notify,
         openPlan,
-        send,
         linkPr,
         schedule,
         cancel,
@@ -172,9 +159,7 @@ export namespace HarnessToolRegistry {
       browser?: Tool.Info
       chart: Tool.Info
       image: Tool.Info
-      notify: Tool.Info
       openPlan?: Tool.Info
-      send: Tool.Info
       linkPr: Tool.Info
       schedule?: Tool.Info
       cancel?: Tool.Info
@@ -202,8 +187,6 @@ export namespace HarnessToolRegistry {
         process: Tool.init(tools.process),
         chart: Tool.init(tools.chart),
         image: Tool.init(tools.image),
-        notify: Tool.init(tools.notify),
-        send: Tool.init(tools.send),
         linkPr: Tool.init(tools.linkPr),
       })
       const openPlan = tools.openPlan ? yield* Tool.init(tools.openPlan) : undefined
@@ -242,8 +225,6 @@ export namespace HarnessToolRegistry {
         cronCreate,
         cronList,
         cronDelete,
-        notify: base.notify,
-        send: base.send,
       }
     })
   }
@@ -286,8 +267,6 @@ export namespace HarnessToolRegistry {
   }
 
   export function available(tool: Tool.Def) {
-    if (tool.id === "notify_user") return HarnessSessions.remoteStatus().enabled
-    if (tool.id === "send_file") return HarnessSessions.remoteStatus().connected
     return true
   }
 
@@ -304,9 +283,7 @@ export namespace HarnessToolRegistry {
       browser?: Tool.Def
       chart: Tool.Def
       image: Tool.Def
-      notify: Tool.Def
       openPlan?: Tool.Def
-      send: Tool.Def
       linkPr: Tool.Def
       schedule?: Tool.Def
       cancel?: Tool.Def
@@ -357,9 +334,7 @@ export namespace HarnessToolRegistry {
       tools.notebookExecute
         ? [tools.notebookRead, tools.notebookEdit, tools.notebookExecute]
         : []),
-      tools.notify,
       ...(Flag.HARNESS_CLIENT === "vscode" && tools.openPlan ? [tools.openPlan] : []),
-      tools.send,
       ...(prEnabled() ? [tools.linkPr] : []),
     ]
   }

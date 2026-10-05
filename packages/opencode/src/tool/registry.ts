@@ -65,7 +65,6 @@ import { Agent } from "../agent/agent"
 import { Skill } from "../skill"
 import { Permission } from "@/permission"
 import { SessionStatus } from "@/session/status"
-import { HarnessSessions } from "@/harness-sessions/harness-sessions"
 import { Git } from "@/git"
 import { BackgroundJob } from "@/background/job"
 import { RuntimeFlags } from "@/effect/runtime-flags"
@@ -546,7 +545,6 @@ export const node = LayerNode.suspend(() =>
       AgentManager.node,
       Notebook.node,
       RepositoryCache.node,
-      HarnessSessions.node,
       Wakeup.node,
     ],
   }),

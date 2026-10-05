@@ -56,7 +56,6 @@ export namespace HarnessViewers {
     Service,
     Effect.gen(function* () {
       const auth = yield* Auth.Service
-      const HarnessSessions = (yield* Effect.promise(() => import("@/harness-sessions/harness-sessions"))).HarnessSessions
 
       const platform = inferPlatform()
       const killSwitch = process.env.HARNESS_DISABLE_PRESENCE === "1"
@@ -107,7 +106,6 @@ export namespace HarnessViewers {
         const union = attachedUnion([...s.viewers.values()])
         if (!sameArr(union, s.prevAttached)) {
           s.prevAttached = union
-          HarnessSessions.setAttachedSessions(union)
         }
       }
 
@@ -212,7 +210,6 @@ export namespace HarnessViewers {
           }
           disconnectClient()
           s.viewers.clear()
-          HarnessSessions.setAttachedSessions([])
         }),
       )
 

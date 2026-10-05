@@ -14,7 +14,6 @@ import {
   HarnessConsoleCommand,
   ProfileCommand,
   PtySmokeCommand,
-  RemoteCommand,
   RollCallCommand,
   WorktreeCommand,
 } from "@/harness/cli/lazy-harness-commands"
@@ -47,7 +46,6 @@ export namespace HarnessCli {
       .command(CloudCommand)
       .command(RollCallCommand)
       .command(ProfileCommand)
-      .command(RemoteCommand)
       .command(DaemonCommand)
       .command(ConfigCLICommand)
       .command(WorktreeCommand)

@@ -22,7 +22,6 @@ import { buildWebviewHtml } from "../utils"
 import { openFileInEditor, getWorkspaceRoot } from "../review-utils"
 import { TelemetryProxy, type TelemetryEventName } from "../services/telemetry"
 import type { AutoApproveController } from "../commands/toggle-auto-approve"
-import type { RemoteStatusService } from "../services/RemoteStatusService"
 import type { CaffeinationService } from "../services/caffeination"
 
 const INTRO_KEY = "harness.agentManager.introDismissed"
@@ -43,7 +42,6 @@ export class VscodeHost implements Host {
     private readonly extensionUri: vscode.Uri,
     private readonly connectionService: HarnessConnectionService,
     private readonly context: vscode.ExtensionContext,
-    private readonly remoteService: RemoteStatusService,
     private readonly caffeination?: Pick<CaffeinationService, "getState" | "onChange" | "setEnabled">,
   ) {}
 
@@ -151,7 +149,6 @@ export class VscodeHost implements Host {
     if (this.diffVirtual) {
       provider.setDiffVirtualProvider(this.diffVirtual)
     }
-    provider.setRemoteService(this.remoteService)
     const snapshot = () => {
       if (this.caffeination) {
         void panel.webview.postMessage({ type: "agentManager.caffeination", ...this.caffeination.getState() })

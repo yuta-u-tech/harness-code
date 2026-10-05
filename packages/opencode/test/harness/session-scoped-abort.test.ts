@@ -7,7 +7,6 @@ import { LayerNode } from "@opencode-ai/core/effect/layer-node"
 import { SessionProjector } from "@opencode-ai/core/session/projector"
 import { MemoryService } from "@harness/harness-memory/effect/service"
 import { BackgroundJob } from "@/background/job"
-import { HarnessSessions } from "@/harness-sessions/harness-sessions"
 import { HarnessSessionControl } from "@/harness/session/control"
 import { HarnessSessionContinuation } from "@/harness/session/continuation"
 import { HarnessSessionPromptQueue } from "@/harness/session/prompt-queue"
@@ -33,7 +32,7 @@ const it = testEffect(
       LayerNode.make({ service: TestLLMServer, layer: TestLLMServer.layer, deps: [] }),
       LayerNode.make({ service: MemoryService.Service, layer: MemoryService.layer, deps: [] }),
     ]),
-    [[HarnessSessions.node, HarnessSessions.testLayer]],
+    [],
   ),
 )
 

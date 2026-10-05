@@ -65,9 +65,9 @@ const {
   recordSessionLink,
   sessionLinkKey,
   writeSessionPrLink,
-} = await import("@/harness-sessions/pr-link")
+} = await import("@/harness/pr-link/pr-link")
 const { PR_POLL_INTERVAL_MS, bitbucketQuery, refreshPrLink, startPrLinkPoll } = await import(
-  "@/harness-sessions/pr-link-poller"
+  "@/harness/pr-link/pr-link-poller"
 )
 
 // A record the shape a session owns, for seeding the refresh tests without

@@ -411,9 +411,8 @@ export const toModelMessagesEffect = Effect.fnUntraced(function* (
               ? "[Old tool result content cleared]"
               : truncateToolOutput(part.state.output, options?.toolOutputMaxChars)
             const text = BoardNotice.output(outputText, part.state.time.compacted ? undefined : part.state.metadata)
-            // they are mobile delivery artifacts (up to 4 MiB base64), not model context.
             const attachments =
-              part.state.time.compacted || options?.stripMedia || part.tool === "send_file"
+              part.state.time.compacted || options?.stripMedia
                 ? []
                 : (part.state.attachments ?? [])
 

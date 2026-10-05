@@ -1,6 +1,5 @@
 import { Cause, Context, Effect, Layer } from "effect"
 import { EffectBridge } from "@/effect/bridge"
-import { HarnessSessions } from "@/harness-sessions/harness-sessions"
 import * as Log from "@opencode-ai/core/util/log"
 import { Global } from "@opencode-ai/core/global"
 import { InstallationVersion } from "@opencode-ai/core/installation/version"
@@ -36,7 +35,6 @@ export namespace HarnessBootstrap {
     Effect.gen(function* () {
       // Bind the package memory effect layer to opencode (paths, instance binder, logger, event sink).
       installMemoryRuntime()
-      const harness = yield* HarnessSessions.Service
       const bus = yield* Bus.Service
       const sessions = yield* Session.Service
       const summary = yield* SessionSummary.Service
@@ -47,7 +45,6 @@ export namespace HarnessBootstrap {
 
       const init = Effect.fn("HarnessBootstrap.init")(function* () {
         yield* watcher.init()
-        yield* harness.init()
         yield* MemoryLifecycle.subscribe({ bus, sessions, summary, provider, memory })
         // Invalidate enabled cache on every memory state mutation (properties.directory holds the memory root).
         yield* bus.subscribeCallback(MemoryEvents.Status, (evt) =>
@@ -84,7 +81,6 @@ export namespace HarnessBootstrap {
 
   export const defaultLayer = layer.pipe(
     Layer.provide([
-      HarnessSessions.defaultLayer,
       Session.defaultLayer,
       AppNodeBuilder.build(SessionSummary.node),
       AppNodeBuilder.build(Provider.node),
@@ -102,7 +98,6 @@ export namespace HarnessBootstrap {
       service: Service,
       layer,
       deps: [
-        HarnessSessions.node,
         Session.node,
         SessionSummary.node,
         Provider.node,

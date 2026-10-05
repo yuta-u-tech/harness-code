@@ -21,8 +21,6 @@ import {
   ensureRunID,
   sanitizedProcessEnv,
 } from "@opencode-ai/core/util/opencode-process"
-import type { RemoteExitBridgeClient } from "@/harness/cli/cmd/tui/remote-exit-bridge"
-import type { Exit } from "@opencode-ai/tui/context/exit"
 
 declare global {
   const HARNESS_WORKER_PATH: string
@@ -30,48 +28,12 @@ declare global {
 
 type RpcClient = ReturnType<typeof Rpc.client<typeof rpc>>
 
-export function embeddedRemoteExitClient<T>(external: boolean, client: T | undefined): T | undefined {
-  return external ? undefined : client
-}
-
-export async function runEmbeddedRemoteExitBridge(input: {
-  client: RemoteExitBridgeClient
-  exit: Exit
-  done: Promise<unknown>
-  timeoutMs?: number
-}) {
-  const { createParentRemoteExitBridge } = await import("@/harness/cli/cmd/tui/remote-exit-bridge")
-  const timeoutMs = input.timeoutMs ?? 5_000
-  const bridge = createParentRemoteExitBridge(input.client, input.exit)
-  let ready = false
-  try {
-    try {
-      await withTimeout(bridge.ready(), timeoutMs, "remote exit startup timed out")
-      ready = true
-    } catch {
-      await bridge.dispose(timeoutMs).catch(() => {})
-    }
-    await input.done
-  } finally {
-    if (ready) await bridge.dispose(timeoutMs).catch(() => {})
-  }
-}
-
-async function start(input: StartInput, remoteExitClient?: RpcClient) {
+async function start(input: StartInput) {
   const { Effect } = await import("effect")
   const { run } = await import("../tui/layer")
   const { createLegacyTuiPluginHost } = await import("@/plugin/tui/runtime")
   const pluginHost = createLegacyTuiPluginHost()
-  if (!remoteExitClient) {
-    await Effect.runPromise(run({ ...input, pluginHost }))
-    return
-  }
-
-  const ready = Promise.withResolvers<Exit>()
-  const done = Effect.runPromise(run({ ...input, pluginHost, onExit: ready.resolve }))
-  const exit = await Promise.race([ready.promise, done.then(() => undefined)])
-  if (!exit) return
-  await runEmbeddedRemoteExitBridge({ client: remoteExitClient, exit, done })
+  await Effect.runPromise(run({ ...input, pluginHost }))
 }
 
 function createWorkerFetch(client: RpcClient): typeof fetch {
@@ -475,7 +437,6 @@ export const TuiThreadCommand = cmd({
               auto: args.auto || args.yolo || args["dangerously-skip-permissions"],
             },
           },
-          embeddedRemoteExitClient(external, client),
         )
       } finally {
         await stop()

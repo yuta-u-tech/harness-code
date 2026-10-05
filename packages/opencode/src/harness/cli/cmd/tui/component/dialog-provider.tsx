@@ -7,8 +7,6 @@
 
 import type { JSX } from "solid-js"
 import type { RGBA } from "@opentui/core"
-import type { ProviderAuthAuthorization } from "@harness/sdk/v2"
-import { HarnessAutoMethod } from "@/harness/components/dialog-harness-auto-method"
 export { selectProvider } from "@/harness/anaconda-desktop/tui/setup"
 
 // ---------------------------------------------------------------------------
@@ -46,7 +44,6 @@ export function failedDescription(providerID: string, failed: string[]): string 
 // ---------------------------------------------------------------------------
 
 export const PROVIDER_PRIORITY: Record<string, number> = {
-  harness: -1,
   anthropic: 0,
   "github-copilot": 1,
   openai: 2,
@@ -59,7 +56,6 @@ export const PROVIDER_PRIORITY: Record<string, number> = {
 // ---------------------------------------------------------------------------
 
 export const PROVIDER_DESCRIPTIONS: Record<string, string> = {
-  harness: "(Recommended)",
   anthropic: "(Claude Max or API key)",
   openai: "(ChatGPT login or API key)",
   "anaconda-desktop": "(Local models)",
@@ -77,40 +73,6 @@ export function isLocalOptionalApiKey(providerID: string) {
 }
 
 export const LOCAL_API_KEY_PLACEHOLDER = "local"
-
-// ---------------------------------------------------------------------------
-// Auto-method renderer
-// ---------------------------------------------------------------------------
-
-/**
- * If the provider is Harness Gateway, renders the custom `HarnessAutoMethod`
- * component that handles device-auth + org selection.
- *
- * Returns `undefined` for every other provider so the caller can fall
- * through to the default `AutoMethod`.
- */
-export function renderAutoMethod(opts: {
-  providerID: string
-  title: string
-  index: number
-  authorization: ProviderAuthAuthorization
-  useSDK: () => any
-  useTheme: () => any
-  DialogModel: any
-}): (() => JSX.Element) | undefined {
-  if (opts.providerID !== "harness") return undefined
-  return () => (
-    <HarnessAutoMethod
-      providerID={opts.providerID}
-      title={opts.title}
-      index={opts.index}
-      authorization={opts.authorization}
-      useSDK={opts.useSDK}
-      useTheme={opts.useTheme}
-      DialogModel={opts.DialogModel}
-    />
-  )
-}
 
 // ---------------------------------------------------------------------------
 // API-key dialog description
@@ -131,17 +93,7 @@ export function renderApiDescription(
       </text>
     )
   }
-  if (providerID !== "harness") return undefined
-  return () => (
-    <box gap={1}>
-      <text fg={theme.textMuted}>
-        Harness Gateway gives you access to all the best coding models at the cheapest prices with a single API key.
-      </text>
-      <text fg={theme.text}>
-        Go to <span style={{ fg: theme.primary }}>https://kilo.ai/gateway</span> to get a key
-      </text>
-    </box>
-  )
+  return undefined
 }
 
 export function apiKeyPlaceholder(providerID: string) {

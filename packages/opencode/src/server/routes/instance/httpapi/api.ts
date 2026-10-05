@@ -39,7 +39,6 @@ import { HarnessGatewayApi } from "@/harness/server/httpapi/groups/harness-gatew
 import { HarnessApi } from "@/harness/server/httpapi/groups/harness"
 import { MigrateApi } from "@/harness/server/httpapi/groups/migrate"
 import { NetworkApi } from "@/harness/server/httpapi/groups/network"
-import { RemoteApi } from "@/harness/server/httpapi/groups/remote"
 import { SandboxApi } from "@/harness/server/httpapi/groups/sandbox"
 import { SessionImportApi } from "@/harness/server/httpapi/groups/session-import"
 import { SuggestionApi } from "@/harness/server/httpapi/groups/suggestion"
@@ -108,7 +107,6 @@ export const InstanceHttpApi = HttpApi.make("opencode-instance")
   .addHttpApi(HarnessApi)
   .addHttpApi(MigrateApi)
   .addHttpApi(NetworkApi)
-  .addHttpApi(RemoteApi)
   .addHttpApi(SandboxApi)
   .addHttpApi(SessionImportApi)
   .addHttpApi(SuggestionApi)

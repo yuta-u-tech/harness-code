@@ -3,6 +3,4 @@ export const dict = {
   "server.processSignaled": "Il processo CLI è stato terminato dal segnale {{signal}} prima dell'avvio del server",
   "server.spawnFailed": "Impossibile avviare il binario CLI ({{code}})",
   "server.startupTimeout": "Timeout di avvio del server dopo {{seconds}} secondi",
-  "remote.connected": "Harness Remote: Connesso",
-  "remote.connecting": "Harness Remote: Connessione in corso\u2026",
 } as const

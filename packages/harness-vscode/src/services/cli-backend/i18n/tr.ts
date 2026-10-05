@@ -3,6 +3,4 @@ export const dict = {
   "server.processSignaled": "CLI işlemi sunucu başlatılmadan önce {{signal}} sinyali ile sonlandırıldı",
   "server.spawnFailed": "CLI ikili dosyası başlatılamadı ({{code}})",
   "server.startupTimeout": "{{seconds}} saniye sonra sunucu başlatma zaman aşımı",
-  "remote.connected": "Harness Remote: Bağlandı",
-  "remote.connecting": "Harness Remote: Bağlanıyor\u2026",
 } as const

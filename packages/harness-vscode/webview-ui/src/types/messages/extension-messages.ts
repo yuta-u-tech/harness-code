@@ -1522,12 +1522,6 @@ export interface ContinueInWorktreeProgressMessage {
   error?: string
 }
 
-export interface RemoteStatusMessage {
-  type: "remoteStatus"
-  enabled: boolean
-  connected: boolean
-}
-
 export interface ValidateFilesResultMessage {
   type: "validateFilesResult"
   id: string
@@ -1807,7 +1801,6 @@ export type ExtensionMessage =
   | ClearPendingPromptsMessage
   | ExtensionDataReadyMessage
   | TelemetryStateMessage
-  | RemoteStatusMessage
   | ValidateFilesResultMessage
   | ClipboardWriteResultMessage
   | MemoryLoadedMessage

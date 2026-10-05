@@ -42,7 +42,6 @@ import { Skill } from "../../src/skill"
 import { Snapshot } from "../../src/snapshot"
 import { ToolRegistry } from "../../src/tool/registry"
 import { Truncate } from "../../src/tool/truncate"
-import { HarnessSessions } from "../../src/harness-sessions/harness-sessions"
 import { SessionResume } from "../../src/harness/session-resume"
 import { SessionResumeImport } from "../../src/harness/session-resume/import"
 import { SessionID, MessageID, PartID } from "../../src/session/schema"
@@ -225,7 +224,6 @@ const base = [
   [LSP.node, lsp],
   [MCP.node, mcp],
   [RuntimeFlags.node, RuntimeFlags.layer({ experimentalEventSystem: true })],
-  [HarnessSessions.node, HarnessSessions.testLayer],
 ] as const
 
 const replacements = [...base, [AgentSvc.node, fastAgents]] as const

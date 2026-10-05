@@ -13,7 +13,6 @@ import { Plugin } from "../../src/plugin"
 import { Session } from "../../src/session/session"
 import { SessionPrompt } from "../../src/session/prompt"
 import { SessionSummary } from "../../src/session/summary"
-import { HarnessSessions } from "../../src/harness-sessions/harness-sessions"
 import { BoardStore } from "../../src/harness/board/store"
 import { BoardNotice } from "../../src/harness/board/notice"
 import { BoardContext } from "../../src/harness/board/context"
@@ -100,7 +99,6 @@ const it = testEffect(
     [Plugin.node, plugin],
     [LSP.node, lsp],
     [MCP.node, mcp],
-    [HarnessSessions.node, HarnessSessions.testLayer],
   ]),
 )
 

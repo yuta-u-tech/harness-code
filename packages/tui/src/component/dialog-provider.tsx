@@ -196,27 +196,9 @@ export function createDialogProviderOptions() {
                 ))
               }
               if (result.data?.method === "auto") {
-                const harness = HarnessProvider.renderAutoMethod({
-                  providerID,
-                  title: method.label,
-                  index,
-                  authorization: result.data!,
-                  useSDK,
-                  useTheme,
-                  DialogModel,
-                })
-                if (harness) {
-                  dialog.replace(harness)
-                } else {
-                  dialog.replace(() => (
-                    <AutoMethod
-                      providerID={providerID}
-                      title={method.label}
-                      index={index}
-                      authorization={result.data!}
-                    />
-                  ))
-                }
+                dialog.replace(() => (
+                  <AutoMethod providerID={providerID} title={method.label} index={index} authorization={result.data!} />
+                ))
               }
             }
             if (method.type === "api") {

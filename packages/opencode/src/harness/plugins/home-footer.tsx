@@ -8,7 +8,6 @@
 import type { TuiPlugin, TuiPluginApi, TuiPluginModule } from "@harness/plugin/tui"
 import { createMemo, Match, Show, Switch } from "solid-js"
 import { Global } from "@opencode-ai/core/global"
-import { RemoteIndicator } from "@/harness/remote-tui"
 
 const id = "internal:harness-home-footer"
 
@@ -87,12 +86,6 @@ function View(props: { api: TuiPluginApi }) {
     >
       <Directory api={props.api} />
       <box gap={1} flexDirection="row" flexShrink={0}>
-        <RemoteIndicator
-          sdk={sdk}
-          theme={props.api.theme.current}
-          harness={harness()}
-          event={props.api.event}
-        />
         <Mcp api={props.api} />
       </box>
       <box flexGrow={1} />

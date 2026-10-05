@@ -508,13 +508,8 @@ const layer = Layer.effect(
               return
             }
             const rawOutput = toolResultOutput(value)
-            // must reach mobile byte-for-byte. Base64-encoded images near the cap can
-            // exceed the generic 5 MiB normalization limit, causing rewrites or omission
-            // after the tool reports success. These attachments are delivery-only; the
-            // existing message-v2 filter already strips them from model context.
-            const skipNormalization = value.name === "send_file"
             const normalized = yield* Effect.forEach(rawOutput.attachments ?? [], (attachment) =>
-              attachment.mime.startsWith("image/") && !skipNormalization
+              attachment.mime.startsWith("image/")
                 ? image.normalize(attachment).pipe(
                     Effect.catchIf(
                       (error) => error instanceof Image.ResizerUnavailableError,

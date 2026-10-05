@@ -8,7 +8,6 @@ import { HarnessIndexing } from "../../src/harness/indexing"
 import { HarnessBootstrap } from "../../src/harness/bootstrap"
 import { Wakeup } from "../../src/harness/wakeup"
 import { HarnessWatcher } from "../../src/harness/watcher"
-import { HarnessSessions } from "../../src/harness-sessions/harness-sessions"
 import { HarnessMemory } from "@harness/harness-memory/effect"
 import { MemoryService } from "@harness/harness-memory/effect/service"
 import { InstanceState } from "../../src/effect/instance-state"
@@ -344,8 +343,6 @@ describe("harness tool registry indexing", () => {
       browser: def("browser_open"),
       chart: def("chart"),
       image: def("generate_image"),
-      notify: def("notify_user"),
-      send: def("send_file"),
       linkPr: def("link_pr"),
       boardRead: def("board_read"),
       boardPost: def("board_post"),
@@ -364,8 +361,6 @@ describe("harness tool registry indexing", () => {
         "recall",
         "background_process",
         "agent_manager_models",
-        "notify_user",
-        "send_file",
         "link_pr",
       ])
       expect(
@@ -378,8 +373,6 @@ describe("harness tool registry indexing", () => {
         "recall",
         "background_process",
         "agent_manager_models",
-        "notify_user",
-        "send_file",
         "link_pr",
       ])
 
@@ -394,8 +387,6 @@ describe("harness tool registry indexing", () => {
         "agent_manager_models",
         "agent_manager",
         "browser_open",
-        "notify_user",
-        "send_file",
       ])
       expect(
         HarnessToolRegistry.extra(
@@ -418,8 +409,6 @@ describe("harness tool registry indexing", () => {
         "notebook_read",
         "notebook_edit",
         "notebook_execute",
-        "notify_user",
-        "send_file",
       ])
       expect(HarnessToolRegistry.extra({ ...tools, semantic: undefined }, {}, flags).map((tool) => tool.id)).toEqual([
         "harness_memory_recall",
@@ -430,8 +419,6 @@ describe("harness tool registry indexing", () => {
         "agent_manager_models",
         "agent_manager",
         "browser_open",
-        "notify_user",
-        "send_file",
       ])
 
       process.env["HARNESS_CLIENT"] = "desktop"
@@ -441,8 +428,6 @@ describe("harness tool registry indexing", () => {
         "harness_memory_save",
         "recall",
         "agent_manager_models",
-        "notify_user",
-        "send_file",
       ])
 
       process.env["HARNESS_CLIENT"] = "run"
@@ -452,8 +437,6 @@ describe("harness tool registry indexing", () => {
         "harness_memory_save",
         "recall",
         "agent_manager_models",
-        "notify_user",
-        "send_file",
       ])
 
       process.env["HARNESS_CLIENT"] = "acp"
@@ -463,8 +446,6 @@ describe("harness tool registry indexing", () => {
         "harness_memory_save",
         "recall",
         "agent_manager_models",
-        "notify_user",
-        "send_file",
       ])
       for (const client of ["cli", "vscode", "jetbrains", "desktop", "run", "acp"]) {
         process.env["HARNESS_CLIENT"] = client
@@ -494,15 +475,6 @@ describe("harness tool registry indexing", () => {
     process.env["HARNESS_PLATFORM"] = "cli"
     const logger = Log.create({ service: "harness-bootstrap" })
     const err = new Error("indexing init failed")
-    const calls: string[] = []
-    const sessions = Layer.succeed(
-      HarnessSessions.Service,
-      HarnessSessions.Service.of({
-        init: () => Effect.sync(() => calls.push("sessions")),
-        sendAgentNotification: () => Effect.succeed({ ok: false as const, reason: "not_connected" }),
-        reportSessionTitle: () => Effect.succeed({ ok: false as const, reason: "not_connected" }),
-      }),
-    )
     const bus = Layer.succeed(
       Bus.Service,
       Bus.Service.of({
@@ -541,7 +513,7 @@ describe("harness tool registry indexing", () => {
         HarnessBootstrap.Service.use((svc) => svc.init()).pipe(
           Effect.provide(
             HarnessBootstrap.layer.pipe(
-              Layer.provide([sessions, bus, memory, session, summary, provider, watcher, wakeup]),
+              Layer.provide([bus, memory, session, summary, provider, watcher, wakeup]),
             ),
           ),
           Effect.scoped,
@@ -549,7 +521,6 @@ describe("harness tool registry indexing", () => {
       )
       await new Promise((resolve) => setTimeout(resolve, 0))
 
-      expect(calls).toEqual(["sessions"])
       expect(indexing).toHaveBeenCalledTimes(1)
       expect(warn).toHaveBeenCalledWith("indexing bootstrap failed", { err })
     } finally {

@@ -16,8 +16,8 @@ import {
   parsePrUrl,
   readSessionPrLink,
   urlRepo,
-} from "@/harness-sessions/pr-link"
-import type { PrLink, SessionPrLink } from "@/harness-sessions/pr-link"
+} from "@/harness/pr-link/pr-link"
+import type { PrLink, SessionPrLink } from "@/harness/pr-link/pr-link"
 
 const log = Log.create({ service: "pr-link-poller" })
 

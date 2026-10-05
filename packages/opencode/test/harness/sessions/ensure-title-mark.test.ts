@@ -27,8 +27,7 @@ import {
   clearAll as clearRenameMarks,
   consumeAutoTitle,
   markAutoTitle,
-} from "../../../src/harness-sessions/rename-adoptions"
-import { HarnessSessions } from "../../../src/harness-sessions/harness-sessions"
+} from "../../../src/harness/session/rename-adoptions"
 import { HarnessSessionTitle } from "../../../src/harness/session/title"
 import { LSP } from "../../../src/lsp/lsp"
 import { MCP } from "../../../src/mcp"
@@ -178,7 +177,6 @@ const env = LayerNode.compile(root, [
   [LSP.node, lsp],
   [MCP.node, mcp],
   [RuntimeFlags.node, RuntimeFlags.layer({ experimentalEventSystem: true })],
-  [HarnessSessions.node, HarnessSessions.testLayer],
 ])
 const it = testEffect(env)
 

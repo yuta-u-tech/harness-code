@@ -24,7 +24,6 @@ import { Git } from "../../src/git"
 import { Image } from "../../src/image/image"
 import { HarnessSession } from "../../src/harness/session"
 import { HarnessSessionPrompt } from "../../src/harness/session/prompt"
-import { HarnessSessions } from "../../src/harness-sessions/harness-sessions"
 import { LSP } from "../../src/lsp/lsp"
 import { MCP } from "../../src/mcp"
 import { Permission } from "../../src/permission"
@@ -179,7 +178,6 @@ function makeHttp() {
     [LSP.node, lsp],
     [MCP.node, mcp],
     [RuntimeFlags.node, RuntimeFlags.layer()],
-    [HarnessSessions.node, HarnessSessions.testLayer],
   ])
 }
 

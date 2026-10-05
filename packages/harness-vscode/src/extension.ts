@@ -30,7 +30,6 @@ import { registerCodeActions, registerTerminalActions, HarnessCodeActionProvider
 import { closeTaskTarget, SurfaceFocus } from "./commands/close-task-target"
 import { registerToggleAutoApprove } from "./commands/toggle-auto-approve"
 import { registerHeapSnapshot } from "./commands/heap-snapshot"
-import { RemoteStatusService } from "./services/RemoteStatusService"
 import { markWorkspace } from "./util/spotlight"
 import { createNotebookBridge } from "./services/notebook"
 import { createGitExecutable } from "./util/git-executable"
@@ -96,11 +95,6 @@ export async function activate(context: vscode.ExtensionContext) {
     void context.workspaceState.update(RESTORE_KEY, restore)
   }
 
-  // Create remote status service (one status bar item for all webviews)
-  const remoteService = new RemoteStatusService()
-  context.subscriptions.push(remoteService)
-  connectionService.setRemoteService(remoteService)
-
   // Daily trigger for the backend-owned session retention pass (Settings → Checkpoints)
   const cleanup = retention(connectionService, context)
   cleanup.start()
@@ -120,17 +114,7 @@ export async function activate(context: vscode.ExtensionContext) {
         // opted out for the rest of the session.
         telemetry.setEnabled(vscode.env.isTelemetryEnabled)
       }
-      try {
-        remoteService.setClient(connectionService.getClient())
-        console.log("[Harness New] CLI connected, calling remoteService.refresh()")
-        remoteService.refresh().catch((err) => console.warn("[Harness New] initial remote refresh failed:", err))
-      } catch {
-        remoteService.setClient(null)
-      }
       AutocompleteServiceManager.getInstance()?.load()
-    } else {
-      remoteService.clearState()
-      remoteService.setClient(null)
     }
   })
 
@@ -175,7 +159,6 @@ export async function activate(context: vscode.ExtensionContext) {
     },
     onHidden: () => focus.lost("sidebar"),
   })
-  provider.setRemoteService(remoteService)
 
   const deliver = (comments: unknown[], autoSend: boolean, sessionID?: string, directory?: string): void => {
     const target = sessionID
@@ -270,7 +253,7 @@ export async function activate(context: vscode.ExtensionContext) {
     log: (message) => console.warn(`[Harness New] ${message}`),
   })
   const binary = process.platform === "win32" ? await git() : git
-  const agentManagerHost = new VscodeHost(context.extensionUri, connectionService, context, remoteService, controls)
+  const agentManagerHost = new VscodeHost(context.extensionUri, connectionService, context, controls)
   const agentManagerProvider = new AgentManagerProvider(agentManagerHost, connectionService, binary, browserBroker)
   agentManagerHost.setFocusListener({
     gained: () => {
@@ -386,7 +369,6 @@ export async function activate(context: vscode.ExtensionContext) {
         if (chat === tabProvider) chat = undefined
       },
     })
-    tabProvider.setRemoteService(remoteService)
     tabProvider.setAutoApproveController(autoApprove)
     tabProvider.setContinueInWorktreeHandler((sessionId, progress) =>
       agentManagerProvider.continueFromSidebar(sessionId, progress),
@@ -449,7 +431,6 @@ export async function activate(context: vscode.ExtensionContext) {
   const settingsEditorProvider = new SettingsEditorProvider(context.extensionUri, connectionService, context, {
     ...agentManagerProvider.settings,
   })
-  settingsEditorProvider.setRemoteService(remoteService)
   context.subscriptions.push(settingsEditorProvider)
 
   // Create sub-agent viewer provider (read-only editor panel for sub-agent sessions)
@@ -611,9 +592,6 @@ export async function activate(context: vscode.ExtensionContext) {
         text: `Generate a terminal command: ${input}`,
         injectedTitle: "Generate terminal command",
       })
-    }),
-    vscode.commands.registerCommand("harness-code.toggleRemote", () => {
-      remoteService.toggle().catch((err) => console.error("[Harness New] toggleRemote command failed:", err))
     }),
     vscode.commands.registerCommand("harness-code.openInTab", () => {
       return openHarnessInNewTab(context, tabPanels, attach)

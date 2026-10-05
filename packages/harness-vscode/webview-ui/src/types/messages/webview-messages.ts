@@ -1421,21 +1421,8 @@ export interface ToggleSandboxMessage {
   contextDirectory?: string
 }
 
-export interface ToggleRemoteMessage {
-  type: "toggleRemote"
-}
-
 export interface ToggleCaffeinationMessage {
   type: "toggleCaffeination"
-}
-
-export interface SetRemoteEnabledMessage {
-  type: "setRemoteEnabled"
-  enabled: boolean
-}
-
-export interface RequestRemoteStatusMessage {
-  type: "requestRemoteStatus"
 }
 
 export interface ConnectProviderMessage {
@@ -1839,10 +1826,7 @@ export type WebviewMessage =
   | RequestFavoritesMessage
   | PersistModelSelectionRequest
   | RequestModelSelectionsMessage
-  | ToggleRemoteMessage
   | ToggleCaffeinationMessage
-  | SetRemoteEnabledMessage
-  | RequestRemoteStatusMessage
   | ContinueInWorktreeRequest
   | RequestMemoryMessage
   | MemoryShowMessage

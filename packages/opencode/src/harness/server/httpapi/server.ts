@@ -25,7 +25,6 @@ import { harnessHandlers } from "./handlers/harness"
 import { memoryHandlers } from "./handlers/memory"
 import { migrateHandlers } from "./handlers/migrate"
 import { networkHandlers } from "./handlers/network"
-import { remoteHandlers } from "./handlers/remote"
 import { sandboxHandlers } from "./handlers/sandbox"
 import { sessionImportHandlers } from "./handlers/session-import"
 import { suggestionHandlers } from "./handlers/suggestion"
@@ -47,7 +46,6 @@ export const provide = Layer.provide([
   memoryHandlers,
   migrateHandlers,
   networkHandlers,
-  remoteHandlers,
   sandboxHandlers,
   sessionImportHandlers,
   suggestionHandlers,

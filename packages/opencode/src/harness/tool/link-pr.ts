@@ -1,6 +1,6 @@
 import { Tool } from "@/tool/tool"
 import { Instance } from "@/harness/instance"
-import { enabled as prEnabled, linkMatchesWorktree, parsePrUrl } from "@/harness-sessions/pr-link"
+import { enabled as prEnabled, linkMatchesWorktree, parsePrUrl } from "@/harness/pr-link/pr-link"
 import { Effect, Schema } from "effect"
 import * as Log from "@opencode-ai/core/util/log"
 import DESCRIPTION from "./link-pr.txt"
@@ -68,7 +68,7 @@ export const LinkPrTool = Tool.define<typeof Params, Meta, never, "link_pr">(
         // `linkMatchesWorktree` and refuses a link for a fork or another repo.
         const stored = yield* Effect.tryPromise({
           try: async () => {
-            const { recordSessionLink } = await import("@/harness-sessions/pr-link")
+            const { recordSessionLink } = await import("@/harness/pr-link/pr-link")
             return recordSessionLink(ctx.sessionID, { link, evidence: "user" }, worktree)
           },
           catch: (err) => err,

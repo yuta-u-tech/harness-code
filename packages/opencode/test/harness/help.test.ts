@@ -18,7 +18,6 @@ import { ExportCommand } from "../../src/cli/cmd/export"
 import { ImportCommand } from "../../src/cli/cmd/import"
 import { PrCommand } from "../../src/cli/cmd/pr"
 import { SessionCommand } from "../../src/cli/cmd/session"
-import { RemoteCommand } from "../../src/cli/cmd/remote"
 import { ConfigCommand as ConfigCLICommand } from "../../src/cli/cmd/config"
 import { PluginCommand } from "../../src/cli/cmd/plug"
 import { DbCommand } from "../../src/cli/cmd/db"
@@ -69,7 +68,6 @@ const commands = [
   ImportCommand,
   PrCommand,
   SessionCommand,
-  RemoteCommand,
   DbCommand,
   ConfigCLICommand,
   PluginCommand,

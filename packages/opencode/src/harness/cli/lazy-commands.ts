@@ -156,12 +156,6 @@ export const SessionCommand = lazy({
   load: async () => (await import("@/cli/cmd/session")).SessionCommand,
 })
 
-export const GithubCommand = lazy({
-  command: "github",
-  describe: "manage GitHub agent",
-  load: async () => (await import("@/cli/cmd/github")).GithubCommand,
-})
-
 export const PrCommand = lazy({
   command: "pr",
   describe: "manage pull requests",

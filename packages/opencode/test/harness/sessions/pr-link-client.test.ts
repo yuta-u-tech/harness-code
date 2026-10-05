@@ -17,8 +17,8 @@ import {
   sessionLinkKey,
   writeSessionPrLink,
   type SessionPrLink,
-} from "@/harness-sessions/pr-link"
-import { refreshPrLink, startPrLinkPoll } from "@/harness-sessions/pr-link-poller"
+} from "@/harness/pr-link/pr-link"
+import { refreshPrLink, startPrLinkPoll } from "@/harness/pr-link/pr-link-poller"
 import { Storage } from "@/storage/storage"
 import { Process } from "@/util/process"
 import { tmpdir } from "../../fixture/fixture"

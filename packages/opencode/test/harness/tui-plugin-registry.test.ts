@@ -2,12 +2,10 @@ import { expect, test } from "bun:test"
 import { internalTuiPlugins } from "@/plugin/tui/internal"
 
 const harness = [
-  "internal:home-news",
   "internal:home-onboarding",
   "internal:harness-attention",
   "internal:harness-home-footer",
   "internal:harness-permissions",
-  "internal:harness-sidebar-footer",
   "internal:harness-sidebar-memory",
   "internal:harness-memory-palette",
   "internal:harness-sidebar-background-processes",

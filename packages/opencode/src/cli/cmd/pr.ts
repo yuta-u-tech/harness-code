@@ -13,8 +13,8 @@ import {
   parsePrUrl,
   readSessionPrLink,
   recordSessionLink,
-} from "@/harness-sessions/pr-link"
-import { refreshPrLink } from "@/harness-sessions/pr-link-poller"
+} from "@/harness/pr-link/pr-link"
+import { refreshPrLink } from "@/harness/pr-link/pr-link-poller"
 
 const subcommand = "pr"
 
@@ -163,7 +163,7 @@ export const PrCheckoutCommand = effectCmd({
 // HARNESS_SESSION the surrounding process exported. There is deliberately no
 // worktree or branch fallback: guessing the session recreates the fan-out that
 // linked random pull requests to sessions.
-import { enabled as prEnabled } from "@/harness-sessions/pr-link"
+import { enabled as prEnabled } from "@/harness/pr-link/pr-link"
 
 const NO_SESSION = "No session specified. Pass --session <id> or set HARNESS_SESSION_ID."
 

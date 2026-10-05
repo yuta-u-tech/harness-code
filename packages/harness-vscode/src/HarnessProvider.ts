@@ -54,7 +54,6 @@ import { GitOps } from "./agent-manager/GitOps"
 import { GitStatsPoller, type LocalStats } from "./agent-manager/GitStatsPoller"
 import { removeMcp } from "./harness-provider/remove-config-item"
 import { MarketplaceService } from "./services/marketplace"
-import type { RemoteStatusService } from "./services/RemoteStatusService"
 import { resolveProjectDirectory } from "./project-directory"
 import { seedSessionStatuses, seedSessionWakeups, clientSessionStatus } from "./session-status"
 import { normalizeEnhancePromptErrorMessage } from "./enhance-prompt-error"
@@ -546,8 +545,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
   private diffVirtualProvider: import("./DiffVirtualProvider").DiffVirtualProvider | undefined
   private diffViewerProvider: import("./diff/DiffViewerProvider").DiffViewerProvider | undefined
   private documentViewerProvider: import("./DocumentViewerProvider").DocumentViewerProvider | undefined
-  private remoteService: RemoteStatusService | null = null
-  private unsubscribeRemote: (() => void) | null = null
 
   constructor(
     private readonly extensionUri: vscode.Uri,
@@ -570,11 +567,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
         this.postMessage({ type: "action", action: "restoreInput" })
       },
     })
-  }
-
-  setRemoteService(service: RemoteStatusService): void {
-    this.remoteService = service
-    this.unsubscribeRemote = service.onChange(() => this.sendRemoteStatus())
   }
 
   setAutoApproveController(ctrl: Parameters<typeof createAutoApproveBridge>[0]): void {
@@ -620,10 +612,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     void stopSessionProcesses(this.client, sid, this.getSessionDirectory(sid, session))
   }
 
-  private sendRemoteStatus(): void {
-    const s = this.remoteService?.getState()
-    if (s) this.postMessage({ type: "remoteStatus", enabled: s.enabled, connected: s.connected })
-  }
   private focusSession(id?: string): void {
     this.streams.focus(id)
     this.registerPresence()
@@ -797,7 +785,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
       void this.seedSessionStatusMap()
       void this.seedSessionWakeups()
 
-      this.sendRemoteStatus()
     }
   }
 
@@ -1510,16 +1497,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
         case "chatCompletionAccepted":
           this.chatAutocomplete?.telemetry.captureAcceptSuggestion(message.suggestionLength)
           break
-        case "toggleRemote":
-        case "setRemoteEnabled":
-        case "requestRemoteStatus":
-          this.remoteService
-            ?.handleMessage(message.type, message.enabled)
-            .then((s) => {
-              if (s) this.sendRemoteStatus()
-            })
-            .catch((err) => console.error("[Harness New] remote message failed:", err))
-          break
         case "deleteSession":
           await this.handleDeleteSession(message.sessionID)
           break
@@ -1901,8 +1878,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
             return false
           if (!directory && isEventFromForeignProject(payload, this.projectID)) return false
 
-          // Remote status events are global and should always pass through
-          if (event.type === "harness-sessions.remote-status-changed") return true
           if (event.type === "memory.status" || event.type === "memory.updated" || event.type === "memory.error")
             return true
           const sessionId = this.resolveEventSessionId(event)
@@ -5095,11 +5070,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
       return
     }
 
-    if (event.type === "harness-sessions.remote-status-changed") {
-      this.remoteService?.updateFromEvent({ enabled: event.properties.enabled, connected: event.properties.connected })
-      return
-    }
-
     if (event.type === "memory.status" || event.type === "memory.updated" || event.type === "memory.error") {
       const props = event.properties as { sessionID?: unknown; detail?: unknown; reason?: unknown }
       const eventSessionID = typeof props.sessionID === "string" ? props.sessionID : undefined
@@ -5942,7 +5912,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     this.setFocusTarget("other")
     this.latch?.dispose()
     this.latch = undefined
-    this.unsubscribeRemote?.()
     this.streams.focus(undefined)
     this.connectionService.unregisterVisible(this.instanceId)
     this.connectionService.unregisterAttached(this.instanceId)

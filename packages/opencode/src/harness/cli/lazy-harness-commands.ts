@@ -24,12 +24,6 @@ export const ProfileCommand = lazy({
   load: async () => (await import("@/harness/cli/cmd/profile")).ProfileCommand,
 })
 
-export const RemoteCommand = lazy({
-  command: "remote",
-  describe: "enable remote connection for real-time session relay",
-  load: async () => (await import("@/cli/cmd/remote")).RemoteCommand,
-})
-
 export const DaemonCommand = lazy({
   command: "daemon",
   describe: "manage the local harness daemon",

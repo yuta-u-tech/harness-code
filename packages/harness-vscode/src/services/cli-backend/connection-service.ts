@@ -146,7 +146,6 @@ export class HarnessConnectionService {
   private debounceTimer: ReturnType<typeof setTimeout> | null = null
   private viewedSending = false
   private viewedDirty = false
-  private unsubRemote: (() => void) | null = null
 
   constructor(
     context: vscode.ExtensionContext,
@@ -251,22 +250,6 @@ export class HarnessConnectionService {
    */
   getServerConfig(): ServerConfig | null {
     return this.config
-  }
-
-  /**
-   * Set the remote status service. When remote is disabled, flushViewed()
-   * is a no-op. When remote becomes enabled (startup refresh, user toggle,
-   * or SSE event), the accumulated focused/opened state is automatically
-   * flushed so the server is never left unaware of already-open sessions.
-   */
-  setRemoteService(service: import("../RemoteStatusService").RemoteStatusService | null): void {
-    this.unsubRemote?.()
-    this.unsubRemote = null
-    if (service) {
-      this.unsubRemote = service.onChange((state) => {
-        if (state.enabled) this.flushViewed()
-      })
-    }
   }
 
   /**
@@ -867,8 +850,6 @@ export class HarnessConnectionService {
     this.windowStateDisposable?.dispose()
     this.windowStateDisposable = null
     this.viewedDirty = false
-    this.unsubRemote?.()
-    this.unsubRemote = null
     this.client = null
     this.sseClient = null
     this.config = null

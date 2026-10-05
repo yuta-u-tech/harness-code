@@ -27,7 +27,6 @@ export const ServeCommand = effectCmd({
     // yield* Effect.never
     const { InstanceRuntime } = yield* Effect.promise(() => import("../../project/instance-runtime"))
     const { startParentWatchdog } = yield* Effect.promise(() => import("../../harness/parent-watchdog"))
-    const { HarnessSessions } = yield* Effect.promise(() => import("@/harness-sessions/harness-sessions"))
     yield* Effect.promise(
       () =>
         new Promise<void>((resolve) => {
@@ -36,7 +35,6 @@ export const ServeCommand = effectCmd({
           const shutdown = async () => {
             stopWatchdog()
             try {
-              await HarnessSessions.drainIngestForShutdown()
               await InstanceRuntime.disposeAllInstances()
               await server.stop(true)
             } finally {
