@@ -1832,8 +1832,8 @@ const projectA: AgentProjectSnapshot = {
 }
 const projectB: AgentProjectSnapshot = {
   id: "prj-bbbb2222bbbb",
-  root: "/repos/harness-gateway",
-  label: "harness-gateway",
+  root: "/repos/harness-core",
+  label: "harness-core",
   pinned: false,
   active: false,
   expanded: true,

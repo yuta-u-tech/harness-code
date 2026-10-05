@@ -49,7 +49,6 @@ The VS Code extension spawns or connects to a `harness serve` process and commun
 | Package | Name | Role |
 |---|---|---|
 | `packages/harness-vscode/` | `harness-code` | **This package.** VS Code extension. |
-| `packages/harness-gateway/` | `@harness/harness-gateway` | Auth (device flow), AI provider routing (OpenRouter), Harness API integration (profile, balance, teams) |
 | `packages/harness-ui/` | `@harness/harness-ui` | SolidJS component library (40+ components, built on `@kobalte/core`). Shared by this extension's webview and docs screenshot stories |
 | `packages/harness-telemetry/` | `@harness/harness-telemetry` | PostHog analytics + OpenTelemetry tracing for the CLI |
 | `packages/harness-i18n/` | `@harness/harness-i18n` | Translation strings (16 languages) |

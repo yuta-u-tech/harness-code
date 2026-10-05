@@ -15,7 +15,6 @@ const inputs = [
   "packages/core",
   "packages/effect-drizzle-sqlite",
   "packages/effect-sqlite-node",
-  "packages/harness-gateway",
   "packages/harness-indexing",
   "packages/harness-memory",
   "packages/harness-sandbox",

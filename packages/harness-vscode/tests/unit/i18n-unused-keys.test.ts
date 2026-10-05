@@ -57,7 +57,6 @@ const WEBVIEW_ROOTS = [
   VSCODE,
   path.join(REPO, "packages/harness-ui"),
   path.join(REPO, "packages/opencode"),
-  path.join(REPO, "packages/harness-gateway"),
 ]
 
 const pools = [

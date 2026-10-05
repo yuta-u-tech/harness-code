@@ -20,31 +20,6 @@ interface ProviderAuthAuthorization {
   instructions: string
 }
 
-// Profile types from harness-gateway
-export interface HarnessOrganization {
-  id: string
-  name: string
-  role: string
-}
-
-export interface HarnessProfile {
-  email: string
-  name?: string
-  organizations?: HarnessOrganization[]
-  selectedOrganizationId?: string
-  hasPersonalAccount?: boolean
-}
-
-export interface HarnessBalance {
-  balance: number
-}
-
-interface ProfileData {
-  profile: HarnessProfile
-  balance: HarnessBalance | null
-  currentOrgId: string | null
-}
-
 export type IndexingStatus = SdkIndexingStatus
 
 /** VS Code editor context sent alongside messages to the CLI backend */

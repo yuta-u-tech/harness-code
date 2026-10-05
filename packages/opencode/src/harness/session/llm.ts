@@ -9,7 +9,6 @@ import { HarnessSessionOverflow } from "./overflow"
 const SAFETY = 2048
 const MIN_OUTPUT = 1024
 const CLAUDE = new Set([
-  "@harness/harness-gateway",
   "@ai-sdk/anthropic",
   "@ai-sdk/amazon-bedrock",
   "@ai-sdk/google-vertex/anthropic",
