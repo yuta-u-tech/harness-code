@@ -5,7 +5,7 @@
  * via thin integration points so the upstream diff stays minimal.
  */
 
-import { createEffect, createMemo, on, onCleanup } from "solid-js"
+import { createEffect, createMemo, on } from "solid-js"
 import { useKeyboard, useRenderer } from "@opentui/solid"
 import { resolveRenderLib, TextAttributes } from "@opentui/core"
 import { HarnessTerminalActivity } from "./terminal-activity"
@@ -68,7 +68,6 @@ export function isAllowEverything(permission: unknown): boolean {
 
 /**
  * Reactive effects for session management:
- * - Notify the server which session the user is viewing (live indicators)
  * - Evict per-session data from the store when navigating away
  *
  * Must be called inside the App component body (needs SolidJS owner).
@@ -80,10 +79,8 @@ export function useSessionEffects(deps: {
 }) {
   useLinkInteractions()
   const pty = process.env.HARNESS_PTY_ID
-  const viewerId = crypto.randomUUID()
   const renderer = useRenderer()
   const session = createMemo(() => (deps.route.data.type === "session" ? deps.route.data.sessionID : undefined))
-  let active = true
   const meta = { prev: "" }
 
   HarnessTerminalActivity.use({
@@ -96,34 +93,6 @@ export function useSessionEffects(deps: {
       }),
     write: (data) => resolveRenderLib().writeOut(renderer.rendererPtr, data),
   })
-
-  function send() {
-    const id = session()
-    const ids = id ? [id] : []
-    deps.sdk.client.session.viewed({ viewer: { id: viewerId, active }, attached: ids, visible: ids }).catch(() => {})
-  }
-
-  createEffect(() => send())
-
-  const onFocus = () => {
-    active = true
-    send()
-  }
-  const onBlur = () => {
-    active = false
-    send()
-  }
-  renderer.on("focus", onFocus)
-  renderer.on("blur", onBlur)
-
-  // The server prepends `server.connected` to every SSE (re)connect; a restarted
-  // backend has an empty viewer map, so resend the snapshot immediately instead
-  // of waiting for the 60s check-in.
-  const offConnected = deps.sdk.event.on("event", (event) => {
-    if (event.payload.type === "server.connected") send()
-  })
-
-  const timer = setInterval(send, 60_000)
 
   createEffect(() => {
     const sessionID = session()
@@ -147,16 +116,6 @@ export function useSessionEffects(deps: {
     }),
   )
 
-  onCleanup(() => {
-    renderer.off("focus", onFocus)
-    renderer.off("blur", onBlur)
-    offConnected()
-    clearInterval(timer)
-    active = false
-    deps.sdk.client.session
-      .viewed({ viewer: { id: viewerId, active: false }, attached: [], visible: [] })
-      .catch(() => {})
-  })
 }
 
 // ---------------------------------------------------------------------------
