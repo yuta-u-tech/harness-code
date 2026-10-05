@@ -137,9 +137,7 @@ export namespace HarnessCli {
     const { Telemetry } = await import("@harness/harness-telemetry")
     const code = typeof process.exitCode === "number" ? process.exitCode : undefined
     Telemetry.trackCliExit(code)
-    const { SessionExport } = await import("@/harness/session-export")
     try {
-      await SessionExport.shutdown()
       // Bound telemetry shutdown so an unreachable endpoint (offline, firewall,
       // DNS adblock resolving the host to 0.0.0.0) cannot block process exit on
       // short-lived commands like `harness --help` / `harness --version` (#9788).

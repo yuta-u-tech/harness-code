@@ -9,8 +9,6 @@ import { Bus } from "@/bus"
 import { Provider } from "@/provider/provider"
 import { Session } from "@/session/session"
 import { SessionSummary } from "@/session/summary"
-import { SessionExport } from "@/harness/session-export"
-import { createWorkspaceProvider } from "@/harness/session-export/workspace-provider"
 import { Instance } from "@/harness/instance"
 import { InstanceRef } from "@/effect/instance-ref"
 import { Identity } from "@harness/harness-telemetry"
@@ -68,31 +66,6 @@ export namespace HarnessBootstrap {
             ),
           )
         }
-        // Session export bootstrap.
-        yield* Effect.gen(function* () {
-          if (!SessionExport.enabled) return
-          const anon = yield* EffectBridge.fromPromise(() =>
-            Identity.getMachineId().catch((err) => {
-              log.warn("session export identity failed", { err })
-              return undefined
-            }),
-          )
-          SessionExport.init({
-            agentVersion: InstallationVersion,
-            anonId: anon,
-            dbPath: path.join(Global.Path.data, "session-export.db"),
-            workspaceKey: Instance.directory,
-            subscribeAll: (cb) => Bus.subscribeAll(cb),
-            snapshotProvider: createWorkspaceProvider({
-              root: Instance.directory,
-              statePath: path.join(Global.Path.data, "session-export-workspace.json"),
-            }),
-          })
-        }).pipe(
-          Effect.catchCause((cause) =>
-            Effect.sync(() => log.warn("session export bootstrap failed", { err: Cause.squash(cause) })),
-          ),
-        )
         if (process.env["HARNESS_PLATFORM"] !== "vscode") {
           yield* EffectBridge.fromPromise(() =>
             import("@/harness/indexing").then((mod) => mod.HarnessIndexing.init()),

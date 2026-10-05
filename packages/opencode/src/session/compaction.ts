@@ -21,7 +21,6 @@ import { serviceUse } from "@opencode-ai/core/effect/service-use"
 import { HarnessSessionPromptQueue } from "@/harness/session/prompt-queue"
 import { HarnessCompactionPayloadRecovery } from "@/harness/session/compaction-payload-recovery"
 import { HarnessCompactionChunks } from "@/harness/session/compaction-chunks"
-import { SessionExport } from "@/harness/session-export"
 import { HarnessSession } from "@/harness/session"
 import { RuntimeFlags } from "@/effect/runtime-flags"
 import { EventV2Bridge } from "@/event-v2-bridge"
@@ -699,34 +698,6 @@ const layer = Layer.effect(
               include: recent,
             })
         }
-        const parent = HarnessSession.resolveParent(input.sessionID)
-        const found = HarnessSession.resolveRoot(input.sessionID)
-        const root = parent ? (found === input.sessionID ? parent : found) : input.sessionID
-        const workspace = yield* InstanceState.context
-        SessionExport.compaction({
-          sessionId: input.sessionID,
-          rootSessionId: root,
-          parentSessionId: parent,
-          requestId: msg.id,
-          workspaceKey: workspace.directory,
-          input: {
-            inputMessagesSnapshot: modelMessages,
-            selectedContext: selected.head,
-            previousSummary,
-            prompt: nextPrompt,
-            tailStartId: selected.tail_start_id,
-          },
-          output: {
-            summary: summary ?? "",
-            assistantMessageId: msg.id,
-          },
-          modelId: model.id,
-          durationMs: Math.max(0, Date.now() - msg.time.created),
-          usage: {
-            inputTokens: processor.message.tokens.input,
-            outputTokens: processor.message.tokens.output,
-          },
-        })
         yield* prune({ sessionID: input.sessionID, reason: "post-compaction" })
         yield* events.publish(Event.Compacted, { sessionID: input.sessionID })
       }

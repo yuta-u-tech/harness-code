@@ -285,7 +285,6 @@ for (const item of targets) {
 
   const workerPath = "./src/cli/tui/worker.ts"
   const treeSitterWorkerPath = "opentui-tree-sitter-worker.js"
-  const sessionExportWorkerPath = "./src/harness/session-export/worker.ts"
   const indexingWorkerPath = "./src/harness/indexing-worker.ts"
 
   const bunfsRoot = item.os === "win32" ? "B:/~BUN/root/" : "/$bunfs/root/"
@@ -316,14 +315,13 @@ for (const item of targets) {
       windows: {},
     },
     files: { [treeSitterWorkerPath]: treeSitterWorker },
-    entrypoints: ["./src/index.ts", workerPath, treeSitterWorkerPath, sessionExportWorkerPath, indexingWorkerPath],
+    entrypoints: ["./src/index.ts", workerPath, treeSitterWorkerPath, indexingWorkerPath],
     define: {
       FFF_LIBC: JSON.stringify(item.abi === "musl" ? "musl" : "gnu"),
       HARNESS_VERSION: `'${Script.version}'`,
       HARNESS_MODELS_DEV: generated.modelsData,
       OTUI_TREE_SITTER_WORKER_PATH: bunfsRoot + treeSitterWorkerPath,
       HARNESS_WORKER_PATH: workerPath,
-      HARNESS_SESSION_EXPORT_WORKER_PATH: sessionExportWorkerPath,
       HARNESS_INDEXING_WORKER_PATH: indexingWorkerPath,
       HARNESS_SANDBOX_MUTATION_WORKER_PATH: JSON.stringify(HarnessSandboxWorker.filename),
       HARNESS_SANDBOX_NETWORK_RELAY_PATH: item.os === "linux" ? JSON.stringify(HarnessSandboxNetwork.relay) : "undefined",

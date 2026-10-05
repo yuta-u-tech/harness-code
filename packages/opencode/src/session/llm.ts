@@ -29,9 +29,6 @@ import { HarnessSession } from "@/harness/session"
 import { HarnessLLM } from "@/harness/session/llm"
 import { HarnessSessionOverflow } from "@/harness/session/overflow"
 import { HarnessToolSchema } from "@/harness/session/tool-schema"
-import { SessionExport } from "@/harness/session-export"
-import { getActiveOrg } from "@/harness/session-export/eligibility"
-import { normalizeUsageForExport, observeFullStreamForExport } from "@/harness/session-export/llm"
 import { EffectBridge } from "@/effect/bridge"
 import { RuntimeFlags } from "@/effect/runtime-flags"
 import { LLMAISDK } from "./llm/ai-sdk"
@@ -262,42 +259,6 @@ const live: Layer.Layer<
       }
 
       const instance = yield* InstanceState.context
-      const isHarness = input.model.api.npm === "@harness/harness-gateway"
-      const exporting = SessionExport.enabled
-      const org = yield* exporting && isHarness && input.model.isFree === true
-        ? Effect.promise(() => getActiveOrg())
-        : Effect.succeed({ type: "unknown" as const })
-      const started = Date.now()
-      const parent = input.parentSessionID ?? HarnessSession.resolveParent(input.sessionID)
-      const found = HarnessSession.resolveRoot(input.sessionID)
-      const root = parent ? (found === input.sessionID ? parent : found) : input.sessionID
-      const exportable =
-        exporting && isHarness && input.model.isFree === true && org.type === "personal" && input.agent.name !== "title"
-      if (exportable) {
-        SessionExport.beforeRequest({
-          input: { model: input.model, org },
-          requestMeta: {
-            sessionId: input.sessionID,
-            rootSessionId: root,
-            parentSessionId: parent,
-            requestId: input.user.id,
-            userMessageId: input.user.id,
-            agent: input.agent.name,
-            modeId: input.agent.mode,
-            workspaceKey: instance.directory,
-            agentInfo: SessionExport.agentInfo(input.agent),
-          },
-          assembled: {
-            system: prepared.system,
-            messages: prepared.messages,
-            tools: prepared.tools,
-            permissions: input.permission ?? [],
-            toolChoice: input.toolChoice,
-            params: prepared.params,
-          },
-        })
-      }
-
       // Runtime seam: native is an opt-in adapter over @opencode-ai/llm. It
       // either returns a ready LLMEvent stream or a concrete fallback reason.
       if (flags.experimentalNativeLlm) {
@@ -422,21 +383,7 @@ const live: Layer.Layer<
         }),
         experimental_telemetry: { isEnabled: false },
       })
-      if (!exportable) return { type: "ai-sdk" as const, result }
-      return {
-        type: "ai-sdk" as const,
-        result: {
-          fullStream: observeFullStreamForExport(result.fullStream, {
-            sessionId: input.sessionID,
-            rootSessionId: root,
-            parentSessionId: parent,
-            requestId: input.user.id,
-            workspaceKey: instance.directory,
-            started,
-            retries: input.retries ?? 0,
-          }),
-        },
-      }
+      return { type: "ai-sdk" as const, result }
     })
 
     const stream: Interface["stream"] = (input) =>
@@ -469,7 +416,6 @@ const live: Layer.Layer<
   }),
 )
 
-export { normalizeUsageForExport, observeFullStreamForExport }
 export const hasToolCalls = LLMRequestPrep.hasToolCalls
 
 export const node = LayerNode.make({

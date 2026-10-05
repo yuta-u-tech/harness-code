@@ -83,14 +83,6 @@ mock.module("@/project/instance-runtime", () => ({
   },
 }))
 
-mock.module("@/harness/session-export", () => ({
-  SessionExport: {
-    async shutdown() {
-      calls.push("session")
-    },
-  },
-}))
-
 mock.module("@/harness/help-command", () => ({
   createHelpCommand: () => ({ command: "help", handler() {} }),
 }))
@@ -160,7 +152,7 @@ describe("HarnessCli.shutdown", () => {
 
     expect(drainCalls).toBe(0)
     expect(timeouts).toEqual([2000])
-    expect(calls).toEqual(["track:0", "session", "telemetry", "dispose"])
+    expect(calls).toEqual(["track:0", "telemetry", "dispose"])
     expect(process.exitCode).toBe(0)
   })
 
@@ -173,7 +165,7 @@ describe("HarnessCli.shutdown", () => {
     await expect(HarnessCli.shutdown()).resolves.toBeUndefined()
 
     expect(timeouts).toEqual([2000])
-    expect(calls).toEqual(["track:0", "session", "telemetry", "drain", "dispose"])
+    expect(calls).toEqual(["track:0", "telemetry", "drain", "dispose"])
     expect(process.exitCode).toBe(0)
   })
 
@@ -185,7 +177,7 @@ describe("HarnessCli.shutdown", () => {
     await HarnessCli.shutdown()
 
     expect(timeouts).toEqual([2000])
-    expect(calls).toEqual(["track:1", "session", "telemetry", "drain", "dispose"])
+    expect(calls).toEqual(["track:1", "telemetry", "drain", "dispose"])
     expect(process.exitCode).toBe(1)
   })
 

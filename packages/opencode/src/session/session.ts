@@ -40,7 +40,6 @@ import { forkWriter } from "@/harness/session/fork"
 import { GoalState } from "@/harness/session/goal/state"
 import { harnessSessionFork } from "@/harness/session/fork-command"
 import { HarnessSessionEvent } from "@/harness/session/event"
-import { SessionExport } from "@/harness/session-export"
 import * as SandboxPolicy from "@/harness/sandbox/policy"
 import { carryForkDiff } from "@/harness/session-portability/cumulative-diff"
 import { Effect, Layer, Option, Context, Schema, Types } from "effect"
@@ -715,8 +714,6 @@ export const layer: Layer.Layer<
               yield* HarnessSession.cancelWakeups(sessionID)
             }
             yield* events.publish(SessionV1.Event.Deleted, { sessionID, info: session })
-            const workspaceKey = hasInstance ? yield* InstanceState.directory : undefined
-            yield* Effect.promise(() => SessionExport.onSessionClose(sessionID, workspaceKey))
             yield* events.remove(sessionID)
           }),
         )

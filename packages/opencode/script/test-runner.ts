@@ -267,7 +267,7 @@ const FAST_TIERS: Record<string, string[]> = {
     "harness/tui/",
     "harness/util/",
   ],
-  "fast-tier-harness-sessions": ["harness/session-export/", "harness/session/", "harness/sessions/"],
+  "fast-tier-harness-sessions": ["harness/session/", "harness/sessions/"],
   "fast-tier-harness-tools": ["harness/anaconda-desktop/", "harness/cloud/", "harness/tool/"],
   "fast-tier-cli": ["cli/"],
   "fast-tier-misc": ["acp/", "auth/", "bun/", "filesystem/", "ide/", "lsp/", "mcp/", "plugin/", "storage/", "v2/"],
