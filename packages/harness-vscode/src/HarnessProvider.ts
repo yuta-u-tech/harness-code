@@ -4,7 +4,6 @@ import * as vscode from "vscode"
 import { TRANSIENT as MEMORY_TRANSIENT } from "@harness/harness-memory/schema"
 import type {
   HarnessClient,
-  ProviderUsage,
   Session,
   SessionStatus,
   Event,
@@ -16,9 +15,8 @@ import { MaxCostNudge, type MaxCostChoice } from "@opencode-ai/core/harness/cost
 import { type HarnessConnectionService, ServerStartupError } from "./services/cli-backend"
 import { previewSound, testOSNotification } from "./services/attention"
 import type { EditorContext, IndexingStatus } from "./services/cli-backend/types"
-import { FileIgnoreController } from "./services/autocomplete/shims/FileIgnoreController"
-import { ChatTextAreaAutocomplete } from "./services/autocomplete/chat-autocomplete/ChatTextAreaAutocomplete"
-import { notebookUri } from "./services/autocomplete/continuedev/core/autocomplete/notebook"
+import { FileIgnoreController } from "./services/file-ignore/FileIgnoreController"
+import { notebookUri } from "./services/notebook/uri"
 import { buildWebviewHtml, getWebviewFontSize, isCursorHost } from "./utils"
 import { saveImage } from "./harness-provider/save-image"
 import { handleEditorAction } from "./harness-provider/editor-actions"
@@ -82,11 +80,6 @@ import { childID } from "./harness-provider/task-session"
 import { VisibleTaskStreams } from "./harness-provider/visible-task-streams"
 import { handleNetworkEvent, clearNetworkWaits } from "./harness-provider/network"
 import { SessionAbort } from "./harness-provider/abort"
-import {
-  buildAutocompleteSettingsMessage,
-  validAutocompleteSetting,
-  watchAutocompleteConfig,
-} from "./services/autocomplete/settings"
 import { routeEarlyMessage } from "./harness-provider/early-message"
 import * as Board from "./harness-provider/session-board"
 import * as ModelState from "./harness-provider/model-state"
@@ -109,12 +102,6 @@ import {
   type MigrationSource,
 } from "./harness-provider/handlers/migration"
 import type { MigrationSelections } from "./legacy-migration/legacy-types"
-import {
-  handleRequestCloudSessions,
-  handleRequestCloudSessionData,
-  handleImportAndSend,
-  type CloudSessionContext,
-} from "./harness-provider/handlers/cloud-session"
 import {
   handlePermissionResponse,
   fetchAndSendPendingPermissions,
@@ -161,15 +148,6 @@ import type { ProjectRef, SessionRef, WorktreeRef } from "./agent-manager/projec
 import { indexingConsentStore, registeredProjects } from "./indexing-consent"
 import { fetchHarnessEmbeddingModelCatalog } from "@harness/harness-gateway"
 import { fetchImageModels } from "./image-generation/models"
-import { fetchSpeechToTextModels } from "./speech-to-text/catalog"
-import { SPEECH_TO_TEXT_MODELS } from "./speech-to-text/models"
-import {
-  hasCustomSource,
-  resolveSpeechToTextSource,
-  withGlobalSpeechToText,
-  type SpeechToTextConfig,
-  type SpeechToTextSource,
-} from "./speech-to-text/source"
 import { stopSessionProcesses } from "./harness-provider/background-process"
 import { sandboxDefault, sandboxSessionMetadata } from "./shared/sandbox-session"
 import { REVERT_ERROR_CODE } from "./shared/revert-error"
@@ -364,22 +342,6 @@ type ContextRequestMessage =
   | { type: "requestFilePicker"; requestId: string }
   | { type: "requestTerminalContext"; requestId: string; sessionID?: string; agentManagerContext?: string }
 
-const SPEECH_CONFIG_MESSAGES = new Set(["configLoaded", "configUpdated", "configUpdateFailed"])
-
-/**
- * A project overlay must not enable or redirect custom voice input. The webview
- * only sees the global speech-to-text values, matching what the host resolves.
- */
-function withGlobalSpeechToTextMessage(message: unknown): unknown {
-  if (!message || typeof message !== "object") return message
-  const msg = message as { type?: unknown; config?: unknown; globalConfig?: unknown }
-  if (typeof msg.type !== "string" || !SPEECH_CONFIG_MESSAGES.has(msg.type)) return message
-  if (!msg.config || typeof msg.config !== "object") return message
-  const global =
-    msg.globalConfig && typeof msg.globalConfig === "object" ? (msg.globalConfig as SpeechToTextConfig) : undefined
-  return { ...msg, config: withGlobalSpeechToText(msg.config as SpeechToTextConfig, global) }
-}
-
 export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPropertiesProvider {
   public static readonly viewType = "harness-code.SidebarProvider"
   private readonly instanceId = crypto.randomUUID()
@@ -495,7 +457,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
   private unsubscribeSandboxPreference: (() => void) | null = null
   private initConnectionPromise: Promise<void> | null = null
   private webviewMessageDisposable: vscode.Disposable | null = null
-  private autocompleteConfigDisposable: vscode.Disposable | null = null
   private indexingConfigDisposable: vscode.Disposable | null = null
   private chatConfigDisposable: vscode.Disposable | null = null
   private throughputConfigDisposable: vscode.Disposable | null = null
@@ -513,7 +474,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
   /** Workspace folders plus any session directories recently asked about. */
   private static readonly IGNORE_CONTROLLER_LIMIT = 16
   private readonly ignoreControllers = new Map<string, Promise<FileIgnoreController>>()
-  private chatAutocomplete: ChatTextAreaAutocomplete | null = null
   private projectDirectory: string | null | undefined
   private settingsGeneration = 0
   private indexingProjectId: string | undefined
@@ -784,7 +744,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
 
       void this.seedSessionStatusMap()
       void this.seedSessionWakeups()
-
     }
   }
 
@@ -1052,10 +1011,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     }
   }
 
-  public openCloudSession(sessionId: string): void {
-    this.postMessage({ type: "openCloudSession", sessionId })
-  }
-
   public rememberSession(sessionID: string, directory?: string): void {
     if (directory) this.sessionDirectories.set(sessionID, directory)
   }
@@ -1108,8 +1063,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
       this.postMessage({ type: "sessionAcknowledged", sessionID, eventID })
     })
     this.setFocusTarget("other")
-    this.autocompleteConfigDisposable?.dispose()
-    this.autocompleteConfigDisposable = watchAutocompleteConfig((msg) => this.postMessage(msg))
     this.indexingConfigDisposable?.dispose()
     this.indexingConfigDisposable = watchIndexingConfig(() => void this.sendIndexingSettings())
     this.chatConfigDisposable?.dispose()
@@ -1151,8 +1104,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
             this.activity = state
             this.updateTitle()
           },
-          speechToTextModels: () => this.fetchAndSendSpeechToTextModels(),
-          speechToTextSource: () => this.speechToTextSource(),
           modelUsage: (msg) => handleModelUsageMessage(msg, this.extensionContext, (value) => this.postMessage(value)),
           backgroundJobs: (sessionID, requestID) => this.fetchAndSendBackgroundJobs(sessionID, requestID),
           board: (msg) => this.handleBoardMessage(msg),
@@ -1431,7 +1382,9 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
           this.fetchAndSendConfig().catch((e) => console.error("[Harness New] fetchAndSendConfig failed:", e))
           break
         case "requestGlobalConfig":
-          this.fetchAndSendGlobalConfig().catch((e) => console.error("[Harness New] fetchAndSendGlobalConfig failed:", e))
+          this.fetchAndSendGlobalConfig().catch((e) =>
+            console.error("[Harness New] fetchAndSendGlobalConfig failed:", e),
+          )
           break
         case "requestIndexingStatus":
           this.fetchAndSendIndexingStatus().catch((e) =>
@@ -1475,27 +1428,11 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
             .update("language", message.locale || undefined, vscode.ConfigurationTarget.Global)
           this.connectionService.notifyLanguageChanged(message.locale as string)
           break
-        case "requestChatCompletion": {
-          if (!this.chatAutocomplete) {
-            this.chatAutocomplete = new ChatTextAreaAutocomplete(this.connectionService)
-          }
-          void this.chatAutocomplete.handle(
-            { type: "requestChatCompletion", text: message.text, requestId: message.requestId },
-            {
-              postMessage: (msg: { type: "chatCompletionResult"; text: string; requestId: string }) =>
-                this.postMessage(msg),
-            },
-          )
-          break
-        }
         case "requestFileSearch":
         case "requestSessionSearch":
         case "requestFilePicker":
         case "requestTerminalContext":
           await this.handleContextRequest(message)
-          break
-        case "chatCompletionAccepted":
-          this.chatAutocomplete?.telemetry.captureAcceptSuggestion(message.suggestionLength)
           break
         case "deleteSession":
           await this.handleDeleteSession(message.sessionID)
@@ -1512,38 +1449,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
         case "requestTimelineSetting":
           this.sendTimelineSetting()
           break
-        case "requestCloudSessions":
-          await handleRequestCloudSessions(this.cloudSessionCtx, message)
-          break
-        case "requestGitRemoteUrl":
-          void this.getGitRemoteUrl().then((url) => {
-            this.postMessage({ type: "gitRemoteUrlLoaded", gitUrl: url ?? null })
-          })
-          break
-        case "requestCloudSessionData":
-          void handleRequestCloudSessionData(this.cloudSessionCtx, message.sessionId)
-          break
-        case "importAndSend": {
-          const files = parseMessageFiles(message.files)
-          const feedback = feedbackMessage(message)
-          void handleImportAndSend(
-            this.cloudSessionCtx,
-            message.cloudSessionId,
-            message.text,
-            typeof message.messageID === "string" ? message.messageID : undefined,
-            message.providerID,
-            message.modelID,
-            message.agent,
-            message.variant,
-            files,
-            feedback?.review,
-            typeof message.command === "string" ? message.command : undefined,
-            typeof message.commandArgs === "string" ? message.commandArgs : undefined,
-            feedback?.browserFeedback,
-            typeof message.injectedTitle === "string" ? message.injectedTitle : undefined,
-          )
-          break
-        }
         case "resetAllSettings":
           await this.handleResetAllSettings()
           break
@@ -2141,7 +2046,9 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
           if (this.accept(sid, status, dir, epoch)) this.publish(sid, status)
         }
       })
-      .catch((error: unknown) => console.error("[Harness New] HarnessProvider: Failed to fetch session statuses:", error))
+      .catch((error: unknown) =>
+        console.error("[Harness New] HarnessProvider: Failed to fetch session statuses:", error),
+      )
   }
 
   private fetchAndSendSessionModelUsage(sessionID: string, requestID: string): Promise<void> {
@@ -3029,49 +2936,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     this.postMessage(message)
   }
 
-  private speechToTextSource(): SpeechToTextSource | undefined {
-    // A project harness.json must not enable or redirect voice input, so the custom
-    // source comes from the global layer only.
-    return resolveSpeechToTextSource(this.cachedGlobalConfig ?? undefined)
-  }
-
-  /** Monotonic stamp so the webview can discard stale or out-of-order catalogs. */
-  private speechToTextSeq = 0
-
-  private async fetchAndSendSpeechToTextModels(): Promise<void> {
-    const seq = ++this.speechToTextSeq
-    const source = this.speechToTextSource()
-    const kind = hasCustomSource(source) ? ("custom" as const) : ("gateway" as const)
-    const result = await fetchSpeechToTextModels(
-      this.connectionService,
-      this.getWorkspaceDirectory(),
-      undefined,
-      source,
-    )
-    // A newer fetch started while this one was in flight, so drop this result.
-    if (seq !== this.speechToTextSeq) return
-    if (result.ok) {
-      this.postMessage({
-        type: "speechToTextModelsLoaded" as const,
-        models: result.models,
-        source: kind,
-        epoch: this.instanceId,
-        seq,
-      })
-      return
-    }
-    // Gateway keeps its static fallback. A custom failure must not surface Gateway
-    // models, so it reports an empty catalog and uses the explicit model ID instead.
-    const models = kind === "gateway" ? [...SPEECH_TO_TEXT_MODELS] : []
-    this.postMessage({
-      type: "speechToTextModelsLoaded" as const,
-      models,
-      source: kind,
-      epoch: this.instanceId,
-      seq,
-    })
-  }
-
   private handleBoardMessage(message: Record<string, unknown>): Promise<boolean> {
     return Board.handle(message, {
       client: this.connectionState === "connected" ? this.client : null,
@@ -3313,7 +3177,11 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
 
       const first = list[0]!
       const summary = list.length === 1 ? first.message : `${first.message} (and ${list.length - 1} more)`
-      console.warn("[Harness New] HarnessProvider: showing config warnings", { from, count: list.length, path: first.path })
+      console.warn("[Harness New] HarnessProvider: showing config warnings", {
+        from,
+        count: list.length,
+        path: first.path,
+      })
 
       const action = await vscode.window.showWarningMessage(`Config: ${summary}`, "Show Details")
       if (action === "Show Details") {
@@ -3746,9 +3614,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
       const bindings = this.bindingsFor(dir, snapshot.targets)
       const global = snapshot.targets.global.raw as Config
       const projectConfig = bindings.project ? (snapshot.targets.project.raw as Config) : undefined
-      // Capture the previous source before cachedGlobalConfig moves, so a source
-      // change still triggers a catalog refresh.
-      const previousSpeech = this.speechToTextSource()
       this.cachedGlobalConfig = global
       this.cachedConfigMessage = {
         type: "configLoaded",
@@ -3769,15 +3634,9 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
         settings: this.configSettings(),
         features,
       })
-      const currentSpeech = this.speechToTextSource()
-      // Re-discover the catalog only when the saved source changed, so a draft
-      // switch alone never fetches data for an unsaved source.
-      const refreshSpeech =
-        previousSpeech?.baseUrl !== currentSpeech?.baseUrl || previousSpeech?.apiKey !== currentSpeech?.apiKey
       await Promise.all([
         refreshProviders ? this.fetchAndSendProviders() : Promise.resolve(),
         refreshAgents ? this.fetchAndSendAgents() : Promise.resolve(),
-        refreshSpeech ? this.fetchAndSendSpeechToTextModels() : Promise.resolve(),
       ]).catch((error) => console.error("[Harness New] HarnessProvider: Post-config refresh failed:", error))
     } catch (error) {
       this.postConfigFailure(error, completed, snapshot, dir)
@@ -3791,7 +3650,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     const bindings = this.bindingsFor(dir, snapshot.targets)
     const globalConfig = (snapshot.targets?.global.raw ?? snapshot.globalConfig) as Config
     const projectConfig = bindings.project ? (snapshot.targets?.project.raw as Config) : undefined
-    const previousSpeech = this.speechToTextSource()
     this.cachedGlobalConfig = globalConfig ?? null
     this.cachedConfigMessage = {
       type: "configLoaded",
@@ -3814,12 +3672,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
       settings: snapshot.settings,
       features: snapshot.features,
     })
-    // Every provider instance sees settings saved from another webview through the
-    // config-updated event, so refresh its catalog when the saved source changed.
-    const currentSpeech = this.speechToTextSource()
-    if (previousSpeech?.baseUrl !== currentSpeech?.baseUrl || previousSpeech?.apiKey !== currentSpeech?.apiKey) {
-      await this.fetchAndSendSpeechToTextModels()
-    }
   }
 
   private postConfigFailure(
@@ -3970,7 +3822,9 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
         }
 
         const delay = backoff(attempt, result.response?.headers)
-        console.log(`[Harness New] HarnessProvider: Retry on ${status}, attempt ${attempt}/${MAX_RETRIES}, delay ${delay}ms`)
+        console.log(
+          `[Harness New] HarnessProvider: Retry on ${status}, attempt ${attempt}/${MAX_RETRIES}, delay ${delay}ms`,
+        )
 
         this.postMessage({
           type: "sessionStatus",
@@ -4727,52 +4581,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     }
   }
 
-  // Cloud session handlers extracted to harness-provider/handlers/cloud-session.ts
-
-  private get cloudSessionCtx(): CloudSessionContext {
-    const self = this
-    return {
-      client: this.client,
-      get currentSession() {
-        return self.currentSession
-      },
-      set currentSession(session) {
-        self.stopCurrentSessionProcesses(session?.id)
-        self.setCurrentSession(session)
-        if (session) self.contextSessionID = session.id
-      },
-      trackedSessionIds: this.trackedSessionIds,
-      connectionService: this.connectionService,
-      postMessage: (msg) => this.postMessage(msg),
-      notify: (message) => void vscode.window.showInformationMessage(message),
-      getWorkspaceDirectory: (sid) => this.getWorkspaceDirectory(sid),
-      gatherEditorContext: () => this.gatherEditorContext(),
-      runWithMessageConfirmation: (id, label, run) => runWithMessageConfirmation(this.confirmations, id, label, run),
-    }
-  }
-
-  private async disposeGlobal(): Promise<void> {
-    if (!this.client) return
-
-    await this.client.global
-      .dispose()
-      .catch((e: unknown) => console.warn("[Harness New] HarnessProvider: global.dispose() after org switch failed:", e))
-
-    // Org switch succeeded — refresh profile and providers independently (best-effort)
-    try {
-      const profileResult = await this.client!.gateway.profile()
-      // Broadcast to all webviews (sidebar, profile tab, agent manager, etc.)
-      this.connectionService.notifyProfileChanged(profileResult.data ?? null)
-    } catch (error) {
-      console.error("[Harness New] HarnessProvider: Failed to refresh profile after org switch:", error)
-    }
-    try {
-      await this.fetchAndSendProviders()
-    } catch (error) {
-      console.error("[Harness New] HarnessProvider: Failed to refresh providers after org switch:", error)
-    }
-  }
-
   /**
    * Handle a generic setting update from the webview.
    */
@@ -4794,7 +4602,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
       return
     }
     const { section, leaf } = buildSettingPath(key)
-    if (section === "autocomplete" && !validAutocompleteSetting(leaf, value)) return
     if (section === "indexing" && !validIndexingSetting(leaf, value)) return
     if (section === "chat" && !validChatSetting(leaf, value)) return
     const config = vscode.workspace.getConfiguration(`harness-code${section ? `.${section}` : ""}`)
@@ -4844,7 +4651,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     await this.extensionContext?.globalState.update("harness.marketplace.dismissedSuggestions", undefined)
 
     // Re-send all settings to the webview so the UI reflects the reset
-    this.postMessage(buildAutocompleteSettingsMessage())
     await this.sendIndexingSettings()
     this.sendBrowserSettings()
     this.sendNotificationSettings()
@@ -5348,7 +5154,7 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
   }
   /** Post a message to the webview. Public so toolbar button commands can send messages. */
   public postMessage(message: unknown): void {
-    const payload = withGlobalSpeechToTextMessage(message)
+    const payload = message
     if (!this.webview) {
       const type =
         typeof payload === "object" &&
@@ -5408,26 +5214,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
 
     for (const entry of pending) {
       this.postMessage({ type: "appendReviewComments", ...entry })
-    }
-  }
-
-  /**
-   * Get the git remote URL for the current workspace using VS Code's built-in Git API.
-   * Returns undefined if not in a git repo or no remotes are configured.
-   */
-  private async getGitRemoteUrl(): Promise<string | undefined> {
-    try {
-      const extension = vscode.extensions.getExtension("vscode.git")
-      if (!extension) return undefined
-      const api = extension.isActive ? extension.exports?.getAPI(1) : (await extension.activate())?.getAPI(1)
-      if (!api) return undefined
-      const repo = api.repositories?.[0]
-      if (!repo) return undefined
-      const remote = repo.state?.remotes?.find((r: { name: string }) => r.name === "origin")
-      return remote?.fetchUrl ?? remote?.pushUrl
-    } catch (error) {
-      console.warn("[Harness New] HarnessProvider: Failed to get git remote URL:", error)
-      return undefined
     }
   }
 
@@ -5580,7 +5366,9 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     // Ambiguous ids degrade to the legacy resolution instead of throwing: this
     // runs eagerly per webview message, where a throw would drop the message.
     if (routed === null)
-      console.warn(`[Harness New] HarnessProvider: session ${sessionId} is ambiguous across projects, using workspace root`)
+      console.warn(
+        `[Harness New] HarnessProvider: session ${sessionId} is ambiguous across projects, using workspace root`,
+      )
     if (routed) return routed
     return resolveWorkspaceDirectory({
       sessionID: sessionId,
@@ -5929,7 +5717,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     this.viewStateDisposable?.dispose()
     this.visibilityDisposable?.dispose()
     this.webviewMessageDisposable?.dispose()
-    this.autocompleteConfigDisposable?.dispose()
     this.indexingConfigDisposable?.dispose()
     this.chatConfigDisposable?.dispose()
     this.throughputConfigDisposable?.dispose()
@@ -5968,7 +5755,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
       )
     }
     this.ignoreControllers.clear()
-    this.chatAutocomplete?.dispose()
     disposeGitChangesTarget()
   }
 }

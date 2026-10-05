@@ -8,7 +8,6 @@ import {
   WorkspaceRoutingQueryFields,
 } from "@/server/routes/instance/httpapi/middleware/workspace-routing"
 import { described } from "@/server/routes/instance/httpapi/groups/metadata"
-import { ProviderUsage } from "@opencode-ai/schema/harness/provider-usage"
 import { AnacondaDesktopApi } from "./anaconda-desktop"
 import {
   Failure as AgentManagerFailure,
@@ -154,8 +153,6 @@ export const HarnessPaths = {
   removeSnapshot: `${root}/snapshot/remove`,
   teardownWorktree: `${root}/worktree/teardown`,
   prepareSnapshot: `${root}/snapshot/prepare`,
-  providerUsage: `${root}/provider-usage`,
-  providerUsageRefresh: `${root}/provider-usage/refresh`,
   notebookList: `${root}/notebook`,
   notebookReply: `${root}/notebook/:requestID/reply`,
   notebookReject: `${root}/notebook/:requestID/reject`,
@@ -361,28 +358,6 @@ export const HarnessApi = HttpApi.make("harness")
             summary: "Prepare a snapshot repository",
             description:
               "Initialize and seed snapshots for the routed directory without creating a session or tracking ref.",
-          }),
-        ),
-        HttpApiEndpoint.get("providerUsage", HarnessPaths.providerUsage, {
-          query: WorkspaceRoutingQuery,
-          success: described(ProviderUsage.Info, "Current provider usage"),
-          error: HttpApiError.ServiceUnavailable,
-        }).annotateMerge(
-          OpenApi.annotations({
-            identifier: "harness.providerUsage.get",
-            summary: "Get provider usage",
-            description: "Get cache-aware, secret-free provider plan usage and personal billing status.",
-          }),
-        ),
-        HttpApiEndpoint.post("providerUsageRefresh", HarnessPaths.providerUsageRefresh, {
-          query: WorkspaceRoutingQuery,
-          success: described(ProviderUsage.Info, "Refreshed provider usage"),
-          error: HttpApiError.ServiceUnavailable,
-        }).annotateMerge(
-          OpenApi.annotations({
-            identifier: "harness.providerUsage.refresh",
-            summary: "Refresh provider usage",
-            description: "Refresh provider plan usage while coalescing concurrent source requests.",
           }),
         ),
         HttpApiEndpoint.get("notebookList", HarnessPaths.notebookList, {

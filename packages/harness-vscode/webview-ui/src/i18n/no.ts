@@ -205,7 +205,6 @@ export const dict = {
   "prompt.action.send": "Send",
   "prompt.action.continue": "Fortsett",
   "prompt.action.send.blocked": "Svar på eller avvis det ventende spørsmålet først",
-  "prompt.action.send.recording": "Transkriber og send",
   "prompt.action.stop": "Stopp",
   "prompt.action.stop.background": "Stopp hovedagenten. Bakgrunnsagenter fortsetter å kjøre.",
   "prompt.agents.show": "Vis bakgrunnsagenter",
@@ -242,17 +241,6 @@ export const dict = {
     "Klikk for å begrense skrivetilgang til filsystemet og nettverkstilgang.",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "Klikk for å begrense skrivetilgang til filsystemet. Nettverkstilgang er fortsatt tillatt av sandbox-innstillingene dine.",
-
-  "speechToText.tooltip.start": "Start taleinndata",
-  "speechToText.tooltip.shortcut":
-    "Trykk på knappen eller bruk Cmd/Ctrl+K for å starte eller stoppe opptaket; hold knappen inne mens du snakker, og slipp den for å transkribere og sende.",
-  "speechToText.tooltip.starting": "Starter mikrofonen... Vent med å snakke.",
-  "speechToText.tooltip.stop": "Stopp lydfangst",
-  "speechToText.tooltip.transcribing": "Transkriberer... Klikk for å avbryte.",
-  "speechToText.tooltip.error": "Taleinndata mislyktes. Klikk for å tømme.",
-  "speechToText.error.title": "Taleinndata mislyktes",
-  "speechToText.error.loginRequired": "Logg på Harness for å bruke taleinndata.",
-  "speechToText.error.emptyTranscript": "Ingen tale ble oppdaget.",
 
   "prompt.toast.promptSendFailed.title": "Kunne ikke sende forespørsel",
 
@@ -443,9 +431,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Underagentmodell",
   "settings.providers.subagentModel.description":
     "Standardmodell og resonneringsinnsats for task-tool-underagenter. La stå tom for å arve den kallende agentens modell.",
-  "settings.models.hidePromptTraining.title": "Skjul modeller som trener på ledetekster",
-  "settings.models.hidePromptTraining.description":
-    "Skjul Harness Gateway-modeller der leverandørene kan bruke ledetekstene dine til trening.",
   "settings.providers.modeModels": "Modell per modus",
   "settings.providers.modeModels.description":
     "Overstyr standardmodellen for bestemte moduser. Hvis ikke angitt, brukes den globale standardmodellen.",
@@ -564,10 +549,7 @@ export const dict = {
   "session.tabs.switcher.busy": "Jobber",
   "session.tabs.switcher.scheduled": "Planlagt",
   "session.tab.local": "Lokal",
-  "session.tab.cloud": "Sky",
   "session.tab.worktree": "Arbeidstre",
-  "session.cloud.repoOnly": "Kun dette repositoriet",
-  "session.cloud.import": "Importer fra skyen",
   "feedback.button": "Tilbakemelding & støtte",
   "feedback.dialog.message": "Vi vil gjerne høre tilbakemeldingene dine eller hjelpe med problemer du opplever.",
   "feedback.dialog.github": "Rapporter et problem på GitHub",
@@ -594,12 +576,6 @@ export const dict = {
   "workStyle.choice.autonomous.bash": "Kan kjøre terminalkommandoer i arbeidsområdet uten godkjenning.",
   "workStyle.choice.autonomous.visibility":
     "Slår sammen verktøydetaljer, med en kompakt forhåndsvisning av resonneringen.",
-  "session.cloud.import.title": "Importer fra skyen",
-  "session.cloud.import.placeholder": "Økt-ID, URL eller harness import-kommando",
-  "session.cloud.import.button": "Importer",
-  "session.cloud.import.invalid": "Ugyldig økt-ID-format",
-  "session.cloud.import.legacy": "Dette ser ut til å være en eldre økt som ikke lenger støttes.",
-  "session.cloud.import.failed": "Kunne ikke importere skyøkt",
 
   "common.retry": "Prøv igjen",
   "common.refresh": "Oppdater",
@@ -610,8 +586,6 @@ export const dict = {
   "settings.autoApprove.title": "Automatisk godkjenning",
   "settings.checkpoints.title": "Kontrollpunkter",
   "settings.display.title": "Visning",
-  "settings.autocomplete.model.title": "Autocomplete-modell",
-  "settings.autocomplete.model.description": "Velg modellen som brukes for inline kodefullføring",
   "settings.notifications.title": "Varslinger",
 
   "settings.language.title": "Språk",
@@ -710,24 +684,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Del en tavle mellom en hovedøkt og underagentene som utfører oppgavene dens, inkludert nestede underagenter. Bruk den til parallelle løsningsforsøk eller arbeidsoppgaver som utfyller hverandre, ikke til alle oppgaver.",
-
-  "settings.models.speechToTextModel.customDescription":
-    "Modell-ID som sendes til ditt eget transkripsjonsendepunkt, for eksempel whisper-1.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "Tale-til-tekst-basis-URL",
-  "settings.models.speechToTextBaseUrl.description":
-    "Bruk et OpenAI-kompatibelt transkripsjons-API i stedet for Harness Gateway. Modeller leses fra /models, og lyd sendes til /audio/transcriptions. La feltet stå tomt for å bruke Harness Gateway.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "Tale-til-tekst-API-nøkkel",
-  "settings.models.speechToTextApiKey.description":
-    "Bearer-token som sendes til den egne transkripsjons-basis-URL-en. Lagres i Harness-konfigurasjonsfilen din.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "Aktiver og logg på Harness-leverandøren for å bruke Speech to Text, eller angi en egen transkripsjons-basis-URL nedenfor.",
-  "settings.models.speechToText.remoteDescription":
-    "Taleinndata er ikke tilgjengelig i eksterne vinduer. Åpne Harness i et lokalt vindu for å bruke mikrofonen.",
-  "settings.models.speechToTextModel.title": "Tale-til-tekst-modell",
-  "settings.models.speechToTextModel.description": "Velg Harness Gateway-transkripsjonsmodellen for taleinndata.",
 
   "settings.agentBehaviour.defaultAgent.title": "Standardagent",
   "settings.agentBehaviour.defaultAgent.description": "Agent å bruke når ingen er angitt",

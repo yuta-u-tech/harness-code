@@ -13,7 +13,6 @@ const harness = [
   "internal:harness-sidebar-pr",
   "internal:harness-sidebar-usage",
   "internal:sandbox",
-  "internal:remote",
   "internal:reload",
 ]
 

@@ -443,10 +443,7 @@ export const dict = {
   "session.tabs.switcher.busy": "In corso",
   "session.tabs.switcher.scheduled": "Programmato",
   "session.tab.local": "Locale",
-  "session.tab.cloud": "Cloud",
   "session.tab.worktree": "Albero di lavoro",
-  "session.cloud.repoOnly": "Solo questa repository",
-  "session.cloud.import": "Importa sessione",
   "feedback.button": "Feedback e supporto",
   "feedback.dialog.message": "Ci piacerebbe ricevere feedback o aiutarti con eventuali problemi.",
   "feedback.dialog.github": "Segnala un problema su GitHub",
@@ -473,12 +470,6 @@ export const dict = {
   "workStyle.choice.autonomous.bash": "Può eseguire comandi nel terminale del workspace senza approvazione.",
   "workStyle.choice.autonomous.visibility":
     "Comprime i dettagli degli strumenti, con un'anteprima compatta del ragionamento.",
-  "session.cloud.import.title": "Importa sessione",
-  "session.cloud.import.placeholder": "ID sessione, URL o comando harness import",
-  "session.cloud.import.button": "Importa",
-  "session.cloud.import.invalid": "Formato ID sessione non valido",
-  "session.cloud.import.legacy": "Questa sembra essere una sessione legacy non più supportata.",
-  "session.cloud.import.failed": "Importazione sessione cloud non riuscita",
   "common.retry": "Riprova",
   "common.refresh": "Aggiorna",
   "common.reload": "Ricarica",
@@ -560,8 +551,6 @@ export const dict = {
   "settings.language.auto": "Auto (lingua VS Code)",
   "settings.language.current": "Corrente:",
   "common.add": "Aggiungi",
-  "settings.autocomplete.model.title": "Modello autocompletamento",
-  "settings.autocomplete.model.description": "Seleziona il modello usato per i completamenti inline del codice",
   "settings.notifications.sounds": "Suoni",
   "settings.notifications.enable.title": "Abilita le notifiche sonore",
   "settings.notifications.enable.description":
@@ -983,23 +972,6 @@ export const dict = {
   "session.costAlert.stop": "Interrompi",
 
   // Speech to Text
-  "settings.models.speechToTextModel.customDescription":
-    "ID del modello inviato al tuo endpoint di trascrizione personalizzato, ad esempio whisper-1.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "URL di base Da voce a testo",
-  "settings.models.speechToTextBaseUrl.description":
-    "Usa un'API di trascrizione compatibile con OpenAI al posto di Harness Gateway. I modelli vengono letti da /models e l'audio viene inviato a /audio/transcriptions. Lascia vuoto per usare Harness Gateway.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "Chiave API Da voce a testo",
-  "settings.models.speechToTextApiKey.description":
-    "Token bearer inviato all'URL di base di trascrizione personalizzato. Salvato nel tuo file di configurazione Harness.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "Abilita e accedi al provider Harness per usare Da voce a testo, oppure imposta di seguito un URL di base di trascrizione personalizzato.",
-  "settings.models.speechToText.remoteDescription":
-    "L'input vocale non è disponibile nelle finestre remote. Apri Harness in una finestra locale per usare il microfono.",
-  "settings.models.speechToTextModel.title": "Modello Da voce a testo",
-  "settings.models.speechToTextModel.description": "Scegli il modello di trascrizione Harness Gateway per l'input vocale.",
 
   // Compaction limit
 
@@ -1007,9 +979,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Modello sub-agent",
   "settings.providers.subagentModel.description":
     "Modello e sforzo di ragionamento predefiniti per i sub-agent del tool task. Lascia non impostato per ereditare il modello dell'agente chiamante.",
-  "settings.models.hidePromptTraining.title": "Nascondi i modelli che usano i prompt per l'addestramento",
-  "settings.models.hidePromptTraining.description":
-    "Nascondi i modelli Harness Gateway i cui provider potrebbero usare i tuoi prompt per l'addestramento.",
 
   // Autocomplete hint
 
@@ -1028,7 +997,6 @@ export const dict = {
   "provider.connect.prompt.required": "{{field}} è obbligatorio",
 
   // Prompt recording
-  "prompt.action.send.recording": "Trascrivi e invia",
 
   // Session export
   "command.session.export": "Esporta trascrizione sessione",
@@ -1049,16 +1017,6 @@ export const dict = {
     "Accedi di nuovo con ChatGPT, quindi invia di nuovo il tuo messaggio per continuare a usare i modelli Codex.",
 
   // Speech to Text tooltips and errors
-  "speechToText.tooltip.start": "Avvia input vocale",
-  "speechToText.tooltip.shortcut":
-    "Tocca o premi Cmd/Ctrl+K per avviare o interrompere la registrazione; tieni premuto mentre parli e rilascia per trascrivere e inviare.",
-  "speechToText.tooltip.starting": "Avvio del microfono... Attendi prima di parlare.",
-  "speechToText.tooltip.stop": "Interrompi acquisizione",
-  "speechToText.tooltip.transcribing": "Trascrizione... Fai clic per annullare.",
-  "speechToText.tooltip.error": "Input vocale fallito. Fai clic per cancellare.",
-  "speechToText.error.title": "Input vocale fallito",
-  "speechToText.error.loginRequired": "Accedi a Harness per usare l'input vocale.",
-  "speechToText.error.emptyTranscript": "Nessun parlato rilevato.",
   "chat.search.placeholder": "Cerca nella chat…",
   "chat.search.toggle": "Cerca nella chat",
   "chat.search.matchCase": "Maiuscole/minuscole",

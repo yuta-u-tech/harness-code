@@ -48,7 +48,8 @@ export const anacondaDesktopDict = {
   "provider.anaconda.action.continue": "このまま続行",
   "provider.anaconda.action.manage": "管理 / 更新",
   "provider.anaconda.toast.refreshed.title": "Anaconda Desktop を更新しました",
-  "provider.anaconda.toast.refreshed.description": "アクティブなローカルサーバーとモデルが Harness で最新になりました。",
+  "provider.anaconda.toast.refreshed.description":
+    "アクティブなローカルサーバーとモデルが Harness で最新になりました。",
   "settings.providers.note.anacondaDesktop": "Anaconda Desktop によってローカルで提供されるモデルを実行します。",
   "settings.providers.tag.local": "ローカル",
 } as const
@@ -203,7 +204,6 @@ export const dict = {
   "prompt.action.send": "送信",
   "prompt.action.continue": "続行",
   "prompt.action.send.blocked": "最初に保留中の質問に答えるか、閉じてください",
-  "prompt.action.send.recording": "文字起こしして送信",
   "prompt.action.stop": "停止",
   "prompt.action.stop.background": "メインエージェントを停止します。バックグラウンドエージェントは実行を続けます。",
   "prompt.agents.show": "バックグラウンドエージェントを表示",
@@ -238,17 +238,6 @@ export const dict = {
     "クリックすると、ファイルシステムへの書き込みとネットワークアクセスを制限します。",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "クリックすると、ファイルシステムへの書き込みを制限します。サンドボックス設定により、ネットワークアクセスは引き続き許可されます。",
-
-  "speechToText.tooltip.start": "音声入力を開始",
-  "speechToText.tooltip.shortcut":
-    "タップまたは Cmd/Ctrl+K を押して録音を開始／停止し、話している間は押し続け、離すと文字起こしして送信します。",
-  "speechToText.tooltip.starting": "マイクを起動中... まだ話さないでください。",
-  "speechToText.tooltip.stop": "音声キャプチャを停止",
-  "speechToText.tooltip.transcribing": "文字起こし中... クリックしてキャンセル。",
-  "speechToText.tooltip.error": "音声入力に失敗しました。クリックしてクリア。",
-  "speechToText.error.title": "音声入力に失敗しました",
-  "speechToText.error.loginRequired": "音声入力を使用するにはHarnessにサインインしてください。",
-  "speechToText.error.emptyTranscript": "音声が検出されませんでした。",
 
   "prompt.toast.promptSendFailed.title": "プロンプトの送信に失敗しました",
 
@@ -437,9 +426,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "サブエージェントモデル",
   "settings.providers.subagentModel.description":
     "task-tool サブエージェントのデフォルトモデルと推論の労力。呼び出し元のエージェントのモデルを継承する場合は未設定のままにしてください。",
-  "settings.models.hidePromptTraining.title": "プロンプトを学習に使用するモデルを非表示",
-  "settings.models.hidePromptTraining.description":
-    "プロバイダーがプロンプトを学習に使用する可能性のある Harness Gateway モデルを非表示にします。",
   "settings.providers.modeModels": "モードごとのモデル",
   "settings.providers.modeModels.description":
     "特定のモードのデフォルトモデルを上書きします。設定されていない場合、グローバルデフォルトモデルが使用されます。",
@@ -508,7 +494,8 @@ export const dict = {
   "settings.config.title": "{{scope}}のHarness構成ファイルを開く",
   "settings.config.placeholder":
     "構成ファイルは順番にマージされます。読み込み済みとしてマークされているファイルが現在設定に影響しています。",
-  "settings.config.noWorkspace": "ローカルのHarness構成ファイルを編集するには、ワークスペースフォルダーを開いてください。",
+  "settings.config.noWorkspace":
+    "ローカルのHarness構成ファイルを編集するには、ワークスペースフォルダーを開いてください。",
   "settings.config.openFailed": "{{scope}}のHarness構成ファイルを開けませんでした: {{message}}",
   "settings.config.source.xdg": "XDGグローバル構成",
   "settings.config.source.homeHarness": "Homeの.harness構成",
@@ -557,10 +544,7 @@ export const dict = {
   "session.tabs.switcher.busy": "作業中",
   "session.tabs.switcher.scheduled": "予約済み",
   "session.tab.local": "ローカル",
-  "session.tab.cloud": "クラウド",
   "session.tab.worktree": "ワークツリー",
-  "session.cloud.repoOnly": "このリポジトリのみ",
-  "session.cloud.import": "クラウドからインポート",
   "feedback.button": "フィードバック & サポート",
   "feedback.dialog.message": "フィードバックをお聞かせいただくか、問題がある場合はお気軽にご相談ください。",
   "feedback.dialog.github": "GitHubで問題を報告する",
@@ -586,13 +570,6 @@ export const dict = {
   "workStyle.choice.autonomous.permissions": "確認なしでワークスペース内のファイルを編集し、コマンドを実行します。",
   "workStyle.choice.autonomous.bash": "ワークスペース内で承認なしにターミナルコマンドを実行できます。",
   "workStyle.choice.autonomous.visibility": "ツールの詳細を折りたたみ、推論をコンパクトにプレビューします。",
-  "session.cloud.import.title": "クラウドからインポート",
-  "session.cloud.import.placeholder": "セッションID、URL、またはharness importコマンド",
-  "session.cloud.import.button": "インポート",
-  "session.cloud.import.invalid": "セッションIDの形式が無効です",
-  "session.cloud.import.legacy":
-    "これは以前のバージョンのセッションのようです。このセッションはサポートされなくなりました。",
-  "session.cloud.import.failed": "クラウドセッションのインポートに失敗しました",
 
   "common.retry": "再試行",
   "common.refresh": "更新",
@@ -603,8 +580,6 @@ export const dict = {
   "settings.autoApprove.title": "自動承認",
   "settings.checkpoints.title": "チェックポイント",
   "settings.display.title": "表示",
-  "settings.autocomplete.model.title": "オートコンプリートモデル",
-  "settings.autocomplete.model.description": "インラインでのコード補完に使用するモデルを選択します",
   "settings.notifications.title": "通知",
 
   "settings.language.title": "言語",
@@ -702,24 +677,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "メインセッションと、そのタスクを担当するサブエージェント（ネストされたサブエージェントを含む）の間でボードを共有します。すべてのタスクで使うのではなく、並行して解決策を試す場合や、互いに補完し合う作業に使用してください。",
-
-  "settings.models.speechToTextModel.customDescription":
-    "カスタム文字起こしエンドポイントに送信するモデル ID です。例: whisper-1。",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "音声認識ベース URL",
-  "settings.models.speechToTextBaseUrl.description":
-    "Harness Gateway の代わりに OpenAI 互換の文字起こし API を使用します。モデルは /models から読み込まれ、音声は /audio/transcriptions に送信されます。空欄にすると Harness Gateway を使用します。",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "音声認識 API キー",
-  "settings.models.speechToTextApiKey.description":
-    "カスタム文字起こしベース URL に送信するベアラートークンです。Harness の設定ファイルに保存されます。",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "Speech to Text を使用するには、Harness プロバイダーを有効にしてサインインするか、下でカスタム文字起こしベース URL を設定してください。",
-  "settings.models.speechToText.remoteDescription":
-    "音声入力はリモートウィンドウでは利用できません。マイクを使用するには、ローカルウィンドウで Harness を開いてください。",
-  "settings.models.speechToTextModel.title": "音声認識モデル",
-  "settings.models.speechToTextModel.description": "音声入力に使用するHarness Gateway文字起こしモデルを選択します。",
 
   "settings.agentBehaviour.defaultAgent.title": "デフォルトエージェント",
   "settings.agentBehaviour.defaultAgent.description": "指定されていない場合に使用するエージェント",

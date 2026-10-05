@@ -203,7 +203,6 @@ export const dict = {
   "prompt.action.send": "Надіслати",
   "prompt.action.continue": "Продовжити",
   "prompt.action.send.blocked": "Спочатку дайте відповідь або закрийте очікуюче питання",
-  "prompt.action.send.recording": "Транскрибувати та надіслати",
   "prompt.action.stop": "Зупинити",
   "prompt.action.stop.background": "Зупинити головного агента. Фонові агенти продовжать роботу.",
   "prompt.agents.show": "Показати фонових агентів",
@@ -220,7 +219,8 @@ export const dict = {
     "Кнопка 'Покращити запит' допомагає вдосконалити ваш запит, надаючи додатковий контекст, уточнення або перефразування. Введіть запит тут і натисніть кнопку ще раз, щоб побачити, як це працює.",
   "prompt.action.sandbox.enable": "Увімкнути пісочницю",
   "prompt.action.sandbox.disable": "Вимкнути пісочницю",
-  "prompt.action.sandbox.enabled": "Пісочницю увімкнено. Команди оболонки агента обмежені каталогами проєкту та Harness.",
+  "prompt.action.sandbox.enabled":
+    "Пісочницю увімкнено. Команди оболонки агента обмежені каталогами проєкту та Harness.",
   "prompt.action.sandbox.disabled":
     "Пісочницю вимкнено. Натисніть, щоб обмежити запис команд оболонки агента каталогами проєкту та Harness.",
   "prompt.action.sandbox.status.enabled": "Пісочницю увімкнено",
@@ -237,17 +237,6 @@ export const dict = {
   "prompt.action.sandbox.description.disabled": "Натисніть, щоб обмежити запис у файлову систему та доступ до мережі.",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "Натисніть, щоб обмежити запис у файлову систему. Доступ до мережі залишиться дозволеним відповідно до налаштувань пісочниці.",
-
-  "speechToText.tooltip.start": "Почати голосове введення",
-  "speechToText.tooltip.shortcut":
-    "Торкніться кнопки або натисніть Cmd/Ctrl+K, щоб почати чи зупинити запис; утримуйте кнопку під час мовлення, а потім відпустіть її, щоб транскрибувати й надіслати.",
-  "speechToText.tooltip.starting": "Запуск мікрофона... Поки що не говоріть.",
-  "speechToText.tooltip.stop": "Зупинити захоплення звуку",
-  "speechToText.tooltip.transcribing": "Транскрибування... Натисніть, щоб скасувати.",
-  "speechToText.tooltip.error": "Помилка голосового введення. Натисніть, щоб очистити.",
-  "speechToText.error.title": "Помилка голосового введення",
-  "speechToText.error.loginRequired": "Увійдіть до Harness, щоб використовувати голосове введення.",
-  "speechToText.error.emptyTranscript": "Мовлення не виявлено.",
 
   "prompt.toast.promptSendFailed.title": "Не вдалося надіслати запит",
 
@@ -503,7 +492,8 @@ export const dict = {
   "settings.config.title": "Відкрити файл конфігурації Harness ({{scope}})",
   "settings.config.placeholder":
     "Файли конфігурації об'єднуються по порядку; файли, позначені як завантажені, наразі впливають на налаштування.",
-  "settings.config.noWorkspace": "Відкрийте папку робочої області, щоб відредагувати локальний файл конфігурації Harness.",
+  "settings.config.noWorkspace":
+    "Відкрийте папку робочої області, щоб відредагувати локальний файл конфігурації Harness.",
   "settings.config.openFailed": "Не вдалося відкрити файл конфігурації Harness ({{scope}}): {{message}}",
   "settings.config.source.xdg": "Глобальна конфігурація XDG",
   "settings.config.source.homeHarness": "Конфігурація .harness (Home)",
@@ -554,10 +544,7 @@ export const dict = {
   "session.tabs.switcher.busy": "Працює",
   "session.tabs.switcher.scheduled": "Заплановано",
   "session.tab.local": "Локальний",
-  "session.tab.cloud": "Хмарний",
   "session.tab.worktree": "Робоче дерево",
-  "session.cloud.repoOnly": "Лише цей репозиторій",
-  "session.cloud.import": "Імпортувати з хмари",
   "feedback.button": "Зворотний зв'язок і підтримка",
   "feedback.dialog.message": "Ми раді отримати ваш відгук або допомогти з будь-якими проблемами, які у вас виникли.",
   "feedback.dialog.github": "Повідомити про проблему на GitHub",
@@ -584,12 +571,6 @@ export const dict = {
   "workStyle.choice.autonomous.bash": "Може виконувати команди термінала в робочому просторі без схвалення.",
   "workStyle.choice.autonomous.visibility":
     "Згортає деталі інструментів, з компактним попереднім переглядом міркувань.",
-  "session.cloud.import.title": "Імпортувати з хмари",
-  "session.cloud.import.placeholder": "Ідентифікатор сесії, URL або команда harness import",
-  "session.cloud.import.button": "Імпортувати",
-  "session.cloud.import.invalid": "Недійсний формат ідентифікатора сесії",
-  "session.cloud.import.legacy": "Схоже, це застаріла сесія, яка більше не підтримується.",
-  "session.cloud.import.failed": "Не вдалося імпортувати хмарну сесію",
 
   "common.retry": "Спробувати ще раз",
   "common.refresh": "Оновити",
@@ -600,8 +581,6 @@ export const dict = {
   "settings.autoApprove.title": "Автоматичне схвалення",
   "settings.checkpoints.title": "Контрольні точки",
   "settings.display.title": "Відображення",
-  "settings.autocomplete.model.title": "Модель автодоповнення",
-  "settings.autocomplete.model.description": "Виберіть модель для вбудованого (inline) автодоповнення коду",
   "settings.notifications.title": "Сповіщення",
 
   "settings.language.title": "Мова",
@@ -702,24 +681,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Надайте спільну дошку головному сеансу та його субагентам, які виконують завдання, включно з вкладеними субагентами. Використовуйте її для паралельних спроб знайти розв'язання або взаємодоповнювальної роботи, а не для кожного завдання.",
-
-  "settings.models.speechToTextModel.customDescription":
-    "Ідентифікатор моделі, який надсилається до вашої власної кінцевої точки транскрипції, наприклад whisper-1.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "Базова URL-адреса мовлення в текст",
-  "settings.models.speechToTextBaseUrl.description":
-    "Використовуйте сумісний з OpenAI API транскрипції замість Harness Gateway. Моделі читаються з /models, а аудіо надсилається на /audio/transcriptions. Залиште порожнім, щоб використовувати Harness Gateway.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "Ключ API мовлення в текст",
-  "settings.models.speechToTextApiKey.description":
-    "Bearer-токен, який надсилається на власну базову URL-адресу транскрипції. Зберігається у вашому файлі конфігурації Harness.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "Увімкніть провайдер Harness та виконайте вхід, щоб використовувати Speech to Text, або вкажіть нижче власну базову URL-адресу транскрипції.",
-  "settings.models.speechToText.remoteDescription":
-    "Голосове введення недоступне у віддалених вікнах. Відкрийте Harness у локальному вікні, щоб використовувати мікрофон.",
-  "settings.models.speechToTextModel.title": "Модель мовлення в текст",
-  "settings.models.speechToTextModel.description": "Виберіть модель транскрипції Harness Gateway для голосового введення.",
 
   "settings.agentBehaviour.defaultAgent.title": "Агент за замовчуванням",
   "settings.agentBehaviour.defaultAgent.description": "Агент, що використовується, якщо не вказано інший",
@@ -917,9 +878,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Модель субагента",
   "settings.providers.subagentModel.description":
     "Модель за замовчуванням та рівень міркування для субагентів task-tool. Залиште порожнім, щоб успадкувати модель агента, що викликає.",
-  "settings.models.hidePromptTraining.title": "Приховувати моделі, що навчаються на запитах",
-  "settings.models.hidePromptTraining.description":
-    "Приховувати моделі Harness Gateway, постачальники яких можуть використовувати ваші запити для навчання.",
   "settings.providers.modeModels": "Модель для кожного режиму",
   "settings.providers.modeModels.description":
     "Перевизначити стандартну модель для певних режимів. Якщо не встановлено, використовується загальна стандартна модель.",

@@ -48,7 +48,8 @@ export const anacondaDesktopDict = {
   "provider.anaconda.action.continue": "Continuar de todos modos",
   "provider.anaconda.action.manage": "Administrar / Actualizar",
   "provider.anaconda.toast.refreshed.title": "Anaconda Desktop actualizado",
-  "provider.anaconda.toast.refreshed.description": "El servidor local activo y los modelos están actualizados en Harness.",
+  "provider.anaconda.toast.refreshed.description":
+    "El servidor local activo y los modelos están actualizados en Harness.",
   "settings.providers.note.anacondaDesktop": "Ejecuta un modelo servido localmente por Anaconda Desktop.",
   "settings.providers.tag.local": "Local",
 } as const
@@ -204,7 +205,6 @@ export const dict = {
   "prompt.action.send": "Enviar",
   "prompt.action.continue": "Continuar",
   "prompt.action.send.blocked": "Responda o descarte la pregunta pendiente primero",
-  "prompt.action.send.recording": "Transcribir y enviar",
   "prompt.action.stop": "Detener",
   "prompt.action.stop.background": "Detener el agente principal. Los agentes en segundo plano siguen en ejecución.",
   "prompt.agents.show": "Mostrar agentes en segundo plano",
@@ -241,17 +241,6 @@ export const dict = {
     "Haz clic para restringir las escrituras en el sistema de archivos y el acceso a la red.",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "Haz clic para restringir las escrituras en el sistema de archivos. El acceso a la red seguirá permitido según la configuración de tu sandbox.",
-
-  "speechToText.tooltip.start": "Iniciar entrada de voz",
-  "speechToText.tooltip.shortcut":
-    "Toca o pulsa Cmd/Ctrl+K para iniciar o detener la grabación; mantén pulsado mientras hablas y suéltalo para transcribir y enviar.",
-  "speechToText.tooltip.starting": "Iniciando el micrófono... Espera antes de hablar.",
-  "speechToText.tooltip.stop": "Detener captura",
-  "speechToText.tooltip.transcribing": "Transcribiendo... Haz clic para cancelar.",
-  "speechToText.tooltip.error": "Falló la entrada de voz. Haz clic para borrar.",
-  "speechToText.error.title": "Falló la entrada de voz",
-  "speechToText.error.loginRequired": "Inicia sesión en Harness para usar la entrada de voz.",
-  "speechToText.error.emptyTranscript": "No se detectó voz.",
 
   "prompt.toast.promptSendFailed.title": "Fallo al enviar prompt",
 
@@ -440,9 +429,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Modelo de subagente",
   "settings.providers.subagentModel.description":
     "Modelo predeterminado y esfuerzo de razonamiento para los subagentes de task-tool. Déjelo sin configurar para heredar el modelo del agente invocador.",
-  "settings.models.hidePromptTraining.title": "Ocultar modelos que entrenan con prompts",
-  "settings.models.hidePromptTraining.description":
-    "Oculta los modelos de Harness Gateway cuyos proveedores pueden usar tus prompts para entrenamiento.",
   "settings.providers.modeModels": "Modelo por modo",
   "settings.providers.modeModels.description":
     "Anula el modelo predeterminado para modos específicos. Si no se establece, se usa el modelo predeterminado global.",
@@ -563,10 +549,7 @@ export const dict = {
   "session.tabs.switcher.busy": "Trabajando",
   "session.tabs.switcher.scheduled": "Programado",
   "session.tab.local": "Local",
-  "session.tab.cloud": "Nube",
   "session.tab.worktree": "Árbol de trabajo",
-  "session.cloud.repoOnly": "Solo este repositorio",
-  "session.cloud.import": "Importar desde la nube",
   "feedback.button": "Comentarios y soporte",
   "feedback.dialog.message":
     "Nos encantaría escuchar tus comentarios o ayudarte con cualquier problema que estés experimentando.",
@@ -596,12 +579,6 @@ export const dict = {
   "workStyle.choice.autonomous.bash": "Puede ejecutar comandos en el terminal del espacio de trabajo sin aprobación.",
   "workStyle.choice.autonomous.visibility":
     "Contrae los detalles de las herramientas, con una vista previa compacta del razonamiento.",
-  "session.cloud.import.title": "Importar desde la nube",
-  "session.cloud.import.placeholder": "ID de sesión, URL o comando harness import",
-  "session.cloud.import.button": "Importar",
-  "session.cloud.import.invalid": "Formato de ID de sesión no válido",
-  "session.cloud.import.legacy": "Esta parece ser una sesión heredada que ya no es compatible.",
-  "session.cloud.import.failed": "Error al importar la sesión de la nube",
 
   "common.retry": "Reintentar",
   "common.refresh": "Actualizar",
@@ -612,8 +589,6 @@ export const dict = {
   "settings.autoApprove.title": "Aprobación automática",
   "settings.checkpoints.title": "Puntos de control",
   "settings.display.title": "Pantalla",
-  "settings.autocomplete.model.title": "Modelo de autocompletado",
-  "settings.autocomplete.model.description": "Selecciona el modelo utilizado para el autocompletado de código en línea",
   "settings.notifications.title": "Notificaciones",
 
   "settings.language.title": "Idioma",
@@ -713,25 +688,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Comparte un tablero entre una sesión principal y sus subagentes de tareas, incluidos los subagentes anidados. Úsalo para intentos de solución en paralelo o trabajos complementarios, no para todas las tareas.",
-
-  "settings.models.speechToTextModel.customDescription":
-    "ID del modelo que se envía a tu endpoint de transcripción propio, por ejemplo whisper-1.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "URL base de voz a texto",
-  "settings.models.speechToTextBaseUrl.description":
-    "Usa una API de transcripción compatible con OpenAI en lugar de Harness Gateway. Los modelos se leen de /models y el audio se envía a /audio/transcriptions. Déjalo vacío para usar Harness Gateway.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "Clave de API de voz a texto",
-  "settings.models.speechToTextApiKey.description":
-    "Token de portador que se envía a la URL base de transcripción propia. Se guarda en tu archivo de configuración de Harness.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "Habilita e inicia sesión en el proveedor Harness para usar Speech to Text, o define abajo una URL base de transcripción propia.",
-  "settings.models.speechToText.remoteDescription":
-    "La entrada de voz no está disponible en ventanas remotas. Abre Harness en una ventana local para usar el micrófono.",
-  "settings.models.speechToTextModel.title": "Modelo de voz a texto",
-  "settings.models.speechToTextModel.description":
-    "Elige el modelo de transcripción de Harness Gateway para la entrada de voz.",
 
   "settings.agentBehaviour.defaultAgent.title": "Agente predeterminado",
   "settings.agentBehaviour.defaultAgent.description": "Agente a usar cuando no se especifica ninguno",

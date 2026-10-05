@@ -12,9 +12,6 @@ import { SubAgentViewerProvider } from "./SubAgentViewerProvider"
 import { EXTENSION_DISPLAY_NAME } from "./constants"
 import { HarnessConnectionService } from "./services/cli-backend"
 import { retention } from "./services/task-cleanup/retention"
-import { registerAutocompleteProvider } from "./services/autocomplete"
-import { ensureBackendForAutocomplete } from "./services/autocomplete/ensure-backend"
-import { AutocompleteServiceManager } from "./services/autocomplete/AutocompleteServiceManager"
 import { AttentionService, showOSNotification } from "./services/attention"
 import { CaffeinationService } from "./services/caffeination"
 import { confirmCaffeination } from "./services/caffeination/confirm"
@@ -114,7 +111,6 @@ export async function activate(context: vscode.ExtensionContext) {
         // opted out for the rest of the session.
         telemetry.setEnabled(vscode.env.isTelemetryEnabled)
       }
-      AutocompleteServiceManager.getInstance()?.load()
     }
   })
 
@@ -210,7 +206,9 @@ export async function activate(context: vscode.ExtensionContext) {
     }
     if (state.enabled === prior.enabled) return
     void vscode.window.showInformationMessage(
-      state.enabled ? "Keep Awake enabled. Harness will prevent system sleep while agents work." : "Keep Awake disabled.",
+      state.enabled
+        ? "Keep Awake enabled. Harness will prevent system sleep while agents work."
+        : "Keep Awake disabled.",
     )
   })
   context.subscriptions.push({ dispose: unsubscribeCaffeination })
@@ -331,7 +329,6 @@ export async function activate(context: vscode.ExtensionContext) {
   })
 
   // Prewarm only after all global event consumers are ready.
-  ensureBackendForAutocomplete(connectionService)
 
   provider.setAutoApproveController(autoApprove)
   agentManagerHost.setAutoApproveController(autoApprove)
@@ -695,15 +692,6 @@ export async function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.window.registerUriHandler({
       async handleUri(uri: vscode.Uri) {
-        const sessionMatch = uri.path.match(/^\/harness\/s\/([a-zA-Z0-9_-]+)$/)
-        const sessionId = sessionMatch?.[1]
-        if (sessionId) {
-          console.log("[Harness New] URI handler: opening cloud session:", sessionId)
-          await vscode.commands.executeCommand(`${HarnessProvider.viewType}.focus`)
-          provider.openCloudSession(sessionId)
-          return
-        }
-
         if (uri.path !== "/harness/switch" && uri.path !== "/harness/model") return
         const params = new URLSearchParams(uri.query)
         const modelID = params.get("model") || undefined
@@ -715,9 +703,6 @@ export async function activate(context: vscode.ExtensionContext) {
       },
     }),
   )
-
-  // Register autocomplete provider
-  void registerAutocompleteProvider(context, connectionService)
 
   // Register commit message generation
   registerCommitMessageService(context, connectionService)

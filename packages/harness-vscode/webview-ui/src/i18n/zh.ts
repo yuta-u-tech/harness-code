@@ -201,7 +201,6 @@ export const dict = {
   "prompt.action.send": "发送",
   "prompt.action.continue": "继续",
   "prompt.action.send.blocked": "请先回答或忽略待处理的问题",
-  "prompt.action.send.recording": "转录并发送",
   "prompt.action.stop": "停止",
   "prompt.action.stop.background": "停止主智能体。后台智能体将继续运行。",
   "prompt.agents.show": "显示后台智能体",
@@ -226,16 +225,6 @@ export const dict = {
   "prompt.action.sandbox.description.disabled": "点击以限制文件系统写入和网络访问。",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "点击以限制文件系统写入。根据你的沙盒设置，网络访问仍然允许。",
-
-  "speechToText.tooltip.start": "开始语音输入",
-  "speechToText.tooltip.shortcut": "点击或按下 Cmd/Ctrl+K 开始或停止录音；说话时按住，松开后即可转录并提交。",
-  "speechToText.tooltip.starting": "正在启动麦克风... 请稍后再说。",
-  "speechToText.tooltip.stop": "停止捕获音频",
-  "speechToText.tooltip.transcribing": "正在转录... 点击取消。",
-  "speechToText.tooltip.error": "语音输入失败。点击清除。",
-  "speechToText.error.title": "语音输入失败",
-  "speechToText.error.loginRequired": "登录 Harness 以使用语音输入。",
-  "speechToText.error.emptyTranscript": "未检测到语音。",
 
   "prompt.toast.promptSendFailed.title": "发送提示失败",
 
@@ -420,8 +409,6 @@ export const dict = {
   "settings.providers.custom.description": "通过基础 URL 添加自定义提供商。",
   "settings.providers.subagentModel.title": "子代理模型",
   "settings.providers.subagentModel.description": "task-tool 子代理的默认模型和推理工作量。留空以继承调用代理的模型。",
-  "settings.models.hidePromptTraining.title": "隐藏使用提示词训练的模型",
-  "settings.models.hidePromptTraining.description": "隐藏提供商可能会使用您的提示词进行训练的 Harness Gateway 模型。",
   "settings.providers.modeModels": "按模式选择模型",
   "settings.providers.modeModels.description": "为特定模式覆盖默认模型。如果未设置，将使用全局默认模型。",
   "provider.custom.title": "自定义提供商",
@@ -537,10 +524,7 @@ export const dict = {
   "session.tabs.switcher.busy": "工作中",
   "session.tabs.switcher.scheduled": "已计划",
   "session.tab.local": "本地",
-  "session.tab.cloud": "云端",
   "session.tab.worktree": "工作树",
-  "session.cloud.repoOnly": "仅此仓库",
-  "session.cloud.import": "从云端导入",
   "feedback.button": "反馈与支持",
   "feedback.dialog.message": "我们很乐意听取您的反馈，或帮助解决您遇到的任何问题。",
   "feedback.dialog.github": "在 GitHub 上报告问题",
@@ -566,12 +550,6 @@ export const dict = {
   "workStyle.choice.autonomous.permissions": "无需询问即可在工作区中编辑文件和运行命令。",
   "workStyle.choice.autonomous.bash": "可以在工作区中无需批准即可运行终端命令。",
   "workStyle.choice.autonomous.visibility": "折叠工具详情，并显示精简的推理预览。",
-  "session.cloud.import.title": "从云端导入",
-  "session.cloud.import.placeholder": "会话 ID、URL 或 harness import 命令",
-  "session.cloud.import.button": "导入",
-  "session.cloud.import.invalid": "会话 ID 格式无效",
-  "session.cloud.import.legacy": "这似乎是一个旧版会话，已不再受支持。",
-  "session.cloud.import.failed": "导入云会话失败",
 
   "common.retry": "重试",
   "common.refresh": "刷新",
@@ -582,8 +560,6 @@ export const dict = {
   "settings.autoApprove.title": "自动审批",
   "settings.checkpoints.title": "检查点",
   "settings.display.title": "显示",
-  "settings.autocomplete.model.title": "自动补全模型",
-  "settings.autocomplete.model.description": "选择用于内联代码补全的模型",
   "settings.notifications.title": "通知",
 
   "settings.language.title": "语言",
@@ -677,23 +653,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "让主会话与负责其任务的子智能体共享看板，包括嵌套的子智能体。用于并行尝试解决方案或开展相互补充的工作，而不是用于每一项任务。",
-
-  "settings.models.speechToTextModel.customDescription": "发送到自定义转录端点的模型 ID，例如 whisper-1。",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "语音转文本基础 URL",
-  "settings.models.speechToTextBaseUrl.description":
-    "使用兼容 OpenAI 的转录 API 代替 Harness Gateway。模型从 /models 读取，音频发送到 /audio/transcriptions。留空则使用 Harness Gateway。",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "语音转文本 API 密钥",
-  "settings.models.speechToTextApiKey.description":
-    "发送到自定义转录基础 URL 的 Bearer 令牌。保存在你的 Harness 配置文件中。",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "启用并登录 Harness 提供商以使用 Speech to Text，或在下方设置自定义转录基础 URL。",
-  "settings.models.speechToText.remoteDescription":
-    "远程窗口中无法使用语音输入。请在本地窗口中打开 Harness 以使用麦克风。",
-  "settings.models.speechToTextModel.title": "语音转文本模型",
-  "settings.models.speechToTextModel.description": "选择用于语音输入的 Harness Gateway 转录模型。",
 
   "settings.agentBehaviour.defaultAgent.title": "默认智能体",
   "settings.agentBehaviour.defaultAgent.description": "未指定时使用的智能体",

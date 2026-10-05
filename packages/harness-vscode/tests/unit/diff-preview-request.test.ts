@@ -334,8 +334,6 @@ async function renderSurface(script: string) {
                 "ConfigProvider",
                 "ProviderProvider",
                 "VSCodeProvider",
-                "SpeechToTextModelsProvider",
-                "SpeechToTextPrewarm",
                 "Code",
                 "Diff",
                 "File",

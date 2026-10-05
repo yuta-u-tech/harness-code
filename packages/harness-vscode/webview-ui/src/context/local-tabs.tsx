@@ -58,7 +58,6 @@ interface LocalTabsValue {
   closableRight: (id: string) => string[]
   isPinned: (id: string) => boolean
   togglePinned: (id: string) => void
-  previewCloud: (id: string) => void
   reorder: (from: string, to: string) => boolean
   move: (id: string, offset: -1 | 1) => number | undefined
   persist: () => void
@@ -80,7 +79,6 @@ export const LocalTabsProvider: ParentComponent = (props) => {
   onCleanup(session.keepSessions(ids))
   const [active, setActive] = createSignal(init.active)
   const [pinned, setPinned] = createSignal((saved?.sidebarPinnedSessionTabIDs ?? []).filter((id) => !isPendingTab(id)))
-  const [cloud, setCloud] = createSignal<string>()
   const fresh = new Set<string>()
   const current = (): LocalTabState => ({ ids: ids(), active: active() })
   const apply = (next: LocalTabState) => {
@@ -99,7 +97,6 @@ export const LocalTabsProvider: ParentComponent = (props) => {
     setPinned((prev) => togglePinnedTab(prev, id))
   }
   const focus = (id: string | undefined, options: { scrollToBottom?: boolean } = {}) => {
-    setCloud(undefined)
     if (!id || isPendingTab(id)) {
       session.clearCurrentSession()
       return
@@ -181,7 +178,6 @@ export const LocalTabsProvider: ParentComponent = (props) => {
   }
   const closeToRightTab = (id: string) => closeToRight(id, closeDeps)
   const rightTabs = (id: string) => closableRight(id, closeDeps)
-  const previewCloud = (id: string) => setCloud(id)
   const reorder = (from: string, to: string) => {
     const next = reorderPinnedTabs(ids(), pinned(), from, to)
     if (!next) return false
@@ -237,10 +233,6 @@ export const LocalTabsProvider: ParentComponent = (props) => {
 
   onMount(() => {
     const cleanup = vscode.onMessage((message) => {
-      if (message.type === "openCloudSession") {
-        setCloud(message.sessionId)
-        return
-      }
       if (message.type === "sessionCreated") {
         if (message.draftID && promotePendingDraftDiscard(message.draftID, message.session.id)) return
         const next = tabsForCreatedSession(current(), message.session.id, message.draftID, message.activate)
@@ -248,13 +240,6 @@ export const LocalTabsProvider: ParentComponent = (props) => {
         fresh.add(message.session.id)
         apply(next)
         focus(next.active)
-        return
-      }
-      if (message.type === "cloudSessionImported") {
-        const activate = cloud() === message.cloudSessionId
-        fresh.add(message.session.id)
-        apply(activate ? openSessionTab(current(), message.session.id) : addSessionTab(current(), message.session.id))
-        if (activate) setCloud(undefined)
         return
       }
       if (message.type === "sessionsLoaded") {
@@ -296,7 +281,6 @@ export const LocalTabsProvider: ParentComponent = (props) => {
         closableRight: rightTabs,
         isPinned,
         togglePinned,
-        previewCloud,
         reorder,
         move,
         persist,

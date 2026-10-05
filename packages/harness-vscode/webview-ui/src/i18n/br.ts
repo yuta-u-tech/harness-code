@@ -203,7 +203,6 @@ export const dict = {
   "prompt.action.send": "Enviar",
   "prompt.action.continue": "Continuar",
   "prompt.action.send.blocked": "Responda ou feche a pergunta pendente primeiro",
-  "prompt.action.send.recording": "Transcrever e enviar",
   "prompt.action.stop": "Parar",
   "prompt.action.stop.background": "Parar o agente principal. Os agentes em segundo plano continuam em execução.",
   "prompt.agents.show": "Mostrar agentes em segundo plano",
@@ -241,17 +240,6 @@ export const dict = {
     "Clique para restringir as operações de escrita no sistema de arquivos e o acesso à rede.",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "Clique para restringir as operações de escrita no sistema de arquivos. O acesso à rede continua permitido pelas configurações do sandbox.",
-
-  "speechToText.tooltip.start": "Iniciar entrada de voz",
-  "speechToText.tooltip.shortcut":
-    "Toque ou pressione Cmd/Ctrl+K para iniciar ou parar a gravação; mantenha o botão pressionado enquanto fala e solte-o para transcrever e enviar.",
-  "speechToText.tooltip.starting": "Iniciando o microfone... Aguarde antes de falar.",
-  "speechToText.tooltip.stop": "Parar captura",
-  "speechToText.tooltip.transcribing": "Transcrevendo... Clique para cancelar.",
-  "speechToText.tooltip.error": "Falha na entrada de voz. Clique para limpar.",
-  "speechToText.error.title": "Falha na entrada de voz",
-  "speechToText.error.loginRequired": "Faça login no Harness para usar a entrada de voz.",
-  "speechToText.error.emptyTranscript": "Nenhuma fala foi detectada.",
 
   "prompt.toast.promptSendFailed.title": "Falha ao enviar prompt",
 
@@ -441,9 +429,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Modelo de Subagente",
   "settings.providers.subagentModel.description":
     "Modelo padrão e esforço de raciocínio para subagentes do task-tool. Deixe em branco para herdar o modelo do agente chamador.",
-  "settings.models.hidePromptTraining.title": "Ocultar modelos que treinam com prompts",
-  "settings.models.hidePromptTraining.description":
-    "Oculte os modelos do Harness Gateway cujos provedores podem usar seus prompts para treinamento.",
   "settings.providers.modeModels": "Modelo por Modo",
   "settings.providers.modeModels.description":
     "Substitua o modelo padrão para modos específicos. Se não definido, o modelo padrão global é usado.",
@@ -563,10 +548,7 @@ export const dict = {
   "session.tabs.switcher.busy": "Trabalhando",
   "session.tabs.switcher.scheduled": "Agendado",
   "session.tab.local": "Local",
-  "session.tab.cloud": "Nuvem",
   "session.tab.worktree": "Árvore de trabalho",
-  "session.cloud.repoOnly": "Apenas este repositório",
-  "session.cloud.import": "Importar da nuvem",
   "feedback.button": "Feedback e suporte",
   "feedback.dialog.message":
     "Adoraríamos ouvir seu feedback ou ajudar com quaisquer problemas que você esteja enfrentando.",
@@ -595,12 +577,6 @@ export const dict = {
   "workStyle.choice.autonomous.bash": "Pode executar comandos do terminal no espaço de trabalho sem aprovação.",
   "workStyle.choice.autonomous.visibility":
     "Recolhe os detalhes das ferramentas, com uma prévia compacta do raciocínio.",
-  "session.cloud.import.title": "Importar da nuvem",
-  "session.cloud.import.placeholder": "ID da sessão, URL ou comando harness import",
-  "session.cloud.import.button": "Importar",
-  "session.cloud.import.invalid": "Formato de ID de sessão inválido",
-  "session.cloud.import.legacy": "Esta parece ser uma sessão legada que não é mais suportada.",
-  "session.cloud.import.failed": "Falha ao importar sessão da nuvem",
 
   "common.retry": "Tentar novamente",
   "common.refresh": "Atualizar",
@@ -611,8 +587,6 @@ export const dict = {
   "settings.autoApprove.title": "Aprovação Automática",
   "settings.checkpoints.title": "Pontos de Verificação",
   "settings.display.title": "Exibição",
-  "settings.autocomplete.model.title": "Modelo de autocompletar",
-  "settings.autocomplete.model.description": "Selecione o modelo usado para preenchimento de código inline",
   "settings.notifications.title": "Notificações",
 
   "settings.language.title": "Idioma",
@@ -712,25 +686,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Compartilhe um quadro entre uma sessão principal e seus subagentes de tarefas, incluindo subagentes aninhados. Use-o para tentativas de solução em paralelo ou trabalhos complementares, não para todas as tarefas.",
-
-  "settings.models.speechToTextModel.customDescription":
-    "ID do modelo enviado ao seu endpoint de transcrição próprio, por exemplo whisper-1.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "URL base de fala para texto",
-  "settings.models.speechToTextBaseUrl.description":
-    "Use uma API de transcrição compatível com OpenAI em vez do Harness Gateway. Os modelos são lidos de /models e o áudio é enviado para /audio/transcriptions. Deixe vazio para usar o Harness Gateway.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "Chave de API de fala para texto",
-  "settings.models.speechToTextApiKey.description":
-    "Token bearer enviado para a URL base de transcrição própria. Armazenado no seu arquivo de configuração do Harness.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "Ative e faça login no provedor Harness para usar o Speech to Text, ou defina abaixo uma URL base de transcrição própria.",
-  "settings.models.speechToText.remoteDescription":
-    "A entrada de voz não está disponível em janelas remotas. Abra o Harness em uma janela local para usar o microfone.",
-  "settings.models.speechToTextModel.title": "Modelo de fala para texto",
-  "settings.models.speechToTextModel.description":
-    "Escolha o modelo de transcrição do Harness Gateway para entrada de voz.",
 
   "settings.agentBehaviour.defaultAgent.title": "Agente padrão",
   "settings.agentBehaviour.defaultAgent.description": "Agente a usar quando nenhum é especificado",

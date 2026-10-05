@@ -145,7 +145,8 @@ export const dict = {
   "provider.connect.oauth.code.required": "授權碼為必填",
   "provider.connect.oauth.auto.visit.prefix": "造訪 ",
   "provider.connect.oauth.auto.visit.link": "此連結",
-  "provider.connect.oauth.auto.visit.suffix": " 並輸入以下程式碼，以連線你的帳戶並在 Harness 中使用 {{provider}} 模型。",
+  "provider.connect.oauth.auto.visit.suffix":
+    " 並輸入以下程式碼，以連線你的帳戶並在 Harness 中使用 {{provider}} 模型。",
   "provider.connect.oauth.auto.confirmationCode": "確認碼",
   "provider.connect.toast.connected.title": "{{provider}} 已連線",
   "provider.connect.toast.connected.description": "現在可以使用 {{provider}} 模型了。",
@@ -195,7 +196,6 @@ export const dict = {
   "prompt.action.send": "傳送",
   "prompt.action.continue": "繼續",
   "prompt.action.send.blocked": "請先回答或忽略待處理的問題",
-  "prompt.action.send.recording": "轉錄並傳送",
   "prompt.action.stop": "停止",
   "prompt.action.stop.background": "停止主 Agent。背景 Agent 會繼續執行。",
   "prompt.agents.show": "顯示背景 Agent",
@@ -224,16 +224,6 @@ export const dict = {
   "prompt.action.sandbox.description.escalation": "權限規則和自動核准在沙盒內生效。必須離開沙盒的命令一律會詢問。",
   "prompt.action.sandbox.description.disabled": "點擊以限制檔案系統寫入和網路存取。",
   "prompt.action.sandbox.description.disabledNetworkAllowed": "點擊以限制檔案系統寫入。沙盒設定仍允許網路存取。",
-
-  "speechToText.tooltip.start": "開始語音輸入",
-  "speechToText.tooltip.shortcut": "點擊或按下 Cmd/Ctrl+K 開始或停止錄音；說話時按住，放開後即可轉錄並提交。",
-  "speechToText.tooltip.starting": "正在啟動麥克風... 請稍後再說。",
-  "speechToText.tooltip.stop": "停止擷取音訊",
-  "speechToText.tooltip.transcribing": "正在轉錄... 點擊取消。",
-  "speechToText.tooltip.error": "語音輸入失敗。點擊清除。",
-  "speechToText.error.title": "語音輸入失敗",
-  "speechToText.error.loginRequired": "登入 Harness 以使用語音輸入。",
-  "speechToText.error.emptyTranscript": "未偵測到語音。",
 
   "prompt.toast.promptSendFailed.title": "傳送提示失敗",
 
@@ -418,8 +408,6 @@ export const dict = {
   "settings.providers.custom.description": "透過基礎 URL 新增自訂提供商。",
   "settings.providers.subagentModel.title": "子代理模型",
   "settings.providers.subagentModel.description": "task-tool 子代理的預設模型和推理工作量。留空以繼承呼叫代理的模型。",
-  "settings.models.hidePromptTraining.title": "隱藏使用提示詞訓練的模型",
-  "settings.models.hidePromptTraining.description": "隱藏供應商可能會使用您的提示詞進行訓練的 Harness Gateway 模型。",
   "settings.providers.modeModels": "按模式選擇模型",
   "settings.providers.modeModels.description": "為特定模式覆寫預設模型。如果未設定，將使用全域預設模型。",
   "provider.custom.title": "自訂提供商",
@@ -535,10 +523,7 @@ export const dict = {
   "session.tabs.switcher.busy": "工作中",
   "session.tabs.switcher.scheduled": "已排程",
   "session.tab.local": "本機",
-  "session.tab.cloud": "雲端",
   "session.tab.worktree": "工作樹",
-  "session.cloud.repoOnly": "僅此儲存庫",
-  "session.cloud.import": "從雲端匯入",
   "feedback.button": "意見回饋與支援",
   "feedback.dialog.message": "我們很樂意聆聽您的意見回饋，或協助解決您遇到的任何問題。",
   "feedback.dialog.github": "在 GitHub 上回報問題",
@@ -564,12 +549,6 @@ export const dict = {
   "workStyle.choice.autonomous.permissions": "無需詢問即可在工作區中編輯檔案和執行指令。",
   "workStyle.choice.autonomous.bash": "可以在工作區中不經核准執行終端機指令。",
   "workStyle.choice.autonomous.visibility": "收合工具詳細資料，並顯示精簡的推理預覽。",
-  "session.cloud.import.title": "從雲端匯入",
-  "session.cloud.import.placeholder": "工作階段 ID、URL 或 harness import 指令",
-  "session.cloud.import.button": "匯入",
-  "session.cloud.import.invalid": "工作階段 ID 格式無效",
-  "session.cloud.import.legacy": "這似乎是一個舊版工作階段，已不再受支援。",
-  "session.cloud.import.failed": "無法匯入雲端工作階段",
 
   "common.retry": "重試",
   "common.refresh": "重新整理",
@@ -580,8 +559,6 @@ export const dict = {
   "settings.autoApprove.title": "自動核准",
   "settings.checkpoints.title": "檢查點",
   "settings.display.title": "顯示",
-  "settings.autocomplete.model.title": "自動補全模型",
-  "settings.autocomplete.model.description": "選擇用於內聯程式碼補全的模型",
   "settings.notifications.title": "通知",
 
   "settings.language.title": "語言",
@@ -675,22 +652,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "讓主要工作階段與負責其任務的子代理共用看板，包括巢狀子代理。用於並行嘗試解決方案或進行相互補充的工作，而不是用於每一項任務。",
-
-  "settings.models.speechToTextModel.customDescription": "傳送到自訂轉錄端點的模型 ID，例如 whisper-1。",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "語音轉文字基礎 URL",
-  "settings.models.speechToTextBaseUrl.description":
-    "使用相容 OpenAI 的轉錄 API 取代 Harness Gateway。模型從 /models 讀取，音訊傳送到 /audio/transcriptions。留空則使用 Harness Gateway。",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "語音轉文字 API 金鑰",
-  "settings.models.speechToTextApiKey.description": "傳送到自訂轉錄基礎 URL 的 Bearer 權杖。儲存在你的 Harness 設定檔中。",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "啟用並登入 Harness 供應商以使用 Speech to Text，或在下方設定自訂轉錄基礎 URL。",
-  "settings.models.speechToText.remoteDescription":
-    "遠端視窗中無法使用語音輸入。請在本機視窗中開啟 Harness 以使用麥克風。",
-  "settings.models.speechToTextModel.title": "語音轉文字模型",
-  "settings.models.speechToTextModel.description": "選擇用於語音輸入的 Harness Gateway 轉錄模型。",
 
   "settings.agentBehaviour.defaultAgent.title": "預設 Agent",
   "settings.agentBehaviour.defaultAgent.description": "未指定時使用的 Agent",

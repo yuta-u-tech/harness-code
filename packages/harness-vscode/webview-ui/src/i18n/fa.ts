@@ -204,7 +204,6 @@ export const dict = {
   "prompt.action.send": "ارسال",
   "prompt.action.continue": "ادامه",
   "prompt.action.send.blocked": "ابتدا به سؤال در انتظار پاسخ دهید یا آن را رد کنید",
-  "prompt.action.send.recording": "رونویسی و ارسال",
   "prompt.action.stop": "توقف",
   "prompt.action.stop.background": "توقف عامل اصلی. عامل‌های پس‌زمینه به اجرا ادامه می‌دهند.",
   "prompt.agents.show": "نمایش عامل‌های پس‌زمینه",
@@ -237,16 +236,6 @@ export const dict = {
     "برای محدود کردن نوشتن در سیستم فایل کلیک کنید. دسترسی به شبکه طبق تنظیمات sandbox شما مجاز است.",
   "prompt.action.enhanceDescription":
     "دکمه «بهبود پرامپت» با ارائه زمینه بیشتر، توضیح یا بازنویسی، به بهتر کردن پرامپت شما کمک می‌کند. یک پرامپت تایپ کنید و دوباره روی دکمه کلیک کنید تا نحوه عملکرد آن را ببینید.",
-  "speechToText.tooltip.start": "شروع ورودی صوتی",
-  "speechToText.tooltip.shortcut":
-    "برای شروع یا توقف ضبط، روی دکمه ضربه بزنید یا Cmd/Ctrl+K را فشار دهید؛ هنگام صحبت دکمه را نگه دارید و سپس رها کنید تا گفتار به متن تبدیل و ارسال شود.",
-  "speechToText.tooltip.starting": "در حال راه‌اندازی میکروفون... منتظر بمانید.",
-  "speechToText.tooltip.stop": "در حال ضبط. برای توقف کلیک کنید.",
-  "speechToText.tooltip.transcribing": "در حال رونویسی... برای لغو کلیک کنید.",
-  "speechToText.tooltip.error": "ورودی صوتی ناموفق بود. برای پاک کردن کلیک کنید.",
-  "speechToText.error.title": "ورودی صوتی ناموفق بود",
-  "speechToText.error.loginRequired": "برای استفاده از ورودی صوتی وارد Harness شوید.",
-  "speechToText.error.emptyTranscript": "هیچ گفتاری شناسایی نشد.",
 
   "prompt.toast.promptSendFailed.title": "ارسال پرامپت ناموفق بود",
 
@@ -517,10 +506,7 @@ export const dict = {
   "session.tabs.switcher.busy": "در حال کار",
   "session.tabs.switcher.scheduled": "زمان‌بندی‌شده",
   "session.tab.local": "محلی",
-  "session.tab.cloud": "Cloud",
   "session.tab.worktree": "Worktree",
-  "session.cloud.repoOnly": "فقط این مخزن",
-  "session.cloud.import": "وارد کردن جلسه",
   "feedback.button": "بازخورد و پشتیبانی",
   "feedback.dialog.message": "خوشحال می‌شویم نظرات شما را بشنویم یا در رفع مشکلاتتان کمک کنیم.",
   "feedback.dialog.github": "گزارش مشکل در GitHub",
@@ -547,12 +533,6 @@ export const dict = {
     "بدون درخواست اجازه، فایل‌ها را ویرایش می‌کند و دستورات را در فضای کاری اجرا می‌کند.",
   "workStyle.choice.autonomous.bash": "می‌تواند بدون تأیید، دستورات ترمینال را در فضای کاری اجرا کند.",
   "workStyle.choice.autonomous.visibility": "جزئیات ابزار را جمع می‌کند، همراه با پیش‌نمایش فشرده استدلال.",
-  "session.cloud.import.title": "وارد کردن جلسه",
-  "session.cloud.import.placeholder": "شناسه جلسه، URL، یا دستور harness import",
-  "session.cloud.import.button": "وارد کردن",
-  "session.cloud.import.invalid": "فرمت شناسه جلسه نامعتبر است",
-  "session.cloud.import.legacy": "به نظر می‌رسد این یک جلسه قدیمی است که دیگر پشتیبانی نمی‌شود.",
-  "session.cloud.import.failed": "وارد کردن جلسه ابری ناموفق بود",
 
   "common.retry": "تلاش مجدد",
   "common.refresh": "بازخوانی",
@@ -667,9 +647,6 @@ export const dict = {
 
   "common.add": "افزودن",
 
-  "settings.autocomplete.model.title": "مدل تکمیل خودکار",
-  "settings.autocomplete.model.description": "مدل مورد استفاده برای تکمیل‌های درون‌خطی کد را انتخاب کنید",
-
   "settings.notifications.sounds": "صداها",
   "settings.notifications.enable.title": "فعال‌سازی اعلان‌های صوتی",
   "settings.notifications.enable.description": "پخش صدا هنگام تکمیل جلسات، بروز خطا یا نیاز به ورودی شما",
@@ -692,24 +669,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "یک برد را بین یک جلسهٔ اصلی و عامل‌های فرعی مسئول وظایف آن، از جمله عامل‌های فرعی تودرتو، به اشتراک بگذارید. از آن برای تلاش‌های موازی جهت یافتن راه‌حل یا کارهای مکمل استفاده کنید، نه برای هر وظیفه.",
-
-  "settings.models.speechToTextModel.customDescription":
-    "شناسه مدلی که به نقطه پایانی رونویسی دلخواه شما فرستاده می‌شود، برای نمونه whisper-1.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "نشانی پایه تبدیل گفتار به متن",
-  "settings.models.speechToTextBaseUrl.description":
-    "به‌جای Harness Gateway از یک API رونویسی سازگار با OpenAI استفاده کنید. مدل‌ها از /models خوانده می‌شوند و صدا به /audio/transcriptions فرستاده می‌شود. برای استفاده از Harness Gateway خالی بگذارید.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "کلید API تبدیل گفتار به متن",
-  "settings.models.speechToTextApiKey.description":
-    "توکن Bearer که به نشانی پایه رونویسی دلخواه فرستاده می‌شود. در فایل پیکربندی Harness شما ذخیره می‌شود.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "برای استفاده از تبدیل گفتار به متن، ارائه‌دهنده Harness را فعال کرده و وارد شوید، یا در پایین یک نشانی پایه رونویسی دلخواه تعیین کنید.",
-  "settings.models.speechToText.remoteDescription":
-    "ورودی صوتی در پنجره‌های راه دور در دسترس نیست. برای استفاده از میکروفون، Harness را در یک پنجره محلی باز کنید.",
-  "settings.models.speechToTextModel.title": "مدل تبدیل گفتار به متن",
-  "settings.models.speechToTextModel.description": "مدل رونویسی Harness Gateway را برای ورودی صوتی انتخاب کنید.",
 
   "settings.agentBehaviour.defaultAgent.title": "عامل پیش‌فرض",
   "settings.agentBehaviour.defaultAgent.description": "عاملی که در صورت عدم تعیین استفاده می‌شود",
@@ -939,9 +898,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "مدل زیرعامل",
   "settings.providers.subagentModel.description":
     "مدل پیش‌فرض و میزان استدلال برای زیرعامل‌های ابزار-وظیفه. برای به ارث بردن مدل عامل فراخواننده، خالی بگذارید.",
-  "settings.models.hidePromptTraining.title": "پنهان کردن مدل‌های آموزش پرامپت",
-  "settings.models.hidePromptTraining.description":
-    "مدل‌های Harness Gateway را که ارائه‌دهندگانشان ممکن است از پرامپت‌های شما برای آموزش استفاده کنند پنهان کنید.",
   "settings.providers.modeModels": "مدل به ازای حالت",
   "settings.providers.modeModels.description":
     "مدل پیش‌فرض را برای حالت‌های خاص بازنویسی کنید. در صورت عدم تنظیم، از مدل پیش‌فرض سراسری استفاده می‌شود.",

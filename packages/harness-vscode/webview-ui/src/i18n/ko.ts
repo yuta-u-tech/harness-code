@@ -205,7 +205,6 @@ export const dict = {
   "prompt.action.send": "전송",
   "prompt.action.continue": "계속",
   "prompt.action.send.blocked": "먼저 대기 중인 질문에 답하거나 닫아주세요",
-  "prompt.action.send.recording": "텍스트 변환 및 전송",
   "prompt.action.stop": "중지",
   "prompt.action.stop.background": "메인 에이전트를 중지합니다. 백그라운드 에이전트는 계속 실행됩니다.",
   "prompt.agents.show": "백그라운드 에이전트 표시",
@@ -238,17 +237,6 @@ export const dict = {
   "prompt.action.sandbox.description.disabled": "클릭하면 파일 시스템 쓰기와 네트워크 액세스를 제한합니다.",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "클릭하면 파일 시스템 쓰기를 제한합니다. 샌드박스 설정에 따라 네트워크 액세스는 계속 허용됩니다.",
-
-  "speechToText.tooltip.start": "음성 입력 시작",
-  "speechToText.tooltip.shortcut":
-    "탭하거나 Cmd/Ctrl+K를 눌러 녹음을 시작하거나 중지하고, 말하는 동안에는 누르고 있다가 놓으면 음성을 텍스트로 변환해 제출합니다.",
-  "speechToText.tooltip.starting": "마이크를 시작하는 중... 잠시 후 말씀해 주세요.",
-  "speechToText.tooltip.stop": "음성 캡처 중지",
-  "speechToText.tooltip.transcribing": "변환 중... 취소하려면 클릭하세요.",
-  "speechToText.tooltip.error": "음성 입력에 실패했습니다. 지우려면 클릭하세요.",
-  "speechToText.error.title": "음성 입력 실패",
-  "speechToText.error.loginRequired": "음성 입력을 사용하려면 Harness에 로그인하세요.",
-  "speechToText.error.emptyTranscript": "음성이 감지되지 않았습니다.",
 
   "prompt.toast.promptSendFailed.title": "프롬프트 전송 실패",
 
@@ -437,9 +425,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "하위 에이전트 모델",
   "settings.providers.subagentModel.description":
     "task-tool 하위 에이전트의 기본 모델 및 추론 수준입니다. 호출하는 에이전트의 모델을 상속하려면 비워 두세요.",
-  "settings.models.hidePromptTraining.title": "프롬프트를 학습에 사용하는 모델 숨기기",
-  "settings.models.hidePromptTraining.description":
-    "제공업체가 사용자의 프롬프트를 학습에 사용할 수 있는 Harness Gateway 모델을 숨깁니다.",
   "settings.providers.modeModels": "모드별 모델",
   "settings.providers.modeModels.description":
     "특정 모드의 기본 모델을 재정의합니다. 설정하지 않으면 전역 기본 모델이 사용됩니다.",
@@ -557,10 +542,7 @@ export const dict = {
   "session.tabs.switcher.busy": "작업 중",
   "session.tabs.switcher.scheduled": "예약됨",
   "session.tab.local": "로컬",
-  "session.tab.cloud": "클라우드",
   "session.tab.worktree": "작업 트리",
-  "session.cloud.repoOnly": "이 저장소만",
-  "session.cloud.import": "클라우드에서 가져오기",
   "feedback.button": "피드백 & 지원",
   "feedback.dialog.message": "피드백을 들려주시거나 겪고 계신 문제에 대해 도움을 드리고 싶습니다.",
   "feedback.dialog.github": "GitHub에 이슈 보고하기",
@@ -586,12 +568,6 @@ export const dict = {
   "workStyle.choice.autonomous.permissions": "묻지 않고 작업 공간의 파일을 편집하고 명령을 실행합니다.",
   "workStyle.choice.autonomous.bash": "승인 없이 작업 공간에서 터미널 명령을 실행할 수 있습니다.",
   "workStyle.choice.autonomous.visibility": "도구 세부 정보를 접고 추론을 간결하게 미리 보여줍니다.",
-  "session.cloud.import.title": "클라우드에서 가져오기",
-  "session.cloud.import.placeholder": "세션 ID, URL 또는 harness import 명령어",
-  "session.cloud.import.button": "가져오기",
-  "session.cloud.import.invalid": "잘못된 세션 ID 형식입니다",
-  "session.cloud.import.legacy": "이전 버전의 세션으로 보이며 더 이상 지원되지 않습니다.",
-  "session.cloud.import.failed": "클라우드 세션 가져오기 실패",
 
   "common.retry": "재시도",
   "common.refresh": "새로고침",
@@ -602,8 +578,6 @@ export const dict = {
   "settings.autoApprove.title": "자동 승인",
   "settings.checkpoints.title": "체크포인트",
   "settings.display.title": "디스플레이",
-  "settings.autocomplete.model.title": "자동 완성 모델",
-  "settings.autocomplete.model.description": "인라인 코드 완성에 사용되는 모델 선택",
   "settings.notifications.title": "알림",
 
   "settings.language.title": "언어",
@@ -702,24 +676,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "메인 세션과 해당 세션의 작업을 맡은 하위 에이전트(중첩된 하위 에이전트 포함)가 보드를 공유합니다. 모든 작업에 사용하지 말고, 해결책을 병렬로 시도하거나 서로 보완하는 작업을 수행할 때 사용하세요.",
-
-  "settings.models.speechToTextModel.customDescription":
-    "사용자 지정 변환 엔드포인트로 전송되는 모델 ID입니다. 예: whisper-1.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "음성 텍스트 변환 기본 URL",
-  "settings.models.speechToTextBaseUrl.description":
-    "Harness Gateway 대신 OpenAI 호환 변환 API를 사용합니다. 모델은 /models에서 읽고 오디오는 /audio/transcriptions로 전송됩니다. 비워 두면 Harness Gateway를 사용합니다.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "음성 텍스트 변환 API 키",
-  "settings.models.speechToTextApiKey.description":
-    "사용자 지정 변환 기본 URL로 전송되는 베어러 토큰입니다. Harness 설정 파일에 저장됩니다.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "Speech to Text를 사용하려면 Harness 제공자를 활성화하고 로그인하거나, 아래에서 사용자 지정 변환 기본 URL을 설정하세요.",
-  "settings.models.speechToText.remoteDescription":
-    "음성 입력은 원격 창에서 사용할 수 없습니다. 마이크를 사용하려면 로컬 창에서 Harness를 여세요.",
-  "settings.models.speechToTextModel.title": "음성 텍스트 변환 모델",
-  "settings.models.speechToTextModel.description": "음성 입력에 사용할 Harness Gateway 변환 모델을 선택하세요.",
 
   "settings.agentBehaviour.defaultAgent.title": "기본 에이전트",
   "settings.agentBehaviour.defaultAgent.description": "지정되지 않은 경우 사용할 에이전트",

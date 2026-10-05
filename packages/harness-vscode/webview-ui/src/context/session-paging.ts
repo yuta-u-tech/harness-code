@@ -74,7 +74,6 @@ export function mergeSessionsLoaded(input: {
   input.setSessions((sessions) => {
     if (!input.append) {
       for (const id of Object.keys(sessions)) {
-        if (id.startsWith("cloud:")) continue
         if (kept.has(id)) continue
         if (!ids.has(id)) delete sessions[id]
       }

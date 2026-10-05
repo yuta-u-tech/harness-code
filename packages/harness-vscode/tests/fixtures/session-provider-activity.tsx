@@ -67,7 +67,6 @@ const { active: elapsed } = await import("../../webview-ui/src/context/session-t
 const { PromptInput } = await import("../../webview-ui/src/components/chat/PromptInput")
 const { IndexingProvider } = await import("../../webview-ui/src/context/indexing")
 const { MemoryProvider } = await import("../../webview-ui/src/context/memory")
-const { SpeechToTextModelsProvider } = await import("../../webview-ui/src/context/speech-to-text-models")
 const { drafts, imageDrafts, reviewDrafts, browserDrafts, savePromptDraft } = await import(
   "../../webview-ui/src/utils/draft-store"
 )
@@ -217,9 +216,7 @@ const Probe = () => {
       <Show when={composer()}>
         <IndexingProvider>
           <MemoryProvider>
-            <SpeechToTextModelsProvider>
-              <PromptInput boxId="acceptance" />
-            </SpeechToTextModelsProvider>
+            <PromptInput boxId="acceptance" />
           </MemoryProvider>
         </IndexingProvider>
       </Show>
@@ -711,21 +708,10 @@ try {
   assert.equal(command.modelID, recommended.modelID)
   assert.equal(command.agent, value.submission("selection").agent)
   assert.equal(command.variant, value.submission("selection").variant)
-  value.setCurrentSessionID("cloud:preview")
-  assert.equal(value.sendMessage("cloud effective model"), true)
-  const cloud = requests().at(-1)
-  assert(cloud?.type === "importAndSend")
-  assert.equal(cloud.providerID, recommended.providerID)
-  assert.equal(cloud.modelID, recommended.modelID)
-  assert.equal(value.sendCommand("cloud", ""), true)
-  const imported = requests().at(-1)
-  assert(imported?.type === "importAndSend")
-  assert.equal(imported.providerID, recommended.providerID)
-  assert.equal(imported.modelID, recommended.modelID)
   await catalog("org-a", [])
   const blocked = requests().length
-  assert.equal(value.sendMessage("cloud unavailable"), false)
-  assert.equal(value.sendCommand("cloud", "unavailable"), false)
+  assert.equal(value.sendMessage("unavailable"), false)
+  assert.equal(value.sendCommand("unavailable", ""), false)
   assert.equal(requests().length, blocked)
   await catalog("org-a", [first.modelID, recommended.modelID], recommended.modelID)
   assert.deepEqual(writes(), remembered)
@@ -892,7 +878,10 @@ try {
   value.selectAgent("code")
   await settle()
   setSettings({
-    agent: { code: { model: "harness/z-first", variant: "high" }, ask: { model: "harness/a-recommended", variant: "low" } },
+    agent: {
+      code: { model: "harness/z-first", variant: "high" },
+      ask: { model: "harness/a-recommended", variant: "low" },
+    },
   })
   await emit({ type: "variantsLoaded", variants: { "agent/code/harness/z-first": "high" } })
   value.setCurrentSessionID("ses_command-cached")
@@ -1168,7 +1157,7 @@ try {
     retained(text, count)
   }
   await catalog("org-a", [recommended.modelID], recommended.modelID)
-  for (const sid of ["composer", "cloud:preview"]) {
+  for (const sid of ["composer"]) {
     await seed("/goal", sid)
     submit(false)
     await settle()
@@ -1188,9 +1177,9 @@ try {
       await settle()
       assert.equal(requests().length, count + 1)
       const request = requests().at(-1)
-      assert(request?.type === (sid.startsWith("cloud:") ? "importAndSend" : "sendCommand"))
+      assert(request?.type === "sendCommand")
       assert.equal(request.command, "goal")
-      assert.equal(request.type === "sendCommand" ? request.arguments : request.commandArgs, `-- ${text}`)
+      assert.equal(request.arguments, `-- ${text}`)
       assert.equal(request.modelID, recommended.modelID)
       assert.deepEqual(request.files, [{ mime: image.mime, url: image.dataUrl, filename: image.filename }])
       assert.equal(value.messages().length, messages, "Goal sends must not add optimistic chat messages")
@@ -1473,46 +1462,6 @@ try {
       assert.equal(value.status(), "busy")
       assert.equal(value.questions().length, 1)
       assert.equal(value.suggestions().length, 1)
-    }
-    for (const args of ["", "pause", "clear", "resume", "A new goal"]) {
-      const control = ["", "pause", "clear"].includes(args)
-      const before = snapshot("cloud:preview")
-      const start = sent.length
-      const messageID = `goal-cloud-${phase}-${args}`
-      const accepted = value.sendCommand(
-        "goal",
-        args,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        "cloud:preview",
-        { messageID },
-      )
-      if (!control && phase !== "ready") {
-        assert.equal(accepted, false)
-        assert.deepEqual(sent.slice(start), [])
-        continue
-      }
-      assert.equal(accepted, true)
-      const request = sent.at(-1)
-      assert(request?.type === "importAndSend")
-      assert.equal(request.cloudSessionId, "preview")
-      assert.equal(request.command, "goal")
-      assert.equal(request.commandArgs, args)
-      assert.equal(request.messageID, messageID)
-      if (control) {
-        assert.deepEqual(
-          sent.slice(start).map((message) => message.type),
-          ["importAndSend"],
-        )
-        assert.equal(request.providerID, undefined)
-        assert.equal(request.modelID, undefined)
-        assert.equal(request.agent, undefined)
-        assert.equal(request.variant, undefined)
-        assert.equal(snapshot("cloud:preview"), before)
-      }
     }
   }
   await catalog("org-a", [recommended.modelID], recommended.modelID)
@@ -2167,7 +2116,10 @@ try {
   await catalog("org-a", [personal.modelID, first.modelID, recommended.modelID], recommended.modelID)
   await emit({ type: "modelSelectionsLoaded", selections: {} })
   setSettings({
-    agent: { code: { model: "harness/z-first", variant: "low" }, ask: { model: "harness/a-recommended", variant: "low" } },
+    agent: {
+      code: { model: "harness/z-first", variant: "low" },
+      ask: { model: "harness/a-recommended", variant: "low" },
+    },
   })
   value.setCurrentSessionID("preference-active")
   value.setSessionAgent("preference-active", "ask")
@@ -2341,7 +2293,10 @@ try {
     const instance = peer.value
     assert(instance)
     setSettings({
-      agent: { code: { model: "harness/z-first", variant: "high" }, ask: { model: "harness/unset-effort", variant: "low" } },
+      agent: {
+        code: { model: "harness/z-first", variant: "high" },
+        ask: { model: "harness/unset-effort", variant: "low" },
+      },
     })
     await emit({ type: "modelSelectionsLoaded", selections: {} })
     await emit({ type: "variantsLoaded", variants: {} })

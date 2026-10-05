@@ -33,7 +33,6 @@ import {
   MarketplaceRemovePayload,
   type MarketplaceRemoveResult,
 } from "@/harness/marketplace/schema"
-import { ProviderUsage } from "@opencode-ai/core/harness/provider-usage"
 import { Location } from "@opencode-ai/core/location"
 import { LocationServiceMap } from "@opencode-ai/core/location-services"
 import { AbsolutePath } from "@opencode-ai/core/schema"
@@ -436,18 +435,6 @@ export const harnessHandlers = HttpApiBuilder.group(InstanceHttpApi, "harness", 
       return { disposed: loaded }
     })
 
-    const providerUsage = Effect.fn("HarnessHttpApi.providerUsage")(function* () {
-      return yield* located(ProviderUsage.Service.use((usage) => usage.get())).pipe(
-        Effect.mapError(() => new HttpApiError.ServiceUnavailable({})),
-      )
-    })
-
-    const providerUsageRefresh = Effect.fn("HarnessHttpApi.providerUsageRefresh")(function* () {
-      return yield* located(ProviderUsage.Service.use((usage) => usage.refresh())).pipe(
-        Effect.mapError(() => new HttpApiError.ServiceUnavailable({})),
-      )
-    })
-
     const notebookList = Effect.fn("HarnessHttpApi.notebookList")(function* () {
       return yield* notebook.list()
     })
@@ -596,8 +583,6 @@ export const harnessHandlers = HttpApiBuilder.group(InstanceHttpApi, "harness", 
           return { prepared, durationMs: performance.now() - started }
         }),
       )
-      .handle("providerUsage", providerUsage)
-      .handle("providerUsageRefresh", providerUsageRefresh)
       .handle("notebookList", notebookList)
       .handle("notebookReply", notebookReply)
       .handle("notebookReject", notebookReject)

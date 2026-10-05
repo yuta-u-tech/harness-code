@@ -96,7 +96,8 @@ export const dict = {
     "Gesprek teruggedraaid. De herstelstatus van de werkruimte is niet beschikbaar voor deze eerdere terugdraaiing.",
   "revert.banner.workspace.enableSnapshots": "Snapshots inschakelen",
   "revert.disabled.agentBusy": "Wacht tot de agent klaar is",
-  "revert.error.body": "De repository is mogelijk in gebruik. Probeer het opnieuw of bekijk de Harness-logs voor details.",
+  "revert.error.body":
+    "De repository is mogelijk in gebruik. Probeer het opnieuw of bekijk de Harness-logs voor details.",
   "command.session.compact": "Sessie comprimeren",
   "command.session.export": "Sessietranscript exporteren",
 
@@ -203,7 +204,6 @@ export const dict = {
   "prompt.action.send": "Verzenden",
   "prompt.action.continue": "Doorgaan",
   "prompt.action.send.blocked": "Beantwoord of negeer eerst de openstaande vraag",
-  "prompt.action.send.recording": "Transcriberen en verzenden",
   "prompt.action.stop": "Stop",
   "prompt.action.stop.background": "Hoofdagent stoppen. Achtergrondagenten blijven actief.",
   "prompt.agents.show": "Achtergrondagenten tonen",
@@ -240,17 +240,6 @@ export const dict = {
     "Klik om schrijfbewerkingen in het bestandssysteem en netwerktoegang te beperken.",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "Klik om schrijfbewerkingen in het bestandssysteem te beperken. Netwerktoegang blijft toegestaan volgens je sandboxinstellingen.",
-
-  "speechToText.tooltip.start": "Spraakinvoer starten",
-  "speechToText.tooltip.shortcut":
-    "Tik of druk op Cmd/Ctrl+K om de opname te starten of te stoppen; houd de knop ingedrukt terwijl je spreekt en laat deze los om te transcriberen en te verzenden.",
-  "speechToText.tooltip.starting": "Microfoon wordt gestart... Wacht nog even met spreken.",
-  "speechToText.tooltip.stop": "Audio vastleggen stoppen",
-  "speechToText.tooltip.transcribing": "Transcriberen... Klik om te annuleren.",
-  "speechToText.tooltip.error": "Spraakinvoer mislukt. Klik om te wissen.",
-  "speechToText.error.title": "Spraakinvoer mislukt",
-  "speechToText.error.loginRequired": "Meld u aan bij Harness om spraakinvoer te gebruiken.",
-  "speechToText.error.emptyTranscript": "Er is geen spraak gedetecteerd.",
 
   "prompt.toast.promptSendFailed.title": "Verzenden prompt mislukt",
 
@@ -554,10 +543,7 @@ export const dict = {
   "session.tabs.switcher.busy": "Bezig",
   "session.tabs.switcher.scheduled": "Gepland",
   "session.tab.local": "Lokaal",
-  "session.tab.cloud": "Cloud",
   "session.tab.worktree": "Werkboom",
-  "session.cloud.repoOnly": "Alleen deze repository",
-  "session.cloud.import": "Importeer uit de cloud",
   "feedback.button": "Feedback & Ondersteuning",
   "feedback.dialog.message": "We horen graag uw feedback of helpen met eventuele problemen die u ervaart.",
   "feedback.dialog.github": "Meld een probleem op GitHub",
@@ -585,12 +571,6 @@ export const dict = {
     "Bewerkt bestanden en voert opdrachten in de werkruimte uit zonder toestemming te vragen.",
   "workStyle.choice.autonomous.bash": "Kan terminalopdrachten in de werkruimte zonder goedkeuring uitvoeren.",
   "workStyle.choice.autonomous.visibility": "Vouwt tool-details in, met een compacte preview van de redenering.",
-  "session.cloud.import.title": "Importeer uit de cloud",
-  "session.cloud.import.placeholder": "Sessie-ID, URL, of harness import commando",
-  "session.cloud.import.button": "Importeren",
-  "session.cloud.import.invalid": "Ongeldig formaat van sessie-ID",
-  "session.cloud.import.legacy": "Dit lijkt een oude sessie te zijn die niet langer wordt ondersteund.",
-  "session.cloud.import.failed": "Importeren van cloudsessie mislukt",
 
   "common.retry": "Opnieuw proberen",
   "common.refresh": "Vernieuwen",
@@ -601,8 +581,6 @@ export const dict = {
   "settings.autoApprove.title": "Automatisch Goedkeuren",
   "settings.checkpoints.title": "Controlepunten",
   "settings.display.title": "Weergave",
-  "settings.autocomplete.model.title": "Autocomplete-model",
-  "settings.autocomplete.model.description": "Selecteer het model dat wordt gebruikt voor inline code-aanvullingen",
   "settings.notifications.title": "Meldingen",
 
   "settings.language.title": "Taal",
@@ -702,24 +680,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Deel een bord tussen een hoofdsessie en de subagenten die haar taken uitvoeren, inclusief geneste subagenten. Gebruik het voor parallelle oplossingspogingen of werkzaamheden die elkaar aanvullen, niet voor elke taak.",
-
-  "settings.models.speechToTextModel.customDescription":
-    "Model-ID die naar uw eigen transcriptie-eindpunt wordt gestuurd, bijvoorbeeld whisper-1.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "Spraak-naar-tekst-basis-URL",
-  "settings.models.speechToTextBaseUrl.description":
-    "Gebruik een OpenAI-compatibele transcriptie-API in plaats van Harness Gateway. Modellen worden gelezen van /models en audio gaat naar /audio/transcriptions. Laat leeg om Harness Gateway te gebruiken.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "Spraak-naar-tekst-API-sleutel",
-  "settings.models.speechToTextApiKey.description":
-    "Bearer-token dat naar de eigen transcriptie-basis-URL wordt gestuurd. Opgeslagen in uw Harness-configuratiebestand.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "Schakel de Harness-provider in en meld u aan om Speech to Text te gebruiken, of stel hieronder een eigen transcriptie-basis-URL in.",
-  "settings.models.speechToText.remoteDescription":
-    "Spraakinvoer is niet beschikbaar in externe vensters. Open Harness in een lokaal venster om de microfoon te gebruiken.",
-  "settings.models.speechToTextModel.title": "Spraak-naar-tekst-model",
-  "settings.models.speechToTextModel.description": "Kies het Harness Gateway-transcriptiemodel voor spraakinvoer.",
 
   "settings.agentBehaviour.defaultAgent.title": "Standaard Agent",
   "settings.agentBehaviour.defaultAgent.description": "Agent om te gebruiken wanneer er geen is opgegeven",
@@ -878,7 +838,8 @@ export const dict = {
   "settings.display.username.title": "Gebruikersnaam",
   "settings.display.username.description": "Aangepaste gebruikersnaam weergegeven in gesprekken",
   "settings.display.fontSize.title": "Lettergrootte",
-  "settings.display.fontSize.description": "Pas de lettergrootte van de Harness webview UI onafhankelijk van VS Code aan.",
+  "settings.display.fontSize.description":
+    "Pas de lettergrootte van de Harness webview UI onafhankelijk van VS Code aan.",
   "settings.display.reasoningDisplay.title": "Redeneringsblokken",
   "settings.display.reasoningDisplay.description":
     "Kies hoe redeneringsblokken starten. Uitgeklapt toont de volledige tekst, Voorbeeld beperkt het tot een kort, scrollbaar voorbeeld, en Kop toont alleen de titel en streamingindicator totdat je het opent.",
@@ -923,9 +884,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Subagentmodel",
   "settings.providers.subagentModel.description":
     "Standaardmodel en redeneerinspanning voor task-tool subagenten. Laat leeg om het model van de aanroepende agent over te nemen.",
-  "settings.models.hidePromptTraining.title": "Modellen die prompts voor training gebruiken verbergen",
-  "settings.models.hidePromptTraining.description":
-    "Verberg Harness Gateway-modellen waarvan providers je prompts mogelijk voor training gebruiken.",
   "settings.providers.modeModels": "Model per Modus",
   "settings.providers.modeModels.description":
     "Overschrijf het standaard model voor specifieke modi. Indien niet ingesteld, wordt het globale standaard model gebruikt.",

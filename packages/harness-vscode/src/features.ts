@@ -1,6 +1,5 @@
 import { hasIndexingPlugin } from "@harness/harness-indexing/detect"
 import type { HarnessClient } from "@harness/sdk/v2"
-import * as vscode from "vscode"
 
 type PluginSpec = string | [string, Record<string, unknown>]
 
@@ -12,19 +11,13 @@ export type Features = {
   indexing: boolean
   sandboxControls: boolean
   backgroundSubagents: boolean
-  speechToText: boolean
 }
 
-export function configFeatures(
-  config?: ConfigLike | null,
-  backgroundSubagents = false,
-  remote = !!vscode.env.remoteName,
-): Features {
+export function configFeatures(config?: ConfigLike | null, backgroundSubagents = false): Features {
   return {
     indexing: hasIndexingPlugin(config?.plugin ?? []),
     sandboxControls: process.platform !== "win32",
     backgroundSubagents,
-    speechToText: !remote,
   }
 }
 

@@ -198,7 +198,6 @@ export const dict = {
   "prompt.action.send": "إرسال",
   "prompt.action.continue": "متابعة",
   "prompt.action.send.blocked": "أجب عن السؤال المعلق أو تجاهله أولاً",
-  "prompt.action.send.recording": "تفريغ وإرسال",
   "prompt.action.stop": "توقف",
   "prompt.action.stop.background": "إيقاف الوكيل الرئيسي. يستمر الوكلاء الخلفيون في العمل.",
   "prompt.agents.show": "إظهار الوكلاء الخلفيين",
@@ -230,17 +229,6 @@ export const dict = {
   "prompt.action.sandbox.description.disabled": "انقر لتقييد الكتابة في نظام الملفات والوصول إلى الشبكة.",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "انقر لتقييد الكتابة في نظام الملفات. يظل الوصول إلى الشبكة مسموحًا وفق إعدادات sandbox.",
-
-  "speechToText.tooltip.start": "بدء الإدخال الصوتي",
-  "speechToText.tooltip.shortcut":
-    "انقر أو اضغط على Cmd/Ctrl+K لبدء التسجيل أو إيقافه؛ اضغط باستمرار أثناء التحدث ثم اتركه لتحويل الكلام إلى نص وإرساله.",
-  "speechToText.tooltip.starting": "جارٍ تشغيل الميكروفون... يُرجى الانتظار قبل التحدث.",
-  "speechToText.tooltip.stop": "إيقاف التقاط الصوت",
-  "speechToText.tooltip.transcribing": "جاري تحويل الصوت إلى نص... انقر للإلغاء.",
-  "speechToText.tooltip.error": "فشل الإدخال الصوتي. انقر للمسح.",
-  "speechToText.error.title": "فشل الإدخال الصوتي",
-  "speechToText.error.loginRequired": "قم بتسجيل الدخول إلى Harness لاستخدام الإدخال الصوتي.",
-  "speechToText.error.emptyTranscript": "لم يتم اكتشاف أي كلام.",
 
   "prompt.toast.promptSendFailed.title": "فشل إرسال الموجه",
 
@@ -429,9 +417,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "نموذج الوكيل الفرعي",
   "settings.providers.subagentModel.description":
     "النموذج الافتراضي وجهد التفكير للوكلاء الفرعيين لـ task-tool. اتركه فارغًا ليرث نموذج الوكيل المستدعي.",
-  "settings.models.hidePromptTraining.title": "إخفاء النماذج التي تدرّب على المطالبات",
-  "settings.models.hidePromptTraining.description":
-    "إخفاء نماذج Harness Gateway التي قد يستخدم مزودوها مطالباتك لأغراض التدريب.",
   "settings.providers.modeModels": "نموذج لكل وضع",
   "settings.providers.modeModels.description":
     "تجاوز النموذج الافتراضي لأوضاع محددة. إذا لم يتم التعيين، يتم استخدام النموذج الافتراضي العام.",
@@ -549,10 +534,7 @@ export const dict = {
   "session.tabs.switcher.busy": "جارٍ العمل",
   "session.tabs.switcher.scheduled": "مجدولة",
   "session.tab.local": "محلي",
-  "session.tab.cloud": "السحابة",
   "session.tab.worktree": "شجرة العمل",
-  "session.cloud.repoOnly": "هذا المستودع فقط",
-  "session.cloud.import": "استيراد من السحابة",
   "feedback.button": "التغذية الراجعة والدعم",
   "feedback.dialog.message": "يسعدنا سماع تعليقاتك أو مساعدتك في حل أي مشكلات تواجهها.",
   "feedback.dialog.github": "الإبلاغ عن مشكلة على GitHub",
@@ -578,12 +560,6 @@ export const dict = {
   "workStyle.choice.autonomous.permissions": "يعدّل الملفات ويشغّل الأوامر في مساحة العمل دون طلب الإذن.",
   "workStyle.choice.autonomous.bash": "يمكنه تشغيل أوامر المحطة الطرفية في مساحة العمل دون موافقة.",
   "workStyle.choice.autonomous.visibility": "يطوي تفاصيل الأدوات، مع معاينة مختصرة للاستدلال.",
-  "session.cloud.import.title": "استيراد من السحابة",
-  "session.cloud.import.placeholder": "معرّف الجلسة أو الرابط أو أمر harness import",
-  "session.cloud.import.button": "استيراد",
-  "session.cloud.import.invalid": "تنسيق معرّف الجلسة غير صالح",
-  "session.cloud.import.legacy": "يبدو أن هذه جلسة قديمة لم تعد مدعومة.",
-  "session.cloud.import.failed": "فشل استيراد جلسة السحابة",
 
   "common.retry": "إعادة المحاولة",
   "common.refresh": "تحديث",
@@ -594,8 +570,6 @@ export const dict = {
   "settings.autoApprove.title": "الموافقة التلقائية",
   "settings.checkpoints.title": "نقاط التحقق",
   "settings.display.title": "العرض",
-  "settings.autocomplete.model.title": "نموذج الإكمال التلقائي",
-  "settings.autocomplete.model.description": "حدد النموذج المستخدم لإكمال الكود المضمن (inline completions)",
   "settings.notifications.title": "الإشعارات",
   "prompt.action.indexing": "إعدادات الفهرسة",
   "settings.language.title": "اللغة",
@@ -691,24 +665,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "شارك لوحة بين جلسة رئيسية ووكلائها الفرعيين المكلّفين بالمهام، بما يشمل الوكلاء الفرعيين المتداخلين. استخدمها لمحاولات حل متوازية أو أعمال متكاملة، وليس لكل مهمة.",
-
-  "settings.models.speechToTextModel.customDescription":
-    "معرّف النموذج الذي يُرسل إلى نقطة النهاية المخصصة للنسخ، مثل whisper-1.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "عنوان URL الأساسي لتحويل الصوت إلى نص",
-  "settings.models.speechToTextBaseUrl.description":
-    "استخدم واجهة نسخ متوافقة مع OpenAI بدلاً من Harness Gateway. تُقرأ النماذج من /models ويُرسل الصوت إلى /audio/transcriptions. اتركه فارغًا لاستخدام Harness Gateway.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "مفتاح API لتحويل الصوت إلى نص",
-  "settings.models.speechToTextApiKey.description":
-    "رمز Bearer يُرسل إلى عنوان URL الأساسي المخصص للنسخ. يُخزَّن في ملف إعدادات Harness لديك.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "قم بتمكين وتسجيل الدخول إلى مزود Harness لاستخدام Speech to Text، أو حدد أدناه عنوان URL أساسيًا مخصصًا للنسخ.",
-  "settings.models.speechToText.remoteDescription":
-    "الإدخال الصوتي غير متاح في النوافذ البعيدة. افتح Harness في نافذة محلية لاستخدام الميكروفون.",
-  "settings.models.speechToTextModel.title": "نموذج تحويل الصوت إلى نص",
-  "settings.models.speechToTextModel.description": "اختر نموذج نسخ Harness Gateway للإدخال الصوتي.",
 
   "settings.agentBehaviour.defaultAgent.title": "الوكيل الافتراضي",
   "settings.agentBehaviour.defaultAgent.description": "الوكيل المستخدم عند عدم التحديد",

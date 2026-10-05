@@ -203,7 +203,6 @@ export const dict = {
   "prompt.action.send": "Pošalji",
   "prompt.action.continue": "Nastavi",
   "prompt.action.send.blocked": "Prvo odgovorite ili odbacite pitanje na čekanju",
-  "prompt.action.send.recording": "Transkribuj i pošalji",
   "prompt.action.stop": "Zaustavi",
   "prompt.action.stop.background": "Zaustavi glavnog agenta. Agenti u pozadini nastavljaju raditi.",
   "prompt.agents.show": "Prikaži agente u pozadini",
@@ -238,17 +237,6 @@ export const dict = {
   "prompt.action.sandbox.description.disabled": "Kliknite da ograničite pisanje u datotečni sistem i pristup mreži.",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "Kliknite da ograničite pisanje u datotečni sistem. Pristup mreži ostaje dozvoljen prema vašim sandbox postavkama.",
-
-  "speechToText.tooltip.start": "Započni glasovni unos",
-  "speechToText.tooltip.shortcut":
-    "Dodirnite dugme ili pritisnite Cmd/Ctrl+K da pokrenete ili zaustavite snimanje; držite dugme pritisnutim dok govorite, a zatim ga otpustite da biste pretvorili govor u tekst i poslali ga.",
-  "speechToText.tooltip.starting": "Pokretanje mikrofona... Sačekajte prije nego što progovorite.",
-  "speechToText.tooltip.stop": "Zaustavi hvatanje zvuka",
-  "speechToText.tooltip.transcribing": "Prepisivanje... Kliknite da otkažete.",
-  "speechToText.tooltip.error": "Glasovni unos nije uspio. Kliknite da očistite.",
-  "speechToText.error.title": "Glasovni unos nije uspio",
-  "speechToText.error.loginRequired": "Prijavite se na Harness da koristite glasovni unos.",
-  "speechToText.error.emptyTranscript": "Govor nije otkriven.",
 
   "prompt.toast.promptSendFailed.title": "Neuspješno slanje upita",
 
@@ -440,9 +428,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Model podagenta",
   "settings.providers.subagentModel.description":
     "Zadani model i napor zaključivanja za podagente task-tool-a. Ostavite nepodešeno da naslijedi model pozivnog agenta.",
-  "settings.models.hidePromptTraining.title": "Sakrij modele koji treniraju na promptovima",
-  "settings.models.hidePromptTraining.description":
-    "Sakrij Harness Gateway modele čiji pružaoci mogu koristiti vaše promptove za treniranje.",
   "settings.providers.modeModels": "Model po režimu",
   "settings.providers.modeModels.description":
     "Zamijenite podrazumijevani model za određene režime. Ako nije postavljeno, koristi se globalni podrazumijevani model.",
@@ -513,7 +498,8 @@ export const dict = {
   "settings.config.title": "Otvori {{scope}} Harness konfiguracijsku datoteku",
   "settings.config.placeholder":
     "Konfiguracijske datoteke se spajaju po redu; datoteke označene kao učitane trenutno utiču na postavke.",
-  "settings.config.noWorkspace": "Otvorite fasciklu radnog prostora da uredite lokalnu Harness konfiguracijsku datoteku.",
+  "settings.config.noWorkspace":
+    "Otvorite fasciklu radnog prostora da uredite lokalnu Harness konfiguracijsku datoteku.",
   "settings.config.openFailed": "Nije uspjelo otvaranje {{scope}} Harness konfiguracijske datoteke: {{message}}",
   "settings.config.source.xdg": "XDG globalna konfiguracija",
   "settings.config.source.homeHarness": "Home .harness konfiguracija",
@@ -563,10 +549,7 @@ export const dict = {
   "session.tabs.switcher.busy": "Radi",
   "session.tabs.switcher.scheduled": "Zakazano",
   "session.tab.local": "Lokalno",
-  "session.tab.cloud": "Oblak",
   "session.tab.worktree": "Radno stablo",
-  "session.cloud.repoOnly": "Samo ovaj repozitorij",
-  "session.cloud.import": "Uvezi iz oblaka",
   "feedback.button": "Povratne informacije i podrška",
   "feedback.dialog.message": "Voljeli bismo čuti vaše povratne informacije ili pomoći s problemima koje doživljavate.",
   "feedback.dialog.github": "Prijavite problem na GitHubu",
@@ -592,12 +575,6 @@ export const dict = {
   "workStyle.choice.autonomous.permissions": "Uređuje datoteke i pokreće komande u radnom prostoru bez pitanja.",
   "workStyle.choice.autonomous.bash": "Može pokretati terminalske komande u radnom prostoru bez odobrenja.",
   "workStyle.choice.autonomous.visibility": "Sažima detalje alata, uz kompaktan pregled zaključivanja.",
-  "session.cloud.import.title": "Uvezi iz oblaka",
-  "session.cloud.import.placeholder": "ID sesije, URL ili harness import naredba",
-  "session.cloud.import.button": "Uvezi",
-  "session.cloud.import.invalid": "Neispravan format ID-a sesije",
-  "session.cloud.import.legacy": "Čini se da je ovo zastarjela sesija koja više nije podržana.",
-  "session.cloud.import.failed": "Uvoz sesije iz oblaka nije uspio",
 
   "common.retry": "Pokušaj ponovo",
   "common.refresh": "Osvježi",
@@ -608,8 +585,6 @@ export const dict = {
   "settings.autoApprove.title": "Automatsko odobravanje",
   "settings.checkpoints.title": "Kontrolne tačke",
   "settings.display.title": "Prikaz",
-  "settings.autocomplete.model.title": "Model za automatsko dovršavanje",
-  "settings.autocomplete.model.description": "Odaberite model koji se koristi za inline dovršavanje koda",
   "settings.notifications.title": "Obavještenja",
 
   "settings.language.title": "Jezik",
@@ -708,24 +683,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Dijelite ploču između glavne sesije i njenih podagenata za zadatke, uključujući ugniježđene podagente. Koristite je za paralelne pokušaje rješavanja problema ili rad na zadacima koji se međusobno nadopunjuju, a ne za svaki zadatak.",
-
-  "settings.models.speechToTextModel.customDescription":
-    "ID modela koji se šalje vašoj vlastitoj krajnjoj tački za transkripciju, na primjer whisper-1.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "Osnovni URL za govor u tekst",
-  "settings.models.speechToTextBaseUrl.description":
-    "Koristite API za transkripciju kompatibilan s OpenAI umjesto Harness Gatewaya. Modeli se čitaju s /models, a zvuk se šalje na /audio/transcriptions. Ostavite prazno da biste koristili Harness Gateway.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "API ključ za govor u tekst",
-  "settings.models.speechToTextApiKey.description":
-    "Bearer token koji se šalje na vlastiti osnovni URL za transkripciju. Čuva se u vašoj Harness konfiguracijskoj datoteci.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "Omogućite i prijavite se na Harness provajder da biste koristili Speech to Text ili ispod postavite vlastiti osnovni URL za transkripciju.",
-  "settings.models.speechToText.remoteDescription":
-    "Glasovni unos nije dostupan u udaljenim prozorima. Otvorite Harness u lokalnom prozoru da biste koristili mikrofon.",
-  "settings.models.speechToTextModel.title": "Model govora u tekst",
-  "settings.models.speechToTextModel.description": "Odaberite Harness Gateway model za transkripciju za glasovni unos.",
 
   "settings.agentBehaviour.defaultAgent.title": "Zadani agent",
   "settings.agentBehaviour.defaultAgent.description": "Agent koji se koristi kada nijedan nije naveden",

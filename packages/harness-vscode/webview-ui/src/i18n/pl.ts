@@ -203,7 +203,6 @@ export const dict = {
   "prompt.action.send": "Wyślij",
   "prompt.action.continue": "Kontynuuj",
   "prompt.action.send.blocked": "Najpierw odpowiedz na oczekujące pytanie lub je odrzuć",
-  "prompt.action.send.recording": "Transkrybuj i wyślij",
   "prompt.action.stop": "Zatrzymaj",
   "prompt.action.stop.background": "Zatrzymaj głównego agenta. Agenci w tle nadal działają.",
   "prompt.agents.show": "Pokaż agentów w tle",
@@ -239,17 +238,6 @@ export const dict = {
   "prompt.action.sandbox.description.disabled": "Kliknij, aby ograniczyć zapisy w systemie plików i dostęp do sieci.",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "Kliknij, aby ograniczyć zapisy w systemie plików. Ustawienia sandboxa nadal zezwalają na dostęp do sieci.",
-
-  "speechToText.tooltip.start": "Rozpocznij wprowadzanie głosowe",
-  "speechToText.tooltip.shortcut":
-    "Stuknij lub naciśnij Cmd/Ctrl+K, aby rozpocząć albo zatrzymać nagrywanie; przytrzymaj podczas mówienia, a następnie zwolnij, aby dokonać transkrypcji i wysłać.",
-  "speechToText.tooltip.starting": "Uruchamianie mikrofonu... Poczekaj, zanim zaczniesz mówić.",
-  "speechToText.tooltip.stop": "Zatrzymaj przechwytywanie dźwięku",
-  "speechToText.tooltip.transcribing": "Transkrybowanie... Kliknij, aby anulować.",
-  "speechToText.tooltip.error": "Wprowadzanie głosowe nie powiodło się. Kliknij, aby wyczyścić.",
-  "speechToText.error.title": "Wprowadzanie głosowe nie powiodło się",
-  "speechToText.error.loginRequired": "Zaloguj się do Harness, aby korzystać z wprowadzania głosowego.",
-  "speechToText.error.emptyTranscript": "Nie wykryto mowy.",
 
   "prompt.toast.promptSendFailed.title": "Nie udało się wysłać zapytania",
 
@@ -438,9 +426,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Model podagenta",
   "settings.providers.subagentModel.description":
     "Domyślny model i wysiłek wnioskowania dla podagentów task-tool. Pozostaw puste, aby odziedziczyć model agenta wywołującego.",
-  "settings.models.hidePromptTraining.title": "Ukryj modele trenujące na promptach",
-  "settings.models.hidePromptTraining.description":
-    "Ukryj modele Harness Gateway, których dostawcy mogą używać Twoich promptów do trenowania.",
   "settings.providers.modeModels": "Model na tryb",
   "settings.providers.modeModels.description":
     "Zastąp domyślny model dla określonych trybów. Jeśli nie ustawiono, używany jest globalny domyślny model.",
@@ -560,10 +545,7 @@ export const dict = {
   "session.tabs.switcher.busy": "Pracuje",
   "session.tabs.switcher.scheduled": "Zaplanowano",
   "session.tab.local": "Lokalny",
-  "session.tab.cloud": "Chmura",
   "session.tab.worktree": "Drzewo robocze",
-  "session.cloud.repoOnly": "Tylko to repozytorium",
-  "session.cloud.import": "Importuj z chmury",
   "feedback.button": "Opinie i wsparcie",
   "feedback.dialog.message": "Chętnie poznamy Twoją opinię lub pomożemy w przypadku problemów.",
   "feedback.dialog.github": "Zgłoś problem na GitHubie",
@@ -579,7 +561,8 @@ export const dict = {
   "workStyle.choice.visibility": "Widoczność",
   "workStyle.choice.human-in-the-loop.eyebrow": "Człowiek w pętli",
   "workStyle.choice.human-in-the-loop.title": "Najpierw przejrzyj",
-  "workStyle.choice.human-in-the-loop.description": "Harness wstrzymuje pracę i pokazuje swój plan w trakcie działania.",
+  "workStyle.choice.human-in-the-loop.description":
+    "Harness wstrzymuje pracę i pokazuje swój plan w trakcie działania.",
   "workStyle.choice.human-in-the-loop.permissions": "Prosi o zgodę przed edycją plików lub uruchomieniem poleceń.",
   "workStyle.choice.human-in-the-loop.bash": "Prosi o pozwolenie na każde polecenie terminala.",
   "workStyle.choice.human-in-the-loop.visibility": "Rozwija rozumowanie, polecenia i zmiany do przeglądu.",
@@ -590,12 +573,6 @@ export const dict = {
     "Edytuje pliki i uruchamia polecenia w przestrzeni roboczej bez pytania o zgodę.",
   "workStyle.choice.autonomous.bash": "Może uruchamiać polecenia terminala w przestrzeni roboczej bez zatwierdzenia.",
   "workStyle.choice.autonomous.visibility": "Zwieja szczegóły narzędzi, z kompaktowym podglądem rozumowania.",
-  "session.cloud.import.title": "Importuj z chmury",
-  "session.cloud.import.placeholder": "ID sesji, URL lub polecenie harness import",
-  "session.cloud.import.button": "Importuj",
-  "session.cloud.import.invalid": "Nieprawidłowy format ID sesji",
-  "session.cloud.import.legacy": "Wygląda na to, że jest to starsza sesja, która nie jest już obsługiwana.",
-  "session.cloud.import.failed": "Nie udało się zaimportować sesji chmurowej",
 
   "common.retry": "Ponów",
   "common.refresh": "Odśwież",
@@ -606,8 +583,6 @@ export const dict = {
   "settings.autoApprove.title": "Automatyczne zatwierdzanie",
   "settings.checkpoints.title": "Punkty kontrolne",
   "settings.display.title": "Wyświetlanie",
-  "settings.autocomplete.model.title": "Model autouzupełniania",
-  "settings.autocomplete.model.description": "Wybierz model używany do uzupełniania kodu w linii (inline)",
   "settings.notifications.title": "Powiadomienia",
 
   "settings.language.title": "Język",
@@ -706,25 +681,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Współdziel tablicę między główną sesją a jej podagentami wykonującymi zadania, w tym zagnieżdżonymi podagentami. Używaj jej do równoległych prób rozwiązania problemu lub wzajemnie uzupełniających się prac, a nie do każdego zadania.",
-
-  "settings.models.speechToTextModel.customDescription":
-    "Identyfikator modelu wysyłany do własnego punktu końcowego transkrypcji, na przykład whisper-1.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "Bazowy adres URL mowy na tekst",
-  "settings.models.speechToTextBaseUrl.description":
-    "Użyj API transkrypcji zgodnego z OpenAI zamiast Harness Gateway. Modele są odczytywane z /models, a dźwięk jest wysyłany do /audio/transcriptions. Pozostaw puste, aby używać Harness Gateway.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "Klucz API mowy na tekst",
-  "settings.models.speechToTextApiKey.description":
-    "Token bearer wysyłany na własny bazowy adres URL transkrypcji. Przechowywany w pliku konfiguracyjnym Harness.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "Włącz i zaloguj się do dostawcy Harness, aby korzystać ze Speech to Text, albo ustaw poniżej własny bazowy adres URL transkrypcji.",
-  "settings.models.speechToText.remoteDescription":
-    "Wprowadzanie głosowe nie jest dostępne w zdalnych oknach. Otwórz Harness w lokalnym oknie, aby użyć mikrofonu.",
-  "settings.models.speechToTextModel.title": "Model mowy na tekst",
-  "settings.models.speechToTextModel.description":
-    "Wybierz model transkrypcji Harness Gateway dla wprowadzania głosowego.",
 
   "settings.agentBehaviour.defaultAgent.title": "Domyślny agent",
   "settings.agentBehaviour.defaultAgent.description": "Agent używany, gdy żaden nie jest określony",

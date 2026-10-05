@@ -131,40 +131,6 @@ export interface RequestSessionModelUsageMessage {
   requestID: string
 }
 
-export interface RequestCloudSessionsMessage {
-  type: "requestCloudSessions"
-  cursor?: string
-  limit?: number
-  gitUrl?: string
-}
-
-export interface RequestGitRemoteUrlMessage {
-  type: "requestGitRemoteUrl"
-}
-
-export interface RequestCloudSessionDataMessage {
-  type: "requestCloudSessionData"
-  sessionId: string
-}
-
-export interface ImportAndSendMessage {
-  type: "importAndSend"
-  cloudSessionId: string
-  text: string
-  messageID?: string
-  providerID?: string
-  modelID?: string
-  agent?: string
-  variant?: string
-  files?: FileAttachment[]
-  review?: ReviewMessageData
-  browserFeedback?: BrowserFeedbackData
-  command?: string
-  commandArgs?: string
-  /** Label for a prompt Harness composed, such as an editor code action. */
-  injectedTitle?: string
-}
-
 export interface OpenExternalRequest {
   type: "openExternal"
   url: string
@@ -424,27 +390,6 @@ export interface RequestChatCompletionMessage {
   requestId: string
 }
 
-export interface SpeechToTextPrewarmMessage {
-  type: "speechToTextPrewarm"
-}
-
-export interface SpeechToTextStartMessage {
-  type: "speechToTextStart"
-  requestId: string
-  model: string
-  language?: string
-}
-
-export interface SpeechToTextStopMessage {
-  type: "speechToTextStop"
-  requestId: string
-}
-
-export interface SpeechToTextCancelMessage {
-  type: "speechToTextCancel"
-  requestId: string
-}
-
 export interface RequestFileSearchMessage {
   type: "requestFileSearch"
   query: string
@@ -575,10 +520,6 @@ export interface RequestHarnessEmbeddingModelsMessage {
 
 export interface RequestImageModelsMessage {
   type: "requestImageModels"
-}
-
-export interface RequestSpeechToTextModelsMessage {
-  type: "requestSpeechToTextModels"
 }
 
 export interface OpenSettingsTabRequest {
@@ -1618,8 +1559,6 @@ export type WebviewMessage =
   | LoadMessagesRequest
   | LoadSessionsRequest
   | RequestSessionModelUsageMessage
-  | RequestCloudSessionsMessage
-  | RequestGitRemoteUrlMessage
   | OpenExternalRequest
   | OpenSettingsPanelRequest
   | RequestAgentManagerSettingsMessage
@@ -1660,10 +1599,6 @@ export type WebviewMessage =
   | ExportSessionTranscriptRequest
   | RequestAutocompleteSettingsMessage
   | RequestChatCompletionMessage
-  | SpeechToTextPrewarmMessage
-  | SpeechToTextStartMessage
-  | SpeechToTextStopMessage
-  | SpeechToTextCancelMessage
   | RequestFileSearchMessage
   | RequestSessionSearchMessage
   | RequestFilePickerMessage
@@ -1759,8 +1694,6 @@ export type WebviewMessage =
   | SetReviewMarkdownRenderRequest
   | PersistVariantRequest
   | RequestVariantsMessage
-  | RequestCloudSessionDataMessage
-  | ImportAndSendMessage
   | RequestBranchesMessage
   | ImportFromBranchRequest
   | ImportFromPRRequest
@@ -1846,7 +1779,6 @@ export type WebviewMessage =
   | AgentManagerTerminalDestinationSelectedRequest
   | AgentManagerTerminalResizeRequest
   | RequestImageModelsMessage
-  | RequestSpeechToTextModelsMessage
 
 // ============================================
 // VS Code API type

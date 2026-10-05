@@ -348,11 +348,6 @@ const AppContent: Component = () => {
         setCurrentView(message.view as ViewType)
         vscode.postMessage({ type: "settingsTabChanged", tab: message.tab })
       }
-      if (message?.type === "openCloudSession" && message.sessionId) {
-        console.log("[Harness New] App: ☁️ openCloudSession:", message.sessionId)
-        session.selectCloudSession(message.sessionId)
-        setCurrentView("newTask")
-      }
       open(message)
       handleHarnessModel(message)
       handleForked(message)

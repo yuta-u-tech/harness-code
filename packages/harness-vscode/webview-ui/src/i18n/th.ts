@@ -47,7 +47,8 @@ export const anacondaDesktopDict = {
   "provider.anaconda.action.continue": "ดำเนินการต่อ",
   "provider.anaconda.action.manage": "จัดการ / รีเฟรช",
   "provider.anaconda.toast.refreshed.title": "รีเฟรช Anaconda Desktop แล้ว",
-  "provider.anaconda.toast.refreshed.description": "เซิร์ฟเวอร์ในเครื่องและโมเดลที่ใช้งานอยู่เป็นปัจจุบันใน Harness แล้ว",
+  "provider.anaconda.toast.refreshed.description":
+    "เซิร์ฟเวอร์ในเครื่องและโมเดลที่ใช้งานอยู่เป็นปัจจุบันใน Harness แล้ว",
   "settings.providers.note.anacondaDesktop": "เรียกใช้โมเดลที่ให้บริการในเครื่องโดย Anaconda Desktop",
   "settings.providers.tag.local": "ในเครื่อง",
 } as const
@@ -149,7 +150,8 @@ export const dict = {
   "provider.connect.oauth.code.required": "ต้องใช้รหัสการอนุญาต",
   "provider.connect.oauth.auto.visit.prefix": "เยี่ยมชม ",
   "provider.connect.oauth.auto.visit.link": "ลิงก์นี้",
-  "provider.connect.oauth.auto.visit.suffix": " และป้อนรหัสด้านล่างเพื่อเชื่อมต่อบัญชีและใช้โมเดล {{provider}} ใน Harness",
+  "provider.connect.oauth.auto.visit.suffix":
+    " และป้อนรหัสด้านล่างเพื่อเชื่อมต่อบัญชีและใช้โมเดล {{provider}} ใน Harness",
   "provider.connect.oauth.auto.confirmationCode": "รหัสยืนยัน",
   "provider.connect.toast.connected.title": "{{provider}} ที่เชื่อมต่อแล้ว",
   "provider.connect.toast.connected.description": "โมเดล {{provider}} พร้อมใช้งานแล้ว",
@@ -201,7 +203,6 @@ export const dict = {
   "prompt.action.send": "ส่ง",
   "prompt.action.continue": "ดำเนินการต่อ",
   "prompt.action.send.blocked": "โปรดตอบหรือข้ามคำถามที่รอดำเนินการก่อน",
-  "prompt.action.send.recording": "ถอดเสียงและส่ง",
   "prompt.action.stop": "หยุด",
   "prompt.action.stop.background": "หยุดเอเจนต์หลัก เอเจนต์เบื้องหลังจะยังคงทำงานต่อ",
   "prompt.agents.show": "แสดงเอเจนต์เบื้องหลัง",
@@ -235,17 +236,6 @@ export const dict = {
   "prompt.action.sandbox.description.disabled": "คลิกเพื่อจำกัดการเขียนในระบบไฟล์และการเข้าถึงเครือข่าย",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "คลิกเพื่อจำกัดการเขียนในระบบไฟล์ การตั้งค่า sandbox ของคุณยังคงอนุญาตให้เข้าถึงเครือข่าย",
-
-  "speechToText.tooltip.start": "เริ่มการป้อนข้อมูลด้วยเสียง",
-  "speechToText.tooltip.shortcut":
-    "แตะหรือกด Cmd/Ctrl+K เพื่อเริ่มหรือหยุดบันทึก จากนั้นกดค้างไว้ขณะพูด แล้วปล่อยเพื่อถอดเสียงและส่ง",
-  "speechToText.tooltip.starting": "กำลังเริ่มไมโครโฟน... โปรดรอก่อนพูด",
-  "speechToText.tooltip.stop": "หยุดจับเสียง",
-  "speechToText.tooltip.transcribing": "กำลังถอดเสียง... คลิกเพื่อยกเลิก",
-  "speechToText.tooltip.error": "การป้อนข้อมูลด้วยเสียงล้มเหลว คลิกเพื่อล้าง",
-  "speechToText.error.title": "การป้อนข้อมูลด้วยเสียงล้มเหลว",
-  "speechToText.error.loginRequired": "ลงชื่อเข้าใช้ Harness เพื่อใช้การป้อนข้อมูลด้วยเสียง",
-  "speechToText.error.emptyTranscript": "ตรวจไม่พบเสียงพูด",
 
   "prompt.toast.promptSendFailed.title": "ไม่สามารถส่งพร้อมท์",
 
@@ -435,8 +425,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "โมเดลตัวแทนย่อย",
   "settings.providers.subagentModel.description":
     "โมเดลเริ่มต้นและระดับการใช้เหตุผลสำหรับตัวแทนย่อยของ task-tool ปล่อยว่างไว้เพื่อรับค่าโมเดลจากตัวแทนที่เรียก",
-  "settings.models.hidePromptTraining.title": "ซ่อนโมเดลที่ใช้พรอมต์ในการฝึก",
-  "settings.models.hidePromptTraining.description": "ซ่อนโมเดล Harness Gateway ที่ผู้ให้บริการอาจใช้พรอมต์ของคุณในการฝึก",
   "settings.providers.modeModels": "โมเดลต่อโหมด",
   "settings.providers.modeModels.description":
     "แทนที่โมเดลเริ่มต้นสำหรับโหมดที่กำหนด หากไม่ได้ตั้งค่า จะใช้โมเดลเริ่มต้นทั่วไป",
@@ -554,10 +542,7 @@ export const dict = {
   "session.tabs.switcher.busy": "กำลังทำงาน",
   "session.tabs.switcher.scheduled": "ตั้งเวลาไว้",
   "session.tab.local": "ในเครื่อง",
-  "session.tab.cloud": "คลาวด์",
   "session.tab.worktree": "เวิร์กทรี Git",
-  "session.cloud.repoOnly": "เฉพาะรีโพซิทอรีนี้",
-  "session.cloud.import": "นำเข้าจากคลาวด์",
   "feedback.button": "ข้อเสนอแนะและการสนับสนุน",
   "feedback.dialog.message": "เรายินดีรับฟังข้อเสนอแนะของคุณหรือช่วยแก้ไขปัญหาที่คุณพบ",
   "feedback.dialog.github": "รายงานปัญหาบน GitHub",
@@ -583,12 +568,6 @@ export const dict = {
   "workStyle.choice.autonomous.permissions": "แก้ไขไฟล์และเรียกใช้คำสั่งในพื้นที่ทำงานโดยไม่ต้องขออนุญาต",
   "workStyle.choice.autonomous.bash": "เรียกใช้คำสั่งเทอร์มินัลในพื้นที่ทำงานได้โดยไม่ต้องขออนุมัติ",
   "workStyle.choice.autonomous.visibility": "ย่อรายละเอียดเครื่องมือ พร้อมตัวอย่างเหตุผลแบบกะทัดรัด",
-  "session.cloud.import.title": "นำเข้าจากคลาวด์",
-  "session.cloud.import.placeholder": "ID เซสชัน, URL หรือคำสั่ง harness import",
-  "session.cloud.import.button": "นำเข้า",
-  "session.cloud.import.invalid": "รูปแบบ ID เซสชันไม่ถูกต้อง",
-  "session.cloud.import.legacy": "นี่ดูเหมือนจะเป็นเซสชันเวอร์ชันเก่าที่ไม่รองรับอีกต่อไปแล้ว",
-  "session.cloud.import.failed": "ไม่สามารถนำเข้าเซสชันคลาวด์ได้",
 
   "common.retry": "ลองอีกครั้ง",
   "common.refresh": "รีเฟรช",
@@ -599,8 +578,6 @@ export const dict = {
   "settings.autoApprove.title": "อนุมัติอัตโนมัติ",
   "settings.checkpoints.title": "จุดตรวจสอบ",
   "settings.display.title": "การแสดงผล",
-  "settings.autocomplete.model.title": "โมเดล Autocomplete",
-  "settings.autocomplete.model.description": "เลือกโมเดลที่ใช้สำหรับการเติมโค้ดแบบอินไลน์ (inline completions)",
   "settings.notifications.title": "การแจ้งเตือน",
 
   "settings.language.title": "ภาษา",
@@ -697,24 +674,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "แชร์กระดานระหว่างเซสชันหลักกับเอเจนต์ย่อยที่รับมอบหมายงานจากเซสชันนั้น รวมถึงเอเจนต์ย่อยที่ซ้อนกัน ใช้สำหรับการลองแก้ปัญหาแบบขนานหรืองานที่เสริมกัน ไม่ใช่สำหรับทุกงาน",
-
-  "settings.models.speechToTextModel.customDescription":
-    "รหัสโมเดลที่ส่งไปยังปลายทางการถอดเสียงของคุณเอง เช่น whisper-1",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "URL พื้นฐานสำหรับแปลงเสียงเป็นข้อความ",
-  "settings.models.speechToTextBaseUrl.description":
-    "ใช้ API การถอดเสียงที่เข้ากันได้กับ OpenAI แทน Harness Gateway โมเดลจะอ่านจาก /models และเสียงจะถูกส่งไปยัง /audio/transcriptions เว้นว่างไว้เพื่อใช้ Harness Gateway",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "คีย์ API สำหรับแปลงเสียงเป็นข้อความ",
-  "settings.models.speechToTextApiKey.description":
-    "โทเค็น Bearer ที่ส่งไปยัง URL พื้นฐานการถอดเสียงของคุณเอง จัดเก็บอยู่ในไฟล์ตั้งค่า Harness ของคุณ",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "เปิดใช้งานและลงชื่อเข้าใช้ผู้ให้บริการ Harness เพื่อใช้ Speech to Text หรือกำหนด URL พื้นฐานสำหรับการถอดเสียงเองด้านล่าง",
-  "settings.models.speechToText.remoteDescription":
-    "การป้อนด้วยเสียงไม่พร้อมใช้งานในหน้าต่างระยะไกล เปิด Harness ในหน้าต่างภายในเครื่องเพื่อใช้ไมโครโฟน",
-  "settings.models.speechToTextModel.title": "โมเดลแปลงเสียงเป็นข้อความ",
-  "settings.models.speechToTextModel.description": "เลือกโมเดลการถอดเสียง Harness Gateway สำหรับการป้อนข้อมูลด้วยเสียง",
 
   "settings.agentBehaviour.defaultAgent.title": "เอเจนต์เริ่มต้น",
   "settings.agentBehaviour.defaultAgent.description": "เอเจนต์ที่ใช้เมื่อไม่ได้ระบุ",

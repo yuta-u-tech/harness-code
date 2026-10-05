@@ -202,7 +202,6 @@ export const dict = {
   "prompt.action.send": "Send",
   "prompt.action.continue": "Fortsæt",
   "prompt.action.send.blocked": "Besvar eller afvis det afventende spørgsmål først",
-  "prompt.action.send.recording": "Transskriber og send",
   "prompt.action.stop": "Stop",
   "prompt.action.stop.background": "Stop hovedagenten. Baggrundsagenter kører videre.",
   "prompt.agents.show": "Vis baggrundsagenter",
@@ -237,17 +236,6 @@ export const dict = {
   "prompt.action.sandbox.description.disabled": "Klik for at begrænse skriveadgang til filsystemet og netværksadgang.",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "Klik for at begrænse skriveadgang til filsystemet. Netværksadgang er fortsat tilladt ifølge dine sandboxindstillinger.",
-
-  "speechToText.tooltip.start": "Start stemmeinput",
-  "speechToText.tooltip.shortcut":
-    "Tryk på knappen eller brug Cmd/Ctrl+K til at starte eller stoppe optagelsen; hold knappen nede, mens du taler, og slip den for at transskribere og sende.",
-  "speechToText.tooltip.starting": "Starter mikrofonen... Vent med at tale.",
-  "speechToText.tooltip.stop": "Stop lydoptagelse",
-  "speechToText.tooltip.transcribing": "Transskriberer... Klik for at annullere.",
-  "speechToText.tooltip.error": "Stemmeinput mislykkedes. Klik for at rydde.",
-  "speechToText.error.title": "Stemmeinput mislykkedes",
-  "speechToText.error.loginRequired": "Log ind på Harness for at bruge stemmeinput.",
-  "speechToText.error.emptyTranscript": "Ingen tale blev registreret.",
 
   "prompt.toast.promptSendFailed.title": "Kunne ikke sende forespørgsel",
 
@@ -438,9 +426,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Underagentmodel",
   "settings.providers.subagentModel.description":
     "Standardmodel og ræsonnementsindsats for task-tool-underagenter. Lad den være tom for at nedarve den kaldende agents model.",
-  "settings.models.hidePromptTraining.title": "Skjul modeller, der træner på prompts",
-  "settings.models.hidePromptTraining.description":
-    "Skjul Harness Gateway-modeller, hvis udbydere muligvis bruger dine prompts til træning.",
   "settings.providers.modeModels": "Model pr. tilstand",
   "settings.providers.modeModels.description":
     "Tilsidesæt standardmodellen for bestemte tilstande. Hvis ikke angivet, bruges den globale standardmodel.",
@@ -559,10 +544,7 @@ export const dict = {
   "session.tabs.switcher.busy": "Arbejder",
   "session.tabs.switcher.scheduled": "Planlagt",
   "session.tab.local": "Lokal",
-  "session.tab.cloud": "Sky",
   "session.tab.worktree": "Arbejdstræ",
-  "session.cloud.repoOnly": "Kun dette repository",
-  "session.cloud.import": "Importér fra skyen",
   "feedback.button": "Feedback & support",
   "feedback.dialog.message": "Vi vil gerne høre din feedback eller hjælpe med eventuelle problemer, du oplever.",
   "feedback.dialog.github": "Rapportér et problem på GitHub",
@@ -590,12 +572,6 @@ export const dict = {
   "workStyle.choice.autonomous.bash": "Kan køre terminalkommandoer i arbejdsområdet uden godkendelse.",
   "workStyle.choice.autonomous.visibility":
     "Klapper værktøjsdetaljer sammen, med en kompakt forhåndsvisning af ræsonnementet.",
-  "session.cloud.import.title": "Importér fra skyen",
-  "session.cloud.import.placeholder": "Sessions-ID, URL eller harness import-kommando",
-  "session.cloud.import.button": "Importér",
-  "session.cloud.import.invalid": "Ugyldigt sessions-ID-format",
-  "session.cloud.import.legacy": "Dette ser ud til at være en ældre session, som ikke længere understøttes.",
-  "session.cloud.import.failed": "Kunne ikke importere cloud-session",
 
   "common.retry": "Prøv igen",
   "common.refresh": "Opdatér",
@@ -606,8 +582,6 @@ export const dict = {
   "settings.autoApprove.title": "Automatisk godkendelse",
   "settings.checkpoints.title": "Kontrolpunkter",
   "settings.display.title": "Visning",
-  "settings.autocomplete.model.title": "Autocomplete-model",
-  "settings.autocomplete.model.description": "Vælg den model, der bruges til inline kodefuldførelse",
   "settings.notifications.title": "Notifikationer",
 
   "settings.language.title": "Sprog",
@@ -706,24 +680,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Del et board mellem en hovedsession og dens underagenter til opgaveløsning, herunder indlejrede underagenter. Brug det til parallelle løsningsforsøg eller arbejdsopgaver, der supplerer hinanden, ikke til alle opgaver.",
-
-  "settings.models.speechToTextModel.customDescription":
-    "Model-id, der sendes til dit eget transskriptionsendpoint, for eksempel whisper-1.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "Tale til tekst-basis-URL",
-  "settings.models.speechToTextBaseUrl.description":
-    "Brug en OpenAI-kompatibel transskriptions-API i stedet for Harness Gateway. Modeller læses fra /models, og lyd sendes til /audio/transcriptions. Lad feltet stå tomt for at bruge Harness Gateway.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "Tale til tekst-API-nøgle",
-  "settings.models.speechToTextApiKey.description":
-    "Bearer-token, der sendes til den egne transskriptions-basis-URL. Gemmes i din Harness-konfigurationsfil.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "Aktivér og log ind på Harness-udbyderen for at bruge Speech to Text, eller angiv en egen transskriptions-basis-URL nedenfor.",
-  "settings.models.speechToText.remoteDescription":
-    "Stemmeinput er ikke tilgængelig i fjernvinduer. Åbn Harness i et lokalt vindue for at bruge mikrofonen.",
-  "settings.models.speechToTextModel.title": "Model til tale til tekst",
-  "settings.models.speechToTextModel.description": "Vælg Harness Gateway-transskriptionsmodellen til stemmeinput.",
 
   "settings.agentBehaviour.defaultAgent.title": "Standardagent",
   "settings.agentBehaviour.defaultAgent.description": "Agent til brug, når ingen er angivet",

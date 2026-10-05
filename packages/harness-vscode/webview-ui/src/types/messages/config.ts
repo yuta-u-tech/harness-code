@@ -55,9 +55,6 @@ export interface ExperimentalConfig {
   image_generation_model?: string
   code_mode?: boolean
   native_notebook_tools?: boolean
-  speech_to_text_model?: string
-  speech_to_text_base_url?: string
-  speech_to_text_api_key?: string
   primary_tools?: string[]
   continue_loop_on_deny?: boolean
   mcp_timeout?: number
@@ -189,5 +186,4 @@ export interface FeatureFlags {
   indexing: boolean
   sandboxControls: boolean
   backgroundSubagents: boolean
-  speechToText: boolean
 }

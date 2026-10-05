@@ -359,26 +359,6 @@ async function findCliBackendMissing(): Promise<Missing[]> {
   return missing
 }
 
-// ── Extension host files ────────────────────────────────────────────────────
-
-async function findHostMissing(): Promise<Missing[]> {
-  const glob = new Glob("**/*.ts")
-  const dir = path.join(ROOT, "src/services/autocomplete")
-
-  const files = (await collectFiles(glob, dir)).filter((f) => !f.includes("/shims/"))
-
-  const missing: Missing[] = []
-  for (const file of files) {
-    const content = await Bun.file(file).text()
-    for (const { line, key } of extractKeys(content)) {
-      if (!hostKeys.has(key)) {
-        missing.push({ file: path.relative(ROOT, file), line, key })
-      }
-    }
-  }
-  return missing
-}
-
 // ── Locale completeness helpers ─────────────────────────────────────────────
 
 function findMissingLocaleKeys(
@@ -427,17 +407,6 @@ describe("i18n key validation — no missing translation keys", () => {
       expect(
         missing,
         `Found ${missing.length} translation key(s) not present in cli-backend dictionary:\n${formatReport(missing)}`,
-      ).toEqual([])
-    }
-    expect(missing).toEqual([])
-  })
-
-  it("extension host: autocomplete t() string literal keys exist in aggregate dictionary", async () => {
-    const missing = await findHostMissing()
-    if (missing.length > 0) {
-      expect(
-        missing,
-        `Found ${missing.length} translation key(s) not present in extension host dictionary:\n${formatReport(missing)}`,
       ).toEqual([])
     }
     expect(missing).toEqual([])

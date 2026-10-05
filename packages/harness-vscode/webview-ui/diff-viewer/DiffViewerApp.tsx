@@ -37,8 +37,6 @@ function samePR(a: PRTarget | undefined, b: PRTarget | undefined) {
 import { createDiffCommentForms } from "../agent-manager/pr/diff-comment-forms"
 import { DiffPickerHeader } from "./DiffPickerHeader"
 import { BaseBranchPicker } from "./BaseBranchPicker"
-import { SpeechToTextPrewarm } from "../src/components/speech-to-text/SpeechToTextPrewarm"
-import { SpeechToTextModelsProvider } from "../src/context/speech-to-text-models"
 
 type DiffStyle = "unified" | "split"
 
@@ -486,10 +484,7 @@ export const DiffViewerApp: Component = () => {
           <ServerProvider>
             <ProviderProvider>
               <ConfigProvider>
-                <SpeechToTextModelsProvider>
-                  <SpeechToTextPrewarm />
-                  <DiffViewerShell />
-                </SpeechToTextModelsProvider>
+                <DiffViewerShell />
               </ConfigProvider>
             </ProviderProvider>
           </ServerProvider>

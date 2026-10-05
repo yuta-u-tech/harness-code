@@ -10,7 +10,7 @@ export function continuation(input: {
   loading: boolean
   reverted: boolean
 }) {
-  if (!input.id || input.id.startsWith("cloud:") || input.status !== "idle") return
+  if (!input.id || input.status !== "idle") return
   if (input.submitting || input.blocked || input.loading || input.reverted) return
   const answered = new Set(
     input.messages.flatMap((message) => (message.role === "assistant" ? [message.parentID] : [])),

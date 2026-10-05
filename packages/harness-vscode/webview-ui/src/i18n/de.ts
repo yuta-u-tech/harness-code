@@ -21,7 +21,8 @@ export const anacondaDesktopDict = {
     "Öffnen Sie Anaconda Desktop, schließen Sie die Einrichtung ab und melden Sie sich an. Wählen Sie dann Erneut prüfen.",
   "provider.anaconda.state.invalidConfig":
     "Die Einrichtung von Anaconda Desktop ist unvollständig. Öffnen Sie Desktop, schließen Sie die Einrichtung ab und starten Sie es bei Bedarf neu.",
-  "provider.anaconda.state.signedOut": "Öffnen Sie Anaconda Desktop und melden Sie sich an, bevor Sie Harness verbinden.",
+  "provider.anaconda.state.signedOut":
+    "Öffnen Sie Anaconda Desktop und melden Sie sich an, bevor Sie Harness verbinden.",
   "provider.anaconda.state.unauthorized":
     "Harness konnte nicht auf Anaconda Desktop zugreifen. Öffnen Sie Desktop, melden Sie sich erneut an und starten Sie es bei Bedarf neu.",
   "provider.anaconda.state.unavailable":
@@ -209,7 +210,6 @@ export const dict = {
   "prompt.action.send": "Senden",
   "prompt.action.continue": "Fortsetzen",
   "prompt.action.send.blocked": "Beantworten oder verwerfen Sie zuerst die ausstehende Frage",
-  "prompt.action.send.recording": "Transkribieren und senden",
   "prompt.action.stop": "Stopp",
   "prompt.action.stop.background": "Hauptagent stoppen. Hintergrund-Agenten laufen weiter.",
   "prompt.agents.show": "Hintergrund-Agenten anzeigen",
@@ -246,17 +246,6 @@ export const dict = {
     "Klicken, um Schreibvorgänge im Dateisystem und den Netzwerkzugriff einzuschränken.",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "Klicken, um Schreibvorgänge im Dateisystem einzuschränken. Der Netzwerkzugriff bleibt gemäß deinen Sandbox-Einstellungen erlaubt.",
-
-  "speechToText.tooltip.start": "Spracheingabe starten",
-  "speechToText.tooltip.shortcut":
-    "Tippe oder drücke Cmd/Ctrl+K, um die Aufnahme zu starten oder zu stoppen; halte beim Sprechen gedrückt und lasse los, um zu transkribieren und abzusenden.",
-  "speechToText.tooltip.starting": "Mikrofon wird gestartet... Bitte noch nicht sprechen.",
-  "speechToText.tooltip.stop": "Audioerfassung beenden",
-  "speechToText.tooltip.transcribing": "Transkribieren... Zum Abbrechen klicken.",
-  "speechToText.tooltip.error": "Spracheingabe fehlgeschlagen. Zum Löschen klicken.",
-  "speechToText.error.title": "Spracheingabe fehlgeschlagen",
-  "speechToText.error.loginRequired": "Melden Sie sich bei Harness an, um die Spracheingabe zu verwenden.",
-  "speechToText.error.emptyTranscript": "Es wurde keine Sprache erkannt.",
 
   "prompt.toast.promptSendFailed.title": "Eingabe konnte nicht gesendet werden",
 
@@ -448,9 +437,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Subagenten-Modell",
   "settings.providers.subagentModel.description":
     "Standardmodell und Aufwand für Schlussfolgerungen für task-tool-Subagenten. Leer lassen, um das Modell des aufrufenden Agenten zu übernehmen.",
-  "settings.models.hidePromptTraining.title": "Modelle mit Prompt-Training ausblenden",
-  "settings.models.hidePromptTraining.description":
-    "Blendet Harness-Gateway-Modelle aus, deren Anbieter Ihre Prompts möglicherweise zum Training verwenden.",
   "settings.providers.modeModels": "Modell pro Modus",
   "settings.providers.modeModels.description":
     "Überschreiben Sie das Standardmodell für bestimmte Modi. Wenn nicht festgelegt, wird das globale Standardmodell verwendet.",
@@ -572,10 +558,7 @@ export const dict = {
   "session.tabs.switcher.busy": "In Arbeit",
   "session.tabs.switcher.scheduled": "Geplant",
   "session.tab.local": "Lokal",
-  "session.tab.cloud": "Cloud",
   "session.tab.worktree": "Arbeitsbaum",
-  "session.cloud.repoOnly": "Nur dieses Repository",
-  "session.cloud.import": "Aus der Cloud importieren",
   "feedback.button": "Feedback & Support",
   "feedback.dialog.message": "Wir würden uns freuen, Ihr Feedback zu hören oder Ihnen bei Problemen zu helfen.",
   "feedback.dialog.github": "Ein Problem auf GitHub melden",
@@ -603,12 +586,6 @@ export const dict = {
     "Bearbeitet Dateien und führt Befehle im Arbeitsbereich ohne Nachfrage aus.",
   "workStyle.choice.autonomous.bash": "Kann Terminalbefehle im Arbeitsbereich ohne Genehmigung ausführen.",
   "workStyle.choice.autonomous.visibility": "Klappt Tool-Details ein, mit einer kompakten Vorschau der Überlegungen.",
-  "session.cloud.import.title": "Aus der Cloud importieren",
-  "session.cloud.import.placeholder": "Sitzungs-ID, URL oder harness import-Befehl",
-  "session.cloud.import.button": "Importieren",
-  "session.cloud.import.invalid": "Ungültiges Sitzungs-ID-Format",
-  "session.cloud.import.legacy": "Dies scheint eine veraltete Sitzung zu sein, die nicht mehr unterstützt wird.",
-  "session.cloud.import.failed": "Fehler beim Importieren der Cloud-Sitzung",
 
   "common.retry": "Erneut versuchen",
   "common.refresh": "Aktualisieren",
@@ -619,8 +596,6 @@ export const dict = {
   "settings.autoApprove.title": "Automatisch genehmigen",
   "settings.checkpoints.title": "Prüfpunkte",
   "settings.display.title": "Anzeige",
-  "settings.autocomplete.model.title": "Autocomplete-Modell",
-  "settings.autocomplete.model.description": "Wählen Sie das Modell für Inline-Code-Vervollständigungen",
   "settings.notifications.title": "Benachrichtigungen",
 
   "settings.language.title": "Sprache",
@@ -721,25 +696,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Teilen Sie ein Board zwischen einer Hauptsitzung und ihren mit Aufgaben betrauten Unteragenten, einschließlich verschachtelter Unteragenten. Nutzen Sie es für parallele Lösungsversuche oder sich ergänzende Arbeiten, nicht für jede Aufgabe.",
-
-  "settings.models.speechToTextModel.customDescription":
-    "Modell-ID, die an Ihren eigenen Transkriptions-Endpunkt gesendet wird, zum Beispiel whisper-1.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "Sprache-zu-Text-Basis-URL",
-  "settings.models.speechToTextBaseUrl.description":
-    "Eine OpenAI-kompatible Transkriptions-API statt Harness Gateway verwenden. Modelle werden von /models gelesen, Audio geht an /audio/transcriptions. Leer lassen, um Harness Gateway zu verwenden.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "Sprache-zu-Text-API-Schlüssel",
-  "settings.models.speechToTextApiKey.description":
-    "Bearer-Token, das an die eigene Transkriptions-Basis-URL gesendet wird. Wird in Ihrer Harness-Konfigurationsdatei gespeichert.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "Aktivieren Sie den Harness-Anbieter und melden Sie sich an, um Speech to Text zu verwenden, oder legen Sie unten eine eigene Transkriptions-Basis-URL fest.",
-  "settings.models.speechToText.remoteDescription":
-    "Spracheingabe ist in Remote-Fenstern nicht verfügbar. Öffnen Sie Harness in einem lokalen Fenster, um das Mikrofon zu verwenden.",
-  "settings.models.speechToTextModel.title": "Sprache-zu-Text-Modell",
-  "settings.models.speechToTextModel.description":
-    "Wählen Sie das Harness Gateway-Transkriptionsmodell für die Spracheingabe.",
 
   "settings.agentBehaviour.defaultAgent.title": "Standard-Agent",
   "settings.agentBehaviour.defaultAgent.description": "Agent, der verwendet wird, wenn keiner angegeben ist",
@@ -932,7 +888,8 @@ export const dict = {
   "settings.display.username.title": "Benutzername",
   "settings.display.username.description": "Benutzerdefinierter Benutzername in Gesprächen",
   "settings.display.fontSize.title": "Schriftgröße",
-  "settings.display.fontSize.description": "Passen Sie die Schriftgröße der Harness webview UI unabhängig von VS Code an.",
+  "settings.display.fontSize.description":
+    "Passen Sie die Schriftgröße der Harness webview UI unabhängig von VS Code an.",
   "settings.display.reasoningDisplay.title": "Reasoning-Blöcke",
   "settings.display.reasoningDisplay.description":
     "Wählen Sie, wie Reasoning-Blöcke starten. Ausgeklappt zeigt den vollständigen Text, Vorschau begrenzt ihn auf eine kurze scrollbare Vorschau, und Überschrift zeigt nur den Titel und den Streaming-Indikator, bis Sie den Block öffnen.",

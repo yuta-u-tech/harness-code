@@ -14,9 +14,8 @@ test("reports a real session only while its chat surface is displayed", () => {
   expect(visible("ses_1", true)).toBeNull()
 })
 
-test("does not report synthetic pending or cloud preview IDs", () => {
+test("does not report synthetic pending IDs", () => {
   expect(visible("pending:1", false)).toBeNull()
-  expect(visible("cloud:1", false)).toBeNull()
 })
 
 test("blocks visible presence while setup or an empty pane covers chat", () => {

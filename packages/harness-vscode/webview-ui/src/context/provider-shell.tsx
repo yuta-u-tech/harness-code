@@ -21,8 +21,6 @@ import { LanguageBridge } from "./language-bridge"
 import { FeedbackProvider } from "./feedback"
 import { HarnessEmbeddingModelsProvider } from "./harness-embedding-models"
 import { ImageModelsProvider } from "./image-models"
-import { SpeechToTextModelsProvider } from "./speech-to-text-models"
-import { SpeechToTextPrewarm } from "../components/speech-to-text/SpeechToTextPrewarm"
 
 type MermaidImageEvent = CustomEvent<{ dataUrl: string; filename: string }>
 
@@ -58,7 +56,6 @@ const Root: ParentComponent = (props) => (
                   <FileComponentProvider component={File}>
                     <ProviderProvider>
                       <ConfigProvider>
-                        <SpeechToTextPrewarm />
                         <DisplayProvider>{props.children}</DisplayProvider>
                       </ConfigProvider>
                     </ProviderProvider>
@@ -78,9 +75,7 @@ const Session: ParentComponent = (props) => (
   <IndexingProvider>
     <HarnessEmbeddingModelsProvider>
       <ImageModelsProvider>
-        <SpeechToTextModelsProvider>
-          <SessionProvider>{props.children}</SessionProvider>
-        </SpeechToTextModelsProvider>
+        <SessionProvider>{props.children}</SessionProvider>
       </ImageModelsProvider>
     </HarnessEmbeddingModelsProvider>
   </IndexingProvider>

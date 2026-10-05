@@ -141,7 +141,8 @@ export const dict = {
   "provider.connect.azure.resourceName.placeholder": "örn. my-models",
   "provider.connect.azure.baseURL.label": "Azure OpenAI uç nokta URL'si",
   "provider.connect.azure.baseURL.placeholder": "örn. https://my-models.openai.azure.com/openai",
-  "provider.connect.oauth.code.visit.prefix": "Hesabınızı bağlamak ve Harness'da {{provider}} modellerini kullanmak için ",
+  "provider.connect.oauth.code.visit.prefix":
+    "Hesabınızı bağlamak ve Harness'da {{provider}} modellerini kullanmak için ",
   "provider.connect.oauth.code.visit.link": "bu bağlantıya",
   "provider.connect.oauth.code.visit.suffix": " tıklayarak yetkilendirme kodunuzu alın.",
   "provider.connect.oauth.code.label": "{{method}} yetkilendirme kodu",
@@ -202,7 +203,6 @@ export const dict = {
   "prompt.action.send": "Gönder",
   "prompt.action.continue": "Devam et",
   "prompt.action.send.blocked": "Bekleyen soruyu önce yanıtlayın veya kapatın",
-  "prompt.action.send.recording": "Yazıya dök ve gönder",
   "prompt.action.stop": "Durdur",
   "prompt.action.stop.background": "Ana ajanı durdur. Arka plan ajanları çalışmaya devam eder.",
   "prompt.agents.show": "Arka plan ajanlarını göster",
@@ -236,17 +236,6 @@ export const dict = {
     "Dosya sistemi yazma işlemlerini ve ağ erişimini kısıtlamak için tıklayın.",
   "prompt.action.sandbox.description.disabledNetworkAllowed":
     "Dosya sistemi yazma işlemlerini kısıtlamak için tıklayın. Sandbox ayarlarınız ağ erişimine izin vermeye devam ediyor.",
-
-  "speechToText.tooltip.start": "Sesli girişi başlatın",
-  "speechToText.tooltip.shortcut":
-    "Kaydı başlatmak veya durdurmak için dokunun ya da Cmd/Ctrl+K tuşlarına basın; konuşurken basılı tutun, ardından metne dönüştürüp göndermek için bırakın.",
-  "speechToText.tooltip.starting": "Mikrofon başlatılıyor... Henüz konuşmayın.",
-  "speechToText.tooltip.stop": "Ses yakalamayı durdur",
-  "speechToText.tooltip.transcribing": "Metne dönüştürülüyor... İptal etmek için tıklayın.",
-  "speechToText.tooltip.error": "Sesli giriş başarısız oldu. Temizlemek için tıklayın.",
-  "speechToText.error.title": "Sesli giriş başarısız oldu",
-  "speechToText.error.loginRequired": "Sesli girişi kullanmak için Harness'ya giriş yapın.",
-  "speechToText.error.emptyTranscript": "Hiçbir konuşma algılanmadı.",
 
   "prompt.toast.promptSendFailed.title": "Komut gönderilemedi",
 
@@ -549,10 +538,7 @@ export const dict = {
   "session.tabs.switcher.busy": "Çalışıyor",
   "session.tabs.switcher.scheduled": "Zamanlandı",
   "session.tab.local": "Local",
-  "session.tab.cloud": "Cloud",
   "session.tab.worktree": "Çalışma ağacı",
-  "session.cloud.repoOnly": "Yalnızca bu depo",
-  "session.cloud.import": "Buluttan içe aktar",
   "feedback.button": "Geri Bildirim ve Destek",
   "feedback.dialog.message":
     "Geri bildiriminizi almaktan veya yaşadığınız sorunlarda yardımcı olmaktan mutluluk duyarız.",
@@ -583,12 +569,6 @@ export const dict = {
   "workStyle.choice.autonomous.bash": "Çalışma alanında terminal komutlarını onay almadan çalıştırabilir.",
   "workStyle.choice.autonomous.visibility":
     "Araç ayrıntılarını daraltır, akıl yürütmeyi kompakt bir önizleme olarak gösterir.",
-  "session.cloud.import.title": "Buluttan içe aktar",
-  "session.cloud.import.placeholder": "Oturum kimliği, URL veya harness import komutu",
-  "session.cloud.import.button": "İçe Aktar",
-  "session.cloud.import.invalid": "Geçersiz oturum kimliği biçimi",
-  "session.cloud.import.legacy": "Bu, artık desteklenmeyen eski bir oturum gibi görünüyor.",
-  "session.cloud.import.failed": "Bulut oturumu içe aktarılamadı",
 
   "common.retry": "Tekrar Dene",
   "common.refresh": "Yenile",
@@ -599,8 +579,6 @@ export const dict = {
   "settings.autoApprove.title": "Otomatik Onay",
   "settings.checkpoints.title": "Kontrol Noktaları",
   "settings.display.title": "Görünüm",
-  "settings.autocomplete.model.title": "Otomatik tamamlama modeli",
-  "settings.autocomplete.model.description": "Satır içi (inline) kod tamamlamaları için kullanılacak modeli seçin",
   "settings.notifications.title": "Bildirimler",
 
   "settings.language.title": "Dil",
@@ -701,24 +679,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Bir ana oturum ile görevlerini yürüten alt ajanları arasında, iç içe geçmiş alt ajanlar da dahil olmak üzere bir pano paylaşın. Her görev için değil, paralel çözüm denemeleri veya birbirini tamamlayan çalışmalar için kullanın.",
-
-  "settings.models.speechToTextModel.customDescription":
-    "Kendi transkripsiyon uç noktanıza gönderilen model kimliği, örneğin whisper-1.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "Sesten metne temel URL",
-  "settings.models.speechToTextBaseUrl.description":
-    "Harness Gateway yerine OpenAI uyumlu bir transkripsiyon API'si kullanın. Modeller /models adresinden okunur, ses /audio/transcriptions adresine gönderilir. Harness Gateway kullanmak için boş bırakın.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "Sesten metne API anahtarı",
-  "settings.models.speechToTextApiKey.description":
-    "Kendi transkripsiyon temel URL'nize gönderilen bearer belirteci. Harness yapılandırma dosyanızda saklanır.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
-  "settings.models.speechToText.disabledDescription":
-    "Speech to Text kullanmak için Harness sağlayıcısını etkinleştirin ve giriş yapın ya da aşağıda kendi transkripsiyon temel URL'nizi ayarlayın.",
-  "settings.models.speechToText.remoteDescription":
-    "Sesli giriş uzak pencerelerde kullanılamaz. Mikrofonu kullanmak için Harness'yu yerel bir pencerede açın.",
-  "settings.models.speechToTextModel.title": "Sesten metne modeli",
-  "settings.models.speechToTextModel.description": "Sesli giriş için Harness Gateway transkripsiyon modelini seçin.",
 
   "settings.agentBehaviour.defaultAgent.title": "Varsayılan Ajan",
   "settings.agentBehaviour.defaultAgent.description": "Belirtilmediğinde kullanılacak ajan",
@@ -874,7 +834,8 @@ export const dict = {
   "settings.display.username.title": "Kullanıcı Adı",
   "settings.display.username.description": "Sohbetlerde görüntülenen özel kullanıcı adı",
   "settings.display.fontSize.title": "Yazı Tipi Boyutu",
-  "settings.display.fontSize.description": "Harness webview UI yazı tipi boyutunu VS Code'dan bağımsız olarak ayarlayın.",
+  "settings.display.fontSize.description":
+    "Harness webview UI yazı tipi boyutunu VS Code'dan bağımsız olarak ayarlayın.",
   "settings.display.reasoningDisplay.title": "Akıl Yürütme Blokları",
   "settings.display.reasoningDisplay.description":
     "Akıl yürütme bloklarının nasıl başlayacağını seçin. Genişletilmiş tam metni gösterir, Önizleme kısa ve kaydırılabilir bir önizlemeyle sınırlar, Başlık ise siz açana kadar yalnızca başlığı ve akış göstergesini gösterir.",
@@ -919,9 +880,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Alt Aracı Modeli",
   "settings.providers.subagentModel.description":
     "task-tool alt aracıları için varsayılan model ve akıl yürütme çabası. Çağıran aracının modelini devralmak için boş bırakın.",
-  "settings.models.hidePromptTraining.title": "İstemlerle eğitilen modelleri gizle",
-  "settings.models.hidePromptTraining.description":
-    "Sağlayıcıları istemlerinizi eğitim için kullanabilecek Harness Gateway modellerini gizleyin.",
   "settings.providers.modeModels": "Mod Başına Model",
   "settings.providers.modeModels.description":
     "Belirli modlar için varsayılan modeli geçersiz kılın. Ayarlanmadıysa genel varsayılan model kullanılır.",

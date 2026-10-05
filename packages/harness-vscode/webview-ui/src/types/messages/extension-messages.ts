@@ -7,7 +7,6 @@ import type { MarketplaceItem, MarketplaceInstalledMetadata, MarketplaceRelevanc
 import type { ConnectionState, ServerInfo, SessionStatus } from "./connection"
 import type { FileAttachment, Part } from "./parts"
 import type {
-  CloudSessionInfo,
   Message,
   MessageLoadMode,
   ProjectSessionInfo,
@@ -50,7 +49,6 @@ export interface BackgroundJobInfo {
 }
 import type { QuestionRequest, SuggestionRequest, TodoItem } from "./questions"
 import type { ModelSelection, ModelUsageMap, Provider, ProviderAuthState } from "./providers"
-import type { SpeechToTextModelDef } from "../../../../src/speech-to-text/models"
 import type { AgentInfo, SkillInfo, SlashCommandInfo } from "./agents"
 import type {
   BrowserSettings,
@@ -299,41 +297,6 @@ export interface SessionsLoadedMessage {
   hasMore?: boolean
 }
 
-export interface CloudSessionsLoadedMessage {
-  type: "cloudSessionsLoaded"
-  sessions: CloudSessionInfo[]
-  nextCursor: string | null
-}
-
-export interface GitRemoteUrlLoadedMessage {
-  type: "gitRemoteUrlLoaded"
-  gitUrl: string | null
-}
-
-export interface CloudSessionDataLoadedMessage {
-  type: "cloudSessionDataLoaded"
-  cloudSessionId: string
-  title: string
-  messages: Message[]
-}
-
-export interface CloudSessionImportedMessage {
-  type: "cloudSessionImported"
-  cloudSessionId: string
-  session: SessionInfo
-}
-
-export interface CloudSessionImportFailedMessage {
-  type: "cloudSessionImportFailed"
-  cloudSessionId: string
-  error: string
-}
-
-export interface OpenCloudSessionMessage {
-  type: "openCloudSession"
-  sessionId: string
-}
-
 export interface OpenSessionMessage {
   type: "openSession"
   sessionID: string
@@ -503,15 +466,6 @@ export interface ImageModelsLoadedMessage {
   models: Array<{ id: string; name: string; description?: string }>
 }
 
-export interface SpeechToTextModelsLoadedMessage {
-  type: "speechToTextModelsLoaded"
-  models: SpeechToTextModelDef[]
-  source: "gateway" | "custom"
-  // Producer instance id. A new epoch means a restarted host, not a stale reply.
-  epoch: string
-  seq: number
-}
-
 export interface ProvidersLoadedMessage {
   type: "providersLoaded"
   providers: Record<string, Provider>
@@ -557,29 +511,6 @@ export interface AutocompleteSettingsLoadedMessage {
 export interface ChatCompletionResultMessage {
   type: "chatCompletionResult"
   text: string
-  requestId: string
-}
-
-export interface SpeechToTextResultMessage {
-  type: "speechToTextResult"
-  text: string
-  requestId: string
-}
-
-export interface SpeechToTextStartedMessage {
-  type: "speechToTextStarted"
-  requestId: string
-}
-
-export interface SpeechToTextCancelledMessage {
-  type: "speechToTextCancelled"
-  requestId: string
-}
-
-export interface SpeechToTextErrorMessage {
-  type: "speechToTextError"
-  error: string
-  code?: string
   requestId: string
 }
 
@@ -1646,8 +1577,6 @@ export type ExtensionMessage =
   | ModelUsageLoadedMessage
   | MessageCreatedMessage
   | SessionsLoadedMessage
-  | CloudSessionsLoadedMessage
-  | GitRemoteUrlLoadedMessage
   | ActionMessage
   | NavigateMessage
   | AgentManagerSettingsLoadedMessage
@@ -1657,7 +1586,6 @@ export type ExtensionMessage =
   | ChatSettingsLoadedMessage
   | HarnessEmbeddingModelsLoadedMessage
   | ImageModelsLoadedMessage
-  | SpeechToTextModelsLoadedMessage
   | ProvidersLoadedMessage
   | { type: "providersLoading" }
   | AgentsLoadedMessage
@@ -1665,10 +1593,6 @@ export type ExtensionMessage =
   | CommandsLoadedMessage
   | AutocompleteSettingsLoadedMessage
   | ChatCompletionResultMessage
-  | SpeechToTextStartedMessage
-  | SpeechToTextCancelledMessage
-  | SpeechToTextResultMessage
-  | SpeechToTextErrorMessage
   | FileSearchResultMessage
   | SessionSearchResultMessage
   | FilePickerResultMessage
@@ -1731,10 +1655,6 @@ export type ExtensionMessage =
   | AppendReviewCommentsToTerminalMessage
   | TriggerTaskMessage
   | VariantsLoadedMessage
-  | CloudSessionDataLoadedMessage
-  | CloudSessionImportedMessage
-  | CloudSessionImportFailedMessage
-  | OpenCloudSessionMessage
   | OpenSessionMessage
   | SelectHarnessModelMessage
   | AgentManagerBranchesMessage

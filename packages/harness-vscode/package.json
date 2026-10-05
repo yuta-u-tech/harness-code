@@ -39,7 +39,6 @@
     "coding",
     "coding agent",
     "coding assistant",
-    "autocomplete",
     "code completion",
     "pair programming",
     "chat",
@@ -179,26 +178,6 @@
       {
         "command": "harness-code.toggleCaffeination",
         "title": "Toggle Keep Awake",
-        "category": "Harness Code"
-      },
-      {
-        "command": "harness-code.autocomplete.generateSuggestions",
-        "title": "Generate Suggested Edits",
-        "category": "Harness Code"
-      },
-      {
-        "command": "harness-code.autocomplete.cancelSuggestions",
-        "title": "Cancel Suggested Edits",
-        "category": "Harness Code"
-      },
-      {
-        "command": "harness-code.autocomplete.nextEdit.acceptOrJump",
-        "title": "Next Edit: Accept or Jump to Suggested Edit",
-        "category": "Harness Code"
-      },
-      {
-        "command": "harness-code.autocomplete.nextEdit.dismiss",
-        "title": "Next Edit: Dismiss Pending Suggestion",
         "category": "Harness Code"
       },
       {
@@ -804,33 +783,6 @@
         "key": "ctrl+shift+.",
         "mac": "cmd+shift+.",
         "when": "harness-code.sidebarFocused || activeWebviewPanelId == 'harness-code.AgentManagerPanel' || activeWebviewPanelId == 'harness-code.TabPanel'"
-      },
-      {
-        "command": "harness-code.autocomplete.cancelSuggestions",
-        "key": "escape",
-        "when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && harness-code.autocomplete.hasSuggestions"
-      },
-      {
-        "command": "harness-code.autocomplete.generateSuggestions",
-        "key": "ctrl+l",
-        "mac": "cmd+l",
-        "when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && harness.autocomplete.enableSmartInlineTaskKeybinding && !github.copilot.completions.enabled"
-      },
-      {
-        "command": "harness-code.autocomplete.showIncompatibilityExtensionPopup",
-        "key": "ctrl+l",
-        "mac": "cmd+l",
-        "when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && harness.autocomplete.enableSmartInlineTaskKeybinding && github.copilot.completions.enabled"
-      },
-      {
-        "command": "harness-code.autocomplete.nextEdit.acceptOrJump",
-        "key": "tab",
-        "when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && !suggestWidgetVisible && harness-code.nextEdit.hasPendingSuggestion"
-      },
-      {
-        "command": "harness-code.autocomplete.nextEdit.dismiss",
-        "key": "escape",
-        "when": "editorTextFocus && !editorTabMovesFocus && !inSnippetMode && harness-code.nextEdit.hasPendingSuggestion"
       }
     ],
     "configuration": {
@@ -951,55 +903,6 @@
           "type": "string",
           "default": "harness-auto/free",
           "description": "Default model ID for new sessions"
-        },
-        "harness-code.autocomplete.model": {
-          "type": "string",
-          "enum": [
-            "mistralai/codestral-2508",
-            "inception/mercury-edit-2",
-            "inception/mercury-next-edit",
-            "codestral-2508",
-            "mercury-edit-2",
-            "mercury-next-edit"
-          ],
-          "enumDescriptions": [
-            "Codestral via Harness Gateway",
-            "Mercury Edit 2 (FIM) via Harness Gateway",
-            "Mercury Edit 2 (Next Edit), multi-line edit predictions with jump-to-edit UX, via Harness Gateway",
-            "Codestral via your connected Mistral provider API key",
-            "Mercury Edit 2 (FIM) via your connected Inception provider API key",
-            "Mercury Edit 2 (Next Edit), multi-line edit predictions with jump-to-edit UX, via your connected Inception provider API key"
-          ],
-          "description": "Model to use for inline autocomplete suggestions. If unset, the recommended default is used."
-        },
-        "harness-code.autocomplete.provider": {
-          "type": "string",
-          "enum": [
-            "harness",
-            "mistral",
-            "inception"
-          ],
-          "enumDescriptions": [
-            "Use autocomplete models through Harness Gateway",
-            "Use autocomplete models through your connected Mistral provider API key",
-            "Use autocomplete models through your connected Inception provider API key"
-          ],
-          "description": "Provider to use for inline autocomplete suggestions. If unset, Harness Gateway is used."
-        },
-        "harness-code.autocomplete.enableAutoTrigger": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable automatic inline completion suggestions"
-        },
-        "harness-code.autocomplete.enableSmartInlineTaskKeybinding": {
-          "type": "boolean",
-          "default": false,
-          "description": "Enable smart inline task keybinding"
-        },
-        "harness-code.autocomplete.enableChatAutocomplete": {
-          "type": "boolean",
-          "default": false,
-          "description": "Enable chat textarea autocomplete"
         },
         "harness-code.agentManager.autoBranchNaming": {
           "type": "boolean",

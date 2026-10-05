@@ -171,39 +171,6 @@ export const ModelsAccessibleLabels: Story = {
   ),
 }
 
-export const ModelsSpeechToText: Story = {
-  name: "ModelsTab — speech-to-text model",
-  render: () => (
-    <StoryProviders harnessAuth config={{ experimental: { speech_to_text_model: "google/chirp-3" } } as any}>
-      <ScrollToSpeechModels />
-    </StoryProviders>
-  ),
-}
-
-/**
- * Scrolls the clipped ModelsTab to the speech-to-text rows on mount. The added
- * rows push the model row below the 700px capture area otherwise.
- */
-function ScrollToSpeechModels() {
-  let ref: HTMLDivElement | undefined
-  onMount(() => {
-    requestAnimationFrame(() => {
-      const rows = Array.from(ref?.querySelectorAll<HTMLElement>('[data-slot="settings-row"]') ?? [])
-      const title = t("settings.models.speechToTextModel.title")
-      for (const row of rows) {
-        if (!row.textContent?.includes(title)) continue
-        row.scrollIntoView({ block: "center" })
-        return
-      }
-    })
-  })
-  return (
-    <div ref={ref} style={{ "max-height": "700px", overflow: "auto" }}>
-      <ModelsTab />
-    </div>
-  )
-}
-
 function OpenModelPicker(props: { children: any }) {
   let ref: HTMLDivElement | undefined
   onMount(() => {

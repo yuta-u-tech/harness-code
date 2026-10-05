@@ -7,7 +7,7 @@ import type {
   NotebookRequest,
   NotebookResult,
 } from "@harness/sdk/v2/client"
-import { FileIgnoreController } from "../autocomplete/shims/FileIgnoreController"
+import { FileIgnoreController } from "../file-ignore/FileIgnoreController"
 import type { ConnectionState, HarnessConnectionService } from "../cli-backend/connection-service"
 import type { SSEPayload } from "../cli-backend/sdk-sse-adapter"
 import { NotebookAdapter } from "./adapter"

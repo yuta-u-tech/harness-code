@@ -199,7 +199,6 @@ export const dict = {
   "prompt.action.send": "Send",
   "prompt.action.continue": "Continue",
   "prompt.action.send.blocked": "Answer or dismiss the pending question first",
-  "prompt.action.send.recording": "Transcribe and send",
   "prompt.action.stop": "Stop",
   "prompt.action.stop.background": "Stop main agent. Background agents keep running.",
   "prompt.agents.show": "Show background agents",
@@ -233,16 +232,6 @@ export const dict = {
     "Click to restrict filesystem writes. Network access remains allowed by your sandbox settings.",
   "prompt.action.enhanceDescription":
     "The 'Enhance Prompt' button helps improve your prompt by providing additional context, clarification, or rephrasing. Try typing a prompt in here and clicking the button again to see how it works.",
-  "speechToText.tooltip.start": "Start voice input",
-  "speechToText.tooltip.shortcut":
-    "Tap to start or stop recording. Hold while speaking, then release to transcribe and submit.",
-  "speechToText.tooltip.starting": "Starting microphone... Wait to speak.",
-  "speechToText.tooltip.stop": "Recording. Click to stop.",
-  "speechToText.tooltip.transcribing": "Transcribing... Click to cancel.",
-  "speechToText.tooltip.error": "Speech input failed. Click to clear.",
-  "speechToText.error.title": "Speech input failed",
-  "speechToText.error.loginRequired": "Sign in to Harness to use speech input.",
-  "speechToText.error.emptyTranscript": "No speech was detected.",
 
   "prompt.toast.promptSendFailed.title": "Failed to send prompt",
 
@@ -511,10 +500,7 @@ export const dict = {
   "session.tabs.switcher.busy": "Working",
   "session.tabs.switcher.scheduled": "Scheduled",
   "session.tab.local": "Local",
-  "session.tab.cloud": "Cloud",
   "session.tab.worktree": "Worktree",
-  "session.cloud.repoOnly": "Only this repository",
-  "session.cloud.import": "Import session",
   "feedback.button": "Feedback & Support",
   "feedback.dialog.message": "We'd love to hear your feedback or help with any issues you're experiencing.",
   "feedback.dialog.github": "Report an issue on GitHub",
@@ -540,12 +526,6 @@ export const dict = {
   "workStyle.choice.autonomous.permissions": "Edits files and runs commands in the workspace without asking.",
   "workStyle.choice.autonomous.bash": "Can run terminal commands in the workspace without approval.",
   "workStyle.choice.autonomous.visibility": "Collapses tool details, with a compact reasoning preview.",
-  "session.cloud.import.title": "Import session",
-  "session.cloud.import.placeholder": "Session ID, URL, or harness import command",
-  "session.cloud.import.button": "Import",
-  "session.cloud.import.invalid": "Invalid session ID format",
-  "session.cloud.import.legacy": "This appears to be a legacy session that is no longer supported.",
-  "session.cloud.import.failed": "Failed to import cloud session",
 
   "common.retry": "Retry",
   "common.refresh": "Refresh",
@@ -664,9 +644,6 @@ export const dict = {
 
   "common.add": "Add",
 
-  "settings.autocomplete.model.title": "Autocomplete model",
-  "settings.autocomplete.model.description": "Select the model used for inline code completions",
-
   "settings.notifications.sounds": "Sounds",
   "settings.notifications.enable.title": "Enable Sound Notifications",
   "settings.notifications.enable.description":
@@ -690,25 +667,6 @@ export const dict = {
   "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
   "settings.agentBehaviour.sharedAgentBoard.description":
     "Share a board between a main session and its task subagents, including nested subagents. Use it for parallel solution attempts or complementary work, not every task.",
-
-  "settings.models.speechToText.disabledDescription":
-    "Harness Gateway is selected. Enable and sign in to the Harness provider to choose a supported model, or enter a custom transcription base URL above.",
-  "settings.models.speechToText.remoteDescription":
-    "Voice input is unavailable in remote windows. Open Harness in a local window to use the microphone.",
-  "settings.models.speechToTextModel.title": "Speech to Text Model",
-  "settings.models.speechToTextModel.description":
-    "Harness Gateway is the active speech-to-text source. Choose its transcription model for voice input.",
-  "settings.models.speechToTextModel.customDescription":
-    "Model ID sent to your custom transcription endpoint, for example whisper-1. Voice input is unavailable until you set one.",
-  "settings.models.speechToTextModel.customPlaceholder": "whisper-1",
-  "settings.models.speechToTextBaseUrl.title": "Speech to Text Base URL",
-  "settings.models.speechToTextBaseUrl.description":
-    "Use an OpenAI-compatible transcription API instead of Harness Gateway. Models are read from /models and audio is sent to /audio/transcriptions. Leave empty to use Harness Gateway.",
-  "settings.models.speechToTextBaseUrl.placeholder": "https://api.openai.com/v1",
-  "settings.models.speechToTextApiKey.title": "Speech to Text API Key",
-  "settings.models.speechToTextApiKey.description":
-    "Bearer token sent to the custom transcription base URL. Stored in your Harness config file.",
-  "settings.models.speechToTextApiKey.placeholder": "sk-...",
 
   "settings.agentBehaviour.defaultAgent.title": "Default Agent",
   "settings.agentBehaviour.defaultAgent.description": "Agent to use when none is specified",
@@ -933,9 +891,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Subagent Model",
   "settings.providers.subagentModel.description":
     "Default model and reasoning effort for task-tool subagents. Leave unset to inherit the calling agent's model.",
-  "settings.models.hidePromptTraining.title": "Hide Prompt-Training Models",
-  "settings.models.hidePromptTraining.description":
-    "Hide Harness Gateway models whose providers may use your prompts for training.",
   "settings.providers.modeModels": "Model per Mode",
   "settings.providers.modeModels.description":
     "Override the default model for specific modes. If not set, the global default model is used.",

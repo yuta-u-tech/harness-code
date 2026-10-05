@@ -27,15 +27,6 @@ function apply(input: {
 }
 
 describe("mergeSessionsLoaded", () => {
-  it("reconciles away sessions that are no longer listed but keeps cloud sessions", () => {
-    const store = apply({
-      initial: { a: { id: "a" }, b: { id: "b" }, "cloud:1": { id: "cloud:1" } },
-      loaded: [{ id: "a" }],
-    })
-
-    expect(Object.keys(store).sort()).toEqual(["a", "cloud:1"])
-  })
-
   it("keeps preserved sessions during a full load", () => {
     const store = apply({
       initial: { a: { id: "a" }, b: { id: "b" } },
