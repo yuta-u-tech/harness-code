@@ -563,7 +563,11 @@ const CustomProviderDialog = (props: CustomProviderDialogProps) => {
         <div style={{ display: "flex", gap: "16px", "align-items": "center" }}>
           <ProviderIcon id="synthetic" width={20} height={20} />
           <div
-            style={{ "font-size": "var(--harness-font-size-16)", "font-weight": "500", color: "var(--vscode-foreground)" }}
+            style={{
+              "font-size": "var(--harness-font-size-16)",
+              "font-weight": "500",
+              color: "var(--vscode-foreground)",
+            }}
           >
             {editing() ? language.t("provider.custom.edit.title") : language.t("provider.custom.title")}
           </div>
@@ -574,12 +578,12 @@ const CustomProviderDialog = (props: CustomProviderDialogProps) => {
             <div style={{ "font-size": "var(--harness-font-size-14)", color: "var(--text-base)" }}>
               {language.t("provider.custom.description.prefix")}
               <a
-                href="https://kilo.ai/docs/ai-providers#custom-provider"
+                href="https://github.com/yuta-u-tech/harness-code"
                 onClick={(e) => {
                   e.preventDefault()
                   vscode.postMessage({
                     type: "openExternal",
-                    url: "https://kilo.ai/docs/ai-providers#custom-provider",
+                    url: "https://github.com/yuta-u-tech/harness-code",
                   })
                 }}
               >
@@ -751,7 +755,10 @@ const CustomProviderDialog = (props: CustomProviderDialogProps) => {
             <Show when={fetchError()}>
               {(err) => (
                 <span
-                  style={{ "font-size": "var(--harness-font-size-12)", color: "var(--vscode-errorForeground, #f14c4c)" }}
+                  style={{
+                    "font-size": "var(--harness-font-size-12)",
+                    color: "var(--vscode-errorForeground, #f14c4c)",
+                  }}
                 >
                   {err()}
                 </span>
@@ -885,7 +892,11 @@ const CustomProviderDialog = (props: CustomProviderDialogProps) => {
           {/* Headers */}
           <div style={{ display: "flex", "flex-direction": "column", gap: "12px" }}>
             <label
-              style={{ "font-size": "var(--harness-font-size-12)", "font-weight": "500", color: "var(--text-weak-base)" }}
+              style={{
+                "font-size": "var(--harness-font-size-12)",
+                "font-weight": "500",
+                color: "var(--text-weak-base)",
+              }}
             >
               {language.t("provider.custom.headers.label")}
             </label>

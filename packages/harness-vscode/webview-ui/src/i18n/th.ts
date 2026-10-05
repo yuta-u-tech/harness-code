@@ -543,8 +543,6 @@ export const dict = {
   "feedback.button": "ข้อเสนอแนะและการสนับสนุน",
   "feedback.dialog.message": "เรายินดีรับฟังข้อเสนอแนะของคุณหรือช่วยแก้ไขปัญหาที่คุณพบ",
   "feedback.dialog.github": "รายงานปัญหาบน GitHub",
-  "feedback.dialog.discord": "เข้าร่วมชุมชน Discord ของเรา",
-  "feedback.dialog.support": "ฝ่ายสนับสนุนลูกค้า",
   "workStyle.onboarding.welcome": "ยินดีต้อนรับสู่ Harness",
   "workStyle.onboarding.title": "เลือกวิธีที่คุณต้องการทำงาน",
   "workStyle.onboarding.settingsNote": "คุณสามารถเปลี่ยนตัวเลือกเหล่านี้ได้ทุกเมื่อใน",

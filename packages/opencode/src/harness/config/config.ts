@@ -653,7 +653,7 @@ export namespace HarnessConfig {
   // ── Opencode config migration notice ─────────────────────────────────
 
   /** Client-neutral docs page describing where Harness reads configuration from. */
-  export const CONFIG_DOCS_URL = "https://kilo.ai/docs/getting-started/settings"
+  export const CONFIG_DOCS_URL = "https://github.com/yuta-u-tech/harness-code"
 
   /** Stable id for the synthetic "move your opencode config" notification (used for client-side dismissal). */
   export const OPENCODE_NOTIFICATION_ID = "harness.local.opencode-config-detected"

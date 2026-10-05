@@ -524,8 +524,6 @@ export const dict = {
   "feedback.button": "意見回饋與支援",
   "feedback.dialog.message": "我們很樂意聆聽您的意見回饋，或協助解決您遇到的任何問題。",
   "feedback.dialog.github": "在 GitHub 上回報問題",
-  "feedback.dialog.discord": "加入我們的 Discord 社群",
-  "feedback.dialog.support": "客戶支援",
   "workStyle.onboarding.welcome": "歡迎使用 Harness",
   "workStyle.onboarding.title": "選擇你想要的工作方式",
   "workStyle.onboarding.settingsNote": "你可以隨時在以下位置變更這些選項：",

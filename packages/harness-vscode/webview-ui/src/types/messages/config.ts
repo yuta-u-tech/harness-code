@@ -145,7 +145,6 @@ export interface Config {
   harness?: HarnessConfig
   snapshot?: boolean
   retention?: RetentionConfig
-  remote_control?: boolean
   terminal_command_display?: TerminalCommandDisplay
   code_edit_display?: CodeEditDisplay
   mcp_tool_display?: McpToolDisplay

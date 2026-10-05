@@ -2,9 +2,6 @@
 // Keys here will override any matching keys from upstream translations
 export const dict = {
   // Harness Gateway provider translations
-  "provider.connect.harnessGateway.byok.prefix": "For more usage stats, ",
-  "provider.connect.harnessGateway.byok.link": "BYOK via Harness's Gateway",
-  "provider.connect.harnessGateway.byok.suffix": ".",
 
   // Provider settings translations
   "settings.providers.group.recommended": "Recommended",

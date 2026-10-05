@@ -1,8 +1,5 @@
 export const dict = {
   // Harness Gateway provider translations
-  "provider.connect.harnessGateway.byok.prefix": "Для отримання додаткової статистики використання використовуйте ",
-  "provider.connect.harnessGateway.byok.link": "BYOK через Harness's Gateway",
-  "provider.connect.harnessGateway.byok.suffix": ".",
 
   // Provider settings translations
   "settings.providers.group.recommended": "Рекомендовані",

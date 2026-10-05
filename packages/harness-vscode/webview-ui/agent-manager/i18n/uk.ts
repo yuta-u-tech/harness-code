@@ -493,7 +493,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "Перевірки виконуються",
   "agentManager.intro.approved": "Схвалено",
   "agentManager.intro.create": "Створити worktree",
-  "agentManager.intro.guide": "Читати посібник",
   "agentManager.intro.dismiss": "Пропустити вступ",
   "agentManager.intro.reopen": "Як працює Agent Manager",
   "agentManager.worktree.health.absent-restorable": "Теку видалено",

@@ -404,7 +404,7 @@ for (const item of targets) {
         private: pkg.private,
         repository: {
           type: "git",
-          url: "https://github.com/Kilo-Org/kilocode",
+          url: "https://github.com/yuta-u-tech/harness-code",
         },
         ...(item.abi ? { libc: [item.abi] } : {}),
       },

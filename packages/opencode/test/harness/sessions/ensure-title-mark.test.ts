@@ -255,7 +255,7 @@ const writeConfig = Effect.fn("test.writeConfig")(function* (dir: string, config
   const fs = yield* FSUtil.Service
   yield* fs.writeWithDirs(
     path.join(dir, "opencode.json"),
-    JSON.stringify({ $schema: "https://app.kilo.ai/config.json", ...config }),
+    JSON.stringify({ $schema: "https://example.com/config.json", ...config }),
   )
 })
 

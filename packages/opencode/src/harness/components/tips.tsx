@@ -106,7 +106,6 @@ const TIPS = [
   "Use {highlight}harness run --attach{/highlight} to connect to a running server",
   "Run {highlight}harness upgrade{/highlight} to update to the latest version",
   "Run {highlight}harness auth list{/highlight} to see all configured providers",
-  "Run {highlight}/unshare{/highlight} to remove a session from public access",
   "Use {highlight}--print-logs{/highlight} flag to see detailed logs in stderr",
   "Press {highlight}Ctrl+X G{/highlight} or {highlight}/timeline{/highlight} to jump to specific messages",
   "Press {highlight}Ctrl+X S{/highlight} or {highlight}/status{/highlight} to see config paths, MCP servers, and system info",

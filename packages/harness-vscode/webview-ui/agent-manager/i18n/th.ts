@@ -474,7 +474,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "กำลังตรวจสอบ",
   "agentManager.intro.approved": "อนุมัติแล้ว",
   "agentManager.intro.create": "สร้าง worktree",
-  "agentManager.intro.guide": "อ่านคู่มือ",
   "agentManager.intro.dismiss": "ข้ามบทนำ",
   "agentManager.intro.reopen": "Agent Manager ทำงานอย่างไร",
   "agentManager.worktree.health.absent-restorable": "โฟลเดอร์ถูกลบ",

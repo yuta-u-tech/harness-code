@@ -87,7 +87,7 @@ describe("harness default indexing plugin", () => {
           await Filesystem.write(
             path.join(dir, "opencode.json"),
             JSON.stringify({
-              $schema: "https://app.kilo.ai/config.json",
+              $schema: "https://example.com/config.json",
               plugin: ["global-plugin-1"],
             }),
           )

@@ -29,7 +29,6 @@ import {
   SessionCommand,
   StatsCommand,
   UninstallCommand,
-  UpgradeCommand,
   waitForLazyCommands,
 } from "@/harness/cli/lazy-commands"
 
@@ -100,7 +99,6 @@ let cli = yargs(args)
   .command(DebugCommand)
   .command(ProvidersCommand)
   .command(AgentCommand)
-  .command(UpgradeCommand)
   .command(UninstallCommand)
   .command(ServeCommand)
   .command(ModelsCommand)

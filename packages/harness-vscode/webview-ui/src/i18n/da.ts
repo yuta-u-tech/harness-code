@@ -545,8 +545,6 @@ export const dict = {
   "feedback.button": "Feedback & support",
   "feedback.dialog.message": "Vi vil gerne høre din feedback eller hjælpe med eventuelle problemer, du oplever.",
   "feedback.dialog.github": "Rapportér et problem på GitHub",
-  "feedback.dialog.discord": "Deltag i vores Discord-fællesskab",
-  "feedback.dialog.support": "Kundesupport",
   "workStyle.onboarding.welcome": "Velkommen til Harness",
   "workStyle.onboarding.title": "Vælg, hvordan du vil arbejde",
   "workStyle.onboarding.settingsNote": "Du kan til enhver tid ændre disse valg under",

@@ -2093,7 +2093,7 @@ const prComments: NonNullable<PRStatus["comments"]> = {
 }
 
 const prReviewers: PRReviewer[] = [
-  { login: "marius-kilocode", state: "approved" },
+  { login: "reviewer-bot", state: "approved" },
   { login: "reviewer-changes", state: "changes_requested" },
   { login: "reviewer-comment", state: "commented" },
   { login: "reviewer-pending", state: "pending" },

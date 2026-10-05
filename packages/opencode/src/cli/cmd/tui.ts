@@ -357,7 +357,7 @@ export const TuiThreadCommand = cmd({
             events: undefined,
           }
         : {
-            url: "http://kilo.internal",
+            url: "http://harness.internal",
             fetch: createWorkerFetch(client),
             headers: auth.headers,
             events: createEventSource(client),

@@ -483,7 +483,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "بررسی‌ها در حال اجرا هستند",
   "agentManager.intro.approved": "تأییدشده",
   "agentManager.intro.create": "ایجاد worktree",
-  "agentManager.intro.guide": "راهنما را بخوانید",
   "agentManager.intro.dismiss": "رد کردن مقدمه",
   "agentManager.intro.reopen": "Agent Manager چگونه کار می‌کند",
   "agentManager.worktree.health.absent-restorable": "پوشه حذف شده است",

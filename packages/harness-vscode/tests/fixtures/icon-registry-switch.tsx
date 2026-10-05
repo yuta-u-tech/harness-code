@@ -1,7 +1,7 @@
 import assert from "node:assert/strict"
 import { Window } from "happy-dom"
 
-const window = new Window({ url: "https://kilo.test" })
+const window = new Window({ url: "https://harness.test" })
 Object.assign(globalThis, {
   window,
   document: window.document,

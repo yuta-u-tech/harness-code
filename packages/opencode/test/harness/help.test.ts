@@ -9,7 +9,6 @@ import { GenerateCommand } from "../../src/cli/cmd/generate"
 import { DebugCommand } from "../../src/cli/cmd/debug"
 import { ProvidersCommand } from "../../src/cli/cmd/providers"
 import { AgentCommand } from "../../src/cli/cmd/agent"
-import { UpgradeCommand } from "../../src/cli/cmd/upgrade"
 import { UninstallCommand } from "../../src/cli/cmd/uninstall"
 import { ServeCommand } from "../../src/cli/cmd/serve"
 import { ModelsCommand } from "../../src/cli/cmd/models"
@@ -57,7 +56,6 @@ const commands = [
   DebugCommand,
   ProvidersCommand,
   AgentCommand,
-  UpgradeCommand,
   UninstallCommand,
   ServeCommand,
   ModelsCommand,

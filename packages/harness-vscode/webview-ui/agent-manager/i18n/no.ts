@@ -482,7 +482,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "Kontroller kjører",
   "agentManager.intro.approved": "Godkjent",
   "agentManager.intro.create": "Opprett et worktree",
-  "agentManager.intro.guide": "Les veiledningen",
   "agentManager.intro.dismiss": "Hopp over introduksjonen",
   "agentManager.intro.reopen": "Slik fungerer Agent Manager",
   "agentManager.worktree.health.absent-restorable": "Mappe slettet",

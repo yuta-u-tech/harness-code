@@ -12,7 +12,7 @@ afterEach(async () => {
 test("blocking TUI bootstrap requests complete", async () => {
   await using tmp = await tmpdir({ git: true, config: { formatter: false, lsp: false } })
   const client = createHarnessClient({
-    baseUrl: "http://kilo.internal",
+    baseUrl: "http://harness.internal",
     directory: tmp.path,
     fetch: ((request: RequestInfo | URL, init?: RequestInit) =>
       Server.Default().app.fetch(new Request(request, init))) as typeof fetch,

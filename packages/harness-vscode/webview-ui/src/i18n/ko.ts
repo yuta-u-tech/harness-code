@@ -543,8 +543,6 @@ export const dict = {
   "feedback.button": "피드백 & 지원",
   "feedback.dialog.message": "피드백을 들려주시거나 겪고 계신 문제에 대해 도움을 드리고 싶습니다.",
   "feedback.dialog.github": "GitHub에 이슈 보고하기",
-  "feedback.dialog.discord": "Discord 커뮤니티 참여하기",
-  "feedback.dialog.support": "고객 지원",
   "workStyle.onboarding.welcome": "Harness에 오신 것을 환영합니다",
   "workStyle.onboarding.title": "원하는 작업 방식을 선택하세요",
   "workStyle.onboarding.settingsNote": "이 옵션은 언제든지 다음에서 변경할 수 있습니다:",

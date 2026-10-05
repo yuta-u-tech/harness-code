@@ -7,11 +7,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Kilo-Org/kilocode.git",
+    "url": "git+https://github.com/yuta-u-tech/harness-code.git",
     "directory": "packages/http-recorder"
   },
-  "homepage": "https://github.com/Kilo-Org/kilocode/tree/main/packages/http-recorder",
-  "bugs": "https://github.com/Kilo-Org/kilocode/issues",
+  "homepage": "https://github.com/yuta-u-tech/harness-code/tree/main/packages/http-recorder",
+  "bugs": "https://github.com/yuta-u-tech/harness-code/issues",
   "keywords": [
     "effect",
     "http",

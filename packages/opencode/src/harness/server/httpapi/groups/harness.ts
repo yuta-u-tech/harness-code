@@ -31,9 +31,6 @@ import {
 } from "@/server/routes/instance/httpapi/errors"
 import { BoardStore } from "@/harness/board/store"
 import {
-  MarketplaceInstallPayload,
-  MarketplaceInstallResult,
-  MarketplaceListResult,
   MarketplaceRemovePayload,
   MarketplaceRemoveResult,
 } from "@/harness/marketplace/schema"
@@ -147,8 +144,6 @@ export const HarnessPaths = {
   removeCommand: `${root}/command/remove`,
   removeSkill: `${root}/skill/remove`,
   removeAgent: `${root}/agent/remove`,
-  marketplaceList: `${root}/marketplace`,
-  marketplaceInstall: `${root}/marketplace/install`,
   marketplaceRemove: `${root}/marketplace/remove`,
   removeSnapshot: `${root}/snapshot/remove`,
   teardownWorktree: `${root}/worktree/teardown`,
@@ -286,28 +281,6 @@ export const HarnessApi = HttpApi.make("harness")
             summary: "Remove a custom agent",
             description:
               "Remove a custom (non-native) agent from one writable configuration scope, or every writable scope when omitted, and dispose cached instance state.",
-          }),
-        ),
-        HttpApiEndpoint.get("marketplaceList", HarnessPaths.marketplaceList, {
-          query: WorkspaceRoutingQuery,
-          success: described(MarketplaceListResult, "Marketplace catalog and installed metadata"),
-        }).annotateMerge(
-          OpenApi.annotations({
-            identifier: "harness.marketplace.list",
-            summary: "List marketplace items",
-            description: "Fetch marketplace catalog items and detect the items installed for the routed workspace.",
-          }),
-        ),
-        HttpApiEndpoint.post("marketplaceInstall", HarnessPaths.marketplaceInstall, {
-          query: WorkspaceRoutingQuery,
-          payload: MarketplaceInstallPayload,
-          success: described(MarketplaceInstallResult, "Marketplace install result"),
-        }).annotateMerge(
-          OpenApi.annotations({
-            identifier: "harness.marketplace.install",
-            summary: "Install a marketplace item",
-            description:
-              "Install a marketplace MCP server, agent, skill, or plugin into project or global Harness config.",
           }),
         ),
         HttpApiEndpoint.post("marketplaceRemove", HarnessPaths.marketplaceRemove, {

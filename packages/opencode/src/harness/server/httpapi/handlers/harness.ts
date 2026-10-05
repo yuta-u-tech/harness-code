@@ -25,7 +25,6 @@ import { AgentManager } from "@/harness/agent-manager/service"
 import type { RequestID as NotebookRequestID } from "@/harness/notebook/protocol"
 import { Notebook } from "@/harness/notebook/service"
 import { ModelUsage } from "@/harness/session/model-usage"
-import * as MarketplaceApi from "@/harness/marketplace/api"
 import * as MarketplaceDetection from "@/harness/marketplace/detection"
 import * as MarketplaceInstaller from "@/harness/marketplace/installer"
 import {
@@ -286,72 +285,6 @@ export const harnessHandlers = HttpApiBuilder.group(InstanceHttpApi, "harness", 
       return true
     })
 
-    const marketplaceList = Effect.fn("HarnessHttpApi.marketplaceList")(function* () {
-      const started = Date.now()
-      const instance = yield* InstanceState.context
-      yield* Effect.logInfo("marketplace request", { endpoint: "list", directory: instance.directory })
-      const items = yield* Effect.promise(() => MarketplaceApi.fetchAll())
-      const entries = yield* skills.all()
-      const installed = yield* Effect.promise(() =>
-        MarketplaceDetection.detect({ directory: instance.directory, worktree: instance.worktree, skills: entries }),
-      )
-      yield* Effect.logInfo("marketplace request complete", {
-        endpoint: "list",
-        directory: instance.directory,
-        outcome: "success",
-        count: items.items.length,
-        errors: items.errors.length,
-        durationMs: Date.now() - started,
-      })
-      return {
-        items: items.items,
-        installed,
-        ...(items.errors.length > 0 ? { errors: items.errors } : {}),
-      }
-    })
-
-    const marketplaceInstall = Effect.fn("HarnessHttpApi.marketplaceInstall")(function* (ctx: {
-      payload: typeof MarketplaceInstallPayload.Type
-    }) {
-      const started = Date.now()
-      const instance = yield* InstanceState.context
-      const target = ctx.payload.target ?? "project"
-      yield* Effect.logInfo("marketplace request", {
-        endpoint: "install",
-        directory: instance.directory,
-        itemId: ctx.payload.item.id,
-        itemType: ctx.payload.item.type,
-        target,
-        parameterKeys: Object.keys(ctx.payload.parameters ?? {}),
-        parameterCount: Object.keys(ctx.payload.parameters ?? {}).length,
-      })
-      const result = yield* MarketplaceInstaller.install(
-        {
-          config,
-          agents,
-          skills,
-          directory: instance.directory,
-          worktree: instance.worktree,
-          vcs: instance.project.vcs,
-        },
-        ctx.payload,
-      )
-      // Plugin and MCP bundle writes can partially succeed, including on a failed request.
-      if (result.success || ctx.payload.item.type === "plugin" || ctx.payload.item.type === "mcp")
-        yield* store.dispose(instance)
-      yield* Effect.logInfo("marketplace request complete", {
-        endpoint: "install",
-        directory: instance.directory,
-        itemId: ctx.payload.item.id,
-        itemType: ctx.payload.item.type,
-        target,
-        outcome: result.success ? "success" : "failure",
-        error: result.error,
-        durationMs: Date.now() - started,
-      })
-      return result
-    })
-
     const marketplaceRemove = Effect.fn("HarnessHttpApi.marketplaceRemove")(function* (ctx: {
       payload: typeof MarketplaceRemovePayload.Type
     }) {
@@ -571,8 +504,6 @@ export const harnessHandlers = HttpApiBuilder.group(InstanceHttpApi, "harness", 
       .handle("removeCommand", removeCommand)
       .handle("removeSkill", removeSkill)
       .handle("removeAgent", removeAgent)
-      .handle("marketplaceList", marketplaceList)
-      .handle("marketplaceInstall", marketplaceInstall)
       .handle("marketplaceRemove", marketplaceRemove)
       .handle("removeSnapshot", removeSnapshot)
       .handle("teardownWorktree", teardownWorktree)

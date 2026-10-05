@@ -156,16 +156,6 @@ function Introduction(props: IntroProps) {
             <p>{t("agentManager.intro.updateText")}</p>
           </div>
         </Popover>
-        <Button
-          variant="ghost"
-          size="small"
-          icon="link"
-          onClick={() => {
-            vscode.postMessage({ type: "openExternal", url: "https://kilo.ai/docs/automate/agent-manager-workflows" })
-          }}
-        >
-          {t("agentManager.intro.guide")}
-        </Button>
       </div>
     </section>
   )

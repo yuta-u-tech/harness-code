@@ -13,7 +13,7 @@ export const ZenmuxPlugin = define({
           if (item.provider.api.url !== "https://zenmux.ai/api/v1") continue
           if (item.provider.id !== ProviderV2.ID.make("zenmux")) continue
           evt.provider.update(item.provider.id, (provider) => {
-            provider.request.headers["HTTP-Referer"] ??= "https://kilo.ai/"
+            provider.request.headers["HTTP-Referer"] ??= "https://github.com/yuta-u-tech/harness-code"
             provider.request.headers["X-Title"] ??= "Harness Code"
           })
         }

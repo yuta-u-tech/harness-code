@@ -475,7 +475,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "الفحوصات قيد التشغيل",
   "agentManager.intro.approved": "تمت الموافقة",
   "agentManager.intro.create": "إنشاء worktree",
-  "agentManager.intro.guide": "اقرأ الدليل",
   "agentManager.intro.dismiss": "تخطي المقدمة",
   "agentManager.intro.reopen": "كيف يعمل Agent Manager",
   "agentManager.worktree.health.absent-restorable": "تم حذف المجلد",

@@ -26,7 +26,6 @@ export const KNOWN_KEYS: ReadonlyArray<string> = [
   "harness",
   "snapshot",
   "retention",
-  "remote_control",
   "share",
   "username",
   "watcher",

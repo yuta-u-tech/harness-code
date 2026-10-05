@@ -583,20 +583,6 @@ const ProviderConnectDialog: Component<ProviderConnectDialogProps> = (props) => 
           error={state.error}
         />
         <div class="dialog-confirm-actions provider-connect-actions">
-          <div class="provider-connect-byok">
-            {language.t("provider.connect.harnessGateway.byok.prefix")}
-            <a
-              href="https://blog.kilo.ai/p/kilo-gateway-now-supports-byok-20-providers"
-              onClick={(e) => {
-                e.preventDefault()
-                openExternal("https://blog.kilo.ai/p/kilo-gateway-now-supports-byok-20-providers")
-              }}
-              class="provider-connect-byok-link"
-            >
-              {language.t("provider.connect.harnessGateway.byok.link")}
-            </a>
-            {language.t("provider.connect.harnessGateway.byok.suffix")}
-          </div>
           <Button variant="ghost" size="large" type="button" onClick={back}>
             {language.t("common.goBack")}
           </Button>

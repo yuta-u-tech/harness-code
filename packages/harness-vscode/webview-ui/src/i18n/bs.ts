@@ -550,8 +550,6 @@ export const dict = {
   "feedback.button": "Povratne informacije i podrška",
   "feedback.dialog.message": "Voljeli bismo čuti vaše povratne informacije ili pomoći s problemima koje doživljavate.",
   "feedback.dialog.github": "Prijavite problem na GitHubu",
-  "feedback.dialog.discord": "Pridružite se našoj Discord zajednici",
-  "feedback.dialog.support": "Korisnička podrška",
   "workStyle.onboarding.welcome": "Dobro došli u Harness",
   "workStyle.onboarding.title": "Odaberite kako želite raditi",
   "workStyle.onboarding.settingsNote": "Ove opcije možete promijeniti bilo kada u",

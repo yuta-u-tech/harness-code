@@ -280,7 +280,7 @@ describe("sandbox launch preparation", () => {
       return
     }
     expect(Result.isSuccess(result)).toBe(true)
-    if (Result.isSuccess(result)) expect(result.success.environment?.HTTPS_PROXY).toContain("http://kilo:")
+    if (Result.isSuccess(result)) expect(result.success.environment?.HTTPS_PROXY).toContain("http://harness:")
   })
 
   test("fails non-empty allowedHosts closed before launching a process", async () => {

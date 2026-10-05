@@ -491,7 +491,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "Prüfungen laufen",
   "agentManager.intro.approved": "Genehmigt",
   "agentManager.intro.create": "Worktree erstellen",
-  "agentManager.intro.guide": "Anleitung lesen",
   "agentManager.intro.dismiss": "Einführung überspringen",
   "agentManager.intro.reopen": "So funktioniert Agent Manager",
   "agentManager.worktree.health.absent-restorable": "Ordner gelöscht",

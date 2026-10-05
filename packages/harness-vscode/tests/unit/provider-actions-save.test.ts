@@ -329,7 +329,7 @@ describe("saveCustomProvider", () => {
     expect(provider.models["model-1"].variants.high).toEqual(variant)
   })
 
-  // Regression tests for https://github.com/Kilo-Org/kilocode/issues/9186
+  // Regression tests for https://github.com/yuta-u-tech/harness-code/issues/9186
   //
   // The CLI's config.update endpoint deep-merges its payload with the existing
   // global config. When the user removes a model or variant from a custom

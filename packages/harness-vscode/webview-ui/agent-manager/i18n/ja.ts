@@ -485,7 +485,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "チェック実行中",
   "agentManager.intro.approved": "承認済み",
   "agentManager.intro.create": "worktree を作成",
-  "agentManager.intro.guide": "ガイドを読む",
   "agentManager.intro.dismiss": "イントロダクションをスキップ",
   "agentManager.intro.reopen": "Agent Manager の仕組み",
   "agentManager.worktree.health.absent-restorable": "フォルダーが削除されています",

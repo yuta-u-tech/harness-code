@@ -490,7 +490,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "Comprobaciones en curso",
   "agentManager.intro.approved": "Aprobado",
   "agentManager.intro.create": "Crear un worktree",
-  "agentManager.intro.guide": "Leer la guía",
   "agentManager.intro.dismiss": "Omitir introducción",
   "agentManager.intro.reopen": "Cómo funciona Agent Manager",
   "agentManager.worktree.health.absent-restorable": "Carpeta eliminada",

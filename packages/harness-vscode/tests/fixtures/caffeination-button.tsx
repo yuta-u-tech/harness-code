@@ -2,7 +2,7 @@ import assert from "node:assert/strict"
 import { Window } from "happy-dom"
 import type { WebviewMessage } from "../../webview-ui/src/types/messages"
 
-const window = new Window({ url: "https://kilo.test" })
+const window = new Window({ url: "https://harness.test" })
 Object.defineProperty(window, "origin", { value: window.location.origin })
 Object.assign(globalThis, {
   window,

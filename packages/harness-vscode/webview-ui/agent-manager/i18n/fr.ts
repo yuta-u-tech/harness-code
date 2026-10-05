@@ -490,7 +490,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "Vérifications en cours",
   "agentManager.intro.approved": "Approuvé",
   "agentManager.intro.create": "Créer un worktree",
-  "agentManager.intro.guide": "Lire le guide",
   "agentManager.intro.dismiss": "Ignorer l'introduction",
   "agentManager.intro.reopen": "Fonctionnement d'Agent Manager",
   "agentManager.worktree.health.absent-restorable": "Dossier supprimé",

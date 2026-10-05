@@ -45,7 +45,7 @@ export { HarnessTuiConfig } from "@/harness/cli/cmd/tui/context/tui-config"
 export const APP_TITLE = "Harness CLI"
 
 /** Public docs URL shown in the command palette. */
-export const DOCS_URL = "https://kilo.ai/docs"
+export const DOCS_URL = "https://github.com/yuta-u-tech/harness-code"
 
 /** Human-readable product name used in user-facing messages. */
 export const APP_NAME = "Harness"

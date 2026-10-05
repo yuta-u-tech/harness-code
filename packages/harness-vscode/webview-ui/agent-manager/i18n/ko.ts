@@ -477,7 +477,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "검사 실행 중",
   "agentManager.intro.approved": "승인됨",
   "agentManager.intro.create": "worktree 만들기",
-  "agentManager.intro.guide": "가이드 읽기",
   "agentManager.intro.dismiss": "소개 건너뛰기",
   "agentManager.intro.reopen": "Agent Manager 작동 방식",
   "agentManager.worktree.health.absent-restorable": "폴더 삭제됨",

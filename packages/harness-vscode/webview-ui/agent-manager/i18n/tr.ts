@@ -490,7 +490,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "Kontroller çalışıyor",
   "agentManager.intro.approved": "Onaylandı",
   "agentManager.intro.create": "Worktree oluştur",
-  "agentManager.intro.guide": "Kılavuzu okuyun",
   "agentManager.intro.dismiss": "Tanıtımı atla",
   "agentManager.intro.reopen": "Agent Manager nasıl çalışır",
   "agentManager.worktree.health.absent-restorable": "Klasör silindi",

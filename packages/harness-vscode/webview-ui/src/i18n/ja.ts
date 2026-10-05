@@ -545,8 +545,6 @@ export const dict = {
   "feedback.button": "フィードバック & サポート",
   "feedback.dialog.message": "フィードバックをお聞かせいただくか、問題がある場合はお気軽にご相談ください。",
   "feedback.dialog.github": "GitHubで問題を報告する",
-  "feedback.dialog.discord": "Discordコミュニティに参加する",
-  "feedback.dialog.support": "カスタマーサポート",
   "workStyle.onboarding.welcome": "Harnessへようこそ",
   "workStyle.onboarding.title": "希望する作業スタイルを選択",
   "workStyle.onboarding.settingsNote": "これらのオプションはいつでも変更できます：",

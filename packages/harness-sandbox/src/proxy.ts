@@ -266,7 +266,7 @@ export async function startProxy(
     })
     await chmod(socket, 0o600)
   }
-  const url = `http://kilo:${encodeURIComponent(token)}@127.0.0.1:${port}`
+  const url = `http://harness:${encodeURIComponent(token)}@127.0.0.1:${port}`
   return {
     url,
     token,

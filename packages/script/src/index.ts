@@ -53,7 +53,7 @@ function compareVersion(
 }
 
 async function fetchLatest() {
-  const data: any = await fetch("https://registry.npmjs.org/@kilocode/cli/latest").then((res) => {
+  const data: any = await fetch("https://registry.npmjs.org/@harness/cli/latest").then((res) => {
     if (!res.ok) throw new Error(res.statusText)
     return res.json()
   })
@@ -125,7 +125,6 @@ const team = [
   "harnessconnect[bot]",
   "kirillk",
   "lambertjosh",
-  "marius-kilocode",
   "olearycrew",
   "pandemicsyn",
   "pedroheyerdahl",

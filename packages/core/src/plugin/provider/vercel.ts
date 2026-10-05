@@ -12,7 +12,7 @@ export const VercelPlugin = define({
           if (item.provider.api.package !== "@ai-sdk/vercel") continue
           if (item.provider.id !== ProviderV2.ID.make("vercel")) continue
           evt.provider.update(item.provider.id, (provider) => {
-            provider.request.headers["http-referer"] = "https://kilo.ai/"
+            provider.request.headers["http-referer"] = "https://github.com/yuta-u-tech/harness-code"
             provider.request.headers["x-title"] = "Harness Code"
           })
         }

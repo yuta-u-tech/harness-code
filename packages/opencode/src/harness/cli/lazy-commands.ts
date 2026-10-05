@@ -108,12 +108,6 @@ export const AgentCommand = lazy({
   load: async () => (await import("@/cli/cmd/agent")).AgentCommand,
 })
 
-export const UpgradeCommand = lazy({
-  command: "upgrade [target]",
-  describe: "upgrade harness to the latest or a specific version",
-  load: async () => (await import("@/cli/cmd/upgrade")).UpgradeCommand,
-})
-
 export const UninstallCommand = lazy({
   command: "uninstall",
   describe: "uninstall harness and remove all related files",

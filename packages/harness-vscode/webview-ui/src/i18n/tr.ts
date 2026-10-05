@@ -540,8 +540,6 @@ export const dict = {
   "feedback.dialog.message":
     "Geri bildiriminizi almaktan veya yaşadığınız sorunlarda yardımcı olmaktan mutluluk duyarız.",
   "feedback.dialog.github": "GitHub'da sorun bildirin",
-  "feedback.dialog.discord": "Discord topluluğumuza katılın",
-  "feedback.dialog.support": "Müşteri Desteği",
   "workStyle.onboarding.welcome": "Harness'ya hoş geldiniz",
   "workStyle.onboarding.title": "Nasıl çalışmak istediğinizi seçin",
   "workStyle.onboarding.settingsNote": "Bu seçenekleri istediğiniz zaman şuradan değiştirebilirsiniz:",

@@ -778,10 +778,10 @@ const blocks: SDKPart[] = [
   done(
     "repo-clone",
     "repo_clone",
-    { repository: "Kilo-Org/harness" },
+    { repository: "yuta-u-tech/harness-code" },
     "Clone repository",
-    "Repository ready: Kilo-Org/harness\nStatus: cached\nLocal path: /cache/harness",
-    { repository: "Kilo-Org/harness", status: "cached", localPath: "/cache/harness" },
+    "Repository ready: yuta-u-tech/harness-code\nStatus: cached\nLocal path: /cache/harness",
+    { repository: "yuta-u-tech/harness-code", status: "cached", localPath: "/cache/harness" },
   ),
   done(
     "repo-overview",
@@ -845,13 +845,16 @@ const blocks: SDKPart[] = [
     "codesearch",
     { query: "tool renderer selection" },
     "Legacy code search",
-    "https://github.com/Kilo-Org/kilocode/blob/main/packages/kilo-ui/src/components/message-part.tsx",
+    "https://github.com/yuta-u-tech/harness-code/blob/main/packages/harness-ui/src/components/message-part.tsx",
   ),
   tool(
     "matrix-tool-hint",
     "matrix-call-tool-hint",
     "edit",
-    failed({ filePath: "packages/harness-ui/src/components/message-part.css" }, "oldString and newString are identical"),
+    failed(
+      { filePath: "packages/harness-ui/src/components/message-part.css" },
+      "oldString and newString are identical",
+    ),
   ),
   tool(
     "matrix-tool-error",

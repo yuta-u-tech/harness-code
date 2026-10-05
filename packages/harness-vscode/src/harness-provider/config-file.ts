@@ -26,8 +26,6 @@ export interface Entry {
   virtual?: boolean
 }
 
-const SCHEMA = "https://app.kilo.ai/config.json"
-
 const MODERN = ["harness.jsonc", "harness.json"]
 const LEGACY = ["opencode.jsonc", "opencode.json"]
 const FILES = [...MODERN, ...LEGACY]
@@ -106,8 +104,5 @@ function localSource(root: string, dir: string) {
 }
 
 export function content() {
-  return `{
-  "$schema": "${SCHEMA}"
-}
-`
+  return "{}\n"
 }

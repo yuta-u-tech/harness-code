@@ -1091,7 +1091,7 @@ export const RunCommand = effectCmd({
         return Server.Default().app.fetch(new Request(request, { headers }))
       }) as typeof globalThis.fetch
       const sdk = HarnessRunDrain.client({
-        baseUrl: "http://kilo.internal",
+        baseUrl: "http://harness.internal",
         fetch: fetchFn,
         directory,
       })

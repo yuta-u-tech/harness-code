@@ -482,7 +482,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "Provjere u toku",
   "agentManager.intro.approved": "Odobreno",
   "agentManager.intro.create": "Kreiraj worktree",
-  "agentManager.intro.guide": "Pročitajte vodič",
   "agentManager.intro.dismiss": "Preskoči uvod",
   "agentManager.intro.reopen": "Kako radi Agent Manager",
   "agentManager.worktree.health.absent-restorable": "Folder izbrisan",

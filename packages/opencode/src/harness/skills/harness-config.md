@@ -68,8 +68,6 @@ Markdown files in `.harness/workflows/` or `.harness/workflows/` (project-level)
 
 ## Agent Manager Setup And Run Scripts
 
-For the full product guidance, use the canonical [Agent Manager reference](https://kilo.ai/docs/automate/agent-manager) and [Agent Manager Workflows guide](https://kilo.ai/docs/automate/agent-manager-workflows). Prefer these links instead of guessing documentation paths.
-
 Agent Manager setup/run scripts are project files in the main repository's `.harness/` directory. They are not `harness.json` settings and should not be configured inside generated `.harness/worktrees/<name>/` checkouts.
 
 Agent Manager worktrees usually live under `.harness/worktrees/`. Think of each worktree as a separate checkout on its own branch: it enables parallel edits, but dependencies, build output, caches, databases, and generated files can consume significant disk space across many worktrees.
@@ -222,7 +220,6 @@ For example, this configuration will hide all models from the built-in Harness G
 
 ```jsonc
 {
-  "$schema": "https://app.kilo.ai/config.json",
   "disabled_providers": ["harness", "openai"],
 }
 ```

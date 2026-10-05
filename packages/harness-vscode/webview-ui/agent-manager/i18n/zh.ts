@@ -464,7 +464,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "检查运行中",
   "agentManager.intro.approved": "已批准",
   "agentManager.intro.create": "创建 worktree",
-  "agentManager.intro.guide": "阅读指南",
   "agentManager.intro.dismiss": "跳过介绍",
   "agentManager.intro.reopen": "Agent Manager 的工作原理",
   "agentManager.worktree.health.absent-restorable": "文件夹已删除",

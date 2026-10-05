@@ -27,7 +27,7 @@ it.live("nvidia provider includes HarnessCode billing origin header", () =>
           const providers = yield* provider.list()
           const headers = providers[ProviderV2.ID.make("nvidia")].options.headers
 
-          expect(headers["HTTP-Referer"]).toBe("https://kilo.ai/")
+          expect(headers["HTTP-Referer"]).toBe("https://github.com/yuta-u-tech/harness-code")
           expect(headers["X-Title"]).toBe("Harness Code")
           expect(headers["X-BILLING-INVOKE-ORIGIN"]).toBe("HarnessCode")
         }),
@@ -43,7 +43,7 @@ it.live("nvidia billing origin header can be overridden from config", () =>
         Bun.write(
           path.join(dir, "opencode.json"),
           JSON.stringify({
-            $schema: "https://app.kilo.ai/config.json",
+            $schema: "https://example.com/config.json",
             provider: {
               nvidia: {
                 options: {
@@ -63,7 +63,7 @@ it.live("nvidia billing origin header can be overridden from config", () =>
             const providers = yield* provider.list()
             const headers = providers[ProviderV2.ID.make("nvidia")].options.headers
 
-            expect(headers["HTTP-Referer"]).toBe("https://kilo.ai/")
+            expect(headers["HTTP-Referer"]).toBe("https://github.com/yuta-u-tech/harness-code")
             expect(headers["X-Title"]).toBe("Harness Code")
             expect(headers["X-BILLING-INVOKE-ORIGIN"]).toBe("CustomOrigin")
           }),

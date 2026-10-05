@@ -36,7 +36,6 @@ export const GenerateCommand = {
       .replaceAll("OpenCode", "Harness")
       .replaceAll("opencode.local", "harness.local")
       .replaceAll("opencode serve", "harness serve")
-      .replaceAll("https://opencode.ai/", "https://kilo.ai/")
 
     // Format through prettier so output is byte-identical to committed file
     // regardless of whether ./script/format.ts runs afterward.

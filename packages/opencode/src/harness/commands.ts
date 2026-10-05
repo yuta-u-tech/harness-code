@@ -10,7 +10,6 @@ import { GenerateCommand } from "../cli/cmd/generate"
 import { DebugCommand } from "../cli/cmd/debug"
 import { ProvidersCommand } from "../cli/cmd/providers"
 import { AgentCommand } from "../cli/cmd/agent"
-import { UpgradeCommand } from "../cli/cmd/upgrade"
 import { UninstallCommand } from "../cli/cmd/uninstall"
 import { ServeCommand } from "../cli/cmd/serve"
 import { ModelsCommand } from "../cli/cmd/models"
@@ -53,7 +52,6 @@ export const commands = [
   DebugCommand,
   ProvidersCommand,
   AgentCommand,
-  UpgradeCommand,
   UninstallCommand,
   ServeCommand,
   ModelsCommand,

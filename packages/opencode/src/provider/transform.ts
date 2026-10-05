@@ -382,7 +382,6 @@ function isFirstPartyBreakpointEndpoint(model: Provider.Model, options: Record<s
   if (model.providerID === "openai") return host === "openai.com" || host.endsWith(".openai.com")
   if (model.providerID === "azure" || model.providerID === "azure-cognitive-services")
     return [".azure.com", ".azure.us", ".azure.cn", ".azure-api.net"].some((s) => host.endsWith(s))
-  if (model.providerID === "harness") return host === "api.kilo.ai" || host.endsWith(".kilo.ai")
   return false
 }
 

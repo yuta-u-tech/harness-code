@@ -64,7 +64,7 @@ HARNESS_CONFIG_DIR=$(mktemp -d)
 export HARNESS_CONFIG_DIR
 export HARNESS_DISABLE_AUTOUPDATE=1
 # shellcheck disable=SC2016  # $schema is a literal JSON key, not a shell expansion.
-printf '%s\n' '{"$schema":"https://app.kilo.ai/config.json","snapshot":false,"permission":{"*":"allow"}}' >"$HARNESS_CONFIG_DIR/harness.json"
+printf '%s\n' '{"snapshot":false,"permission":{"*":"allow"}}' >"$HARNESS_CONFIG_DIR/harness.json"
 
 # Per-run logs stay out of the git worktree.
 LOG_DIR=$(mktemp -d)

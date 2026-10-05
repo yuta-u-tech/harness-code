@@ -7,7 +7,6 @@ import type {
 } from "@modelcontextprotocol/sdk/shared/auth.js"
 import { Effect } from "effect"
 import { McpAuth } from "./auth"
-import { clientMetadataUrl } from "../harness/mcp/client-metadata"
 
 const OAUTH_CALLBACK_PORT = 19876
 const OAUTH_CALLBACK_PATH = "/mcp/oauth/callback"
@@ -39,13 +38,6 @@ export class McpOAuthProvider implements OAuthClientProvider {
     protected auth: McpAuth.Interface,
   ) {}
 
-  get clientMetadataUrl(): string | undefined {
-    // The hosted document describes a public client with the default callback URI.
-    if (this.config.clientId || this.config.clientSecret) return undefined
-    if (this.redirectUrl !== `http://127.0.0.1:${OAUTH_CALLBACK_PORT}${OAUTH_CALLBACK_PATH}`) return undefined
-    return clientMetadataUrl
-  }
-
   get redirectUrl(): string {
     if (this.config.redirectUri) {
       return this.config.redirectUri
@@ -58,7 +50,7 @@ export class McpOAuthProvider implements OAuthClientProvider {
     return {
       redirect_uris: [this.redirectUrl],
       client_name: "Harness",
-      client_uri: "https://kilo.ai",
+      client_uri: "https://github.com/yuta-u-tech/harness-code",
       grant_types: ["authorization_code", "refresh_token"],
       response_types: ["code"],
       token_endpoint_auth_method: this.config.clientSecret ? "client_secret_post" : "none",

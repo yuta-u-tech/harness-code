@@ -13,7 +13,7 @@ export const NvidiaPlugin = define({
           if (item.provider.api.url !== "https://integrate.api.nvidia.com/v1") continue
           if (item.provider.id !== ProviderV2.ID.make("nvidia")) continue
           evt.provider.update(item.provider.id, (provider) => {
-            provider.request.headers["HTTP-Referer"] = "https://kilo.ai/"
+            provider.request.headers["HTTP-Referer"] = "https://github.com/yuta-u-tech/harness-code"
             provider.request.headers["X-Title"] = "Harness Code"
             provider.request.headers["X-BILLING-INVOKE-ORIGIN"] ??= "HarnessCode"
           })

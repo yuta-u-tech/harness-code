@@ -131,14 +131,6 @@ export function useSlashCommand(
       },
     },
     {
-      name: "help",
-      description: "Open help documentation",
-      hints: [],
-      action: () => {
-        vscode.postMessage({ type: "openExternal", url: "https://kilo.ai/docs" })
-      },
-    },
-    {
       name: "compact",
       description: "Summarize and compact the session",
       hints: ["smol", "condense"],

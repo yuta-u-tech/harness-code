@@ -60,7 +60,7 @@ export function networkEnvironment(profile: Profile, environment: Record<string,
   if (profile.network.mode === "allow" && profile.network.allowedHosts.length === 0) return environment
   const clean = Object.fromEntries(Object.entries(environment).filter(([key]) => !proxies.has(key)))
   if (profile.network.mode !== "proxy" || !runtime) return clean
-  const url = runtime.socket ? `http://kilo:${encodeURIComponent(runtime.token)}@127.0.0.1:3128` : runtime.url
+  const url = runtime.socket ? `http://harness:${encodeURIComponent(runtime.token)}@127.0.0.1:3128` : runtime.url
   return {
     ...clean,
     HTTP_PROXY: url,

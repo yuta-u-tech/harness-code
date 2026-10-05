@@ -482,7 +482,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://kilo.ai/",
+            "HTTP-Referer": "https://github.com/yuta-u-tech/harness-code",
             "X-Title": "Harness Code",
             "X-Source": "harness",
           },
@@ -493,7 +493,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://kilo.ai/",
+            "HTTP-Referer": "https://github.com/yuta-u-tech/harness-code",
             "X-Title": "Harness Code",
           },
         },
@@ -503,7 +503,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: provider.source === "config",
         options: {
           headers: {
-            "HTTP-Referer": "https://kilo.ai/",
+            "HTTP-Referer": "https://github.com/yuta-u-tech/harness-code",
             "X-Title": "Harness Code",
             "X-BILLING-INVOKE-ORIGIN": "HarnessCode",
           },
@@ -514,7 +514,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "http-referer": "https://kilo.ai/",
+            "http-referer": "https://github.com/yuta-u-tech/harness-code",
             "x-title": "Harness Code",
           },
         },
@@ -626,7 +626,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://kilo.ai/",
+            "HTTP-Referer": "https://github.com/yuta-u-tech/harness-code",
             "X-Title": "Harness Code",
           },
         },

@@ -559,8 +559,6 @@ export const dict = {
   "feedback.button": "Feedback & Support",
   "feedback.dialog.message": "Wir würden uns freuen, Ihr Feedback zu hören oder Ihnen bei Problemen zu helfen.",
   "feedback.dialog.github": "Ein Problem auf GitHub melden",
-  "feedback.dialog.discord": "Unserer Discord-Community beitreten",
-  "feedback.dialog.support": "Kundensupport",
   "workStyle.onboarding.welcome": "Willkommen bei Harness",
   "workStyle.onboarding.title": "Wähle, wie du arbeiten möchtest",
   "workStyle.onboarding.settingsNote": "Du kannst diese Optionen jederzeit ändern unter",

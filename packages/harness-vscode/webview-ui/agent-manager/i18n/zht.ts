@@ -463,7 +463,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "檢查執行中",
   "agentManager.intro.approved": "已核准",
   "agentManager.intro.create": "建立 worktree",
-  "agentManager.intro.guide": "閱讀指南",
   "agentManager.intro.dismiss": "略過介紹",
   "agentManager.intro.reopen": "Agent Manager 的運作方式",
   "agentManager.worktree.health.absent-restorable": "資料夾已刪除",

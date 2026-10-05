@@ -77,5 +77,4 @@ packages/*/.harness/tui.jsonc
 packages/app/.artifacts/
 packages/opencode/.artifacts/
 
-.kilo-dev/
 .harness-dev/

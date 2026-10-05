@@ -527,7 +527,6 @@ export const dict = {
   "agentManager.intro.checksRunning": "Checks running",
   "agentManager.intro.approved": "Approved",
   "agentManager.intro.create": "Create a worktree",
-  "agentManager.intro.guide": "Read the guide",
   "agentManager.intro.dismiss": "Skip introduction",
   "agentManager.intro.reopen": "How Agent Manager works",
 }

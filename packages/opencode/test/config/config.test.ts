@@ -116,7 +116,7 @@ const layer = configLayer()
 const it = testEffect(layer)
 const configIt = (options?: Parameters<typeof configLayer>[0]) => testEffect(configLayer(options))
 
-const schemaConfig = (config: object) => ({ $schema: "https://app.kilo.ai/config.json", ...config })
+const schemaConfig = (config: object) => ({ $schema: "https://example.com/config.json", ...config })
 
 const provideCurrentInstance = <A, E, R>(effect: Effect.Effect<A, E, R>, ctx: InstanceContext) =>
   effect.pipe(Effect.provideService(InstanceRef, ctx))
@@ -317,17 +317,6 @@ it.instance("falls back to generic username when system user info is unavailable
   }),
 )
 
-it.effect("creates global jsonc config with schema when no global configs exist", () =>
-  withGlobalConfig({}, ({ dir }) =>
-    Effect.gen(function* () {
-      yield* Config.use.get().pipe(provideInstanceEffect(dir))
-
-      const content = yield* FSUtil.use.readFileString(path.join(dir, "harness.jsonc"))
-      expect(content).toContain('"$schema": "https://app.kilo.ai/config.json"')
-    }).pipe(Effect.provide(testInstanceStoreLayer), Effect.provide(LayerNode.compile(CrossSpawnSpawner.node))),
-  ),
-)
-
 it.effect("does not create global config when HARNESS_CONFIG_DIR is set", () =>
   Effect.gen(function* () {
     const custom = yield* tmpdirScoped()
@@ -349,7 +338,7 @@ it.instance("loads JSON config file", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       model: "test/model",
       username: "testuser",
     })
@@ -363,7 +352,7 @@ it.instance("preserves Harness provider free model metadata", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       model: "harness/free-e2e",
       provider: {
         harness: {
@@ -673,7 +662,7 @@ it.instance("loads JSONC config file", () =>
       path.join(test.directory, "harness.jsonc"),
       `{
         // This is a comment
-        "$schema": "https://app.kilo.ai/config.json",
+        "$schema": "https://example.com/config.json",
         "model": "test/model",
         "username": "testuser"
       }`,
@@ -690,14 +679,14 @@ it.instance("jsonc overrides json in the same directory", () =>
     yield* writeConfigEffect(
       test.directory,
       {
-        $schema: "https://app.kilo.ai/config.json",
+        $schema: "https://example.com/config.json",
         model: "base",
         username: "base",
       },
       "harness.jsonc",
     )
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       model: "override",
     })
     const config = yield* Config.use.get()
@@ -710,11 +699,11 @@ it.instance("prefers .harness directory config over legacy .harness", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(path.join(test.directory, ".harness"), {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       model: "legacy/model",
     })
     yield* writeConfigEffect(path.join(test.directory, ".harness"), {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       model: "new/model",
     })
 
@@ -730,7 +719,7 @@ it.instance("rejects environment variable substitution in project config", () =>
     Effect.gen(function* () {
       const test = yield* TestInstance
       yield* writeConfigEffect(test.directory, {
-        $schema: "https://app.kilo.ai/config.json",
+        $schema: "https://example.com/config.json",
         username: "{env:TEST_VAR}",
       })
       const config = yield* Config.use.get()
@@ -741,71 +730,12 @@ it.instance("rejects environment variable substitution in project config", () =>
   ),
 )
 
-it.instance("injects $schema into config without existing schema", () =>
-  Effect.gen(function* () {
-    const test = yield* TestInstance
-    // Config without $schema - should trigger auto-add
-    yield* FSUtil.use.writeWithDirs(path.join(test.directory, "harness.json"), JSON.stringify({ username: "test-user" }))
-    const config = yield* Config.use.get()
-    expect(config.username).toBe("test-user")
-    expect(config.$schema).toBe("https://app.kilo.ai/config.json")
-
-    // Read the file to verify $schema was injected
-    const content = yield* FSUtil.use.readFileString(path.join(test.directory, "harness.json"))
-    expect(content).toContain('"$schema": "https://app.kilo.ai/config.json"')
-    const schemaIndex = content.indexOf('"$schema"')
-    const usernameIndex = content.indexOf('"username"')
-    expect(schemaIndex).toBeLessThan(usernameIndex)
-  }),
-)
-
-it.instance("injects $schema into comment-first JSONC config", () =>
-  Effect.gen(function* () {
-    const test = yield* TestInstance
-    // Config with leading comment - regex-based injection would fail
-    yield* FSUtil.use.writeWithDirs(
-      path.join(test.directory, "harness.jsonc"),
-      '// project config\n{\n  "model": "test/model"\n}\n',
-    )
-    const config = yield* Config.use.get()
-    expect(config.model).toBe("test/model")
-    expect(config.$schema).toBe("https://app.kilo.ai/config.json")
-
-    // Read the file to verify $schema was injected correctly
-    const content = yield* FSUtil.use.readFileString(path.join(test.directory, "harness.jsonc"))
-    expect(content).toContain('"$schema": "https://app.kilo.ai/config.json"')
-    expect(content).toContain("// project config")
-    const schemaIndex = content.indexOf('"$schema"')
-    const modelIndex = content.indexOf('"model"')
-    expect(schemaIndex).toBeLessThan(modelIndex)
-  }),
-)
-
-it.instance("does not write config when $schema already present", () =>
-  Effect.gen(function* () {
-    const test = yield* TestInstance
-    const filepath = path.join(test.directory, "harness.json")
-    // Config already has $schema - should not rewrite file
-    yield* FSUtil.use.writeWithDirs(
-      filepath,
-      JSON.stringify({ $schema: "https://app.kilo.ai/config.json", username: "test-user" }),
-    )
-    const before = yield* Effect.promise(() => fs.stat(filepath))
-
-    const config = yield* Config.use.get()
-    expect(config.username).toBe("test-user")
-
-    const after = yield* Effect.promise(() => fs.stat(filepath))
-    expect(after.mtimeMs).toBe(before.mtimeMs)
-  }),
-)
-
 it.instance("allows {file:} that stays inside the project root", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* FSUtil.use.writeWithDirs(path.join(test.directory, "included.txt"), "in-project")
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       username: "{file:included.txt}",
     })
     const config = yield* Config.use.get()
@@ -817,7 +747,7 @@ it.instance("rejects {file:} that reads an absolute path from project config", (
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       username: "{file:/etc/passwd}",
     })
     const config = yield* Config.use.get()
@@ -831,7 +761,7 @@ it.instance("rejects {file:} that escapes the project root with parent directori
     const outside = path.join(path.dirname(test.directory), "secret.txt")
     yield* FSUtil.use.writeWithDirs(outside, "outside-secret")
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       username: "{file:../secret.txt}",
     })
     const config = yield* Config.use.get()
@@ -847,7 +777,7 @@ it.instance("rejects {file:} that escapes the project root through a symlink", (
     yield* FSUtil.use.writeWithDirs(outside, "outside-secret")
     yield* Effect.promise(() => fs.symlink(outside, link))
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       username: "{file:secret-link}",
     })
     const config = yield* Config.use.get()
@@ -861,7 +791,7 @@ it.instance("blocks provider apiKey {file:} exfiltration that escapes the projec
     const outside = path.join(path.dirname(test.directory), "creds.txt")
     yield* FSUtil.use.writeWithDirs(outside, "leaked-credential")
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       provider: {
         "openai-compatible": {
           options: { baseURL: "http://127.0.0.1:4444/v1", apiKey: "{file:../creds.txt}" },
@@ -880,7 +810,7 @@ it.instance("still allows global config to read absolute files", () =>
       const secret = path.join(dir, "secret.txt")
       yield* FSUtil.use.writeWithDirs(secret, "global-secret")
       yield* writeConfigEffect(dir, {
-        $schema: "https://app.kilo.ai/config.json",
+        $schema: "https://example.com/config.json",
         username: `{file:${secret}}`,
       })
       const config = yield* Config.use.get()
@@ -936,7 +866,7 @@ it.instance("validates config schema and reports warning on invalid values", () 
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       model: 42,
     })
     // invalid schema surfaces as warnings, not a throw
@@ -960,7 +890,7 @@ it.instance("handles agent configuration", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       agent: {
         test_agent: {
           model: "test/model",
@@ -984,7 +914,7 @@ it.instance("treats agent variant as model-scoped setting (not provider option)"
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       agent: {
         test_agent: {
           model: "openai/gpt-5.2",
@@ -1008,7 +938,7 @@ it.instance("handles command configuration", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       command: {
         test_command: {
           template: "test template",
@@ -1030,7 +960,7 @@ it.instance("migrates autoshare to share field", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       autoshare: true,
     })
     const config = yield* Config.use.get()
@@ -1043,7 +973,7 @@ it.instance("migrates mode field to agent field", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       mode: {
         test_mode: {
           model: "test/model",
@@ -1506,7 +1436,7 @@ it.instance("migrates legacy tools config to permissions - allow", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       agent: { test: { tools: { bash: true, read: true } } },
     })
 
@@ -1522,7 +1452,7 @@ it.instance("migrates legacy tools config to permissions - deny", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       agent: { test: { tools: { bash: false, webfetch: false } } },
     })
 
@@ -1538,7 +1468,7 @@ it.instance("migrates legacy write tool to edit permission", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       agent: { test: { tools: { write: true } } },
     })
 
@@ -1553,7 +1483,7 @@ it.instance(
   "managed settings override user settings",
   Effect.gen(function* () {
     yield* writeManagedSettingsEffect({
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       model: "managed/model",
       share: "disabled",
     })
@@ -1570,7 +1500,7 @@ it.instance(
   "managed settings override project settings",
   Effect.gen(function* () {
     yield* writeManagedSettingsEffect({
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       autoupdate: false,
       disabled_providers: ["openai"],
     })
@@ -1605,7 +1535,7 @@ it.instance("migrates legacy edit tool to edit permission", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       agent: { test: { tools: { edit: false } } },
     })
 
@@ -1618,7 +1548,7 @@ it.instance("migrates legacy patch tool to edit permission", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       agent: { test: { tools: { patch: true } } },
     })
 
@@ -1631,7 +1561,7 @@ it.instance("migrates mixed legacy tools config", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       agent: { test: { tools: { bash: true, write: true, read: false, webfetch: true } } },
     })
 
@@ -1649,7 +1579,7 @@ it.instance("merges legacy tools with existing permission config", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       agent: { test: { permission: { glob: "allow" }, tools: { bash: true } } },
     })
 
@@ -1681,7 +1611,7 @@ it.instance("permission config preserves user key order", () =>
     yield* writeConfigEffect(
       test.directory,
       {
-        $schema: "https://app.kilo.ai/config.json",
+        $schema: "https://example.com/config.json",
         permission: {
           "*": "deny",
           edit: "ask",
@@ -1753,7 +1683,7 @@ it.instance("local mcp accepts `env` as an alias for `environment`", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       mcp: {
         context7: {
           type: "local",
@@ -1777,7 +1707,7 @@ it.instance("local mcp prefers `environment` over `env` when both are present", 
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       mcp: {
         context7: {
           type: "local",
@@ -1801,7 +1731,7 @@ it.instance("project config can override MCP server enabled status", () =>
     const test = yield* TestInstance
     // Simulates a base config (like from remote .well-known) with disabled MCP.
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       mcp: {
         jira: {
           type: "remote",
@@ -1819,7 +1749,7 @@ it.instance("project config can override MCP server enabled status", () =>
     yield* writeConfigEffect(
       test.directory,
       {
-        $schema: "https://app.kilo.ai/config.json",
+        $schema: "https://example.com/config.json",
         mcp: {
           jira: {
             type: "remote",
@@ -1849,7 +1779,7 @@ it.instance("MCP config deep merges preserving base config properties", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       mcp: {
         myserver: {
           type: "remote",
@@ -1864,7 +1794,7 @@ it.instance("MCP config deep merges preserving base config properties", () =>
     yield* writeConfigEffect(
       test.directory,
       {
-        $schema: "https://app.kilo.ai/config.json",
+        $schema: "https://example.com/config.json",
         mcp: {
           myserver: {
             type: "remote",
@@ -1892,7 +1822,7 @@ it.instance("local .harness config can override MCP from project config", () =>
   Effect.gen(function* () {
     const test = yield* TestInstance
     yield* writeConfigEffect(test.directory, {
-      $schema: "https://app.kilo.ai/config.json",
+      $schema: "https://example.com/config.json",
       mcp: {
         docs: {
           type: "remote",
@@ -1904,7 +1834,7 @@ it.instance("local .harness config can override MCP from project config", () =>
     yield* writeConfigEffect(
       path.join(test.directory, ".harness"),
       {
-        $schema: "https://app.kilo.ai/config.json",
+        $schema: "https://example.com/config.json",
         mcp: {
           docs: {
             type: "remote",
@@ -2317,7 +2247,7 @@ describe("HARNESS_DISABLE_PROJECT_CONFIG", () => {
       Effect.gen(function* () {
         const configDir = yield* tmpdirScoped()
         yield* writeConfigEffect(configDir, {
-          $schema: "https://app.kilo.ai/config.json",
+          $schema: "https://example.com/config.json",
           model: "configdir/model",
         })
         yield* withProcessEnvs(

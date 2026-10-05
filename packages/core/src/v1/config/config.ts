@@ -62,7 +62,7 @@ export const Info = Schema.Struct({
     description: "Server configuration for the harness serve command",
   }),
   command: Schema.optional(Schema.Record(Schema.String, ConfigCommandV1.Info)).annotate({
-    description: "Command configuration, see https://kilo.ai/docs/customize/workflows",
+    description: "Command configuration, custom slash commands",
   }),
   skills: Schema.optional(ConfigSkillsV1.Info).annotate({ description: "Additional skill folder paths" }),
   harness: Schema.optional(ConfigHarnessV1.Info),
@@ -107,12 +107,6 @@ export const Info = Schema.Struct({
   }),
   enabled_providers: Schema.optional(Schema.mutable(Schema.Array(Schema.String))).annotate({
     description: "When set, ONLY these providers will be enabled. All other providers will be ignored",
-  }),
-  // NOTE: Any new harness_change key added to Config.Info must also be mirrored in
-  // apps/web/src/app/config.json/extras.ts in the cloud repo, otherwise
-  // $schema: https://app.kilo.ai/config.json will not recognize it.
-  remote_control: Schema.optional(Schema.Boolean).annotate({
-    description: "Enable remote control of sessions via Harness Cloud. Equivalent to running /remote on startup.",
   }),
   auto_collapse_reasoning: Schema.optional(Schema.Boolean).annotate({
     description:
@@ -232,7 +226,7 @@ export const Info = Schema.Struct({
       }),
       [Schema.Record(Schema.String, ConfigAgentV1.Info)],
     ),
-  ).annotate({ description: "Agent configuration, see https://kilo.ai/docs/customize/custom-subagents" }),
+  ).annotate({ description: "Agent configuration," }),
   provider: Schema.optional(Schema.Record(Schema.String, Schema.NullOr(ConfigProviderV1.Info))).annotate({
     description: "Custom provider configurations and model overrides",
   }),

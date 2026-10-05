@@ -17,7 +17,7 @@ export const LLMGatewayPlugin = define({
           if (item.provider.id !== ProviderV2.ID.make("llmgateway")) continue
           if (!(yield* integrations.get(Integration.ID.make(item.provider.id)))) continue
           evt.provider.update(item.provider.id, (provider) => {
-            provider.request.headers["HTTP-Referer"] = "https://kilo.ai/"
+            provider.request.headers["HTTP-Referer"] = "https://github.com/yuta-u-tech/harness-code"
             provider.request.headers["X-Title"] = "Harness Code"
             provider.request.headers["X-Source"] = "harness"
           })
