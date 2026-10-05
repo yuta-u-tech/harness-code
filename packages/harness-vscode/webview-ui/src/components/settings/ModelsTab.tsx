@@ -114,7 +114,6 @@ const ModelsTab: Component = () => {
             placement="bottom-start"
             allowClear
             clearLabel={language.t("settings.providers.notSet")}
-            includeAutoSmall
             label={language.t("settings.providers.smallModel.title")}
             description={language.t("settings.providers.smallModel.description")}
           />

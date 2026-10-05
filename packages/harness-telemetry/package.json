@@ -18,7 +18,6 @@
     "test:ci": "mkdir -p .artifacts/unit && bun test --reporter=junit --reporter-outfile=.artifacts/unit/junit.xml"
   },
   "dependencies": {
-    "@harness/harness-gateway": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/bun": "catalog:",

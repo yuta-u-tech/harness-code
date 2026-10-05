@@ -5,7 +5,7 @@
 // This module exports patch functions and data that the upstream provider.ts
 // calls at well-defined injection points (each marked with harness_change).
 
-import { createHarness, type HarnessProvider, AI_SDK_PROVIDERS, PROMPTS } from "@harness/harness-gateway"
+import { AI_SDK_PROVIDERS, PROMPTS } from "@opencode-ai/core/v1/config/provider"
 import { DEFAULT_HEADERS } from "@/harness/const"
 import { ProviderV2 } from "@opencode-ai/core/provider"
 import { ModelV2 } from "@opencode-ai/core/model"
@@ -18,20 +18,9 @@ import { reasoningSummary } from "./reasoning-summary"
 import type { Provider } from "@/provider/provider"
 import type { Auth } from "@/auth"
 import type { Config } from "@/config/config"
-import { organization, token } from "./catalog"
 
 /** Default timeout (ms) for provider HTTP requests (connection phase). */
 export const REQUEST_TIMEOUT_MS = 300_000 // 5 minutes
-
-// ---------------------------------------------------------------------------
-// Bundled providers
-// ---------------------------------------------------------------------------
-
-type BundledSDK = { languageModel(modelId: string): LanguageModelV3 }
-
-export const HARNESS_BUNDLED_PROVIDERS: Record<string, () => Promise<(options: any) => BundledSDK>> = {
-  "@harness/harness-gateway": async () => createHarness as unknown as (options: any) => BundledSDK,
-}
 
 // ---------------------------------------------------------------------------
 // Model schema extensions  (spread into Provider.Model Schema.Struct)
@@ -61,9 +50,9 @@ export const HARNESS_MODEL_SCHEMA_EXTENSIONS = {
 // fromModelsDevModel patch — returns harness-specific fields
 // ---------------------------------------------------------------------------
 
-export function patchModelsDevModel(providerID: string, source: any) {
+export function patchModelsDevModel(_providerID: string, source: any) {
   return {
-    variants: providerID === "harness" ? (source.variants ?? {}) : {},
+    variants: source.variants ?? {},
     recommendedIndex: source.recommendedIndex,
     prompt: source.prompt,
     isFree: source.isFree,
@@ -164,29 +153,6 @@ function useLanguageModel(sdk: any) {
   return sdk.responses === undefined && sdk.chat === undefined
 }
 
-export function patchHarnessProviderPrivacy(provider: { options?: Record<string, any> } | undefined, config: any) {
-  if (!provider || config.hide_prompt_training_models !== true) return
-  provider.options = { ...provider.options, dataCollection: "deny" }
-}
-
-export function patchHarnessProviderAuth(
-  provider: Provider.Info | undefined,
-  config: Config.Info,
-  info: Auth.Info | undefined,
-) {
-  if (!provider) return
-  const options = config.provider?.harness?.options
-  const key = token(options, info)
-  const org = organization(options, info)
-  if (key !== undefined) provider.options.harnessToken = key
-  if (org !== undefined) provider.options.harnessOrganizationId = org
-}
-
-export function publicHarnessProvider(provider: Provider.Info): Provider.Info {
-  if (provider.id !== "harness") return provider
-  return { ...provider, key: undefined, options: omit(provider.options, ["apiKey", "harnessToken"]) }
-}
-
 export function harnessCustomLoaders(dep: CustomDep): Record<string, CustomLoader> {
   return {
     "github-copilot-enterprise": () =>
@@ -198,40 +164,6 @@ export function harnessCustomLoaders(dep: CustomDep): Record<string, CustomLoade
         },
         options: {},
       }),
-
-    harness: Effect.fnUntraced(function* (input: any) {
-      const env = yield* dep.env()
-      const config = yield* dep.config()
-      const hasKey = yield* Effect.gen(function* () {
-        if (input.env.some((item: string) => env[item])) return true
-        if (yield* dep.auth(input.id)) return true
-        if (config.provider?.["harness"]?.options?.apiKey) return true
-        return false
-      })
-
-      const options: Record<string, string> = {}
-      if (env.HARNESS_ORG_ID) {
-        options.harnessOrganizationId = env.HARNESS_ORG_ID
-      }
-      if (config.hide_prompt_training_models === true) {
-        options.dataCollection = "deny"
-      }
-      if (!hasKey) {
-        options.apiKey = "anonymous"
-      }
-
-      return {
-        autoload: Object.keys(input.models).length > 0,
-        options,
-        async getModel(sdk: HarnessProvider, modelID: string) {
-          const provider = input.models[modelID]?.ai_sdk_provider
-          if (provider === "anthropic") return sdk.anthropic(modelID)
-          if (provider === "openai") return sdk.openai(modelID)
-          if (provider === "openai-compatible") return sdk.openaiCompatible(modelID)
-          return sdk.languageModel(modelID)
-        },
-      }
-    }),
 
     // Override opencode to prevent auto-connecting without credentials
     opencode: () =>
@@ -287,33 +219,6 @@ export function patchCustomLoaderResult(
     // gitlab User-Agent and cloudflare error message are patched inline
     // in provider.ts with single-line harness_change markers
   }
-}
-
-// ---------------------------------------------------------------------------
-// getSmallModel helpers
-// ---------------------------------------------------------------------------
-
-export function harnessSmallModelPriority(providerID: string): string[] | undefined {
-  if (providerID.startsWith("harness")) return ["harness-auto/small"]
-  return undefined
-}
-
-/**
- * True when the user has harness credentials: a HARNESS_API_KEY env var, a stored
- * auth entry, or an apiKey in the harness provider config. Mirrors the hasKey
- * check in the harness custom loader. The harness provider is autoloaded with an
- * anonymous key even without credentials, so this gates the cloud
- * harness-auto/small fallback to users who can actually reach it.
- */
-export function hasHarnessCredentials(
-  cfg: { provider?: Record<string, { options?: { apiKey?: string } } | null> },
-  auth: unknown,
-  env: Record<string, string | undefined>,
-) {
-  if (env.HARNESS_API_KEY) return true
-  if (auth) return true
-  if (cfg.provider?.["harness"]?.options?.apiKey) return true
-  return false
 }
 
 // ---------------------------------------------------------------------------

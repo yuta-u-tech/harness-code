@@ -1316,7 +1316,6 @@ describe("Shared webview provider shell", () => {
       "ConfigProvider",
       "DisplayProvider",
       "IndexingProvider",
-      "HarnessEmbeddingModelsProvider",
       "ImageModelsProvider",
       "SessionProvider",
       "MemoryProvider",

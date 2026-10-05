@@ -514,10 +514,6 @@ export interface RequestChatSettingsMessage {
   type: "requestChatSettings"
 }
 
-export interface RequestHarnessEmbeddingModelsMessage {
-  type: "requestHarnessEmbeddingModels"
-}
-
 export interface RequestImageModelsMessage {
   type: "requestImageModels"
 }
@@ -1624,7 +1620,6 @@ export type WebviewMessage =
   | RequestIndexingSettingsMessage
   | SetIndexingConsentMessage
   | RequestChatSettingsMessage
-  | RequestHarnessEmbeddingModelsMessage
   | UpdateConfigMessage
   | OpenSettingsTabRequest
   | RequestNotificationSettingsMessage

@@ -1,24 +1,20 @@
 /** Vscode-free presence state for the Agent Manager.
  *
- * Owns the displayed session id and the open-tab session set. Both are gated
- * on panel visibility: when the panel is hidden (retainContextWhenHidden
- * keeps the webview alive), flush() clears both registrations so the retained
- * webview's reactive updates cannot keep stale sessions attached or visible.
- * When the panel returns, flush() re-registers from stored state. */
+ * Owns the displayed session id. It is gated on panel visibility: when the
+ * panel is hidden (retainContextWhenHidden keeps the webview alive), flush()
+ * clears the registration so the retained webview's reactive updates cannot
+ * keep a stale session visible. When the panel returns, flush() re-registers
+ * from stored state. */
 
 type Register = (ids: string[]) => void
 
-type PresenceMessage =
-  | { type: "agentManager.openSessions"; sessionIDs: string[] }
-  | { type: "agentManager.visibleSession"; sessionID: string | null }
+type PresenceMessage = { type: "agentManager.visibleSession"; sessionID: string | null }
 
 export class AgentManagerVisiblePresence {
   private id: string | null = null
-  private open: string[] = []
   constructor(
     private readonly register: Register,
     private readonly panelVisible: () => boolean,
-    private readonly registerAttached: Register,
   ) {}
 
   setDisplayed(id: string | null): void {
@@ -27,25 +23,16 @@ export class AgentManagerVisiblePresence {
   }
 
   flush(): void {
-    if (this.panelVisible()) {
-      this.register(this.id ? [this.id] : [])
-      this.registerAttached(this.open)
-    } else {
-      this.register([])
-      this.registerAttached([])
-    }
+    this.register(this.panelVisible() && this.id ? [this.id] : [])
   }
 
   handle(m: PresenceMessage): void {
-    if (m.type === "agentManager.openSessions") this.open = m.sessionIDs
-    else this.id = m.sessionID
+    this.id = m.sessionID
     this.flush()
   }
 
   clear(): void {
     this.id = null
-    this.open = []
     this.register([])
-    this.registerAttached([])
   }
 }

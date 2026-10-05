@@ -17,13 +17,8 @@ import CustomProviderDialog from "./CustomProviderDialog"
 import ProviderConnectDialog from "./ProviderConnectDialog"
 import ProviderSelectDialog from "./ProviderSelectDialog"
 import { isPopularProvider, providerIcon, providerNoteKey, sortProviders } from "./provider-catalog"
-import {
-  canChangeProviderKey,
-  disabledProviderOptions,
-  providersWithHarnessFallback,
-  visibleConnectedIds,
-} from "./provider-visibility"
-import { isCustomProviderPackage, HARNESS_PROVIDER_ID } from "../../../../src/shared/provider-model"
+import { canChangeProviderKey, disabledProviderOptions } from "./provider-visibility"
+import { isCustomProviderPackage } from "../../../../src/shared/provider-model"
 import { createProviderAction } from "../../utils/provider-action"
 
 type ProviderSource = "env" | "api" | "config" | "custom"
@@ -40,12 +35,10 @@ const ProvidersTab: Component = () => {
 
   onCleanup(action.dispose)
 
-
   const connectedProviders = createMemo(() => {
-    const ids = visibleConnectedIds(provider.connected(), provider.authStates())
     const all = provider.providers()
-    return ids
-      .filter((id) => id !== HARNESS_PROVIDER_ID)
+    return provider
+      .connected()
       .map((id) => all[id])
       .filter((item): item is Provider => !!item)
   })
@@ -55,16 +48,13 @@ const ProvidersTab: Component = () => {
     const disabled = new Set(config().disabled_providers ?? [])
     const all = Object.values(provider.providers())
     return sortProviders(
-      all.filter(
-        (item) =>
-          item.id !== HARNESS_PROVIDER_ID && isPopularProvider(item) && !connected.has(item.id) && !disabled.has(item.id),
-      ),
+      all.filter((item) => isPopularProvider(item) && !connected.has(item.id) && !disabled.has(item.id)),
     )
   })
 
   const disabledProviders = createMemo(() => config().disabled_providers ?? [])
   const disabledIds = createMemo(() => new Set(disabledProviders()))
-  const providers = createMemo(() => providersWithHarnessFallback(provider.providers()))
+  const providers = createMemo(() => provider.providers())
   const disabledOptions = createMemo(() => disabledProviderOptions(providers(), disabledProviders()))
 
   function source(item: Provider): ProviderSource | undefined {

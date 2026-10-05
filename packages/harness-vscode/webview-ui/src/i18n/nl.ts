@@ -104,7 +104,6 @@ export const dict = {
   "dialog.provider.search.placeholder": "Providers zoeken",
   "dialog.provider.empty": "Geen providers gevonden",
   "dialog.provider.group.other": "Overige",
-  "dialog.provider.tag.recommended": "Aanbevolen",
 
   "dialog.model.select.title": "Model selecteren",
   "dialog.model.search.placeholder": "Modellen zoeken",
@@ -162,7 +161,6 @@ export const dict = {
 
   "model.tag.free": "Gratis",
   "model.tag.dataCollected": "Gegevens kunnen worden gebruikt voor training",
-  "model.group.auto": "Automatische modellen",
   "model.group.recommended": "Aanbevolen",
   "model.group.favorites": "Favorieten",
   "model.group.mostUsed": "Meest gebruikt",
@@ -175,7 +173,6 @@ export const dict = {
   "model.preview.label.average": "Gesch. gem. kosten",
   "model.preview.label.context": "Context",
   "model.preview.group.terminalBench": "Terminal Bench 2.0",
-  "model.preview.group.autoEfficientChoices": "Modelkeuzes",
   "model.preview.label.completion": "Voltooiing",
   "model.preview.label.costAttempt": "Kosten / poging",
   "model.preview.value.notSupported": "Niet ondersteund",

@@ -150,7 +150,6 @@ export class AgentManagerProvider implements Disposable {
   private visiblePresence = new AgentManagerVisiblePresence(
     (ids) => this.connectionService.registerVisible("agent-manager", ids),
     () => this.panel?.visible ?? false,
-    (ids) => this.connectionService.registerAttached("agent-manager", ids),
   )
   constructor(
     private readonly host: Host,
@@ -719,8 +718,9 @@ export class AgentManagerProvider implements Disposable {
 
     if (m.type === "agentManager.openSessions") {
       for (const id of m.sessionIDs) this.panelSessions.add(id)
+      return null
     }
-    if (m.type === "agentManager.openSessions" || m.type === "agentManager.visibleSession") {
+    if (m.type === "agentManager.visibleSession") {
       this.visiblePresence.handle(m)
       return null
     }

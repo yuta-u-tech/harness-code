@@ -27,12 +27,10 @@ import { InstanceStore } from "@/project/instance-store"
 import { Project } from "@/project/project"
 import { Vcs } from "@/project/vcs"
 import { ProviderAuth } from "@/provider/auth"
-import { ModelCache } from "@/provider/model-cache"
 import { Provider } from "@/provider/provider"
 import { Question } from "@/question"
 import { Notebook } from "@/harness/notebook/service"
 import { AgentManager } from "@/harness/agent-manager/service"
-import { HarnessViewers } from "@/harness/presence/service"
 import { SessionCompaction } from "@/session/compaction"
 import { Instruction } from "@/session/instruction"
 import { LLM } from "@/session/llm"
@@ -241,7 +239,6 @@ const app = LayerNode.group([
   Snapshot.node,
   Plugin.node,
   ModelsDev.node,
-  ModelCache.node,
   Provider.node,
   ProviderAuth.node,
   Agent.node,
@@ -311,7 +308,6 @@ export function createRoutes(
       MemoryService.layer,
       AgentManager.defaultLayer,
       Notebook.defaultLayer,
-      HarnessViewers.defaultLayer,
       SyncEvent.defaultLayer,
       AppNodeBuilderV1.build(MoveSession.node, [[LocationServiceMap.node, locationServiceMapV2]]),
       AppNodeBuilderV1.build(EffectFlock.node),

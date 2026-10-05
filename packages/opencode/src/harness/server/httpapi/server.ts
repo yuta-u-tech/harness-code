@@ -9,7 +9,6 @@ import * as AnacondaDesktop from "@/harness/anaconda-desktop/service"
 import { EffectFlock } from "@opencode-ai/core/util/effect-flock"
 import { AppNodeBuilderV1 } from "@/effect/app-node-builder-v1"
 
-import { HarnessViewers } from "@/harness/presence/service"
 import { agentBuilderHandlers } from "./handlers/agent-builder"
 import { anacondaDesktopHandlers } from "./handlers/anaconda-desktop"
 import { backgroundProcessHandlers } from "./handlers/background-process"
@@ -20,7 +19,6 @@ import { configConsoleHandlers } from "./handlers/config-console"
 import { enhancePromptHandlers } from "./handlers/enhance-prompt"
 import { indexingHandlers } from "./handlers/indexing"
 import { instanceReloadHandlers } from "./handlers/instance-reload"
-import { harnessGatewayHandlers } from "./handlers/harness-gateway"
 import { harnessHandlers } from "./handlers/harness"
 import { memoryHandlers } from "./handlers/memory"
 import { migrateHandlers } from "./handlers/migrate"
@@ -41,7 +39,6 @@ export const provide = Layer.provide([
   enhancePromptHandlers,
   indexingHandlers,
   instanceReloadHandlers,
-  harnessGatewayHandlers,
   harnessHandlers,
   memoryHandlers,
   migrateHandlers,
@@ -66,7 +63,6 @@ export function provideListener(opts?: CorsOptions) {
     corsVaryFix,
     fenceLayer,
     cors,
-    HarnessViewers.defaultLayer,
     AppNodeBuilderV1.build(EffectFlock.node),
     FetchHttpClient.layer,
     HttpServer.layerServices,

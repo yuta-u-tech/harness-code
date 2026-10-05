@@ -99,7 +99,6 @@ export const dict = {
   "dialog.provider.search.placeholder": "搜尋供應商",
   "dialog.provider.empty": "找不到供應商",
   "dialog.provider.group.other": "其他",
-  "dialog.provider.tag.recommended": "推薦",
 
   "dialog.model.select.title": "選擇模型",
   "dialog.model.search.placeholder": "搜尋模型",
@@ -155,7 +154,6 @@ export const dict = {
   "provider.disconnect.toast.disconnected.description": "{{provider}} 模型已不再可用。",
   "model.tag.free": "免費",
   "model.tag.dataCollected": "資料可能會用於訓練",
-  "model.group.auto": "自動模型",
   "model.group.recommended": "推薦",
   "model.group.favorites": "我的最愛",
   "model.group.mostUsed": "最常用",
@@ -169,7 +167,6 @@ export const dict = {
   "model.preview.label.average": "預估平均成本",
   "model.preview.label.context": "上下文",
   "model.preview.group.terminalBench": "Terminal Bench 2.0",
-  "model.preview.group.autoEfficientChoices": "模型選擇",
   "model.preview.label.completion": "完成率",
   "model.preview.label.costAttempt": "成本 / 次嘗試",
   "model.preview.value.notSupported": "不支援",

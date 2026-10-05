@@ -1211,7 +1211,6 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
-    "@harness/harness-gateway": "workspace:*",
     "@harness/harness-i18n": "workspace:*",
     "@harness/harness-indexing": "workspace:*",
     "@harness/harness-memory": "workspace:*",

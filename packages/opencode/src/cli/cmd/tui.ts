@@ -118,10 +118,6 @@ export const TuiThreadCommand = cmd({
         type: "boolean",
         describe: "fork the session when continuing (use with --continue or --session)",
       })
-      .option("cloud-fork", {
-        type: "boolean",
-        describe: "fetch session from cloud and continue locally (use with --session)",
-      })
       .option("worktree", {
         type: "string",
         describe: "create (or reuse) a git worktree with this name and start harness there",
@@ -216,7 +212,6 @@ export const TuiThreadCommand = cmd({
     }
 
     // don't pay their module cost at startup
-    const { importCloudSession, localSessionID, validateCloudFork, reportCloudImportError } = await import("@/harness/cloud-session")
     const { HarnessTuiThreadDaemon } = await import("@/harness/cli/cmd/tui/thread")
     const { preload } = await import("@/harness/cli/cmd/tui")
     const { resolveTuiDirectory } = await import("@/harness/cli/cmd/tui-worktree")
@@ -228,12 +223,6 @@ export const TuiThreadCommand = cmd({
     try {
       if (args.fork && !args.continue && !args.session) {
         UI.error("--fork requires --continue or --session")
-        process.exitCode = 1
-        return
-      }
-      const cloudForkError = validateCloudFork(args)
-      if (cloudForkError) {
-        UI.error(cloudForkError)
         process.exitCode = 1
         return
       }
@@ -374,36 +363,15 @@ export const TuiThreadCommand = cmd({
             events: createEventSource(client),
           }
 
-      // the import below; the guarded validateSession further down covers both paths.
       setTimeout(() => {
         client.call("checkUpgrade", { directory: cwd }).catch((err) => console.error("Upgrade check failed", err))
       }, 1000).unref?.()
 
       try {
-        if (args.cloudFork && args.session) {
-          UI.println("Importing session from cloud...")
-          const { createHarnessClient } = await import("@harness/sdk/v2")
-          const sdk = createHarnessClient({
-            baseUrl: transport.url,
-            fetch: transport.fetch,
-            headers: transport.headers,
-            directory: cwd,
-          })
-          try {
-            const id = await importCloudSession(sdk, args.session)
-            args.session = id
-            args.cloudFork = false
-          } catch (err) {
-            reportCloudImportError(err)
-            shutdownAndExit({ reason: "cloud-fork-failed", code: 1 })
-            return
-          }
-        }
-
         try {
           await validateSession({
             url: transport.url,
-            sessionID: localSessionID(args),
+            sessionID: args.session,
             directory: cwd,
             fetch: transport.fetch,
             headers: transport.headers,

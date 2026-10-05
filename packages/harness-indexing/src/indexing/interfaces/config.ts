@@ -14,7 +14,6 @@ export interface CodeIndexConfig {
   lancedbVectorStoreDirectoryPlaceholder?: string
   modelId?: string
   modelDimension?: number
-  harnessOptions?: { apiKey: string; baseUrl?: string; organizationId?: string }
   openAiOptions?: { apiKey: string }
   ollamaOptions?: { baseUrl: string; modelId?: string }
   openAiCompatibleOptions?: { baseUrl: string; apiKey?: string }
@@ -41,9 +40,6 @@ export type PreviousConfigSnapshot = {
   lancedbVectorStoreDirectory?: string
   modelId?: string
   modelDimension?: number
-  harnessApiKey?: string
-  harnessBaseUrl?: string
-  harnessOrganizationId?: string
   openAiKey?: string
   ollamaBaseUrl?: string
   openAiCompatibleBaseUrl?: string

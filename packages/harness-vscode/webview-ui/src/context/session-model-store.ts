@@ -23,9 +23,6 @@ export interface ModelStore {
 export interface ResolveEnv {
   providers: Record<string, Provider>
   connected: string[]
-  ready?: boolean
-  organizationId?: string | null
-  defaults?: Record<string, string>
   fallback: ModelSelection | null
   getModeModel: (agentName: string) => ModelSelection | null
   getGlobalModel: () => ModelSelection | null
@@ -42,9 +39,6 @@ function resolveModel(
   return resolveModelSelection({
     providers: env.providers,
     connected: env.connected,
-    ready: env.ready,
-    organizationId: env.organizationId,
-    defaults: env.defaults,
     session,
     preferred: preferred && { providerID: preferred.providerID, modelID: preferred.modelID },
     override,
@@ -81,7 +75,7 @@ export function getSelected(
   sessionID: string | undefined,
   agentName: string,
 ): ModelSelection | null {
-  const override = env.organizationId && !store.userSetAgents?.[agentName] ? null : store.modelSelections[agentName]
+  const override = store.modelSelections[agentName]
   return resolveModel(
     env,
     agentName,
@@ -99,7 +93,7 @@ export function getAgentModel(
   agentName: string,
   userSet = store.userSetAgents?.[agentName] === true,
 ): ModelSelection | null {
-  const override = env.organizationId && !userSet ? null : store.modelSelections[agentName]
+  const override = store.modelSelections[agentName]
   return resolveModel(env, agentName, override, store.recentModels, undefined, store.preferred)
 }
 

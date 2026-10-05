@@ -16,7 +16,7 @@ Options:
       --mdns         enable mDNS service discovery (defaults hostname to 0.0.0.0)
                                                                           [boolean] [default: false]
       --mdns-domain  custom domain name for mDNS service (default: harness.local)
-                                                                [string] [default: "harness.local"]
+                                                             [string] [default: "harness.local"]
       --cors         additional domains to allow for CORS                      [array] [default: []]
       --cwd          working directory [string] [default: "<HOME>"]
 "
@@ -29,7 +29,7 @@ manage MCP (Model Context Protocol) servers
 
 Commands:
   harness mcp add [name]     add an MCP server
-  harness mcp list           list MCP servers and their status                        [aliases: ls]
+  harness mcp list           list MCP servers and their status                     [aliases: ls]
   harness mcp auth [name]    authenticate with an OAuth-enabled MCP server
   harness mcp logout [name]  remove OAuth credentials for an MCP server
   harness mcp debug <name>   debug OAuth connection for an MCP server
@@ -61,9 +61,8 @@ Options:
   -c, --continue      continue the last session                                            [boolean]
   -s, --session       session id to continue                                                [string]
       --fork          fork the session when continuing (use with --continue or --session)  [boolean]
-      --cloud-fork    fetch session from cloud and continue locally (use with --session)   [boolean]
-  -p, --password      basic auth password (defaults to HARNESS_SERVER_PASSWORD)                [string]
-  -u, --username      basic auth username (defaults to HARNESS_SERVER_USERNAME or 'harness')      [string]
+  -p, --password      basic auth password (defaults to HARNESS_SERVER_PASSWORD)             [string]
+  -u, --username      basic auth username (defaults to HARNESS_SERVER_USERNAME or 'harness')[string]
       --mini          start the minimal interactive interface             [boolean] [default: false]
       --no-replay     disable mini session history replay on resume and after resize       [boolean]
       --replay-limit  cap visible mini replay to the newest N messages                      [number]
@@ -88,17 +87,15 @@ Options:
   -c, --continue     continue the last session                                             [boolean]
   -s, --session      session id to continue                                                 [string]
       --fork         fork the session before continuing (requires --continue or --session) [boolean]
-      --cloud-fork   fetch session from cloud and continue locally (use with --session)    [boolean]
-      --share        share the session                                                     [boolean]
   -m, --model        model to use in the format of provider/model                           [string]
       --agent        agent to use                                                           [string]
       --format       format: default (formatted) or json (raw JSON events)
                                           [string] [choices: "default", "json"] [default: "default"]
   -f, --file         file(s) to attach to message                                            [array]
       --title        title for the session (uses truncated prompt if no value provided)     [string]
-      --attach       attach to a running harness server (e.g., http://localhost:4096)          [string]
-  -p, --password     basic auth password (defaults to HARNESS_SERVER_PASSWORD)                 [string]
-  -u, --username     basic auth username (defaults to HARNESS_SERVER_USERNAME or 'harness')       [string]
+      --attach       attach to a running harness server (e.g., http://localhost:4096)       [string]
+  -p, --password     basic auth password (defaults to HARNESS_SERVER_PASSWORD)              [string]
+  -u, --username     basic auth username (defaults to HARNESS_SERVER_USERNAME or 'harness') [string]
       --dir          directory to run in, path on remote server if attaching                [string]
       --port         port for the local server (defaults to random port if no value provided)
                                                                                             [number]
@@ -146,7 +143,7 @@ exports[`Harness CLI help-text snapshots every documented command emits stable h
 manage AI providers and credentials
 
 Commands:
-  harness providers list               list providers and credentials                 [aliases: ls]
+  harness providers list               list providers and credentials              [aliases: ls]
   harness providers login [url]        log in to a provider
   harness providers logout [provider]  log out from a configured provider
 
@@ -230,7 +227,7 @@ Options:
       --mdns         enable mDNS service discovery (defaults hostname to 0.0.0.0)
                                                                           [boolean] [default: false]
       --mdns-domain  custom domain name for mDNS service (default: harness.local)
-                                                                [string] [default: "harness.local"]
+                                                             [string] [default: "harness.local"]
       --cors         additional domains to allow for CORS                      [array] [default: []]
 "
 `;
@@ -294,10 +291,10 @@ Options:
 exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness import --help 1`] = `
 "harness import <file>
 
-import session data from JSON file or URL
+import session data from a JSON file
 
 Positionals:
-  file  path to JSON file or share URL                                           [string] [required]
+  file  path to JSON file                                                        [string] [required]
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -309,20 +306,63 @@ Options:
 `;
 
 exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness github --help 1`] = `
-"harness github
+"harness completion          generate shell completion script
+  harness acp                 start ACP (Agent Client Protocol) server
+  harness mcp                 manage MCP (Model Context Protocol) servers
+  harness [project]           start harness tui                                            [default]
+  harness attach <url>        attach to a running harness server
+  harness run [message..]     run harness with a message
+  harness debug               debugging and troubleshooting tools
+  harness auth                manage AI providers and credentials               [aliases: providers]
+  harness agent               manage agents
+  harness upgrade [target]    upgrade harness to the latest or a specific version
+  harness uninstall           uninstall harness and remove all related files
+  harness serve               starts a headless harness server
+  harness models [provider]   list all available models
+  harness stats               show token usage and cost statistics
+  harness export [sessionID]  export session data as JSON
+  harness import <file>       import session data from a JSON file
+  harness pr                  manage pull requests
+  harness session             manage sessions
+  harness plugin <module>     install plugin and update config                       [aliases: plug]
+  harness db                  database tools
+  harness console             open or stop the local Harness Console (deprecated)
+  harness roll-call <filter>  batch-test text models matching a filter for connectivity and latency
+  harness daemon              manage the local harness daemon
+  harness config              configuration tools
+  harness worktree            manage git worktrees
+  harness dev-setup           install a \`harnessdev\` shell alias for this checkout
+  harness help [command]      show full CLI reference
 
-manage GitHub agent
-
-Commands:
-  harness github install  install the GitHub agent
-  harness github run      run the GitHub agent
+Positionals:
+  project  path to start harness in                                                         [string]
 
 Options:
-  -h, --help        show help                                                              [boolean]
-  -v, --version     show version number                                                    [boolean]
-      --print-logs  print logs to stderr                                                   [boolean]
-      --log-level   log level                   [string] [choices: "DEBUG", "INFO", "WARN", "ERROR"]
-      --pure        run without external plugins                                           [boolean]
+  -h, --help          show help                                                            [boolean]
+  -v, --version       show version number                                                  [boolean]
+      --print-logs    print logs to stderr                                                 [boolean]
+      --log-level     log level                 [string] [choices: "DEBUG", "INFO", "WARN", "ERROR"]
+      --pure          run without external plugins                                         [boolean]
+      --port          port to listen on                                        [number] [default: 0]
+      --hostname      hostname to listen on                          [string] [default: "127.0.0.1"]
+      --mdns          enable mDNS service discovery (defaults hostname to 0.0.0.0)
+                                                                          [boolean] [default: false]
+      --mdns-domain   custom domain name for mDNS service (default: harness.local)
+                                                             [string] [default: "harness.local"]
+      --cors          additional domains to allow for CORS                     [array] [default: []]
+  -m, --model         model to use in the format of provider/model                          [string]
+  -c, --continue      continue the last session                                            [boolean]
+  -s, --session       session id to continue                                                [string]
+      --fork          fork the session when continuing (use with --continue or --session)  [boolean]
+      --worktree      create (or reuse) a git worktree with this name and start harness there
+                                                                                            [string]
+      --prompt        prompt to use                                                         [string]
+      --agent         agent to use                                                          [string]
+      --auto          auto-approve permissions that are not explicitly denied (dangerous!)
+                                                                          [boolean] [default: false]
+      --mini          start the minimal interactive interface             [boolean] [default: false]
+      --no-replay     disable mini session history replay on resume and after resize       [boolean]
+      --replay-limit  cap visible mini replay to the newest N messages                      [number]
 "
 `;
 
@@ -389,7 +429,7 @@ exports[`Harness CLI help-text snapshots every documented command emits stable h
 database tools
 
 Commands:
-  harness db [query]     open an interactive sqlite3 shell or run a query                     [default]
+  harness db [query]     open an interactive sqlite3 shell or run a query                  [default]
   harness db path        print the database path
 
 Positionals:
@@ -445,7 +485,7 @@ exports[`Harness CLI help-text snapshots every documented command emits stable h
 authenticate with an OAuth-enabled MCP server
 
 Commands:
-  harness mcp auth list  list OAuth-capable MCP servers and their auth status         [aliases: ls]
+  harness mcp auth list  list OAuth-capable MCP servers and their auth status      [aliases: ls]
 
 Positionals:
   name  name of the MCP server                                                              [string]
@@ -496,7 +536,7 @@ exports[`Harness CLI help-text snapshots every documented command emits stable h
 log in to a provider
 
 Positionals:
-  url  harness auth provider                                                                   [string]
+  url  harness auth provider                                                                [string]
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -597,32 +637,124 @@ Options:
 `;
 
 exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness github install --help 1`] = `
-"harness github install
+"harness completion          generate shell completion script
+  harness acp                 start ACP (Agent Client Protocol) server
+  harness mcp                 manage MCP (Model Context Protocol) servers
+  harness [project]           start harness tui                                            [default]
+  harness attach <url>        attach to a running harness server
+  harness run [message..]     run harness with a message
+  harness debug               debugging and troubleshooting tools
+  harness auth                manage AI providers and credentials               [aliases: providers]
+  harness agent               manage agents
+  harness upgrade [target]    upgrade harness to the latest or a specific version
+  harness uninstall           uninstall harness and remove all related files
+  harness serve               starts a headless harness server
+  harness models [provider]   list all available models
+  harness stats               show token usage and cost statistics
+  harness export [sessionID]  export session data as JSON
+  harness import <file>       import session data from a JSON file
+  harness pr                  manage pull requests
+  harness session             manage sessions
+  harness plugin <module>     install plugin and update config                       [aliases: plug]
+  harness db                  database tools
+  harness console             open or stop the local Harness Console (deprecated)
+  harness roll-call <filter>  batch-test text models matching a filter for connectivity and latency
+  harness daemon              manage the local harness daemon
+  harness config              configuration tools
+  harness worktree            manage git worktrees
+  harness dev-setup           install a \`harnessdev\` shell alias for this checkout
+  harness help [command]      show full CLI reference
 
-install the GitHub agent
+Positionals:
+  project  path to start harness in                                                         [string]
 
 Options:
-  -h, --help        show help                                                              [boolean]
-  -v, --version     show version number                                                    [boolean]
-      --print-logs  print logs to stderr                                                   [boolean]
-      --log-level   log level                   [string] [choices: "DEBUG", "INFO", "WARN", "ERROR"]
-      --pure        run without external plugins                                           [boolean]
+  -h, --help          show help                                                            [boolean]
+  -v, --version       show version number                                                  [boolean]
+      --print-logs    print logs to stderr                                                 [boolean]
+      --log-level     log level                 [string] [choices: "DEBUG", "INFO", "WARN", "ERROR"]
+      --pure          run without external plugins                                         [boolean]
+      --port          port to listen on                                        [number] [default: 0]
+      --hostname      hostname to listen on                          [string] [default: "127.0.0.1"]
+      --mdns          enable mDNS service discovery (defaults hostname to 0.0.0.0)
+                                                                          [boolean] [default: false]
+      --mdns-domain   custom domain name for mDNS service (default: harness.local)
+                                                             [string] [default: "harness.local"]
+      --cors          additional domains to allow for CORS                     [array] [default: []]
+  -m, --model         model to use in the format of provider/model                          [string]
+  -c, --continue      continue the last session                                            [boolean]
+  -s, --session       session id to continue                                                [string]
+      --fork          fork the session when continuing (use with --continue or --session)  [boolean]
+      --worktree      create (or reuse) a git worktree with this name and start harness there
+                                                                                            [string]
+      --prompt        prompt to use                                                         [string]
+      --agent         agent to use                                                          [string]
+      --auto          auto-approve permissions that are not explicitly denied (dangerous!)
+                                                                          [boolean] [default: false]
+      --mini          start the minimal interactive interface             [boolean] [default: false]
+      --no-replay     disable mini session history replay on resume and after resize       [boolean]
+      --replay-limit  cap visible mini replay to the newest N messages                      [number]
 "
 `;
 
 exports[`Harness CLI help-text snapshots every documented command emits stable help text: harness github run --help 1`] = `
-"harness github run
+"harness completion          generate shell completion script
+  harness acp                 start ACP (Agent Client Protocol) server
+  harness mcp                 manage MCP (Model Context Protocol) servers
+  harness [project]           start harness tui                                            [default]
+  harness attach <url>        attach to a running harness server
+  harness run [message..]     run harness with a message
+  harness debug               debugging and troubleshooting tools
+  harness auth                manage AI providers and credentials               [aliases: providers]
+  harness agent               manage agents
+  harness upgrade [target]    upgrade harness to the latest or a specific version
+  harness uninstall           uninstall harness and remove all related files
+  harness serve               starts a headless harness server
+  harness models [provider]   list all available models
+  harness stats               show token usage and cost statistics
+  harness export [sessionID]  export session data as JSON
+  harness import <file>       import session data from a JSON file
+  harness pr                  manage pull requests
+  harness session             manage sessions
+  harness plugin <module>     install plugin and update config                       [aliases: plug]
+  harness db                  database tools
+  harness console             open or stop the local Harness Console (deprecated)
+  harness roll-call <filter>  batch-test text models matching a filter for connectivity and latency
+  harness daemon              manage the local harness daemon
+  harness config              configuration tools
+  harness worktree            manage git worktrees
+  harness dev-setup           install a \`harnessdev\` shell alias for this checkout
+  harness help [command]      show full CLI reference
 
-run the GitHub agent
+Positionals:
+  project  path to start harness in                                                         [string]
 
 Options:
-  -h, --help        show help                                                              [boolean]
-  -v, --version     show version number                                                    [boolean]
-      --print-logs  print logs to stderr                                                   [boolean]
-      --log-level   log level                   [string] [choices: "DEBUG", "INFO", "WARN", "ERROR"]
-      --pure        run without external plugins                                           [boolean]
-      --event       GitHub mock event to run the agent for                                  [string]
-      --token       GitHub personal access token (github_pat_********)                      [string]
+  -h, --help          show help                                                            [boolean]
+  -v, --version       show version number                                                  [boolean]
+      --print-logs    print logs to stderr                                                 [boolean]
+      --log-level     log level                 [string] [choices: "DEBUG", "INFO", "WARN", "ERROR"]
+      --pure          run without external plugins                                         [boolean]
+      --port          port to listen on                                        [number] [default: 0]
+      --hostname      hostname to listen on                          [string] [default: "127.0.0.1"]
+      --mdns          enable mDNS service discovery (defaults hostname to 0.0.0.0)
+                                                                          [boolean] [default: false]
+      --mdns-domain   custom domain name for mDNS service (default: harness.local)
+                                                             [string] [default: "harness.local"]
+      --cors          additional domains to allow for CORS                     [array] [default: []]
+  -m, --model         model to use in the format of provider/model                          [string]
+  -c, --continue      continue the last session                                            [boolean]
+  -s, --session       session id to continue                                                [string]
+      --fork          fork the session when continuing (use with --continue or --session)  [boolean]
+      --worktree      create (or reuse) a git worktree with this name and start harness there
+                                                                                            [string]
+      --prompt        prompt to use                                                         [string]
+      --agent         agent to use                                                          [string]
+      --auto          auto-approve permissions that are not explicitly denied (dangerous!)
+                                                                          [boolean] [default: false]
+      --mini          start the minimal interactive interface             [boolean] [default: false]
+      --no-replay     disable mini session history replay on resume and after resize       [boolean]
+      --replay-limit  cap visible mini replay to the newest N messages                      [number]
 "
 `;
 

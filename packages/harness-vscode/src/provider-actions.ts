@@ -9,7 +9,7 @@ import {
   sanitizeCustomProviderConfig,
   withCustomProviderDeletions,
 } from "./shared/custom-provider"
-import { isCustomProviderPackage, HARNESS_AUTO, HARNESS_PROVIDER_ID, parseModelString } from "./shared/provider-model"
+import { isCustomProviderPackage, parseModelString } from "./shared/provider-model"
 import { configFeatures, serverFeatures } from "./features"
 
 /**
@@ -59,15 +59,10 @@ export async function fetchProviderData(client: HarnessClient, dir: string) {
           .then((r) => r.data ?? {})
           .catch(() => ({}))
       : Promise.resolve({})
-  const harnessRequest = client.gateway
-    .authStatus({ directory: dir }, { throwOnError: true })
-    .then((r) => r.data)
-    .catch(() => undefined)
 
-  const [{ data: response }, authMethods, harnessAuth] = await Promise.all([
+  const [{ data: response }, authMethods] = await Promise.all([
     client.provider.list({ directory: dir }, { throwOnError: true }),
     authRequest,
-    harnessRequest,
   ])
   const authStates: Record<string, AuthState> = {}
   const storedKeys: Record<string, StoredProviderKey> = {}
@@ -88,31 +83,7 @@ export async function fetchProviderData(client: HarnessClient, dir: string) {
     delete next.key
     return next as (typeof response.all)[number]
   })
-  delete authStates[HARNESS_PROVIDER_ID]
-  if (harnessAuth?.authenticated && harnessAuth.type) authStates[HARNESS_PROVIDER_ID] = harnessAuth.type
-  const organizationId = harnessAuth ? (harnessAuth.organizationId ?? null) : undefined
-  const defaults = { ...response.default }
-  if (organizationId) {
-    const models = all.find((item) => item.id === HARNESS_PROVIDER_ID)?.models ?? {}
-    const recommended = response.default[HARNESS_PROVIDER_ID]
-    const model = recommended && Object.hasOwn(models, recommended) ? recommended : Object.keys(models).at(0)
-    if (model) defaults[HARNESS_PROVIDER_ID] = model
-    if (!model) delete defaults[HARNESS_PROVIDER_ID]
-  }
-  if (!harnessAuth) delete defaults[HARNESS_PROVIDER_ID]
-  return {
-    response: {
-      ...response,
-      all: harnessAuth ? all : all.filter((item) => item.id !== HARNESS_PROVIDER_ID),
-      connected: harnessAuth ? response.connected : response.connected.filter((id) => id !== HARNESS_PROVIDER_ID),
-      default: defaults,
-    },
-    authMethods,
-    authStates,
-    storedKeys,
-    organizationId,
-    ready: !!harnessAuth,
-  }
+  return { response: { ...response, all }, authMethods, authStates, storedKeys }
 }
 
 /**
@@ -197,11 +168,11 @@ export function computeDefaultSelection(
   cachedConfig: { config?: { model?: string } } | null,
   vscodePID: string,
   vscodeMID: string,
-): { providerID: string; modelID: string } {
+): { providerID: string; modelID: string } | null {
   const configured = parseModelString(cachedConfig?.config?.model)
   if (configured) return configured
   if (vscodePID && vscodeMID) return { providerID: vscodePID, modelID: vscodeMID }
-  return { ...HARNESS_AUTO }
+  return null
 }
 
 type PostMessage = (message: unknown) => void

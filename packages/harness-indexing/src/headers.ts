@@ -1,6 +1,7 @@
-import { getDefaultHeaders } from "@harness/harness-gateway"
-
 /**
- * Default headers for HarnessCode requests
+ * Default headers for Harness Code requests
  */
-export const DEFAULT_HEADERS = getDefaultHeaders()
+export const DEFAULT_HEADERS: Record<string, string> = {
+  "X-Title": "Harness Code",
+  "Content-Type": "application/json",
+}

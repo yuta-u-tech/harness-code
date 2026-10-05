@@ -3,21 +3,18 @@ import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/unstab
 import * as path from "path"
 import { readFile } from "fs/promises"
 import * as Tool from "../../tool/tool"
-import * as Auth from "../../auth"
 import { FSUtil } from "@opencode-ai/core/fs-util"
 import { InstanceState } from "@/effect/instance-state"
 import * as Log from "@opencode-ai/core/util/log"
 import { assertExternalDirectoryEffect } from "../../tool/external-directory"
 import { Config } from "@/config/config"
-import { HARNESS_OPENROUTER_BASE } from "@harness/harness-gateway"
 import DESCRIPTION from "./generate-image.txt"
 
 const log = Log.create({ service: "tool.generate_image" })
 
-const HARNESS_OPENROUTER_URL = `${HARNESS_OPENROUTER_BASE}/chat/completions`
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
-/** Fallback catalog used when the gateway is unreachable or the user is offline. */
+/** Image models offered to the tool. */
 export const FALLBACK_IMAGE_MODELS = [
   { value: "openrouter/auto", label: "Auto Router" },
   { value: "google/gemini-2.5-flash-image", label: "Gemini 2.5 Flash Image" },
@@ -53,37 +50,15 @@ export function parseImageResponse(body: string): { format: ImageFormat; base64:
   return { format, base64: m[2] }
 }
 
-export type AuthInput = {
-  type: "oauth" | "api"
-  access?: string
-  key?: string
-  accountId?: string
-}
-
 export type ResolvedProvider = {
   url: string
   token: string
-  provider: "harness" | "openrouter"
-  organizationId?: string
+  provider: "openrouter"
 }
 
-export function resolveProvider(
-  auth: AuthInput | undefined,
-  openRouterKey: string | undefined,
-): ResolvedProvider | null {
-  const token = auth?.type === "oauth" ? auth.access : auth?.type === "api" ? auth.key : undefined
-  if (token) {
-    return {
-      url: HARNESS_OPENROUTER_URL,
-      token,
-      provider: "harness",
-      ...(auth?.type === "oauth" && auth.accountId ? { organizationId: auth.accountId } : {}),
-    }
-  }
-  if (openRouterKey) {
-    return { url: OPENROUTER_URL, token: openRouterKey, provider: "openrouter" }
-  }
-  return null
+export function resolveProvider(openRouterKey: string | undefined): ResolvedProvider | null {
+  if (!openRouterKey) return null
+  return { url: OPENROUTER_URL, token: openRouterKey, provider: "openrouter" }
 }
 
 export function ensureExtension(relPath: string, format: ImageFormat): string {
@@ -105,7 +80,6 @@ function buildRequest(resolved: ResolvedProvider, prompt: string, model: string,
     Authorization: `Bearer ${resolved.token}`,
     "Content-Type": "application/json",
   }
-  if (resolved.organizationId) headers["X-HARNESS-ORGANIZATIONID"] = resolved.organizationId
 
   const content = inputImage
     ? [
@@ -142,7 +116,7 @@ const Parameters = Schema.Struct({
 type Meta = {
   format?: ImageFormat
   filepath?: string
-  provider?: "harness" | "openrouter"
+  provider?: "openrouter"
   error?: string
 }
 
@@ -150,7 +124,6 @@ export const GenerateImageTool = Tool.define(
   "generate_image",
   Effect.gen(function* () {
     const fs = yield* FSUtil.Service
-    const authSvc = yield* Auth.Service
     const configSvc = yield* Config.Service
     const http = yield* HttpClient.HttpClient
 
@@ -160,21 +133,12 @@ export const GenerateImageTool = Tool.define(
       execute: (params: Schema.Schema.Type<typeof Parameters>, ctx: Tool.Context) =>
         Effect.gen(function* () {
           const instance = yield* InstanceState.context
-          const auth = yield* authSvc.get("harness")
-          const authInput: AuthInput | undefined = auth
-            ? {
-                type: auth.type === "api" ? "api" : "oauth",
-                ...(auth.type === "api" ? { key: auth.key } : {}),
-                ...(auth.type === "oauth" ? { access: auth.access } : {}),
-                ...(auth.type === "oauth" && auth.accountId ? { accountId: auth.accountId } : {}),
-              }
-            : undefined
-          const resolved = resolveProvider(authInput, process.env["OPENROUTER_API_KEY"])
+          const resolved = resolveProvider(process.env["OPENROUTER_API_KEY"])
           if (!resolved) {
             return {
               title: "Image generation unavailable",
               output:
-                "No image generation provider available. Log in to Harness or set OPENROUTER_API_KEY, then try again.",
+                "No image generation provider available. Set OPENROUTER_API_KEY, then try again.",
               metadata: { error: "no-provider" } as Meta,
             }
           }

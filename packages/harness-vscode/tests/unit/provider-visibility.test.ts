@@ -3,8 +3,6 @@ import { describe, expect, it } from "bun:test"
 import {
   canChangeProviderKey,
   disabledProviderOptions,
-  providersWithHarnessFallback,
-  visibleConnectedIds,
 } from "../../webview-ui/src/components/settings/provider-visibility"
 
 describe("canChangeProviderKey", () => {
@@ -24,7 +22,6 @@ describe("canChangeProviderKey", () => {
   it("excludes custom providers and special credential flows", () => {
     expect(canChangeProviderKey(item, { npm: "@ai-sdk/openai-compatible" }, undefined)).toBe(false)
     for (const id of [
-      "harness",
       "anaconda-desktop",
       "atomic-chat",
       "lmstudio",
@@ -60,41 +57,17 @@ describe("canChangeProviderKey", () => {
   })
 })
 
-describe("visibleConnectedIds", () => {
-  it("hides Harness from the connected list when auth is missing", () => {
-    const ids = visibleConnectedIds(["harness", "openrouter"], { openrouter: "api" })
-
-    expect(ids).toEqual(["openrouter"])
-  })
-
-  it("keeps Harness in the connected list when auth exists", () => {
-    const ids = visibleConnectedIds(["harness", "openrouter"], { harness: "oauth", openrouter: "api" })
-
-    expect(ids).toEqual(["harness", "openrouter"])
-  })
-
-  it("leaves non-Harness providers untouched", () => {
-    const ids = visibleConnectedIds(["anthropic"], {})
-
-    expect(ids).toEqual(["anthropic"])
-  })
-})
-
 describe("disabledProviderOptions", () => {
-  it("includes Harness and excludes already disabled providers", () => {
+  it("excludes already disabled providers", () => {
     const options = disabledProviderOptions(
       {
-        harness: { id: "harness", name: "Harness Gateway", env: [], models: {} },
         openai: { id: "openai", name: "OpenAI", env: [], models: {} },
         anthropic: { id: "anthropic", name: "Anthropic", env: [], models: {} },
       },
       ["openai"],
     )
 
-    expect(options).toEqual([
-      { value: "anthropic", label: "Anthropic" },
-      { value: "harness", label: "Harness Gateway" },
-    ])
+    expect(options).toEqual([{ value: "anthropic", label: "Anthropic" }])
   })
 
   it("sorts options by provider name", () => {
@@ -110,24 +83,5 @@ describe("disabledProviderOptions", () => {
       { value: "alpha", label: "Alpha" },
       { value: "zed", label: "Zed" },
     ])
-  })
-})
-
-describe("providersWithHarnessFallback", () => {
-  it("adds Harness when backend providers omit it", () => {
-    const providers = providersWithHarnessFallback({
-      anthropic: { id: "anthropic", name: "Anthropic", env: [], models: {} },
-    })
-
-    expect(providers.harness?.name).toBe("Harness Gateway")
-    expect(providers.anthropic?.name).toBe("Anthropic")
-  })
-
-  it("keeps the backend Harness provider when present", () => {
-    const providers = providersWithHarnessFallback({
-      harness: { id: "harness", name: "Custom Harness Name", env: [], models: {} },
-    })
-
-    expect(providers.harness?.name).toBe("Custom Harness Name")
   })
 })

@@ -57,36 +57,15 @@ describe("generate-image response parser", () => {
 })
 
 describe("generate-image provider resolver", () => {
-  test("uses Harness cloud when Harness auth is present", () => {
-    const result = resolveProvider({ type: "oauth", access: "harness-token", accountId: "org-123" }, undefined)
-    expect(result).not.toBeNull()
-    expect(result!.token).toBe("harness-token")
-    expect(result!.organizationId).toBe("org-123")
-    expect(result!.provider).toBe("harness")
-    expect(result!.url).toContain("openrouter")
-  })
-
-  test("uses Harness cloud with API key auth", () => {
-    const result = resolveProvider({ type: "api", key: "harness-api-key" }, undefined)
-    expect(result!.token).toBe("harness-api-key")
-    expect(result!.provider).toBe("harness")
-  })
-
-  test("falls back to OpenRouter with BYO key when no Harness auth", () => {
-    const result = resolveProvider(undefined, "or-key-123")
+  test("uses OpenRouter with a bring-your-own key", () => {
+    const result = resolveProvider("or-key-123")
     expect(result!.provider).toBe("openrouter")
     expect(result!.token).toBe("or-key-123")
     expect(result!.url).toContain("openrouter.ai")
   })
 
-  test("returns null when no auth source is available", () => {
-    expect(resolveProvider(undefined, undefined)).toBeNull()
-  })
-
-  test("prefers Harness auth over OpenRouter key", () => {
-    const result = resolveProvider({ type: "oauth", access: "harness-token" }, "or-key")
-    expect(result!.provider).toBe("harness")
-    expect(result!.token).toBe("harness-token")
+  test("returns null when no key is available", () => {
+    expect(resolveProvider(undefined)).toBeNull()
   })
 })
 

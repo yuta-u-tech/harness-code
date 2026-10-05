@@ -88,18 +88,6 @@ export const RevertPayload = Schema.Struct(Struct.omit(SessionRevert.RevertInput
 export const PermissionResponsePayload = Schema.Struct({
   response: PermissionV1.Reply,
 })
-const PresenceSessionId = Schema.String.check(Schema.isStartsWith("ses"), Schema.isMaxLength(234)).pipe(
-  Schema.brand("SessionID"),
-)
-export const ViewedPayload = Schema.Struct({
-  viewer: Schema.Struct({
-    id: Schema.String.check(Schema.isUUID()),
-    active: Schema.Boolean,
-  }),
-  attached: Schema.Array(PresenceSessionId).check(Schema.isMaxLength(1000)),
-  visible: Schema.Array(PresenceSessionId).check(Schema.isMaxLength(199)),
-})
-
 export const SessionPaths = {
   list: root,
   status: `${root}/status`,
@@ -114,7 +102,6 @@ export const SessionPaths = {
   update: `${root}/:sessionID`,
   fork: `${root}/:sessionID/fork`,
   abort: `${root}/:sessionID/abort`,
-  share: `${root}/:sessionID/share`,
   init: `${root}/:sessionID/init`,
   summarize: `${root}/:sessionID/summarize`,
   prompt: `${root}/:sessionID/message`,
@@ -127,7 +114,6 @@ export const SessionPaths = {
   deleteMessage: `${root}/:sessionID/message/:messageID`,
   deletePart: `${root}/:sessionID/message/:messageID/part/:partID`,
   updatePart: `${root}/:sessionID/message/:messageID/part/:partID`,
-  viewed: `${root}/viewed`,
 } as const
 
 export const SessionApi = HttpApi.make("session")
@@ -442,18 +428,6 @@ export const SessionApi = HttpApi.make("session")
           OpenApi.annotations({
             identifier: "part.update",
             description: "Update a part in a message.",
-          }),
-        ),
-        HttpApiEndpoint.post("viewed", SessionPaths.viewed, {
-          query: WorkspaceRoutingQuery,
-          payload: ViewedPayload,
-          success: described(Schema.Boolean, "Viewed sessions updated"),
-          error: HttpApiError.BadRequest,
-        }).annotateMerge(
-          OpenApi.annotations({
-            identifier: "session.viewed",
-            summary: "Set viewed sessions",
-            description: "Notify the server which sessions the user is currently viewing, or clear all.",
           }),
         ),
       )

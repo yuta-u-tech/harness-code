@@ -2,12 +2,10 @@ import { Effect, Option, Schema } from "effect"
 import { HttpClient } from "effect/unstable/http"
 import * as Tool from "./tool"
 import * as McpWebSearch from "./mcp-websearch"
-import * as HarnessExa from "@/harness/tool/websearch-harness-exa"
 import DESCRIPTION from "./websearch.txt"
 import { checksum } from "@opencode-ai/core/util/encode"
 import { InstallationVersion } from "@opencode-ai/core/installation/version"
 import { RuntimeFlags } from "@/effect/runtime-flags"
-import { Auth } from "@/auth"
 import { Env } from "@/env"
 
 const MAX_RESULTS = 10
@@ -29,7 +27,7 @@ export const Parameters = Schema.Struct({
   }),
 })
 
-const WebSearchProviderSchema = Schema.Literals(["exa", "parallel", "harness-exa"])
+const WebSearchProviderSchema = Schema.Literals(["exa", "parallel"])
 export type WebSearchProvider = Schema.Schema.Type<typeof WebSearchProviderSchema>
 
 export function selectWebSearchProvider(
@@ -37,7 +35,7 @@ export function selectWebSearchProvider(
   flags = { exa: false, parallel: false },
   override?: string,
 ): WebSearchProvider {
-  if (override === "exa" || override === "parallel" || override === "harness-exa") return override
+  if (override === "exa" || override === "parallel") return override
   if (flags.parallel) return "parallel"
   if (flags.exa) return "exa"
 
@@ -46,7 +44,7 @@ export function selectWebSearchProvider(
 
 export function webSearchProviderLabel(provider: unknown) {
   if (provider === "parallel") return "Parallel Web Search"
-  if (provider === "exa" || provider === "harness-exa") return "Exa Web Search"
+  if (provider === "exa") return "Exa Web Search"
   return "Web Search"
 }
 
@@ -110,7 +108,6 @@ export const WebSearchTool = Tool.define(
   Effect.gen(function* () {
     const http = yield* HttpClient.HttpClient
     const flags = yield* RuntimeFlags.Service
-    const authSvc = yield* Auth.Service
     const env = yield* Env.Service
 
     return {
@@ -135,27 +132,11 @@ export const WebSearchTool = Tool.define(
           )
           const title = webSearchProviderLabel(provider)
           // Precedence:
-          //   provider="harness-exa"          -> harness-rest  (auth required)
-          //   provider="exa" + EXA_API_KEY -> mcp-exa-byok     (BYOK wins)
-          //   provider="exa" + Harness auth   -> harness-rest        (new default for authed users)
-          //   provider="exa" + no auth     -> mcp-exa-unauth   (preserves current fallback)
-          //   provider="parallel"          -> mcp-parallel     (unchanged)
-          const harnessToken = yield* Effect.gen(function* () {
-            if (provider !== "exa" && provider !== "harness-exa") return undefined as string | undefined
-            const info = yield* authSvc.get("harness")
-            if (!info) return undefined
-            return info.type === "api" ? info.key : info.type === "oauth" ? info.access : undefined
-          })
+          //   provider="exa" + EXA_API_KEY -> mcp-exa-byok  (BYOK wins)
+          //   provider="exa" + no key      -> mcp-exa-unauth
+          //   provider="parallel"          -> mcp-parallel
           const transport =
-            provider === "harness-exa"
-              ? "harness-rest"
-              : provider === "parallel"
-                ? "mcp-parallel"
-                : provider === "exa" && exaKey
-                  ? "mcp-exa-byok"
-                  : provider === "exa" && harnessToken
-                    ? "harness-rest"
-                    : "mcp-exa-unauth"
+            provider === "parallel" ? "mcp-parallel" : exaKey ? "mcp-exa-byok" : "mcp-exa-unauth"
           yield* ctx.metadata({
             title: `${title} "${params.query}"`,
             metadata: { provider, transport },
@@ -175,19 +156,7 @@ export const WebSearchTool = Tool.define(
             },
           })
 
-          const result = yield* transport === "harness-rest"
-            ? harnessToken
-              ? HarnessExa.callHarnessExa(
-                  http,
-                  {
-                    query: params.query,
-                    type: params.type,
-                    numResults: params.numResults,
-                  },
-                  harnessToken,
-                )
-              : Effect.die(new Error("HARNESS_WEBSEARCH_PROVIDER=harness-exa requires Harness auth; run `harness auth login`"))
-            : callProvider(http, provider, params, ctx, { exa: exaKey, parallel: parallelKey })
+          const result = yield* callProvider(http, provider, params, ctx, { exa: exaKey, parallel: parallelKey })
 
           return {
             output: result ?? "No search results found. Please try a different query.",

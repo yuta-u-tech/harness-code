@@ -7,7 +7,6 @@ import { toIndexingConfigInput, type IndexingConfig } from "@harness/harness-ind
 import { hasIndexingPlugin } from "@harness/harness-indexing/detect"
 import { IndexingStatus, disabledIndexingStatus } from "@harness/harness-indexing/status"
 import { Telemetry } from "@harness/harness-telemetry"
-import { fetchHarnessEmbeddingModelCatalog } from "@harness/harness-gateway"
 import { allowed, message } from "@opencode-ai/core/harness/fff"
 import { Instance } from "@/harness/instance"
 import { Bus } from "@/bus"
@@ -25,7 +24,6 @@ import { Event as IndexingEvent, Warning as IndexingWarningEvent } from "./index
 import { indexingWarningKey, type IndexingWarning } from "./indexing-warning"
 import { IndexingWorker } from "./indexing-worker-client"
 import { LanceDBRuntime } from "./lancedb"
-import { indexingWithHarnessDefault, resolveHarnessIndexingAuth, type HarnessIndexingAuth } from "./indexing-auth"
 import { primaryWorktree } from "./primary-worktree"
 
 const log = Log.create({ service: "harness-indexing" })
@@ -80,60 +78,6 @@ function pending(): z.infer<typeof IndexingStatus> {
     processedFiles: 0,
     totalFiles: 0,
     percent: 0,
-  }
-}
-
-async function harnessAuth(cfg: Config.Info): Promise<HarnessIndexingAuth> {
-  const info = await auth.runPromise((svc) => svc.get("harness"))
-  return resolveHarnessIndexingAuth({ config: cfg, auth: info })
-}
-
-function enrichHarness(input: ReturnType<typeof toIndexingConfigInput>, auth: HarnessIndexingAuth) {
-  if (input.embedderProvider !== "harness") return input
-
-  return {
-    ...input,
-    harnessApiKey: input.harnessApiKey ?? auth.apiKey,
-    harnessBaseUrl: input.harnessBaseUrl ?? auth.baseUrl,
-    harnessOrganizationId: input.harnessOrganizationId ?? auth.organizationId,
-  }
-}
-
-async function model(input: ReturnType<typeof toIndexingConfigInput>, auth: HarnessIndexingAuth) {
-  if (input.embedderProvider !== "harness" || !input.enabled) return input
-
-  const catalog = await fetchHarnessEmbeddingModelCatalog({ baseURL: auth.baseUrl, token: auth.apiKey })
-
-  if (input.modelId) {
-    const id = catalog.aliases[input.modelId] ?? input.modelId
-    const chosen = catalog.models.find((item) => item.id === id)
-    if (catalog.models.length > 0 && !chosen) {
-      throw new IndexingModelError({ model: input.modelId })
-    }
-    if (chosen) {
-      return {
-        ...input,
-        modelId: chosen.id,
-        modelDimension: chosen.dimension,
-        searchMinScore: input.searchMinScore ?? chosen.scoreThreshold,
-      }
-    }
-  }
-
-  const fallback = catalog.aliases[catalog.defaultModel] ?? catalog.defaultModel
-  const found = catalog.models.find((item) => item.id === fallback)
-  if (!found) {
-    if (input.modelId || input.modelDimension) {
-      log.warn("ignoring unsupported Harness embedding model configuration", { model: input.modelId })
-    }
-    return { ...input, modelId: undefined, modelDimension: undefined }
-  }
-
-  return {
-    ...input,
-    modelId: found.id,
-    modelDimension: found.dimension,
-    searchMinScore: input.searchMinScore ?? found.scoreThreshold,
   }
 }
 
@@ -296,23 +240,10 @@ export namespace HarnessIndexing {
 
     log.info("initializing project indexing", { workspacePath: dir, baselineDirectory: baseline })
     const root = path.join(Global.Path.state, "indexing")
-    const auth = await harnessAuth(cfg)
     const globalConfig = await AppRuntime.runPromise(Config.Service.use((svc) => svc.getGlobal()))
     const global = globalConfig.indexing
-    const merged = indexingWithHarnessDefault({ ...global, ...cfg.indexing }, auth) ?? {}
-    let cfgInput: Awaited<ReturnType<typeof model>>
-    try {
-      cfgInput = await model(
-        enrichHarness(
-          input({ ...merged, enabled: process.env["HARNESS_PLATFORM"] === "vscode" ? true : merged.enabled }, global),
-          auth,
-        ),
-        auth,
-      )
-    } catch (err) {
-      log.warn("indexing model resolution failed", { err })
-      return track(hit, await inert(() => failed(err)))
-    }
+    const merged = { ...global, ...cfg.indexing }
+    const cfgInput = input({ ...merged, enabled: process.env["HARNESS_PLATFORM"] === "vscode" ? true : merged.enabled }, global)
     const workspaces = new Set<WorkspaceV2.ID | undefined>([WorkspaceContext.workspaceID])
     const box = { status: pending() }
     const warnings = new Map<string, IndexingWarning>()
@@ -538,20 +469,6 @@ export namespace HarnessIndexing {
     const entry = await hit().ready
     entry.scope(WorkspaceContext.workspaceID)
     return entry.current()
-  }
-
-  export async function models() {
-    try {
-      const cfg = await AppRuntime.runPromise(Config.Service.use((svc) => svc.getGlobal()))
-      const auth = await harnessAuth(cfg)
-      const catalog = await fetchHarnessEmbeddingModelCatalog({ baseURL: auth.baseUrl, token: auth.apiKey })
-      if (catalog.models.length > 0 || (!auth.baseUrl && !auth.apiKey)) return catalog
-      const fallback = await fetchHarnessEmbeddingModelCatalog()
-      return fallback.models.length > 0 ? fallback : catalog
-    } catch (err) {
-      log.warn("falling back to public Harness embedding model catalog", { err })
-      return fetchHarnessEmbeddingModelCatalog()
-    }
   }
 
   export async function warnings(): Promise<IndexingWarning[]> {

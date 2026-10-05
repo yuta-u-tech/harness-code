@@ -126,33 +126,6 @@ import type {
   FindTextResponses,
   FormatterStatusErrors,
   FormatterStatusResponses,
-  GatewayAudioTranscriptionsErrors,
-  GatewayAudioTranscriptionsResponses,
-  GatewayAuthStatusErrors,
-  GatewayAuthStatusResponses,
-  GatewayCloudSessionGetErrors,
-  GatewayCloudSessionGetResponses,
-  GatewayCloudSessionImportErrors,
-  GatewayCloudSessionImportResponses,
-  GatewayCloudSessionsErrors,
-  GatewayCloudSessionsResponses,
-  GatewayEditErrors,
-  GatewayEditResponses,
-  GatewayFimErrors,
-  GatewayFimResponse,
-  GatewayFimResponses,
-  GatewayModelsImagesErrors,
-  GatewayModelsImagesResponses,
-  GatewayModelsTranscriptionsErrors,
-  GatewayModelsTranscriptionsResponses,
-  GatewayModesErrors,
-  GatewayModesResponses,
-  GatewayNotificationsErrors,
-  GatewayNotificationsResponses,
-  GatewayOrganizationSetErrors,
-  GatewayOrganizationSetResponses,
-  GatewayProfileErrors,
-  GatewayProfileResponses,
   GlobalConfigGetErrors,
   GlobalConfigGetResponses,
   GlobalConfigUpdateErrors,
@@ -200,10 +173,6 @@ import type {
   HarnessNotebookRejectResponses,
   HarnessNotebookReplyErrors,
   HarnessNotebookReplyResponses,
-  HarnessProviderUsageGetErrors,
-  HarnessProviderUsageGetResponses,
-  HarnessProviderUsageRefreshErrors,
-  HarnessProviderUsageRefreshResponses,
   HarnessRemoveAgentErrors,
   HarnessRemoveAgentResponses,
   HarnessRemoveCommandErrors,
@@ -252,8 +221,6 @@ import type {
   HarnessWakeupsResponses,
   IndexingConsentErrors,
   IndexingConsentResponses,
-  IndexingModelsErrors,
-  IndexingModelsResponses,
   IndexingStatusErrors,
   IndexingStatusResponses,
   IndexingWarningsErrors,
@@ -436,8 +403,6 @@ import type {
   SessionUnrevertResponses,
   SessionUpdateErrors,
   SessionUpdateResponses,
-  SessionViewedErrors,
-  SessionViewedResponses,
   SubtaskPartInput,
   SuggestionAcceptErrors,
   SuggestionAcceptResponses,
@@ -5171,50 +5136,6 @@ export class Session2 extends HeyApiClient {
       ...params,
     })
   }
-
-  /**
-   * Set viewed sessions
-   *
-   * Notify the server which sessions the user is currently viewing, or clear all.
-   */
-  public viewed<ThrowOnError extends boolean = false>(
-    parameters: {
-      directory?: string
-      workspace?: string
-      viewer: {
-        id: string
-        active: boolean
-      }
-      attached: Array<string>
-      visible: Array<string>
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-            { in: "body", key: "viewer" },
-            { in: "body", key: "attached" },
-            { in: "body", key: "visible" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).post<SessionViewedResponses, SessionViewedErrors, ThrowOnError>({
-      url: "/session/viewed",
-      ...options,
-      ...params,
-      headers: {
-        "Content-Type": "application/json",
-        ...options?.headers,
-        ...params.headers,
-      },
-    })
-  }
 }
 
 export class Part extends HeyApiClient {
@@ -6780,36 +6701,6 @@ export class Indexing extends HeyApiClient {
   }
 
   /**
-   * List Harness embedding models
-   *
-   * Retrieve the embedding models available through the active Harness account.
-   */
-  public models<ThrowOnError extends boolean = false>(
-    parameters?: {
-      directory?: string
-      workspace?: string
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).get<IndexingModelsResponses, IndexingModelsErrors, ThrowOnError>({
-      url: "/indexing/models",
-      ...options,
-      ...params,
-    })
-  }
-
-  /**
    * Set indexing consent
    *
    * Set machine-local code indexing consent for the active project.
@@ -6844,548 +6735,6 @@ export class Indexing extends HeyApiClient {
         ...params.headers,
       },
     })
-  }
-}
-
-export class Audio extends HeyApiClient {
-  /**
-   * Speech to text transcription
-   *
-   * Proxy an audio transcription request to the Harness Gateway
-   */
-  public transcriptions<ThrowOnError extends boolean = false>(
-    parameters: {
-      directory?: string
-      workspace?: string
-      model: string
-      input_audio: {
-        data: string
-        format: string
-      }
-      language?: string
-      prompt?: string
-      temperature?: number
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-            { in: "body", key: "model" },
-            { in: "body", key: "input_audio" },
-            { in: "body", key: "language" },
-            { in: "body", key: "prompt" },
-            { in: "body", key: "temperature" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).post<
-      GatewayAudioTranscriptionsResponses,
-      GatewayAudioTranscriptionsErrors,
-      ThrowOnError
-    >({
-      url: "/harness/audio/transcriptions",
-      ...options,
-      ...params,
-      headers: {
-        "Content-Type": "application/json",
-        ...options?.headers,
-        ...params.headers,
-      },
-    })
-  }
-}
-
-export class Models extends HeyApiClient {
-  /**
-   * Image generation models
-   *
-   * List image-capable models from the Harness Gateway OpenRouter passthrough
-   */
-  public images<ThrowOnError extends boolean = false>(
-    parameters?: {
-      directory?: string
-      workspace?: string
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).get<GatewayModelsImagesResponses, GatewayModelsImagesErrors, ThrowOnError>({
-      url: "/harness/models/images",
-      ...options,
-      ...params,
-    })
-  }
-
-  /**
-   * Speech-to-text models
-   *
-   * List transcription-capable models from the Harness Gateway catalog
-   */
-  public transcriptions<ThrowOnError extends boolean = false>(
-    parameters?: {
-      directory?: string
-      workspace?: string
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).get<
-      GatewayModelsTranscriptionsResponses,
-      GatewayModelsTranscriptionsErrors,
-      ThrowOnError
-    >({
-      url: "/harness/models/transcriptions",
-      ...options,
-      ...params,
-    })
-  }
-}
-
-export class Organization extends HeyApiClient {
-  /**
-   * Update Harness Gateway organization
-   *
-   * Switch to a different Harness Gateway organization
-   */
-  public set<ThrowOnError extends boolean = false>(
-    parameters: {
-      directory?: string
-      workspace?: string
-      organizationId: string | null
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-            { in: "body", key: "organizationId" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).post<
-      GatewayOrganizationSetResponses,
-      GatewayOrganizationSetErrors,
-      ThrowOnError
-    >({
-      url: "/harness/organization",
-      ...options,
-      ...params,
-      headers: {
-        "Content-Type": "application/json",
-        ...options?.headers,
-        ...params.headers,
-      },
-    })
-  }
-}
-
-export class Session3 extends HeyApiClient {
-  /**
-   * Get cloud session
-   *
-   * Fetch full session data from the Harness cloud for preview
-   */
-  public get<ThrowOnError extends boolean = false>(
-    parameters: {
-      id: string
-      directory?: string
-      workspace?: string
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "path", key: "id" },
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).get<
-      GatewayCloudSessionGetResponses,
-      GatewayCloudSessionGetErrors,
-      ThrowOnError
-    >({
-      url: "/harness/cloud/session/{id}",
-      ...options,
-      ...params,
-    })
-  }
-
-  /**
-   * Import session from cloud
-   *
-   * Download a cloud-synced session and write it to local storage with fresh IDs.
-   */
-  public import<ThrowOnError extends boolean = false>(
-    parameters: {
-      directory?: string
-      workspace?: string
-      sessionId: string
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-            { in: "body", key: "sessionId" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).post<
-      GatewayCloudSessionImportResponses,
-      GatewayCloudSessionImportErrors,
-      ThrowOnError
-    >({
-      url: "/harness/cloud/session/import",
-      ...options,
-      ...params,
-      headers: {
-        "Content-Type": "application/json",
-        ...options?.headers,
-        ...params.headers,
-      },
-    })
-  }
-}
-
-export class Cloud extends HeyApiClient {
-  private _session?: Session3
-  get session(): Session3 {
-    return (this._session ??= new Session3({ client: this.client }))
-  }
-}
-
-export class Gateway extends HeyApiClient {
-  /**
-   * Get Harness Gateway profile
-   *
-   * Fetch user profile and organizations from Harness Gateway
-   */
-  public profile<ThrowOnError extends boolean = false>(
-    parameters?: {
-      directory?: string
-      workspace?: string
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).get<GatewayProfileResponses, GatewayProfileErrors, ThrowOnError>({
-      url: "/harness/profile",
-      ...options,
-      ...params,
-    })
-  }
-
-  /**
-   * Get Harness authentication status
-   *
-   * Check whether a locally stored Harness credential can authenticate Gateway requests
-   */
-  public authStatus<ThrowOnError extends boolean = false>(
-    parameters?: {
-      directory?: string
-      workspace?: string
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).get<GatewayAuthStatusResponses, GatewayAuthStatusErrors, ThrowOnError>({
-      url: "/harness/auth-status",
-      ...options,
-      ...params,
-    })
-  }
-
-  /**
-   * Get organization custom modes
-   *
-   * Fetch custom modes defined for the current organization
-   */
-  public modes<ThrowOnError extends boolean = false>(
-    parameters?: {
-      directory?: string
-      workspace?: string
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).get<GatewayModesResponses, GatewayModesErrors, ThrowOnError>({
-      url: "/harness/modes",
-      ...options,
-      ...params,
-    })
-  }
-
-  /**
-   * FIM completion
-   *
-   * Proxy a Fill-in-the-Middle completion request to the Harness Gateway
-   */
-  public fim<ThrowOnError extends boolean = false>(
-    parameters: {
-      directory?: string
-      workspace?: string
-      prefix: string
-      suffix: string
-      provider?: string
-      model?: string
-      maxTokens?: number
-      temperature?: number
-    },
-    options?: Options<never, ThrowOnError, GatewayFimResponse>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-            { in: "body", key: "prefix" },
-            { in: "body", key: "suffix" },
-            { in: "body", key: "provider" },
-            { in: "body", key: "model" },
-            { in: "body", key: "maxTokens" },
-            { in: "body", key: "temperature" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).sse.post<GatewayFimResponses, GatewayFimErrors, ThrowOnError>({
-      url: "/harness/fim",
-      ...options,
-      ...params,
-      headers: {
-        "Content-Type": "application/json",
-        ...options?.headers,
-        ...params.headers,
-      },
-    })
-  }
-
-  /**
-   * Next Edit completion
-   *
-   * Proxy a Mercury-style Next Edit request. The client supplies structured editor context; the gateway assembles the sentinel-tagged prompt and forwards to the upstream edit endpoint.
-   */
-  public edit<ThrowOnError extends boolean = false>(
-    parameters: {
-      directory?: string
-      workspace?: string
-      provider?: string
-      model?: string
-      maxTokens?: number
-      currentFilePath: string
-      currentFileContent: string
-      cursorLine: number
-      cursorCharacter: number
-      editableRegionStartLine: number
-      editableRegionEndLine: number
-      recentlyViewedSnippets: Array<{
-        filepath: string
-        content: string
-      }>
-      editDiffHistory: Array<string>
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-            { in: "body", key: "provider" },
-            { in: "body", key: "model" },
-            { in: "body", key: "maxTokens" },
-            { in: "body", key: "currentFilePath" },
-            { in: "body", key: "currentFileContent" },
-            { in: "body", key: "cursorLine" },
-            { in: "body", key: "cursorCharacter" },
-            { in: "body", key: "editableRegionStartLine" },
-            { in: "body", key: "editableRegionEndLine" },
-            { in: "body", key: "recentlyViewedSnippets" },
-            { in: "body", key: "editDiffHistory" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).post<GatewayEditResponses, GatewayEditErrors, ThrowOnError>({
-      url: "/harness/edit",
-      ...options,
-      ...params,
-      headers: {
-        "Content-Type": "application/json",
-        ...options?.headers,
-        ...params.headers,
-      },
-    })
-  }
-
-  /**
-   * Get Harness notifications
-   *
-   * Fetch notifications from Harness Gateway for CLI display
-   */
-  public notifications<ThrowOnError extends boolean = false>(
-    parameters?: {
-      directory?: string
-      workspace?: string
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).get<
-      GatewayNotificationsResponses,
-      GatewayNotificationsErrors,
-      ThrowOnError
-    >({
-      url: "/harness/notifications",
-      ...options,
-      ...params,
-    })
-  }
-
-  /**
-   * Get cloud sessions
-   *
-   * Fetch cloud CLI sessions from Harness API
-   */
-  public cloudSessions<ThrowOnError extends boolean = false>(
-    parameters?: {
-      directory?: string
-      workspace?: string
-      cursor?: string
-      limit?: number
-      gitUrl?: string
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-            { in: "query", key: "cursor" },
-            { in: "query", key: "limit" },
-            { in: "query", key: "gitUrl" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).get<
-      GatewayCloudSessionsResponses,
-      GatewayCloudSessionsErrors,
-      ThrowOnError
-    >({
-      url: "/harness/cloud-sessions",
-      ...options,
-      ...params,
-    })
-  }
-
-  private _audio?: Audio
-  get audio(): Audio {
-    return (this._audio ??= new Audio({ client: this.client }))
-  }
-
-  private _models?: Models
-  get models(): Models {
-    return (this._models ??= new Models({ client: this.client }))
-  }
-
-  private _organization?: Organization
-  get organization(): Organization {
-    return (this._organization ??= new Organization({ client: this.client }))
-  }
-
-  private _cloud?: Cloud
-  get cloud(): Cloud {
-    return (this._cloud ??= new Cloud({ client: this.client }))
   }
 }
 
@@ -7579,76 +6928,6 @@ export class Snapshot extends HeyApiClient {
       ThrowOnError
     >({
       url: "/harness/snapshot/prepare",
-      ...options,
-      ...params,
-    })
-  }
-}
-
-export class ProviderUsage extends HeyApiClient {
-  /**
-   * Get provider usage
-   *
-   * Get cache-aware, secret-free provider plan usage and personal billing status.
-   */
-  public get<ThrowOnError extends boolean = false>(
-    parameters?: {
-      directory?: string
-      workspace?: string
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).get<
-      HarnessProviderUsageGetResponses,
-      HarnessProviderUsageGetErrors,
-      ThrowOnError
-    >({
-      url: "/harness/provider-usage",
-      ...options,
-      ...params,
-    })
-  }
-
-  /**
-   * Refresh provider usage
-   *
-   * Refresh provider plan usage while coalescing concurrent source requests.
-   */
-  public refresh<ThrowOnError extends boolean = false>(
-    parameters?: {
-      directory?: string
-      workspace?: string
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).post<
-      HarnessProviderUsageRefreshResponses,
-      HarnessProviderUsageRefreshErrors,
-      ThrowOnError
-    >({
-      url: "/harness/provider-usage/refresh",
       ...options,
       ...params,
     })
@@ -9071,11 +8350,6 @@ export class Harness extends HeyApiClient {
     return (this._snapshot ??= new Snapshot({ client: this.client }))
   }
 
-  private _providerUsage?: ProviderUsage
-  get providerUsage(): ProviderUsage {
-    return (this._providerUsage ??= new ProviderUsage({ client: this.client }))
-  }
-
   private _notebook?: Notebook
   get notebook(): Notebook {
     return (this._notebook ??= new Notebook({ client: this.client }))
@@ -10346,7 +9620,7 @@ export class Question2 extends HeyApiClient {
   }
 }
 
-export class Session4 extends HeyApiClient {
+export class Session3 extends HeyApiClient {
   /**
    * List sessions
    *
@@ -11946,9 +11220,9 @@ export class V2 extends HeyApiClient {
     return (this._agent ??= new Agent({ client: this.client }))
   }
 
-  private _session?: Session4
-  get session(): Session4 {
-    return (this._session ??= new Session4({ client: this.client }))
+  private _session?: Session3
+  get session(): Session3 {
+    return (this._session ??= new Session3({ client: this.client }))
   }
 
   private _model?: Model
@@ -12188,11 +11462,6 @@ export class HarnessClient extends HeyApiClient {
   private _indexing?: Indexing
   get indexing(): Indexing {
     return (this._indexing ??= new Indexing({ client: this.client }))
-  }
-
-  private _gateway?: Gateway
-  get gateway(): Gateway {
-    return (this._gateway ??= new Gateway({ client: this.client }))
   }
 
   private _harness?: Harness

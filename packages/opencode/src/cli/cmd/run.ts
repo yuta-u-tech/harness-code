@@ -26,7 +26,7 @@ import type { HarnessClient, Session, ToolPart } from "@harness/sdk/v2"
 import { FormatError, FormatUnknownError } from "../error"
 import { INTERACTIVE_INPUT_ERROR, resolveInteractiveStdin } from "./run/runtime.stdin"
 import { readPipedStdin } from "./run-stdin"
-// cloud-session, run-auto, headless, HarnessRun) are dynamically imported inside the
+// run-auto, headless, HarnessRun) are dynamically imported inside the
 // handler so other CLI commands don't pay their module cost at startup.
 
 type ModelInput = Parameters<HarnessClient["session"]["prompt"]>[0]["model"]
@@ -162,10 +162,6 @@ export const RunCommand = effectCmd({
         describe: "fork the session before continuing (requires --continue or --session)",
         type: "boolean",
       })
-      .option("cloud-fork", {
-        type: "boolean",
-        describe: "fetch session from cloud and continue locally (use with --session)",
-      })
       .option("model", {
         type: "string",
         alias: ["m"],
@@ -270,9 +266,6 @@ export const RunCommand = effectCmd({
     const { InstanceRef } = yield* Effect.promise(() => import("@/effect/instance-ref"))
     const { ServerAuth } = yield* Effect.promise(() => import("@/server/auth"))
     const { buildRunMessage } = yield* Effect.promise(() => import("@/harness/cli/cmd/run-message"))
-    const { importCloudSession, validateCloudFork, reportCloudImportError } = yield* Effect.promise(
-      () => import("@/harness/cloud-session"),
-    )
     const { HarnessRunAuto } = yield* Effect.promise(() => import("@/harness/cli/run-auto"))
     const { HarnessRunDrain } = yield* Effect.promise(() => import("@/harness/cli/run-drain"))
     const { HarnessHeadless } = yield* Effect.promise(() => import("@/harness/permission/headless"))
@@ -450,17 +443,6 @@ export const RunCommand = effectCmd({
         process.exit(1)
       }
 
-      const cloudForkError = validateCloudFork({
-        cloudFork: args["cloud-fork"],
-        fork: args.fork,
-        continue: args.continue,
-        session: args.session,
-      })
-      if (cloudForkError) {
-        UI.error(cloudForkError)
-        process.exit(1)
-      }
-
       const rules: PermissionV1.Ruleset = interactive
         ? []
         : [
@@ -493,32 +475,6 @@ export const RunCommand = effectCmd({
       }
 
       async function session(sdk: HarnessClient): Promise<SessionInfo | undefined> {
-        if (args.session && args["cloud-fork"]) {
-          try {
-            const id = await importCloudSession(sdk, args.session)
-            const current = await sdk.session
-              .get({
-                sessionID: id,
-              })
-              .catch(() => undefined)
-
-            if (!current?.data) {
-              UI.error("Session not found")
-              process.exit(1)
-            }
-
-            return {
-              id: current.data.id,
-              title: current.data.title,
-              directory: current.data.directory,
-              model: current.data.model,
-            }
-          } catch (err) {
-            reportCloudImportError(err)
-            process.exit(1)
-          }
-        }
-
         if (args.session) {
           const current = await sdk.session
             .get({
@@ -1170,8 +1126,6 @@ export async function runMini(input: MiniCommandInput) {
     continue: input.continue,
     session: input.session,
     fork: input.fork,
-    "cloud-fork": undefined,
-    cloudFork: undefined,
     model: input.model,
     agent: input.agent,
     format: "default",

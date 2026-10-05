@@ -32,7 +32,6 @@ import { File } from "@harness/harness-ui/file"
 import { SessionContext } from "../context/session"
 import { LanguageContext } from "../context/language"
 import { IndexingProvider } from "../context/indexing"
-import { HarnessEmbeddingModelsProvider } from "../context/harness-embedding-models"
 import { MemoryProvider } from "../context/memory"
 import { TranscriptSearchProvider } from "../context/transcript-search"
 import { dict as uiEn } from "@harness/harness-ui/i18n/en"
@@ -108,7 +107,6 @@ const MockProviderProvider: ParentComponent<{ harnessAuth?: boolean; training?: 
     providers: () => MOCK_PROVIDERS as any,
     connected: () => ["harness"],
     defaults: () => ({}),
-    organizationId: () => null,
     ready: () => true,
     defaultSelection: () => ({ providerID: "harness", modelID: "anthropic/claude-sonnet-4-6" }),
     models,
@@ -439,30 +437,28 @@ export const StoryProviders: ParentComponent<StoryProvidersProps> = (props) => {
                       <SessionContext.Provider value={session as any}>
                         <MemoryProvider>
                           <IndexingProvider>
-                            <HarnessEmbeddingModelsProvider>
-                              <DataProvider
-                                data={data()}
-                                directory="/project/"
-                                onOpenDiff={props.onOpenDiff}
-                                onOpenFile={props.onOpenFile}
-                              >
-                                <DiffComponentProvider component={Diff}>
-                                  <CodeComponentProvider component={Code}>
-                                    <FileComponentProvider component={File}>
-                                      <MarkedProvider>
-                                        <TranscriptSearchProvider>
-                                          {props.noPadding ? (
-                                            props.children
-                                          ) : (
-                                            <div style={{ padding: "12px" }}>{props.children}</div>
-                                          )}
-                                        </TranscriptSearchProvider>
-                                      </MarkedProvider>
-                                    </FileComponentProvider>
-                                  </CodeComponentProvider>
-                                </DiffComponentProvider>
-                              </DataProvider>
-                            </HarnessEmbeddingModelsProvider>
+                            <DataProvider
+                              data={data()}
+                              directory="/project/"
+                              onOpenDiff={props.onOpenDiff}
+                              onOpenFile={props.onOpenFile}
+                            >
+                              <DiffComponentProvider component={Diff}>
+                                <CodeComponentProvider component={Code}>
+                                  <FileComponentProvider component={File}>
+                                    <MarkedProvider>
+                                      <TranscriptSearchProvider>
+                                        {props.noPadding ? (
+                                          props.children
+                                        ) : (
+                                          <div style={{ padding: "12px" }}>{props.children}</div>
+                                        )}
+                                      </TranscriptSearchProvider>
+                                    </MarkedProvider>
+                                  </FileComponentProvider>
+                                </CodeComponentProvider>
+                              </DiffComponentProvider>
+                            </DataProvider>
                           </IndexingProvider>
                         </MemoryProvider>
                       </SessionContext.Provider>

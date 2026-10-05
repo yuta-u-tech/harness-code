@@ -35,10 +35,6 @@ export const AttachCommand = cmd({
         type: "boolean",
         describe: "fork the session when continuing (use with --continue or --session)",
       })
-      .option("cloud-fork", {
-        type: "boolean",
-        describe: "fetch session from cloud and continue locally (use with --session)",
-      })
       .option("password", {
         alias: ["p"],
         type: "string",
@@ -73,14 +69,6 @@ export const AttachCommand = cmd({
       return
     }
     const noReplay = args.replay === false || args.noReplay === true
-
-    const { importCloudSession, validateCloudFork, reportCloudImportError } = await import("@/harness/cloud-session")
-    const cloudForkError = validateCloudFork(args)
-    if (cloudForkError) {
-      UI.error(cloudForkError)
-      process.exitCode = 1
-      return
-    }
 
     const directory = (() => {
       if (!args.dir) return undefined
@@ -127,24 +115,6 @@ export const AttachCommand = cmd({
     }
 
     const headers = ServerAuth.headers({ password: args.password, username: args.username })
-    if (args.cloudFork && args.session) {
-      UI.println("Importing session from cloud...")
-      const { createHarnessClient } = await import("@harness/sdk/v2")
-      const sdk = createHarnessClient({
-        baseUrl: args.url,
-        directory,
-        headers,
-      })
-      try {
-        const id = await importCloudSession(sdk, args.session)
-        args.session = id
-        args.cloudFork = false
-      } catch (err) {
-        reportCloudImportError(err)
-        process.exitCode = 1
-        return
-      }
-    }
     const config = await TuiConfig.get()
 
     try {

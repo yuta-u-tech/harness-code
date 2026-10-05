@@ -319,30 +319,4 @@ describe("CodeIndexServiceFactory", () => {
     expect(store.vectorSize).toBe(1024)
   })
 
-  test("creates Harness embedder with Cloud-provided model", async () => {
-    const factory = createFactory({
-      embedderProvider: "harness",
-      openAiKey: undefined,
-      harnessApiKey: "harness-token",
-      harnessOrganizationId: "org_123",
-      modelId: "mistralai/mistral-embed-2312",
-      modelDimension: 1024,
-    })
-
-    mockEmbeddingsCreate.mockResolvedValue({
-      data: [{ embedding: [0.1, 0.2] }],
-      usage: { prompt_tokens: 1, total_tokens: 1 },
-    })
-
-    const embedder = factory.createEmbedder()
-    await embedder.createEmbeddings(["hello"])
-
-    expect(embedder.embedderInfo).toEqual({ name: "harness" })
-    expect(mockEmbeddingsCreate).toHaveBeenCalledWith({
-      input: ["hello"],
-      model: "mistralai/mistral-embed-2312",
-      encoding_format: "base64",
-      dimensions: 1024,
-    })
-  })
 })

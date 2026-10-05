@@ -10,7 +10,6 @@ import { Array as Arr, Effect, Layer, Record, Result, Context, Schema } from "ef
 import { errorMessage } from "@/util/error"
 
 import { Telemetry } from "@harness/harness-telemetry"
-import { ModelCache } from "./model-cache"
 
 const When = Schema.Struct({
   key: Schema.String,
@@ -110,12 +109,11 @@ export class Service extends Context.Service<Service, Interface>()("@opencode/Pr
 
 export const use = serviceUse(Service)
 
-const layer: Layer.Layer<Service, never, Auth.Service | Plugin.Service | ModelCache.Service> = Layer.effect(
+const layer: Layer.Layer<Service, never, Auth.Service | Plugin.Service> = Layer.effect(
   Service,
   Effect.gen(function* () {
     const auth = yield* Auth.Service
     const plugin = yield* Plugin.Service
-    const cache = yield* ModelCache.Service
     const state = yield* InstanceState.make<State>(
       Effect.fn("ProviderAuth.state")(function* () {
         const plugins = yield* plugin.list()
@@ -227,22 +225,13 @@ const layer: Layer.Layer<Service, never, Auth.Service | Plugin.Service | ModelCa
         })
       }
 
-      if (input.providerID === "harness") {
-        const info = yield* auth.get(input.providerID)
-        if (info) {
-          const token = info.type === "oauth" ? info.access : info.type === "api" ? info.key : null
-          const accountId = info.type === "oauth" ? info.accountId : undefined
-          yield* Effect.promise(() => Telemetry.updateIdentity(token, accountId))
-        }
-      }
       Telemetry.trackAuthSuccess(input.providerID)
-      yield* cache.clear(input.providerID)
     })
 
     return Service.of({ methods, authorize, callback })
   }),
 )
 
-export const node = LayerNode.make({ service: Service, layer: layer, deps: [Auth.node, Plugin.node, ModelCache.node] })
+export const node = LayerNode.make({ service: Service, layer: layer, deps: [Auth.node, Plugin.node] })
 
 export * as ProviderAuth from "./auth"

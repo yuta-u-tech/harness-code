@@ -35,7 +35,6 @@ import { ConfigConsoleApi } from "@/harness/server/httpapi/groups/config-console
 import { EnhancePromptApi } from "@/harness/server/httpapi/groups/enhance-prompt"
 import { IndexingApi } from "@/harness/server/httpapi/groups/indexing"
 import { InstanceReloadApi } from "@/harness/server/httpapi/groups/instance-reload"
-import { HarnessGatewayApi } from "@/harness/server/httpapi/groups/harness-gateway"
 import { HarnessApi } from "@/harness/server/httpapi/groups/harness"
 import { MigrateApi } from "@/harness/server/httpapi/groups/migrate"
 import { NetworkApi } from "@/harness/server/httpapi/groups/network"
@@ -103,7 +102,6 @@ export const InstanceHttpApi = HttpApi.make("opencode-instance")
   .addHttpApi(EnhancePromptApi)
   .addHttpApi(IndexingApi)
   .addHttpApi(InstanceReloadApi)
-  .addHttpApi(HarnessGatewayApi)
   .addHttpApi(HarnessApi)
   .addHttpApi(MigrateApi)
   .addHttpApi(NetworkApi)

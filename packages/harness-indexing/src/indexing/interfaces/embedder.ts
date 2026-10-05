@@ -29,7 +29,6 @@ export interface EmbeddingResponse {
 }
 
 export type AvailableEmbedders =
-  | "harness"
   | "openai"
   | "ollama"
   | "openai-compatible"

@@ -21,7 +21,6 @@ import { DialogSelect } from "@tui/ui/dialog-select"
 import { Link } from "@tui/ui/link"
 import { isHarnessError, showHarnessErrorToast } from "@/harness/harness-errors"
 import { registerHarnessCommands } from "@/harness/harness-commands"
-import { initializeTUIDependencies } from "@harness/harness-gateway/tui"
 import { DialogProcessList } from "@/harness/cli/cmd/tui/component/dialog-process-list"
 import { useIndexingWarnings } from "@/harness/cli/cmd/tui/indexing-warning"
 import { HarnessTerminalTitle } from "./terminal-title"
@@ -235,8 +234,7 @@ export function handleSessionError(error: unknown, toast: ReturnType<typeof useT
 /**
  * One-shot initialiser called from the App component body.
  *
- * - Injects TUI dependencies into harness-gateway
- * - Registers Harness Gateway commands (profile, teams, etc.)
+ * - Registers the Harness TUI commands
  * - Registers the auto-approve toggle command
  */
 export function init() {
@@ -247,22 +245,7 @@ export function init() {
 
   useIndexingWarnings()
 
-  // Inject TUI dependencies for harness-gateway
-  initializeTUIDependencies({
-    useSync,
-    useDialog,
-    useToast,
-    useTheme,
-    useSDK,
-    DialogAlert,
-    DialogSelect,
-    Link,
-    Clipboard,
-    useKeyboard,
-    TextAttributes,
-  })
-
-  // Register Harness Gateway commands (profile, teams, remote, etc.)
+  // Register the Harness TUI commands
   registerHarnessCommands(useSDK)
   useCaffeination()
 

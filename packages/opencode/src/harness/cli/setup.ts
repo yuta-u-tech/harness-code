@@ -6,13 +6,11 @@ import { HarnessShutdown } from "@/harness/cli/shutdown"
 import { createHelpCommand } from "@/harness/help-command"
 import { hasLazyCommandSelection } from "@/harness/cli/lazy-commands"
 import {
-  CloudCommand,
   ConfigCLICommand,
   DaemonCommand,
   DevAliasCommand,
   DevSetupCommand,
   HarnessConsoleCommand,
-  ProfileCommand,
   PtySmokeCommand,
   RollCallCommand,
   WorktreeCommand,
@@ -43,9 +41,7 @@ export namespace HarnessCli {
   export function register<T>(cli: Argv<T>): Argv<T> {
     cli
       .command(HarnessConsoleCommand)
-      .command(CloudCommand)
       .command(RollCallCommand)
-      .command(ProfileCommand)
       .command(DaemonCommand)
       .command(ConfigCLICommand)
       .command(WorktreeCommand)
@@ -73,10 +69,8 @@ export namespace HarnessCli {
     const { HarnessLog } = await import("@/harness/log")
     await HarnessLog.init()
 
-    const gateway = await import("@harness/harness-gateway")
-    if (!process.env[gateway.ENV_FEATURE])
-      process.env[gateway.ENV_FEATURE] = process.argv.includes("serve") ? "unknown" : "cli"
-    if (!process.env[gateway.ENV_VERSION]) process.env[gateway.ENV_VERSION] = InstallationVersion
+    if (!process.env["HARNESS_FEATURE"]) process.env["HARNESS_FEATURE"] = process.argv.includes("serve") ? "unknown" : "cli"
+    if (!process.env["HARNESS_VERSION"]) process.env["HARNESS_VERSION"] = InstallationVersion
     process.env.HARNESS = "1"
 
     // Must run before AppRuntime initializes the SQLite database, or the marker
@@ -98,24 +92,11 @@ export namespace HarnessCli {
       enabled: cfg.experimental?.openTelemetry !== false,
     })
 
-    const { migrateLegacyHarnessAuth } = gateway
     const getAuth = async () => {
       if (runtime) return runtime.HarnessCliBootstrapRuntime.getAuth()
       const { Auth } = await import("@/auth")
       return app!.AppRuntime.runPromise(Auth.Service.use((s) => s.get("harness")))
     }
-    const setAuth = async (auth: Auth.Info) => {
-      if (runtime) return runtime.HarnessCliBootstrapRuntime.setAuth(auth)
-      const { Auth } = await import("@/auth")
-      return app!.AppRuntime.runPromise(Auth.Service.use((s) => s.set("harness", auth)))
-    }
-
-    // Migrate legacy Harness CLI auth (~/.harness/cli/config.json) into auth.json if present.
-    await migrateLegacyHarnessAuth(
-      async () => (await getAuth()) !== undefined,
-      setAuth,
-    )
-
     const auth = await getAuth()
     if (auth) {
       const token = auth.type === "oauth" ? auth.access : auth.key

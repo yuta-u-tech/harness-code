@@ -1,7 +1,6 @@
 import { Auth } from "@/auth"
 import { invalidateAfterProviderAuthChange } from "@/harness/server/provider-auth-lifecycle"
 import { InstanceStore } from "@/project/instance-store"
-import { ModelCache } from "@/provider/model-cache"
 import { Context, Effect, Layer, Redacted } from "effect"
 import * as Discovery from "./discovery"
 import * as DesktopPlatform from "./platform"
@@ -37,7 +36,6 @@ export const layer = Layer.effect(
   Service,
   Effect.gen(function* () {
     const auth = yield* Auth.Service
-    const cache = yield* ModelCache.Service
     const discovery = yield* Discovery.Service
     const instances = yield* InstanceStore.Service
     const platform = yield* DesktopPlatform.Service
@@ -75,10 +73,7 @@ export const layer = Layer.effect(
           }),
         )
         .pipe(Effect.mapError(() => new SyncError({ operation: "store" })))
-      yield* invalidateAfterProviderAuthChange(PROVIDER_ID).pipe(
-        Effect.provideService(ModelCache.Service, cache),
-        Effect.provideService(InstanceStore.Service, instances),
-      )
+      yield* invalidateAfterProviderAuthChange(PROVIDER_ID).pipe(Effect.provideService(InstanceStore.Service, instances))
       return found.status
     })
 

@@ -107,7 +107,6 @@ export const dict = {
   "dialog.provider.search.placeholder": "공급자 검색",
   "dialog.provider.empty": "공급자 없음",
   "dialog.provider.group.other": "기타",
-  "dialog.provider.tag.recommended": "추천",
 
   "dialog.model.select.title": "모델 선택",
   "dialog.model.search.placeholder": "모델 검색",
@@ -164,7 +163,6 @@ export const dict = {
   "provider.disconnect.toast.disconnected.description": "{{provider}} 모델을 더 이상 사용할 수 없습니다.",
   "model.tag.free": "무료",
   "model.tag.dataCollected": "데이터가 학습에 사용될 수 있습니다",
-  "model.group.auto": "자동 모델",
   "model.group.recommended": "추천",
   "model.group.favorites": "즐겨찾기",
   "model.group.mostUsed": "가장 많이 사용됨",
@@ -178,7 +176,6 @@ export const dict = {
   "model.preview.label.average": "예상 평균 비용",
   "model.preview.label.context": "컨텍스트",
   "model.preview.group.terminalBench": "Terminal Bench 2.0",
-  "model.preview.group.autoEfficientChoices": "모델 선택지",
   "model.preview.label.completion": "완료율",
   "model.preview.label.costAttempt": "시도당 비용",
   "model.preview.value.notSupported": "미지원",

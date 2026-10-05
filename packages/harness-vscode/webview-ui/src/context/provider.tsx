@@ -10,7 +10,6 @@ import { useVSCode } from "./vscode"
 import type { Provider, ProviderModel, ModelSelection, ExtensionMessage, ProviderAuthState } from "../types/messages"
 import type { ProviderAuthMethod } from "@harness/sdk/v2/client"
 import { flattenModels, findModel as _findModel, isModelValid as isValid } from "./provider-utils"
-import { HARNESS_AUTO } from "../../../src/shared/provider-model"
 
 export type EnrichedModel = ProviderModel & { providerID: string; providerName: string }
 
@@ -18,9 +17,8 @@ interface ProviderContextValue {
   providers: Accessor<Record<string, Provider>>
   connected: Accessor<string[]>
   defaults: Accessor<Record<string, string>>
-  organizationId: Accessor<string | null | undefined>
   ready: Accessor<boolean>
-  defaultSelection: Accessor<ModelSelection>
+  defaultSelection: Accessor<ModelSelection | null>
   models: Accessor<EnrichedModel[]>
   findModel: (selection: ModelSelection | null) => EnrichedModel | undefined
   authMethods: Accessor<Record<string, ProviderAuthMethod[]>>
@@ -36,9 +34,8 @@ export const ProviderProvider: ParentComponent = (props) => {
   const [providers, setProviders] = createSignal<Record<string, Provider>>({})
   const [connected, setConnected] = createSignal<string[]>([])
   const [defaults, setDefaults] = createSignal<Record<string, string>>({})
-  const [organizationId, setOrganizationId] = createSignal<string | null>()
   const [ready, setReady] = createSignal(false)
-  const [defaultSelection, setDefaultSelection] = createSignal<ModelSelection>(HARNESS_AUTO)
+  const [defaultSelection, setDefaultSelection] = createSignal<ModelSelection | null>(null)
   const [authMethods, setAuthMethods] = createSignal<Record<string, ProviderAuthMethod[]>>({})
   const [authStates, setAuthStates] = createSignal<Record<string, ProviderAuthState>>({})
 
@@ -56,21 +53,7 @@ export const ProviderProvider: ParentComponent = (props) => {
   // a providersLoaded message that arrives before the DOM mount.
   const unsubscribe = vscode.onMessage((message: ExtensionMessage) => {
     if (message.type === "providersLoading") {
-      batch(() => {
-        setReady(false)
-        setOrganizationId(undefined)
-        setProviders((prev) => {
-          const next = { ...prev }
-          delete next.harness
-          return next
-        })
-        setDefaults((prev) => {
-          const next = { ...prev }
-          delete next.harness
-          return next
-        })
-        setConnected((prev) => prev.filter((id) => id !== "harness"))
-      })
+      setReady(false)
       return
     }
     if (message.type !== "providersLoaded") return
@@ -79,8 +62,7 @@ export const ProviderProvider: ParentComponent = (props) => {
       setProviders(message.providers)
       setConnected(message.connected)
       setDefaults(message.defaults)
-      setOrganizationId(message.ready === false ? undefined : (message.organizationId ?? null))
-      setReady(message.ready ?? true)
+      setReady(true)
       setDefaultSelection(message.defaultSelection)
       setAuthMethods(message.authMethods)
       setAuthStates(message.authStates)
@@ -117,7 +99,6 @@ export const ProviderProvider: ParentComponent = (props) => {
     providers,
     connected,
     defaults,
-    organizationId,
     ready,
     defaultSelection,
     models,

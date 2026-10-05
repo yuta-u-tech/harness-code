@@ -420,17 +420,9 @@ try {
   const writes = () => sent.filter((item) => item.type === "persistModelSelection" || item.type === "persistRecents")
   const requests = () =>
     sent.filter((item) => ["sendMessage", "sendCommand", "importAndSend", "compact"].includes(item.type))
-  const catalog = async (
-    organizationId: string | null,
-    ids: string[],
-    model?: string,
-    ready = true,
-    variants = ["low", "high"],
-  ) => {
+  const catalog = async (_organizationId: string | null, ids: string[], model?: string, variants = ["low", "high"]) => {
     await emit({
       type: "providersLoaded",
-      organizationId,
-      ready,
       providers: {
         harness: {
           id: "harness",
@@ -446,7 +438,7 @@ try {
       },
       connected: ["harness", "openai"],
       defaults: model ? { harness: model } : {},
-      defaultSelection: auto,
+      defaultSelection: model ? { providerID: "harness", modelID: model } : auto,
       authMethods: {},
       authStates: {},
     })
@@ -539,198 +531,21 @@ try {
   }
   value.setCurrentSessionID(undefined)
   await emit({ type: "agentsLoaded", agents: [{ name: "code" }, { name: "ask" }], defaultAgent: "code" })
-  await emit({ type: "recentsLoaded", recents: [auto, first, external] })
-  await catalog("org-a", [first.modelID, recommended.modelID, auto.modelID], recommended.modelID)
-  choice(value.selected(), recommended)
-  choice(value.selected("selection"), recommended)
-  choice(value.modelForAgent("ask"), recommended)
-  assert.deepEqual(writes(), [])
-
-  observed.length = 0
-  await catalog("org-b", [first.modelID, recommended.modelID, auto.modelID], first.modelID)
-  choice(value.selected(), first)
-  assert(observed.length > 0)
-  assert(observed.every((selection) => selection?.modelID === first.modelID))
-  for (const model of [undefined, "disallowed"]) {
-    await catalog("org-a", [first.modelID, recommended.modelID], model)
-    choice(value.selected(), first)
-  }
-  assert.deepEqual(writes(), [])
-
-  await catalog(null, [auto.modelID, personal.modelID])
+  await emit({ type: "recentsLoaded", recents: [] })
+  await catalog(null, [auto.modelID, personal.modelID, first.modelID, recommended.modelID])
   choice(value.selected(), auto)
+  assert.deepEqual(writes(), [])
   value.selectModel(personal.providerID, personal.modelID)
   await settle()
-  assert.equal(writes().length, 2)
   choice(value.selected(), personal)
+  const remembered = writes().slice()
   value.setSessionModel("selection", personal.providerID, personal.modelID)
   value.setCurrentSessionID("selection")
-  const remembered = writes().slice()
-  await catalog("org-a", [first.modelID, recommended.modelID], recommended.modelID)
-  choice(value.selected(), recommended)
-  choice(value.selected("selection"), recommended)
-  choice(value.modelForAgent("code"), recommended)
-  await catalog(null, [auto.modelID, personal.modelID])
-  choice(value.selected(), personal)
-  choice(value.modelForAgent("code"), personal)
+  choice(value.selected("selection"), personal)
   assert.deepEqual(writes(), remembered)
-
-  await emit({ type: "modelSelectionsLoaded", selections: {} })
-  await emit({ type: "recentsLoaded", recents: [auto] })
-  choice(value.selected(), personal)
-  setSettings({ model: "harness/personal" })
-  await settle()
-  setSettings({ model: "harness/a-recommended" })
-  await catalog("org-a", [first.modelID, recommended.modelID], recommended.modelID)
-  choice(value.selected(), recommended)
-  setSettings({})
-  await catalog(null, [auto.modelID, personal.modelID])
-  choice(value.selected(), personal)
-  assert.deepEqual(writes(), remembered)
-
-  await catalog("org-a", [first.modelID, recommended.modelID], recommended.modelID)
-  await emit({
-    type: "messagesLoaded",
-    sessionID: "history",
-    messages: [
-      {
-        id: "history-message",
-        sessionID: "history",
-        role: "user",
-        model: personal,
-        createdAt: info("history").createdAt,
-      },
-    ],
-  })
-  choice(value.selected("history"), recommended)
-  await catalog(null, [auto.modelID, personal.modelID])
-  choice(value.selected("history"), personal)
-  assert.deepEqual(writes(), remembered)
-
-  for (const pending of ["retained", "loading", "empty"]) {
-    if (pending === "retained")
-      await catalog("org-a", [personal.modelID, recommended.modelID], recommended.modelID, false)
-    if (pending === "loading") await emit({ type: "providersLoading" })
-    if (pending === "empty") await catalog("org-a", [], recommended.modelID)
-    assert.equal(value.selected(), null)
-    assert.equal(value.selected("selection"), null)
-    assert.equal(value.modelForAgent("code"), null)
-    const before = requests().length
-    assert.equal(value.sendMessage("blocked"), false)
-    assert.equal(value.sendMessage("blocked explicit", personal.providerID, personal.modelID), false)
-    assert.equal(value.sendCommand("blocked", ""), false)
-    value.compact()
-    assert.equal(requests().length, before)
-    assert.deepEqual(writes(), remembered)
-  }
-
-  value.setSessionModel("external", external.providerID, external.modelID)
   await emit({ type: "providersLoading" })
-  choice(value.selected("external"), external)
-  await catalog("org-a", [first.modelID, recommended.modelID], recommended.modelID)
-  const before = requests().length
-  value.sendMessage("invalid explicit", personal.providerID, personal.modelID)
-  value.sendCommand("invalid", "", undefined, undefined, undefined, undefined, undefined, undefined, {
-    model: "harness/personal",
-  })
-  assert.equal(requests().length, before)
-  assert.deepEqual(writes(), remembered)
-  value.selectVariant(undefined, "selection")
-  const captured = value.submission("selection")
-  assert.deepEqual(captured.model, recommended)
-  assert.equal(captured.variant, "")
-  assert(update.value)
-  update.value("worktree", "project", "selection")
-  const updated = sent.at(-1)
-  assert.deepEqual(updated, {
-    type: "agentManager.updateFromBase",
-    worktreeId: "worktree",
-    projectId: "project",
-    sessionId: "selection",
-    ...captured,
-  })
-  assert.equal(value.sendMessage("effective model"), true)
-  const message = requests().at(-1)
-  assert(message?.type === "sendMessage")
-  assert.equal(message.providerID, recommended.providerID)
-  assert.equal(message.modelID, recommended.modelID)
-  assert.equal(message.agent, captured.agent)
-  assert.equal(message.variant, captured.variant)
-  value.selectVariant("high", "selection")
-  assert.equal(captured.variant, "")
-  assert(updated?.type === "agentManager.updateFromBase")
-  assert.equal(updated.variant, "")
-  assert.equal(message.variant, "")
-  update.value("worktree", "project", "selection")
-  assert.deepEqual(sent.at(-1), { ...updated, variant: "high" })
-
-  assert(menu.value)
-  for (const send of [update.value, menu.value]) {
-    for (const id of [undefined, "background"]) {
-      send("other-worktree", "other-project", id)
-      assert.deepEqual(sent.at(-1), {
-        type: "agentManager.updateFromBase",
-        worktreeId: "other-worktree",
-        projectId: "other-project",
-        sessionId: id,
-      })
-    }
-  }
-  menu.value("worktree", "project", "selection")
-  assert.deepEqual(sent.at(-1), {
-    type: "agentManager.updateFromBase",
-    worktreeId: "worktree",
-    projectId: "project",
-    sessionId: "selection",
-  })
-  await emit({
-    type: "messageCreated",
-    message: {
-      id: message.messageID,
-      sessionID: "selection",
-      role: "user",
-      model: recommended,
-      createdAt: info("selection").createdAt,
-    },
-  })
-  await catalog(null, [auto.modelID, personal.modelID])
-  choice(value.selected(), personal)
-  update.value("worktree", "project", "selection")
-  const live = sent.at(-1)
-  assert(live?.type === "agentManager.updateFromBase" && live.model)
-  choice(live.model, personal)
-  await catalog("org-a", [first.modelID, recommended.modelID], recommended.modelID)
-  await emit({ type: "sessionStatus", sessionID: "selection", status: "idle" })
-  assert.equal(value.sendCommand("effective", ""), true)
-  const command = requests().at(-1)
-  assert(command?.type === "sendCommand")
-  assert.equal(command.providerID, recommended.providerID)
-  assert.equal(command.modelID, recommended.modelID)
-  assert.equal(command.agent, value.submission("selection").agent)
-  assert.equal(command.variant, value.submission("selection").variant)
-  await catalog("org-a", [])
-  const blocked = requests().length
-  assert.equal(value.sendMessage("unavailable"), false)
-  assert.equal(value.sendCommand("unavailable", ""), false)
-  assert.equal(requests().length, blocked)
-  await catalog("org-a", [first.modelID, recommended.modelID], recommended.modelID)
-  assert.deepEqual(writes(), remembered)
-
-  value.setCurrentSessionID(undefined)
-  await emit({ type: "modelSelectionsLoaded", selections: { code: personal } })
-  choice(value.selected(), recommended)
-  await catalog(null, [auto.modelID, personal.modelID])
-  choice(value.selected(), personal)
-  await catalog("org-a", [auto.modelID, first.modelID, recommended.modelID], recommended.modelID)
-  await emit({ type: "modelSelectionsLoaded", selections: { code: auto } })
-  choice(value.selected(), auto)
-  setSettings({ agent: { code: { model: "harness/z-first" } } })
-  await settle()
-  choice(value.modelForAgent("code"), auto)
-  choice(value.selected(), auto)
-  setSettings({})
-  await emit({ type: "modelSelectionsLoaded", selections: {} })
-  choice(value.selected(), recommended)
+  await catalog(null, [auto.modelID, personal.modelID, first.modelID, recommended.modelID])
+  choice(value.selected("selection"), personal)
   assert.deepEqual(writes(), remembered)
 
   // Mode changes preserve both explicit and inherited session choices, including Default.
@@ -787,54 +602,13 @@ try {
   await emit({ type: "modelSelectionsLoaded", selections: { code: first, ask: recommended } })
   value.selectAgent("ask")
   value.selectVariant("low")
-  for (const scope of [undefined, "ses_command", "ses_background-command", "command-draft"]) {
-    value.setCurrentSessionID(undefined)
-    value.selectAgent("code")
-    value.selectVariant("low")
-    if (scope) {
-      value.setSessionAgent(scope, "code")
-      value.setSessionModel(scope, personal.providerID, personal.modelID)
-      value.selectVariant("low", scope)
-    }
-    value.setCurrentSessionID(
-      scope === "ses_background-command" ? "selection" : scope === "command-draft" ? undefined : scope,
-    )
-    value.setDraftSessionID(scope === "command-draft" ? scope : undefined)
-    await settle()
-    const initial = snapshot(scope)
-    for (const reason of ["retained", "loading", "empty", "invalid", "malformed"]) {
-      if (reason === "retained")
-        await catalog("org-a", [personal.modelID, first.modelID, recommended.modelID], recommended.modelID, false)
-      if (reason === "loading") await emit({ type: "providersLoading" })
-      if (reason === "empty") await catalog("org-a", [])
-      const before = snapshot(scope)
-      const count = sent.length
-      assert.equal(
-        value.sendCommand(
-          "review-test",
-          "preserve selection",
-          personal.providerID,
-          personal.modelID,
-          undefined,
-          scope === "command-draft" ? scope : undefined,
-          undefined,
-          scope === "command-draft" ? null : scope,
-          {
-            agent: "ask",
-            model: reason === "invalid" ? "harness/unavailable" : reason === "malformed" ? "invalid" : undefined,
-            variant: "high",
-          },
-        ),
-        false,
-        `${scope ?? "new"}: ${reason}`,
-      )
-      await settle()
-      assert.equal(snapshot(scope), before, `${scope ?? "new"}: ${reason} mutated selection`)
-      assert.deepEqual(sent.slice(count), [], "Rejected commands must not persist, seed, or send")
-      await catalog("org-a", [personal.modelID, first.modelID, recommended.modelID], recommended.modelID)
-      assert.equal(snapshot(scope), initial, "Restoring the catalog must restore the untouched model and variant")
-    }
-  }
+  value.setCurrentSessionID(undefined)
+  value.selectAgent("code")
+  value.selectVariant("low")
+  value.setSessionAgent("command-draft", "code")
+  value.setSessionModel("command-draft", personal.providerID, personal.modelID)
+  value.selectVariant("low", "command-draft")
+  await settle()
 
   for (const configured of [false, true]) {
     const scope = `ses_command-${configured ? "configured" : "preferred"}`
@@ -1116,10 +890,18 @@ try {
     assert(host.querySelector('img[src="data:image/png;base64,cGl4ZWw="]'))
   }
   for (const text of ["preserve this draft", "/review-test preserve this draft"]) {
-    for (const empty of [false, true]) {
+    {
+      const empty = true
       await seed(text)
-      if (empty) await catalog("org-a", [])
-      if (!empty) await emit({ type: "providersLoading" })
+      await emit({
+        type: "providersLoaded",
+        providers: {},
+        connected: [],
+        defaults: {},
+        defaultSelection: null,
+        authMethods: {},
+        authStates: {},
+      })
       const count = requests().length
       submit(empty)
       await settle()
@@ -1152,7 +934,15 @@ try {
     submit(true)
     const request = sent.slice(start).find((message) => message.type === "requestTerminalContext")
     assert(request?.type === "requestTerminalContext")
-    await emit({ type: "providersLoading" })
+    await emit({
+      type: "providersLoaded",
+      providers: {},
+      connected: [],
+      defaults: {},
+      defaultSelection: null,
+      authMethods: {},
+      authStates: {},
+    })
     await emit({ type: "terminalContextResult", requestId: request.requestId, content: "terminal output" })
     retained(text, count)
   }
@@ -1393,15 +1183,14 @@ try {
     suggestion: { id: "goal-suggestion", sessionID: "root", text: "Continue?", actions: [] },
   })
   const count = value.messages().length
-  for (const phase of ["ready", "loading", "empty"]) {
-    if (phase === "loading") await emit({ type: "providersLoading" })
+  for (const phase of ["ready", "empty"]) {
     if (phase === "empty")
       await emit({
         type: "providersLoaded",
-        ready: true,
         providers: {},
         connected: [],
         defaults: {},
+        defaultSelection: null,
         authMethods: {},
         authStates: {},
       })
@@ -2202,7 +1991,7 @@ try {
     const id = `pending:inherited-${missing}`
     value.setSessionAgent(id, "code")
     if (missing === "model") await catalog("org-b", [first.modelID], first.modelID)
-    if (missing === "effort") await catalog("org-a", [personal.modelID], personal.modelID, true, ["low"])
+    if (missing === "effort") await catalog("org-a", [personal.modelID], personal.modelID, ["low"])
     value.selectAgent("ask", id)
     await catalog("org-a", [personal.modelID, first.modelID, recommended.modelID], recommended.modelID)
     assert.deepEqual(value.submission(id), { model: personal, variant: "high", agent: "ask" })

@@ -11,20 +11,6 @@ import { described } from "@/server/routes/instance/httpapi/groups/metadata"
 
 export { IndexingStatusInfo, IndexingStatusState, IndexingWarningInfo } from "@/harness/indexing-event"
 
-export const HarnessEmbeddingModel = Schema.Struct({
-  id: Schema.String,
-  name: Schema.String,
-  dimension: Schema.Int.check(Schema.isGreaterThan(0)),
-  scoreThreshold: Schema.Finite.check(Schema.isBetween({ minimum: 0, maximum: 1 })),
-  note: Schema.optional(Schema.String),
-})
-
-export const HarnessEmbeddingModelCatalog = Schema.Struct({
-  defaultModel: Schema.String,
-  models: Schema.Array(HarnessEmbeddingModel),
-  aliases: Schema.Record(Schema.String, Schema.String),
-}).annotate({ identifier: "HarnessEmbeddingModelCatalog" })
-
 const root = "/indexing"
 const IndexingConsent = Schema.Struct({
   enabled: Schema.Boolean,
@@ -33,7 +19,6 @@ const IndexingConsent = Schema.Struct({
 export const IndexingPaths = {
   status: `${root}/status`,
   consent: `${root}/consent`,
-  models: `${root}/models`,
   warnings: `${root}/warnings`,
 } as const
 
@@ -59,18 +44,6 @@ export const IndexingApi = HttpApi.make("indexing")
             identifier: "indexing.warnings",
             summary: "Get indexing warnings",
             description: "Retrieve code indexing warnings for the active project.",
-          }),
-        ),
-      )
-      .add(
-        HttpApiEndpoint.get("models", IndexingPaths.models, {
-          query: WorkspaceRoutingQuery,
-          success: described(HarnessEmbeddingModelCatalog, "Harness embedding model catalog"),
-        }).annotateMerge(
-          OpenApi.annotations({
-            identifier: "indexing.models",
-            summary: "List Harness embedding models",
-            description: "Retrieve the embedding models available through the active Harness account.",
           }),
         ),
       )

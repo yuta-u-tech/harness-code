@@ -1,48 +1,9 @@
 import type { ModelSelection, ModelUsageMap } from "../../types/messages"
 import type { EnrichedModel } from "../../context/provider"
 import { searchMatch } from "../../utils/search-match"
-import {
-  HARNESS_PROVIDER_ID as HARNESS_GATEWAY_ID,
-  PROVIDER_PRIORITY as PROVIDER_ORDER,
-  providerOrderIndex,
-} from "../../../../src/shared/provider-model"
+import { PROVIDER_PRIORITY as PROVIDER_ORDER, providerOrderIndex } from "../../../../src/shared/provider-model"
 
-export { HARNESS_GATEWAY_ID, PROVIDER_ORDER }
-
-export const HARNESS_AUTO_SMALL_IDS = new Set(["harness-auto/small", "auto-small"])
-const AUTO_FALLBACK = "Routes requests automatically."
-
-interface Choice {
-  id: string
-  name: string
-}
-
-export function isAuto(model: Pick<EnrichedModel, "providerID" | "id">): boolean {
-  return (
-    model.providerID === HARNESS_GATEWAY_ID && (model.id.startsWith("harness-auto/") || HARNESS_AUTO_SMALL_IDS.has(model.id))
-  )
-}
-
-export function autoChoices(
-  model: Pick<EnrichedModel, "providerID" | "id" | "autoRouting">,
-  catalog: readonly Pick<EnrichedModel, "id" | "name">[] = [],
-): readonly Choice[] {
-  if (!isAuto(model)) return []
-  const ids = model.autoRouting?.models
-  if (!ids?.length) return []
-  const names = new Map(catalog.map((item) => [item.id, stripSubProviderPrefix(sanitizeName(item.name))]))
-  return ids.map((id) => ({ id, name: names.get(id) ?? id }))
-}
-
-export function autoSummary(model: Pick<EnrichedModel, "options">): string {
-  const raw = model.options?.description?.split(/\n\s*\n/)[0]
-  if (!raw) return AUTO_FALLBACK
-  return raw.replace(/\s+/g, " ").trim() || AUTO_FALLBACK
-}
-
-export function isSmall(model: Pick<EnrichedModel, "providerID" | "id">): boolean {
-  return model.providerID === HARNESS_GATEWAY_ID && HARNESS_AUTO_SMALL_IDS.has(model.id)
-}
+export { PROVIDER_ORDER }
 
 export function providerSortKey(providerID: string, order: readonly string[] = PROVIDER_ORDER): number {
   return providerOrderIndex(providerID, order as typeof PROVIDER_ORDER)
@@ -202,7 +163,7 @@ export function mostUsedModels(
 
 // Strips trailing "(free)" parenthesized suffix from model display names, e.g.
 // "Llama 3 (free)" → "Llama 3". A separate "Free" label/tag is rendered
-// elsewhere, so preserve bare trailing "Free" words (e.g. "Harness Auto Free").
+// elsewhere, so preserve bare trailing "Free" words.
 export function sanitizeName(name: string): string {
   return name.replace(/[\s:_-]*\(free\)\s*$/i, "").trim()
 }
@@ -211,26 +172,19 @@ export function stripSubProviderPrefix(name: string): string {
   const colon = name.indexOf(": ")
   if (colon < 0) return name
   const prefix = name.slice(0, colon)
-  if (prefix.toLowerCase() === HARNESS_GATEWAY_ID) return name
   return name.slice(colon + 2)
 }
 
 export function buildTriggerLabel(
   resolvedName: string | undefined,
-  providerID: string | undefined,
   raw: ModelSelection | null,
   allowClear: boolean,
   clearLabel: string,
   hasProviders: boolean,
   labels: { select: string; noProviders: string; notSet: string },
 ): string {
-  if (resolvedName) {
-    if (providerID === HARNESS_GATEWAY_ID) return stripSubProviderPrefix(resolvedName)
-    return resolvedName
-  }
-  if (raw?.providerID && raw?.modelID) {
-    return raw.providerID === HARNESS_GATEWAY_ID ? raw.modelID : `${raw.providerID} / ${raw.modelID}`
-  }
+  if (resolvedName) return resolvedName
+  if (raw?.providerID && raw?.modelID) return `${raw.providerID} / ${raw.modelID}`
   if (allowClear) return clearLabel || labels.notSet
   return hasProviders ? labels.select : labels.noProviders
 }

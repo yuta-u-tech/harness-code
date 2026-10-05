@@ -296,7 +296,6 @@ describe("LLM request headers", () => {
   for (const entry of [
     { name: "harness", npm: model.api.npm },
     { name: "test", npm: model.api.npm },
-    { name: "harness", npm: "@harness/harness-gateway" },
   ]) {
     it.instance(`uses generic headers for ${entry.name} with ${entry.npm}`, () =>
       Effect.gen(function* () {
@@ -323,13 +322,6 @@ describe("LLM request headers", () => {
           "x-parent-session-id": "ses_parent",
         })
         expect(Object.keys(result.headers).filter((key) => /^x-(harness|opencode)-/i.test(key))).toEqual([])
-        if (entry.npm === "@harness/harness-gateway") {
-          expect(result.headers).toMatchObject({
-            "x-harness-mode": "code",
-            "X-HARNESS-TASKID": "ses_test",
-            "X-HARNESS-PARENT-TASKID": "ses_parent",
-          })
-        }
       }),
     )
   }

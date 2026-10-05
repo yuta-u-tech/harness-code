@@ -1,6 +1,6 @@
 import * as Core from "@opencode-ai/core/models-dev"
 import { Context, Effect, Layer } from "effect"
-import { AI_SDK_PROVIDERS, PROMPTS } from "@harness/harness-gateway"
+import { AI_SDK_PROVIDERS, PROMPTS } from "@opencode-ai/core/v1/config/provider"
 import { overlay } from "@/harness/anaconda-desktop/provider"
 import { LayerNode } from "@opencode-ai/core/effect/layer-node"
 import { AppNodeBuilder } from "@opencode-ai/core/effect/app-node-builder"

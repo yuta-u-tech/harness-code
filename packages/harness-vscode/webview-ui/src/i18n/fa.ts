@@ -104,7 +104,6 @@ export const dict = {
   "dialog.provider.search.placeholder": "جستجوی ارائه‌دهندگان",
   "dialog.provider.empty": "ارائه‌دهنده‌ای یافت نشد",
   "dialog.provider.group.other": "سایر",
-  "dialog.provider.tag.recommended": "پیشنهادی",
 
   "dialog.model.select.title": "انتخاب مدل",
   "dialog.model.search.placeholder": "جستجوی مدل‌ها",
@@ -162,7 +161,6 @@ export const dict = {
 
   "model.tag.free": "رایگان",
   "model.tag.dataCollected": "ممکن است داده‌ها برای آموزش استفاده شوند",
-  "model.group.auto": "مدل‌های خودکار",
   "model.group.recommended": "پیشنهادی",
   "model.group.favorites": "موردعلاقه‌ها",
   "model.group.mostUsed": "پراستفاده‌ترین",
@@ -175,7 +173,6 @@ export const dict = {
   "model.preview.label.average": "هزینه تخمینی میانگین",
   "model.preview.label.context": "زمینه",
   "model.preview.group.terminalBench": "Terminal Bench 2.0",
-  "model.preview.group.autoEfficientChoices": "انتخاب‌های مدل",
   "model.preview.label.completion": "تکمیل",
   "model.preview.label.costAttempt": "هزینه / تلاش",
   "model.preview.value.notSupported": "پشتیبانی نمی‌شود",

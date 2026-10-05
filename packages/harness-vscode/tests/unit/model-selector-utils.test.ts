@@ -4,15 +4,11 @@ import {
   buildTriggerLabel,
   stripSubProviderPrefix,
   sanitizeName,
-  HARNESS_GATEWAY_ID,
   PROVIDER_ORDER,
   freeDataLabel,
   isDataCollectedModel,
   hasByok,
   isFree,
-  isAuto,
-  autoSummary,
-  autoChoices,
   rankModelSearch,
   mostUsedModels,
 } from "../../webview-ui/src/components/shared/model-selector-utils"
@@ -21,14 +17,10 @@ import type { EnrichedModel } from "../../webview-ui/src/context/provider"
 const labels = { select: "Select model", noProviders: "No providers", notSet: "Not set" }
 
 describe("providerSortKey", () => {
-  it("returns 0 for harness gateway", () => {
-    expect(providerSortKey(HARNESS_GATEWAY_ID)).toBe(0)
-  })
-
   it("returns correct index for known providers", () => {
-    expect(providerSortKey("anthropic")).toBe(1)
-    expect(providerSortKey("openai")).toBe(3)
-    expect(providerSortKey("google")).toBe(4)
+    expect(providerSortKey("anthropic")).toBe(0)
+    expect(providerSortKey("openai")).toBe(2)
+    expect(providerSortKey("google")).toBe(3)
   })
 
   it("returns order length for unknown provider", () => {
@@ -48,9 +40,9 @@ describe("providerSortKey", () => {
   })
 
   it("sorts providers correctly when used with sort", () => {
-    const ids = ["google", "anthropic", "harness", "openai", "deepseek"]
+    const ids = ["google", "anthropic", "openai", "deepseek"]
     const sorted = ids.slice().sort((a, b) => providerSortKey(a) - providerSortKey(b))
-    expect(sorted).toEqual(["harness", "anthropic", "deepseek", "openai", "google"])
+    expect(sorted).toEqual(["anthropic", "deepseek", "openai", "google"])
   })
 })
 
@@ -63,11 +55,6 @@ describe("stripSubProviderPrefix", () => {
   it("leaves names without ': ' unchanged", () => {
     expect(stripSubProviderPrefix("GPT-4o")).toBe("GPT-4o")
     expect(stripSubProviderPrefix("claude-3-5-sonnet")).toBe("claude-3-5-sonnet")
-  })
-
-  it("does not strip 'Harness: ' prefix", () => {
-    expect(stripSubProviderPrefix("Harness: Auto")).toBe("Harness: Auto")
-    expect(stripSubProviderPrefix("harness: Auto")).toBe("harness: Auto")
   })
 })
 
@@ -115,80 +102,6 @@ describe("isFree", () => {
     expect(isFree({ isFree: true })).toBe(true)
     expect(isFree({ isFree: false })).toBe(false)
     expect(isFree({})).toBe(false)
-  })
-})
-
-describe("isAuto", () => {
-  it("matches only Harness Auto model ids", () => {
-    expect(isAuto({ providerID: HARNESS_GATEWAY_ID, id: "harness-auto/efficient" })).toBe(true)
-    expect(isAuto({ providerID: HARNESS_GATEWAY_ID, id: "auto-small" })).toBe(true)
-    expect(isAuto({ providerID: "anthropic", id: "harness-auto/efficient" })).toBe(false)
-    expect(isAuto({ providerID: HARNESS_GATEWAY_ID, id: "anthropic/claude-sonnet" })).toBe(false)
-  })
-})
-
-describe("autoChoices", () => {
-  it("uses backend Auto routes and resolves names when available", () => {
-    expect(
-      autoChoices(
-        {
-          providerID: HARNESS_GATEWAY_ID,
-          id: "harness-auto/efficient",
-          autoRouting: { models: ["provider/model", "missing/model"] },
-        },
-        [{ id: "provider/model", name: "Provider: Model" }],
-      ),
-    ).toEqual([
-      { id: "provider/model", name: "Model" },
-      { id: "missing/model", name: "missing/model" },
-    ])
-  })
-
-  it("shows routes for any Auto model when present", () => {
-    expect(
-      autoChoices(
-        {
-          providerID: HARNESS_GATEWAY_ID,
-          id: "harness-auto/frontier",
-          autoRouting: { models: ["provider/model"] },
-        },
-        [{ id: "provider/model", name: "Provider: Model" }],
-      ),
-    ).toEqual([{ id: "provider/model", name: "Model" }])
-    expect(
-      autoChoices({
-        providerID: HARNESS_GATEWAY_ID,
-        id: "harness-auto/free",
-        autoRouting: { models: ["provider/model"] },
-      }),
-    ).toEqual([{ id: "provider/model", name: "provider/model" }])
-  })
-
-  it("ignores missing routes and non-Auto models", () => {
-    expect(autoChoices({ providerID: HARNESS_GATEWAY_ID, id: "harness-auto/efficient" })).toEqual([])
-    expect(
-      autoChoices({
-        providerID: HARNESS_GATEWAY_ID,
-        id: "anthropic/claude-sonnet",
-        autoRouting: { models: ["provider/model"] },
-      }),
-    ).toEqual([])
-  })
-})
-
-describe("autoSummary", () => {
-  it("uses the first description paragraph for compact tooltips", () => {
-    expect(
-      autoSummary({
-        options: {
-          description: "Routes through available models.\n\nLong details.",
-        },
-      }),
-    ).toBe("Routes through available models.")
-  })
-
-  it("falls back when there is no description", () => {
-    expect(autoSummary({})).toBe("Routes requests automatically.")
   })
 })
 
@@ -260,67 +173,56 @@ describe("hasByok", () => {
 
 describe("buildTriggerLabel", () => {
   it("returns resolved model name for non-harness provider unchanged", () => {
-    expect(buildTriggerLabel("GPT-4o", "openai", null, false, "", true, labels)).toBe("GPT-4o")
-  })
-
-  it("strips sub-provider prefix from resolved name for harness gateway models", () => {
-    expect(buildTriggerLabel("Anthropic: Claude Sonnet", HARNESS_GATEWAY_ID, null, false, "", true, labels)).toBe(
-      "Claude Sonnet",
-    )
+    expect(buildTriggerLabel("GPT-4o", null, false, "", true, labels)).toBe("GPT-4o")
   })
 
   it("does not strip prefix for non-harness provider even if name contains ': '", () => {
-    expect(buildTriggerLabel("Anthropic: Claude Sonnet", "anthropic", null, false, "", true, labels)).toBe(
+    expect(buildTriggerLabel("Anthropic: Claude Sonnet", null, false, "", true, labels)).toBe(
       "Anthropic: Claude Sonnet",
     )
   })
 
   it("returns resolved name as-is when providerID is undefined", () => {
-    expect(buildTriggerLabel("GPT-4o", undefined, null, false, "", true, labels)).toBe("GPT-4o")
+    expect(buildTriggerLabel("GPT-4o", null, false, "", true, labels)).toBe("GPT-4o")
   })
 
   it("does not add provider name to the compact label", () => {
-    expect(buildTriggerLabel("GPT-5.6 Luna", "openai", null, false, "", true, labels)).toBe("GPT-5.6 Luna")
-  })
-
-  it("returns modelID for harness gateway raw selection", () => {
-    const raw = { providerID: "harness", modelID: "harness-auto/frontier" }
-    expect(buildTriggerLabel(undefined, undefined, raw, false, "", true, labels)).toBe("harness-auto/frontier")
+    expect(buildTriggerLabel("GPT-5.6 Luna", null, false, "", true, labels)).toBe("GPT-5.6 Luna")
   })
 
   it("returns providerID / modelID for non-harness raw selection", () => {
     const raw = { providerID: "anthropic", modelID: "claude-3-5-sonnet" }
-    expect(buildTriggerLabel(undefined, undefined, raw, false, "", true, labels)).toBe("anthropic / claude-3-5-sonnet")
+    expect(buildTriggerLabel(undefined, raw, false, "", true, labels)).toBe("anthropic / claude-3-5-sonnet")
   })
 
   it("returns clearLabel when allowClear and no selection", () => {
-    expect(buildTriggerLabel(undefined, undefined, null, true, "None", true, labels)).toBe("None")
+    expect(buildTriggerLabel(undefined, null, true, "None", true, labels)).toBe("None")
   })
 
   it("falls back to labels.notSet when allowClear and clearLabel is empty", () => {
-    expect(buildTriggerLabel(undefined, undefined, null, true, "", true, labels)).toBe("Not set")
+    expect(buildTriggerLabel(undefined, null, true, "", true, labels)).toBe("Not set")
   })
 
   it("returns labels.select when providers exist and no selection", () => {
-    expect(buildTriggerLabel(undefined, undefined, null, false, "", true, labels)).toBe("Select model")
+    expect(buildTriggerLabel(undefined, null, false, "", true, labels)).toBe("Select model")
   })
 
   it("returns labels.noProviders when no providers available", () => {
-    expect(buildTriggerLabel(undefined, undefined, null, false, "", false, labels)).toBe("No providers")
+    expect(buildTriggerLabel(undefined, null, false, "", false, labels)).toBe("No providers")
   })
 
   it("prefers resolvedName over raw selection", () => {
     const raw = { providerID: "anthropic", modelID: "claude-3-5-sonnet" }
-    expect(buildTriggerLabel("Claude Sonnet", undefined, raw, false, "", true, labels)).toBe("Claude Sonnet")
+    expect(buildTriggerLabel("Claude Sonnet", raw, false, "", true, labels)).toBe("Claude Sonnet")
   })
 
   it("ignores partial raw selection (only providerID)", () => {
     const raw = { providerID: "anthropic", modelID: "" }
-    expect(buildTriggerLabel(undefined, undefined, raw, false, "", true, labels)).toBe("Select model")
+    expect(buildTriggerLabel(undefined, raw, false, "", true, labels)).toBe("Select model")
   })
 
   it("ignores partial raw selection (only modelID)", () => {
     const raw = { providerID: "", modelID: "claude-3-5-sonnet" }
-    expect(buildTriggerLabel(undefined, undefined, raw, false, "", true, labels)).toBe("Select model")
+    expect(buildTriggerLabel(undefined, raw, false, "", true, labels)).toBe("Select model")
   })
 })

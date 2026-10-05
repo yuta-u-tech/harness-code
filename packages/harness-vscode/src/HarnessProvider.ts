@@ -146,7 +146,6 @@ import type { HarnessProviderOptions } from "./harness-provider/options"
 import { watchRestore } from "./harness-provider/prompt-focus"
 import type { ProjectRef, SessionRef, WorktreeRef } from "./agent-manager/project/route"
 import { indexingConsentStore, registeredProjects } from "./indexing-consent"
-import { fetchHarnessEmbeddingModelCatalog } from "@harness/harness-gateway"
 import { fetchImageModels } from "./image-generation/models"
 import { stopSessionProcesses } from "./harness-provider/background-process"
 import { sandboxDefault, sandboxSessionMetadata } from "./shared/sandbox-session"
@@ -384,8 +383,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
   private cachedGlobalConfig: Config | null = null
   /** Cached indexingStatusLoaded payload so requestIndexingStatus can be served before client is ready */
   private cachedIndexingStatusMessage: unknown = null
-  /** Cached harnessEmbeddingModelsLoaded payload so requestHarnessEmbeddingModels is resilient offline. */
-  private cachedHarnessEmbeddingModelsMessage: unknown = null
   /** Cached imageModelsLoaded payload so requestImageModels is resilient offline. */
   private cachedImageModelsMessage: unknown = null
   /** Cached mcpStatusLoaded payload so requestMcpStatus can be served before client is ready */
@@ -393,7 +390,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
   /** Ref-count of in-flight handleUpdateConfig calls; prevents fetchAndSendConfig from sending stale data */
   private pending = 0
   private configWarningsShown = false
-  private pendingHarnessModel: { modelID?: string; agent?: string } | null = null
   private pendingReviewComments: { comments: unknown[]; autoSend: boolean; sessionID?: string }[] = []
   private reviewCommentsHandler: ReviewCommentsHandler | undefined
   private readyResolvers: (() => void)[] = []
@@ -577,18 +573,11 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     this.registerPresence()
   }
 
-  /**
-   * Report presence for this provider: the focused session is visible, and
-   * open local tab sessions (plus the focused one) stay attached even while
-   * the view is hidden.
-   */
+  /** Report presence for this provider: the focused session is the visible one. */
   private registerPresence(): void {
     if (this.opts.disableViewedRegistration) return
     const focused = this.streams.focused
     this.connectionService.registerVisible(this.instanceId, focused ? [focused] : [])
-    const attached = new Set(this.openSessionIds)
-    if (focused) attached.add(focused)
-    this.connectionService.registerAttached(this.instanceId, [...attached])
   }
 
   public setStreamVisibility(active: boolean): void {
@@ -1021,12 +1010,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     this.postMessage({ type: "openSession", sessionID })
   }
 
-  public selectHarnessModel(modelID?: string, agent?: string): void {
-    if (!modelID && !agent) return
-    this.pendingHarnessModel = { ...(modelID && { modelID }), ...(agent && { agent }) }
-    this.flushPendingHarnessModel()
-  }
-
   public setContinueInWorktreeHandler(
     handler: (sessionId: string, progress: (status: string, detail?: string, error?: string) => void) => Promise<void>,
   ): void {
@@ -1158,7 +1141,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
           }
           this.postMessage({ type: "webviewActiveChanged", active: this.active })
           this.visibleTaskStreams.clear()
-          this.flushPendingHarnessModel()
           await this.syncWebviewState("webviewReady")
           this.flushPendingReviewComments()
           this.recoverPendingPrompts()
@@ -1398,11 +1380,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
         }
         case "setIndexingConsent":
           await this.setIndexingConsent(message.projectId, message.enabled)
-          break
-        case "requestHarnessEmbeddingModels":
-          this.fetchAndSendHarnessEmbeddingModels().catch((e) =>
-            console.error("[Harness New] fetchAndSendHarnessEmbeddingModels failed:", e),
-          )
           break
         case "requestImageModels":
           this.fetchAndSendImageModels().catch((e) => console.error("[Harness New] fetchAndSendImageModels failed:", e))
@@ -1764,7 +1741,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
 
       // Connect the shared service (no-op if already connected)
       await this.connectionService.connect(workspaceDir)
-      this.flushPendingHarnessModel()
 
       // Subscribe to SSE events for this webview (filtered by tracked sessions)
       this.unsubscribeEvent = this.connectionService.onEventFiltered(
@@ -1836,7 +1812,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
         if (state === "connected") {
           const target = this.indexingScope
           this.fetchAndSendIndexingStatus(target.directory, target.projectId)
-          this.flushPendingHarnessModel()
           // A fetch that ran without a usable client set this flag. Fetch again
           // so the model picker does not stay on "No providers".
           if (this.providersRetry) void this.fetchAndSendProviders()
@@ -2558,7 +2533,7 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
           return
         }
         try {
-          const { response, authMethods, authStates, storedKeys, organizationId, ready } = await fetchProviderData(
+          const { response, authMethods, authStates, storedKeys } = await fetchProviderData(
             client,
             this.getWorkspaceDirectory(),
           )
@@ -2574,8 +2549,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
             providers: indexProvidersById(response.all),
             connected: response.connected,
             defaults: response.default,
-            organizationId,
-            ready,
             defaultSelection: computeDefaultSelection(
               this.cachedConfigMessage as { config?: { model?: string } } | null,
               settings.get<string>("providerID", ""),
@@ -2913,13 +2886,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     } catch (error) {
       console.error("[Harness New] HarnessProvider: Failed to fetch indexing status:", error)
     }
-  }
-
-  private async fetchAndSendHarnessEmbeddingModels(): Promise<void> {
-    const catalog = await fetchHarnessEmbeddingModelCatalog()
-    const message = { type: "harnessEmbeddingModelsLoaded", catalog }
-    this.cachedHarnessEmbeddingModelsMessage = message
-    this.postMessage(message)
   }
 
   private async fetchAndSendImageModels(): Promise<void> {
@@ -5172,14 +5138,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     })
   }
 
-  private flushPendingHarnessModel(): void {
-    if (!this.webview || !this.isWebviewReady || !this.client || !this.pendingHarnessModel) return
-
-    const pending = this.pendingHarnessModel
-    this.pendingHarnessModel = null
-    this.postMessage({ type: "selectHarnessModel", ...pending })
-  }
-
   public async appendReviewComments(comments: unknown[], autoSend = false, sessionID?: string): Promise<void> {
     this.pendingReviewComments.push({ comments, autoSend, ...(sessionID ? { sessionID } : {}) })
 
@@ -5702,7 +5660,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     this.latch = undefined
     this.streams.focus(undefined)
     this.connectionService.unregisterVisible(this.instanceId)
-    this.connectionService.unregisterAttached(this.instanceId)
     this.setStatsVisible(false)
     this.statsGitOps?.dispose()
     this.unsubscribeEvent?.()

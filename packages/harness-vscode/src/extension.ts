@@ -688,22 +688,6 @@ export async function activate(context: vscode.ExtensionContext) {
     ),
   )
 
-  // Register URI handler for extension deep links (vscode://yuta-u-tech.harness-code/harness/...)
-  context.subscriptions.push(
-    vscode.window.registerUriHandler({
-      async handleUri(uri: vscode.Uri) {
-        if (uri.path !== "/harness/switch" && uri.path !== "/harness/model") return
-        const params = new URLSearchParams(uri.query)
-        const modelID = params.get("model") || undefined
-        const agent = params.get("agent") || undefined
-        if (!modelID && !agent) return
-        console.log("[Harness New] URI handler: applying linked Harness selection:", { modelID, agent })
-        await vscode.commands.executeCommand(`${HarnessProvider.viewType}.focus`)
-        provider.selectHarnessModel(modelID, agent)
-      },
-    }),
-  )
-
   // Register commit message generation
   registerCommitMessageService(context, connectionService)
 

@@ -95,7 +95,6 @@ describe("HarnessProvider providers on reconnect", () => {
     const messages: unknown[] = []
     const internal = provider(
       connection(true, {
-        gateway: { authStatus: async () => ({ data: { authenticated: false } }) },
         provider: {
           list: async (input: { directory: string }) => {
             requests.push(input.directory)
@@ -123,7 +122,7 @@ describe("HarnessProvider providers on reconnect", () => {
     expect(requests).toEqual(["/unavailable", "/healthy"])
     expect(configs).toEqual(["/healthy"])
     expect(internal.providersRetry).toBe(false)
-    expect(messages).toContainEqual(expect.objectContaining({ type: "providersLoaded", ready: true }))
+    expect(messages).toContainEqual(expect.objectContaining({ type: "providersLoaded" }))
 
     await internal.retryInitialization()
     expect(requests).toHaveLength(2)
@@ -168,7 +167,6 @@ describe("HarnessProvider providers on reconnect", () => {
 
   it("marks a retry when the provider fetch rejects with a client", async () => {
     const reject = {
-      gateway: { authStatus: async () => ({ data: undefined }) },
       provider: {
         list: async () => {
           throw new Error("backend gone")

@@ -4,14 +4,11 @@ import { ModelsDev } from "@opencode-ai/core/models-dev"
 import { Provider } from "@/provider/provider"
 
 import { mapValues, pickBy } from "remeda"
-import { ModelCache } from "@/provider/model-cache"
 import { Auth } from "@/auth"
-import { organization, recommend } from "@/harness/provider/catalog"
 import { ModelV2 } from "@opencode-ai/core/model"
 import { Option } from "effect"
 import {
   disposeAllInstancesAfterProviderAuthCallback,
-  invalidatePresence,
 } from "@/harness/server/provider-auth-lifecycle"
 import { providerMetadata } from "@/harness/provider/metadata"
 import { filterPromptTrainingModels } from "@/harness/provider/model-filter"
@@ -48,7 +45,6 @@ export const providerHandlers = HttpApiBuilder.group(InstanceHttpApi, "provider"
     const cfg = yield* Config.Service
     const provider = yield* Provider.Service
     const svc = yield* ProviderAuth.Service
-    const cache = yield* ModelCache.Service
     const access = yield* Auth.Service
 
     const list = Effect.fn("ProviderHttpApi.list")(function* () {
@@ -61,9 +57,6 @@ export const providerHandlers = HttpApiBuilder.group(InstanceHttpApi, "provider"
         if ((enabled ? enabled.has(key) : true) && !disabled.has(key)) filtered[key] = value
       }
       const connected = yield* provider.list()
-      const info = yield* access.get("harness").pipe(Effect.option)
-      const unavailable = Option.isNone(info) && ("harness" in filtered || "harness" in connected)
-      if (Option.isNone(info) || organization(config.provider?.harness?.options, info.value)) delete filtered.harness
       const providers = filterPromptTrainingModels(
         Object.assign(
           mapValues(filtered, (item) => Provider.fromModelsDevProvider(item)),
@@ -71,27 +64,11 @@ export const providerHandlers = HttpApiBuilder.group(InstanceHttpApi, "provider"
         ),
         config.hide_prompt_training_models === true,
       )
-      const failed = yield* cache.failedProviders()
-      // Note: connected only contains providers with non-empty models after Provider.Service.list(),
-      // so failed must be checked explicitly for providers whose fetch returned an error.
-      const failedSet = new Set(failed)
-      if (unavailable) failedSet.add("harness")
       const validProviders = pickBy(
         providers,
-        (item, id) => Object.keys(item.models).length > 0 || id in connected || failedSet.has(id),
+        (item, id) => Object.keys(item.models).length > 0 || id in connected,
       )
       const defaults = Provider.defaultModelIDs(pickBy(validProviders, (item) => Object.keys(item.models).length > 0))
-      if (connected[ProviderV2.ID.harness] && defaults[ProviderV2.ID.harness]) {
-        const model = yield* Effect.promise(() =>
-          recommend(
-            validProviders.gateway.models,
-            config.provider?.harness?.options,
-            Option.getOrUndefined(info),
-            Option.isSome(info),
-          ),
-        )
-        if (model) defaults[ProviderV2.ID.harness] = ModelV2.ID.make(model)
-      }
       return {
         all: Object.values(validProviders).map((item) => ({
           ...Provider.toPublicInfo(item),
@@ -99,7 +76,7 @@ export const providerHandlers = HttpApiBuilder.group(InstanceHttpApi, "provider"
         })),
         default: defaults,
         connected: Object.keys(connected),
-        failed: [...failedSet],
+        failed: [],
       }
     })
 
@@ -146,7 +123,6 @@ export const providerHandlers = HttpApiBuilder.group(InstanceHttpApi, "provider"
           code: ctx.payload.code,
         }),
       )
-      if (ctx.params.providerID === "harness") yield* invalidatePresence()
       yield* disposeAllInstancesAfterProviderAuthCallback()
       return true
     })

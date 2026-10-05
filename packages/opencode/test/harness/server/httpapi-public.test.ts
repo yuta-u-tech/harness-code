@@ -5,8 +5,7 @@ import { AgentBuilderPaths } from "../../../src/harness/server/httpapi/groups/ag
 import { BackgroundProcessPaths } from "../../../src/harness/server/httpapi/groups/background-process"
 import { BranchNamePaths } from "../../../src/harness/server/httpapi/groups/branch-name"
 import { ConfigConsolePaths } from "../../../src/harness/server/httpapi/groups/config-console"
-import { IndexingPaths, HarnessEmbeddingModel } from "../../../src/harness/server/httpapi/groups/indexing"
-import { HarnessGatewayPaths } from "../../../src/harness/server/httpapi/groups/harness-gateway"
+import { IndexingPaths } from "../../../src/harness/server/httpapi/groups/indexing"
 import { HarnessPaths } from "../../../src/harness/server/httpapi/groups/harness"
 import { MemoryPaths } from "../../../src/harness/server/httpapi/groups/memory"
 import { NetworkPaths } from "../../../src/harness/server/httpapi/groups/network"
@@ -88,25 +87,6 @@ describe("Harness PublicApi OpenAPI contract", () => {
     expect(spec.paths["/pty/{ptyID}/connect"]?.get).toBeDefined()
   })
 
-  test("constrains embedding model metadata", () => {
-    const accepts = (dimension: number, scoreThreshold: number) =>
-      Result.isSuccess(
-        EffectSchema.decodeUnknownResult(HarnessEmbeddingModel)({
-          id: "provider/model",
-          name: "Model",
-          dimension,
-          scoreThreshold,
-        }),
-      )
-
-    expect(accepts(1, 0)).toBe(true)
-    expect(accepts(1024, 1)).toBe(true)
-    expect(accepts(0, 0.5)).toBe(false)
-    expect(accepts(1.5, 0.5)).toBe(false)
-    expect(accepts(1024, -0.1)).toBe(false)
-    expect(accepts(1024, 1.1)).toBe(false)
-  })
-
   test("constrains agent builder route ids", () => {
     const spec = OpenApi.fromApi(PublicApi)
     const save = AgentBuilderPaths.save.replace(":id", "{id}")
@@ -146,11 +126,9 @@ describe("Harness PublicApi OpenAPI contract", () => {
       { method: "get", path: ExperimentalPaths.worktreeDiff },
       { method: "get", path: ExperimentalPaths.worktreeDiffSummary },
       { method: "get", path: ExperimentalPaths.worktreeDiffFile },
-      { method: "post", path: SessionPaths.viewed },
       { method: "get", path: ConfigConsolePaths.overlay },
       { method: "patch", path: ConfigConsolePaths.overlay },
       { method: "get", path: IndexingPaths.status },
-      { method: "get", path: IndexingPaths.models },
     ] satisfies Array<{ method: Method; path: string }>
 
     for (const route of routes) {
@@ -205,14 +183,6 @@ describe("Harness PublicApi OpenAPI contract", () => {
     }
   })
 
-  test("keeps personal organization resets nullable", () => {
-    const spec = OpenApi.fromApi(PublicApi)
-    const body = spec.paths[HarnessGatewayPaths.organization]?.post?.requestBody as Body | undefined
-    const schema = body?.content?.["application/json"]?.schema
-    const props = schema?.properties
-    expect(props?.organizationId).toEqual({ anyOf: [{ type: "string" }, { type: "null" }] })
-  })
-
   test("keeps branch-name responses nullable", () => {
     const spec = OpenApi.fromApi(PublicApi)
     const path = BranchNamePaths.generate.replace(/:([A-Za-z0-9_]+)/g, "{$1}")
@@ -222,49 +192,4 @@ describe("Harness PublicApi OpenAPI contract", () => {
     expect(branch).toEqual({ anyOf: [{ type: "string" }, { type: "null" }] })
   })
 
-  test("keeps Harness gateway responses nullable", () => {
-    const spec = OpenApi.fromApi(PublicApi)
-    const response = (path: string) => {
-      const body = spec.paths[path]?.get?.responses?.["200"] as Body | undefined
-      return body?.content?.["application/json"]?.schema
-    }
-
-    const profile = response(HarnessGatewayPaths.profile)?.properties
-    expect(profile?.balance).toEqual({ anyOf: [expect.objectContaining({ type: "object" }), { type: "null" }] })
-    expect(profile?.harnessPass).toEqual({ anyOf: [expect.objectContaining({ type: "object" }), { type: "null" }] })
-    expect(profile?.profile?.properties?.selectedOrganizationId).toEqual({ type: "string" })
-    expect(profile?.profile?.properties?.hasPersonalAccount).toEqual({ type: "boolean" })
-    const pass = profile?.harnessPass?.anyOf?.find((item) => item.type === "object")?.properties
-    expect(pass?.nextBillingAt).toEqual({ anyOf: [{ type: "string" }, { type: "null" }] })
-    expect(profile?.currentOrgId).toEqual({ anyOf: [{ type: "string" }, { type: "null" }] })
-
-    const auth = response(HarnessGatewayPaths.authStatus)?.properties
-    expect(auth).toEqual({
-      authenticated: { type: "boolean" },
-      type: { type: "string", enum: ["api", "oauth"] },
-      organizationId: { type: "string" },
-    })
-
-    const sessions = response(HarnessGatewayPaths.cloudSessions)?.properties
-    expect(sessions?.cliSessions?.items?.properties?.title).toEqual({
-      anyOf: [{ type: "string" }, { type: "null" }],
-    })
-    expect(sessions?.nextCursor).toEqual({ anyOf: [{ type: "string" }, { type: "null" }] })
-  })
-
-  test("keeps transcription prompts in the public contract", () => {
-    const spec = OpenApi.fromApi(PublicApi)
-    const body = spec.paths[HarnessGatewayPaths.audioTranscriptions]?.post?.requestBody as Body | undefined
-    const schema = body?.content?.["application/json"]?.schema
-    expect(schema?.properties?.prompt).toEqual({ type: "string" })
-  })
-
-  test("documents the transcription model catalog route", () => {
-    const spec = OpenApi.fromApi(PublicApi)
-    const route = spec.paths[HarnessGatewayPaths.transcriptionModels]?.get
-    const query = (route?.parameters as Parameter[] | undefined)?.map((item) => item.name)
-
-    expect(query).toEqual(["directory", "workspace"])
-    expect(route?.responses?.["200"]?.content?.["application/json"]?.schema).toMatchObject({ type: "array" })
-  })
 })

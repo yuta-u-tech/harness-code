@@ -1,15 +1,13 @@
 /**
  * Source contract tests for session-presence registration.
  *
- * Static analysis — reads HarnessProvider.ts, AgentManagerProvider.ts,
- * vscode-host.ts, and connection-service.ts and verifies the locked
- * viewed/presence behavior from the presence plan:
+ * Static analysis — reads HarnessProvider.ts, AgentManagerProvider.ts and
+ * vscode-host.ts and verifies the locked visible-session behavior:
  *
  * - Editor panels register visible keyed on `panel.visible` and the
- *   synchronous `contextSessionID`; attachment persists while hidden.
- * - Embedded Agent Manager providers skip generic viewed registration
+ *   synchronous `contextSessionID`.
+ * - Embedded Agent Manager providers skip generic visible registration
  *   (`disableViewedRegistration`) so sessions are not double-reported.
- * - The connection service resends the full snapshot on backend reconnect.
  * - Agent Manager visible presence is routed through
  *   AgentManagerVisiblePresence so cleanup cannot leave a stale displayed id.
  *
@@ -24,7 +22,6 @@ const ROOT = path.resolve(import.meta.dir, "../..")
 const HARNESSPROVIDER_FILE = path.join(ROOT, "src/HarnessProvider.ts")
 const AGENT_MANAGER_PROVIDER_FILE = path.join(ROOT, "src/agent-manager/AgentManagerProvider.ts")
 const VSCODE_HOST_FILE = path.join(ROOT, "src/agent-manager/vscode-host.ts")
-const CONNECTION_SERVICE_FILE = path.join(ROOT, "src/services/cli-backend/connection-service.ts")
 
 function readFile(filePath: string): string {
   return fs.readFileSync(filePath, "utf-8")
@@ -53,14 +50,9 @@ describe("HarnessProvider editor-panel visible registration contract", () => {
     expect(body).not.toContain("this.currentSession")
   })
 
-  it("does not clear attachment when the panel is hidden", () => {
-    // Hidden editor tabs stay reachable for remote control: the panel
-    // view-state callback must never touch the attached registration
-    // (directly or via focusSession) — attachment is cleared only by the
-    // dispose/clear/delete paths.
+  it("shows only the focused session while the panel is visible", () => {
     const body = match![1]
     expect(body).toContain("this.streams.focus(panel.visible ? id : undefined)")
-    expect(body).not.toContain("registerAttached")
     expect(body).not.toContain("focusSession")
   })
 })
@@ -75,29 +67,14 @@ describe("HarnessProvider disableViewedRegistration contract", () => {
     const body = match![1]
     const guard = body.indexOf("if (this.opts.disableViewedRegistration) return")
     const visible = body.indexOf("this.connectionService.registerVisible(this.instanceId,")
-    const attached = body.indexOf("this.connectionService.registerAttached(this.instanceId,")
     expect(guard).toBeGreaterThanOrEqual(0)
     expect(visible).toBeGreaterThan(guard)
-    expect(attached).toBeGreaterThan(guard)
   })
 
-  it("focusSession and trackOpenSessions report through registerPresence", () => {
-    // Both the focused session (visible) and the open local tabs (attached)
-    // funnel into one snapshot so neither write can clobber the other.
+  it("focusSession reports through registerPresence", () => {
     const focus = harnessProvider.match(/private focusSession\(id\?: string\): void \{([\s\S]*?)\n {2}\}/)
     expect(focus).not.toBeNull()
     expect(focus![1]).toContain("this.registerPresence()")
-    const track = harnessProvider.match(/private trackOpenSessions\(ids: string\[\]\): void \{([\s\S]*?)\n {2}\}/)
-    expect(track).not.toBeNull()
-    expect(track![1]).toContain("this.registerPresence()")
-  })
-
-  it("registerPresence attaches the open local tabs plus the focused session", () => {
-    const match = harnessProvider.match(/private registerPresence\(\): void \{([\s\S]*?)\n {2}\}/)
-    expect(match).not.toBeNull()
-    const body = match![1]
-    expect(body).toContain("const attached = new Set(this.openSessionIds)")
-    expect(body).toContain("if (focused) attached.add(focused)")
   })
 
   it("the editor-panel view-state callback honors the same option", () => {
@@ -119,20 +96,6 @@ describe("HarnessProvider disableViewedRegistration contract", () => {
   })
 })
 
-describe("HarnessConnectionService connection snapshot contract", () => {
-  const source = readFile(CONNECTION_SERVICE_FILE)
-
-  it("sends the accumulated snapshot on initial connection and reconnect", () => {
-    const start = source.indexOf('if (sseState === "connected")')
-    const end = source.indexOf('if (!didConnect && sseState === "disconnected")', start)
-    expect(start).toBeGreaterThan(-1)
-    expect(end).toBeGreaterThan(start)
-    const body = source.slice(start, end)
-    expect(body).toContain("this.flushViewed()")
-    expect(body).not.toContain("if (isReconnect)")
-  })
-})
-
 describe("AgentManagerProvider visible-presence contract", () => {
   const source = readFile(AGENT_MANAGER_PROVIDER_FILE)
 
@@ -147,21 +110,18 @@ describe("AgentManagerProvider visible-presence contract", () => {
     )
   })
 
-  it("async shutdown clears both the visible and attached registrations", () => {
-    // clear() resets the displayed id and empties the attached set, so a
-    // stale id cannot re-register on a later flush.
+  it("async shutdown clears the visible registration", () => {
+    // clear() resets the displayed id, so a stale id cannot re-register on a
+    // later flush.
     const match = source.match(/private async disposeAsync\(\): Promise<void> \{([\s\S]*?)\n {2}\}/)
     expect(match).not.toBeNull()
     expect(match![1]).toContain("this.visiblePresence.clear()")
   })
 
-  it("routes the webview presence messages to visiblePresence.handle", () => {
-    // The webview reports the open tab set (→ attached) and the actually
-    // displayed real session id (null for terminal/review/pending/empty
-    // tabs, → visible); both flow through the presence helper.
-    expect(source).toMatch(
-      /if \(m\.type === "agentManager\.openSessions" \|\| m\.type === "agentManager\.visibleSession"\) \{\s*this\.visiblePresence\.handle\(m\)/,
-    )
+  it("routes the webview presence message to visiblePresence.handle", () => {
+    // The webview reports the actually displayed real session id (null for
+    // terminal/review/pending/empty tabs); it flows through the presence helper.
+    expect(source).toMatch(/if \(m\.type === "agentManager\.visibleSession"\) \{\s*this\.visiblePresence\.handle\(m\)/)
   })
 
   it("does not let background message loads override webview visibility", () => {
@@ -171,8 +131,8 @@ describe("AgentManagerProvider visible-presence contract", () => {
   })
 
   it("recomputes visible presence when panel visibility changes", () => {
-    // A hidden Agent Manager panel must drop its session from visible (while
-    // keeping it attached); reappearing must re-register the retained id.
+    // A hidden Agent Manager panel must drop its session from visible;
+    // reappearing must re-register the retained id.
     const match = source.match(/ctx\.onDidChangeVisibility\(\(visible\) => \{([\s\S]*?)\n {4}\}\)/)
     expect(match).not.toBeNull()
     expect(match![1]).toContain("this.visiblePresence.flush()")

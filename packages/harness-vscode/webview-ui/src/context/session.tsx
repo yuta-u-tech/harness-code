@@ -92,7 +92,7 @@ import { handleWakeupMessage, wakeups } from "./session-wakeup"
 import { state as todoState } from "./todo-revert"
 import { preserveVariant, sessionVariantKeys, transferVariants, variantKey } from "./session-variant-store"
 import { createSessionVariants } from "./session-variants"
-import { HARNESS_AUTO, HARNESS_PROVIDER_ID, parseModelString } from "../../../src/shared/provider-model"
+import { parseModelString } from "../../../src/shared/provider-model"
 import { type ReviewMessageData } from "../../../src/shared/review-comments"
 import { REVERT_ERROR_CODE } from "../../../src/shared/revert-error"
 import type { BrowserFeedbackData } from "../../../src/shared/browser-feedback"
@@ -268,12 +268,6 @@ export const SessionProvider: ParentComponent = (props) => {
   const [agents, setAgents] = createSignal<AgentInfo[]>([])
   const [allAgents, setAllAgents] = createSignal<AgentInfo[]>([])
   const [defaultAgent, setDefaultAgent] = createSignal("code")
-  const [pendingHarnessModel, setPendingHarnessModel] = createSignal<{
-    modelID?: string
-    agent?: string
-    after: number
-  } | null>(null)
-  const [catalog, setCatalog] = createSignal(0)
 
   // Skills loaded from the CLI backend
   const [skills, setSkills] = createSignal<SkillInfo[]>([])
@@ -466,12 +460,9 @@ export const SessionProvider: ParentComponent = (props) => {
     return {
       providers: provider.providers(),
       connected: provider.connected(),
-      ready: provider.ready(),
-      organizationId: provider.organizationId(),
-      defaults: provider.defaults(),
       getModeModel,
       getGlobalModel,
-      fallback: HARNESS_AUTO,
+      fallback: provider.defaultSelection(),
     }
   }
 
@@ -588,37 +579,6 @@ export const SessionProvider: ParentComponent = (props) => {
       }
     })
   }
-
-  function selectHarnessModel(modelID?: string, agent?: string) {
-    if (!modelID && !agent) return
-    setPendingHarnessModel({ ...(modelID && { modelID }), ...(agent && { agent }), after: catalog() })
-    if (modelID) vscode.postMessage({ type: "requestProviders" })
-  }
-
-  const unsubHarnessModel = vscode.onMessage((message: ExtensionMessage) => {
-    if (message.type === "providersLoaded") {
-      setCatalog((value) => value + 1)
-      return
-    }
-    if (message.type === "selectHarnessModel") selectHarnessModel(message.modelID, message.agent)
-  })
-  onCleanup(unsubHarnessModel)
-
-  createEffect(() => {
-    const pending = pendingHarnessModel()
-    if (!pending || agents().length === 0 || (pending.modelID && catalog() <= pending.after)) return
-    setPendingHarnessModel(null)
-    if (pending.modelID && !provider.providers()[HARNESS_PROVIDER_ID]?.models[pending.modelID]) {
-      console.warn("[Harness New] Ignoring unavailable Harness catalog model:", pending.modelID)
-      return
-    }
-    if (pending.agent && !agentNames().has(pending.agent)) {
-      console.warn("[Harness New] Ignoring unavailable Harness agent:", pending.agent)
-      return
-    }
-    if (pending.agent) selectAgent(pending.agent)
-    if (pending.modelID) selectModel(HARNESS_PROVIDER_ID, pending.modelID)
-  })
 
   function submission(sessionID?: string, model = selected(sessionID)) {
     return {

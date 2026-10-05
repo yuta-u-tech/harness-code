@@ -14,7 +14,6 @@ import { Storage } from "@/storage/storage"
 import { Snapshot } from "@/snapshot"
 import { Plugin } from "@/plugin"
 import { ModelsDev } from "@opencode-ai/core/models-dev"
-import { ModelCache } from "@/provider/model-cache"
 import { Provider } from "@/provider/provider"
 import { ProviderAuth } from "@/provider/auth"
 import { Agent } from "@/agent/agent"
@@ -69,7 +68,6 @@ import { Pty } from "@opencode-ai/core/pty"
 const memory = LayerNode.make({ service: MemoryService.Service, layer: MemoryService.layer, deps: [] })
 const harness = LayerNode.group([
   Credential.node,
-  ModelCache.node,
   AgentManager.node,
   Notebook.node,
   SessionDrain.node,

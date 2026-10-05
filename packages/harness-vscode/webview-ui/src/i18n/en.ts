@@ -99,7 +99,6 @@ export const dict = {
   "dialog.provider.search.placeholder": "Search providers",
   "dialog.provider.empty": "No providers found",
   "dialog.provider.group.other": "Other",
-  "dialog.provider.tag.recommended": "Recommended",
 
   "dialog.model.select.title": "Select model",
   "dialog.model.search.placeholder": "Search models",
@@ -157,7 +156,6 @@ export const dict = {
 
   "model.tag.free": "Free",
   "model.tag.dataCollected": "Data may be used for training",
-  "model.group.auto": "Auto Models",
   "model.group.recommended": "Recommended",
   "model.group.favorites": "Favorites",
   "model.group.mostUsed": "Most used",
@@ -170,7 +168,6 @@ export const dict = {
   "model.preview.label.average": "Est. Average Cost",
   "model.preview.label.context": "Context",
   "model.preview.group.terminalBench": "Terminal Bench 2.0",
-  "model.preview.group.autoEfficientChoices": "Model choices",
   "model.preview.label.completion": "Completion",
   "model.preview.label.costAttempt": "Cost / attempt",
   "model.preview.value.notSupported": "Not supported",

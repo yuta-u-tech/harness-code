@@ -13,9 +13,6 @@ export const indexingHandlers = HttpApiBuilder.group(InstanceHttpApi, "indexing"
       yield* EffectBridge.fromPromise(() => mod.HarnessIndexing.setConsent(ctx.payload.enabled))
       return yield* EffectBridge.fromPromise(() => mod.HarnessIndexing.current())
     })
-    const models = Effect.fn("IndexingHttpApi.models")(function* () {
-      return yield* EffectBridge.fromPromise(() => mod.HarnessIndexing.models())
-    })
     const warnings = Effect.fn("IndexingHttpApi.warnings")(function* () {
       return yield* EffectBridge.fromPromise(() => mod.HarnessIndexing.warnings())
     })
@@ -23,7 +20,6 @@ export const indexingHandlers = HttpApiBuilder.group(InstanceHttpApi, "indexing"
     return handlers
       .handle("status", status)
       .handle("consent", consent)
-      .handle("models", models)
       .handle("warnings", warnings)
   }),
 )

@@ -13,7 +13,6 @@ export type StartInput = Omit<TuiInput, "pluginHost">
 type Args = NetworkOptions & {
   prompt?: string
   session?: string
-  cloudFork?: boolean
   continue?: boolean
   agent?: string
   model?: string
@@ -25,29 +24,6 @@ type Input = {
   cwd: string
   input: () => Promise<string | undefined>
   start: (input: StartInput) => Promise<void>
-}
-
-async function session(input: Input, daemon: DaemonClient.Connection) {
-  if (!input.args.cloudFork || !input.args.session) return { ok: true as const, id: input.args.session }
-
-  const [{ createHarnessClient }, { importCloudSession, reportCloudImportError }] = await Promise.all([
-    import("@harness/sdk/v2"),
-    import("@/harness/cloud-session"),
-  ])
-  UI.println("Importing session from cloud...")
-  const client = createHarnessClient({
-    baseUrl: daemon.url,
-    directory: input.cwd,
-    headers: daemon.headers,
-  })
-  try {
-    const id = await importCloudSession(client, input.args.session)
-    return { ok: true as const, id }
-  } catch (err) {
-    reportCloudImportError(err)
-    process.exitCode = 1
-    return { ok: false as const }
-  }
 }
 
 export namespace HarnessTuiThreadDaemon {
@@ -71,13 +47,10 @@ export namespace HarnessTuiThreadDaemon {
     const { TuiConfig } = await import("@/config/tui")
     const config = await TuiConfig.get()
 
-    const fork = await session(input, daemon)
-    if (!fork.ok) return true
-
     try {
       await validateSession({
         url: daemon.url,
-        sessionID: fork.id,
+        sessionID: input.args.session,
         directory: input.cwd,
         headers: daemon.headers,
       })
@@ -94,7 +67,7 @@ export namespace HarnessTuiThreadDaemon {
       headers: daemon.headers,
       args: {
         continue: input.args.continue,
-        sessionID: fork.id,
+        sessionID: input.args.session,
         agent: input.args.agent,
         model: input.args.model,
         prompt,

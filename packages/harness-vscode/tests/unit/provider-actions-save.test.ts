@@ -54,9 +54,6 @@ function createCtx(existing: ExistingGlobal = { disabled_providers: [] }, merged
         }),
         auth: async () => ({ data: {} }),
       },
-      gateway: {
-        authStatus: async () => ({ data: { authenticated: false } }),
-      },
       global: {
         config: {
           get: async () => ({ data: existing }),
@@ -543,138 +540,6 @@ describe("disconnectProvider", () => {
 })
 
 describe("fetchProviderData", () => {
-  for (const item of [
-    { name: "uses the allowed organization API default", recommended: "org/default", expected: "org/default" },
-    { name: "uses the first allowed model when no default exists", recommended: undefined, expected: "org/first" },
-    { name: "uses the first allowed model when the default is empty", recommended: "", expected: "org/first" },
-    {
-      name: "ignores a default outside the organization catalog",
-      recommended: "harness-auto/free",
-      expected: "org/first",
-    },
-    { name: "ignores inherited catalog properties", recommended: "toString", expected: "org/first" },
-    {
-      name: "does not invent a default for an empty catalog",
-      empty: true,
-      recommended: "org/default",
-      expected: undefined,
-    },
-    {
-      name: "does not retain a default without a Harness provider",
-      missing: true,
-      recommended: "org/default",
-      expected: undefined,
-    },
-  ]) {
-    it(item.name, async () => {
-      let calls = 0
-      const external = {
-        id: "anthropic",
-        name: "Anthropic",
-        models: { claude: { id: "claude" } },
-        metadata: { priority: 1 },
-      }
-      const client = {
-        provider: {
-          list: async () => ({
-            data: {
-              all: [
-                ...(item.missing
-                  ? []
-                  : [
-                      {
-                        id: "harness",
-                        name: "Harness Gateway",
-                        models: item.empty
-                          ? {}
-                          : { "org/first": { id: "org/first" }, "org/default": { id: "org/default" } },
-                      },
-                    ]),
-                { ...external, key: "sk-test" },
-              ],
-              connected: item.missing ? ["anthropic"] : ["harness", "anthropic"],
-              default: { ...(item.recommended === undefined ? {} : { harness: item.recommended }), anthropic: "claude" },
-            },
-          }),
-          auth: async () => ({ data: {} }),
-        },
-        gateway: {
-          authStatus: async () => ({ data: { authenticated: true, type: "oauth", organizationId: "org" } }),
-        },
-        config: {
-          providers: async () => {
-            calls++
-            return { data: { default: { harness: "org/first", anthropic: "unrelated" } } }
-          },
-        },
-      } as unknown as Parameters<typeof fetchProviderData>[0]
-
-      const result = await fetchProviderData(client, "/workspace")
-      expect(result.response.default.harness).toBe(item.expected)
-      expect(result.response.default.anthropic).toBe("claude")
-      expect(result.response.all.find((provider) => provider.id === "anthropic")).toEqual(external)
-      expect(result.response.connected).toEqual(item.missing ? ["anthropic"] : ["harness", "anthropic"])
-      expect(result.authStates).toEqual({ harness: "oauth", anthropic: "api" })
-      expect(result.organizationId).toBe("org")
-      expect(result.ready).toBe(true)
-      expect(calls).toBe(0)
-    })
-  }
-
-  it.each([false, true])("removes unverified Harness data without auth context (failure: %s)", async (fail) => {
-    const client = {
-      provider: {
-        list: async () => ({
-          data: {
-            all: [
-              { id: "harness", models: { "harness-auto/free": {} } },
-              { id: "external", models: { model: {} } },
-            ],
-            connected: ["harness", "external"],
-            default: { harness: "harness-auto/free", external: "model" },
-          },
-        }),
-        auth: async () => ({ data: {} }),
-      },
-      gateway: {
-        authStatus: async () => {
-          if (fail) throw new Error("Context unavailable")
-          return { data: undefined }
-        },
-      },
-    } as unknown as Parameters<typeof fetchProviderData>[0]
-
-    const result = await fetchProviderData(client, "/workspace")
-    expect(result.ready).toBe(false)
-    expect(result.organizationId).toBeUndefined()
-    expect(result.response.all.map((provider) => provider.id)).toEqual(["external"])
-    expect(result.response.connected).toEqual(["external"])
-    expect(result.response.default).toEqual({ external: "model" })
-  })
-
-  it("retains Personal defaults without fetching organization recommendations", async () => {
-    let calls = 0
-    const client = {
-      provider: {
-        list: async () => ({ data: { all: [], connected: [], default: { harness: "harness-auto/free" } } }),
-        auth: async () => ({ data: {} }),
-      },
-      gateway: { authStatus: async () => ({ data: { authenticated: true, type: "oauth" } }) },
-      config: {
-        providers: async () => {
-          calls++
-          return { data: { default: { harness: "unexpected" } } }
-        },
-      },
-    } as unknown as Parameters<typeof fetchProviderData>[0]
-
-    const result = await fetchProviderData(client, "/workspace")
-    expect(result.ready).toBe(true)
-    expect(result.organizationId).toBeNull()
-    expect(calls).toBe(0)
-    expect(result.response.default).toEqual({ harness: "harness-auto/free" })
-  })
-
   it("derives api auth state and strips keys from provider payloads", async () => {
     const client = {
       provider: {
@@ -696,9 +561,6 @@ describe("fetchProviderData", () => {
         }),
         auth: async () => ({ data: {} }),
       },
-      gateway: {
-        authStatus: async () => ({ data: { authenticated: false } }),
-      },
     } as unknown as Parameters<typeof fetchProviderData>[0]
 
     const result = await fetchProviderData(client, "/tmp")
@@ -706,50 +568,6 @@ describe("fetchProviderData", () => {
 
     expect(result.authStates).toEqual({ "groq-test": "api" })
     expect("key" in item).toBe(false)
-  })
-
-  it("uses local Harness auth status instead of profile availability", async () => {
-    const client = {
-      provider: {
-        list: async () => ({
-          data: {
-            all: [{ id: "harness", name: "Harness Gateway", source: "custom", env: [], models: {} }],
-            connected: ["harness"],
-            default: { harness: "harness-auto/frontier" },
-          },
-        }),
-        auth: async () => ({ data: {} }),
-      },
-      gateway: {
-        authStatus: async () => ({ data: { authenticated: true, type: "oauth" } }),
-      },
-    } as unknown as Parameters<typeof fetchProviderData>[0]
-
-    const result = await fetchProviderData(client, "/tmp")
-
-    expect(result.authStates).toEqual({ harness: "oauth" })
-  })
-
-  it("does not infer Harness speech access without stored Gateway auth", async () => {
-    const client = {
-      provider: {
-        list: async () => ({
-          data: {
-            all: [{ id: "harness", name: "Harness Gateway", source: "config", key: "configured", env: [], models: {} }],
-            connected: ["harness"],
-            default: { harness: "harness-auto/frontier" },
-          },
-        }),
-        auth: async () => ({ data: {} }),
-      },
-      gateway: {
-        authStatus: async () => ({ data: { authenticated: false } }),
-      },
-    } as unknown as Parameters<typeof fetchProviderData>[0]
-
-    const result = await fetchProviderData(client, "/tmp")
-
-    expect(result.authStates).toEqual({})
   })
 
   it("retains stripped keys for providers with a configured baseURL", async () => {
@@ -781,9 +599,6 @@ describe("fetchProviderData", () => {
           },
         }),
         auth: async () => ({ data: {} }),
-      },
-      gateway: {
-        authStatus: async () => ({ data: { authenticated: false } }),
       },
     } as unknown as Parameters<typeof fetchProviderData>[0]
 

@@ -62,7 +62,6 @@
     "drizzle-kit": "catalog:"
   },
   "dependencies": {
-    "@harness/harness-gateway": "workspace:*",
     "@harness/harness-indexing": "workspace:*",
     "@harness/sandbox": "workspace:*",
     "@effect/opentelemetry": "catalog:",

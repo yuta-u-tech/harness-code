@@ -15,15 +15,6 @@ import { jsonSchema, tool as aiTool, type ModelMessage, type Tool } from "ai"
 import type { Plugin } from "@/plugin"
 import { mergeDeep } from "remeda"
 import { DEFAULT_HEADERS } from "@/harness/const"
-import { getHarnessProjectId } from "@/harness/project-id"
-import {
-  HEADER_FEATURE,
-  HEADER_PARENT_TASKID,
-  HEADER_PROJECTID,
-  HEADER_MACHINEID,
-  HEADER_TASKID,
-} from "@harness/harness-gateway"
-import { Identity } from "@harness/harness-telemetry"
 import { HarnessSession } from "@/harness/session"
 import { stripInternalOptions } from "@/harness/agent/options"
 import { HarnessSystemPrompt } from "@/harness/system-prompt"
@@ -169,16 +160,6 @@ export const prepare = Effect.fn("LLMRequestPrep.prepare")(function* (input: Pre
     },
   )
 
-  const isHarness = input.model.api.npm === "@harness/harness-gateway"
-  const harnessProjectId = yield* isHarness
-    ? Effect.promise(() => getHarnessProjectId().catch(() => undefined))
-    : Effect.succeed(undefined)
-  const machineId = yield* isHarness
-    ? Effect.promise(() => Identity.getMachineId().catch(() => undefined))
-    : Effect.succeed(undefined)
-  const parent = input.parentSessionID ?? HarnessSession.resolveParent(input.sessionID)
-  const attr = HarnessSession.attribution(input.sessionID)
-
   const tools = resolveTools(input)
   // Codex parity: OpenAI Responses-family providers hardcode `strict: false`
   // on every function tool so MCP-sourced and dynamic schemas that don't
@@ -239,12 +220,6 @@ export const prepare = Effect.fn("LLMRequestPrep.prepare")(function* (input: Pre
             "User-Agent": USER_AGENT,
             ...(input.model.providerID !== "anthropic" ? DEFAULT_HEADERS : undefined),
           }),
-      ...(isHarness && input.agent.name ? { "x-harness-mode": input.agent.name.toLowerCase() } : {}),
-      ...(isHarness && harnessProjectId ? { [HEADER_PROJECTID]: harnessProjectId } : {}),
-      ...(isHarness && machineId ? { [HEADER_MACHINEID]: machineId } : {}),
-      ...(isHarness ? { [HEADER_TASKID]: input.sessionID } : {}),
-      ...(isHarness && parent ? { [HEADER_PARENT_TASKID]: parent } : {}),
-      ...(isHarness && attr.feature ? { [HEADER_FEATURE]: attr.feature } : {}),
       ...(input.parentSessionID ? { "x-parent-session-id": input.parentSessionID } : {}),
       ...input.model.headers,
       ...headers,

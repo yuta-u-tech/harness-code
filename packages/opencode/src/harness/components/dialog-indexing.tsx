@@ -16,16 +16,12 @@ import { createEffect, createMemo, createResource, createSignal, Show } from "so
 import { reconcile } from "solid-js/store"
 import type { IndexingConfig, Config } from "@harness/sdk/v2"
 import * as Log from "@opencode-ai/core/util/log"
-import { hasHarnessIndexingAuth, resolveHarnessIndexingAuth, shouldDefaultIndexingToHarness } from "../indexing-auth"
 import {
   createIndexingDialogState,
-  currentHarnessModel,
   indexingInheritance,
   indexingPatch,
   indexingScopeConfig,
   inheritedDescription,
-  harnessModelOptions,
-  loadHarnessEmbeddingModels,
   mergeIndexingConfig,
   type IndexingScope,
 } from "./indexing-dialog-state"
@@ -39,7 +35,6 @@ type EmbeddingProvider = NonNullable<IndexingConfig["provider"]>
 const log = Log.create({ service: "indexing-model-select" })
 
 const PROVIDER_LABELS: Record<EmbeddingProvider, string> = {
-  harness: "Harness",
   openai: "OpenAI",
   ollama: "Ollama (local)",
   "openai-compatible": "OpenAI-Compatible",
@@ -54,7 +49,6 @@ const PROVIDER_LABELS: Record<EmbeddingProvider, string> = {
 type ProviderFieldDef = { key: string; label: string; placeholder: string; sensitive?: boolean }
 
 const PROVIDER_FIELDS: Record<EmbeddingProvider, ProviderFieldDef[]> = {
-  harness: [],
   openai: [{ key: "apiKey", label: "API Key", placeholder: "sk-...", sensitive: true }],
   ollama: [{ key: "baseUrl", label: "Base URL", placeholder: "http://localhost:11434" }],
   "openai-compatible": [
@@ -88,25 +82,6 @@ function maskSecret(value: string | undefined): string {
 
 function scopedIndexing(data: Config | undefined): IndexingConfig {
   return data?.indexing ?? {}
-}
-
-function hasHarnessAuth(sync: ReturnType<typeof useSync>, scope: IndexingScope, indexing: IndexingConfig): boolean {
-  const provider = sync.data.provider_next.all.find((item) => item.id === "harness")
-  const config = indexingScopeConfig(scope, sync.data.config, sync.data.globalConfig, indexing)
-  return hasHarnessIndexingAuth({ config, provider })
-}
-
-function defaultIndexing(
-  sync: ReturnType<typeof useSync>,
-  scope: IndexingScope,
-  indexing: IndexingConfig,
-  global?: IndexingConfig,
-): IndexingConfig {
-  const provider = sync.data.provider_next.all.find((item) => item.id === "harness")
-  const config = indexingScopeConfig(scope, sync.data.config, sync.data.globalConfig, indexing)
-  const auth = resolveHarnessIndexingAuth({ config, provider })
-  if (!shouldDefaultIndexingToHarness({ ...global, ...indexing }, auth)) return indexing
-  return { ...indexing, provider: "harness", model: null, dimension: null }
 }
 
 async function saveScopedIndexing(
@@ -169,7 +144,6 @@ function ProviderSelect(props: SubDialogProps) {
   const options: DialogSelectOption<EmbeddingProvider>[] = (
     Object.entries(PROVIDER_LABELS) as [EmbeddingProvider, string][]
   )
-    .filter(([value]) => value !== "harness" || hasHarnessAuth(sync, props.scope, indexing) || indexing.provider === "harness")
     .map(([value, title]) => ({
       value,
       title,
@@ -195,65 +169,6 @@ function ProviderSelect(props: SubDialogProps) {
           return
         }
         showProviderSettings(dialog, sync, sdk, toast, provider, props.useSDK, props.scope, updated, updated)
-      }}
-    />
-  )
-}
-
-function HarnessModelSelect(props: SubDialogProps) {
-  const dialog = useDialog()
-  const sync = useSync()
-  const sdk = props.useSDK()
-  const toast = useToast()
-  const indexing = props.indexing
-  const [error, setError] = createSignal<string>()
-  const [catalog] = createResource(() => loadHarnessEmbeddingModels(setError))
-  const seen = { error: undefined as string | undefined, state: "" }
-  createEffect(() => {
-    const message = error()
-    if (!message || seen.error === message) return
-    seen.error = message
-    toast.show({
-      title: "Code Indexing Error",
-      message,
-      variant: "error",
-      duration: 10000,
-    })
-  })
-  createEffect(() => {
-    const cfg = catalog()
-    const state = `${catalog.state}:${cfg?.models.length ?? 0}`
-    if (seen.state === state) return
-    seen.state = state
-    log.info("Harness embedding model resource changed", {
-      state: catalog.state,
-      models: cfg?.models.length ?? 0,
-      current: currentHarnessModel(cfg, indexing.model),
-      defaultModel: cfg?.defaultModel || undefined,
-      scope: props.scope,
-    })
-  })
-  const options = createMemo(() => harnessModelOptions(catalog()))
-  const current = createMemo(() => currentHarnessModel(catalog(), indexing.model))
-
-  return (
-    <DialogSelect
-      title="Harness Embedding Model"
-      options={options()}
-      current={current()}
-      renderFilter={(catalog()?.models.length ?? 0) > 0}
-      onSelect={async (option) => {
-        if (!option.value || !catalog()?.models.some((model) => model.id === option.value)) return
-        log.info("selected Harness embedding model", { model: option.value, scope: props.scope })
-        await saveScopedIndexing(
-          sdk,
-          sync,
-          props.scope,
-          props.raw,
-          { ...props.raw, model: option.value, dimension: null },
-          toast,
-        )
-        dialog.replace(() => <DialogIndexing useSDK={props.useSDK} scope={props.scope} />)
       }}
     />
   )
@@ -523,7 +438,7 @@ export function DialogIndexing(props: DialogIndexingProps) {
     scope,
     global: globalCfg,
     project: projectCfg,
-    resolve: (current, global) => defaultIndexing(sync, scope(), current, global),
+    resolve: (current) => current,
   })
   const options = createMemo<DialogSelectOption<string>[]>(() => {
     const indexing = state.config()
@@ -559,7 +474,7 @@ export function DialogIndexing(props: DialogIndexingProps) {
         title: "Embedding Model",
         category: "Embedding",
         description: mark(
-          indexing.provider === "harness" ? (indexing.model ?? "Harness catalog") : (indexing.model ?? "default"),
+          indexing.model ?? "default",
           [["model"]],
         ),
       },
@@ -567,11 +482,7 @@ export function DialogIndexing(props: DialogIndexingProps) {
         value: "dimension",
         title: "Vector Dimension",
         category: "Embedding",
-        description:
-          indexing.provider === "harness"
-            ? "provided by Harness"
-            : mark(indexing.dimension ? String(indexing.dimension) : "auto", [["dimension"]]),
-        disabled: indexing.provider === "harness",
+        description: mark(indexing.dimension ? String(indexing.dimension) : "auto", [["dimension"]]),
       },
       {
         value: "vectorStore",
@@ -642,12 +553,6 @@ export function DialogIndexing(props: DialogIndexingProps) {
             }
             break
           case "model": {
-            if (indexing.provider === "harness") {
-              dialog.replace(() => (
-                <HarnessModelSelect useSDK={props.useSDK} scope={scope()} indexing={indexing} raw={raw} />
-              ))
-              break
-            }
             const result = await DialogPrompt.show(dialog, "Embedding Model", {
               value: indexing.model ?? "",
               placeholder: "Enter model ID",
@@ -660,7 +565,6 @@ export function DialogIndexing(props: DialogIndexingProps) {
             break
           }
           case "dimension": {
-            if (indexing.provider === "harness") break
             const result = await DialogPrompt.show(dialog, "Vector Dimension", {
               value: indexing.dimension ? String(indexing.dimension) : "",
               placeholder: "Leave empty for auto-detection",

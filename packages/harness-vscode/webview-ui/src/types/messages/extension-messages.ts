@@ -50,14 +50,7 @@ export interface BackgroundJobInfo {
 import type { QuestionRequest, SuggestionRequest, TodoItem } from "./questions"
 import type { ModelSelection, ModelUsageMap, Provider, ProviderAuthState } from "./providers"
 import type { AgentInfo, SkillInfo, SlashCommandInfo } from "./agents"
-import type {
-  BrowserSettings,
-  Config,
-  ConfigCollections,
-  FeatureFlags,
-  IndexingStatus,
-  HarnessEmbeddingModelCatalog,
-} from "./config"
+import type { BrowserSettings, Config, ConfigCollections, FeatureFlags, IndexingStatus } from "./config"
 import type { WorkStyle, WorkStyleState } from "../../../../src/shared/work-style-presets"
 import type {
   AgentManagerApplyWorktreeDiffConflict,
@@ -302,12 +295,6 @@ export interface OpenSessionMessage {
   sessionID: string
 }
 
-export interface SelectHarnessModelMessage {
-  type: "selectHarnessModel"
-  modelID?: string
-  agent?: string
-}
-
 export interface ActionMessage {
   type: "action"
   action: string
@@ -456,11 +443,6 @@ export interface ChatSettingsLoadedMessage {
   }
 }
 
-export interface HarnessEmbeddingModelsLoadedMessage {
-  type: "harnessEmbeddingModelsLoaded"
-  catalog: HarnessEmbeddingModelCatalog
-}
-
 export interface ImageModelsLoadedMessage {
   type: "imageModelsLoaded"
   models: Array<{ id: string; name: string; description?: string }>
@@ -471,9 +453,7 @@ export interface ProvidersLoadedMessage {
   providers: Record<string, Provider>
   connected: string[]
   defaults: Record<string, string>
-  organizationId?: string | null
-  ready?: boolean
-  defaultSelection: ModelSelection
+  defaultSelection: ModelSelection | null
   authMethods: Record<string, ProviderAuthMethod[]>
   authStates: Record<string, ProviderAuthState>
 }
@@ -1584,7 +1564,6 @@ export type ExtensionMessage =
   | IndexingStatusLoadedMessage
   | IndexingSettingsLoadedMessage
   | ChatSettingsLoadedMessage
-  | HarnessEmbeddingModelsLoadedMessage
   | ImageModelsLoadedMessage
   | ProvidersLoadedMessage
   | { type: "providersLoading" }
@@ -1656,7 +1635,6 @@ export type ExtensionMessage =
   | TriggerTaskMessage
   | VariantsLoadedMessage
   | OpenSessionMessage
-  | SelectHarnessModelMessage
   | AgentManagerBranchesMessage
   | AgentManagerImportResultMessage
   | WorkspaceDirectoryChangedMessage

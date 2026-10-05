@@ -1,8 +1,20 @@
 export * as ConfigProviderV1 from "./provider"
 
 import { Schema } from "effect"
-import { PROMPTS, AI_SDK_PROVIDERS } from "@harness/harness-gateway"
 import { PositiveInt } from "../../schema"
+
+export const PROMPTS = [
+  "codex",
+  "gemini",
+  "beast",
+  "anthropic",
+  "trinity",
+  "anthropic_without_todo",
+  "ling",
+  "gpt55",
+] as const
+
+export const AI_SDK_PROVIDERS = ["anthropic", "openai", "openai-compatible", "openrouter"] as const
 
 export const ModelStatus = Schema.Literals(["alpha", "beta", "deprecated", "active"])
 

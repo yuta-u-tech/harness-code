@@ -96,29 +96,6 @@ describe("CodeIndexConfigManager", () => {
     expect(IndexingConfig.safeParse({ fileExtensions: [".d.ts"] }).success).toBe(false)
   })
 
-  test("configures Harness with hosted auth options and explicit model metadata", () => {
-    const cfg = new CodeIndexConfigManager(
-      createInput({
-        embedderProvider: "harness",
-        openAiKey: undefined,
-        harnessApiKey: "harness-token",
-        harnessBaseUrl: "https://example.test/api/gateway/",
-        harnessOrganizationId: "org_123",
-        modelId: "mistralai/mistral-embed-2312",
-        modelDimension: 1024,
-      }),
-    )
-
-    expect(cfg.isFeatureConfigured).toBe(true)
-    expect(cfg.getConfig().harnessOptions).toEqual({
-      apiKey: "harness-token",
-      baseUrl: "https://example.test/api/gateway/",
-      organizationId: "org_123",
-    })
-    expect(cfg.currentModelId).toBe("mistralai/mistral-embed-2312")
-    expect(cfg.currentModelDimension).toBe(1024)
-  })
-
   test("requires Harness model metadata from Cloud config", () => {
     const cfg = new CodeIndexConfigManager(
       createInput({
@@ -205,30 +182,6 @@ describe("CodeIndexConfigManager", () => {
       expect(cfg.loadConfiguration({ ...input, openAiCompatibleApiKey: "sk-test" }).requiresRestart).toBe(true)
       expect(cfg.loadConfiguration(input).requiresRestart).toBe(true)
       expect(cfg.loadConfiguration(input).requiresRestart).toBe(false)
-    })
-
-    test("requires restart when Harness auth changes", () => {
-      const cfg = new CodeIndexConfigManager(
-        createInput({
-          embedderProvider: "harness",
-          openAiKey: undefined,
-          harnessApiKey: "old-token",
-          modelId: "mistralai/mistral-embed-2312",
-          modelDimension: 1024,
-        }),
-      )
-
-      const result = cfg.loadConfiguration(
-        createInput({
-          embedderProvider: "harness",
-          openAiKey: undefined,
-          harnessApiKey: "new-token",
-          modelId: "mistralai/mistral-embed-2312",
-          modelDimension: 1024,
-        }),
-      )
-
-      expect(result.requiresRestart).toBe(true)
     })
 
     test("restarts only when the normalized file extension allowlist changes", () => {

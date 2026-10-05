@@ -1,47 +1,7 @@
-import { fetchHarnessEmbeddingModelCatalog, resolveHarnessGatewayBaseUrl } from "@harness/harness-gateway"
-import type { Config, IndexingConfig, HarnessEmbeddingModelCatalog } from "@harness/sdk/v2"
-import * as Log from "@opencode-ai/core/util/log"
+import type { Config, IndexingConfig } from "@harness/sdk/v2"
 import { createMemo, type Accessor } from "solid-js"
 
 export type IndexingScope = "global" | "project"
-
-const log = Log.create({ service: "indexing-model-catalog" })
-
-export async function loadHarnessEmbeddingModels(onError?: (message: string) => void) {
-  const endpoint = new URL("embedding-models", resolveHarnessGatewayBaseUrl()).toString()
-  log.info("loading Harness embedding model catalog", { endpoint })
-  const catalog = await fetchHarnessEmbeddingModelCatalog({
-    onError: (issue) => {
-      log.warn("failed to load Harness embedding model catalog", {
-        code: issue.code,
-        status: issue.status,
-        message: issue.message,
-      })
-      onError?.(issue.message)
-    },
-  })
-  log.info("loaded Harness embedding model catalog", {
-    models: catalog.models.length,
-    defaultModel: catalog.defaultModel || undefined,
-  })
-  return catalog
-}
-
-export function harnessModelOptions(catalog?: HarnessEmbeddingModelCatalog) {
-  if (!catalog) return [{ value: "", title: "Loading supported models..." }]
-  if (catalog.models.length === 0) return [{ value: "", title: "No supported models available" }]
-  return catalog.models.map((model) => ({
-    value: model.id,
-    title: `${model.name} (${model.note ? `${model.note}, ` : ""}${model.dimension}d)`,
-  }))
-}
-
-export function currentHarnessModel(catalog: HarnessEmbeddingModelCatalog | undefined, model?: string | null) {
-  if (!catalog) return undefined
-  const fallback = catalog.aliases[catalog.defaultModel] ?? catalog.defaultModel
-  const current = model ? (catalog.aliases[model] ?? model) : fallback
-  return catalog.models.some((item) => item.id === current) ? current : fallback
-}
 
 export function indexingScopeConfig(
   scope: IndexingScope,

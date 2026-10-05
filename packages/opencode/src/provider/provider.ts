@@ -31,18 +31,12 @@ import { ModelV2 } from "@opencode-ai/core/model"
 import { ModelStatus } from "./model-status"
 import { RuntimeFlags } from "@/effect/runtime-flags"
 import {
-  HARNESS_BUNDLED_PROVIDERS,
   harnessCustomLoaders,
   HARNESS_MODEL_SCHEMA_EXTENSIONS,
   patchModelsDevModel as patchHarnessModel,
   patchConfigModel as patchHarnessConfigModel,
   customProviderVariants,
   patchCustomLoaderResult,
-  patchHarnessProviderPrivacy,
-  patchHarnessProviderAuth,
-  publicHarnessProvider,
-  harnessSmallModelPriority,
-  hasHarnessCredentials,
   buildTimeoutSignal,
   requestTimeout,
   wrapFirstByte,
@@ -156,7 +150,6 @@ const BUNDLED_PROVIDERS: Record<string, () => Promise<(opts: any) => BundledSDK>
   "@ai-sdk/github-copilot": () =>
     import("@opencode-ai/core/github-copilot/copilot-provider").then((m) => m.createOpenaiCompatible),
   "venice-ai-sdk-provider": () => import("venice-ai-sdk-provider").then((m) => m.createVenice),
-  ...HARNESS_BUNDLED_PROVIDERS,
 }
 
 type CustomModelLoader = (sdk: any, modelID: string, options?: Record<string, any>, model?: Model) => Promise<any>
@@ -918,16 +911,6 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
           },
         },
       }),
-    harness: () =>
-      Effect.succeed({
-        autoload: false,
-        options: {
-          headers: {
-            "HTTP-Referer": "https://kilo.ai/",
-            "X-Title": "Harness Code",
-          },
-        },
-      }),
     "snowflake-cortex": Effect.fnUntraced(function* (input: Info) {
       const env = yield* dep.env()
       const auth = yield* dep.auth(input.id)
@@ -1161,7 +1144,7 @@ export function toPublicInfo(provider: Info): Info {
   return JSON.parse(
     JSON.stringify(
       {
-        ...publicHarnessProvider(provider),
+        ...provider,
         models: Object.fromEntries(Object.entries(provider.models).filter(([, model]) => Schema.is(Model)(model))),
       },
       (_, value) => {
@@ -1716,8 +1699,6 @@ const layer = Layer.effect(
           if (provider.options) partial.options = provider.options
           mergeProvider(providerID, partial)
         }
-        patchHarnessProviderPrivacy(providers[ProviderV2.ID.make("harness")], cfg)
-        patchHarnessProviderAuth(providers[ProviderV2.ID.make("harness")], cfg, auths["harness"])
 
         const gitlab = ProviderV2.ID.make("gitlab")
         if (discoveryLoaders[gitlab] && providers[gitlab] && isProviderAllowed(gitlab)) {
@@ -2047,14 +2028,6 @@ const layer = Layer.effect(
         return undefined
       }
 
-      const harnessPriority = harnessSmallModelPriority(providerID)
-      if (harnessPriority) {
-        for (const id of harnessPriority) {
-          const model = provider.models[id]
-          if (model) return model
-        }
-      }
-
       const priority = providerID.startsWith("opencode")
         ? ["gpt-nano"]
         : providerID.startsWith("github-copilot")
@@ -2087,19 +2060,6 @@ const layer = Layer.effect(
           continue
         }
         if (candidates[0]) return candidates[0]
-      }
-
-      // harness credentials. The harness provider is always autoloaded (anonymous key), so checking it
-      // unconditionally would route auxiliary tasks (session titles, commit messages, branch names)
-      // to the cloud for users without harness access and break offline/local-only setups.
-      const harnessFallback = s.providers[ProviderV2.ID.make("harness")]
-      if (harnessFallback?.models["harness-auto/small"]) {
-        const hasCreds = hasHarnessCredentials(
-          cfg,
-          yield* auth.get(ProviderV2.ID.make("harness")).pipe(Effect.orDie),
-          yield* env.all(),
-        )
-        if (hasCreds) return harnessFallback.models["harness-auto/small"]
       }
 
       return undefined

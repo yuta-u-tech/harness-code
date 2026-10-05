@@ -5,7 +5,6 @@ import { HarnessSessionPromptQueue } from "@/harness/session/prompt-queue"
 import { mergeScheduled } from "@/harness/session/scheduled"
 import { Wakeup } from "@/harness/wakeup"
 import { PermissionV1 } from "@opencode-ai/core/v1/permission"
-import { HarnessViewers } from "@/harness/presence/service"
 import { Agent } from "@/agent/agent"
 import { SessionV1 } from "@opencode-ai/core/v1/session"
 import { EventV2Bridge } from "@/event-v2-bridge"
@@ -43,7 +42,6 @@ import {
   ShellPayload,
   SummarizePayload,
   UpdatePayload,
-  ViewedPayload,
 } from "../groups/session"
 import { PermissionNotFoundError } from "../errors"
 import * as SessionError from "./session-errors"
@@ -68,7 +66,6 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
     const todoSvc = yield* Todo.Service
     const summary = yield* SessionSummary.Service
     const events = yield* EventV2Bridge.Service
-    const viewers = yield* HarnessViewers.Service
     const scope = yield* Scope.Scope
 
     const list = Effect.fn("SessionHttpApi.list")(function* (ctx: { query: typeof ListQuery.Type }) {
@@ -430,11 +427,6 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
       return yield* session.updatePart(payload)
     })
 
-    const viewed = Effect.fn("SessionHttpApi.viewed")(function* (ctx: { payload: typeof ViewedPayload.Type }) {
-      yield* viewers.update(ctx.payload)
-      return true
-    })
-
     return handlers
       .handle("list", list)
       .handle("status", status)
@@ -461,6 +453,5 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
       .handle("deleteMessage", deleteMessage)
       .handle("deletePart", deletePart)
       .handle("updatePart", updatePart)
-      .handle("viewed", viewed)
   }),
 )

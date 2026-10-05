@@ -568,16 +568,11 @@ describe("sent browser feedback rendering contract", () => {
 describe("HarnessConnectionService pruneSession contract", () => {
   const source = readFile(CONNECTION_SERVICE_FILE)
 
-  it("drops the deleted session from attached and visible Maps", () => {
+  it("drops the deleted session from the visible Map", () => {
     // HarnessProvider's pruneDeletedSession calls connectionService.pruneSession.
-    // Without clearing attached/visible entries whose value is the deleted id,
-    // the backend keeps receiving the dead session id and any background tab
-    // opener stays registered for it.
     const match = source.match(/pruneSession\(sessionId: string\): void \{([\s\S]*?)\n  \}/)
     expect(match).not.toBeNull()
-    expect(match![1]).toMatch(/this\.attached\.(?:set|delete)/)
     expect(match![1]).toMatch(/this\.visible\.(?:set|delete)/)
-    expect(match![1]).toMatch(/this\.flushViewed\(\)/)
   })
 })
 

@@ -322,10 +322,6 @@ const AppContent: Component = () => {
     setCurrentView("newTask")
   }
 
-  const handleHarnessModel = (message: { type?: string }) => {
-    if (message.type === "selectHarnessModel") setCurrentView("newTask")
-  }
-
   const open = (message: { type?: string; sessionID?: string }) => {
     if (message.type !== "openSession" || !message.sessionID) return
     console.log("[Harness New] App: opening local session:", message.sessionID)
@@ -349,7 +345,6 @@ const AppContent: Component = () => {
         vscode.postMessage({ type: "settingsTabChanged", tab: message.tab })
       }
       open(message)
-      handleHarnessModel(message)
       handleForked(message)
       routeChatInput(
         message,

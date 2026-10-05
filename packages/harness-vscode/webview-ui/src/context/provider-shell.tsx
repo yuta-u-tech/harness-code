@@ -19,7 +19,6 @@ import { MemoryProvider } from "./memory"
 import { SessionProvider } from "./session"
 import { LanguageBridge } from "./language-bridge"
 import { FeedbackProvider } from "./feedback"
-import { HarnessEmbeddingModelsProvider } from "./harness-embedding-models"
 import { ImageModelsProvider } from "./image-models"
 
 type MermaidImageEvent = CustomEvent<{ dataUrl: string; filename: string }>
@@ -73,11 +72,9 @@ const Root: ParentComponent = (props) => (
 
 const Session: ParentComponent = (props) => (
   <IndexingProvider>
-    <HarnessEmbeddingModelsProvider>
-      <ImageModelsProvider>
-        <SessionProvider>{props.children}</SessionProvider>
-      </ImageModelsProvider>
-    </HarnessEmbeddingModelsProvider>
+    <ImageModelsProvider>
+      <SessionProvider>{props.children}</SessionProvider>
+    </ImageModelsProvider>
   </IndexingProvider>
 )
 

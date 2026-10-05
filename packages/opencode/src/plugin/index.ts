@@ -28,7 +28,6 @@ import { InstanceState } from "@/effect/instance-state"
 import { errorMessage } from "@/util/error"
 import { PluginLoader } from "./loader"
 import { parsePluginSpecifier, readPluginId, readV1Plugin, resolvePluginId } from "./shared"
-import { HarnessAuthPlugin } from "@harness/harness-gateway"
 import { AtomicChatPlugin } from "@harness/plugin-atomic-chat"
 import { AnacondaDesktopPlugin } from "@/harness/anaconda-desktop/provider"
 import { registerAdapter } from "@/control-plane/adapters"
@@ -69,7 +68,6 @@ export function experimentalWebSocketsEnabled(input: { enabled: boolean; channel
 // Built-in plugins that are directly imported (not installed from npm)
 function internalPlugins(flags: RuntimeFlags.Info): PluginInstance[] {
   return [
-    HarnessAuthPlugin,
     AtomicChatPlugin,
     AnacondaDesktopPlugin,
     // Temporary rollout: pre-release builds use WebSockets by default; releases require explicit opt-in.

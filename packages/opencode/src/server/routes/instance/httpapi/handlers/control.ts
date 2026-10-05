@@ -1,8 +1,5 @@
 import { Auth } from "@/auth"
-import {
-  invalidateAfterProviderAuthChange,
-  invalidatePresence,
-} from "@/harness/server/provider-auth-lifecycle"
+import { invalidateAfterProviderAuthChange } from "@/harness/server/provider-auth-lifecycle"
 import { Effect } from "effect"
 import { HttpApiBuilder } from "effect/unstable/httpapi"
 import { RootHttpApi } from "../api"
@@ -19,7 +16,6 @@ export const controlHandlers = HttpApiBuilder.group(RootHttpApi, "control", (han
       payload: Auth.Info
     }) {
       yield* auth.set(ctx.params.providerID, ctx.payload).pipe(Effect.orDie)
-      if (ctx.params.providerID === "harness") yield* invalidatePresence()
       yield* invalidateAfterProviderAuthChange(ctx.params.providerID)
       return true
     })
@@ -28,7 +24,6 @@ export const controlHandlers = HttpApiBuilder.group(RootHttpApi, "control", (han
       params: { providerID: ProviderV2.ID }
     }) {
       yield* removeAuth(ctx.params.providerID)
-      if (ctx.params.providerID === "harness") yield* invalidatePresence()
       yield* invalidateAfterProviderAuthChange(ctx.params.providerID)
       return true
     })

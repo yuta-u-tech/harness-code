@@ -73,7 +73,6 @@ export interface CommitMessageConfig {
 }
 
 export type IndexingProvider =
-  | "harness"
   | "openai"
   | "ollama"
   | "openai-compatible"
@@ -107,20 +106,6 @@ export interface IndexingConfig {
   embeddingBatchSize?: number
   scannerMaxBatchRetries?: number
   fileExtensions?: string[]
-}
-
-export type HarnessEmbeddingModel = {
-  id: string
-  name: string
-  dimension: number
-  scoreThreshold: number
-  note?: string
-}
-
-export type HarnessEmbeddingModelCatalog = {
-  defaultModel: string
-  models: HarnessEmbeddingModel[]
-  aliases: Record<string, string>
 }
 
 export type IndexingStatus = SdkIndexingStatus

@@ -1,11 +1,6 @@
 import { iconNames, type IconName } from "@opencode-ai/ui/icons/provider"
 import type { Provider } from "../../types/messages"
-import {
-  HARNESS_PROVIDER_ID,
-  PROVIDER_PRIORITY as FALLBACK_PROVIDER_IDS,
-  createHarnessFallbackProvider,
-  providerOrderIndex,
-} from "../../../../src/shared/provider-model"
+import { PROVIDER_PRIORITY as FALLBACK_PROVIDER_IDS, providerOrderIndex } from "../../../../src/shared/provider-model"
 
 export const CUSTOM_PROVIDER_ID = "_custom"
 
@@ -33,19 +28,13 @@ export function providerIcon(provider: Provider | string): IconName {
   const providerID = typeof provider === "string" ? provider : provider.id
   const icon = typeof provider === "string" ? undefined : validIcon(provider.metadata?.icon)
   if (icon) return icon
-  if (providerID === HARNESS_PROVIDER_ID) return validIcon("harness") ?? "synthetic"
   const fallback = validIcon(providerID)
   if (fallback) return fallback
   return "synthetic"
 }
 
-export function harnessFallbackProvider(): Provider {
-  return createHarnessFallbackProvider()
-}
-
 export function providerNoteKey(provider: Provider | string) {
   if (typeof provider !== "string" && provider.metadata?.noteKey) return provider.metadata.noteKey
-  if (provider === HARNESS_PROVIDER_ID) return "settings.providers.note.harness"
   return undefined
 }
 

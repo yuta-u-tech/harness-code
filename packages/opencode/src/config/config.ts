@@ -543,11 +543,6 @@ const layer = Layer.effect(
         )
         warnings.push(...legacy.warnings)
 
-        const orgModes = yield* Effect.promise(() => HarnessConfig.loadOrganizationModes(auth))
-        if (Object.keys(orgModes.agents).length > 0) {
-          result = mergeConfigConcatArrays(result, { agent: orgModes.agents })
-        }
-        warnings.push(...orgModes.warnings)
         let configuredAgents = { ...(result.agent ?? {}) }
 
         const authEnv: Record<string, string> = {}

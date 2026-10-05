@@ -146,7 +146,7 @@ export const ExportCommand = lazy({
 
 export const ImportCommand = lazy({
   command: "import <file>",
-  describe: "import session data from JSON file or URL",
+  describe: "import session data from a JSON file",
   load: async () => (await import("@/cli/cmd/import")).ImportCommand,
 })
 

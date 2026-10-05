@@ -135,17 +135,8 @@ export class HarnessConnectionService {
    */
   private readonly messageSessionIdsByMessageId: Map<string, string> = new Map()
 
-  private readonly viewerId = crypto.randomUUID()
-  private active = true
-  private windowStateDisposable: vscode.Disposable | null = null
-  private checkinTimer: ReturnType<typeof setInterval> | null = null
-  /** Provider key → attached (retained for remote control) session IDs. */
-  private readonly attached: Map<string, Set<string>> = new Map()
   /** Provider key → visibly rendered session IDs. */
   private readonly visible: Map<string, Set<string>> = new Map()
-  private debounceTimer: ReturnType<typeof setTimeout> | null = null
-  private viewedSending = false
-  private viewedDirty = false
 
   constructor(
     context: vscode.ExtensionContext,
@@ -160,11 +151,6 @@ export class HarnessConnectionService {
       } satisfies Pick<vscode.Memento, "get" | "update">)
     this.sandboxPreference = new SandboxPreference(state)
     this.serverManager = new ServerManager(context, (code, signal) => this.handleServerExit(code, signal), env)
-    this.active = vscode.window.state.focused
-    this.windowStateDisposable = vscode.window.onDidChangeWindowState((ws) => {
-      this.active = ws.focused
-      this.flushViewed()
-    })
   }
 
   /**
@@ -327,17 +313,11 @@ export class HarnessConnectionService {
     for (const [mid, sid] of this.messageSessionIdsByMessageId) {
       if (sid === sessionId) this.messageSessionIdsByMessageId.delete(mid)
     }
-    for (const [key, ids] of this.attached) {
-      if (!ids.has(sessionId)) continue
-      ids.delete(sessionId)
-      if (ids.size === 0) this.attached.delete(key)
-    }
     for (const [key, ids] of this.visible) {
       if (!ids.has(sessionId)) continue
       ids.delete(sessionId)
       if (ids.size === 0) this.visible.delete(key)
     }
-    this.flushViewed()
   }
 
   /**
@@ -722,36 +702,13 @@ export class HarnessConnectionService {
   }
 
   /**
-   * Register the sessions a provider retains for remote control (attached).
-   * Sent to the server (debounced) regardless of remote-control enablement.
-   */
-  registerAttached(key: string, ids: string[]): void {
-    const next = new Set(ids)
-    const prev = this.attached.get(key)
-    if (prev && sameSet(prev, next)) return
-    this.attached.set(key, next)
-    this.flushViewed()
-  }
-
-  /**
-   * Unregister a provider's attached sessions (e.g. on dispose or clear).
-   */
-  unregisterAttached(key: string): void {
-    if (!this.attached.has(key)) return
-    this.attached.delete(key)
-    this.flushViewed()
-  }
-
-  /**
-   * Register the sessions a provider visibly renders (visible).
-   * Visible sessions are also reported as attached.
+   * Register the sessions a provider visibly renders.
    */
   registerVisible(key: string, ids: string[]): void {
     const next = new Set(ids)
     const prev = this.visible.get(key)
     if (prev && sameSet(prev, next)) return
     this.visible.set(key, next)
-    this.flushViewed()
   }
 
   /**
@@ -770,39 +727,6 @@ export class HarnessConnectionService {
   unregisterVisible(key: string): void {
     if (!this.visible.has(key)) return
     this.visible.delete(key)
-    this.flushViewed()
-  }
-
-  /** Debounced: send the aggregated attached + visible snapshot to the server. Works even when remote control is disabled. */
-  flushViewed(): void {
-    if (this.debounceTimer) clearTimeout(this.debounceTimer)
-    this.debounceTimer = setTimeout(() => {
-      this.debounceTimer = null
-      this.sendViewed()
-    }, 150)
-  }
-
-  private sendViewed(): void {
-    if (this.viewedSending) {
-      this.viewedDirty = true
-      return
-    }
-    if (!this.client) return
-
-    const visible = new Set<string>()
-    for (const ids of this.visible.values()) for (const id of ids) visible.add(id)
-    const attached = new Set<string>(visible)
-    for (const ids of this.attached.values()) for (const id of ids) attached.add(id)
-
-    this.viewedSending = true
-    this.viewedDirty = false
-    void this.client.session
-      .viewed({ viewer: { id: this.viewerId, active: this.active }, attached: [...attached], visible: [...visible] })
-      .catch((err) => console.warn("[Harness New] ConnectionService: viewed flush failed:", err))
-      .finally(() => {
-        this.viewedSending = false
-        if (this.viewedDirty) this.sendViewed()
-      })
   }
 
   /**
@@ -832,24 +756,7 @@ export class HarnessConnectionService {
     this.permissionRevision += 1
     this.questionDirectories.clear()
     this.questionRevision += 1
-    if (this.client?.session?.viewed) {
-      void this.client.session
-        .viewed({ viewer: { id: this.viewerId, active: false }, attached: [], visible: [] })
-        .catch(() => {})
-    }
-    this.attached.clear()
     this.visible.clear()
-    if (this.debounceTimer) {
-      clearTimeout(this.debounceTimer)
-      this.debounceTimer = null
-    }
-    if (this.checkinTimer) {
-      clearInterval(this.checkinTimer)
-      this.checkinTimer = null
-    }
-    this.windowStateDisposable?.dispose()
-    this.windowStateDisposable = null
-    this.viewedDirty = false
     this.client = null
     this.sseClient = null
     this.config = null
@@ -914,7 +821,6 @@ export class HarnessConnectionService {
 
   private resetConnection(): void {
     this.stopHealthPoll()
-    this.stopCheckin()
     const sse = this.sseClient
     this.explicitAborts.clear()
     this.sseClient = null
@@ -1006,7 +912,6 @@ export class HarnessConnectionService {
         resolveConnected?.()
         resolveConnected = null
         rejectConnected = null
-        this.flushViewed()
         return
       }
 
@@ -1021,7 +926,6 @@ export class HarnessConnectionService {
 
     await connectedPromise
 
-    this.startCheckin()
     // Start the independent health poll once we are confirmed connected.
     this.startHealthPoll(config.baseUrl, config.password)
   }
@@ -1058,19 +962,6 @@ export class HarnessConnectionService {
   private broadcastFiltered(event: SSEPayload, directory?: string): void {
     for (const entry of this.filteredListeners) {
       if (entry.filter(event, directory)) entry.listener(event, directory)
-    }
-  }
-
-  private startCheckin(): void {
-    this.stopCheckin()
-    this.checkinTimer = setInterval(() => this.flushViewed(), 60_000)
-    this.checkinTimer.unref?.()
-  }
-
-  private stopCheckin(): void {
-    if (this.checkinTimer) {
-      clearInterval(this.checkinTimer)
-      this.checkinTimer = null
     }
   }
 

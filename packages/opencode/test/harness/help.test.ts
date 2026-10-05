@@ -22,10 +22,8 @@ import { ConfigCommand as ConfigCLICommand } from "../../src/cli/cmd/config"
 import { PluginCommand } from "../../src/cli/cmd/plug"
 import { DbCommand } from "../../src/cli/cmd/db"
 import { HelpCommand } from "../../src/harness/help-command"
-import { ProfileCommand } from "../../src/harness/cli/cmd/profile"
 import { DaemonCommand } from "../../src/harness/cli/cmd/daemon"
 import { HarnessConsoleCommand } from "../../src/harness/cli/cmd/console"
-import { CloudCommand } from "../../src/harness/cli/cmd/cloud"
 
 // Stand-in for TuiThreadCommand — the real one imports @opentui/solid which
 // doesn't resolve in the test environment. Only command/describe matter here.
@@ -71,10 +69,8 @@ const commands = [
   DbCommand,
   ConfigCLICommand,
   PluginCommand,
-  ProfileCommand,
   DaemonCommand,
   HarnessConsoleCommand,
-  CloudCommand,
   HelpCommand,
   CompletionStub,
 ] as any[]
@@ -82,7 +78,7 @@ const commands = [
 describe("harness help --all (markdown)", () => {
   test("contains ## heading for each known top-level command", async () => {
     const output = await generateHelp({ all: true, format: "md", commands })
-    for (const cmd of ["run", "auth", "debug", "mcp", "session", "agent", "profile"]) {
+    for (const cmd of ["run", "auth", "debug", "mcp", "session", "agent"]) {
       expect(output).toContain(`## harness ${cmd}`)
     }
   })
@@ -104,7 +100,7 @@ describe("harness help --all (text)", () => {
 
   test("still contains each command name", async () => {
     const output = await generateHelp({ all: true, format: "text", commands })
-    for (const cmd of ["run", "auth", "debug", "mcp", "session", "agent", "profile"]) {
+    for (const cmd of ["run", "auth", "debug", "mcp", "session", "agent"]) {
       expect(output).toContain(`harness ${cmd}`)
     }
   })
@@ -144,35 +140,6 @@ describe("harness help <command>", () => {
     expect(output).toContain("harness daemon start")
     expect(output).toContain("--foreground")
     expect(output).toContain("-f")
-  })
-})
-
-describe("harness cloud help", () => {
-  async function parser() {
-    const cli = yargs([])
-      .scriptName("harness cloud")
-      .exitProcess(false)
-      .help()
-      .fail((msg, err) => {
-        throw err ?? new Error(msg)
-      })
-    if (typeof CloudCommand.builder !== "function") throw new Error("cloud command builder is missing")
-    return await CloudCommand.builder(cli)
-  }
-
-  test("requires a subcommand and exposes only the public Cloud Agent operations", async () => {
-    const bare = await parser()
-    await expect(Promise.resolve().then(() => bare.parseAsync([]))).rejects.toThrow()
-
-    const help = await (await parser()).getHelp()
-    const names = [...help.matchAll(/^\s*harness cloud ([a-z][a-z-]*)\b/gm)].map((match) => match[1])
-    expect([...new Set(names)].sort()).toEqual(["result", "send", "start", "status"])
-  })
-
-  test("documents start prompt stdin", async () => {
-    const output = await generateHelp({ command: "cloud", format: "md", commands })
-    expect(output).toContain("harness cloud start")
-    expect(output).toContain("--prompt-stdin")
   })
 })
 

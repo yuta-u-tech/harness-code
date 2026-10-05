@@ -14,7 +14,6 @@ import { ConfigErrorV1 as ConfigError } from "@opencode-ai/core/v1/config/error"
 import type { Config } from "../../config/config"
 import type { ConfigAgentV1 } from "@opencode-ai/core/v1/config/agent"
 import { ModesMigrator } from "../modes-migrator"
-import { fetchOrganizationModes } from "@harness/harness-gateway"
 import { RulesMigrator } from "../rules-migrator"
 import { WorkflowsMigrator } from "../workflows-migrator"
 import { McpMigrator } from "../mcp-migrator"
@@ -424,35 +423,6 @@ export namespace HarnessConfig {
     }
 
     return { config: result, warnings }
-  }
-
-  // ── Organization modes ───────────────────────────────────────────────
-
-  /**
-   * Load organization custom modes from the Harness Cloud API.
-   * Returns empty agents + warnings if the user is not authenticated.
-   */
-  export async function loadOrganizationModes(
-    auth: Record<string, any>,
-  ): Promise<{ agents: Record<string, ConfigAgentV1.Info>; warnings: Config.Warning[] }> {
-    const warnings: Config.Warning[] = []
-    try {
-      const harness = auth["harness"]
-      if (harness?.type === "oauth" && harness.access && harness.accountId) {
-        const modes = await fetchOrganizationModes(harness.access, harness.accountId)
-        if (modes.length > 0) {
-          const agents = ModesMigrator.convertOrganizationModes(modes)
-          log.debug("loaded organization custom modes", {
-            count: modes.length,
-            modes: modes.map((m: any) => m.slug),
-          })
-          return { agents, warnings }
-        }
-      }
-    } catch (err) {
-      log.warn("failed to load organization custom modes", { error: err })
-    }
-    return { agents: {}, warnings }
   }
 
   // ── Bash permission migration ────────────────────────────────────────

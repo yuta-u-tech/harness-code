@@ -17,7 +17,6 @@ import { SessionTable } from "@opencode-ai/core/session/sql"
 import * as Log from "@opencode-ai/core/util/log"
 import type { ProviderMetadata, Usage } from "@opencode-ai/llm"
 import type { Provider } from "@/provider/provider"
-import { ENV_FEATURE } from "@harness/harness-gateway"
 import { existsSync } from "fs"
 import path from "path"
 import { iife } from "@/util/iife"
@@ -126,7 +125,7 @@ export namespace HarnessSession {
   export function attribution(id: string): { rootID: string; feature?: string } {
     const rootID = resolveRoot(id)
     const platform = resolvePlatform(rootID) ?? process.env["HARNESS_PLATFORM"]
-    const feature = featureForPlatform(platform) ?? process.env[ENV_FEATURE]
+    const feature = featureForPlatform(platform) ?? process.env["HARNESS_FEATURE"]
     return { rootID, ...(feature ? { feature } : {}) }
   }
 

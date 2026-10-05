@@ -10,15 +10,8 @@ import { useProvider } from "../../context/provider"
 import { useServer } from "../../context/server"
 import type { Provider } from "../../types/messages"
 import ProviderConnectDialog from "./ProviderConnectDialog"
-import {
-  CUSTOM_PROVIDER_ID,
-  isPopularProvider,
-  harnessFallbackProvider,
-  popularProviderIndex,
-  providerIcon,
-} from "./provider-catalog"
+import { CUSTOM_PROVIDER_ID, isPopularProvider, popularProviderIndex, providerIcon } from "./provider-catalog"
 import CustomProviderDialog from "./CustomProviderDialog"
-import { HARNESS_PROVIDER_ID } from "../../../../src/shared/provider-model"
 
 type ProviderItem = {
   id: string
@@ -39,8 +32,7 @@ const ProviderSelectDialog = () => {
     const disabled = new Set(config().disabled_providers ?? [])
     const connected = new Set(provider.connected())
     const all = Object.values(provider.providers())
-    const withHarness = all.some((item) => item.id === HARNESS_PROVIDER_ID) ? all : [harnessFallbackProvider(), ...all]
-    const available = withHarness.filter((item) => !disabled.has(item.id) && !connected.has(item.id))
+    const available = all.filter((item) => !disabled.has(item.id) && !connected.has(item.id))
 
     return [
       {
@@ -124,9 +116,6 @@ const ProviderSelectDialog = () => {
               >
                 {item.name}
               </span>
-              <Show when={item.id === HARNESS_PROVIDER_ID}>
-                <Tag>{language.t("dialog.provider.tag.recommended")}</Tag>
-              </Show>
               <Show when={item.id === CUSTOM_PROVIDER_ID}>
                 <Tag>{language.t("settings.providers.tag.custom")}</Tag>
               </Show>

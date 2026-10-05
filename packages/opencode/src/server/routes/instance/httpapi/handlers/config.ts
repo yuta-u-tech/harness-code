@@ -1,5 +1,4 @@
 import { Config } from "@/config/config"
-import { recommend } from "@/harness/provider/catalog"
 import { Auth } from "@/auth"
 import { Option } from "effect"
 import { ProviderV2 } from "@opencode-ai/core/provider"
@@ -39,19 +38,6 @@ export const configHandlers = HttpApiBuilder.group(InstanceHttpApi, "config", (h
         config.hide_prompt_training_models === true,
       )
       const defaults = Provider.defaultModelIDs(nonEmptyProviders(providers))
-
-      if (defaults[ProviderV2.ID.harness]) {
-        const info = yield* auth.get("harness").pipe(Effect.option)
-        const model = yield* Effect.promise(() =>
-          recommend(
-            providers[ProviderV2.ID.harness].models,
-            config.provider?.harness?.options,
-            Option.getOrUndefined(info),
-            Option.isSome(info),
-          ),
-        )
-        if (model && providers[ProviderV2.ID.harness]?.models[model]) defaults[ProviderV2.ID.harness] = ModelV2.ID.make(model)
-      }
 
       return {
         providers: Object.values(providers).map(Provider.toPublicInfo),
