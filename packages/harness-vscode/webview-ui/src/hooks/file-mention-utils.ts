@@ -131,7 +131,29 @@ const presetAuto = {
   gate: null,
 } as const
 
-const entries = [model, terminal, changes, chats, worktrees, tokenSpeed, presetHuman, presetAuto, picker] as const
+const harness = {
+  result: {
+    type: "action",
+    value: "harness",
+    label: "Harness",
+    description: "Run each message through the harness flow",
+  },
+  aliases: ["flow", "run"],
+  gate: null,
+} as const
+
+const entries = [
+  model,
+  terminal,
+  changes,
+  chats,
+  worktrees,
+  harness,
+  tokenSpeed,
+  presetHuman,
+  presetAuto,
+  picker,
+] as const
 type MentionEntry = (typeof entries)[number]["result"]
 
 export type MentionResult =
@@ -160,7 +182,7 @@ export const FILE_PICKER_RESULT = picker.result
 export const PAST_CHATS_RESULT = chats.result
 export const WORKTREES_RESULT = worktrees.result
 export const MODEL_RESULT = model.result
-export const ACTION_RESULTS = [tokenSpeed.result, presetHuman.result, presetAuto.result] as const
+export const ACTION_RESULTS = [harness.result, tokenSpeed.result, presetHuman.result, presetAuto.result] as const
 
 /**
  * Whether the query spells out the Browse files entry rather than just leaving

@@ -18,6 +18,7 @@ import { MessageList } from "./MessageList"
 import { PromptInput } from "./PromptInput"
 import { PermissionDock } from "./PermissionDock"
 import { SessionDock } from "./SessionDock"
+import HarnessRunDock from "./HarnessRunDock"
 import { StartupErrorBanner } from "./StartupErrorBanner"
 import { SessionTabStrip } from "./SessionTabStrip"
 import { useSession } from "../../context/session"
@@ -430,6 +431,7 @@ export const ChatView: Component<ChatViewProps> = (props) => {
                   />
                 )}
               </Show>
+              <HarnessRunDock />
               <SessionDock
                 blocked={dockBlocked()}
                 hasActions={() => !props.readonly && (hasActions(hasMessages()) || !!goal())}

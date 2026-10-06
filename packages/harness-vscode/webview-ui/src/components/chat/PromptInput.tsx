@@ -121,6 +121,7 @@ import { formatCodeContexts, mergeCodeContexts, type CodeContext } from "../../.
 import { isEnterKeyCommitNotIme } from "../../utils/ime-enter"
 import { parseMemoryCommand, type ParsedMemoryCommand } from "../../utils/memory-command"
 import { useMemory } from "../../context/memory"
+import { harnessMode, setHarnessMode } from "../../context/harness-mode"
 
 function mergeReviewComments(current: ReviewCommentEntry[], incoming: ReviewCommentEntry[]): ReviewCommentEntry[] {
   if (incoming.length === 0) return current
@@ -280,13 +281,24 @@ export const PromptInput: Component<PromptInputProps> = (props) => {
   const modelKeys = createMemo(() => new Set(provider.models().map((model) => `${model.providerID}/${model.id}`)))
   // `@` actions flip display settings in place instead of living in the settings page.
   const runAction = (action: string) => {
+    if (action === "harness") {
+      const next = !harnessMode()
+      setHarnessMode(next)
+      showToast({ variant: "success", title: next ? "Harness on" : "Harness off" })
+      return
+    }
     if (action === "token-speed") {
       const next = !(settings()["showTokenThroughput"] ?? true)
       updateSetting("showTokenThroughput", next)
       showToast({ variant: "success", title: next ? "Token speed on" : "Token speed off" })
       return
     }
-    const style = action === "preset-human-in-the-loop" ? "human-in-the-loop" : action === "preset-autonomous" ? "autonomous" : undefined
+    const style =
+      action === "preset-human-in-the-loop"
+        ? "human-in-the-loop"
+        : action === "preset-autonomous"
+          ? "autonomous"
+          : undefined
     if (!style) return
     const preset = getDisplayPreset(style)
     batch(() => {
@@ -1542,6 +1554,19 @@ export const PromptInput: Component<PromptInputProps> = (props) => {
     return { match, entry }
   }
 
+  // In harness mode the message becomes the task of a harness run instead of a chat turn.
+  const startHarness = (draft: string, hasGoal: boolean) => {
+    if (hasGoal || !harnessMode() || !draft) return false
+    vscode.postMessage({ type: "harnessStart", task: draft })
+    history.append(draft)
+    clear()
+    mention.closeMention()
+    slash.close()
+    drafts.delete(draftKey())
+    if (textareaRef) textareaRef.style.height = "auto"
+    return true
+  }
+
   const handleSend = async () => {
     // Collapsed pastes are expanded to their full content before anything reads
     // the draft: sending, attachments, slash detection, and history all see the
@@ -1578,6 +1603,8 @@ export const PromptInput: Component<PromptInputProps> = (props) => {
       if (textareaRef) textareaRef.style.height = "auto"
       return
     }
+
+    if (startHarness(draft, !!objective)) return
 
     // Detect slash command (hoisted for both client and server command checks).
     // Prioritize exact name matches over hint/alias matches so that a server

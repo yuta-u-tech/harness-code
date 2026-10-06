@@ -6,7 +6,6 @@ import type { HarnessConfig, HarnessStep } from "../../../types/messages"
 import HarnessAgentStepEditor from "./HarnessAgentStep"
 import HarnessCheckStepEditor from "./HarnessCheckStep"
 import HarnessHumanStepEditor from "./HarnessHumanStep"
-import HarnessRunPanel from "./HarnessRunPanel"
 import HarnessStepList from "./HarnessStepList"
 import { addStep, defaultHarness, harnessIssues, moveStep, removeStep, updateStep } from "./harness-state"
 
@@ -67,8 +66,6 @@ const HarnessTab: Component = () => {
           </ul>
         </div>
       </Show>
-
-      <HarnessRunPanel steps={harness().steps} />
 
       <div class="harness-cols">
         <HarnessStepList
