@@ -48,65 +48,6 @@ async function copyTreeSitterWasms(outputDir: string) {
   console.log(`copied ${languageWasmFiles.length + 1} tree-sitter wasm files to ${targetDir}`)
 }
 
-async function isHarnessConsoleUpToDate(app: string, out: string) {
-  const indexHtml = path.join(out, "index.html")
-  if (!fs.existsSync(indexHtml)) return false
-  const outStat = await fs.promises.stat(indexHtml)
-  const inputs = [
-    path.join(app, "src"),
-    path.join(app, "package.json"),
-    path.join(app, "vite.config.ts"),
-    path.join(app, "index.html"),
-    path.resolve(dir, "../harness-web-ui/src"),
-    path.resolve(dir, "../harness-indexing/src"),
-    path.resolve(dir, "../harness-ui/src"),
-    path.resolve(dir, "../ui/src"),
-    path.resolve(dir, "../sdk/js/src"),
-    path.resolve(dir, "../../bun.lock"),
-  ]
-  for (const p of inputs) {
-    if (!fs.existsSync(p)) continue
-    const st = await fs.promises.stat(p)
-    if (st.isDirectory()) {
-      const glob = new Bun.Glob("**/*")
-      for await (const file of glob.scan({ cwd: p })) {
-        const fileStat = await fs.promises.stat(path.join(p, file))
-        if (fileStat.mtimeMs > outStat.mtimeMs) return false
-      }
-    } else if (st.mtimeMs > outStat.mtimeMs) {
-      return false
-    }
-  }
-  return true
-}
-
-async function buildHarnessConsole() {
-  const app = path.resolve(dir, "../harness-console")
-  const out = path.join(app, "dist")
-  if (await isHarnessConsoleUpToDate(app, out)) {
-    console.log(`reusing existing Harness Console build at ${out}`)
-    return out
-  }
-  console.log("building Harness Console")
-  const proc = Bun.spawn([process.execPath, "run", "build"], {
-    cwd: app,
-    env: { ...process.env, HARNESS_CONSOLE_BASE: "/console/" },
-    stdout: "inherit",
-    stderr: "inherit",
-    windowsHide: true,
-  })
-  const code = await proc.exited
-  if (code !== 0) throw new Error(`Harness Console build failed with exit code ${code}`)
-  return out
-}
-
-async function copyHarnessConsole(input: string, outputDir: string) {
-  const target = path.join(outputDir, "console")
-  await fs.promises.rm(target, { recursive: true, force: true })
-  await fs.promises.cp(input, target, { recursive: true })
-  console.log(`copied Harness Console assets to ${target}`)
-}
-
 function smokeEnv(root: string) {
   const env = { ...process.env }
   delete env.HARNESS_MODELS_PATH
@@ -252,8 +193,7 @@ const targets = singleFlag
   : allTargets
 
 await $`rm -rf dist`
-const [harnessConsoleDist, harnessSandboxWorker, harnessSandboxNetwork] = await Promise.all([
-  buildHarnessConsole(),
+const [harnessSandboxWorker, harnessSandboxNetwork] = await Promise.all([
   HarnessSandboxWorker.bundle(),
   HarnessSandboxNetwork.bundle(),
 ])
@@ -324,7 +264,8 @@ for (const item of targets) {
       HARNESS_WORKER_PATH: workerPath,
       HARNESS_INDEXING_WORKER_PATH: indexingWorkerPath,
       HARNESS_SANDBOX_MUTATION_WORKER_PATH: JSON.stringify(HarnessSandboxWorker.filename),
-      HARNESS_SANDBOX_NETWORK_RELAY_PATH: item.os === "linux" ? JSON.stringify(HarnessSandboxNetwork.relay) : "undefined",
+      HARNESS_SANDBOX_NETWORK_RELAY_PATH:
+        item.os === "linux" ? JSON.stringify(HarnessSandboxNetwork.relay) : "undefined",
       HARNESS_SANDBOX_SECCOMP_PATH: item.os === "linux" ? JSON.stringify(HarnessSandboxNetwork.seccomp) : "undefined",
       HARNESS_CHANNEL: `'${Script.channel}'`,
       HARNESS_LIBC: item.os === "linux" ? `'${item.abi ?? "glibc"}'` : "",
@@ -335,7 +276,6 @@ for (const item of targets) {
   })
 
   await copyTreeSitterWasms(path.resolve(dir, `dist/${name}/bin`))
-  await copyHarnessConsole(harnessConsoleDist, path.resolve(dir, `dist/${name}/bin`))
   await HarnessSandboxWorker.copy(harnessSandboxWorker, path.resolve(dir, `dist/${name}/bin`))
   if (item.os === "linux") {
     await HarnessSandboxNetwork.copy(harnessSandboxNetwork, path.resolve(dir, `dist/${name}/bin`), item.arch)

@@ -86,8 +86,7 @@ async function cliInputs() {
     for (const dep of Object.keys(deps)) visit(dep)
   }
 
-  // The CLI build embeds the console even though it is not a package dependency.
-  for (const dir of [opencodeDir, join(packagesDir, "harness-console")]) {
+  for (const dir of [opencodeDir]) {
     const pkg: Package = await Bun.file(join(dir, "package.json")).json()
     if (!pkg.name) throw new Error(`Workspace package at ${dir} has no name`)
     visit(pkg.name)
@@ -278,7 +277,8 @@ async function bundleHarnessSandboxWorker() {
     format: "esm",
     minify: true,
   })
-  if (!result.success || result.outputs.length !== 1) throw new Error("Could not bundle Harness sandbox mutation worker")
+  if (!result.success || result.outputs.length !== 1)
+    throw new Error("Could not bundle Harness sandbox mutation worker")
   await Bun.write(harnessSandboxWorkerForBinary(targetBinPath), result.outputs[0])
 }
 
