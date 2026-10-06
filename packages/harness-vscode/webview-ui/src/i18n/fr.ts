@@ -554,31 +554,6 @@ export const dict = {
   "feedback.dialog.message":
     "Nous aimerions recueillir vos commentaires ou vous aider avec les problèmes que vous rencontrez.",
   "feedback.dialog.github": "Signaler un problème sur GitHub",
-  "workStyle.onboarding.welcome": "Bienvenue dans Harness",
-  "workStyle.onboarding.title": "Choisissez votre façon de travailler",
-  "workStyle.onboarding.settingsNote": "Vous pouvez modifier ces options à tout moment dans les",
-  "workStyle.onboarding.settings": "Paramètres.",
-  "workStyle.toast.saved.title": "Mode enregistré avec succès",
-  "workStyle.choice.permissions": "Autorisations",
-  "workStyle.choice.bash": "Bash",
-  "workStyle.choice.visibility": "Visibilité",
-  "workStyle.choice.human-in-the-loop.eyebrow": "Contrôle humain",
-  "workStyle.choice.human-in-the-loop.title": "Vérifier d'abord",
-  "workStyle.choice.human-in-the-loop.description":
-    "Harness s'interrompt et vous présente son plan au fil de son travail.",
-  "workStyle.choice.human-in-the-loop.permissions":
-    "Demande avant de modifier des fichiers ou d'exécuter des commandes.",
-  "workStyle.choice.human-in-the-loop.bash": "L'agent demande l'autorisation pour chaque commande du terminal.",
-  "workStyle.choice.human-in-the-loop.visibility":
-    "Déploie le raisonnement, les commandes et les modifications pour examen.",
-  "workStyle.choice.autonomous.eyebrow": "Moins d'interruptions",
-  "workStyle.choice.autonomous.title": "Autonomie élevée",
-  "workStyle.choice.autonomous.description": "Moins d'interruptions et une interface simplifiée.",
-  "workStyle.choice.autonomous.permissions":
-    "Modifie les fichiers et exécute les commandes dans l'espace de travail sans demander.",
-  "workStyle.choice.autonomous.bash":
-    "Peut exécuter des commandes dans le terminal de l'espace de travail sans autorisation.",
-  "workStyle.choice.autonomous.visibility": "Replie les détails des outils, avec un aperçu compact du raisonnement.",
 
   "common.retry": "Réessayer",
   "common.refresh": "Actualiser",

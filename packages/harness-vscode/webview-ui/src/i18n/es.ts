@@ -551,29 +551,6 @@ export const dict = {
   "feedback.dialog.message":
     "Nos encantaría escuchar tus comentarios o ayudarte con cualquier problema que estés experimentando.",
   "feedback.dialog.github": "Reportar un problema en GitHub",
-  "workStyle.onboarding.welcome": "Te damos la bienvenida a Harness",
-  "workStyle.onboarding.title": "Elige cómo quieres trabajar",
-  "workStyle.onboarding.settingsNote": "Puedes cambiar estas opciones en cualquier momento en",
-  "workStyle.onboarding.settings": "Configuración.",
-  "workStyle.toast.saved.title": "Modo guardado correctamente",
-  "workStyle.choice.permissions": "Permisos",
-  "workStyle.choice.bash": "Bash",
-  "workStyle.choice.visibility": "Visibilidad",
-  "workStyle.choice.human-in-the-loop.eyebrow": "Supervisión humana",
-  "workStyle.choice.human-in-the-loop.title": "Revisar primero",
-  "workStyle.choice.human-in-the-loop.description": "Harness se detiene y te muestra su plan mientras trabaja.",
-  "workStyle.choice.human-in-the-loop.permissions": "Pide permiso antes de editar archivos o ejecutar comandos.",
-  "workStyle.choice.human-in-the-loop.bash": "Pide permiso para ejecutar todos los comandos del terminal.",
-  "workStyle.choice.human-in-the-loop.visibility":
-    "Expande el razonamiento, los comandos y las ediciones para su revisión.",
-  "workStyle.choice.autonomous.eyebrow": "Menos interrupciones",
-  "workStyle.choice.autonomous.title": "Alta autonomía",
-  "workStyle.choice.autonomous.description": "Menos interrupciones y una interfaz optimizada.",
-  "workStyle.choice.autonomous.permissions":
-    "Edita archivos y ejecuta comandos en el espacio de trabajo sin preguntar.",
-  "workStyle.choice.autonomous.bash": "Puede ejecutar comandos en el terminal del espacio de trabajo sin aprobación.",
-  "workStyle.choice.autonomous.visibility":
-    "Contrae los detalles de las herramientas, con una vista previa compacta del razonamiento.",
 
   "common.retry": "Reintentar",
   "common.refresh": "Actualizar",

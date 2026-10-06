@@ -1328,14 +1328,13 @@ describe("Shared webview provider shell", () => {
     const source = fs.readFileSync(APP_FILE, "utf-8")
     ordered(source, [
       "ProviderShell.Root",
-      "WorkStyleProvider",
       "ProviderShell.Session",
       "LocalTabsProvider",
       "ProviderShell.Chat",
       "DataBridge",
       "AppContent",
     ])
-    expect(fs.readFileSync(PROVIDER_SHELL_FILE, "utf-8")).not.toMatch(/WorkStyleProvider|LocalTabsProvider/)
+    expect(fs.readFileSync(PROVIDER_SHELL_FILE, "utf-8")).not.toMatch(/LocalTabsProvider/)
   })
 
   it("keeps worktree mode in the Agent Manager root", () => {

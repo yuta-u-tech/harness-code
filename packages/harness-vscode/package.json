@@ -1103,24 +1103,6 @@
           "default": true,
           "description": "Agent Manager: when you send pull request CI failures or review comments to the agent, or update a worktree from its base, ask the agent to commit and push so the pull request updates. Permission prompts still apply. Disable to keep commits manual."
         },
-        "harness-code.agentWorkStyle": {
-          "type": "string",
-          "scope": "application",
-          "default": "unset",
-          "enum": [
-            "unset",
-            "human-in-the-loop",
-            "autonomous",
-            "skipped"
-          ],
-          "enumDescriptions": [
-            "Show work style onboarding so you can choose again",
-            "Human in the Loop: review agent actions as they happen",
-            "High autonomy: let Harness take most actions with fewer interruptions",
-            "Onboarding was skipped without changing work style settings"
-          ],
-          "description": "Preferred agent work style. Set to Unset to show the onboarding flow again."
-        },
         "harness-code.diff.renderMarkdown": {
           "type": "boolean",
           "default": false,

@@ -51,7 +51,6 @@ import type { QuestionRequest, SuggestionRequest, TodoItem } from "./questions"
 import type { ModelSelection, ModelUsageMap, Provider, ProviderAuthState } from "./providers"
 import type { AgentInfo, SkillInfo, SlashCommandInfo } from "./agents"
 import type { BrowserSettings, Config, ConfigCollections, FeatureFlags, IndexingStatus } from "./config"
-import type { WorkStyle, WorkStyleState } from "../../../../src/shared/work-style-presets"
 import type {
   AgentManagerApplyWorktreeDiffConflict,
   AgentManagerApplyWorktreeDiffStatus,
@@ -745,22 +744,6 @@ export interface AutoApprovalReasonSettingLoadedMessage {
 export interface PushFixesSettingLoadedMessage {
   type: "pushFixesSettingLoaded"
   enabled: boolean
-}
-
-export interface WorkStyleLoadedMessage {
-  type: "workStyleLoaded"
-  style: WorkStyleState
-}
-
-export interface WorkStyleAppliedMessage {
-  type: "workStyleApplied"
-  style: WorkStyle
-}
-
-export interface WorkStyleApplyFailedMessage {
-  type: "workStyleApplyFailed"
-  message: string
-  rollbackFailed: boolean
 }
 
 // Agent Manager repo info (current branch of the main workspace)
@@ -1601,9 +1584,6 @@ export type ExtensionMessage =
   | ThroughputSettingLoadedMessage
   | AutoApprovalReasonSettingLoadedMessage
   | PushFixesSettingLoadedMessage
-  | WorkStyleLoadedMessage
-  | WorkStyleAppliedMessage
-  | WorkStyleApplyFailedMessage
   | AgentManagerRepoInfoMessage
   | AgentManagerWorktreeSetupMessage
   | AgentManagerSessionAddedMessage

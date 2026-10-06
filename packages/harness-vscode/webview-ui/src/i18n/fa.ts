@@ -507,27 +507,6 @@ export const dict = {
   "feedback.button": "بازخورد و پشتیبانی",
   "feedback.dialog.message": "خوشحال می‌شویم نظرات شما را بشنویم یا در رفع مشکلاتتان کمک کنیم.",
   "feedback.dialog.github": "گزارش مشکل در GitHub",
-  "workStyle.onboarding.welcome": "به Harness خوش آمدید",
-  "workStyle.onboarding.title": "نحوه کار خود را انتخاب کنید",
-  "workStyle.onboarding.settingsNote": "می‌توانید این گزینه‌ها را هر زمان در",
-  "workStyle.onboarding.settings": "تنظیمات تغییر دهید.",
-  "workStyle.toast.saved.title": "حالت با موفقیت ذخیره شد",
-  "workStyle.choice.permissions": "مجوزها",
-  "workStyle.choice.bash": "Bash",
-  "workStyle.choice.visibility": "نمایان‌پذیری",
-  "workStyle.choice.human-in-the-loop.eyebrow": "انسان در حلقه",
-  "workStyle.choice.human-in-the-loop.title": "ابتدا بررسی کنید",
-  "workStyle.choice.human-in-the-loop.description": "Harness در حین کار مکث می‌کند و برنامه خود را به شما نشان می‌دهد.",
-  "workStyle.choice.human-in-the-loop.permissions": "قبل از ویرایش فایل‌ها یا اجرای دستورات اجازه می‌گیرد.",
-  "workStyle.choice.human-in-the-loop.bash": "هنگام اجرای تمام دستورات ترمینال اجازه می‌گیرد.",
-  "workStyle.choice.human-in-the-loop.visibility": "استدلال، فرمان‌ها و ویرایش‌ها را برای بررسی باز می‌کند.",
-  "workStyle.choice.autonomous.eyebrow": "وقفه‌های کمتر",
-  "workStyle.choice.autonomous.title": "استقلال بالا",
-  "workStyle.choice.autonomous.description": "وقفه‌های کمتر، رابط کاربری ساده‌تر.",
-  "workStyle.choice.autonomous.permissions":
-    "بدون درخواست اجازه، فایل‌ها را ویرایش می‌کند و دستورات را در فضای کاری اجرا می‌کند.",
-  "workStyle.choice.autonomous.bash": "می‌تواند بدون تأیید، دستورات ترمینال را در فضای کاری اجرا کند.",
-  "workStyle.choice.autonomous.visibility": "جزئیات ابزار را جمع می‌کند، همراه با پیش‌نمایش فشرده استدلال.",
 
   "common.retry": "تلاش مجدد",
   "common.refresh": "بازخوانی",
@@ -660,7 +639,6 @@ export const dict = {
   "settings.notifications.sound.system": "سیستم",
   "settings.notifications.sound.description":
     "پیش‌فرض از صداهای مختلف برای تکمیل، ورودی و خطاها استفاده می‌کند. سایر گزینه‌ها از یک صدا برای همه رویدادها استفاده می‌کنند.",
-
 
   "settings.agentBehaviour.defaultAgent.title": "عامل پیش‌فرض",
   "settings.agentBehaviour.defaultAgent.description": "عاملی که در صورت عدم تعیین استفاده می‌شود",

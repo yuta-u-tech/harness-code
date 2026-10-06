@@ -545,27 +545,6 @@ export const dict = {
   "feedback.button": "Зворотний зв'язок і підтримка",
   "feedback.dialog.message": "Ми раді отримати ваш відгук або допомогти з будь-якими проблемами, які у вас виникли.",
   "feedback.dialog.github": "Повідомити про проблему на GitHub",
-  "workStyle.onboarding.welcome": "Ласкаво просимо до Harness",
-  "workStyle.onboarding.title": "Виберіть, як ви хочете працювати",
-  "workStyle.onboarding.settingsNote": "Ці параметри можна будь-коли змінити в розділі",
-  "workStyle.onboarding.settings": "«Налаштування».",
-  "workStyle.toast.saved.title": "Режим успішно збережено",
-  "workStyle.choice.permissions": "Дозволи",
-  "workStyle.choice.bash": "Bash",
-  "workStyle.choice.visibility": "Видимість",
-  "workStyle.choice.human-in-the-loop.eyebrow": "Людина контролює процес",
-  "workStyle.choice.human-in-the-loop.title": "Спочатку перевірка",
-  "workStyle.choice.human-in-the-loop.description": "Harness призупиняється та показує свій план у процесі роботи.",
-  "workStyle.choice.human-in-the-loop.permissions": "Запитує дозвіл перед редагуванням файлів або виконанням команд.",
-  "workStyle.choice.human-in-the-loop.bash": "Запитує дозвіл на кожну команду термінала.",
-  "workStyle.choice.human-in-the-loop.visibility": "Розгортає міркування, команди та зміни для перевірки.",
-  "workStyle.choice.autonomous.eyebrow": "Менше переривань",
-  "workStyle.choice.autonomous.title": "Висока автономність",
-  "workStyle.choice.autonomous.description": "Менше переривань, спрощений інтерфейс.",
-  "workStyle.choice.autonomous.permissions": "Редагує файли та виконує команди в робочому просторі без дозволу.",
-  "workStyle.choice.autonomous.bash": "Може виконувати команди термінала в робочому просторі без схвалення.",
-  "workStyle.choice.autonomous.visibility":
-    "Згортає деталі інструментів, з компактним попереднім переглядом міркувань.",
 
   "common.retry": "Спробувати ще раз",
   "common.refresh": "Оновити",
@@ -672,7 +651,6 @@ export const dict = {
   "settings.notifications.sound.system": "Системний",
   "settings.notifications.sound.description":
     "За замовчуванням для завершення, запиту на введення та помилок використовуються різні звуки. В інших варіантах для всіх подій використовується один і той самий звук.",
-
 
   "settings.agentBehaviour.defaultAgent.title": "Агент за замовчуванням",
   "settings.agentBehaviour.defaultAgent.description": "Агент, що використовується, якщо не вказано інший",

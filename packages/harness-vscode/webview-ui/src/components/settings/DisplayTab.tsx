@@ -10,7 +10,6 @@ import { useLanguage } from "../../context/language"
 import type { CodeEditDisplay, McpToolDisplay, ReasoningDisplay, TerminalCommandDisplay } from "../../types/messages"
 import SettingsRow from "./SettingsRow"
 import SessionPreview from "./SessionPreview"
-import { getDisplayPreset, WORK_STYLE_CHOICES, type WorkStyle } from "../../../../src/shared/work-style-presets"
 
 interface LayoutOption {
   value: string
@@ -49,25 +48,6 @@ const DisplayTab: Component = () => {
   const { config, updateConfig, settings, updateSetting } = useConfig()
   const display = useDisplay()
   const language = useLanguage()
-  const selected = (style: WorkStyle) => {
-    const preset = getDisplayPreset(style)
-    return (
-      display.reasoningDisplay() === preset.config.reasoning_display &&
-      (config().terminal_command_display ?? DISPLAY_DEFAULTS.terminal_command_display) ===
-        preset.config.terminal_command_display &&
-      (config().code_edit_display ?? DISPLAY_DEFAULTS.code_edit_display) === preset.config.code_edit_display &&
-      (config().mcp_tool_display ?? DISPLAY_DEFAULTS.mcp_tool_display) === preset.config.mcp_tool_display &&
-      Boolean(settings().showAutoApprovalReason ?? DISPLAY_DEFAULTS.showAutoApprovalReason) ===
-        preset.settings.showAutoApprovalReason
-    )
-  }
-  const apply = (style: WorkStyle) => {
-    const preset = getDisplayPreset(style)
-    batch(() => {
-      updateConfig(preset.config)
-      updateSetting("showAutoApprovalReason", preset.settings.showAutoApprovalReason)
-    })
-  }
 
   return (
     <div class="settings-display">

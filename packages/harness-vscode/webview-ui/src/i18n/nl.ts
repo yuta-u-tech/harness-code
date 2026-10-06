@@ -544,28 +544,6 @@ export const dict = {
   "feedback.button": "Feedback & Ondersteuning",
   "feedback.dialog.message": "We horen graag uw feedback of helpen met eventuele problemen die u ervaart.",
   "feedback.dialog.github": "Meld een probleem op GitHub",
-  "workStyle.onboarding.welcome": "Welkom bij Harness",
-  "workStyle.onboarding.title": "Kies hoe je wilt werken",
-  "workStyle.onboarding.settingsNote": "Je kunt deze opties op elk moment wijzigen in",
-  "workStyle.onboarding.settings": "Instellingen.",
-  "workStyle.toast.saved.title": "Modus succesvol opgeslagen",
-  "workStyle.choice.permissions": "Machtigingen",
-  "workStyle.choice.bash": "Bash",
-  "workStyle.choice.visibility": "Zichtbaarheid",
-  "workStyle.choice.human-in-the-loop.eyebrow": "Menselijke controle",
-  "workStyle.choice.human-in-the-loop.title": "Eerst controleren",
-  "workStyle.choice.human-in-the-loop.description": "Harness pauzeert en toont tijdens het werk zijn plan.",
-  "workStyle.choice.human-in-the-loop.permissions":
-    "Vraagt toestemming voordat bestanden worden bewerkt of opdrachten worden uitgevoerd.",
-  "workStyle.choice.human-in-the-loop.bash": "Vraagt toestemming voor elke terminalopdracht.",
-  "workStyle.choice.human-in-the-loop.visibility": "Vouwt redenering, opdrachten en bewerkingen uit ter controle.",
-  "workStyle.choice.autonomous.eyebrow": "Minder onderbrekingen",
-  "workStyle.choice.autonomous.title": "Hoge autonomie",
-  "workStyle.choice.autonomous.description": "Minder onderbrekingen, gestroomlijnde interface.",
-  "workStyle.choice.autonomous.permissions":
-    "Bewerkt bestanden en voert opdrachten in de werkruimte uit zonder toestemming te vragen.",
-  "workStyle.choice.autonomous.bash": "Kan terminalopdrachten in de werkruimte zonder goedkeuring uitvoeren.",
-  "workStyle.choice.autonomous.visibility": "Vouwt tool-details in, met een compacte preview van de redenering.",
 
   "common.retry": "Opnieuw proberen",
   "common.refresh": "Vernieuwen",
@@ -671,7 +649,6 @@ export const dict = {
   "settings.notifications.sound.system": "Systeem",
   "settings.notifications.sound.description":
     "Standaard worden verschillende geluiden gebruikt voor voltooiing, invoer en fouten. Andere keuzes gebruiken voor elke gebeurtenis hetzelfde geluid.",
-
 
   "settings.agentBehaviour.defaultAgent.title": "Standaard Agent",
   "settings.agentBehaviour.defaultAgent.description": "Agent om te gebruiken wanneer er geen is opgegeven",

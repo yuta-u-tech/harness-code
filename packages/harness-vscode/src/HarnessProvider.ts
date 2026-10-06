@@ -86,12 +86,6 @@ import * as ModelState from "./harness-provider/model-state"
 import { handleModelUsageMessage } from "./harness-provider/model-usage"
 import { handleForkSession } from "./harness-provider/fork-session"
 import { openConfig } from "./harness-provider/open-config"
-import {
-  getWorkStylePayload,
-  handleWorkStyleMessage,
-  isWorkStyleSetting,
-  watchWorkStyleConfig,
-} from "./harness-provider/work-style"
 import * as McpOAuth from "./harness-provider/mcp-oauth"
 import { retryable, backoff, MAX_RETRIES } from "./util/retry"
 import { hasGit } from "./harness-provider/git-status"
@@ -1101,15 +1095,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
       if (await this.handleAgentManagerSettingsMessage(message)) return
       if (await this.handleAutoCleanupMessage(message)) return
       if (
-        await handleWorkStyleMessage({
-          message,
-          connection: this.connectionService,
-          directory: this.getWorkspaceDirectory(this.currentSession?.id),
-          post: (msg) => this.postMessage(msg),
-        })
-      )
-        return
-      if (
         await handleSidebarWorktreeMessage(message, {
           post: (msg) => this.postMessage(msg),
           openAgentManager: () => vscode.commands.executeCommand("harness-code.agentManagerOpen"),
@@ -1491,7 +1476,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
       }
     })
     this.webviewMessageDisposable = watchFontSizeConfig((msg) => this.postMessage(msg), this.webviewMessageDisposable)
-    this.webviewMessageDisposable = watchWorkStyleConfig((msg) => this.postMessage(msg), this.webviewMessageDisposable)
   }
 
   private async sendWebviewMessage(message: SendWebviewMessage): Promise<void> {
@@ -3249,10 +3233,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     return false
   }
 
-  private sendWorkStyle(): void {
-    this.postMessage(getWorkStylePayload())
-  }
-
   private async fetchAndSendSandboxDefault(directory = this.getContextDirectory(), requestID?: string): Promise<void> {
     const revision = ++this.sandboxRevision
     const generation = this.connectionGeneration
@@ -4576,7 +4556,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     // lets the runtime fall back to the resolved default.
     const next = value === null ? undefined : value
     await config.update(leaf, next, vscode.ConfigurationTarget.Global)
-    if (isWorkStyleSetting(key)) this.sendWorkStyle()
   }
 
   /**
@@ -4624,7 +4603,6 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
     this.postMessage(buildThroughputSettingMessage())
     this.postMessage(buildAutoApprovalReasonSettingMessage())
     this.postMessage(buildPushFixesSettingMessage())
-    this.sendWorkStyle()
     await ModelState.reset(this.client, (msg) => this.postMessage(msg))
 
     // Re-send globalState items to the webview

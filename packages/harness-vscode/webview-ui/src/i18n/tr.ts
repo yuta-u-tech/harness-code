@@ -540,30 +540,6 @@ export const dict = {
   "feedback.dialog.message":
     "Geri bildiriminizi almaktan veya yaşadığınız sorunlarda yardımcı olmaktan mutluluk duyarız.",
   "feedback.dialog.github": "GitHub'da sorun bildirin",
-  "workStyle.onboarding.welcome": "Harness'ya hoş geldiniz",
-  "workStyle.onboarding.title": "Nasıl çalışmak istediğinizi seçin",
-  "workStyle.onboarding.settingsNote": "Bu seçenekleri istediğiniz zaman şuradan değiştirebilirsiniz:",
-  "workStyle.onboarding.settings": "Ayarlar.",
-  "workStyle.toast.saved.title": "Mod başarıyla kaydedildi",
-  "workStyle.choice.permissions": "İzinler",
-  "workStyle.choice.bash": "Bash",
-  "workStyle.choice.visibility": "Görünürlük",
-  "workStyle.choice.human-in-the-loop.eyebrow": "İnsan denetimli",
-  "workStyle.choice.human-in-the-loop.title": "Önce inceleyin",
-  "workStyle.choice.human-in-the-loop.description": "Harness çalışırken duraklar ve planını size gösterir.",
-  "workStyle.choice.human-in-the-loop.permissions":
-    "Dosyaları düzenlemeden veya komutları çalıştırmadan önce izin ister.",
-  "workStyle.choice.human-in-the-loop.bash": "Her terminal komutunu çalıştırmadan önce izin ister.",
-  "workStyle.choice.human-in-the-loop.visibility":
-    "İnceleme için akıl yürütmeyi, komutları ve düzenlemeleri genişletir.",
-  "workStyle.choice.autonomous.eyebrow": "Daha az kesinti",
-  "workStyle.choice.autonomous.title": "Yüksek özerklik",
-  "workStyle.choice.autonomous.description": "Daha az kesinti, daha sade bir arayüz.",
-  "workStyle.choice.autonomous.permissions":
-    "Çalışma alanındaki dosyaları izin istemeden düzenler ve komutları çalıştırır.",
-  "workStyle.choice.autonomous.bash": "Çalışma alanında terminal komutlarını onay almadan çalıştırabilir.",
-  "workStyle.choice.autonomous.visibility":
-    "Araç ayrıntılarını daraltır, akıl yürütmeyi kompakt bir önizleme olarak gösterir.",
 
   "common.retry": "Tekrar Dene",
   "common.refresh": "Yenile",
@@ -670,7 +646,6 @@ export const dict = {
   "settings.notifications.sound.system": "Sistem",
   "settings.notifications.sound.description":
     "Varsayılan seçenekte tamamlanma, giriş ve hatalar için farklı sesler kullanılır. Diğer seçeneklerde tüm etkinlikler için tek bir ses kullanılır.",
-
 
   "settings.agentBehaviour.defaultAgent.title": "Varsayılan Ajan",
   "settings.agentBehaviour.defaultAgent.description": "Belirtilmediğinde kullanılacak ajan",

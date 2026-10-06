@@ -8,7 +8,6 @@ import type { ModelAllocation, ReviewCommentEntry, TerminalDestination, Terminal
 import type { PRReviewCommentData, ReviewMessageData } from "../../../../src/shared/review-comments"
 import type { BrowserFeedbackData } from "../../../../src/shared/browser-feedback"
 import type { BrowserInteraction, BrowserViewport, BrowserViewIdentity } from "../../../../src/shared/browser-stream"
-import type { WorkStyle, WorkStyleState } from "../../../../src/shared/work-style-presets"
 import type { AnacondaDesktopWebviewMessage } from "../../../../src/shared/anaconda-desktop-messages"
 import type { RequestMigrationDataMessage, StartMigrationMessage } from "./migration"
 import type { HarnessWebviewMessage } from "./harness-run"
@@ -457,20 +456,6 @@ export interface RequestThroughputSettingMessage {
 
 export interface RequestAutoApprovalReasonSettingMessage {
   type: "requestAutoApprovalReasonSetting"
-}
-
-export interface RequestWorkStyleMessage {
-  type: "requestWorkStyle"
-}
-
-export interface SetWorkStyleMessage {
-  type: "setWorkStyle"
-  style: WorkStyleState
-}
-
-export interface ApplyWorkStyleMessage {
-  type: "applyWorkStyle"
-  style: WorkStyle
 }
 
 export interface StreamSessionVisibleMessage {
@@ -1608,9 +1593,6 @@ export type WebviewMessage =
   | StopAutoCleanupNowMessage
   | RequestThroughputSettingMessage
   | RequestAutoApprovalReasonSettingMessage
-  | RequestWorkStyleMessage
-  | SetWorkStyleMessage
-  | ApplyWorkStyleMessage
   | StreamSessionVisibleMessage
   | RequestBrowserSettingsMessage
   | RequestClaudeCompatSettingMessage

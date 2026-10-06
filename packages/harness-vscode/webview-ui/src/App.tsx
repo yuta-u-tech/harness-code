@@ -5,7 +5,6 @@ import Settings from "./components/settings/Settings"
 import { useVSCode } from "./context/vscode"
 import { useServer } from "./context/server"
 import { useProvider } from "./context/provider"
-import { WorkStyleProvider } from "./context/work-style"
 import { useSession, useSessionVisibility } from "./context/session"
 import { LocalTabsProvider, useLocalTabs } from "./context/local-tabs"
 import { ProviderShell } from "./context/provider-shell"
@@ -444,17 +443,15 @@ const AppContent: Component = () => {
 const App: Component = () => {
   return (
     <ProviderShell.Root>
-      <WorkStyleProvider>
-        <ProviderShell.Session>
-          <LocalTabsProvider>
-            <ProviderShell.Chat>
-              <DataBridge>
-                <AppContent />
-              </DataBridge>
-            </ProviderShell.Chat>
-          </LocalTabsProvider>
-        </ProviderShell.Session>
-      </WorkStyleProvider>
+      <ProviderShell.Session>
+        <LocalTabsProvider>
+          <ProviderShell.Chat>
+            <DataBridge>
+              <AppContent />
+            </DataBridge>
+          </ProviderShell.Chat>
+        </LocalTabsProvider>
+      </ProviderShell.Session>
     </ProviderShell.Root>
   )
 }
