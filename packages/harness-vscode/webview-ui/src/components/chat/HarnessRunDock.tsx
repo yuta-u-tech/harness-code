@@ -6,6 +6,7 @@ import { TextField } from "@harness/harness-ui/text-field"
 
 import { useConfig } from "../../context/config"
 import { useLanguage } from "../../context/language"
+import { useServer } from "../../context/server"
 import { useVSCode } from "../../context/vscode"
 import type { ExtensionMessage, HarnessRun } from "../../types/messages"
 import { defaultHarness } from "../settings/harness/harness-state"
@@ -20,6 +21,7 @@ const active = (run: HarnessRun | undefined) => run?.status === "running" || run
 const HarnessRunDock: Component = () => {
   const language = useLanguage()
   const vscode = useVSCode()
+  const server = useServer()
   const { config, isDirty } = useConfig()
   const [run, setRun] = createSignal<HarnessRun | undefined>()
   const [comment, setComment] = createSignal("")
@@ -38,6 +40,12 @@ const HarnessRunDock: Component = () => {
       if (message.type === "harnessError") setError(message.message)
     })
     onCleanup(off)
+  })
+
+  // Ask for the latest run only once the backend is up; asking earlier just fails.
+  createEffect(() => {
+    if (server.connectionState() !== "connected") return
+    setError(undefined)
     vscode.postMessage({ type: "harnessList" })
   })
 
