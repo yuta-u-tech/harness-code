@@ -426,9 +426,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Modelo de Subagente",
   "settings.providers.subagentModel.description":
     "Modelo padrão e esforço de raciocínio para subagentes do task-tool. Deixe em branco para herdar o modelo do agente chamador.",
-  "settings.providers.modeModels": "Modelo por Modo",
-  "settings.providers.modeModels.description":
-    "Substitua o modelo padrão para modos específicos. Se não definido, o modelo padrão global é usado.",
   "provider.custom.title": "Provedor personalizado",
   "provider.custom.description.prefix": "Configure um provedor personalizado. Veja a ",
   "provider.custom.description.link": "documentação de configuração de provedores",
@@ -506,6 +503,7 @@ export const dict = {
   "settings.config.source.projectHarness": "Configuração .harness do projeto",
   "settings.config.source.projectRoot": "Configuração raiz do projeto",
   "settings.config.source.projectOpencode": "Configuração .opencode legada",
+  "settings.advanced": "Avançado",
   "settings.models.title": "Modelos",
 
   "settings.permissions.toast.updateFailed.title": "Falha ao atualizar permissões",
@@ -626,8 +624,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "Agentes",
   "settings.agentBehaviour.subtab.mcpServers": "Servidores MCP",
-  "settings.agentBehaviour.subtab.rules": "Regras",
-  "settings.agentBehaviour.subtab.workflows": "Fluxos de trabalho",
   "settings.agentBehaviour.subtab.skills": "Habilidades",
 
   "settings.language.description":
@@ -763,20 +759,8 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Enviar correções do pull request",
   "settings.agentBehaviour.pushFixes.description":
     "Ao enviar falhas de CI ou comentários de revisão de um pull request para o agente, ou ao atualizar uma worktree a partir da base, pedir que ele faça commit e push para que o pull request seja atualizado. As solicitações de permissão continuam valendo. Desative para manter os commits manuais.",
-  "settings.agentBehaviour.mcpDetail.command": "Comando",
-  "settings.agentBehaviour.mcpDetail.args": "Argumentos",
-  "settings.agentBehaviour.mcpDetail.env": "Ambiente",
   "settings.agentBehaviour.mcpEmpty":
     "Nenhum servidor MCP configurado. Adicione servidores MCP em harness.jsonc ou peça ao agente para adicioná-los.",
-  "settings.agentBehaviour.workflows.description":
-    "Fluxos de trabalho são comandos de barra personalizados definidos na sua configuração. Digite /command-name no chat para invocá-los. Os comandos são configurados no opencode.json na seção 'command'.",
-  "settings.agentBehaviour.workflows.empty":
-    "Nenhum comando personalizado configurado. Adicione comandos ao opencode.json para vê-los aqui.",
-  "settings.agentBehaviour.workflows.detail.description": "Descrição",
-  "settings.agentBehaviour.workflows.detail.template": "Modelo",
-  "settings.agentBehaviour.workflows.model": "modelo",
-  "settings.agentBehaviour.workflows.variant": "variante",
-  "settings.agentBehaviour.workflows.modelDescription": "Substituição global do modelo",
 
   "settings.autoApprove.description":
     "Defina como as ferramentas têm permissão para serem executadas. A maioria das ferramentas tem o padrão Permitir. doom_loop e external_directory têm o padrão Perguntar.",
@@ -818,10 +802,6 @@ export const dict = {
     "Acessar arquivos fora do workspace. Acionado ao acessar arquivos fora do diretório do projeto atual.",
   "settings.autoApprove.tool.doom_loop":
     "Prevenir ações idênticas repetidas. Acionado quando a mesma chamada de ferramenta se repete com entrada idêntica.",
-  "settings.context.compactionModel.title": "Modelo de compactação",
-  "settings.context.compactionModel.description":
-    "Modelo usado para compactação automática e manual. Deixe sem definir para usar o modelo de chat. O custo, a velocidade e a qualidade do resumo dependem do modelo.",
-  "settings.context.compactionModel.useChatModel": "Usar modelo de chat",
 
   "chat.memory.project.disabled": "Memória do projeto desativada",
   "chat.memory.command.failed": "Comando de memória falhou",
@@ -839,8 +819,6 @@ export const dict = {
   "settings.display.preview.query": "Aparo de strings",
   "settings.display.preview.result": "trim() remove espaços das duas extremidades de uma string.",
   "settings.display.preview.answer": "Saudação atualizada para remover espaços extras. Os dois testes passam.",
-  "settings.display.username.title": "Nome de usuário",
-  "settings.display.username.description": "Nome de usuário personalizado nas conversas",
   "settings.display.fontSize.title": "Tamanho da fonte",
   "settings.display.fontSize.description":
     "Ajuste o tamanho da fonte da webview UI do Harness independentemente do VS Code.",
@@ -876,9 +854,6 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "Modelo padrão",
   "settings.providers.defaultModel.description": "Modelo principal para conversas",
-  "settings.providers.smallModel.title": "Modelo pequeno",
-  "settings.providers.smallModel.description":
-    "Modelo leve para geração de títulos, mensagens de commit, aprimoramento de prompts e outras tarefas rápidas",
   "settings.providers.disabled": "Provedores desativados",
   "settings.providers.disabled.description": "Provedores a ocultar da lista",
   "settings.providers.disabled.enable": "Habilitar",

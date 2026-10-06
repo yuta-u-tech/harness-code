@@ -423,9 +423,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "サブエージェントモデル",
   "settings.providers.subagentModel.description":
     "task-tool サブエージェントのデフォルトモデルと推論の労力。呼び出し元のエージェントのモデルを継承する場合は未設定のままにしてください。",
-  "settings.providers.modeModels": "モードごとのモデル",
-  "settings.providers.modeModels.description":
-    "特定のモードのデフォルトモデルを上書きします。設定されていない場合、グローバルデフォルトモデルが使用されます。",
   "provider.custom.title": "カスタムプロバイダー",
   "provider.custom.description.prefix": "カスタムプロバイダーを設定します。",
   "provider.custom.description.link": "プロバイダー設定ドキュメント",
@@ -503,6 +500,7 @@ export const dict = {
   "settings.config.source.projectHarness": "プロジェクトの.harness構成",
   "settings.config.source.projectRoot": "プロジェクトルート構成",
   "settings.config.source.projectOpencode": "旧.opencode構成",
+  "settings.advanced": "詳細",
   "settings.models.title": "モデル",
 
   "settings.permissions.toast.updateFailed.title": "権限の更新に失敗しました",
@@ -620,8 +618,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "エージェント",
   "settings.agentBehaviour.subtab.mcpServers": "MCPサーバー",
-  "settings.agentBehaviour.subtab.rules": "ルール",
-  "settings.agentBehaviour.subtab.workflows": "ワークフロー",
   "settings.agentBehaviour.subtab.skills": "スキル",
 
   "settings.language.description": "Harness Code UIの言語を選択します。「自動」はVS Codeの表示言語を使用します。",
@@ -753,20 +749,8 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "プルリクエストの修正をプッシュ",
   "settings.agentBehaviour.pushFixes.description":
     "プルリクエストの CI 失敗やレビューコメントをエージェントに送信したとき、またはベースから worktree を更新したときに、プルリクエストが更新されるようにコミットとプッシュを依頼します。権限の確認は引き続き行われます。手動でコミットしたい場合はオフにしてください。",
-  "settings.agentBehaviour.mcpDetail.command": "コマンド",
-  "settings.agentBehaviour.mcpDetail.args": "引数",
-  "settings.agentBehaviour.mcpDetail.env": "環境",
   "settings.agentBehaviour.mcpEmpty":
     "MCPサーバーが設定されていません。harness.jsoncでMCPサーバーを追加するか、エージェントに追加を依頼してください。",
-  "settings.agentBehaviour.workflows.description":
-    "ワークフローは設定で定義されたカスタムスラッシュコマンドです。チャットで /command-name と入力して呼び出します。コマンドは opencode.json の 'command' セクションで設定します。",
-  "settings.agentBehaviour.workflows.empty":
-    "カスタムコマンドが設定されていません。opencode.json にコマンドを追加するとここに表示されます。",
-  "settings.agentBehaviour.workflows.detail.description": "説明",
-  "settings.agentBehaviour.workflows.detail.template": "テンプレート",
-  "settings.agentBehaviour.workflows.model": "モデル",
-  "settings.agentBehaviour.workflows.variant": "バリアント",
-  "settings.agentBehaviour.workflows.modelDescription": "グローバルモデルの上書き",
 
   "settings.autoApprove.description":
     "ツールの実行許可を定義します。ほとんどのツールはデフォルトで「許可」されます。doom_loop と external_directory はデフォルトで「確認」になります。",
@@ -805,10 +789,6 @@ export const dict = {
     "ワークスペース外のファイルにアクセス。現在のプロジェクトディレクトリ外のファイルにアクセスしたときにトリガーされます。",
   "settings.autoApprove.tool.doom_loop":
     "繰り返し同一のアクションを防止。同じツール呼び出しが同一の入力で繰り返されたときにトリガーされます。",
-  "settings.context.compactionModel.title": "圧縮モデル",
-  "settings.context.compactionModel.description":
-    "自動および手動の圧縮に使用するモデル。チャットモデルを使用するには未設定のままにしてください。コスト、速度、要約の品質はモデルによって異なります。",
-  "settings.context.compactionModel.useChatModel": "チャットモデルを使用",
 
   "chat.memory.project.disabled": "プロジェクトメモリが無効です",
   "chat.memory.command.failed": "メモリコマンドに失敗しました",
@@ -826,8 +806,6 @@ export const dict = {
   "settings.display.preview.query": "文字列のトリミング",
   "settings.display.preview.result": "trim() は文字列の両端から空白を削除します。",
   "settings.display.preview.answer": "挨拶を更新して余分な空白を削除しました。両方のテストに合格しました。",
-  "settings.display.username.title": "ユーザー名",
-  "settings.display.username.description": "会話に表示されるカスタムユーザー名",
   "settings.display.fontSize.title": "フォントサイズ",
   "settings.display.fontSize.description": "VS Code とは独立して Harness webview UI のフォントサイズを調整します。",
   "settings.display.reasoningDisplay.title": "推論ブロック",
@@ -861,9 +839,6 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "デフォルトモデル",
   "settings.providers.defaultModel.description": "会話のプライマリモデル",
-  "settings.providers.smallModel.title": "小型モデル",
-  "settings.providers.smallModel.description":
-    "タイトル生成、コミットメッセージ生成、プロンプト改善、およびその他の高速タスク用の軽量モデル",
   "settings.providers.disabled": "無効化されたプロバイダー",
   "settings.providers.disabled.description": "プロバイダーリストから非表示にするプロバイダー",
   "settings.providers.disabled.enable": "有効化",

@@ -1,13 +1,13 @@
 import { batch, For, type Component } from "solid-js"
 import { Button } from "@harness/harness-ui/button"
 import { Select } from "@harness/harness-ui/select"
-import { TextField } from "@harness/harness-ui/text-field"
 import { Card } from "@harness/harness-ui/card"
 import { Switch } from "@harness/harness-ui/switch"
 import { useConfig } from "../../context/config"
 import { useDisplay } from "../../context/display"
 import { useLanguage } from "../../context/language"
 import type { CodeEditDisplay, McpToolDisplay, ReasoningDisplay, TerminalCommandDisplay } from "../../types/messages"
+import Advanced from "./Advanced"
 import SettingsRow from "./SettingsRow"
 import SessionPreview from "./SessionPreview"
 
@@ -53,19 +53,7 @@ const DisplayTab: Component = () => {
     <div class="settings-display">
       <Card class="settings-display-controls">
         <SettingsRow
-          title={language.t("settings.display.username.title")}
-          description={language.t("settings.display.username.description")}
-        >
-          <div style={{ width: "160px" }}>
-            <TextField
-              value={config().username ?? ""}
-              placeholder="User"
-              onChange={(val) => updateConfig({ username: val.trim() || undefined })}
-            />
-          </div>
-        </SettingsRow>
-
-        <SettingsRow
+          last
           title={language.t("settings.display.fontSize.title")}
           description={language.t("settings.display.fontSize.description")}
         >
@@ -82,112 +70,115 @@ const DisplayTab: Component = () => {
             <span>{display.fontSize()}px</span>
           </div>
         </SettingsRow>
-
-        <SettingsRow
-          title={language.t("settings.display.autoApprovalReason.title")}
-          description={language.t("settings.display.autoApprovalReason.description")}
-        >
-          <Switch
-            checked={Boolean(settings()["showAutoApprovalReason"] ?? DISPLAY_DEFAULTS.showAutoApprovalReason)}
-            onChange={(checked: boolean) => updateSetting("showAutoApprovalReason", checked)}
-            hideLabel
-          >
-            {language.t("settings.display.autoApprovalReason.title")}
-          </Switch>
-        </SettingsRow>
-
-        <SettingsRow
-          title={language.t("settings.display.reasoningDisplay.title")}
-          description={language.t("settings.display.reasoningDisplay.description")}
-        >
-          <Select
-            options={REASONING_OPTIONS}
-            current={REASONING_OPTIONS.find((o) => o.value === display.reasoningDisplay())}
-            value={(o) => o.value}
-            label={(o) => language.t(o.labelKey)}
-            onSelect={(o) => {
-              if (!o) return
-              const next = o.value as ReasoningDisplay
-              if (next === display.reasoningDisplay()) return
-              display.setReasoningDisplay(next)
-            }}
-            variant="secondary"
-            size="small"
-            triggerVariant="settings"
-          />
-        </SettingsRow>
-
-        <SettingsRow
-          title={language.t("settings.display.terminalCommand.title")}
-          description={language.t("settings.display.terminalCommand.description")}
-        >
-          <Select
-            options={TERMINAL_OPTIONS}
-            current={TERMINAL_OPTIONS.find(
-              (o) => o.value === (config().terminal_command_display ?? DISPLAY_DEFAULTS.terminal_command_display),
-            )}
-            value={(o) => o.value}
-            label={(o) => language.t(o.labelKey)}
-            onSelect={(o) => {
-              if (!o) return
-              const next = o.value as TerminalCommandDisplay
-              if (next === (config().terminal_command_display ?? DISPLAY_DEFAULTS.terminal_command_display)) return
-              updateConfig({ terminal_command_display: next })
-            }}
-            variant="secondary"
-            size="small"
-            triggerVariant="settings"
-          />
-        </SettingsRow>
-
-        <SettingsRow
-          title={language.t("settings.display.codeEdit.title")}
-          description={language.t("settings.display.codeEdit.description")}
-        >
-          <Select
-            options={CODE_EDIT_OPTIONS}
-            current={CODE_EDIT_OPTIONS.find(
-              (o) => o.value === (config().code_edit_display ?? DISPLAY_DEFAULTS.code_edit_display),
-            )}
-            value={(o) => o.value}
-            label={(o) => language.t(o.labelKey)}
-            onSelect={(o) => {
-              if (!o) return
-              const next = o.value as CodeEditDisplay
-              if (next === (config().code_edit_display ?? DISPLAY_DEFAULTS.code_edit_display)) return
-              updateConfig({ code_edit_display: next })
-            }}
-            variant="secondary"
-            size="small"
-            triggerVariant="settings"
-          />
-        </SettingsRow>
-
-        <SettingsRow
-          title={language.t("settings.display.mcpTool.title")}
-          description={language.t("settings.display.mcpTool.description")}
-          last
-        >
-          <Select
-            options={MCP_OPTIONS}
-            current={MCP_OPTIONS.find(
-              (o) => o.value === (config().mcp_tool_display ?? DISPLAY_DEFAULTS.mcp_tool_display),
-            )}
-            value={(o) => o.value}
-            label={(o) => language.t(o.labelKey)}
-            onSelect={(o) => {
-              if (!o) return
-              const next = o.value as McpToolDisplay
-              if (next === (config().mcp_tool_display ?? DISPLAY_DEFAULTS.mcp_tool_display)) return
-              updateConfig({ mcp_tool_display: next })
-            }}
-            variant="secondary"
-            size="small"
-            triggerVariant="settings"
-          />
-        </SettingsRow>
       </Card>
-      <SessionPreview />
+      <Advanced>
+        <Card>
+          <SettingsRow
+            title={language.t("settings.display.autoApprovalReason.title")}
+            description={language.t("settings.display.autoApprovalReason.description")}
+          >
+            <Switch
+              checked={Boolean(settings()["showAutoApprovalReason"] ?? DISPLAY_DEFAULTS.showAutoApprovalReason)}
+              onChange={(checked: boolean) => updateSetting("showAutoApprovalReason", checked)}
+              hideLabel
+            >
+              {language.t("settings.display.autoApprovalReason.title")}
+            </Switch>
+          </SettingsRow>
+
+          <SettingsRow
+            title={language.t("settings.display.reasoningDisplay.title")}
+            description={language.t("settings.display.reasoningDisplay.description")}
+          >
+            <Select
+              options={REASONING_OPTIONS}
+              current={REASONING_OPTIONS.find((o) => o.value === display.reasoningDisplay())}
+              value={(o) => o.value}
+              label={(o) => language.t(o.labelKey)}
+              onSelect={(o) => {
+                if (!o) return
+                const next = o.value as ReasoningDisplay
+                if (next === display.reasoningDisplay()) return
+                display.setReasoningDisplay(next)
+              }}
+              variant="secondary"
+              size="small"
+              triggerVariant="settings"
+            />
+          </SettingsRow>
+
+          <SettingsRow
+            title={language.t("settings.display.terminalCommand.title")}
+            description={language.t("settings.display.terminalCommand.description")}
+          >
+            <Select
+              options={TERMINAL_OPTIONS}
+              current={TERMINAL_OPTIONS.find(
+                (o) => o.value === (config().terminal_command_display ?? DISPLAY_DEFAULTS.terminal_command_display),
+              )}
+              value={(o) => o.value}
+              label={(o) => language.t(o.labelKey)}
+              onSelect={(o) => {
+                if (!o) return
+                const next = o.value as TerminalCommandDisplay
+                if (next === (config().terminal_command_display ?? DISPLAY_DEFAULTS.terminal_command_display)) return
+                updateConfig({ terminal_command_display: next })
+              }}
+              variant="secondary"
+              size="small"
+              triggerVariant="settings"
+            />
+          </SettingsRow>
+
+          <SettingsRow
+            title={language.t("settings.display.codeEdit.title")}
+            description={language.t("settings.display.codeEdit.description")}
+          >
+            <Select
+              options={CODE_EDIT_OPTIONS}
+              current={CODE_EDIT_OPTIONS.find(
+                (o) => o.value === (config().code_edit_display ?? DISPLAY_DEFAULTS.code_edit_display),
+              )}
+              value={(o) => o.value}
+              label={(o) => language.t(o.labelKey)}
+              onSelect={(o) => {
+                if (!o) return
+                const next = o.value as CodeEditDisplay
+                if (next === (config().code_edit_display ?? DISPLAY_DEFAULTS.code_edit_display)) return
+                updateConfig({ code_edit_display: next })
+              }}
+              variant="secondary"
+              size="small"
+              triggerVariant="settings"
+            />
+          </SettingsRow>
+
+          <SettingsRow
+            title={language.t("settings.display.mcpTool.title")}
+            description={language.t("settings.display.mcpTool.description")}
+            last
+          >
+            <Select
+              options={MCP_OPTIONS}
+              current={MCP_OPTIONS.find(
+                (o) => o.value === (config().mcp_tool_display ?? DISPLAY_DEFAULTS.mcp_tool_display),
+              )}
+              value={(o) => o.value}
+              label={(o) => language.t(o.labelKey)}
+              onSelect={(o) => {
+                if (!o) return
+                const next = o.value as McpToolDisplay
+                if (next === (config().mcp_tool_display ?? DISPLAY_DEFAULTS.mcp_tool_display)) return
+                updateConfig({ mcp_tool_display: next })
+              }}
+              variant="secondary"
+              size="small"
+              triggerVariant="settings"
+            />
+          </SettingsRow>
+        </Card>
+        <SessionPreview />
+      </Advanced>
     </div>
   )
 }

@@ -423,9 +423,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Model podagenta",
   "settings.providers.subagentModel.description":
     "Domyślny model i wysiłek wnioskowania dla podagentów task-tool. Pozostaw puste, aby odziedziczyć model agenta wywołującego.",
-  "settings.providers.modeModels": "Model na tryb",
-  "settings.providers.modeModels.description":
-    "Zastąp domyślny model dla określonych trybów. Jeśli nie ustawiono, używany jest globalny domyślny model.",
   "provider.custom.title": "Niestandardowy dostawca",
   "provider.custom.description.prefix": "Skonfiguruj niestandardowego dostawcę. Zobacz ",
   "provider.custom.description.link": "dokumentację konfiguracji dostawcy",
@@ -504,6 +501,7 @@ export const dict = {
   "settings.config.source.projectHarness": "Konfiguracja .harness projektu",
   "settings.config.source.projectRoot": "Konfiguracja główna projektu",
   "settings.config.source.projectOpencode": "Przestarzała konfiguracja .opencode",
+  "settings.advanced": "Zaawansowane",
   "settings.models.title": "Modele",
 
   "settings.permissions.toast.updateFailed.title": "Nie udało się zaktualizować uprawnień",
@@ -622,8 +620,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "Agenci",
   "settings.agentBehaviour.subtab.mcpServers": "Serwery MCP",
-  "settings.agentBehaviour.subtab.rules": "Reguły",
-  "settings.agentBehaviour.subtab.workflows": "Przepływy pracy",
   "settings.agentBehaviour.subtab.skills": "Umiejętności",
 
   "settings.language.description": 'Wybierz język interfejsu Harness Code. „Auto" używa języka wyświetlania VS Code.',
@@ -757,20 +753,8 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Wypychaj poprawki pull requesta",
   "settings.agentBehaviour.pushFixes.description":
     "Gdy wysyłasz do agenta błędy CI lub komentarze z przeglądu pull requesta, albo aktualizujesz worktree z gałęzi bazowej, poproś go o commit i push, aby pull request został zaktualizowany. Prośby o uprawnienia nadal obowiązują. Wyłącz, aby commitować ręcznie.",
-  "settings.agentBehaviour.mcpDetail.command": "Polecenie",
-  "settings.agentBehaviour.mcpDetail.args": "Argumenty",
-  "settings.agentBehaviour.mcpDetail.env": "Środowisko",
   "settings.agentBehaviour.mcpEmpty":
     "Brak skonfigurowanych serwerów MCP. Dodaj serwery MCP w harness.jsonc lub poproś agenta o ich dodanie.",
-  "settings.agentBehaviour.workflows.description":
-    "Przepływy pracy to niestandardowe komendy slash zdefiniowane w konfiguracji. Wpisz /command-name na czacie, aby je uruchomić. Komendy konfiguruje się w opencode.json w sekcji 'command'.",
-  "settings.agentBehaviour.workflows.empty":
-    "Brak skonfigurowanych niestandardowych komend. Dodaj komendy do opencode.json, aby je tu zobaczyć.",
-  "settings.agentBehaviour.workflows.detail.description": "Opis",
-  "settings.agentBehaviour.workflows.detail.template": "Szablon",
-  "settings.agentBehaviour.workflows.model": "model",
-  "settings.agentBehaviour.workflows.variant": "wariant",
-  "settings.agentBehaviour.workflows.modelDescription": "Globalne nadpisanie modelu",
 
   "settings.autoApprove.description":
     "Zdefiniuj, jak narzędzia mogą być uruchamiane. Większość narzędzi domyślnie ma ustawienie Zezwalaj. doom_loop i external_directory domyślnie mają ustawienie Pytaj.",
@@ -814,10 +798,6 @@ export const dict = {
     "Dostęp do plików poza obszarem roboczym. Uruchamiane przy dostępie do plików poza bieżącym katalogiem projektu.",
   "settings.autoApprove.tool.doom_loop":
     "Zapobieganie powtarzaniu tych samych akcji. Uruchamiane, gdy to samo wywołanie narzędzia powtarza się z identycznymi danymi wejściowymi.",
-  "settings.context.compactionModel.title": "Model kompakcji",
-  "settings.context.compactionModel.description":
-    "Model używany do automatycznej i ręcznej kompakcji. Pozostaw puste, aby używać modelu czatu. Koszt, szybkość i jakość podsumowania zależą od modelu.",
-  "settings.context.compactionModel.useChatModel": "Użyj modelu czatu",
 
   "chat.memory.project.disabled": "Pamięć projektu wyłączona",
   "chat.memory.command.failed": "Polecenie pamięci nie powiodło się",
@@ -835,8 +815,6 @@ export const dict = {
   "settings.display.preview.query": "Przycinanie ciągów",
   "settings.display.preview.result": "trim() usuwa spacje z obu końców ciągu.",
   "settings.display.preview.answer": "Zaktualizowano powitanie, aby usuwało nadmiarowe spacje. Oba testy przechodzą.",
-  "settings.display.username.title": "Nazwa użytkownika",
-  "settings.display.username.description": "Niestandardowa nazwa użytkownika w rozmowach",
   "settings.display.fontSize.title": "Rozmiar czcionki",
   "settings.display.fontSize.description": "Dostosuj rozmiar czcionki webview UI Harness niezależnie od VS Code.",
   "settings.display.reasoningDisplay.title": "Bloki rozumowania",
@@ -871,9 +849,6 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "Domyślny model",
   "settings.providers.defaultModel.description": "Główny model do rozmów",
-  "settings.providers.smallModel.title": "Mały model",
-  "settings.providers.smallModel.description":
-    "Lekki model do generowania tytułów, wiadomości commitów, ulepszania zapytań i innych szybkich zadań",
   "settings.providers.disabled": "Wyłączeni dostawcy",
   "settings.providers.disabled.description": "Dostawcy do ukrycia z listy",
   "settings.providers.disabled.enable": "Włącz",

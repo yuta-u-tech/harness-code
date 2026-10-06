@@ -414,9 +414,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "نموذج الوكيل الفرعي",
   "settings.providers.subagentModel.description":
     "النموذج الافتراضي وجهد التفكير للوكلاء الفرعيين لـ task-tool. اتركه فارغًا ليرث نموذج الوكيل المستدعي.",
-  "settings.providers.modeModels": "نموذج لكل وضع",
-  "settings.providers.modeModels.description":
-    "تجاوز النموذج الافتراضي لأوضاع محددة. إذا لم يتم التعيين، يتم استخدام النموذج الافتراضي العام.",
   "provider.custom.title": "مزود مخصص",
   "provider.custom.description.prefix": "قم بتكوين مزود مخصص. انظر ",
   "provider.custom.description.link": "وثائق تكوين المزود",
@@ -492,6 +489,7 @@ export const dict = {
   "settings.config.source.projectHarness": "تكوين .harness للمشروع",
   "settings.config.source.projectRoot": "تكوين جذر المشروع",
   "settings.config.source.projectOpencode": "تكوين .opencode القديم",
+  "settings.advanced": "متقدم",
   "settings.models.title": "النماذج",
 
   "settings.permissions.toast.updateFailed.title": "فشل تحديث الأذونات",
@@ -610,8 +608,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "الوكلاء",
   "settings.agentBehaviour.subtab.mcpServers": "خوادم MCP",
-  "settings.agentBehaviour.subtab.rules": "القواعد",
-  "settings.agentBehaviour.subtab.workflows": "سير العمل",
   "settings.agentBehaviour.subtab.skills": "المهارات",
 
   "settings.language.description": 'اختر اللغة لواجهة Harness Code. "تلقائي" يستخدم لغة عرض VS Code.',
@@ -740,19 +736,8 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "دفع إصلاحات طلب السحب",
   "settings.agentBehaviour.pushFixes.description":
     "عند إرسال حالات فشل CI أو تعليقات المراجعة من طلب سحب إلى الوكيل، أو تحديث worktree من فرعه الأساسي، اطلب منه إنشاء التزام ودفع التغييرات حتى يتم تحديث طلب السحب. تظل مطالبات الأذونات سارية. أوقف هذا الخيار للاحتفاظ بالالتزامات يدوية.",
-  "settings.agentBehaviour.mcpDetail.command": "الأمر",
-  "settings.agentBehaviour.mcpDetail.args": "الوسائط",
-  "settings.agentBehaviour.mcpDetail.env": "البيئة",
   "settings.agentBehaviour.mcpEmpty":
     "لم يتم تهيئة خوادم MCP. أضف خوادم MCP في harness.jsonc، أو اطلب من الوكيل إضافتها لك.",
-  "settings.agentBehaviour.workflows.description":
-    "سير العمل هي أوامر شرطة مائلة مخصصة محددة في التهيئة الخاصة بك. اكتب /command-name في الدردشة لتشغيلها. يتم تهيئة الأوامر في opencode.json ضمن قسم 'command'.",
-  "settings.agentBehaviour.workflows.empty": "لم يتم تهيئة أوامر مخصصة. أضف أوامر إلى opencode.json لرؤيتها هنا.",
-  "settings.agentBehaviour.workflows.detail.description": "الوصف",
-  "settings.agentBehaviour.workflows.detail.template": "القالب",
-  "settings.agentBehaviour.workflows.model": "النموذج",
-  "settings.agentBehaviour.workflows.variant": "المتغير",
-  "settings.agentBehaviour.workflows.modelDescription": "تجاوز النموذج العام",
 
   "settings.autoApprove.description":
     "تحديد كيفية السماح بتشغيل الأدوات. معظم الأدوات معينة افتراضياً على السماح. doom_loop و external_directory معينة افتراضياً على السؤال.",
@@ -788,10 +773,6 @@ export const dict = {
     "الوصول للملفات خارج مساحة العمل. يتم تشغيله عند الوصول إلى ملفات خارج مسار المشروع الحالي.",
   "settings.autoApprove.tool.doom_loop":
     "منع الإجراءات المتطابقة المتكررة. يتم تشغيله عندما يتكرر نفس استدعاء الأداة بمدخلات متطابقة.",
-  "settings.context.compactionModel.title": "نموذج الضغط",
-  "settings.context.compactionModel.description":
-    "النموذج المستخدم للضغط التلقائي واليدوي. اتركه فارغاً لاستخدام نموذج الدردشة. تعتمد التكلفة والسرعة وجودة الملخص على النموذج.",
-  "settings.context.compactionModel.useChatModel": "استخدام نموذج الدردشة",
 
   "chat.memory.project.disabled": "ذاكرة المشروع معطّلة",
   "chat.memory.command.failed": "فشل أمر الذاكرة",
@@ -809,8 +790,6 @@ export const dict = {
   "settings.display.preview.query": "تقليم السلاسل",
   "settings.display.preview.result": "trim() يزيل المسافات من كلا طرفي السلسلة.",
   "settings.display.preview.answer": "حُدّثت التحية لإزالة المسافات الزائدة. ينجح الاختباران.",
-  "settings.display.username.title": "اسم المستخدم",
-  "settings.display.username.description": "اسم مستخدم مخصص في المحادثات",
   "settings.display.fontSize.title": "حجم الخط",
   "settings.display.fontSize.description": "اضبط حجم خط webview UI الخاص بـ Harness بشكل مستقل عن VS Code.",
   "settings.display.reasoningDisplay.title": "كتل الاستدلال",
@@ -843,9 +822,6 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "النموذج الافتراضي",
   "settings.providers.defaultModel.description": "النموذج الأساسي للمحادثات",
-  "settings.providers.smallModel.title": "نموذج صغير",
-  "settings.providers.smallModel.description":
-    "نموذج خفيف لتوليد العناوين ورسائل الـ commit وتحسين المطالبات والمهام السريعة الأخرى",
   "settings.providers.disabled": "مزودون معطلون",
   "settings.providers.disabled.description": "مزودون لإخفائهم من القائمة",
   "settings.providers.disabled.enable": "تمكين",

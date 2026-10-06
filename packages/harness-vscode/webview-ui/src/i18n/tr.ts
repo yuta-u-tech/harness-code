@@ -497,6 +497,7 @@ export const dict = {
   "settings.config.source.projectHarness": "Proje .harness yapılandırması",
   "settings.config.source.projectRoot": "Proje kök yapılandırması",
   "settings.config.source.projectOpencode": "Eski .opencode yapılandırması",
+  "settings.advanced": "Gelişmiş",
   "settings.models.title": "Modeller",
 
   "settings.permissions.toast.updateFailed.title": "İzinler güncellenemedi",
@@ -616,8 +617,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "Ajanlar",
   "settings.agentBehaviour.subtab.mcpServers": "MCP Sunucuları",
-  "settings.agentBehaviour.subtab.rules": "Kurallar",
-  "settings.agentBehaviour.subtab.workflows": "İş Akışları",
   "settings.agentBehaviour.subtab.skills": "Beceriler",
 
   "settings.language.description":
@@ -704,9 +703,6 @@ export const dict = {
   "settings.agentBehaviour.removeMcp.confirm":
     '"{{name}}" MCP sunucusu kaldırılsın mı? Bu, yapılandırmanızdan kaldırılacak.',
   "settings.agentBehaviour.removeMcp.button": "Kaldır",
-  "settings.agentBehaviour.mcpDetail.command": "Komut",
-  "settings.agentBehaviour.mcpDetail.args": "Argümanlar",
-  "settings.agentBehaviour.mcpDetail.env": "Ortam",
   "settings.agentBehaviour.editMcp": "MCP Sunucusunu Düzenle",
   "settings.agentBehaviour.editMcp.transportLocal": "Yerel sunucu (stdio taşıma)",
   "settings.agentBehaviour.editMcp.transportRemote": "Uzak sunucu (SSE/HTTP taşıma)",
@@ -721,15 +717,6 @@ export const dict = {
   "settings.agentBehaviour.addMcp.url.placeholder": "e.g. http://localhost:3000/sse",
   "settings.agentBehaviour.mcpEmpty":
     "Yapılandırılmış MCP sunucusu yok. harness.jsonc dosyasına MCP sunucuları ekleyin veya ajanın eklemesini isteyin.",
-  "settings.agentBehaviour.workflows.description":
-    "İş akışları, yapılandırmanızda tanımlanan özel eğik çizgi komutlarıdır. Çağırmak için sohbette /command-name yazın. Komutlar opencode.json dosyasındaki 'command' bölümünde yapılandırılır.",
-  "settings.agentBehaviour.workflows.empty":
-    "Yapılandırılmış özel komut yok. Burada görmek için opencode.json dosyasına komutlar ekleyin.",
-  "settings.agentBehaviour.workflows.detail.description": "Açıklama",
-  "settings.agentBehaviour.workflows.detail.template": "Şablon",
-  "settings.agentBehaviour.workflows.model": "model",
-  "settings.agentBehaviour.workflows.variant": "varyant",
-  "settings.agentBehaviour.workflows.modelDescription": "Global model geçersiz kılması",
 
   "settings.autoApprove.description":
     "Araçların nasıl çalıştırılacağını tanımlayın. Çoğu araç varsayılan olarak İzin Ver'dir. doom_loop ve external_directory varsayılan olarak Sor'dur.",
@@ -769,11 +756,6 @@ export const dict = {
   "settings.autoApprove.tool.doom_loop":
     "Tekrarlanan aynı eylemleri önle. Aynı araç çağrısı aynı girdiyle tekrarlandığında tetiklenir.",
 
-  "settings.context.compactionModel.title": "Sıkıştırma modeli",
-  "settings.context.compactionModel.description":
-    "Otomatik ve manuel sıkıştırma için kullanılan model. Sohbet modelini kullanmak için boş bırakın. Maliyet, hız ve özet kalitesi modele bağlıdır.",
-  "settings.context.compactionModel.useChatModel": "Sohbet modelini kullan",
-
   "chat.memory.project.disabled": "Proje belleği devre dışı",
   "chat.memory.command.failed": "Bellek komutu başarısız oldu",
   "chat.memory.updated": "Memory updated",
@@ -791,8 +773,6 @@ export const dict = {
   "settings.display.preview.result": "trim() bir dizenin her iki ucundaki boşlukları kaldırır.",
   "settings.display.preview.answer":
     "Selamlama, fazla boşlukları kaldıracak şekilde güncellendi. Her iki test de geçiyor.",
-  "settings.display.username.title": "Kullanıcı Adı",
-  "settings.display.username.description": "Sohbetlerde görüntülenen özel kullanıcı adı",
   "settings.display.fontSize.title": "Yazı Tipi Boyutu",
   "settings.display.fontSize.description":
     "Harness webview UI yazı tipi boyutunu VS Code'dan bağımsız olarak ayarlayın.",
@@ -828,15 +808,9 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "Varsayılan Model",
   "settings.providers.defaultModel.description": "Sohbetler için birincil model",
-  "settings.providers.smallModel.title": "Küçük Model",
-  "settings.providers.smallModel.description":
-    "Başlık oluşturma, commit mesajı oluşturma, komut istemi iyileştirme ve diğer hızlı görevler için hafif model",
   "settings.providers.subagentModel.title": "Alt Aracı Modeli",
   "settings.providers.subagentModel.description":
     "task-tool alt aracıları için varsayılan model ve akıl yürütme çabası. Çağıran aracının modelini devralmak için boş bırakın.",
-  "settings.providers.modeModels": "Mod Başına Model",
-  "settings.providers.modeModels.description":
-    "Belirli modlar için varsayılan modeli geçersiz kılın. Ayarlanmadıysa genel varsayılan model kullanılır.",
   "settings.providers.disabled": "Devre Dışı Sağlayıcılar",
   "settings.providers.disabled.description": "Sağlayıcı listesinde gizlenecek sağlayıcılar",
   "settings.providers.disabled.enable": "Etkinleştir",

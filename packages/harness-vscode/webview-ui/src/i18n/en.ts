@@ -459,6 +459,7 @@ export const dict = {
   "settings.config.source.projectHarness": "Project .harness config",
   "settings.config.source.projectRoot": "Project root config",
   "settings.config.source.projectOpencode": "Legacy .opencode config",
+  "settings.advanced": "Advanced",
   "settings.models.title": "Models",
 
   "settings.permissions.toast.updateFailed.title": "Failed to update permissions",
@@ -608,8 +609,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "Agents",
   "settings.agentBehaviour.subtab.mcpServers": "MCP Servers",
-  "settings.agentBehaviour.subtab.rules": "Rules",
-  "settings.agentBehaviour.subtab.workflows": "Workflows",
   "settings.agentBehaviour.subtab.skills": "Skills",
 
   "settings.language.description":
@@ -686,9 +685,6 @@ export const dict = {
   "settings.agentBehaviour.removeMcp.title": "Remove MCP server",
   "settings.agentBehaviour.removeMcp.confirm": 'Remove MCP server "{{name}}"? This will remove it from your config.',
   "settings.agentBehaviour.removeMcp.button": "Remove",
-  "settings.agentBehaviour.mcpDetail.command": "Command",
-  "settings.agentBehaviour.mcpDetail.args": "Arguments",
-  "settings.agentBehaviour.mcpDetail.env": "Environment",
   "settings.agentBehaviour.editMcp": "Edit MCP Server",
   "settings.agentBehaviour.editMcp.transportLocal": "Local server (stdio transport)",
   "settings.agentBehaviour.editMcp.transportRemote": "Remote server (SSE/HTTP transport)",
@@ -703,15 +699,6 @@ export const dict = {
   "settings.agentBehaviour.addMcp.url.placeholder": "e.g. http://localhost:3000/sse",
   "settings.agentBehaviour.mcpEmpty":
     "No MCP servers configured. Add MCP servers in harness.jsonc, or ask the agent to add them for you.",
-  "settings.agentBehaviour.workflows.description":
-    "Workflows are custom slash commands defined in your config. Type /command-name in the chat to invoke them. Commands are configured in opencode.json under the 'command' section.",
-  "settings.agentBehaviour.workflows.empty":
-    "No custom commands configured. Add commands to your opencode.json to see them here.",
-  "settings.agentBehaviour.workflows.detail.description": "Description",
-  "settings.agentBehaviour.workflows.detail.template": "Template",
-  "settings.agentBehaviour.workflows.model": "model",
-  "settings.agentBehaviour.workflows.variant": "variant",
-  "settings.agentBehaviour.workflows.modelDescription": "Global model override",
 
   "settings.agentBehaviour.createMode": "Create New Mode",
   "settings.agentBehaviour.createMode.name": "Name",
@@ -792,10 +779,6 @@ export const dict = {
   "settings.autoApprove.tool.doom_loop":
     "Prevent repeated identical actions. Triggered when the same tool call repeats with identical input.",
 
-  "settings.context.compactionModel.title": "Compaction model",
-  "settings.context.compactionModel.description":
-    "Model used for automatic and manual compaction. Leave unset to use the chat model. Cost, speed, and summary quality depend on the model.",
-  "settings.context.compactionModel.useChatModel": "Use chat model",
   "chat.memory.project.disabled": "Project memory disabled",
   "chat.memory.command.failed": "Memory command failed",
   "chat.memory.updated": "Memory updated",
@@ -812,8 +795,6 @@ export const dict = {
   "settings.display.preview.query": "String trimming",
   "settings.display.preview.result": "trim() removes spaces from both ends of a string.",
   "settings.display.preview.answer": "Updated the greeting to trim extra spaces. Both tests pass.",
-  "settings.display.username.title": "Username",
-  "settings.display.username.description": "Custom username displayed in conversations",
   "settings.display.fontSize.title": "Font Size",
   "settings.display.fontSize.description": "Adjust the Harness webview UI font size independently from VS Code.",
   "settings.display.reasoningDisplay.title": "Reasoning Blocks",
@@ -844,15 +825,9 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "Default Model",
   "settings.providers.defaultModel.description": "Primary model for conversations",
-  "settings.providers.smallModel.title": "Small Model",
-  "settings.providers.smallModel.description":
-    "Lightweight model for title generation, commit message generation, prompt enhancement, and other quick tasks",
   "settings.providers.subagentModel.title": "Subagent Model",
   "settings.providers.subagentModel.description":
     "Default model and reasoning effort for task-tool subagents. Leave unset to inherit the calling agent's model.",
-  "settings.providers.modeModels": "Model per Mode",
-  "settings.providers.modeModels.description":
-    "Override the default model for specific modes. If not set, the global default model is used.",
   "settings.providers.disabled": "Disabled Providers",
   "settings.providers.disabled.description": "Providers to hide from the provider list",
   "settings.providers.disabled.enable": "Enable",

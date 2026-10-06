@@ -405,6 +405,7 @@ export const dict = {
   "settings.config.source.projectHarness": "Config progetto .harness",
   "settings.config.source.projectRoot": "Config root progetto",
   "settings.config.source.projectOpencode": "Config legacy progetto .opencode",
+  "settings.advanced": "Avanzate",
   "settings.models.title": "Modelli",
   "settings.permissions.toast.updateFailed.title": "Aggiornamento autorizzazioni non riuscito",
   "settings.permissions.tool.read.description": "Legge un file (corrisponde al percorso file)",
@@ -518,8 +519,6 @@ export const dict = {
   "time.older": "Più vecchi",
   "settings.agentBehaviour.subtab.agents": "Agenti",
   "settings.agentBehaviour.subtab.mcpServers": "Server MCP",
-  "settings.agentBehaviour.subtab.rules": "Regole",
-  "settings.agentBehaviour.subtab.workflows": "Workflow",
   "settings.agentBehaviour.subtab.skills": "Skill",
   "settings.language.description": 'Scegli la lingua dell\'interfaccia Harness Code. "Auto" usa la lingua di VS Code.',
   "settings.language.auto": "Auto (lingua VS Code)",
@@ -613,9 +612,6 @@ export const dict = {
   "settings.agentBehaviour.removeMcp.confirm":
     'Rimuovere il server MCP "{{name}}"? Questo lo rimuoverà dalla configurazione.',
   "settings.agentBehaviour.removeMcp.button": "Rimuovi",
-  "settings.agentBehaviour.mcpDetail.command": "Comando",
-  "settings.agentBehaviour.mcpDetail.args": "Argomenti",
-  "settings.agentBehaviour.mcpDetail.env": "Ambiente",
   "settings.agentBehaviour.editMcp": "Modifica server MCP",
   "settings.agentBehaviour.editMcp.transportLocal": "Server locale (trasporto stdio)",
   "settings.agentBehaviour.editMcp.transportRemote": "Server remoto (trasporto SSE/HTTP)",
@@ -631,15 +627,6 @@ export const dict = {
   "settings.agentBehaviour.addMcp.url.placeholder": "es. http://localhost:3000/sse",
   "settings.agentBehaviour.mcpEmpty":
     "Nessun server MCP configurato. Aggiungi server MCP in harness.jsonc, o chiedi all'agente di aggiungerli per te.",
-  "settings.agentBehaviour.workflows.description":
-    "I workflow sono comandi slash personalizzati definiti nella configurazione. Scrivi /nome-comando nella chat per invocarli. I comandi sono configurati in opencode.json nella sezione 'command'.",
-  "settings.agentBehaviour.workflows.empty":
-    "Nessun comando personalizzato configurato. Aggiungi comandi a opencode.json per vederli qui.",
-  "settings.agentBehaviour.workflows.detail.description": "Descrizione",
-  "settings.agentBehaviour.workflows.detail.template": "Template",
-  "settings.agentBehaviour.workflows.model": "modello",
-  "settings.agentBehaviour.workflows.variant": "variante",
-  "settings.agentBehaviour.workflows.modelDescription": "Override globale del modello",
   "settings.agentBehaviour.createMode": "Crea nuova modalità",
   "settings.agentBehaviour.createMode.name": "Nome",
   "settings.agentBehaviour.createMode.name.placeholder": "es. reviewer",
@@ -720,10 +707,6 @@ export const dict = {
   "settings.autoApprove.tool.websearch": "Cerca sul web. Consente ricerche web esterne.",
   "settings.autoApprove.tool.doom_loop":
     "Previeni azioni identiche ripetute. Si attiva quando la stessa chiamata tool si ripete con input identico.",
-  "settings.context.compactionModel.title": "Modello di compattazione",
-  "settings.context.compactionModel.description":
-    "Modello usato per la compattazione automatica e manuale. Lascia non impostato per usare il modello di chat. Costo, velocità e qualità del riepilogo dipendono dal modello.",
-  "settings.context.compactionModel.useChatModel": "Usa il modello di chat",
   "chat.memory.project.disabled": "Memoria del progetto disattivata",
   "chat.memory.command.failed": "Comando memoria non riuscito",
   "chat.memory.updated": "Memory updated",
@@ -741,8 +724,6 @@ export const dict = {
   "settings.display.preview.result": "trim() rimuove gli spazi da entrambe le estremità di una stringa.",
   "settings.display.preview.answer":
     "Saluto aggiornato per rimuovere gli spazi superflui. Entrambi i test vengono superati.",
-  "settings.display.username.title": "Nome utente",
-  "settings.display.username.description": "Nome utente personalizzato mostrato nelle conversazioni",
   "settings.display.fontSize.title": "Dimensione font",
   "settings.display.fontSize.description":
     "Regola la dimensione del font della webview Harness indipendentemente da VS Code.",
@@ -776,12 +757,6 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "Modello predefinito",
   "settings.providers.defaultModel.description": "Modello principale per le conversazioni",
-  "settings.providers.smallModel.title": "Modello leggero",
-  "settings.providers.smallModel.description":
-    "Modello leggero per generazione titoli, messaggi di commit, miglioramento prompt e altri task rapidi",
-  "settings.providers.modeModels": "Modello per modalità",
-  "settings.providers.modeModels.description":
-    "Sovrascrivi il modello predefinito per modalità specifiche. Se non impostato, viene usato il modello globale predefinito.",
   "settings.providers.disabled": "Provider disabilitati",
   "settings.providers.disabled.description": "Provider da nascondere dalla lista provider",
   "settings.providers.disabled.enable": "Abilita",

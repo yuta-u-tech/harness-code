@@ -422,9 +422,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "โมเดลตัวแทนย่อย",
   "settings.providers.subagentModel.description":
     "โมเดลเริ่มต้นและระดับการใช้เหตุผลสำหรับตัวแทนย่อยของ task-tool ปล่อยว่างไว้เพื่อรับค่าโมเดลจากตัวแทนที่เรียก",
-  "settings.providers.modeModels": "โมเดลต่อโหมด",
-  "settings.providers.modeModels.description":
-    "แทนที่โมเดลเริ่มต้นสำหรับโหมดที่กำหนด หากไม่ได้ตั้งค่า จะใช้โมเดลเริ่มต้นทั่วไป",
   "provider.custom.title": "ผู้ให้บริการที่กำหนดเอง",
   "provider.custom.description.prefix": "กำหนดค่าผู้ให้บริการแบบกำหนดเอง ดู",
   "provider.custom.description.link": "เอกสารการกำหนดค่าผู้ให้บริการ",
@@ -501,6 +498,7 @@ export const dict = {
   "settings.config.source.projectHarness": "การตั้งค่า .harness ของโปรเจกต์",
   "settings.config.source.projectRoot": "การตั้งค่ารูทของโปรเจกต์",
   "settings.config.source.projectOpencode": "การตั้งค่า .opencode แบบเก่า",
+  "settings.advanced": "ขั้นสูง",
   "settings.models.title": "โมเดล",
 
   "settings.permissions.toast.updateFailed.title": "ไม่สามารถอัปเดตสิทธิ์",
@@ -617,8 +615,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "ตัวแทน",
   "settings.agentBehaviour.subtab.mcpServers": "เซิร์ฟเวอร์ MCP",
-  "settings.agentBehaviour.subtab.rules": "กฎ",
-  "settings.agentBehaviour.subtab.workflows": "เวิร์กโฟลว์",
   "settings.agentBehaviour.subtab.skills": "ทักษะ",
 
   "settings.language.description": 'เลือกภาษาสำหรับ UI ของ Harness Code "อัตโนมัติ" จะใช้ภาษาการแสดงผลของ VS Code',
@@ -748,20 +744,8 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "พุชการแก้ไขของคำขอดึง",
   "settings.agentBehaviour.pushFixes.description":
     "เมื่อคุณส่งความล้มเหลวของ CI หรือความเห็นการตรวจสอบจากคำขอดึงให้เอเจนต์ หรืออัปเดต worktree จากสาขาฐาน ให้ขอให้เอเจนต์คอมมิตและพุชเพื่อให้คำขอดึงอัปเดต การขออนุญาตยังคงมีผล ปิดเพื่อคอมมิตด้วยตนเอง",
-  "settings.agentBehaviour.mcpDetail.command": "คำสั่ง",
-  "settings.agentBehaviour.mcpDetail.args": "อาร์กิวเมนต์",
-  "settings.agentBehaviour.mcpDetail.env": "สภาพแวดล้อม",
   "settings.agentBehaviour.mcpEmpty":
     "ไม่ได้กำหนดค่าเซิร์ฟเวอร์ MCP เพิ่มเซิร์ฟเวอร์ MCP ใน harness.jsonc หรือขอให้เอเจนต์เพิ่มให้คุณ",
-  "settings.agentBehaviour.workflows.description":
-    "เวิร์กโฟลว์คือคำสั่งสแลชแบบกำหนดเองที่กำหนดไว้ในการตั้งค่าของคุณ พิมพ์ /command-name ในแชทเพื่อเรียกใช้ คำสั่งถูกกำหนดค่าใน opencode.json ภายใต้ส่วน 'command'",
-  "settings.agentBehaviour.workflows.empty":
-    "ไม่มีคำสั่งแบบกำหนดเองที่กำหนดค่าไว้ เพิ่มคำสั่งใน opencode.json เพื่อดูที่นี่",
-  "settings.agentBehaviour.workflows.detail.description": "คำอธิบาย",
-  "settings.agentBehaviour.workflows.detail.template": "เทมเพลต",
-  "settings.agentBehaviour.workflows.model": "โมเดล",
-  "settings.agentBehaviour.workflows.variant": "รูปแบบ",
-  "settings.agentBehaviour.workflows.modelDescription": "การแทนที่โมเดลส่วนกลาง",
 
   "settings.autoApprove.description":
     "กำหนดวิธีอนุญาตการทำงานของเครื่องมือ โดยค่าเริ่มต้นเครื่องมือส่วนใหญ่คืออนุญาต ส่วน doom_loop และ external_directory ค่าเริ่มต้นคือถาม",
@@ -796,10 +780,6 @@ export const dict = {
     "เข้าถึงไฟล์นอกพื้นที่ทำงาน (Workspace) ถูกเรียกเมื่อเข้าถึงไฟล์ภายนอกไดเรกทอรีโปรเจ็กต์ปัจจุบัน",
   "settings.autoApprove.tool.doom_loop":
     "ป้องกันการกระทำที่ซ้ำกัน ถูกเรียกเมื่อเครื่องมือเดิมถูกเรียกซ้ำด้วยข้อมูลนำเข้าที่เหมือนกัน",
-  "settings.context.compactionModel.title": "โมเดลสำหรับการบีบอัด",
-  "settings.context.compactionModel.description":
-    "โมเดลที่ใช้สำหรับการบีบอัดอัตโนมัติและด้วยตนเอง เว้นว่างไว้เพื่อใช้โมเดลแชท ค่าใช้จ่าย ความเร็ว และคุณภาพของสรุปขึ้นอยู่กับโมเดล",
-  "settings.context.compactionModel.useChatModel": "ใช้โมเดลแชท",
 
   "chat.memory.project.disabled": "ปิดใช้ความจำของโปรเจกต์แล้ว",
   "chat.memory.command.failed": "คำสั่งความจำล้มเหลว",
@@ -817,8 +797,6 @@ export const dict = {
   "settings.display.preview.query": "การตัดสตริง",
   "settings.display.preview.result": "trim() ลบช่องว่างจากปลายทั้งสองข้างของสตริง",
   "settings.display.preview.answer": "อัปเดตคำทักทายเพื่อลบช่องว่างส่วนเกินแล้ว การทดสอบทั้งสองผ่าน",
-  "settings.display.username.title": "ชื่อผู้ใช้",
-  "settings.display.username.description": "ชื่อผู้ใช้กำหนดเองในบทสนทนา",
   "settings.display.fontSize.title": "ขนาดฟอนต์",
   "settings.display.fontSize.description": "ปรับขนาดฟอนต์ webview UI ของ Harness แยกเป็นอิสระจาก VS Code.",
   "settings.display.reasoningDisplay.title": "บล็อกเหตุผล",
@@ -850,9 +828,6 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "โมเดลเริ่มต้น",
   "settings.providers.defaultModel.description": "โมเดลหลักสำหรับบทสนทนา",
-  "settings.providers.smallModel.title": "โมเดลขนาดเล็ก",
-  "settings.providers.smallModel.description":
-    "โมเดลน้ำหนักเบาสำหรับสร้างชื่อ สร้างข้อความคอมมิต ปรับปรุงพรอมต์ และงานด่วนอื่นๆ",
   "settings.providers.disabled": "ผู้ให้บริการที่ปิดใช้งาน",
   "settings.providers.disabled.description": "ผู้ให้บริการที่จะซ่อนจากรายการ",
   "settings.providers.disabled.enable": "เปิดใช้งาน",

@@ -17,12 +17,11 @@ import type { AgentInfo, SkillInfo } from "../../types/messages"
 import ModeEditView from "./ModeEditView"
 import ModeCreateView from "./ModeCreateView"
 import McpEditView from "./McpEditView"
-import WorkflowsTab from "./agent-behaviour/WorkflowsTab"
 import { mcpConfigScope, mcpEnabledPatch, removable, selectedDefaultAgentValue } from "./agent-behaviour-patches"
 import { parseImport, MAX_IMPORT_SIZE } from "./mode-io"
 import type { ImportError } from "./mode-io"
 
-type SubtabId = "agents" | "mcpServers" | "rules" | "workflows" | "skills"
+type SubtabId = "agents" | "mcpServers" | "skills"
 
 interface SubtabConfig {
   id: SubtabId
@@ -32,8 +31,6 @@ interface SubtabConfig {
 const subtabs: SubtabConfig[] = [
   { id: "agents", labelKey: "settings.agentBehaviour.subtab.agents" },
   { id: "mcpServers", labelKey: "settings.agentBehaviour.subtab.mcpServers" },
-  { id: "rules", labelKey: "settings.agentBehaviour.subtab.rules" },
-  { id: "workflows", labelKey: "settings.agentBehaviour.subtab.workflows" },
   { id: "skills", labelKey: "settings.agentBehaviour.subtab.skills" },
 ]
 
@@ -43,6 +40,7 @@ interface SelectOption {
 }
 
 import SettingsRow from "./SettingsRow"
+import Advanced from "./Advanced"
 
 const builtin = (skill: SkillInfo) => skill.location === "builtin" || skill.location === "<built-in>"
 
@@ -590,8 +588,6 @@ const AgentBehaviourTab: Component = () => {
           <Card>
             <For each={mcpEntries()}>
               {([name, mcp], index) => {
-                const open = () => expanded()[name] ?? false
-                const env = () => Object.entries(mcp.environment ?? mcp.env ?? {})
                 const error = () => {
                   const s = session.mcpStatus()[name]
                   if (s?.status === "failed") return s.error
@@ -611,20 +607,9 @@ const AgentBehaviourTab: Component = () => {
                         "align-items": "center",
                         "justify-content": "space-between",
                         padding: "8px 0",
-                        cursor: "pointer",
                       }}
-                      onClick={() => toggle(name)}
                     >
                       <div style={{ display: "flex", "align-items": "center", gap: "6px", flex: 1, "min-width": 0 }}>
-                        <IconButton
-                          size="small"
-                          variant="ghost"
-                          icon={open() ? "chevron-down" : "chevron-right"}
-                          onClick={(e: MouseEvent) => {
-                            e.stopPropagation()
-                            toggle(name)
-                          }}
-                        />
                         {/* Status dot */}
                         <div
                           style={{
@@ -713,73 +698,6 @@ const AgentBehaviourTab: Component = () => {
                         {error()}
                       </div>
                     </Show>
-
-                    {/* Expandable detail */}
-                    <Show when={open()}>
-                      <div
-                        style={{
-                          "padding-left": "28px",
-                          "padding-bottom": "8px",
-                          "font-size": "var(--harness-font-size-12)",
-                          color: "var(--text-weak-base, var(--vscode-descriptionForeground))",
-                        }}
-                      >
-                        <Show when={mcp.command}>
-                          <div style={{ "margin-bottom": "4px" }}>
-                            <span style={{ "font-weight": "500" }}>
-                              {language.t("settings.agentBehaviour.mcpDetail.command")}:{" "}
-                            </span>
-                            <span style={{ "font-family": "var(--vscode-editor-font-family, monospace)" }}>
-                              {Array.isArray(mcp.command) ? mcp.command[0] : mcp.command}
-                            </span>
-                          </div>
-                          <Show
-                            when={
-                              (Array.isArray(mcp.command) && mcp.command.length > 1) ||
-                              (!Array.isArray(mcp.command) && mcp.args && mcp.args.length > 0)
-                            }
-                          >
-                            <div style={{ "margin-bottom": "4px" }}>
-                              <span style={{ "font-weight": "500" }}>
-                                {language.t("settings.agentBehaviour.mcpDetail.args")}:{" "}
-                              </span>
-                              <span style={{ "font-family": "var(--vscode-editor-font-family, monospace)" }}>
-                                {Array.isArray(mcp.command)
-                                  ? (mcp.command as string[]).slice(1).join(" ")
-                                  : (mcp.args ?? []).join(" ")}
-                              </span>
-                            </div>
-                          </Show>
-                        </Show>
-                        <Show when={mcp.url}>
-                          <div style={{ "margin-bottom": "4px" }}>
-                            <span style={{ "font-weight": "500" }}>URL: </span>
-                            <span style={{ "font-family": "var(--vscode-editor-font-family, monospace)" }}>
-                              {mcp.url}
-                            </span>
-                          </div>
-                        </Show>
-                        <Show when={env().length > 0}>
-                          <div style={{ "margin-bottom": "4px" }}>
-                            <span style={{ "font-weight": "500" }}>
-                              {language.t("settings.agentBehaviour.mcpDetail.env")}:
-                            </span>
-                          </div>
-                          <For each={env()}>
-                            {([key, val]) => (
-                              <div
-                                style={{
-                                  "padding-left": "8px",
-                                  "font-family": "var(--vscode-editor-font-family, monospace)",
-                                }}
-                              >
-                                {key}={val}
-                              </div>
-                            )}
-                          </For>
-                        </Show>
-                      </div>
-                    </Show>
                   </div>
                 )
               }}
@@ -840,119 +758,127 @@ const AgentBehaviourTab: Component = () => {
         </Card>
       </Show>
 
-      {/* Skill paths */}
-      <h4 style={{ "margin-top": "0", "margin-bottom": "8px" }}>{language.t("settings.agentBehaviour.skillPaths")}</h4>
-      <Card style={{ "margin-bottom": "16px" }}>
-        <div
-          style={{
-            display: "flex",
-            gap: "8px",
-            "align-items": "center",
-            padding: "8px 0",
-            "border-bottom": skillPaths().length > 0 ? "1px solid var(--border-weak-base)" : "none",
-          }}
-        >
-          <div style={{ flex: 1, "min-width": 0 }}>
-            <TextField
-              value={newSkillPath()}
-              placeholder="e.g. ./skills"
-              onChange={(val) => setNewSkillPath(val)}
-              onKeyDown={(e: KeyboardEvent) => {
-                if (e.key === "Enter") addSkillPath()
-              }}
-            />
-          </div>
-          <Button variant="secondary" onClick={addSkillPath}>
-            {language.t("common.add")}
-          </Button>
-        </div>
-        <For each={skillPaths()}>
-          {(path, index) => (
-            <div
-              style={{
-                display: "flex",
-                "align-items": "center",
-                "justify-content": "space-between",
-                padding: "6px 0",
-                "border-bottom": index() < skillPaths().length - 1 ? "1px solid var(--border-weak-base)" : "none",
-              }}
-            >
-              <Tooltip value={path} class="settings-skills-row-trigger" contentClass="settings-skills-tooltip-content">
-                <span
-                  style={{
-                    width: "100%",
-                    "font-family": "var(--vscode-editor-font-family, monospace)",
-                    "font-size": "var(--harness-font-size-12)",
-                    overflow: "hidden",
-                    "text-overflow": "ellipsis",
-                    "white-space": "nowrap",
-                  }}
-                >
-                  {path}
-                </span>
-              </Tooltip>
-              <IconButton size="small" variant="ghost" icon="close" onClick={() => removeSkillPath(index())} />
+      <Advanced>
+        {/* Skill paths */}
+        <h4 style={{ "margin-top": "0", "margin-bottom": "8px" }}>
+          {language.t("settings.agentBehaviour.skillPaths")}
+        </h4>
+        <Card style={{ "margin-bottom": "16px" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "8px",
+              "align-items": "center",
+              padding: "8px 0",
+              "border-bottom": skillPaths().length > 0 ? "1px solid var(--border-weak-base)" : "none",
+            }}
+          >
+            <div style={{ flex: 1, "min-width": 0 }}>
+              <TextField
+                value={newSkillPath()}
+                placeholder="e.g. ./skills"
+                onChange={(val) => setNewSkillPath(val)}
+                onKeyDown={(e: KeyboardEvent) => {
+                  if (e.key === "Enter") addSkillPath()
+                }}
+              />
             </div>
-          )}
-        </For>
-      </Card>
+            <Button variant="secondary" onClick={addSkillPath}>
+              {language.t("common.add")}
+            </Button>
+          </div>
+          <For each={skillPaths()}>
+            {(path, index) => (
+              <div
+                style={{
+                  display: "flex",
+                  "align-items": "center",
+                  "justify-content": "space-between",
+                  padding: "6px 0",
+                  "border-bottom": index() < skillPaths().length - 1 ? "1px solid var(--border-weak-base)" : "none",
+                }}
+              >
+                <Tooltip
+                  value={path}
+                  class="settings-skills-row-trigger"
+                  contentClass="settings-skills-tooltip-content"
+                >
+                  <span
+                    style={{
+                      width: "100%",
+                      "font-family": "var(--vscode-editor-font-family, monospace)",
+                      "font-size": "var(--harness-font-size-12)",
+                      overflow: "hidden",
+                      "text-overflow": "ellipsis",
+                      "white-space": "nowrap",
+                    }}
+                  >
+                    {path}
+                  </span>
+                </Tooltip>
+                <IconButton size="small" variant="ghost" icon="close" onClick={() => removeSkillPath(index())} />
+              </div>
+            )}
+          </For>
+        </Card>
 
-      {/* Skill URLs */}
-      <h4 style={{ "margin-top": "0", "margin-bottom": "8px" }}>{language.t("settings.agentBehaviour.skillUrls")}</h4>
-      <Card>
-        <div
-          style={{
-            display: "flex",
-            gap: "8px",
-            "align-items": "center",
-            padding: "8px 0",
-            "border-bottom": skillUrls().length > 0 ? "1px solid var(--border-weak-base)" : "none",
-          }}
-        >
-          <div style={{ flex: 1, "min-width": 0 }}>
-            <TextField
-              value={newSkillUrl()}
-              placeholder="e.g. https://example.com/skills"
-              onChange={(val) => setNewSkillUrl(val)}
-              onKeyDown={(e: KeyboardEvent) => {
-                if (e.key === "Enter") addSkillUrl()
-              }}
-            />
-          </div>
-          <Button variant="secondary" onClick={addSkillUrl}>
-            {language.t("common.add")}
-          </Button>
-        </div>
-        <For each={skillUrls()}>
-          {(url, index) => (
-            <div
-              style={{
-                display: "flex",
-                "align-items": "center",
-                "justify-content": "space-between",
-                padding: "6px 0",
-                "border-bottom": index() < skillUrls().length - 1 ? "1px solid var(--border-weak-base)" : "none",
-              }}
-            >
-              <Tooltip value={url} class="settings-skills-row-trigger" contentClass="settings-skills-tooltip-content">
-                <span
-                  style={{
-                    width: "100%",
-                    "font-family": "var(--vscode-editor-font-family, monospace)",
-                    "font-size": "var(--harness-font-size-12)",
-                    overflow: "hidden",
-                    "text-overflow": "ellipsis",
-                    "white-space": "nowrap",
-                  }}
-                >
-                  {url}
-                </span>
-              </Tooltip>
-              <IconButton size="small" variant="ghost" icon="close" onClick={() => removeSkillUrl(index())} />
+        {/* Skill URLs */}
+        <h4 style={{ "margin-top": "0", "margin-bottom": "8px" }}>{language.t("settings.agentBehaviour.skillUrls")}</h4>
+        <Card>
+          <div
+            style={{
+              display: "flex",
+              gap: "8px",
+              "align-items": "center",
+              padding: "8px 0",
+              "border-bottom": skillUrls().length > 0 ? "1px solid var(--border-weak-base)" : "none",
+            }}
+          >
+            <div style={{ flex: 1, "min-width": 0 }}>
+              <TextField
+                value={newSkillUrl()}
+                placeholder="e.g. https://example.com/skills"
+                onChange={(val) => setNewSkillUrl(val)}
+                onKeyDown={(e: KeyboardEvent) => {
+                  if (e.key === "Enter") addSkillUrl()
+                }}
+              />
             </div>
-          )}
-        </For>
-      </Card>
+            <Button variant="secondary" onClick={addSkillUrl}>
+              {language.t("common.add")}
+            </Button>
+          </div>
+          <For each={skillUrls()}>
+            {(url, index) => (
+              <div
+                style={{
+                  display: "flex",
+                  "align-items": "center",
+                  "justify-content": "space-between",
+                  padding: "6px 0",
+                  "border-bottom": index() < skillUrls().length - 1 ? "1px solid var(--border-weak-base)" : "none",
+                }}
+              >
+                <Tooltip value={url} class="settings-skills-row-trigger" contentClass="settings-skills-tooltip-content">
+                  <span
+                    style={{
+                      width: "100%",
+                      "font-family": "var(--vscode-editor-font-family, monospace)",
+                      "font-size": "var(--harness-font-size-12)",
+                      overflow: "hidden",
+                      "text-overflow": "ellipsis",
+                      "white-space": "nowrap",
+                    }}
+                  >
+                    {url}
+                  </span>
+                </Tooltip>
+                <IconButton size="small" variant="ghost" icon="close" onClick={() => removeSkillUrl(index())} />
+              </div>
+            )}
+          </For>
+        </Card>
+      </Advanced>
     </div>
   )
 
@@ -1056,10 +982,6 @@ const AgentBehaviourTab: Component = () => {
         return renderAgentsSubtab()
       case "mcpServers":
         return renderMcpSubtab()
-      case "rules":
-        return renderRulesSubtab()
-      case "workflows":
-        return <WorkflowsTab />
       case "skills":
         return renderSkillsSubtab()
       default:
@@ -1122,6 +1044,7 @@ const AgentBehaviourTab: Component = () => {
 
       {/* Subtab content */}
       {renderSubtabContent()}
+      <Advanced>{renderRulesSubtab()}</Advanced>
     </div>
   )
 }

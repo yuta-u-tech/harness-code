@@ -501,6 +501,7 @@ export const dict = {
   "settings.config.source.projectHarness": "Конфігурація .harness проєкту",
   "settings.config.source.projectRoot": "Коренева конфігурація проєкту",
   "settings.config.source.projectOpencode": "Застаріла конфігурація .opencode",
+  "settings.advanced": "Додатково",
   "settings.models.title": "Моделі",
 
   "settings.permissions.toast.updateFailed.title": "Не вдалося оновити дозволи",
@@ -621,8 +622,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "Агенти",
   "settings.agentBehaviour.subtab.mcpServers": "MCP-сервери",
-  "settings.agentBehaviour.subtab.rules": "Правила",
-  "settings.agentBehaviour.subtab.workflows": "Робочі процеси",
   "settings.agentBehaviour.subtab.skills": "Навички",
 
   "settings.language.description":
@@ -707,9 +706,6 @@ export const dict = {
   "settings.agentBehaviour.removeMcp.title": "Видалити MCP-сервер",
   "settings.agentBehaviour.removeMcp.confirm": 'Видалити MCP-сервер "{{name}}"? Це видалить його з вашої конфігурації.',
   "settings.agentBehaviour.removeMcp.button": "Видалити",
-  "settings.agentBehaviour.mcpDetail.command": "Команда",
-  "settings.agentBehaviour.mcpDetail.args": "Аргументи",
-  "settings.agentBehaviour.mcpDetail.env": "Середовище",
   "settings.agentBehaviour.editMcp": "Редагувати MCP-сервер",
   "settings.agentBehaviour.editMcp.transportLocal": "Локальний сервер (stdio транспорт)",
   "settings.agentBehaviour.editMcp.transportRemote": "Віддалений сервер (SSE/HTTP транспорт)",
@@ -724,15 +720,6 @@ export const dict = {
   "settings.agentBehaviour.addMcp.url.placeholder": "напр. http://localhost:3000/sse",
   "settings.agentBehaviour.mcpEmpty":
     "MCP-серверів не налаштовано. Додайте MCP-сервери до harness.jsonc або попросіть агента додати їх.",
-  "settings.agentBehaviour.workflows.description":
-    "Робочі процеси — це власні команди з косою рискою, визначені у вашій конфігурації. Введіть /назва-команди в чаті, щоб викликати їх. Команди налаштовуються в розділі 'command' файлу opencode.json.",
-  "settings.agentBehaviour.workflows.empty":
-    "Власних команд не налаштовано. Додайте команди до opencode.json, щоб вони з'явилися тут.",
-  "settings.agentBehaviour.workflows.detail.description": "Опис",
-  "settings.agentBehaviour.workflows.detail.template": "Шаблон",
-  "settings.agentBehaviour.workflows.model": "модель",
-  "settings.agentBehaviour.workflows.variant": "варіант",
-  "settings.agentBehaviour.workflows.modelDescription": "Глобальне перевизначення моделі",
 
   "settings.autoApprove.description":
     "Визначте, як виконуються інструменти. Більшість інструментів за замовчуванням — Дозволити. doom_loop та external_directory за замовчуванням — Запитувати.",
@@ -772,11 +759,6 @@ export const dict = {
   "settings.autoApprove.tool.doom_loop":
     "Запобігати повторюваним діям. Спрацьовує, коли той самий виклик інструменту повторюється з однаковими вхідними даними.",
 
-  "settings.context.compactionModel.title": "Модель стискання",
-  "settings.context.compactionModel.description":
-    "Модель, що використовується для автоматичного та ручного стискання. Залиште поле порожнім, щоб використовувати модель чату. Вартість, швидкість і якість підсумку залежать від моделі.",
-  "settings.context.compactionModel.useChatModel": "Використовувати модель чату",
-
   "chat.memory.project.disabled": "Пам’ять проєкту вимкнено",
   "chat.memory.command.failed": "Команду пам’яті не виконано",
   "chat.memory.updated": "Memory updated",
@@ -793,8 +775,6 @@ export const dict = {
   "settings.display.preview.query": "Обрізання рядків",
   "settings.display.preview.result": "trim() видаляє пробіли з обох боків рядка.",
   "settings.display.preview.answer": "Привітання оновлено, щоб прибирати зайві пробіли. Обидва тести проходять.",
-  "settings.display.username.title": "Ім'я користувача",
-  "settings.display.username.description": "Власне ім'я користувача, що відображається в чатах",
   "settings.display.fontSize.title": "Розмір шрифту",
   "settings.display.fontSize.description": "Налаштуйте розмір шрифту webview UI для Harness незалежно від VS Code.",
   "settings.display.reasoningDisplay.title": "Блоки міркувань",
@@ -829,15 +809,9 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "Модель за замовчуванням",
   "settings.providers.defaultModel.description": "Основна модель для чатів",
-  "settings.providers.smallModel.title": "Мала модель",
-  "settings.providers.smallModel.description":
-    "Легка модель для генерації заголовків, повідомлень комітів, покращення запитів та інших швидких завдань",
   "settings.providers.subagentModel.title": "Модель субагента",
   "settings.providers.subagentModel.description":
     "Модель за замовчуванням та рівень міркування для субагентів task-tool. Залиште порожнім, щоб успадкувати модель агента, що викликає.",
-  "settings.providers.modeModels": "Модель для кожного режиму",
-  "settings.providers.modeModels.description":
-    "Перевизначити стандартну модель для певних режимів. Якщо не встановлено, використовується загальна стандартна модель.",
   "settings.providers.disabled": "Вимкнені провайдери",
   "settings.providers.disabled.description": "Провайдери, що будуть приховані у списку провайдерів",
   "settings.providers.disabled.enable": "Увімкнути",

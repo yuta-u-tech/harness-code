@@ -426,9 +426,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Modelo de subagente",
   "settings.providers.subagentModel.description":
     "Modelo predeterminado y esfuerzo de razonamiento para los subagentes de task-tool. Déjelo sin configurar para heredar el modelo del agente invocador.",
-  "settings.providers.modeModels": "Modelo por modo",
-  "settings.providers.modeModels.description":
-    "Anula el modelo predeterminado para modos específicos. Si no se establece, se usa el modelo predeterminado global.",
   "provider.custom.title": "Proveedor personalizado",
   "provider.custom.description.prefix": "Configura un proveedor personalizado. Consulta la ",
   "provider.custom.description.link": "documentación de configuración de proveedores",
@@ -507,6 +504,7 @@ export const dict = {
   "settings.config.source.projectHarness": "Configuración .harness del proyecto",
   "settings.config.source.projectRoot": "Configuración raíz del proyecto",
   "settings.config.source.projectOpencode": "Configuración heredada .opencode",
+  "settings.advanced": "Avanzado",
   "settings.models.title": "Modelos",
 
   "settings.permissions.toast.updateFailed.title": "Fallo al actualizar permisos",
@@ -627,8 +625,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "Agentes",
   "settings.agentBehaviour.subtab.mcpServers": "Servidores MCP",
-  "settings.agentBehaviour.subtab.rules": "Reglas",
-  "settings.agentBehaviour.subtab.workflows": "Flujos de trabajo",
   "settings.agentBehaviour.subtab.skills": "Habilidades",
 
   "settings.language.description":
@@ -764,20 +760,8 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Enviar correcciones del pull request",
   "settings.agentBehaviour.pushFixes.description":
     "Al enviar al agente fallos de CI o comentarios de revisión de un pull request, o al actualizar un worktree desde su base, pedirle que haga commit y push para que el pull request se actualice. Las solicitudes de permiso siguen aplicándose. Desactívalo para hacer los commits manualmente.",
-  "settings.agentBehaviour.mcpDetail.command": "Comando",
-  "settings.agentBehaviour.mcpDetail.args": "Argumentos",
-  "settings.agentBehaviour.mcpDetail.env": "Entorno",
   "settings.agentBehaviour.mcpEmpty":
     "No hay servidores MCP configurados. Añada servidores MCP en harness.jsonc o pida al agente que los añada.",
-  "settings.agentBehaviour.workflows.description":
-    "Los flujos de trabajo son comandos de barra personalizados definidos en su configuración. Escriba /command-name en el chat para invocarlos. Los comandos se configuran en opencode.json en la sección 'command'.",
-  "settings.agentBehaviour.workflows.empty":
-    "No hay comandos personalizados configurados. Añada comandos a opencode.json para verlos aquí.",
-  "settings.agentBehaviour.workflows.detail.description": "Descripción",
-  "settings.agentBehaviour.workflows.detail.template": "Plantilla",
-  "settings.agentBehaviour.workflows.model": "modelo",
-  "settings.agentBehaviour.workflows.variant": "variante",
-  "settings.agentBehaviour.workflows.modelDescription": "Anulación global del modelo",
 
   "settings.autoApprove.description":
     "Defina cómo se permite la ejecución de las herramientas. La mayoría de las herramientas tienen como valor predeterminado Permitir. doom_loop y external_directory tienen como valor predeterminado Preguntar.",
@@ -819,10 +803,6 @@ export const dict = {
     "Acceder a archivos fuera del espacio de trabajo. Se activa al acceder a archivos fuera del directorio del proyecto actual.",
   "settings.autoApprove.tool.doom_loop":
     "Evitar acciones idénticas repetidas. Se activa cuando se repite la misma llamada de herramienta con entrada idéntica.",
-  "settings.context.compactionModel.title": "Modelo de compactación",
-  "settings.context.compactionModel.description":
-    "Modelo utilizado para la compactación automática y manual. Déjalo sin configurar para usar el modelo de chat. El coste, la velocidad y la calidad del resumen dependen del modelo.",
-  "settings.context.compactionModel.useChatModel": "Usar modelo de chat",
 
   "chat.memory.project.disabled": "Memoria del proyecto desactivada",
   "chat.memory.command.failed": "Error en el comando de memoria",
@@ -841,8 +821,6 @@ export const dict = {
   "settings.display.preview.result": "trim() elimina los espacios de ambos extremos de una cadena.",
   "settings.display.preview.answer":
     "Se ha actualizado el saludo para eliminar los espacios sobrantes. Ambas pruebas pasan.",
-  "settings.display.username.title": "Nombre de usuario",
-  "settings.display.username.description": "Nombre de usuario personalizado en conversaciones",
   "settings.display.fontSize.title": "Tamaño de fuente",
   "settings.display.fontSize.description":
     "Ajusta el tamaño de fuente de la webview UI de Harness de forma independiente a VS Code.",
@@ -878,9 +856,6 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "Modelo predeterminado",
   "settings.providers.defaultModel.description": "Modelo principal para conversaciones",
-  "settings.providers.smallModel.title": "Modelo pequeño",
-  "settings.providers.smallModel.description":
-    "Modelo ligero para generación de títulos, mensajes de commit, mejora de prompts y otras tareas rápidas",
   "settings.providers.disabled": "Proveedores deshabilitados",
   "settings.providers.disabled.description": "Proveedores a ocultar de la lista de proveedores",
   "settings.providers.disabled.enable": "Habilitar",

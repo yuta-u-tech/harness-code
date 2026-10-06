@@ -428,9 +428,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Underagentmodell",
   "settings.providers.subagentModel.description":
     "Standardmodell og resonneringsinnsats for task-tool-underagenter. La stå tom for å arve den kallende agentens modell.",
-  "settings.providers.modeModels": "Modell per modus",
-  "settings.providers.modeModels.description":
-    "Overstyr standardmodellen for bestemte moduser. Hvis ikke angitt, brukes den globale standardmodellen.",
   "provider.custom.title": "Egendefinert leverandør",
   "provider.custom.description.prefix": "Konfigurer en egendefinert leverandør. Se ",
   "provider.custom.description.link": "dokumentasjon for leverandørkonfigurasjon",
@@ -507,6 +504,7 @@ export const dict = {
   "settings.config.source.projectHarness": "Prosjekt .harness-konfigurasjon",
   "settings.config.source.projectRoot": "Prosjektets rotkonfigurasjon",
   "settings.config.source.projectOpencode": "Eldre .opencode-konfigurasjon",
+  "settings.advanced": "Avansert",
   "settings.models.title": "Modeller",
 
   "settings.permissions.toast.updateFailed.title": "Kunne ikke oppdatere tillatelser",
@@ -626,8 +624,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "Agenter",
   "settings.agentBehaviour.subtab.mcpServers": "MCP-servere",
-  "settings.agentBehaviour.subtab.rules": "Regler",
-  "settings.agentBehaviour.subtab.workflows": "Arbeidsflyter",
   "settings.agentBehaviour.subtab.skills": "Ferdigheter",
 
   "settings.language.description": 'Velg språket for Harness Code-grensesnittet. "Auto" bruker VS Codes visningsspråk.',
@@ -758,20 +754,8 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Push pull request-rettelser",
   "settings.agentBehaviour.pushFixes.description":
     "Når du sender CI-feil eller review-kommentarer fra en pull request til agenten, eller oppdaterer et worktree fra basen, bes agenten committe og pushe slik at pull requesten oppdateres. Tillatelsesforespørsler gjelder fortsatt. Slå av for å committe manuelt.",
-  "settings.agentBehaviour.mcpDetail.command": "Kommando",
-  "settings.agentBehaviour.mcpDetail.args": "Argumenter",
-  "settings.agentBehaviour.mcpDetail.env": "Miljø",
   "settings.agentBehaviour.mcpEmpty":
     "Ingen MCP-servere konfigurert. Legg til MCP-servere i harness.jsonc, eller be agenten om å legge dem til.",
-  "settings.agentBehaviour.workflows.description":
-    "Arbeidsflyter er egendefinerte skråstrekkommandoer definert i konfigurasjonen din. Skriv /command-name i chatten for å kjøre dem. Kommandoer konfigureres i opencode.json under seksjonen 'command'.",
-  "settings.agentBehaviour.workflows.empty":
-    "Ingen egendefinerte kommandoer konfigurert. Legg til kommandoer i opencode.json for å se dem her.",
-  "settings.agentBehaviour.workflows.detail.description": "Beskrivelse",
-  "settings.agentBehaviour.workflows.detail.template": "Mal",
-  "settings.agentBehaviour.workflows.model": "modell",
-  "settings.agentBehaviour.workflows.variant": "variant",
-  "settings.agentBehaviour.workflows.modelDescription": "Global modelloverstyring",
 
   "settings.autoApprove.description":
     "Definer hvordan verktøy kan kjøre. De fleste verktøy har Tillat som standard. doom_loop og external_directory har Spør som standard.",
@@ -810,10 +794,6 @@ export const dict = {
     "Få tilgang til filer utenfor arbeidsområdet. Utløses ved tilgang til filer utenfor gjeldende prosjektkatalog.",
   "settings.autoApprove.tool.doom_loop":
     "Forhindre gjentatte identiske handlinger. Utløses når det samme verktøyanropet gjentas med identisk inndata.",
-  "settings.context.compactionModel.title": "Komprimeringsmodell",
-  "settings.context.compactionModel.description":
-    "Modell som brukes for automatisk og manuell komprimering. La feltet stå tomt for å bruke chatmodellen. Kostnad, hastighet og kvaliteten på sammendraget avhenger av modellen.",
-  "settings.context.compactionModel.useChatModel": "Bruk chatmodell",
 
   "chat.memory.project.disabled": "Prosjektminne deaktivert",
   "chat.memory.command.failed": "Minnekommando mislyktes",
@@ -831,8 +811,6 @@ export const dict = {
   "settings.display.preview.query": "Trimming av strenger",
   "settings.display.preview.result": "trim() fjerner mellomrom i begge ender av en streng.",
   "settings.display.preview.answer": "Hilsenen er oppdatert for å fjerne overflødige mellomrom. Begge testene består.",
-  "settings.display.username.title": "Brukernavn",
-  "settings.display.username.description": "Egendefinert brukernavn i samtaler",
   "settings.display.fontSize.title": "Skriftstørrelse",
   "settings.display.fontSize.description": "Juster skriftstørrelsen for Harness webview UI uavhengig av VS Code.",
   "settings.display.reasoningDisplay.title": "Resonnementblokker",
@@ -867,9 +845,6 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "Standardmodell",
   "settings.providers.defaultModel.description": "Primær modell for samtaler",
-  "settings.providers.smallModel.title": "Liten modell",
-  "settings.providers.smallModel.description":
-    "Lettvektsmodell for titelgenerering, generering av commit-meldinger, prompt-forbedring og andre raske oppgaver",
   "settings.providers.disabled": "Deaktiverte leverandører",
   "settings.providers.disabled.description": "Leverandører å skjule fra listen",
   "settings.providers.disabled.enable": "Aktiver",

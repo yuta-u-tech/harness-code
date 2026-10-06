@@ -12,6 +12,7 @@ import { parseModelString } from "../../../../src/shared/provider-model"
 import { ModelSelectorBase } from "../shared/ModelSelector"
 import { ThinkingSelectorBase } from "../shared/ThinkingSelector"
 import SettingsRow from "./SettingsRow"
+import Advanced from "./Advanced"
 import { preserveVariant } from "../../context/session-variant-store"
 
 const ModelsTab: Component = () => {
@@ -65,32 +66,11 @@ const ModelsTab: Component = () => {
     })
   }
 
-  const allAgents = createMemo(() => session.agents())
-
-  function handleModeModelSelect(agentName: string) {
-    return (providerID: string, modelID: string) => {
-      if (!providerID || !modelID) {
-        updateConfig({ agent: { [agentName]: { model: null } } })
-        return
-      }
-      const current = config().agent?.[agentName]?.variant ?? undefined
-      const list = Object.keys(provider.findModel({ providerID, modelID })?.variants ?? {})
-      const next = preserveVariant(current, list)
-      updateConfig({
-        agent: {
-          [agentName]: {
-            model: `${providerID}/${modelID}`,
-            ...(current && !list.includes(current) ? { variant: next ?? null } : {}),
-          },
-        },
-      })
-    }
-  }
-
   return (
     <div>
       <Card>
         <SettingsRow
+          last
           title={language.t("settings.providers.defaultModel.title")}
           description={language.t("settings.providers.defaultModel.description")}
         >
@@ -104,90 +84,41 @@ const ModelsTab: Component = () => {
             description={language.t("settings.providers.defaultModel.description")}
           />
         </SettingsRow>
-        <SettingsRow
-          title={language.t("settings.providers.smallModel.title")}
-          description={language.t("settings.providers.smallModel.description")}
-        >
-          <ModelSelectorBase
-            value={parseModelString(config().small_model ?? undefined)}
-            onSelect={handleModelSelect("small_model")}
-            placement="bottom-start"
-            allowClear
-            clearLabel={language.t("settings.providers.notSet")}
-            label={language.t("settings.providers.smallModel.title")}
-            description={language.t("settings.providers.smallModel.description")}
-          />
-        </SettingsRow>
-        <SettingsRow
-          title={language.t("settings.providers.subagentModel.title")}
-          description={language.t("settings.providers.subagentModel.description")}
-        >
-          <div style={{ display: "flex", "flex-direction": "column", "align-items": "flex-end", gap: "8px" }}>
-            <ModelSelectorBase
-              value={subagentModel()}
-              onSelect={handleSubagentModelSelect}
-              placement="bottom-start"
-              allowClear
-              clearLabel={language.t("settings.providers.notSet")}
-              label={language.t("settings.providers.subagentModel.title")}
-              description={language.t("settings.providers.subagentModel.description")}
-            />
-            <Show when={subagentVariants().length > 0}>
-              <ThinkingSelectorBase
-                variants={subagentVariants()}
-                value={subagentVariant()}
-                onSelect={(value) => updateSubagentVariant(value)}
-                onClear={() => updateSubagentVariant(null)}
-                allowClear
-                clearLabel={language.t("settings.providers.notSet")}
-                placement="bottom-start"
-                globalTrigger={false}
-              />
-            </Show>
-          </div>
-        </SettingsRow>
-        <SettingsRow
-          last
-          title={language.t("settings.context.compactionModel.title")}
-          description={language.t("settings.context.compactionModel.description")}
-        >
-          <ModelSelectorBase
-            value={parseModelString(config().agent?.compaction?.model ?? undefined)}
-            onSelect={(providerID, modelID) =>
-              updateConfig({
-                agent: { compaction: { model: providerID && modelID ? `${providerID}/${modelID}` : null } },
-              })
-            }
-            placement="bottom-start"
-            allowClear
-            clearLabel={language.t("settings.context.compactionModel.useChatModel")}
-            label={language.t("settings.context.compactionModel.title")}
-            description={language.t("settings.context.compactionModel.description")}
-          />
-        </SettingsRow>
       </Card>
 
-      <h4 style={{ "margin-top": "24px", "margin-bottom": "8px" }}>{language.t("settings.providers.modeModels")}</h4>
-      <Card>
-        <For each={allAgents()}>
-          {(agent, index) => (
-            <SettingsRow
-              title={agent.name.charAt(0).toUpperCase() + agent.name.slice(1)}
-              last={index() === allAgents().length - 1}
-            >
+      <Advanced>
+        <Card>
+          <SettingsRow
+            last
+            title={language.t("settings.providers.subagentModel.title")}
+            description={language.t("settings.providers.subagentModel.description")}
+          >
+            <div style={{ display: "flex", "flex-direction": "column", "align-items": "flex-end", gap: "8px" }}>
               <ModelSelectorBase
-                value={parseModelString(config().agent?.[agent.name]?.model ?? undefined)}
-                onSelect={handleModeModelSelect(agent.name)}
+                value={subagentModel()}
+                onSelect={handleSubagentModelSelect}
                 placement="bottom-start"
                 allowClear
                 clearLabel={language.t("settings.providers.notSet")}
-                label={`${language.t("settings.providers.modeModels")}: ${agent.name}`}
-                description={language.t("settings.providers.modeModels.description")}
+                label={language.t("settings.providers.subagentModel.title")}
+                description={language.t("settings.providers.subagentModel.description")}
               />
-            </SettingsRow>
-          )}
-        </For>
-      </Card>
+              <Show when={subagentVariants().length > 0}>
+                <ThinkingSelectorBase
+                  variants={subagentVariants()}
+                  value={subagentVariant()}
+                  onSelect={(value) => updateSubagentVariant(value)}
+                  onClear={() => updateSubagentVariant(null)}
+                  allowClear
+                  clearLabel={language.t("settings.providers.notSet")}
+                  placement="bottom-start"
+                  globalTrigger={false}
+                />
+              </Show>
+            </div>
+          </SettingsRow>
+        </Card>
+      </Advanced>
     </div>
   )
 }

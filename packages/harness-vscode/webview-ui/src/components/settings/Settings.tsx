@@ -9,6 +9,7 @@ import { useLanguage } from "../../context/language"
 import { useConfig } from "../../context/config"
 import { useSession } from "../../context/session"
 import { configMessage } from "../../utils/open-config"
+import Advanced from "./Advanced"
 import HarnessTab from "./harness/HarnessTab"
 import ModelsTab from "./ModelsTab"
 import ProvidersTab from "./ProvidersTab"
@@ -167,12 +168,12 @@ const Settings: Component<SettingsProps> = (props) => {
         </Tabs.Content>
         <Tabs.Content value="display">
           <h3>{language.t("settings.display.title")}</h3>
-          <Section title={language.t("settings.autoApprove.title")}>
-            <AutoApproveTab />
-          </Section>
-          <DisplayTab />
           <Section title={language.t("settings.language.title")}>
             <LanguageTab />
+          </Section>
+          <DisplayTab />
+          <Section title={language.t("settings.autoApprove.title")}>
+            <AutoApproveTab />
           </Section>
           <Section title={language.t("settings.notifications.title")}>
             <NotificationsTab />

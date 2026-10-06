@@ -422,9 +422,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "하위 에이전트 모델",
   "settings.providers.subagentModel.description":
     "task-tool 하위 에이전트의 기본 모델 및 추론 수준입니다. 호출하는 에이전트의 모델을 상속하려면 비워 두세요.",
-  "settings.providers.modeModels": "모드별 모델",
-  "settings.providers.modeModels.description":
-    "특정 모드의 기본 모델을 재정의합니다. 설정하지 않으면 전역 기본 모델이 사용됩니다.",
   "provider.custom.title": "사용자 정의 공급자",
   "provider.custom.description.prefix": "사용자 정의 공급자를 구성합니다. ",
   "provider.custom.description.link": "공급자 구성 문서",
@@ -501,6 +498,7 @@ export const dict = {
   "settings.config.source.projectHarness": "프로젝트 .harness 구성",
   "settings.config.source.projectRoot": "프로젝트 루트 구성",
   "settings.config.source.projectOpencode": "레거시 .opencode 구성",
+  "settings.advanced": "고급",
   "settings.models.title": "모델",
 
   "settings.permissions.toast.updateFailed.title": "권한 업데이트 실패",
@@ -619,8 +617,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "에이전트",
   "settings.agentBehaviour.subtab.mcpServers": "MCP 서버",
-  "settings.agentBehaviour.subtab.rules": "규칙",
-  "settings.agentBehaviour.subtab.workflows": "워크플로",
   "settings.agentBehaviour.subtab.skills": "스킬",
 
   "settings.language.description": 'Harness Code UI의 언어를 선택하세요. "자동"은 VS Code 표시 언어를 사용합니다.',
@@ -749,20 +745,8 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "풀 리퀘스트 수정 사항 푸시",
   "settings.agentBehaviour.pushFixes.description":
     "풀 리퀘스트의 CI 실패나 리뷰 댓글을 에이전트에게 보내거나 worktree를 기본 브랜치에서 업데이트할 때, 풀 리퀘스트가 업데이트되도록 커밋과 푸시를 요청합니다. 권한 확인은 계속 적용됩니다. 직접 커밋하려면 끄세요.",
-  "settings.agentBehaviour.mcpDetail.command": "명령어",
-  "settings.agentBehaviour.mcpDetail.args": "인수",
-  "settings.agentBehaviour.mcpDetail.env": "환경",
   "settings.agentBehaviour.mcpEmpty":
     "MCP 서버가 구성되지 않았습니다. harness.jsonc에서 MCP 서버를 추가하거나 에이전트에게 추가를 요청하세요.",
-  "settings.agentBehaviour.workflows.description":
-    "워크플로우는 구성에서 정의된 사용자 정의 슬래시 명령입니다. 채팅에서 /command-name을 입력하여 실행합니다. 명령은 opencode.json의 'command' 섹션에서 구성됩니다.",
-  "settings.agentBehaviour.workflows.empty":
-    "구성된 사용자 정의 명령이 없습니다. opencode.json에 명령을 추가하면 여기에 표시됩니다.",
-  "settings.agentBehaviour.workflows.detail.description": "설명",
-  "settings.agentBehaviour.workflows.detail.template": "템플릿",
-  "settings.agentBehaviour.workflows.model": "모델",
-  "settings.agentBehaviour.workflows.variant": "변형",
-  "settings.agentBehaviour.workflows.modelDescription": "전역 모델 재정의",
 
   "settings.autoApprove.description":
     "도구 실행 허용 방식을 정의합니다. 대부분의 도구 기본값은 '허용'입니다. doom_loop 및 external_directory의 기본값은 '확인'입니다.",
@@ -796,10 +780,6 @@ export const dict = {
     "작업 공간 외부 파일 접근. 현재 프로젝트 디렉토리 외부의 파일에 접근할 때 트리거됩니다.",
   "settings.autoApprove.tool.doom_loop":
     "반복되는 동일한 작업 방지. 동일한 입력으로 동일한 도구 호출이 반복될 때 트리거됩니다.",
-  "settings.context.compactionModel.title": "압축 모델",
-  "settings.context.compactionModel.description":
-    "자동 및 수동 압축에 사용하는 모델입니다. 채팅 모델을 사용하려면 설정하지 않은 상태로 두세요. 비용, 속도 및 요약 품질은 모델에 따라 달라집니다.",
-  "settings.context.compactionModel.useChatModel": "채팅 모델 사용",
 
   "chat.memory.project.disabled": "프로젝트 메모리 비활성화됨",
   "chat.memory.command.failed": "메모리 명령 실패",
@@ -817,8 +797,6 @@ export const dict = {
   "settings.display.preview.query": "문자열 트림",
   "settings.display.preview.result": "trim()은 문자열 양쪽 끝의 공백을 제거합니다.",
   "settings.display.preview.answer": "인사말을 업데이트하여 여분의 공백을 제거했습니다. 두 테스트 모두 통과합니다.",
-  "settings.display.username.title": "사용자 이름",
-  "settings.display.username.description": "대화에 표시되는 사용자 정의 사용자 이름",
   "settings.display.fontSize.title": "글꼴 크기",
   "settings.display.fontSize.description": "VS Code와 독립적으로 Harness webview UI 글꼴 크기를 조정합니다.",
   "settings.display.reasoningDisplay.title": "추론 블록",
@@ -850,9 +828,6 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "기본 모델",
   "settings.providers.defaultModel.description": "대화의 기본 모델",
-  "settings.providers.smallModel.title": "소형 모델",
-  "settings.providers.smallModel.description":
-    "제목 생성, 커밋 메시지 생성, 프롬프트 개선 및 기타 빠른 작업을 위한 경량 모델",
   "settings.providers.disabled": "비활성화된 공급자",
   "settings.providers.disabled.description": "공급자 목록에서 숨길 공급자",
   "settings.providers.disabled.enable": "활성화",

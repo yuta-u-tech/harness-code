@@ -531,3 +531,14 @@
   margin: 0;
   padding-left: 18px;
 }
+
+.settings-advanced {
+  margin-top: 16px;
+}
+
+.settings-advanced > summary {
+  cursor: pointer;
+  color: var(--text-weak);
+  font-size: var(--harness-font-size-12, 12px);
+  padding: 4px 0;
+}

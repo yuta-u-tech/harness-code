@@ -6,6 +6,7 @@ import { Card } from "@harness/harness-ui/card"
 import { useVSCode } from "../../context/vscode"
 import { useLanguage } from "../../context/language"
 import type { ExtensionMessage } from "../../types/messages"
+import Advanced from "./Advanced"
 import SettingsRow from "./SettingsRow"
 
 interface SoundOption {
@@ -69,124 +70,131 @@ const NotificationsTab: Component = () => {
   vscode.postMessage({ type: "requestNotificationSettings" })
 
   return (
-    <Card>
-      <SettingsRow
-        title={language.t("settings.notifications.enable.title")}
-        description={language.t("settings.notifications.enable.description")}
-      >
-        <Switch
-          checked={enabled()}
-          onChange={(checked) => {
-            setEnabled(checked)
-            vscode.postMessage({ type: "updateSetting", key: "attention.enabled", value: checked })
-          }}
-          hideLabel
-        >
-          {language.t("settings.notifications.enable.title")}
-        </Switch>
-      </SettingsRow>
-      <Show when={enabled()}>
+    <>
+      <Card>
         <SettingsRow
-          title={language.t("settings.notifications.sounds")}
-          description={language.t("settings.notifications.sound.description")}
+          last
+          title={language.t("settings.notifications.enable.title")}
+          description={language.t("settings.notifications.enable.description")}
         >
-          <div style={{ display: "flex", gap: "8px", "align-items": "center", "flex-wrap": "wrap" }}>
-            <Select
-              options={SOUND_OPTIONS}
-              current={SOUND_OPTIONS.find((option) => option.value === sound())}
-              value={(option) => option.value}
-              label={(option) => language.t(option.labelKey)}
-              onSelect={(option) => {
-                if (!option) return
-                setSound(option.value)
-                vscode.postMessage({ type: "updateSetting", key: "attention.sound", value: option.value })
-              }}
-              variant="secondary"
-              size="small"
-              triggerVariant="settings"
-            />
-            <Button
-              variant="ghost"
-              size="small"
-              onClick={() => vscode.postMessage({ type: "testNotification", sound: sound() })}
-            >
-              {language.t("settings.notifications.testSound")}
-            </Button>
-          </div>
+          <Switch
+            checked={enabled()}
+            onChange={(checked) => {
+              setEnabled(checked)
+              vscode.postMessage({ type: "updateSetting", key: "attention.enabled", value: checked })
+            }}
+            hideLabel
+          >
+            {language.t("settings.notifications.enable.title")}
+          </Switch>
         </SettingsRow>
-      </Show>
-      <Show when={available()}>
-        <SettingsRow
-          title={language.t("settings.notifications.os.title")}
-          description={language.t("settings.notifications.os.description")}
-        >
-          <div style={{ display: "flex", "flex-direction": "column", gap: "8px", "align-items": "flex-end" }}>
+      </Card>
+      <Advanced>
+        <Card>
+          <Show when={enabled()}>
+            <SettingsRow
+              title={language.t("settings.notifications.sounds")}
+              description={language.t("settings.notifications.sound.description")}
+            >
+              <div style={{ display: "flex", gap: "8px", "align-items": "center", "flex-wrap": "wrap" }}>
+                <Select
+                  options={SOUND_OPTIONS}
+                  current={SOUND_OPTIONS.find((option) => option.value === sound())}
+                  value={(option) => option.value}
+                  label={(option) => language.t(option.labelKey)}
+                  onSelect={(option) => {
+                    if (!option) return
+                    setSound(option.value)
+                    vscode.postMessage({ type: "updateSetting", key: "attention.sound", value: option.value })
+                  }}
+                  variant="secondary"
+                  size="small"
+                  triggerVariant="settings"
+                />
+                <Button
+                  variant="ghost"
+                  size="small"
+                  onClick={() => vscode.postMessage({ type: "testNotification", sound: sound() })}
+                >
+                  {language.t("settings.notifications.testSound")}
+                </Button>
+              </div>
+            </SettingsRow>
+          </Show>
+          <Show when={available()}>
+            <SettingsRow
+              title={language.t("settings.notifications.os.title")}
+              description={language.t("settings.notifications.os.description")}
+            >
+              <div style={{ display: "flex", "flex-direction": "column", gap: "8px", "align-items": "flex-end" }}>
+                <Switch
+                  checked={os()}
+                  onChange={(checked) => {
+                    setOs(checked)
+                    if (!checked) {
+                      setTestState("idle")
+                      setTestError(undefined)
+                    }
+                    vscode.postMessage({ type: "updateSetting", key: "attention.OSNotifications", value: checked })
+                  }}
+                  hideLabel
+                >
+                  {language.t("settings.notifications.os.title")}
+                </Switch>
+                <Show when={os()}>
+                  <Button
+                    variant="ghost"
+                    size="small"
+                    onClick={() => {
+                      setTestState("testing")
+                      setTestError(undefined)
+                      vscode.postMessage({ type: "testOSNotification" })
+                    }}
+                  >
+                    {language.t("settings.notifications.testOS")}
+                  </Button>
+                  <Show when={testState() !== "idle"}>
+                    <div
+                      style={{
+                        "font-size": "var(--harness-font-size-12)",
+                        color:
+                          testState() === "error"
+                            ? "var(--vscode-errorForeground)"
+                            : testState() === "success"
+                              ? "var(--vscode-testing-iconPassed, #89d185)"
+                              : undefined,
+                      }}
+                    >
+                      {testState() === "testing"
+                        ? language.t("settings.notifications.testOS.testing")
+                        : testState() === "success"
+                          ? language.t("settings.notifications.testOS.success")
+                          : `${language.t("settings.notifications.testOS.error")}${testError() ? `: ${testError()}` : ""}`}
+                    </div>
+                  </Show>
+                </Show>
+              </div>
+            </SettingsRow>
+          </Show>
+          <SettingsRow
+            title={language.t("settings.notifications.workbench.title")}
+            description={language.t("settings.notifications.workbench.description")}
+            last
+          >
             <Switch
-              checked={os()}
+              checked={notifications()}
               onChange={(checked) => {
-                setOs(checked)
-                if (!checked) {
-                  setTestState("idle")
-                  setTestError(undefined)
-                }
-                vscode.postMessage({ type: "updateSetting", key: "attention.OSNotifications", value: checked })
+                setNotifications(checked)
+                vscode.postMessage({ type: "updateSetting", key: "attention.notifications", value: checked })
               }}
               hideLabel
             >
-              {language.t("settings.notifications.os.title")}
+              {language.t("settings.notifications.workbench.title")}
             </Switch>
-            <Show when={os()}>
-              <Button
-                variant="ghost"
-                size="small"
-                onClick={() => {
-                  setTestState("testing")
-                  setTestError(undefined)
-                  vscode.postMessage({ type: "testOSNotification" })
-                }}
-              >
-                {language.t("settings.notifications.testOS")}
-              </Button>
-              <Show when={testState() !== "idle"}>
-                <div
-                  style={{
-                    "font-size": "var(--harness-font-size-12)",
-                    color:
-                      testState() === "error"
-                        ? "var(--vscode-errorForeground)"
-                        : testState() === "success"
-                          ? "var(--vscode-testing-iconPassed, #89d185)"
-                          : undefined,
-                  }}
-                >
-                  {testState() === "testing"
-                    ? language.t("settings.notifications.testOS.testing")
-                    : testState() === "success"
-                      ? language.t("settings.notifications.testOS.success")
-                      : `${language.t("settings.notifications.testOS.error")}${testError() ? `: ${testError()}` : ""}`}
-                </div>
-              </Show>
-            </Show>
-          </div>
-        </SettingsRow>
-      </Show>
-      <SettingsRow
-        title={language.t("settings.notifications.workbench.title")}
-        description={language.t("settings.notifications.workbench.description")}
-        last
-      >
-        <Switch
-          checked={notifications()}
-          onChange={(checked) => {
-            setNotifications(checked)
-            vscode.postMessage({ type: "updateSetting", key: "attention.notifications", value: checked })
-          }}
-          hideLabel
-        >
-          {language.t("settings.notifications.workbench.title")}
-        </Switch>
-      </SettingsRow>
-    </Card>
+          </SettingsRow>
+        </Card>
+      </Advanced>
+    </>
   )
 }
 

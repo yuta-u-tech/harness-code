@@ -501,6 +501,7 @@ export const dict = {
   "settings.config.source.projectHarness": "Project .harness-configuratie",
   "settings.config.source.projectRoot": "Project root configuratie",
   "settings.config.source.projectOpencode": "Verouderde .opencode-configuratie",
+  "settings.advanced": "Geavanceerd",
   "settings.models.title": "Modellen",
 
   "settings.permissions.toast.updateFailed.title": "Updaten van toestemmingen is mislukt",
@@ -620,8 +621,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "Agenten",
   "settings.agentBehaviour.subtab.mcpServers": "MCP Servers",
-  "settings.agentBehaviour.subtab.rules": "Regels",
-  "settings.agentBehaviour.subtab.workflows": "Workflows",
   "settings.agentBehaviour.subtab.skills": "Skills",
 
   "settings.language.description": 'Kies de taal voor de Harness Code UI. "Auto" gebruikt je VS Code schermtaal.',
@@ -707,9 +706,6 @@ export const dict = {
   "settings.agentBehaviour.removeMcp.confirm":
     'MCP-server "{{name}}" verwijderen? Dit zal deze uit je configuratie verwijderen.',
   "settings.agentBehaviour.removeMcp.button": "Verwijderen",
-  "settings.agentBehaviour.mcpDetail.command": "Opdracht",
-  "settings.agentBehaviour.mcpDetail.args": "Argumenten",
-  "settings.agentBehaviour.mcpDetail.env": "Omgeving",
   "settings.agentBehaviour.editMcp": "MCP-server bewerken",
   "settings.agentBehaviour.editMcp.transportLocal": "Lokale server (stdio-transport)",
   "settings.agentBehaviour.editMcp.transportRemote": "Externe server (SSE/HTTP-transport)",
@@ -725,15 +721,6 @@ export const dict = {
   "settings.agentBehaviour.addMcp.url.placeholder": "e.g. http://localhost:3000/sse",
   "settings.agentBehaviour.mcpEmpty":
     "Geen MCP-servers geconfigureerd. Voeg MCP-servers toe in harness.jsonc of vraag de agent om ze toe te voegen.",
-  "settings.agentBehaviour.workflows.description":
-    "Workflows zijn aangepaste slash-commando's gedefinieerd in je configuratie. Typ /command-name in de chat om ze aan te roepen. Commando's worden geconfigureerd in opencode.json onder de sectie 'command'.",
-  "settings.agentBehaviour.workflows.empty":
-    "Geen aangepaste commando's geconfigureerd. Voeg commando's toe aan opencode.json om ze hier te zien.",
-  "settings.agentBehaviour.workflows.detail.description": "Beschrijving",
-  "settings.agentBehaviour.workflows.detail.template": "Sjabloon",
-  "settings.agentBehaviour.workflows.model": "model",
-  "settings.agentBehaviour.workflows.variant": "variant",
-  "settings.agentBehaviour.workflows.modelDescription": "Globale modeloverride",
 
   "settings.autoApprove.description":
     "Definieer hoe tools mogen worden uitgevoerd. De meeste tools staan standaard op Toestaan. doom_loop en external_directory staan standaard op Vragen.",
@@ -775,11 +762,6 @@ export const dict = {
   "settings.autoApprove.tool.doom_loop":
     "Voorkom herhaalde identieke acties. Geactiveerd wanneer dezelfde tool call herhaald wordt met identieke invoer.",
 
-  "settings.context.compactionModel.title": "Compactiemodel",
-  "settings.context.compactionModel.description":
-    "Model dat wordt gebruikt voor automatische en handmatige compactie. Laat dit leeg om het chatmodel te gebruiken. Kosten, snelheid en de kwaliteit van de samenvatting hangen af van het model.",
-  "settings.context.compactionModel.useChatModel": "Chatmodel gebruiken",
-
   "chat.memory.project.disabled": "Projectgeheugen uitgeschakeld",
   "chat.memory.command.failed": "Geheugenopdracht mislukt",
   "chat.memory.updated": "Memory updated",
@@ -797,8 +779,6 @@ export const dict = {
   "settings.display.preview.result": "trim() verwijdert spaties aan beide uiteinden van een tekenreeks.",
   "settings.display.preview.answer":
     "De begroeting is bijgewerkt om overtollige spaties te verwijderen. Beide tests slagen.",
-  "settings.display.username.title": "Gebruikersnaam",
-  "settings.display.username.description": "Aangepaste gebruikersnaam weergegeven in gesprekken",
   "settings.display.fontSize.title": "Lettergrootte",
   "settings.display.fontSize.description":
     "Pas de lettergrootte van de Harness webview UI onafhankelijk van VS Code aan.",
@@ -834,15 +814,9 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "Standaard Model",
   "settings.providers.defaultModel.description": "Primair model voor gesprekken",
-  "settings.providers.smallModel.title": "Klein Model",
-  "settings.providers.smallModel.description":
-    "Lichtgewicht model voor het genereren van titels, commit-berichten, promptverbetering en andere snelle taken",
   "settings.providers.subagentModel.title": "Subagentmodel",
   "settings.providers.subagentModel.description":
     "Standaardmodel en redeneerinspanning voor task-tool subagenten. Laat leeg om het model van de aanroepende agent over te nemen.",
-  "settings.providers.modeModels": "Model per Modus",
-  "settings.providers.modeModels.description":
-    "Overschrijf het standaard model voor specifieke modi. Indien niet ingesteld, wordt het globale standaard model gebruikt.",
   "settings.providers.disabled": "Uitgeschakelde Providers",
   "settings.providers.disabled.description": "Providers om te verbergen in de providerlijst",
   "settings.providers.disabled.enable": "Inschakelen",

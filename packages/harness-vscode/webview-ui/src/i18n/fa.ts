@@ -465,6 +465,7 @@ export const dict = {
   "settings.config.source.projectHarness": "پیکربندی .harness پروژه",
   "settings.config.source.projectRoot": "پیکربندی ریشه پروژه",
   "settings.config.source.projectOpencode": "پیکربندی قدیمی .opencode",
+  "settings.advanced": "پیشرفته",
   "settings.models.title": "مدل‌ها",
 
   "settings.permissions.toast.updateFailed.title": "به‌روزرسانی مجوزها ناموفق بود",
@@ -610,8 +611,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "عوامل",
   "settings.agentBehaviour.subtab.mcpServers": "MCP Servers",
-  "settings.agentBehaviour.subtab.rules": "قوانین",
-  "settings.agentBehaviour.subtab.workflows": "گردش‌های کاری",
   "settings.agentBehaviour.subtab.skills": "مهارت‌ها",
 
   "settings.language.description":
@@ -688,9 +687,6 @@ export const dict = {
   "settings.agentBehaviour.removeMcp.title": "حذف سرور MCP",
   "settings.agentBehaviour.removeMcp.confirm": "سرور MCP «{{name}}» حذف شود؟ این کار آن را از پیکربندی شما حذف می‌کند.",
   "settings.agentBehaviour.removeMcp.button": "حذف",
-  "settings.agentBehaviour.mcpDetail.command": "دستور",
-  "settings.agentBehaviour.mcpDetail.args": "آرگومان‌ها",
-  "settings.agentBehaviour.mcpDetail.env": "محیط",
   "settings.agentBehaviour.editMcp": "ویرایش سرور MCP",
   "settings.agentBehaviour.editMcp.transportLocal": "سرور محلی (انتقال stdio)",
   "settings.agentBehaviour.editMcp.transportRemote": "سرور راه‌دور (انتقال SSE/HTTP)",
@@ -705,15 +701,6 @@ export const dict = {
   "settings.agentBehaviour.addMcp.url.placeholder": "مثلاً http://localhost:3000/sse",
   "settings.agentBehaviour.mcpEmpty":
     "هیچ سرور MCP پیکربندی نشده است. سرورهای MCP را در harness.jsonc اضافه کنید، یا از agent بخواهید آن‌ها را برایتان اضافه کند.",
-  "settings.agentBehaviour.workflows.description":
-    "Workflow‌ها دستورات slash سفارشی هستند که در پیکربندی شما تعریف شده‌اند. برای فراخوانی آن‌ها /command-name را در چت تایپ کنید. دستورات در opencode.json زیر بخش 'command' پیکربندی می‌شوند.",
-  "settings.agentBehaviour.workflows.empty":
-    "هیچ دستور سفارشی پیکربندی نشده است. دستورات را به opencode.json خود اضافه کنید تا اینجا نمایش داده شوند.",
-  "settings.agentBehaviour.workflows.detail.description": "توضیحات",
-  "settings.agentBehaviour.workflows.detail.template": "قالب",
-  "settings.agentBehaviour.workflows.model": "مدل",
-  "settings.agentBehaviour.workflows.variant": "گونه",
-  "settings.agentBehaviour.workflows.modelDescription": "بازنویسی مدل سراسری",
 
   "settings.agentBehaviour.createMode": "ایجاد حالت جدید",
   "settings.agentBehaviour.createMode.name": "نام",
@@ -796,10 +783,6 @@ export const dict = {
   "settings.autoApprove.tool.doom_loop":
     "جلوگیری از اقدامات تکراری یکسان. زمانی فعال می‌شود که همان فراخوانی ابزار با ورودی یکسان تکرار شود.",
 
-  "settings.context.compactionModel.title": "مدل فشرده‌سازی",
-  "settings.context.compactionModel.description":
-    "مدل مورد استفاده برای فشرده‌سازی خودکار و دستی. برای استفاده از مدل چت، خالی بگذارید. هزینه، سرعت و کیفیت خلاصه به مدل بستگی دارند.",
-  "settings.context.compactionModel.useChatModel": "استفاده از مدل چت",
   "chat.memory.project.disabled": "حافظه پروژه غیرفعال است",
   "chat.memory.command.failed": "دستور حافظه ناموفق بود",
   "chat.memory.updated": "حافظه به‌روزرسانی شد",
@@ -816,8 +799,6 @@ export const dict = {
   "settings.display.preview.query": "بریدن رشته",
   "settings.display.preview.result": "trim() فاصله‌ها را از دو طرف رشته حذف می‌کند.",
   "settings.display.preview.answer": "درود به‌روزرسانی شد تا فاصله‌های اضافی حذف شود. هر دو تست قبول می‌شوند.",
-  "settings.display.username.title": "نام کاربری",
-  "settings.display.username.description": "نام کاربری سفارشی که در مکالمات نمایش داده می‌شود",
   "settings.display.fontSize.title": "اندازه قلم",
   "settings.display.fontSize.description": "اندازه قلم رابط کاربری وب‌ویو Harness را مستقل از VS Code تنظیم کنید.",
   "settings.display.reasoningDisplay.title": "بلوک‌های استدلال",
@@ -850,15 +831,9 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "مدل پیش‌فرض",
   "settings.providers.defaultModel.description": "مدل اصلی برای مکالمات",
-  "settings.providers.smallModel.title": "مدل سبک",
-  "settings.providers.smallModel.description":
-    "مدل سبک‌وزن برای تولید عنوان، تولید پیام کامیت، بهبود پرامپت و سایر وظایف سریع",
   "settings.providers.subagentModel.title": "مدل زیرعامل",
   "settings.providers.subagentModel.description":
     "مدل پیش‌فرض و میزان استدلال برای زیرعامل‌های ابزار-وظیفه. برای به ارث بردن مدل عامل فراخواننده، خالی بگذارید.",
-  "settings.providers.modeModels": "مدل به ازای حالت",
-  "settings.providers.modeModels.description":
-    "مدل پیش‌فرض را برای حالت‌های خاص بازنویسی کنید. در صورت عدم تنظیم، از مدل پیش‌فرض سراسری استفاده می‌شود.",
   "settings.providers.disabled": "ارائه‌دهندگان غیرفعال",
   "settings.providers.disabled.description": "ارائه‌دهندگانی که از فهرست پنهان می‌شوند",
   "settings.providers.disabled.enable": "فعال‌سازی",

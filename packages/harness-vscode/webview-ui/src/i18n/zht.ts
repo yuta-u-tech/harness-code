@@ -405,8 +405,6 @@ export const dict = {
   "settings.providers.custom.description": "透過基礎 URL 新增自訂提供商。",
   "settings.providers.subagentModel.title": "子代理模型",
   "settings.providers.subagentModel.description": "task-tool 子代理的預設模型和推理工作量。留空以繼承呼叫代理的模型。",
-  "settings.providers.modeModels": "按模式選擇模型",
-  "settings.providers.modeModels.description": "為特定模式覆寫預設模型。如果未設定，將使用全域預設模型。",
   "provider.custom.title": "自訂提供商",
   "provider.custom.description.prefix": "設定自訂提供商。請參閱",
   "provider.custom.description.link": "提供商設定文件",
@@ -482,6 +480,7 @@ export const dict = {
   "settings.config.source.projectHarness": "專案 .harness 設定",
   "settings.config.source.projectRoot": "專案根目錄設定",
   "settings.config.source.projectOpencode": "舊版 .opencode 設定",
+  "settings.advanced": "進階",
   "settings.models.title": "模型",
 
   "settings.permissions.toast.updateFailed.title": "更新權限失敗",
@@ -597,8 +596,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "代理程式",
   "settings.agentBehaviour.subtab.mcpServers": "MCP 伺服器",
-  "settings.agentBehaviour.subtab.rules": "規則",
-  "settings.agentBehaviour.subtab.workflows": "工作流程",
   "settings.agentBehaviour.subtab.skills": "Skills",
 
   "settings.language.description": "選擇 Harness Code 介面的語言。「自動」使用 VS Code 的顯示語言。",
@@ -721,18 +718,7 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "推送提取請求修正",
   "settings.agentBehaviour.pushFixes.description":
     "當你將提取請求的 CI 失敗或審查留言傳送給代理程式，或從基礎分支更新 worktree 時，要求代理程式提交並推送，以更新提取請求。權限確認仍然適用。關閉後可手動提交。",
-  "settings.agentBehaviour.mcpDetail.command": "指令",
-  "settings.agentBehaviour.mcpDetail.args": "引數",
-  "settings.agentBehaviour.mcpDetail.env": "環境",
   "settings.agentBehaviour.mcpEmpty": "未設定 MCP 伺服器。在 harness.jsonc 中新增 MCP 伺服器，或請代理為您新增。",
-  "settings.agentBehaviour.workflows.description":
-    "工作流程是在設定中定義的自訂斜線命令。在聊天中輸入 /command-name 來呼叫它們。命令在 opencode.json 的 'command' 區段中設定。",
-  "settings.agentBehaviour.workflows.empty": "未設定自訂命令。將命令新增至 opencode.json 即可在此處看到。",
-  "settings.agentBehaviour.workflows.detail.description": "描述",
-  "settings.agentBehaviour.workflows.detail.template": "範本",
-  "settings.agentBehaviour.workflows.model": "模型",
-  "settings.agentBehaviour.workflows.variant": "變體",
-  "settings.agentBehaviour.workflows.modelDescription": "全域模型覆寫",
 
   "settings.autoApprove.description":
     "定義工具的執行權限。大多數工具預設為允許。doom_loop 與 external_directory 預設為詢問。",
@@ -763,10 +749,6 @@ export const dict = {
   "settings.autoApprove.tool.websearch": "搜尋網頁。允許執行外部網路搜尋。",
   "settings.autoApprove.tool.external_directory": "存取工作區外部的檔案。存取目前專案目錄之外的檔案時觸發。",
   "settings.autoApprove.tool.doom_loop": "防止重複相同操作。當相同的工具呼叫以相同的輸入重複時觸發。",
-  "settings.context.compactionModel.title": "壓縮模型",
-  "settings.context.compactionModel.description":
-    "用於自動和手動壓縮的模型。留空以使用聊天模型。成本、速度和摘要品質取決於模型。",
-  "settings.context.compactionModel.useChatModel": "使用聊天模型",
 
   "chat.memory.project.disabled": "專案記憶已停用",
   "chat.memory.command.failed": "記憶命令失敗",
@@ -784,8 +766,6 @@ export const dict = {
   "settings.display.preview.query": "字串 trim",
   "settings.display.preview.result": "trim() 會移除字串兩端的空格。",
   "settings.display.preview.answer": "已更新問候語以移除多餘空格。兩項測試均通過。",
-  "settings.display.username.title": "使用者名稱",
-  "settings.display.username.description": "對話中顯示的自訂使用者名稱",
   "settings.display.fontSize.title": "字體大小",
   "settings.display.fontSize.description": "獨立於 VS Code 調整 Harness webview UI 的字體大小。",
   "settings.display.reasoningDisplay.title": "推理區塊",
@@ -816,8 +796,6 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "預設模型",
   "settings.providers.defaultModel.description": "對話的主要模型",
-  "settings.providers.smallModel.title": "小模型",
-  "settings.providers.smallModel.description": "用於標題產生、提交訊息產生、提示增強和其他快速任務的輕量模型",
   "settings.providers.disabled": "已停用的供應商",
   "settings.providers.disabled.description": "從供應商清單中隱藏的供應商",
   "settings.providers.disabled.enable": "啟用",

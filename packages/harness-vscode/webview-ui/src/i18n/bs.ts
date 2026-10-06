@@ -425,9 +425,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Model podagenta",
   "settings.providers.subagentModel.description":
     "Zadani model i napor zaključivanja za podagente task-tool-a. Ostavite nepodešeno da naslijedi model pozivnog agenta.",
-  "settings.providers.modeModels": "Model po režimu",
-  "settings.providers.modeModels.description":
-    "Zamijenite podrazumijevani model za određene režime. Ako nije postavljeno, koristi se globalni podrazumijevani model.",
   "provider.custom.title": "Prilagođeni provajder",
   "provider.custom.description.prefix": "Konfiguriši prilagođeni provajder. Pogledaj ",
   "provider.custom.description.link": "dokumentaciju za konfiguraciju provajdera",
@@ -507,6 +504,7 @@ export const dict = {
   "settings.config.source.projectHarness": "Projektna .harness konfiguracija",
   "settings.config.source.projectRoot": "Konfiguracija korijena projekta",
   "settings.config.source.projectOpencode": "Zastarjela .opencode konfiguracija",
+  "settings.advanced": "Napredno",
   "settings.models.title": "Modeli",
 
   "settings.permissions.toast.updateFailed.title": "Neuspjelo ažuriranje dozvola",
@@ -626,8 +624,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "Agenti",
   "settings.agentBehaviour.subtab.mcpServers": "MCP serveri",
-  "settings.agentBehaviour.subtab.rules": "Pravila",
-  "settings.agentBehaviour.subtab.workflows": "Tokovi rada",
   "settings.agentBehaviour.subtab.skills": "Vještine",
 
   "settings.language.description": 'Odaberite jezik za Harness Code sučelje. "Auto" koristi jezik prikaza VS Code-a.',
@@ -759,20 +755,8 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Pošalji ispravke pull requesta",
   "settings.agentBehaviour.pushFixes.description":
     "Kada agentu pošalješ CI greške ili komentare pregleda iz pull requesta, ili ažuriraš radno stablo iz osnovne grane, zatraži da napravi commit i push kako bi se pull request ažurirao. Upiti za dozvole i dalje važe. Isključi da bi commite radio ručno.",
-  "settings.agentBehaviour.mcpDetail.command": "Naredba",
-  "settings.agentBehaviour.mcpDetail.args": "Argumenti",
-  "settings.agentBehaviour.mcpDetail.env": "Okruženje",
   "settings.agentBehaviour.mcpEmpty":
     "Nema konfiguriranih MCP servera. Dodajte MCP servere u harness.jsonc ili zamolite agenta da ih doda.",
-  "settings.agentBehaviour.workflows.description":
-    "Tokovi rada su prilagođene slash komande definirane u vašoj konfiguraciji. Upišite /command-name u chat da ih pokrenete. Komande se konfiguriraju u opencode.json pod sekcijom 'command'.",
-  "settings.agentBehaviour.workflows.empty":
-    "Nema konfiguriranih prilagođenih komandi. Dodajte komande u opencode.json da ih vidite ovdje.",
-  "settings.agentBehaviour.workflows.detail.description": "Opis",
-  "settings.agentBehaviour.workflows.detail.template": "Predložak",
-  "settings.agentBehaviour.workflows.model": "model",
-  "settings.agentBehaviour.workflows.variant": "varijanta",
-  "settings.agentBehaviour.workflows.modelDescription": "Globalno premošćivanje modela",
 
   "settings.autoApprove.description":
     "Definišite kako je dozvoljeno pokretanje alata. Većina alata je podrazumijevano na Dozvoli. doom_loop i external_directory su podrazumijevano na Pitaj.",
@@ -815,10 +799,6 @@ export const dict = {
     "Pristup datotekama izvan radnog prostora. Pokreće se prilikom pristupa datotekama izvan trenutnog direktorija projekta.",
   "settings.autoApprove.tool.doom_loop":
     "Sprečavanje ponavljanja identičnih radnji. Pokreće se kada se isti poziv alata ponovi sa identičnim unosom.",
-  "settings.context.compactionModel.title": "Model za kompresiju",
-  "settings.context.compactionModel.description":
-    "Model koji se koristi za automatsku i ručnu kompresiju. Ostavite nepostavljeno da biste koristili model za chat. Trošak, brzina i kvalitet sažetka zavise od modela.",
-  "settings.context.compactionModel.useChatModel": "Koristi model za chat",
 
   "chat.memory.project.disabled": "Memorija projekta onemogućena",
   "chat.memory.command.failed": "Komanda memorije nije uspjela",
@@ -836,8 +816,6 @@ export const dict = {
   "settings.display.preview.query": "Podrezivanje stringova",
   "settings.display.preview.result": "trim() uklanja razmake sa oba kraja stringa.",
   "settings.display.preview.answer": "Pozdrav je ažuriran da uklanja dodatne razmake. Oba testa prolaze.",
-  "settings.display.username.title": "Korisničko ime",
-  "settings.display.username.description": "Prilagođeno korisničko ime u razgovorima",
   "settings.display.fontSize.title": "Veličina fonta",
   "settings.display.fontSize.description": "Prilagodite veličinu fonta za Harness webview UI nezavisno od VS Code-a.",
   "settings.display.reasoningDisplay.title": "Blokovi razmišljanja",
@@ -872,9 +850,6 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "Zadani model",
   "settings.providers.defaultModel.description": "Primarni model za razgovore",
-  "settings.providers.smallModel.title": "Mali model",
-  "settings.providers.smallModel.description":
-    "Lagani model za generiranje naslova, commit poruka, poboljšanje promptova i druge brze zadatke",
   "settings.providers.disabled": "Onemogućeni pružatelji",
   "settings.providers.disabled.description": "Pružatelji za skrivanje s popisa",
   "settings.providers.disabled.enable": "Omogući",

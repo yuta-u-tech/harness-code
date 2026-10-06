@@ -421,9 +421,6 @@ export const dict = {
   "settings.providers.subagentModel.title": "Модель субагента",
   "settings.providers.subagentModel.description":
     "Модель по умолчанию и уровень рассуждения для субагентов task-tool. Оставьте пустым, чтобы унаследовать модель вызывающего агента.",
-  "settings.providers.modeModels": "Модель для режима",
-  "settings.providers.modeModels.description":
-    "Переопределите модель по умолчанию для определённых режимов. Если не задано, используется глобальная модель по умолчанию.",
   "provider.custom.title": "Пользовательский провайдер",
   "provider.custom.description.prefix": "Настройте пользовательский провайдер. См. ",
   "provider.custom.description.link": "документацию по настройке провайдера",
@@ -502,6 +499,7 @@ export const dict = {
   "settings.config.source.projectHarness": "Конфигурация .harness проекта",
   "settings.config.source.projectRoot": "Корневая конфигурация проекта",
   "settings.config.source.projectOpencode": "Устаревшая конфигурация .opencode",
+  "settings.advanced": "Дополнительно",
   "settings.models.title": "Модели",
 
   "settings.permissions.toast.updateFailed.title": "Не удалось обновить разрешения",
@@ -621,8 +619,6 @@ export const dict = {
 
   "settings.agentBehaviour.subtab.agents": "Агенты",
   "settings.agentBehaviour.subtab.mcpServers": "MCP-серверы",
-  "settings.agentBehaviour.subtab.rules": "Правила",
-  "settings.agentBehaviour.subtab.workflows": "Рабочие процессы",
   "settings.agentBehaviour.subtab.skills": "Навыки",
 
   "settings.language.description": "Выберите язык интерфейса Harness Code. «Авто» использует язык отображения VS Code.",
@@ -754,20 +750,8 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Отправлять исправления пул-реквеста",
   "settings.agentBehaviour.pushFixes.description":
     "Когда вы отправляете агенту ошибки CI или комментарии ревью из пул-реквеста либо обновляете worktree из базовой ветки, попросить его сделать коммит и push, чтобы пул-реквест обновился. Запросы разрешений по-прежнему действуют. Отключите, чтобы делать коммиты вручную.",
-  "settings.agentBehaviour.mcpDetail.command": "Команда",
-  "settings.agentBehaviour.mcpDetail.args": "Аргументы",
-  "settings.agentBehaviour.mcpDetail.env": "Окружение",
   "settings.agentBehaviour.mcpEmpty":
     "MCP-серверы не настроены. Добавьте MCP-серверы в harness.jsonc или попросите агента добавить их.",
-  "settings.agentBehaviour.workflows.description":
-    "Рабочие процессы — это пользовательские слэш-команды, определённые в вашей конфигурации. Введите /command-name в чате, чтобы вызвать их. Команды настраиваются в opencode.json в разделе 'command'.",
-  "settings.agentBehaviour.workflows.empty":
-    "Пользовательские команды не настроены. Добавьте команды в opencode.json, чтобы увидеть их здесь.",
-  "settings.agentBehaviour.workflows.detail.description": "Описание",
-  "settings.agentBehaviour.workflows.detail.template": "Шаблон",
-  "settings.agentBehaviour.workflows.model": "модель",
-  "settings.agentBehaviour.workflows.variant": "вариант",
-  "settings.agentBehaviour.workflows.modelDescription": "Глобальное переопределение модели",
 
   "settings.autoApprove.description":
     "Определите правила запуска инструментов. Большинство инструментов по умолчанию Разрешены. Для doom_loop и external_directory по умолчанию установлено Спрашивать.",
@@ -809,10 +793,6 @@ export const dict = {
     "Доступ к файлам вне рабочей области. Срабатывает при доступе к файлам за пределами текущего каталога проекта.",
   "settings.autoApprove.tool.doom_loop":
     "Предотвращение повторных идентичных действий. Срабатывает, когда один и тот же вызов инструмента повторяется с идентичными входными данными.",
-  "settings.context.compactionModel.title": "Модель сжатия",
-  "settings.context.compactionModel.description":
-    "Модель, используемая для автоматического и ручного сжатия. Оставьте поле пустым, чтобы использовать модель чата. Стоимость, скорость и качество сводки зависят от модели.",
-  "settings.context.compactionModel.useChatModel": "Использовать модель чата",
 
   "chat.memory.project.disabled": "Память проекта отключена",
   "chat.memory.command.failed": "Команда памяти не выполнена",
@@ -830,8 +810,6 @@ export const dict = {
   "settings.display.preview.query": "Обрезка строк",
   "settings.display.preview.result": "trim() удаляет пробелы с обоих концов строки.",
   "settings.display.preview.answer": "Приветствие обновлено для удаления лишних пробелов. Оба теста проходят.",
-  "settings.display.username.title": "Имя пользователя",
-  "settings.display.username.description": "Пользовательское имя в разговорах",
   "settings.display.fontSize.title": "Размер шрифта",
   "settings.display.fontSize.description": "Настройте размер шрифта webview UI для Harness независимо от VS Code.",
   "settings.display.reasoningDisplay.title": "Блоки рассуждений",
@@ -866,9 +844,6 @@ export const dict = {
 
   "settings.providers.defaultModel.title": "Модель по умолчанию",
   "settings.providers.defaultModel.description": "Основная модель для разговоров",
-  "settings.providers.smallModel.title": "Малая модель",
-  "settings.providers.smallModel.description":
-    "Лёгкая модель для генерации заголовков, сообщений коммитов, улучшения промптов и других быстрых задач",
   "settings.providers.disabled": "Отключённые провайдеры",
   "settings.providers.disabled.description": "Провайдеры для скрытия из списка",
   "settings.providers.disabled.enable": "Включить",
