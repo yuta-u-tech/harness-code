@@ -403,7 +403,6 @@ export const dict = {
   "sound.option.yup05": "Yup 05",
   "sound.option.yup06": "Yup 06",
 
-  "settings.providers.title": "Провайдеры",
   "settings.providers.section.connected": "Подключённые провайдеры",
   "settings.providers.connected.empty": "Нет подключённых провайдеров",
   "settings.providers.section.popular": "Популярные провайдеры",
@@ -418,9 +417,6 @@ export const dict = {
   "settings.providers.action.signInChatGPT": "Войти через ChatGPT",
   "settings.providers.action.changeApiKey": "Изменить API-ключ",
   "settings.providers.custom.description": "Добавьте пользовательский провайдер по базовому URL.",
-  "settings.providers.subagentModel.title": "Модель субагента",
-  "settings.providers.subagentModel.description":
-    "Модель по умолчанию и уровень рассуждения для субагентов task-tool. Оставьте пустым, чтобы унаследовать модель вызывающего агента.",
   "provider.custom.title": "Пользовательский провайдер",
   "provider.custom.description.prefix": "Настройте пользовательский провайдер. См. ",
   "provider.custom.description.link": "документацию по настройке провайдера",
@@ -499,8 +495,8 @@ export const dict = {
   "settings.config.source.projectHarness": "Конфигурация .harness проекта",
   "settings.config.source.projectRoot": "Корневая конфигурация проекта",
   "settings.config.source.projectOpencode": "Устаревшая конфигурация .opencode",
+  "settings.other.title": "Прочее",
   "settings.advanced": "Дополнительно",
-  "settings.models.title": "Модели",
 
   "settings.permissions.toast.updateFailed.title": "Не удалось обновить разрешения",
 
@@ -552,7 +548,6 @@ export const dict = {
   "settings.agentBehaviour.title": "Поведение агента",
   "settings.autoApprove.title": "Автоодобрение",
   "settings.checkpoints.title": "Контрольные точки",
-  "settings.display.title": "Отображение",
   "settings.notifications.title": "Уведомления",
 
   "settings.language.title": "Язык",
@@ -842,8 +837,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "Модель по умолчанию",
-  "settings.providers.defaultModel.description": "Основная модель для разговоров",
   "settings.providers.disabled": "Отключённые провайдеры",
   "settings.providers.disabled.description": "Провайдеры для скрытия из списка",
   "settings.providers.disabled.enable": "Включить",
@@ -976,8 +969,6 @@ export const dict = {
   "chat.search.noResults": "Нет результатов",
   "chat.search.searchingHistory": "Поиск в более ранних сообщениях…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",

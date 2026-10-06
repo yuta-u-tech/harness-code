@@ -9,7 +9,6 @@ import { StoryProviders, mockSessionValue, t } from "./StoryProviders"
 import { SessionContext } from "../context/session"
 import Settings from "../components/settings/Settings"
 import ProvidersTab from "../components/settings/ProvidersTab"
-import ModelsTab from "../components/settings/ModelsTab"
 import DisplayTab from "../components/settings/DisplayTab"
 import AgentBehaviourTab from "../components/settings/AgentBehaviourTab"
 import AutoApproveTab from "../components/settings/AutoApproveTab"
@@ -144,42 +143,6 @@ export const ProvidersDisabledExpanded: Story = {
       <OpenDisabledProviders />
     </StoryProviders>
   ),
-}
-
-export const ModelsAutocompleteOpen: Story = {
-  name: "ModelsTab — autocomplete model picker open",
-  render: () => (
-    <StoryProviders config={{} as any}>
-      <OpenModelPicker>
-        <ModelsTab />
-      </OpenModelPicker>
-    </StoryProviders>
-  ),
-}
-
-export const ModelsAccessibleLabels: Story = {
-  name: "ModelsTab — accessible model labels",
-  render: () => (
-    <StoryProviders config={{} as any}>
-      <div style={{ "max-height": "700px", overflow: "auto" }}>
-        <ModelsTab />
-      </div>
-    </StoryProviders>
-  ),
-}
-
-function OpenModelPicker(props: { children: any }) {
-  let ref: HTMLDivElement | undefined
-  onMount(() => {
-    requestAnimationFrame(() => {
-      ref?.querySelector<HTMLButtonElement>('button[title="mistralai/codestral-2508"]')?.click()
-    })
-  })
-  return (
-    <div ref={ref} style={{ "max-height": "700px", overflow: "auto" }}>
-      {props.children}
-    </div>
-  )
 }
 
 export const AgentBehaviourAgents: Story = {

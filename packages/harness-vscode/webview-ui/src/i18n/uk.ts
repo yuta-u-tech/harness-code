@@ -408,7 +408,6 @@ export const dict = {
   "sound.option.yup05": "Так 05",
   "sound.option.yup06": "Так 06",
 
-  "settings.providers.title": "Провайдери",
   "settings.providers.section.connected": "Підключені провайдери",
   "settings.providers.connected.empty": "Підключених провайдерів немає",
   "settings.providers.section.popular": "Популярні провайдери",
@@ -501,8 +500,8 @@ export const dict = {
   "settings.config.source.projectHarness": "Конфігурація .harness проєкту",
   "settings.config.source.projectRoot": "Коренева конфігурація проєкту",
   "settings.config.source.projectOpencode": "Застаріла конфігурація .opencode",
+  "settings.other.title": "Інше",
   "settings.advanced": "Додатково",
-  "settings.models.title": "Моделі",
 
   "settings.permissions.toast.updateFailed.title": "Не вдалося оновити дозволи",
 
@@ -555,7 +554,6 @@ export const dict = {
   "settings.agentBehaviour.title": "Поведінка агента",
   "settings.autoApprove.title": "Автоматичне схвалення",
   "settings.checkpoints.title": "Контрольні точки",
-  "settings.display.title": "Відображення",
   "settings.notifications.title": "Сповіщення",
 
   "settings.language.title": "Мова",
@@ -807,11 +805,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "Модель за замовчуванням",
-  "settings.providers.defaultModel.description": "Основна модель для чатів",
-  "settings.providers.subagentModel.title": "Модель субагента",
-  "settings.providers.subagentModel.description":
-    "Модель за замовчуванням та рівень міркування для субагентів task-tool. Залиште порожнім, щоб успадкувати модель агента, що викликає.",
   "settings.providers.disabled": "Вимкнені провайдери",
   "settings.providers.disabled.description": "Провайдери, що будуть приховані у списку провайдерів",
   "settings.providers.disabled.enable": "Увімкнути",
@@ -986,8 +979,6 @@ export const dict = {
   "chat.search.noResults": "Немає результатів",
   "chat.search.searchingHistory": "Пошук у попередніх повідомленнях…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",

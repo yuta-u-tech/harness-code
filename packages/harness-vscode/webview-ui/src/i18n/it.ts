@@ -315,7 +315,6 @@ export const dict = {
   "sound.option.yup04": "Sì 04",
   "sound.option.yup05": "Sì 05",
   "sound.option.yup06": "Sì 06",
-  "settings.providers.title": "Provider",
   "settings.providers.section.connected": "Provider connessi",
   "settings.providers.connected.empty": "Nessun provider connesso",
   "settings.providers.section.popular": "Provider popolari",
@@ -405,8 +404,8 @@ export const dict = {
   "settings.config.source.projectHarness": "Config progetto .harness",
   "settings.config.source.projectRoot": "Config root progetto",
   "settings.config.source.projectOpencode": "Config legacy progetto .opencode",
+  "settings.other.title": "Altro",
   "settings.advanced": "Avanzate",
-  "settings.models.title": "Modelli",
   "settings.permissions.toast.updateFailed.title": "Aggiornamento autorizzazioni non riuscito",
   "settings.permissions.tool.read.description": "Legge un file (corrisponde al percorso file)",
   "settings.permissions.tool.edit.description": "Modifica file, incluse edits, writes, patches e multi-edits",
@@ -452,7 +451,6 @@ export const dict = {
   "settings.agentBehaviour.title": "Comportamento agente",
   "settings.autoApprove.title": "Approvazione automatica",
   "settings.checkpoints.title": "Checkpoint",
-  "settings.display.title": "Visualizzazione",
   "settings.notifications.title": "Notifiche",
   "settings.language.title": "Lingua",
   "session.messages.welcome":
@@ -755,8 +753,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "Modello predefinito",
-  "settings.providers.defaultModel.description": "Modello principale per le conversazioni",
   "settings.providers.disabled": "Provider disabilitati",
   "settings.providers.disabled.description": "Provider da nascondere dalla lista provider",
   "settings.providers.disabled.enable": "Abilita",
@@ -909,9 +905,6 @@ export const dict = {
   // Compaction limit
 
   // Subagent model
-  "settings.providers.subagentModel.title": "Modello sub-agent",
-  "settings.providers.subagentModel.description":
-    "Modello e sforzo di ragionamento predefiniti per i sub-agent del tool task. Lascia non impostato per ereditare il modello dell'agente chiamante.",
 
   // Autocomplete hint
 
@@ -962,8 +955,6 @@ export const dict = {
   "chat.search.noResults": "Nessun risultato",
   "chat.search.searchingHistory": "Ricerca nei messaggi precedenti…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",

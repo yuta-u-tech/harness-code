@@ -8,7 +8,7 @@ import HarnessCheckStepEditor from "./HarnessCheckStep"
 import HarnessHumanStepEditor from "./HarnessHumanStep"
 import HarnessRunPanel from "./HarnessRunPanel"
 import HarnessStepList from "./HarnessStepList"
-import { addStep, defaultHarness, harnessIssues, moveStep, removeStep, summarize, updateStep } from "./harness-state"
+import { addStep, defaultHarness, harnessIssues, moveStep, removeStep, updateStep } from "./harness-state"
 
 const agentStep = (s: HarnessStep) => (s.kind === "agent" ? s : undefined)
 const checkStep = (s: HarnessStep) => (s.kind === "check" ? s : undefined)
@@ -34,7 +34,6 @@ const HarnessTab: Component = () => {
       : []
   })
   const issues = createMemo(() => harnessIssues(harness()))
-  const summary = createMemo(() => summarize(harness()))
 
   const edit = (fn: (h: HarnessConfig) => HarnessConfig) => updateConfig({ harness: fn(harness()) })
 
@@ -60,15 +59,6 @@ const HarnessTab: Component = () => {
 
   return (
     <div class="harness-tab">
-      <p class="harness-intro">{language.t("settings.harness.intro")}</p>
-      <div class="harness-summary">
-        {language.t("settings.harness.summary", {
-          agents: summary().agents,
-          judgeRuns: summary().judgeRuns,
-          commands: summary().commands,
-        })}
-      </div>
-
       <Show when={issues().length > 0}>
         <div class="harness-issues" role="alert">
           <strong>{language.t("settings.harness.issues")}</strong>

@@ -404,7 +404,6 @@ export const dict = {
   "sound.option.yup05": "네 05",
   "sound.option.yup06": "네 06",
 
-  "settings.providers.title": "공급자",
   "settings.providers.section.connected": "연결된 공급자",
   "settings.providers.connected.empty": "연결된 공급자 없음",
   "settings.providers.section.popular": "인기 공급자",
@@ -419,9 +418,6 @@ export const dict = {
   "settings.providers.action.signInChatGPT": "ChatGPT로 로그인",
   "settings.providers.action.changeApiKey": "API 키 변경",
   "settings.providers.custom.description": "기본 URL로 사용자 정의 공급자를 추가합니다.",
-  "settings.providers.subagentModel.title": "하위 에이전트 모델",
-  "settings.providers.subagentModel.description":
-    "task-tool 하위 에이전트의 기본 모델 및 추론 수준입니다. 호출하는 에이전트의 모델을 상속하려면 비워 두세요.",
   "provider.custom.title": "사용자 정의 공급자",
   "provider.custom.description.prefix": "사용자 정의 공급자를 구성합니다. ",
   "provider.custom.description.link": "공급자 구성 문서",
@@ -498,8 +494,8 @@ export const dict = {
   "settings.config.source.projectHarness": "프로젝트 .harness 구성",
   "settings.config.source.projectRoot": "프로젝트 루트 구성",
   "settings.config.source.projectOpencode": "레거시 .opencode 구성",
+  "settings.other.title": "기타",
   "settings.advanced": "고급",
-  "settings.models.title": "모델",
 
   "settings.permissions.toast.updateFailed.title": "권한 업데이트 실패",
 
@@ -550,7 +546,6 @@ export const dict = {
   "settings.agentBehaviour.title": "에이전트 동작",
   "settings.autoApprove.title": "자동 승인",
   "settings.checkpoints.title": "체크포인트",
-  "settings.display.title": "디스플레이",
   "settings.notifications.title": "알림",
 
   "settings.language.title": "언어",
@@ -826,8 +821,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "기본 모델",
-  "settings.providers.defaultModel.description": "대화의 기본 모델",
   "settings.providers.disabled": "비활성화된 공급자",
   "settings.providers.disabled.description": "공급자 목록에서 숨길 공급자",
   "settings.providers.disabled.enable": "활성화",
@@ -960,8 +953,6 @@ export const dict = {
   "chat.search.noResults": "검색 결과 없음",
   "chat.search.searchingHistory": "이전 메시지를 검색하는 중…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",

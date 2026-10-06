@@ -374,7 +374,6 @@ export const dict = {
   "sound.option.yup05": "Yup 05",
   "sound.option.yup06": "Yup 06",
 
-  "settings.providers.title": "ارائه‌دهندگان",
   "settings.providers.section.connected": "ارائه‌دهندگان متصل",
   "settings.providers.connected.empty": "هیچ ارائه‌دهنده متصلی وجود ندارد",
   "settings.providers.section.popular": "ارائه‌دهندگان محبوب",
@@ -465,8 +464,8 @@ export const dict = {
   "settings.config.source.projectHarness": "پیکربندی .harness پروژه",
   "settings.config.source.projectRoot": "پیکربندی ریشه پروژه",
   "settings.config.source.projectOpencode": "پیکربندی قدیمی .opencode",
+  "settings.other.title": "سایر",
   "settings.advanced": "پیشرفته",
-  "settings.models.title": "مدل‌ها",
 
   "settings.permissions.toast.updateFailed.title": "به‌روزرسانی مجوزها ناموفق بود",
 
@@ -517,7 +516,6 @@ export const dict = {
   "settings.agentBehaviour.title": "رفتار عامل",
   "settings.autoApprove.title": "تأیید خودکار",
   "settings.checkpoints.title": "نقاط بازیابی",
-  "settings.display.title": "نمایش",
   "settings.notifications.title": "اعلان‌ها",
   "settings.language.title": "زبان",
 
@@ -829,11 +827,6 @@ export const dict = {
     "میانگین {{speed}} توکن/ثانیه برای این نوبت. شامل توکن‌های خروجی و استدلال می‌شود؛ زمان اجرای ابزار و انتظار را شامل نمی‌شود.",
   "chat.throughput.tooltip.missing": "معیارهای توان عملیاتی برای این نوبت در دسترس نیست.",
 
-  "settings.providers.defaultModel.title": "مدل پیش‌فرض",
-  "settings.providers.defaultModel.description": "مدل اصلی برای مکالمات",
-  "settings.providers.subagentModel.title": "مدل زیرعامل",
-  "settings.providers.subagentModel.description":
-    "مدل پیش‌فرض و میزان استدلال برای زیرعامل‌های ابزار-وظیفه. برای به ارث بردن مدل عامل فراخواننده، خالی بگذارید.",
   "settings.providers.disabled": "ارائه‌دهندگان غیرفعال",
   "settings.providers.disabled.description": "ارائه‌دهندگانی که از فهرست پنهان می‌شوند",
   "settings.providers.disabled.enable": "فعال‌سازی",
@@ -971,8 +964,6 @@ export const dict = {
   "chat.search.noResults": "نتیجه‌ای یافت نشد",
   "chat.search.searchingHistory": "در حال جستجو در پیام‌های قبلی…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",

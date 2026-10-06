@@ -389,7 +389,6 @@ export const dict = {
   "sound.option.yup05": "是 05",
   "sound.option.yup06": "是 06",
 
-  "settings.providers.title": "提供商",
   "settings.providers.section.connected": "已连接的提供商",
   "settings.providers.connected.empty": "没有已连接的提供商",
   "settings.providers.section.popular": "热门提供商",
@@ -404,8 +403,6 @@ export const dict = {
   "settings.providers.action.signInChatGPT": "使用 ChatGPT 登录",
   "settings.providers.action.changeApiKey": "更改 API 密钥",
   "settings.providers.custom.description": "通过基础 URL 添加自定义提供商。",
-  "settings.providers.subagentModel.title": "子代理模型",
-  "settings.providers.subagentModel.description": "task-tool 子代理的默认模型和推理工作量。留空以继承调用代理的模型。",
   "provider.custom.title": "自定义提供商",
   "provider.custom.description.prefix": "配置自定义提供商。请参阅",
   "provider.custom.description.link": "提供商配置文档",
@@ -481,8 +478,8 @@ export const dict = {
   "settings.config.source.projectHarness": "项目 .harness 配置",
   "settings.config.source.projectRoot": "项目根目录配置",
   "settings.config.source.projectOpencode": "旧版 .opencode 配置",
+  "settings.other.title": "其他",
   "settings.advanced": "高级",
-  "settings.models.title": "模型",
 
   "settings.permissions.toast.updateFailed.title": "更新权限失败",
 
@@ -533,7 +530,6 @@ export const dict = {
   "settings.agentBehaviour.title": "智能体行为",
   "settings.autoApprove.title": "自动审批",
   "settings.checkpoints.title": "检查点",
-  "settings.display.title": "显示",
   "settings.notifications.title": "通知",
 
   "settings.language.title": "语言",
@@ -792,8 +788,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "默认模型",
-  "settings.providers.defaultModel.description": "对话的主要模型",
   "settings.providers.disabled": "已禁用的提供者",
   "settings.providers.disabled.description": "从提供者列表中隐藏的提供者",
   "settings.providers.disabled.enable": "启用",
@@ -921,8 +915,6 @@ export const dict = {
   "chat.search.noResults": "无结果",
   "chat.search.searchingHistory": "正在搜索更早的消息…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",

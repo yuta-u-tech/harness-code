@@ -9,6 +9,7 @@ import { TextField } from "@harness/harness-ui/text-field"
 import { useLanguage } from "../../../context/language"
 import type { HarnessCheck, HarnessCheckStep, HarnessConfig, HarnessStep } from "../../../types/messages"
 import SettingsRow from "../SettingsRow"
+import Advanced from "../Advanced"
 import HarnessRubricEditor from "./HarnessRubricEditor"
 import {
   addCheck,
@@ -38,12 +39,6 @@ const HarnessCheckStepEditor: Component<Props> = (props) => {
   return (
     <div class="harness-editor">
       <Card>
-        <SettingsRow title={language.t("settings.harness.name")}>
-          <TextField
-            value={props.step.name}
-            onChange={(name) => name && props.onEdit((h) => updateStep(h, id(), { name }))}
-          />
-        </SettingsRow>
         <SettingsRow title={language.t("settings.harness.failTo")}>
           <FailToSelect
             earlier={props.earlier}
@@ -141,6 +136,16 @@ const HarnessCheckStepEditor: Component<Props> = (props) => {
           {language.t("settings.harness.check.add.rubric")}
         </Button>
       </div>
+      <Advanced>
+        <Card>
+          <SettingsRow title={language.t("settings.harness.name")} last>
+            <TextField
+              value={props.step.name}
+              onChange={(name) => name && props.onEdit((h) => updateStep(h, id(), { name }))}
+            />
+          </SettingsRow>
+        </Card>
+      </Advanced>
     </div>
   )
 }

@@ -404,7 +404,6 @@ export const dict = {
   "sound.option.yup05": "Evet 05",
   "sound.option.yup06": "Evet 06",
 
-  "settings.providers.title": "Sağlayıcılar",
   "settings.providers.section.connected": "Bağlı sağlayıcılar",
   "settings.providers.connected.empty": "Bağlı sağlayıcı yok",
   "settings.providers.section.popular": "Popüler sağlayıcılar",
@@ -497,8 +496,8 @@ export const dict = {
   "settings.config.source.projectHarness": "Proje .harness yapılandırması",
   "settings.config.source.projectRoot": "Proje kök yapılandırması",
   "settings.config.source.projectOpencode": "Eski .opencode yapılandırması",
+  "settings.other.title": "Diğer",
   "settings.advanced": "Gelişmiş",
-  "settings.models.title": "Modeller",
 
   "settings.permissions.toast.updateFailed.title": "İzinler güncellenemedi",
 
@@ -550,7 +549,6 @@ export const dict = {
   "settings.agentBehaviour.title": "Ajan Davranışı",
   "settings.autoApprove.title": "Otomatik Onay",
   "settings.checkpoints.title": "Kontrol Noktaları",
-  "settings.display.title": "Görünüm",
   "settings.notifications.title": "Bildirimler",
 
   "settings.language.title": "Dil",
@@ -806,11 +804,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "Varsayılan Model",
-  "settings.providers.defaultModel.description": "Sohbetler için birincil model",
-  "settings.providers.subagentModel.title": "Alt Aracı Modeli",
-  "settings.providers.subagentModel.description":
-    "task-tool alt aracıları için varsayılan model ve akıl yürütme çabası. Çağıran aracının modelini devralmak için boş bırakın.",
   "settings.providers.disabled": "Devre Dışı Sağlayıcılar",
   "settings.providers.disabled.description": "Sağlayıcı listesinde gizlenecek sağlayıcılar",
   "settings.providers.disabled.enable": "Etkinleştir",
@@ -984,8 +977,6 @@ export const dict = {
   "chat.search.noResults": "Sonuç yok",
   "chat.search.searchingHistory": "Önceki mesajlarda aranıyor…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",

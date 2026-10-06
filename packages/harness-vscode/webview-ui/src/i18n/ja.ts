@@ -405,7 +405,6 @@ export const dict = {
   "sound.option.yup05": "はい 05",
   "sound.option.yup06": "はい 06",
 
-  "settings.providers.title": "プロバイダー",
   "settings.providers.section.connected": "接続済みプロバイダー",
   "settings.providers.connected.empty": "接続済みプロバイダーはありません",
   "settings.providers.section.popular": "人気のプロバイダー",
@@ -420,9 +419,6 @@ export const dict = {
   "settings.providers.action.signInChatGPT": "ChatGPT でサインイン",
   "settings.providers.action.changeApiKey": "APIキーを変更",
   "settings.providers.custom.description": "ベース URL でカスタムプロバイダーを追加します。",
-  "settings.providers.subagentModel.title": "サブエージェントモデル",
-  "settings.providers.subagentModel.description":
-    "task-tool サブエージェントのデフォルトモデルと推論の労力。呼び出し元のエージェントのモデルを継承する場合は未設定のままにしてください。",
   "provider.custom.title": "カスタムプロバイダー",
   "provider.custom.description.prefix": "カスタムプロバイダーを設定します。",
   "provider.custom.description.link": "プロバイダー設定ドキュメント",
@@ -500,8 +496,8 @@ export const dict = {
   "settings.config.source.projectHarness": "プロジェクトの.harness構成",
   "settings.config.source.projectRoot": "プロジェクトルート構成",
   "settings.config.source.projectOpencode": "旧.opencode構成",
+  "settings.other.title": "その他",
   "settings.advanced": "詳細",
-  "settings.models.title": "モデル",
 
   "settings.permissions.toast.updateFailed.title": "権限の更新に失敗しました",
 
@@ -552,7 +548,6 @@ export const dict = {
   "settings.agentBehaviour.title": "エージェントの動作",
   "settings.autoApprove.title": "自動承認",
   "settings.checkpoints.title": "チェックポイント",
-  "settings.display.title": "表示",
   "settings.notifications.title": "通知",
 
   "settings.language.title": "言語",
@@ -837,8 +832,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "デフォルトモデル",
-  "settings.providers.defaultModel.description": "会話のプライマリモデル",
   "settings.providers.disabled": "無効化されたプロバイダー",
   "settings.providers.disabled.description": "プロバイダーリストから非表示にするプロバイダー",
   "settings.providers.disabled.enable": "有効化",
@@ -971,10 +964,6 @@ export const dict = {
   "chat.search.noResults": "見つかりませんでした",
   "chat.search.searchingHistory": "以前のメッセージを検索しています…",
   "settings.harness.title": "ハーネス",
-  "settings.harness.intro":
-    "エージェントが辿る工程を決めます。工程ごとにモデル、プロンプト、ツール、検証を設定します。",
-  "settings.harness.summary":
-    "1回の実行: エージェント {{agents}} 工程 / AI採点 {{judgeRuns}} 回 / コマンド {{commands}} 回",
   "settings.harness.issues": "実行前に直してください:",
   "settings.harness.addStep": "工程を追加",
   "settings.harness.kind.agent": "エージェント",

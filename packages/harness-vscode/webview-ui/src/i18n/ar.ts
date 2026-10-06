@@ -396,7 +396,6 @@ export const dict = {
   "sound.option.yup05": "نعم 05",
   "sound.option.yup06": "نعم 06",
 
-  "settings.providers.title": "الموفرون",
   "settings.providers.section.connected": "الموفرون المتصلون",
   "settings.providers.connected.empty": "لا يوجد موفرون متصلون",
   "settings.providers.section.popular": "الموفرون الشائعون",
@@ -411,9 +410,6 @@ export const dict = {
   "settings.providers.action.signInChatGPT": "تسجيل الدخول باستخدام ChatGPT",
   "settings.providers.action.changeApiKey": "تغيير مفتاح API",
   "settings.providers.custom.description": "أضف مزودًا مخصصًا عبر عنوان URL الأساسي.",
-  "settings.providers.subagentModel.title": "نموذج الوكيل الفرعي",
-  "settings.providers.subagentModel.description":
-    "النموذج الافتراضي وجهد التفكير للوكلاء الفرعيين لـ task-tool. اتركه فارغًا ليرث نموذج الوكيل المستدعي.",
   "provider.custom.title": "مزود مخصص",
   "provider.custom.description.prefix": "قم بتكوين مزود مخصص. انظر ",
   "provider.custom.description.link": "وثائق تكوين المزود",
@@ -489,8 +485,8 @@ export const dict = {
   "settings.config.source.projectHarness": "تكوين .harness للمشروع",
   "settings.config.source.projectRoot": "تكوين جذر المشروع",
   "settings.config.source.projectOpencode": "تكوين .opencode القديم",
+  "settings.other.title": "أخرى",
   "settings.advanced": "متقدم",
-  "settings.models.title": "النماذج",
 
   "settings.permissions.toast.updateFailed.title": "فشل تحديث الأذونات",
 
@@ -542,7 +538,6 @@ export const dict = {
   "settings.agentBehaviour.title": "سلوك الوكيل",
   "settings.autoApprove.title": "الموافقة التلقائية",
   "settings.checkpoints.title": "نقاط التحقق",
-  "settings.display.title": "العرض",
   "settings.notifications.title": "الإشعارات",
   "prompt.action.indexing": "إعدادات الفهرسة",
   "settings.language.title": "اللغة",
@@ -820,8 +815,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "النموذج الافتراضي",
-  "settings.providers.defaultModel.description": "النموذج الأساسي للمحادثات",
   "settings.providers.disabled": "مزودون معطلون",
   "settings.providers.disabled.description": "مزودون لإخفائهم من القائمة",
   "settings.providers.disabled.enable": "تمكين",
@@ -955,8 +948,6 @@ export const dict = {
   "chat.search.noResults": "لا توجد نتائج",
   "chat.search.searchingHistory": "جارٍ البحث في الرسائل السابقة…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",

@@ -11,7 +11,6 @@ import { useSession } from "../../context/session"
 import { configMessage } from "../../utils/open-config"
 import Advanced from "./Advanced"
 import HarnessTab from "./harness/HarnessTab"
-import ModelsTab from "./ModelsTab"
 import ProvidersTab from "./ProvidersTab"
 import AgentBehaviourTab from "./AgentBehaviourTab"
 import AutoApproveTab from "./AutoApproveTab"
@@ -25,16 +24,18 @@ export interface SettingsProps {
 }
 
 /** The tabs that exist, in order. */
-const TABS = ["harness", "models", "display"] as const
+const TABS = ["harness", "connections", "other"] as const
 type Tab = (typeof TABS)[number]
 
 /** Tab ids that other parts of the app still send, mapped to the tab that now holds them. */
 const MOVED: Record<string, Tab> = {
-  agentBehaviour: "harness",
-  autoApprove: "display",
-  providers: "models",
-  language: "display",
-  notifications: "display",
+  agentBehaviour: "other",
+  autoApprove: "other",
+  providers: "connections",
+  models: "connections",
+  display: "other",
+  language: "other",
+  notifications: "other",
 }
 
 export function resolveTab(id: string | undefined): Tab {
@@ -140,34 +141,26 @@ const Settings: Component<SettingsProps> = (props) => {
             <Icon name="layers" />
             <span class="label">{language.t("settings.harness.title")}</span>
           </Tabs.Trigger>
-          <Tabs.Trigger value="models" aria-label={language.t("settings.connections.title")}>
+          <Tabs.Trigger value="connections" aria-label={language.t("settings.connections.title")}>
             <Icon name="models" />
             <span class="label">{language.t("settings.connections.title")}</span>
           </Tabs.Trigger>
-          <Tabs.Trigger value="display" aria-label={language.t("settings.display.title")}>
+          <Tabs.Trigger value="other" aria-label={language.t("settings.other.title")}>
             <Icon name="eye" />
-            <span class="label">{language.t("settings.display.title")}</span>
+            <span class="label">{language.t("settings.other.title")}</span>
           </Tabs.Trigger>
         </Tabs.List>
 
         <Tabs.Content value="harness">
           <h3>{language.t("settings.harness.title")}</h3>
           <HarnessTab />
-          <Section title={language.t("settings.agentBehaviour.title")}>
-            <AgentBehaviourTab />
-          </Section>
         </Tabs.Content>
-        <Tabs.Content value="models">
+        <Tabs.Content value="connections">
           <h3>{language.t("settings.connections.title")}</h3>
-          <Section title={language.t("settings.models.title")}>
-            <ModelsTab />
-          </Section>
-          <Section title={language.t("settings.providers.title")}>
-            <ProvidersTab />
-          </Section>
+          <ProvidersTab />
         </Tabs.Content>
-        <Tabs.Content value="display">
-          <h3>{language.t("settings.display.title")}</h3>
+        <Tabs.Content value="other">
+          <h3>{language.t("settings.other.title")}</h3>
           <Section title={language.t("settings.language.title")}>
             <LanguageTab />
           </Section>
@@ -178,6 +171,11 @@ const Settings: Component<SettingsProps> = (props) => {
           <Section title={language.t("settings.notifications.title")}>
             <NotificationsTab />
           </Section>
+          <Advanced>
+            <Section title={language.t("settings.agentBehaviour.title")}>
+              <AgentBehaviourTab />
+            </Section>
+          </Advanced>
         </Tabs.Content>
       </Tabs>
 

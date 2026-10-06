@@ -410,7 +410,6 @@ export const dict = {
   "sound.option.yup05": "Ja 05",
   "sound.option.yup06": "Ja 06",
 
-  "settings.providers.title": "Leverandører",
   "settings.providers.section.connected": "Tilkoblede leverandører",
   "settings.providers.connected.empty": "Ingen tilkoblede leverandører",
   "settings.providers.section.popular": "Populære leverandører",
@@ -425,9 +424,6 @@ export const dict = {
   "settings.providers.action.signInChatGPT": "Logg inn med ChatGPT",
   "settings.providers.action.changeApiKey": "Endre API-nøkkel",
   "settings.providers.custom.description": "Legg til en egendefinert leverandør via basis-URL.",
-  "settings.providers.subagentModel.title": "Underagentmodell",
-  "settings.providers.subagentModel.description":
-    "Standardmodell og resonneringsinnsats for task-tool-underagenter. La stå tom for å arve den kallende agentens modell.",
   "provider.custom.title": "Egendefinert leverandør",
   "provider.custom.description.prefix": "Konfigurer en egendefinert leverandør. Se ",
   "provider.custom.description.link": "dokumentasjon for leverandørkonfigurasjon",
@@ -504,8 +500,8 @@ export const dict = {
   "settings.config.source.projectHarness": "Prosjekt .harness-konfigurasjon",
   "settings.config.source.projectRoot": "Prosjektets rotkonfigurasjon",
   "settings.config.source.projectOpencode": "Eldre .opencode-konfigurasjon",
+  "settings.other.title": "Annet",
   "settings.advanced": "Avansert",
-  "settings.models.title": "Modeller",
 
   "settings.permissions.toast.updateFailed.title": "Kunne ikke oppdatere tillatelser",
 
@@ -557,7 +553,6 @@ export const dict = {
   "settings.agentBehaviour.title": "Agentoppførsel",
   "settings.autoApprove.title": "Automatisk godkjenning",
   "settings.checkpoints.title": "Kontrollpunkter",
-  "settings.display.title": "Visning",
   "settings.notifications.title": "Varslinger",
 
   "settings.language.title": "Språk",
@@ -843,8 +838,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "Standardmodell",
-  "settings.providers.defaultModel.description": "Primær modell for samtaler",
   "settings.providers.disabled": "Deaktiverte leverandører",
   "settings.providers.disabled.description": "Leverandører å skjule fra listen",
   "settings.providers.disabled.enable": "Aktiver",
@@ -975,8 +968,6 @@ export const dict = {
   "chat.search.noResults": "Ingen resultater",
   "chat.search.searchingHistory": "Søker i tidligere meldinger…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",

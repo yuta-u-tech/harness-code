@@ -9,6 +9,7 @@ import { useSession } from "../../../context/session"
 import type { AgentConfig, HarnessAgentStep, PermissionConfig } from "../../../types/messages"
 import PermissionEditor from "../PermissionEditor"
 import SettingsRow from "../SettingsRow"
+import Advanced from "../Advanced"
 import HarnessModelPicker from "./HarnessModelPicker"
 import HarnessRunnerPicker from "./HarnessRunnerPicker"
 import { toggled } from "./harness-lists"
@@ -47,9 +48,6 @@ const HarnessAgentStepEditor: Component<Props> = (props) => {
   return (
     <div class="harness-editor">
       <Card>
-        <SettingsRow title={language.t("settings.harness.name")}>
-          <TextField value={props.step.name} onChange={(name) => name && props.onChange({ name })} />
-        </SettingsRow>
         <HarnessRunnerPicker runner={props.step.runner} onChange={(runner) => props.onChange({ runner })} />
         <Show when={!props.step.runner}>
           <HarnessModelPicker
@@ -74,41 +72,49 @@ const HarnessAgentStepEditor: Component<Props> = (props) => {
         <div class="harness-hint">{language.t("settings.harness.prompt.hint")}</div>
       </Card>
 
-      <Card>
-        <div data-slot="settings-row-label-title" class="harness-label">
-          {language.t("settings.harness.subagents")}
-        </div>
-        <Show
-          when={subagents().length > 0}
-          fallback={<div class="harness-hint">{language.t("settings.harness.subagents.none")}</div>}
-        >
-          <For each={subagents()}>
-            {(agent) => (
-              <SettingsRow title={agent.displayName ?? agent.name} description={agent.description} last>
-                <Switch
-                  checked={chosen().includes(agent.name)}
-                  onChange={(on) => props.onChange({ subagents: toggled(chosen(), agent.name, on) })}
-                  hideLabel
-                >
-                  {agent.name}
-                </Switch>
-              </SettingsRow>
-            )}
-          </For>
-        </Show>
-      </Card>
+      <Advanced>
+        <Card>
+          <SettingsRow title={language.t("settings.harness.name")} last>
+            <TextField value={props.step.name} onChange={(name) => name && props.onChange({ name })} />
+          </SettingsRow>
+        </Card>
 
-      <Card>
-        <div data-slot="settings-row-label-title" class="harness-label">
-          {language.t("settings.harness.tools")}
-        </div>
-        <PermissionEditor
-          permissions={cfg().permission}
-          component="agent-permission-settings"
-          inherited
-          onChange={updatePermission}
-        />
-      </Card>
+        <Card>
+          <div data-slot="settings-row-label-title" class="harness-label">
+            {language.t("settings.harness.subagents")}
+          </div>
+          <Show
+            when={subagents().length > 0}
+            fallback={<div class="harness-hint">{language.t("settings.harness.subagents.none")}</div>}
+          >
+            <For each={subagents()}>
+              {(agent) => (
+                <SettingsRow title={agent.displayName ?? agent.name} description={agent.description} last>
+                  <Switch
+                    checked={chosen().includes(agent.name)}
+                    onChange={(on) => props.onChange({ subagents: toggled(chosen(), agent.name, on) })}
+                    hideLabel
+                  >
+                    {agent.name}
+                  </Switch>
+                </SettingsRow>
+              )}
+            </For>
+          </Show>
+        </Card>
+
+        <Card>
+          <div data-slot="settings-row-label-title" class="harness-label">
+            {language.t("settings.harness.tools")}
+          </div>
+          <PermissionEditor
+            permissions={cfg().permission}
+            component="agent-permission-settings"
+            inherited
+            onChange={updatePermission}
+          />
+        </Card>
+      </Advanced>
     </div>
   )
 }

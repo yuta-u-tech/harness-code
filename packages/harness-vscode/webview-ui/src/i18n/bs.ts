@@ -407,7 +407,6 @@ export const dict = {
 
   "prompt.action.indexing": "Postavke indeksiranja",
 
-  "settings.providers.title": "Provajderi",
   "settings.providers.section.connected": "Povezani provajderi",
   "settings.providers.connected.empty": "Nema povezanih provajdera",
   "settings.providers.section.popular": "Popularni provajderi",
@@ -422,9 +421,6 @@ export const dict = {
   "settings.providers.action.signInChatGPT": "Prijavi se putem ChatGPT",
   "settings.providers.action.changeApiKey": "Promijeni API ključ",
   "settings.providers.custom.description": "Dodaj prilagođeni provajder putem osnovnog URL-a.",
-  "settings.providers.subagentModel.title": "Model podagenta",
-  "settings.providers.subagentModel.description":
-    "Zadani model i napor zaključivanja za podagente task-tool-a. Ostavite nepodešeno da naslijedi model pozivnog agenta.",
   "provider.custom.title": "Prilagođeni provajder",
   "provider.custom.description.prefix": "Konfiguriši prilagođeni provajder. Pogledaj ",
   "provider.custom.description.link": "dokumentaciju za konfiguraciju provajdera",
@@ -504,8 +500,8 @@ export const dict = {
   "settings.config.source.projectHarness": "Projektna .harness konfiguracija",
   "settings.config.source.projectRoot": "Konfiguracija korijena projekta",
   "settings.config.source.projectOpencode": "Zastarjela .opencode konfiguracija",
+  "settings.other.title": "Ostalo",
   "settings.advanced": "Napredno",
-  "settings.models.title": "Modeli",
 
   "settings.permissions.toast.updateFailed.title": "Neuspjelo ažuriranje dozvola",
 
@@ -557,7 +553,6 @@ export const dict = {
   "settings.agentBehaviour.title": "Ponašanje agenta",
   "settings.autoApprove.title": "Automatsko odobravanje",
   "settings.checkpoints.title": "Kontrolne tačke",
-  "settings.display.title": "Prikaz",
   "settings.notifications.title": "Obavještenja",
 
   "settings.language.title": "Jezik",
@@ -848,8 +843,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "Zadani model",
-  "settings.providers.defaultModel.description": "Primarni model za razgovore",
   "settings.providers.disabled": "Onemogućeni pružatelji",
   "settings.providers.disabled.description": "Pružatelji za skrivanje s popisa",
   "settings.providers.disabled.enable": "Omogući",
@@ -983,8 +976,6 @@ export const dict = {
   "chat.search.noResults": "Nema rezultata",
   "chat.search.searchingHistory": "Pretraživanje ranijih poruka…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",

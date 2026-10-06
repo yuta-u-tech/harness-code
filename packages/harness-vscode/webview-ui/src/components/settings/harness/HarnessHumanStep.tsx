@@ -6,6 +6,7 @@ import { TextField } from "@harness/harness-ui/text-field"
 import { useLanguage } from "../../../context/language"
 import type { HarnessConfig, HarnessHumanStep, HarnessStep } from "../../../types/messages"
 import SettingsRow from "../SettingsRow"
+import Advanced from "../Advanced"
 import { FailToSelect } from "./HarnessFailTo"
 import { splitLines, toggled } from "./harness-lists"
 import { REVIEW_PANELS, updateStep } from "./harness-state"
@@ -23,12 +24,6 @@ const HarnessHumanStepEditor: Component<Props> = (props) => {
   return (
     <div class="harness-editor">
       <Card>
-        <SettingsRow title={language.t("settings.harness.name")}>
-          <TextField
-            value={props.step.name}
-            onChange={(name) => name && props.onEdit((h) => updateStep(h, id(), { name }))}
-          />
-        </SettingsRow>
         <SettingsRow title={language.t("settings.harness.human.failTo")} last>
           <FailToSelect
             earlier={props.earlier}
@@ -73,6 +68,16 @@ const HarnessHumanStepEditor: Component<Props> = (props) => {
         />
         <div class="harness-hint">{language.t("settings.harness.human.checklist.hint")}</div>
       </Card>
+      <Advanced>
+        <Card>
+          <SettingsRow title={language.t("settings.harness.name")} last>
+            <TextField
+              value={props.step.name}
+              onChange={(name) => name && props.onEdit((h) => updateStep(h, id(), { name }))}
+            />
+          </SettingsRow>
+        </Card>
+      </Advanced>
     </div>
   )
 }

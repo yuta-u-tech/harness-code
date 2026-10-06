@@ -369,7 +369,6 @@ export const dict = {
   "sound.option.yup05": "Yup 05",
   "sound.option.yup06": "Yup 06",
 
-  "settings.providers.title": "Providers",
   "settings.providers.section.connected": "Connected providers",
   "settings.providers.connected.empty": "No connected providers",
   "settings.providers.section.popular": "Popular providers",
@@ -459,8 +458,8 @@ export const dict = {
   "settings.config.source.projectHarness": "Project .harness config",
   "settings.config.source.projectRoot": "Project root config",
   "settings.config.source.projectOpencode": "Legacy .opencode config",
+  "settings.other.title": "Other",
   "settings.advanced": "Advanced",
-  "settings.models.title": "Models",
 
   "settings.permissions.toast.updateFailed.title": "Failed to update permissions",
 
@@ -511,7 +510,6 @@ export const dict = {
   "settings.agentBehaviour.title": "Agent Behaviour",
   "settings.autoApprove.title": "Auto-Approve",
   "settings.checkpoints.title": "Checkpoints",
-  "settings.display.title": "Display",
   "settings.notifications.title": "Notifications",
   "settings.language.title": "Language",
 
@@ -823,11 +821,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "Default Model",
-  "settings.providers.defaultModel.description": "Primary model for conversations",
-  "settings.providers.subagentModel.title": "Subagent Model",
-  "settings.providers.subagentModel.description":
-    "Default model and reasoning effort for task-tool subagents. Leave unset to inherit the calling agent's model.",
   "settings.providers.disabled": "Disabled Providers",
   "settings.providers.disabled.description": "Providers to hide from the provider list",
   "settings.providers.disabled.enable": "Enable",
@@ -963,8 +956,6 @@ export const dict = {
   "chat.search.noResults": "No results",
   "chat.search.searchingHistory": "Searching earlier messages…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",

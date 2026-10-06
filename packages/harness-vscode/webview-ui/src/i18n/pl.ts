@@ -405,7 +405,6 @@ export const dict = {
   "sound.option.yup05": "Yup 05",
   "sound.option.yup06": "Yup 06",
 
-  "settings.providers.title": "Dostawcy",
   "settings.providers.section.connected": "Połączeni dostawcy",
   "settings.providers.connected.empty": "Brak połączonych dostawców",
   "settings.providers.section.popular": "Popularni dostawcy",
@@ -420,9 +419,6 @@ export const dict = {
   "settings.providers.action.signInChatGPT": "Zaloguj przez ChatGPT",
   "settings.providers.action.changeApiKey": "Zmień klucz API",
   "settings.providers.custom.description": "Dodaj niestandardowego dostawcę przez bazowy URL.",
-  "settings.providers.subagentModel.title": "Model podagenta",
-  "settings.providers.subagentModel.description":
-    "Domyślny model i wysiłek wnioskowania dla podagentów task-tool. Pozostaw puste, aby odziedziczyć model agenta wywołującego.",
   "provider.custom.title": "Niestandardowy dostawca",
   "provider.custom.description.prefix": "Skonfiguruj niestandardowego dostawcę. Zobacz ",
   "provider.custom.description.link": "dokumentację konfiguracji dostawcy",
@@ -501,8 +497,8 @@ export const dict = {
   "settings.config.source.projectHarness": "Konfiguracja .harness projektu",
   "settings.config.source.projectRoot": "Konfiguracja główna projektu",
   "settings.config.source.projectOpencode": "Przestarzała konfiguracja .opencode",
+  "settings.other.title": "Inne",
   "settings.advanced": "Zaawansowane",
-  "settings.models.title": "Modele",
 
   "settings.permissions.toast.updateFailed.title": "Nie udało się zaktualizować uprawnień",
 
@@ -553,7 +549,6 @@ export const dict = {
   "settings.agentBehaviour.title": "Zachowanie agenta",
   "settings.autoApprove.title": "Automatyczne zatwierdzanie",
   "settings.checkpoints.title": "Punkty kontrolne",
-  "settings.display.title": "Wyświetlanie",
   "settings.notifications.title": "Powiadomienia",
 
   "settings.language.title": "Język",
@@ -847,8 +842,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "Domyślny model",
-  "settings.providers.defaultModel.description": "Główny model do rozmów",
   "settings.providers.disabled": "Wyłączeni dostawcy",
   "settings.providers.disabled.description": "Dostawcy do ukrycia z listy",
   "settings.providers.disabled.enable": "Włącz",
@@ -981,8 +974,6 @@ export const dict = {
   "chat.search.noResults": "Brak wyników",
   "chat.search.searchingHistory": "Wyszukiwanie we wcześniejszych wiadomościach…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",

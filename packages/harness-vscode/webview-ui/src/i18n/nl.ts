@@ -409,7 +409,6 @@ export const dict = {
   "sound.option.yup05": "Ja 05",
   "sound.option.yup06": "Ja 06",
 
-  "settings.providers.title": "Providers",
   "settings.providers.section.connected": "Gekoppelde providers",
   "settings.providers.connected.empty": "Geen gekoppelde providers",
   "settings.providers.section.popular": "Populaire providers",
@@ -501,8 +500,8 @@ export const dict = {
   "settings.config.source.projectHarness": "Project .harness-configuratie",
   "settings.config.source.projectRoot": "Project root configuratie",
   "settings.config.source.projectOpencode": "Verouderde .opencode-configuratie",
+  "settings.other.title": "Overig",
   "settings.advanced": "Geavanceerd",
-  "settings.models.title": "Modellen",
 
   "settings.permissions.toast.updateFailed.title": "Updaten van toestemmingen is mislukt",
 
@@ -554,7 +553,6 @@ export const dict = {
   "settings.agentBehaviour.title": "Agent Gedrag",
   "settings.autoApprove.title": "Automatisch Goedkeuren",
   "settings.checkpoints.title": "Controlepunten",
-  "settings.display.title": "Weergave",
   "settings.notifications.title": "Meldingen",
 
   "settings.language.title": "Taal",
@@ -812,11 +810,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "Standaard Model",
-  "settings.providers.defaultModel.description": "Primair model voor gesprekken",
-  "settings.providers.subagentModel.title": "Subagentmodel",
-  "settings.providers.subagentModel.description":
-    "Standaardmodel en redeneerinspanning voor task-tool subagenten. Laat leeg om het model van de aanroepende agent over te nemen.",
   "settings.providers.disabled": "Uitgeschakelde Providers",
   "settings.providers.disabled.description": "Providers om te verbergen in de providerlijst",
   "settings.providers.disabled.enable": "Inschakelen",
@@ -990,8 +983,6 @@ export const dict = {
   "chat.search.noResults": "Geen resultaten",
   "chat.search.searchingHistory": "Eerdere berichten doorzoeken…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",

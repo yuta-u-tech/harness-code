@@ -416,7 +416,6 @@ export const dict = {
 
   "prompt.action.indexing": "Indizierungseinstellungen",
 
-  "settings.providers.title": "Anbieter",
   "settings.providers.section.connected": "Verbundene Anbieter",
   "settings.providers.connected.empty": "Keine verbundenen Anbieter",
   "settings.providers.section.popular": "Beliebte Anbieter",
@@ -431,9 +430,6 @@ export const dict = {
   "settings.providers.action.signInChatGPT": "Mit ChatGPT anmelden",
   "settings.providers.action.changeApiKey": "API-Schlüssel ändern",
   "settings.providers.custom.description": "Fügen Sie einen benutzerdefinierten Anbieter über die Basis-URL hinzu.",
-  "settings.providers.subagentModel.title": "Subagenten-Modell",
-  "settings.providers.subagentModel.description":
-    "Standardmodell und Aufwand für Schlussfolgerungen für task-tool-Subagenten. Leer lassen, um das Modell des aufrufenden Agenten zu übernehmen.",
   "provider.custom.title": "Benutzerdefinierter Anbieter",
   "provider.custom.description.prefix": "Konfigurieren Sie einen benutzerdefinierten Anbieter. Siehe die ",
   "provider.custom.description.link": "Anbieterkonfigurationsdokumentation",
@@ -513,8 +509,8 @@ export const dict = {
   "settings.config.source.projectHarness": "Projekt .harness-Konfiguration",
   "settings.config.source.projectRoot": "Projektstamm-Konfiguration",
   "settings.config.source.projectOpencode": "Veraltete .opencode-Konfiguration",
+  "settings.other.title": "Weitere",
   "settings.advanced": "Erweitert",
-  "settings.models.title": "Modelle",
 
   "settings.permissions.toast.updateFailed.title": "Berechtigungen konnten nicht aktualisiert werden",
 
@@ -566,7 +562,6 @@ export const dict = {
   "settings.agentBehaviour.title": "Agentenverhalten",
   "settings.autoApprove.title": "Automatisch genehmigen",
   "settings.checkpoints.title": "Prüfpunkte",
-  "settings.display.title": "Anzeige",
   "settings.notifications.title": "Benachrichtigungen",
 
   "settings.language.title": "Sprache",
@@ -861,8 +856,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "Standardmodell",
-  "settings.providers.defaultModel.description": "Primäres Modell für Gespräche",
   "settings.providers.disabled": "Deaktivierte Anbieter",
   "settings.providers.disabled.description": "Anbieter aus der Anbieterliste ausblenden",
   "settings.providers.disabled.enable": "Aktivieren",
@@ -997,8 +990,6 @@ export const dict = {
   "chat.search.noResults": "Keine Ergebnisse",
   "chat.search.searchingHistory": "Frühere Nachrichten werden durchsucht…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",

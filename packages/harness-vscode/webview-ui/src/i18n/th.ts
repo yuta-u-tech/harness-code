@@ -404,7 +404,6 @@ export const dict = {
   "sound.option.yup05": "Yup 05",
   "sound.option.yup06": "Yup 06",
 
-  "settings.providers.title": "ผู้ให้บริการ",
   "settings.providers.section.connected": "ผู้ให้บริการที่เชื่อมต่อ",
   "settings.providers.connected.empty": "ไม่มีผู้ให้บริการที่เชื่อมต่อ",
   "settings.providers.section.popular": "ผู้ให้บริการยอดนิยม",
@@ -419,9 +418,6 @@ export const dict = {
   "settings.providers.action.signInChatGPT": "ลงชื่อเข้าใช้ด้วย ChatGPT",
   "settings.providers.action.changeApiKey": "เปลี่ยนคีย์ API",
   "settings.providers.custom.description": "เพิ่มผู้ให้บริการแบบกำหนดเองด้วย URL พื้นฐาน",
-  "settings.providers.subagentModel.title": "โมเดลตัวแทนย่อย",
-  "settings.providers.subagentModel.description":
-    "โมเดลเริ่มต้นและระดับการใช้เหตุผลสำหรับตัวแทนย่อยของ task-tool ปล่อยว่างไว้เพื่อรับค่าโมเดลจากตัวแทนที่เรียก",
   "provider.custom.title": "ผู้ให้บริการที่กำหนดเอง",
   "provider.custom.description.prefix": "กำหนดค่าผู้ให้บริการแบบกำหนดเอง ดู",
   "provider.custom.description.link": "เอกสารการกำหนดค่าผู้ให้บริการ",
@@ -498,8 +494,8 @@ export const dict = {
   "settings.config.source.projectHarness": "การตั้งค่า .harness ของโปรเจกต์",
   "settings.config.source.projectRoot": "การตั้งค่ารูทของโปรเจกต์",
   "settings.config.source.projectOpencode": "การตั้งค่า .opencode แบบเก่า",
+  "settings.other.title": "อื่น ๆ",
   "settings.advanced": "ขั้นสูง",
-  "settings.models.title": "โมเดล",
 
   "settings.permissions.toast.updateFailed.title": "ไม่สามารถอัปเดตสิทธิ์",
 
@@ -550,7 +546,6 @@ export const dict = {
   "settings.agentBehaviour.title": "พฤติกรรมของเอเจนต์",
   "settings.autoApprove.title": "อนุมัติอัตโนมัติ",
   "settings.checkpoints.title": "จุดตรวจสอบ",
-  "settings.display.title": "การแสดงผล",
   "settings.notifications.title": "การแจ้งเตือน",
 
   "settings.language.title": "ภาษา",
@@ -826,8 +821,6 @@ export const dict = {
     "Average {{speed}} tokens/s for this turn. Includes output and reasoning tokens; excludes tool execution and waiting time.",
   "chat.throughput.tooltip.missing": "Throughput metrics unavailable for this turn.",
 
-  "settings.providers.defaultModel.title": "โมเดลเริ่มต้น",
-  "settings.providers.defaultModel.description": "โมเดลหลักสำหรับบทสนทนา",
   "settings.providers.disabled": "ผู้ให้บริการที่ปิดใช้งาน",
   "settings.providers.disabled.description": "ผู้ให้บริการที่จะซ่อนจากรายการ",
   "settings.providers.disabled.enable": "เปิดใช้งาน",
@@ -960,8 +953,6 @@ export const dict = {
   "chat.search.noResults": "ไม่มีผลลัพธ์",
   "chat.search.searchingHistory": "กำลังค้นหาข้อความก่อนหน้า…",
   "settings.harness.title": "Harness",
-  "settings.harness.intro": "Define the flow an agent follows. Each step has its own model, prompt, tools and checks.",
-  "settings.harness.summary": "Per run: {{agents}} agent steps, {{judgeRuns}} AI scoring runs, {{commands}} commands",
   "settings.harness.issues": "Fix before running:",
   "settings.harness.addStep": "Add step",
   "settings.harness.kind.agent": "Agent",
