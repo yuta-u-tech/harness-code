@@ -673,9 +673,6 @@ export const dict = {
   "settings.notifications.sound.description":
     "За замовчуванням для завершення, запиту на введення та помилок використовуються різні звуки. В інших варіантах для всіх подій використовується один і той самий звук.",
 
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "Надайте спільну дошку головному сеансу та його субагентам, які виконують завдання, включно з вкладеними субагентами. Використовуйте її для паралельних спроб знайти розв'язання або взаємодоповнювальної роботи, а не для кожного завдання.",
 
   "settings.agentBehaviour.defaultAgent.title": "Агент за замовчуванням",
   "settings.agentBehaviour.defaultAgent.description": "Агент, що використовується, якщо не вказано інший",
@@ -729,10 +726,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Надсилати виправлення запиту на злиття",
   "settings.agentBehaviour.pushFixes.description":
     "Коли ви надсилаєте агенту помилки CI або коментарі ревʼю із запиту на злиття або оновлюєте робоче дерево з базової гілки, попросити його зробити коміт і push, щоб запит на злиття оновився. Запити дозволів і далі діють. Вимкніть, щоб робити коміти вручну.",
-  "settings.agentBehaviour.claudeCompat.heading": "Сумісність з Claude Code",
-  "settings.agentBehaviour.claudeCompat.title": "Завантажувати файли Claude Code",
-  "settings.agentBehaviour.claudeCompat.description":
-    "Завантажувати інструкції та навички CLAUDE.md з вашого каталогу конфігурації Claude Code у сесії. Увімкніть це, якщо ви хочете, щоб Harness використовував ваші інструкції та навички Claude Code. Потребує перезапуску.",
   "settings.agentBehaviour.removeMcp.title": "Видалити MCP-сервер",
   "settings.agentBehaviour.removeMcp.confirm": 'Видалити MCP-сервер "{{name}}"? Це видалить його з вашої конфігурації.',
   "settings.agentBehaviour.removeMcp.button": "Видалити",
@@ -812,9 +805,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "Попередній перегляд",
-  "settings.display.presets.title": "Пресети відображення",
-  "settings.display.presets.description":
-    "Змінює параметри відображення нижче, а не дозволи. Збережіть, щоб застосувати.",
   "settings.display.preview.model": "Приклад моделі",
   "settings.display.preview.prompt": "Приберіть зайві пробіли з привітання та перевірте тести.",
   "settings.display.preview.reasoning":
@@ -835,9 +825,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "Розгорнуті",
   "settings.display.reasoningDisplay.preview": "Попередній перегляд",
   "settings.display.reasoningDisplay.headline": "Заголовок",
-  "settings.display.shiftTabCycle.title": "Перемикати зусилля міркування за допомогою Shift+Tab",
-  "settings.display.shiftTabCycle.description":
-    "Натисніть Shift+Tab у полі введення запиту, щоб перейти до наступного рівня зусиль міркування. Вимкніть цю опцію, щоб зберегти Shift+Tab для навігації фокусом за допомогою клавіатури.",
   "settings.display.terminalCommand.title": "Блоки команд термінала",
   "settings.display.terminalCommand.description":
     "Виберіть, чи будуть блоки команд термінала спочатку розгорнутими чи згорнутими.",
@@ -854,9 +841,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "Розгорнуті",
   "settings.display.mcpTool.collapsed": "Згорнуті",
 
-  "settings.display.tokenThroughput.title": "Показувати пропускну здатність токенів",
-  "settings.display.tokenThroughput.description":
-    "Показувати швидкість генерації тексту (tokens/sec) в останньому повідомленні асистента та в заголовку завдання. Показується за замовчуванням; вимкніть цей параметр, щоб за потреби її приховати.",
   "settings.display.autoApprovalReason.title": "Показувати причину автосхвалення",
   "settings.display.autoApprovalReason.description":
     "Показує, чому виклик інструмента схвалено автоматично, наприклад через відповідне правило дозволів або стандартне значення агента.",

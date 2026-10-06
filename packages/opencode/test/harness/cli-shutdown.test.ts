@@ -99,13 +99,10 @@ for (const path of [
 ]) {
   mock.module(path, () => ({
     HarnessConsoleCommand: { command: "console", handler() {} },
-    CloudCommand: { command: "cloud", handler() {} },
     RollCallCommand: { command: "roll-call", handler() {} },
-    ProfileCommand: { command: "profile", handler() {} },
     DaemonCommand: { command: "daemon", handler() {} },
     DevSetupCommand: { command: "dev-setup", handler() {} },
     DevAliasCommand: { command: "dev-alias", handler() {} },
-    RemoteCommand: { command: "remote", handler() {} },
     ConfigCommand: { command: "config", handler() {} },
   }))
 }

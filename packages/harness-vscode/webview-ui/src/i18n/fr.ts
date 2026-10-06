@@ -686,9 +686,6 @@ export const dict = {
   "settings.notifications.sound.system": "Système",
   "settings.notifications.sound.description":
     "L’option par défaut utilise des sons différents pour la fin des sessions, les demandes d’intervention et les erreurs. Les autres options utilisent un même son pour tous les événements.",
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "Partagez un tableau entre une session principale et ses sous-agents chargés de tâches, y compris les sous-agents imbriqués. Utilisez-le pour des tentatives de résolution en parallèle ou des travaux complémentaires, pas pour toutes les tâches.",
 
   "settings.agentBehaviour.defaultAgent.title": "Agent par défaut",
   "settings.agentBehaviour.defaultAgent.description": "Agent à utiliser lorsqu'aucun n'est spécifié",
@@ -797,10 +794,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Pousser les correctifs de la pull request",
   "settings.agentBehaviour.pushFixes.description":
     "Lorsque vous envoyez à l'agent des échecs de CI ou des commentaires de revue d'une pull request, ou que vous mettez à jour un worktree depuis sa base, lui demander de commiter et de pousser pour que la pull request soit mise à jour. Les demandes d'autorisation restent actives. Désactivez pour commiter manuellement.",
-  "settings.agentBehaviour.claudeCompat.heading": "Compatibilité Claude Code",
-  "settings.agentBehaviour.claudeCompat.title": "Charger les fichiers Claude Code",
-  "settings.agentBehaviour.claudeCompat.description":
-    "Charge les instructions et les compétences de CLAUDE.md depuis votre répertoire de configuration Claude Code dans les sessions. Activez cette option si vous souhaitez que Harness utilise vos instructions et compétences Claude Code. Nécessite un redémarrage.",
   "settings.agentBehaviour.mcpDetail.command": "Commande",
   "settings.agentBehaviour.mcpDetail.args": "Arguments",
   "settings.agentBehaviour.mcpDetail.env": "Environnement",
@@ -869,9 +862,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "Aperçu",
-  "settings.display.presets.title": "Préréglages d'affichage",
-  "settings.display.presets.description":
-    "Modifie les options d'affichage ci-dessous, pas les autorisations. Enregistrez pour appliquer.",
   "settings.display.preview.model": "Modèle d'exemple",
   "settings.display.preview.prompt": "Supprimez les espaces superflus dans la salutation et vérifiez les tests.",
   "settings.display.preview.reasoning":
@@ -894,9 +884,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "Développés",
   "settings.display.reasoningDisplay.preview": "Aperçu",
   "settings.display.reasoningDisplay.headline": "En-tête",
-  "settings.display.shiftTabCycle.title": "Parcourir l'effort de raisonnement avec Shift+Tab",
-  "settings.display.shiftTabCycle.description":
-    "Appuyez sur Shift+Tab dans un champ de saisie de prompt pour passer au niveau d'effort de raisonnement suivant. Désactivez cette option pour conserver Shift+Tab pour la navigation du focus au clavier.",
   "settings.display.terminalCommand.title": "Blocs de commande de terminal",
   "settings.display.terminalCommand.description":
     "Choisissez si les blocs de commande de terminal sont initialement développés ou réduits.",
@@ -913,9 +900,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "Développés",
   "settings.display.mcpTool.collapsed": "Réduits",
 
-  "settings.display.tokenThroughput.title": "Afficher le débit de tokens",
-  "settings.display.tokenThroughput.description":
-    "Afficher la vitesse de génération du texte (tokens/sec) dans le dernier message de l’assistant et dans l’en-tête de la tâche. Affichée par défaut ; désactivez ce paramètre pour la masquer si nécessaire.",
   "settings.display.autoApprovalReason.title": "Afficher la raison de l'approbation automatique",
   "settings.display.autoApprovalReason.description":
     "Indique pourquoi un appel d'outil a été approuvé automatiquement, par exemple une règle d'autorisation correspondante ou une valeur par défaut d'agent.",

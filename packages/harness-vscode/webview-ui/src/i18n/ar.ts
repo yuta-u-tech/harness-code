@@ -657,9 +657,6 @@ export const dict = {
   "settings.notifications.sound.system": "النظام",
   "settings.notifications.sound.description":
     "يستخدم الخيار الافتراضي أصواتًا مختلفة عند الاكتمال أو الحاجة إلى ردّك أو حدوث خطأ. تستخدم الخيارات الأخرى صوتًا واحدًا لجميع الأحداث.",
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "شارك لوحة بين جلسة رئيسية ووكلائها الفرعيين المكلّفين بالمهام، بما يشمل الوكلاء الفرعيين المتداخلين. استخدمها لمحاولات حل متوازية أو أعمال متكاملة، وليس لكل مهمة.",
 
   "settings.agentBehaviour.defaultAgent.title": "الوكيل الافتراضي",
   "settings.agentBehaviour.defaultAgent.description": "الوكيل المستخدم عند عدم التحديد",
@@ -763,10 +760,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "دفع إصلاحات طلب السحب",
   "settings.agentBehaviour.pushFixes.description":
     "عند إرسال حالات فشل CI أو تعليقات المراجعة من طلب سحب إلى الوكيل، أو تحديث worktree من فرعه الأساسي، اطلب منه إنشاء التزام ودفع التغييرات حتى يتم تحديث طلب السحب. تظل مطالبات الأذونات سارية. أوقف هذا الخيار للاحتفاظ بالالتزامات يدوية.",
-  "settings.agentBehaviour.claudeCompat.heading": "توافق Claude Code",
-  "settings.agentBehaviour.claudeCompat.title": "تحميل ملفات Claude Code",
-  "settings.agentBehaviour.claudeCompat.description":
-    "تحميل تعليمات ومهارات CLAUDE.md من مجلد إعدادات Claude Code إلى الجلسات. قم بتمكين هذا الخيار إذا كنت ترغب في أن يستخدم Harness مهارات وتعليمات Claude Code الخاصة بك. يتطلب إعادة التشغيل.",
   "settings.agentBehaviour.mcpDetail.command": "الأمر",
   "settings.agentBehaviour.mcpDetail.args": "الوسائط",
   "settings.agentBehaviour.mcpDetail.env": "البيئة",
@@ -826,8 +819,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "معاينة",
-  "settings.display.presets.title": "إعدادات العرض المسبقة",
-  "settings.display.presets.description": "يغيّر خيارات العرض أدناه، وليس الأذونات. احفظ للتطبيق.",
   "settings.display.preview.model": "نموذج تجريبي",
   "settings.display.preview.prompt": "أزل المسافات الزائدة من التحية وتحقق من الاختبارات.",
   "settings.display.preview.reasoning":
@@ -848,9 +839,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "موسّعة",
   "settings.display.reasoningDisplay.preview": "معاينة",
   "settings.display.reasoningDisplay.headline": "عنوان",
-  "settings.display.shiftTabCycle.title": "تبديل جهد الاستدلال باستخدام Shift+Tab",
-  "settings.display.shiftTabCycle.description":
-    "اضغط على Shift+Tab في حقل إدخال الموجه للتبديل إلى مستوى جهد الاستدلال التالي. عطّل هذا الخيار للاحتفاظ بـ Shift+Tab للتنقل بين عناصر التركيز باستخدام لوحة المفاتيح.",
   "settings.display.terminalCommand.title": "كتل أوامر الطرفية",
   "settings.display.terminalCommand.description": "اختر ما إذا كانت كتل أوامر الطرفية تبدأ موسّعة أم مطوية.",
   "settings.display.terminalCommand.expanded": "موسّعة",
@@ -865,9 +853,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "موسّعة",
   "settings.display.mcpTool.collapsed": "مطوية",
 
-  "settings.display.tokenThroughput.title": "إظهار إنتاجية الرموز",
-  "settings.display.tokenThroughput.description":
-    "عرض معدل توليد النص (tokens/sec) في أحدث رسالة للمساعد وفي رأس المهمة. يظهر افتراضيًا؛ عطّل هذا الإعداد لإخفائه عند الحاجة.",
   "settings.display.autoApprovalReason.title": "إظهار سبب الموافقة التلقائية",
   "settings.display.autoApprovalReason.description":
     "يظهر سبب الموافقة التلقائية على استدعاء أداة، مثل قاعدة إذن مطابقة أو إعداد افتراضي للوكيل.",

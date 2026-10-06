@@ -644,9 +644,6 @@ export const dict = {
   "settings.notifications.sound.system": "系統",
   "settings.notifications.sound.description":
     "預設選項會為完成、輸入和錯誤使用不同的聲音。其他選項則會對所有事件使用同一種聲音。",
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "讓主要工作階段與負責其任務的子代理共用看板，包括巢狀子代理。用於並行嘗試解決方案或進行相互補充的工作，而不是用於每一項任務。",
 
   "settings.agentBehaviour.defaultAgent.title": "預設 Agent",
   "settings.agentBehaviour.defaultAgent.description": "未指定時使用的 Agent",
@@ -744,10 +741,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "推送提取請求修正",
   "settings.agentBehaviour.pushFixes.description":
     "當你將提取請求的 CI 失敗或審查留言傳送給代理程式，或從基礎分支更新 worktree 時，要求代理程式提交並推送，以更新提取請求。權限確認仍然適用。關閉後可手動提交。",
-  "settings.agentBehaviour.claudeCompat.heading": "Claude Code 相容性",
-  "settings.agentBehaviour.claudeCompat.title": "載入 Claude Code 檔案",
-  "settings.agentBehaviour.claudeCompat.description":
-    "從您的 Claude Code 設定目錄將 CLAUDE.md 指示與技能載入至工作階段中。如果您希望 Harness 使用您的 Claude Code 指示與技能，請啟用此選項。需要重新啟動。",
   "settings.agentBehaviour.mcpDetail.command": "指令",
   "settings.agentBehaviour.mcpDetail.args": "引數",
   "settings.agentBehaviour.mcpDetail.env": "環境",
@@ -801,8 +794,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "預覽",
-  "settings.display.presets.title": "顯示預設集",
-  "settings.display.presets.description": "變更下方的顯示選項，而非權限。儲存後套用。",
   "settings.display.preview.model": "範例模型",
   "settings.display.preview.prompt": "移除問候語中的多餘空格，並檢查測試。",
   "settings.display.preview.reasoning":
@@ -823,9 +814,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "展開",
   "settings.display.reasoningDisplay.preview": "預覽",
   "settings.display.reasoningDisplay.headline": "標題",
-  "settings.display.shiftTabCycle.title": "使用 Shift+Tab 切換推理強度",
-  "settings.display.shiftTabCycle.description":
-    "在提示輸入框中按 Shift+Tab 可切換至下一個推理強度等級。停用此選項可保留 Shift+Tab 用於鍵盤焦點導覽。",
   "settings.display.terminalCommand.title": "終端命令區塊",
   "settings.display.terminalCommand.description": "選擇終端命令區塊的初始狀態：展開或收合。",
   "settings.display.terminalCommand.expanded": "展開",
@@ -839,9 +827,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "展開",
   "settings.display.mcpTool.collapsed": "收合",
 
-  "settings.display.tokenThroughput.title": "顯示權杖吞吐量",
-  "settings.display.tokenThroughput.description":
-    "在最新的助理訊息和任務標題中顯示文字生成速率（tokens/sec）。預設顯示；需要時停用此設定即可隱藏。",
   "settings.display.autoApprovalReason.title": "顯示自動核准原因",
   "settings.display.autoApprovalReason.description": "顯示工具呼叫被自動核准的原因，例如符合的權限規則或代理預設值。",
 

@@ -688,9 +688,6 @@ export const dict = {
   "settings.notifications.sound.system": "System",
   "settings.notifications.sound.description":
     "Die Standardeinstellung verwendet unterschiedliche Töne für Abschluss, Eingabe und Fehler. Bei anderen Optionen wird für alle Ereignisse derselbe Ton verwendet.",
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "Teilen Sie ein Board zwischen einer Hauptsitzung und ihren mit Aufgaben betrauten Unteragenten, einschließlich verschachtelter Unteragenten. Nutzen Sie es für parallele Lösungsversuche oder sich ergänzende Arbeiten, nicht für jede Aufgabe.",
 
   "settings.agentBehaviour.defaultAgent.title": "Standard-Agent",
   "settings.agentBehaviour.defaultAgent.description": "Agent, der verwendet wird, wenn keiner angegeben ist",
@@ -797,10 +794,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Pull-Request-Fixes pushen",
   "settings.agentBehaviour.pushFixes.description":
     "Wenn du CI-Fehler oder Review-Kommentare eines Pull Requests an den Agenten sendest oder einen Worktree von seiner Basis aktualisierst, wird der Agent gebeten, zu committen und zu pushen, damit der Pull Request aktualisiert wird. Berechtigungsabfragen gelten weiterhin. Deaktivieren, um manuell zu committen.",
-  "settings.agentBehaviour.claudeCompat.heading": "Claude Code-Kompatibilität",
-  "settings.agentBehaviour.claudeCompat.title": "Claude Code-Dateien laden",
-  "settings.agentBehaviour.claudeCompat.description":
-    "Lädt CLAUDE.md-Anweisungen und Skills aus Ihrem Claude Code-Konfigurationsverzeichnis in Sitzungen. Aktivieren Sie dies, wenn Harness Ihre Claude Code-Anweisungen und Skills verwenden soll. Neustart erforderlich.",
   "settings.agentBehaviour.mcpDetail.command": "Befehl",
   "settings.agentBehaviour.mcpDetail.args": "Argumente",
   "settings.agentBehaviour.mcpDetail.env": "Umgebung",
@@ -866,9 +859,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "Vorschau",
-  "settings.display.presets.title": "Anzeigevoreinstellungen",
-  "settings.display.presets.description":
-    "Ändert die Anzeigeoptionen unten, nicht die Berechtigungen. Zum Anwenden speichern.",
   "settings.display.preview.model": "Beispielmodell",
   "settings.display.preview.prompt": "Entferne überflüssige Leerzeichen aus der Begrüßung und prüfe die Tests.",
   "settings.display.preview.reasoning":
@@ -891,9 +881,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "Ausgeklappt",
   "settings.display.reasoningDisplay.preview": "Vorschau",
   "settings.display.reasoningDisplay.headline": "Überschrift",
-  "settings.display.shiftTabCycle.title": "Reasoning-Aufwand mit Shift+Tab durchlaufen",
-  "settings.display.shiftTabCycle.description":
-    "Drücken Sie Shift+Tab in einem Prompt-Eingabefeld, um zur nächsten Stufe des Reasoning-Aufwands zu wechseln. Deaktivieren Sie dies, um Shift+Tab für die Tastaturfokusnavigation beizubehalten.",
   "settings.display.terminalCommand.title": "Terminalbefehlsblöcke",
   "settings.display.terminalCommand.description":
     "Wählen Sie, ob Terminalbefehlsblöcke anfangs aus- oder eingeklappt sind.",
@@ -910,9 +897,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "Ausgeklappt",
   "settings.display.mcpTool.collapsed": "Eingeklappt",
 
-  "settings.display.tokenThroughput.title": "Token-Durchsatz anzeigen",
-  "settings.display.tokenThroughput.description":
-    "Die Textgenerierungsrate (tokens/sec) in der neuesten Assistentennachricht und in der Aufgabenüberschrift anzeigen. Standardmäßig angezeigt; deaktivieren Sie diese Einstellung, um sie bei Bedarf auszublenden.",
   "settings.display.autoApprovalReason.title": "Grund für automatische Genehmigung anzeigen",
   "settings.display.autoApprovalReason.description":
     "Zeigt, warum ein Tool-Aufruf automatisch genehmigt wurde, z. B. durch eine passende Berechtigungsregel oder einen Agent-Standard.",

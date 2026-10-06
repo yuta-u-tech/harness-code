@@ -678,9 +678,6 @@ export const dict = {
   "settings.notifications.sound.system": "Sistema",
   "settings.notifications.sound.description":
     "A opção padrão usa sons diferentes para conclusão, interação e erros. As outras opções usam um único som para todos os eventos.",
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "Compartilhe um quadro entre uma sessão principal e seus subagentes de tarefas, incluindo subagentes aninhados. Use-o para tentativas de solução em paralelo ou trabalhos complementares, não para todas as tarefas.",
 
   "settings.agentBehaviour.defaultAgent.title": "Agente padrão",
   "settings.agentBehaviour.defaultAgent.description": "Agente a usar quando nenhum é especificado",
@@ -788,10 +785,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Enviar correções do pull request",
   "settings.agentBehaviour.pushFixes.description":
     "Ao enviar falhas de CI ou comentários de revisão de um pull request para o agente, ou ao atualizar uma worktree a partir da base, pedir que ele faça commit e push para que o pull request seja atualizado. As solicitações de permissão continuam valendo. Desative para manter os commits manuais.",
-  "settings.agentBehaviour.claudeCompat.heading": "Compatibilidade com Claude Code",
-  "settings.agentBehaviour.claudeCompat.title": "Carregar Arquivos do Claude Code",
-  "settings.agentBehaviour.claudeCompat.description":
-    "Carrega as instruções e skills do CLAUDE.md a partir do seu diretório de configuração do Claude Code para as sessões. Ative esta opção se deseja que o Harness utilize suas instruções e skills do Claude Code. Requer reinicialização.",
   "settings.agentBehaviour.mcpDetail.command": "Comando",
   "settings.agentBehaviour.mcpDetail.args": "Argumentos",
   "settings.agentBehaviour.mcpDetail.env": "Ambiente",
@@ -858,8 +851,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "Prévia",
-  "settings.display.presets.title": "Predefinições de exibição",
-  "settings.display.presets.description": "Altera as opções de exibição abaixo, não as permissões. Salve para aplicar.",
   "settings.display.preview.model": "Modelo de exemplo",
   "settings.display.preview.prompt": "Remova os espaços extras da saudação e verifique os testes.",
   "settings.display.preview.reasoning":
@@ -881,9 +872,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "Expandidos",
   "settings.display.reasoningDisplay.preview": "Prévia",
   "settings.display.reasoningDisplay.headline": "Manchete",
-  "settings.display.shiftTabCycle.title": "Alternar o esforço de raciocínio com Shift+Tab",
-  "settings.display.shiftTabCycle.description":
-    "Pressione Shift+Tab em um campo de entrada de prompt para alternar para o próximo nível de esforço de raciocínio. Desative para manter Shift+Tab para navegação de foco pelo teclado.",
   "settings.display.terminalCommand.title": "Blocos de comando do terminal",
   "settings.display.terminalCommand.description":
     "Escolha se os blocos de comando do terminal começam expandidos ou recolhidos.",
@@ -900,9 +888,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "Expandidos",
   "settings.display.mcpTool.collapsed": "Recolhidos",
 
-  "settings.display.tokenThroughput.title": "Mostrar taxa de tokens",
-  "settings.display.tokenThroughput.description":
-    "Exibir a taxa de geração de texto (tokens/sec) na mensagem mais recente do assistente e no cabeçalho da tarefa. Exibida por padrão; desative esta configuração para ocultá-la quando necessário.",
   "settings.display.autoApprovalReason.title": "Mostrar motivo da aprovação automática",
   "settings.display.autoApprovalReason.description":
     "Mostra por que uma chamada de ferramenta foi aprovada automaticamente, como uma regra de permissão correspondente ou um padrão do agente.",

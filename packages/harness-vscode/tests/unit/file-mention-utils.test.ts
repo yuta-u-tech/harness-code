@@ -23,6 +23,7 @@ import {
   GIT_CHANGES_RESULT,
   WORKTREES_RESULT,
   MODEL_RESULT,
+  ACTION_RESULTS,
   modelReferenceToken,
   filePickerNamed,
   defaultMentionIndex,
@@ -140,6 +141,7 @@ describe("buildMentionResults", () => {
       TERMINAL_RESULT,
       GIT_CHANGES_RESULT,
       PAST_CHATS_RESULT,
+      ...ACTION_RESULTS,
       FILE_PICKER_RESULT,
       { type: "file", value: "src/index.ts" },
     ])
@@ -182,7 +184,7 @@ describe("buildMentionResults", () => {
   it("keeps browse files last among the entries of a bare @", () => {
     const result = buildMentionResults("", ["src/index.ts"], true, true)
     const types = result.map((item) => item.type)
-    expect(types.indexOf("file-picker")).toBe(types.indexOf("worktrees") + 1)
+    expect(types.indexOf("file-picker")).toBe(types.lastIndexOf("action") + 1)
     expect(types.indexOf("file-picker")).toBe(types.indexOf("file") - 1)
   })
 

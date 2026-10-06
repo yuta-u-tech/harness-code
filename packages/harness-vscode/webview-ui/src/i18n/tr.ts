@@ -671,9 +671,6 @@ export const dict = {
   "settings.notifications.sound.description":
     "Varsayılan seçenekte tamamlanma, giriş ve hatalar için farklı sesler kullanılır. Diğer seçeneklerde tüm etkinlikler için tek bir ses kullanılır.",
 
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "Bir ana oturum ile görevlerini yürüten alt ajanları arasında, iç içe geçmiş alt ajanlar da dahil olmak üzere bir pano paylaşın. Her görev için değil, paralel çözüm denemeleri veya birbirini tamamlayan çalışmalar için kullanın.",
 
   "settings.agentBehaviour.defaultAgent.title": "Varsayılan Ajan",
   "settings.agentBehaviour.defaultAgent.description": "Belirtilmediğinde kullanılacak ajan",
@@ -728,10 +725,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Çekme isteği düzeltmelerini push'la",
   "settings.agentBehaviour.pushFixes.description":
     "Bir çekme isteğinin CI hatalarını veya inceleme yorumlarını ajana gönderdiğinizde ya da bir worktree'yi tabanından güncellediğinizde, çekme isteğinin güncellenmesi için ajandan commit ve push yapmasını isteyin. İzin istemleri geçerli kalır. Commit'leri elle yapmak için kapatın.",
-  "settings.agentBehaviour.claudeCompat.heading": "Claude Code Uyumluluğu",
-  "settings.agentBehaviour.claudeCompat.title": "Claude Code Dosyalarını Yükle",
-  "settings.agentBehaviour.claudeCompat.description":
-    "Claude Code yapılandırma dizininizdeki CLAUDE.md talimatlarını ve becerilerini oturumlara yükleyin. Harness'nun Claude Code talimatlarınızı ve becerilerinizi kullanmasını istiyorsanız bunu etkinleştirin. Yeniden başlatma gerektirir.",
   "settings.agentBehaviour.removeMcp.title": "MCP sunucusunu kaldır",
   "settings.agentBehaviour.removeMcp.confirm":
     '"{{name}}" MCP sunucusu kaldırılsın mı? Bu, yapılandırmanızdan kaldırılacak.',
@@ -812,9 +805,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "Önizleme",
-  "settings.display.presets.title": "Görüntüleme ön ayarları",
-  "settings.display.presets.description":
-    "Aşağıdaki görüntüleme seçeneklerini değiştirir, izinleri değil. Uygulamak için kaydedin.",
   "settings.display.preview.model": "Örnek model",
   "settings.display.preview.prompt": "Selamlamadaki fazla boşlukları kaldırın ve testleri kontrol edin.",
   "settings.display.preview.reasoning":
@@ -837,9 +827,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "Genişletilmiş",
   "settings.display.reasoningDisplay.preview": "Önizleme",
   "settings.display.reasoningDisplay.headline": "Başlık",
-  "settings.display.shiftTabCycle.title": "Shift+Tab ile akıl yürütme eforunu değiştir",
-  "settings.display.shiftTabCycle.description":
-    "Bir sonraki akıl yürütme eforu seviyesine geçmek için komut girişinde Shift+Tab tuşlarına basın. Shift+Tab tuşunu klavye odağında gezinmek için korumak üzere devre dışı bırakın.",
   "settings.display.terminalCommand.title": "Terminal Komut Blokları",
   "settings.display.terminalCommand.description":
     "Terminal komut bloklarının başlangıçta genişletilmiş mi yoksa daraltılmış mı olacağını seçin.",
@@ -856,9 +843,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "Genişletilmiş",
   "settings.display.mcpTool.collapsed": "Daraltılmış",
 
-  "settings.display.tokenThroughput.title": "Token İşleme Hızını Göster",
-  "settings.display.tokenThroughput.description":
-    "En son asistan mesajında ve görev başlığında metin oluşturma hızını (tokens/sec) gösterin. Varsayılan olarak gösterilir; gerektiğinde gizlemek için bu ayarı devre dışı bırakın.",
   "settings.display.autoApprovalReason.title": "Otomatik Onay Nedenini Göster",
   "settings.display.autoApprovalReason.description":
     "Bir araç çağrısının neden otomatik olarak onaylandığını gösterir; örneğin eşleşen bir izin kuralı veya aracı varsayılanı.",

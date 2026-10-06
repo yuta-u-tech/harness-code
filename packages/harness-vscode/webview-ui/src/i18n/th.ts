@@ -666,9 +666,6 @@ export const dict = {
   "settings.notifications.sound.system": "ระบบ",
   "settings.notifications.sound.description":
     "ค่าเริ่มต้นจะใช้เสียงที่แตกต่างกันสำหรับการเสร็จสิ้น การป้อนข้อมูล และข้อผิดพลาด ส่วนตัวเลือกอื่นจะใช้เสียงเดียวสำหรับทุกเหตุการณ์",
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "แชร์กระดานระหว่างเซสชันหลักกับเอเจนต์ย่อยที่รับมอบหมายงานจากเซสชันนั้น รวมถึงเอเจนต์ย่อยที่ซ้อนกัน ใช้สำหรับการลองแก้ปัญหาแบบขนานหรืองานที่เสริมกัน ไม่ใช่สำหรับทุกงาน",
 
   "settings.agentBehaviour.defaultAgent.title": "เอเจนต์เริ่มต้น",
   "settings.agentBehaviour.defaultAgent.description": "เอเจนต์ที่ใช้เมื่อไม่ได้ระบุ",
@@ -771,10 +768,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "พุชการแก้ไขของคำขอดึง",
   "settings.agentBehaviour.pushFixes.description":
     "เมื่อคุณส่งความล้มเหลวของ CI หรือความเห็นการตรวจสอบจากคำขอดึงให้เอเจนต์ หรืออัปเดต worktree จากสาขาฐาน ให้ขอให้เอเจนต์คอมมิตและพุชเพื่อให้คำขอดึงอัปเดต การขออนุญาตยังคงมีผล ปิดเพื่อคอมมิตด้วยตนเอง",
-  "settings.agentBehaviour.claudeCompat.heading": "ความเข้ากันได้กับ Claude Code",
-  "settings.agentBehaviour.claudeCompat.title": "โหลดไฟล์ Claude Code",
-  "settings.agentBehaviour.claudeCompat.description":
-    "โหลดคำแนะนำและทักษะจาก CLAUDE.md ในไดเรกทอรีการกำหนดค่า Claude Code ของคุณลงในเซสชัน เปิดใช้งานตัวเลือกนี้หากคุณต้องการให้ Harness ใช้คำแนะนำและทักษะจาก Claude Code ของคุณ จำเป็นต้องรีสตาร์ท",
   "settings.agentBehaviour.mcpDetail.command": "คำสั่ง",
   "settings.agentBehaviour.mcpDetail.args": "อาร์กิวเมนต์",
   "settings.agentBehaviour.mcpDetail.env": "สภาพแวดล้อม",
@@ -834,8 +827,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "ตัวอย่าง",
-  "settings.display.presets.title": "พรีเซ็ตการแสดงผล",
-  "settings.display.presets.description": "เปลี่ยนตัวเลือกการแสดงผลด้านล่าง ไม่ใช่สิทธิ์ บันทึกเพื่อนำไปใช้",
   "settings.display.preview.model": "โมเดลตัวอย่าง",
   "settings.display.preview.prompt": "ลบช่องว่างส่วนเกินออกจากคำทักทายและตรวจสอบการทดสอบ",
   "settings.display.preview.reasoning":
@@ -856,9 +847,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "ขยาย",
   "settings.display.reasoningDisplay.preview": "ตัวอย่าง",
   "settings.display.reasoningDisplay.headline": "หัวข้อ",
-  "settings.display.shiftTabCycle.title": "สลับระดับความพยายามในการให้เหตุผลด้วย Shift+Tab",
-  "settings.display.shiftTabCycle.description":
-    "กด Shift+Tab ในช่องป้อนพรอมต์เพื่อสลับไปยังระดับความพยายามในการให้เหตุผลถัดไป ปิดใช้งานเพื่อคง Shift+Tab ไว้สำหรับการนำทางโฟกัสด้วยแป้นพิมพ์",
   "settings.display.terminalCommand.title": "บล็อกคำสั่งเทอร์มินัล",
   "settings.display.terminalCommand.description": "เลือกว่าบล็อกคำสั่งเทอร์มินัลจะเริ่มต้นแบบขยายหรือยุบ",
   "settings.display.terminalCommand.expanded": "ขยาย",
@@ -872,9 +860,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "ขยาย",
   "settings.display.mcpTool.collapsed": "ยุบ",
 
-  "settings.display.tokenThroughput.title": "แสดงอัตราการประมวลผลโทเคน",
-  "settings.display.tokenThroughput.description":
-    "แสดงอัตราการสร้างข้อความ (tokens/sec) ในข้อความล่าสุดของผู้ช่วยและส่วนหัวของงาน แสดงโดยค่าเริ่มต้น; ปิดใช้งานการตั้งค่านี้เพื่อซ่อนเมื่อจำเป็น",
   "settings.display.autoApprovalReason.title": "แสดงเหตุผลการอนุมัติอัตโนมัติ",
   "settings.display.autoApprovalReason.description":
     "แสดงสาเหตุที่การเรียกเครื่องมือได้รับการอนุมัติอัตโนมัติ เช่น กฎสิทธิ์ที่ตรงกันหรือค่าเริ่มต้นของเอเจนต์",

@@ -157,10 +157,6 @@ import type {
   HarnessDrainSessionResponses,
   HarnessHeapSnapshotErrors,
   HarnessHeapSnapshotResponses,
-  HarnessMarketplaceInstallErrors,
-  HarnessMarketplaceInstallResponses,
-  HarnessMarketplaceListErrors,
-  HarnessMarketplaceListResponses,
   HarnessMarketplaceRemoveErrors,
   HarnessMarketplaceRemoveResponses,
   HarnessMigrateDiscoverErrors,
@@ -232,7 +228,6 @@ import type {
   LocationRef,
   LspStatusErrors,
   LspStatusResponses,
-  MarketplaceInstallItem,
   MarketplaceItemRef,
   McpAddErrors,
   McpAddResponses,
@@ -6773,87 +6768,6 @@ export class Heap extends HeyApiClient {
 }
 
 export class Marketplace extends HeyApiClient {
-  /**
-   * List marketplace items
-   *
-   * Fetch marketplace catalog items and detect the items installed for the routed workspace.
-   */
-  public list<ThrowOnError extends boolean = false>(
-    parameters?: {
-      directory?: string
-      workspace?: string
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).get<
-      HarnessMarketplaceListResponses,
-      HarnessMarketplaceListErrors,
-      ThrowOnError
-    >({
-      url: "/harness/marketplace",
-      ...options,
-      ...params,
-    })
-  }
-
-  /**
-   * Install a marketplace item
-   *
-   * Install a marketplace MCP server, agent, skill, or plugin into project or global Harness config.
-   */
-  public install<ThrowOnError extends boolean = false>(
-    parameters: {
-      directory?: string
-      workspace?: string
-      item: MarketplaceInstallItem
-      target?: "project" | "global"
-      parameters?: {
-        [key: string]: unknown
-      }
-    },
-    options?: Options<never, ThrowOnError>,
-  ) {
-    const params = buildClientParams(
-      [parameters],
-      [
-        {
-          args: [
-            { in: "query", key: "directory" },
-            { in: "query", key: "workspace" },
-            { in: "body", key: "item" },
-            { in: "body", key: "target" },
-            { in: "body", key: "parameters" },
-          ],
-        },
-      ],
-    )
-    return (options?.client ?? this.client).post<
-      HarnessMarketplaceInstallResponses,
-      HarnessMarketplaceInstallErrors,
-      ThrowOnError
-    >({
-      url: "/harness/marketplace/install",
-      ...options,
-      ...params,
-      headers: {
-        "Content-Type": "application/json",
-        ...options?.headers,
-        ...params.headers,
-      },
-    })
-  }
-
   /**
    * Remove a marketplace item
    *

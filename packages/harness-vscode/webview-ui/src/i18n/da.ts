@@ -672,9 +672,6 @@ export const dict = {
   "settings.notifications.sound.system": "System",
   "settings.notifications.sound.description":
     "Standardindstillingen bruger forskellige lyde til afslutning, input og fejl. Andre valg bruger én lyd til alle hændelser.",
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "Del et board mellem en hovedsession og dens underagenter til opgaveløsning, herunder indlejrede underagenter. Brug det til parallelle løsningsforsøg eller arbejdsopgaver, der supplerer hinanden, ikke til alle opgaver.",
 
   "settings.agentBehaviour.defaultAgent.title": "Standardagent",
   "settings.agentBehaviour.defaultAgent.description": "Agent til brug, når ingen er angivet",
@@ -778,10 +775,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Push pull request-rettelser",
   "settings.agentBehaviour.pushFixes.description":
     "Når du sender CI-fejl eller review-kommentarer fra en pull request til agenten, eller opdaterer et worktree fra dets base, bedes agenten committe og pushe, så pull requesten opdateres. Tilladelsesprompter gælder stadig. Slå fra for at committe manuelt.",
-  "settings.agentBehaviour.claudeCompat.heading": "Claude Code-kompatibilitet",
-  "settings.agentBehaviour.claudeCompat.title": "Indlæs Claude Code-filer",
-  "settings.agentBehaviour.claudeCompat.description":
-    "Indlæs CLAUDE.md-instruktioner og -færdigheder fra din Claude Code-konfigurationsmappe i sessioner. Aktivér dette, hvis du vil have Harness til at bruge dine Claude Code-instruktioner og -færdigheder. Kræver genstart.",
   "settings.agentBehaviour.mcpDetail.command": "Kommando",
   "settings.agentBehaviour.mcpDetail.args": "Argumenter",
   "settings.agentBehaviour.mcpDetail.env": "Miljø",
@@ -846,9 +839,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "Forhåndsvisning",
-  "settings.display.presets.title": "Visningsforudindstillinger",
-  "settings.display.presets.description":
-    "Ændrer visningsindstillingerne nedenfor, ikke tilladelser. Gem for at anvende.",
   "settings.display.preview.model": "Eksempelmodel",
   "settings.display.preview.prompt": "Fjern overflødige mellemrum fra hilsenen, og kontroller testene.",
   "settings.display.preview.reasoning":
@@ -869,9 +859,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "Foldet ud",
   "settings.display.reasoningDisplay.preview": "Forhåndsvisning",
   "settings.display.reasoningDisplay.headline": "Overskrift",
-  "settings.display.shiftTabCycle.title": "Skift ræsonnementsindsats med Shift+Tab",
-  "settings.display.shiftTabCycle.description":
-    "Tryk på Shift+Tab i et promptindtastningsfelt for at skifte til næste niveau af ræsonnementsindsats. Deaktivér for at beholde Shift+Tab til tastaturnavigation af fokus.",
   "settings.display.terminalCommand.title": "Terminalkommandoblokke",
   "settings.display.terminalCommand.description": "Vælg om terminalkommandoblokke starter foldet ud eller sammen.",
   "settings.display.terminalCommand.expanded": "Foldet ud",
@@ -886,9 +873,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "Foldet ud",
   "settings.display.mcpTool.collapsed": "Foldet sammen",
 
-  "settings.display.tokenThroughput.title": "Vis genereringshastighed",
-  "settings.display.tokenThroughput.description":
-    "Vis tekstgenereringshastigheden (tokens/sec) i den seneste assistentbesked og i opgaveoverskriften. Vises som standard; deaktiver denne indstilling for at skjule den efter behov.",
   "settings.display.autoApprovalReason.title": "Vis grund til automatisk godkendelse",
   "settings.display.autoApprovalReason.description":
     "Viser, hvorfor et værktøjskald blev automatisk godkendt, f.eks. en matchende tilladelsesregel eller en agentstandard.",

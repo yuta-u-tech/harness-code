@@ -661,9 +661,6 @@ export const dict = {
   "settings.notifications.sound.description":
     "پیش‌فرض از صداهای مختلف برای تکمیل، ورودی و خطاها استفاده می‌کند. سایر گزینه‌ها از یک صدا برای همه رویدادها استفاده می‌کنند.",
 
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "یک برد را بین یک جلسهٔ اصلی و عامل‌های فرعی مسئول وظایف آن، از جمله عامل‌های فرعی تودرتو، به اشتراک بگذارید. از آن برای تلاش‌های موازی جهت یافتن راه‌حل یا کارهای مکمل استفاده کنید، نه برای هر وظیفه.",
 
   "settings.agentBehaviour.defaultAgent.title": "عامل پیش‌فرض",
   "settings.agentBehaviour.defaultAgent.description": "عاملی که در صورت عدم تعیین استفاده می‌شود",
@@ -710,10 +707,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "پوش کردن اصلاحات درخواست ادغام",
   "settings.agentBehaviour.pushFixes.description":
     "وقتی خطاهای CI یا نظرات بازبینی یک درخواست ادغام را برای عامل می‌فرستید، یا یک worktree را از شاخه پایه به‌روز می‌کنید، از عامل بخواهید کامیت و پوش کند تا درخواست ادغام به‌روز شود. درخواست‌های مجوز همچنان اعمال می‌شوند. برای کامیت دستی این گزینه را خاموش کنید.",
-  "settings.agentBehaviour.claudeCompat.heading": "سازگاری با Claude Code",
-  "settings.agentBehaviour.claudeCompat.title": "بارگذاری فایل‌های Claude Code",
-  "settings.agentBehaviour.claudeCompat.description":
-    "دستورالعمل‌ها و مهارت‌های CLAUDE.md را از پوشه پیکربندی Claude Code شما در جلسات بارگذاری می‌کند. اگر می‌خواهید Harness از دستورالعمل‌ها و مهارت‌های Claude Code شما استفاده کند، این گزینه را فعال کنید. نیاز به راه‌اندازی مجدد دارد.",
   "settings.agentBehaviour.removeMcp.title": "حذف سرور MCP",
   "settings.agentBehaviour.removeMcp.confirm": "سرور MCP «{{name}}» حذف شود؟ این کار آن را از پیکربندی شما حذف می‌کند.",
   "settings.agentBehaviour.removeMcp.button": "حذف",
@@ -835,8 +828,6 @@ export const dict = {
   "chat.memory.rebuild": "ایندکس حافظه بازسازی شد",
 
   "settings.display.preview.title": "پیش‌نمایش",
-  "settings.display.presets.title": "از پیش تعیین‌های نمایش",
-  "settings.display.presets.description": "گزینه‌های نمایش زیر را تغییر می‌دهد، نه مجوزها. برای اعمال ذخیره کنید.",
   "settings.display.preview.model": "مدل نمونه",
   "settings.display.preview.prompt": "فاصله‌های اضافی را از درود حذف کنید و تست‌ها را بررسی کنید.",
   "settings.display.preview.reasoning":
@@ -857,9 +848,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "باز",
   "settings.display.reasoningDisplay.preview": "پیش‌نمایش",
   "settings.display.reasoningDisplay.headline": "عنوان",
-  "settings.display.shiftTabCycle.title": "چرخش سطح استدلال با Shift+Tab",
-  "settings.display.shiftTabCycle.description":
-    "در ورودی پرامپت، Shift+Tab را فشار دهید تا به سطح تلاش استدلال بعدی بروید. برای حفظ عملکرد Shift+Tab جهت ناوبری فوکوس صفحه‌کلید، این گزینه را غیرفعال کنید.",
   "settings.display.terminalCommand.title": "بلوک‌های دستور ترمینال",
   "settings.display.terminalCommand.description":
     "انتخاب کنید که بلوک‌های دستور ترمینال در حالت باز یا بسته شروع شوند.",
@@ -874,9 +862,6 @@ export const dict = {
     "انتخاب کنید که بلوک‌های ابزار MCP و عمومی در حالت گسترش‌یافته یا جمع‌شده شروع شوند.",
   "settings.display.mcpTool.expanded": "گسترش‌یافته",
   "settings.display.mcpTool.collapsed": "جمع‌شده",
-  "settings.display.tokenThroughput.title": "نمایش توان عملیاتی توکن",
-  "settings.display.tokenThroughput.description":
-    "نمایش نرخ تولید متن (tokens/sec) در جدیدترین پیام دستیار و سربرگ کار. به‌طور پیش‌فرض نمایش داده می‌شود؛ برای پنهان کردن آن در صورت نیاز، این تنظیم را غیرفعال کنید.",
   "settings.display.autoApprovalReason.title": "نمایش دلیل تأیید خودکار",
   "settings.display.autoApprovalReason.description":
     "نشان می‌دهد چرا یک فراخوانی ابزار به‌طور خودکار تأیید شده است، مانند یک قانون مجوز مطابق یا پیش‌فرض عامل.",

@@ -568,9 +568,6 @@ export const dict = {
   "settings.experimental.semanticIndexing.title": "Indicizzazione semantica",
   "settings.experimental.semanticIndexing.description":
     "Abilita l'indicizzazione semantica del codebase e il tool semantic_search. Richiede configurazione indicizzazione.",
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "Condividi una board tra una sessione principale e i suoi sotto-agenti incaricati dei task, inclusi quelli annidati. Usala per tentativi di soluzione in parallelo o attività complementari, non per ogni task.",
 
   "settings.agentBehaviour.defaultAgent.title": "Agente predefinito",
   "settings.agentBehaviour.defaultAgent.description": "Agente da usare quando non ne viene specificato uno",
@@ -633,10 +630,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Esegui il push delle correzioni della pull request",
   "settings.agentBehaviour.pushFixes.description":
     "Quando invii all'agente errori CI o commenti di revisione di una pull request, o aggiorni un worktree dalla sua base, chiedigli di eseguire commit e push così che la pull request si aggiorni. Le richieste di autorizzazione restano attive. Disattiva per eseguire i commit manualmente.",
-  "settings.agentBehaviour.claudeCompat.heading": "Compatibilità Claude Code",
-  "settings.agentBehaviour.claudeCompat.title": "Carica file Claude Code",
-  "settings.agentBehaviour.claudeCompat.description":
-    "Carica istruzioni CLAUDE.md e skill dalla directory di configurazione Claude Code nelle sessioni. Abilitalo se vuoi che Harness usi istruzioni e skill di Claude Code. Richiede riavvio.",
   "settings.agentBehaviour.removeMcp.title": "Rimuovi server MCP",
   "settings.agentBehaviour.removeMcp.confirm":
     'Rimuovere il server MCP "{{name}}"? Questo lo rimuoverà dalla configurazione.',
@@ -758,9 +751,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "Anteprima",
-  "settings.display.presets.title": "Preset di visualizzazione",
-  "settings.display.presets.description":
-    "Modifica le opzioni di visualizzazione seguenti, non le autorizzazioni. Salva per applicare.",
   "settings.display.preview.model": "Modello di esempio",
   "settings.display.preview.prompt": "Rimuovi gli spazi superflui dal saluto e controlla i test.",
   "settings.display.preview.reasoning":
@@ -783,9 +773,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "Espansi",
   "settings.display.reasoningDisplay.preview": "Anteprima",
   "settings.display.reasoningDisplay.headline": "Intestazione",
-  "settings.display.shiftTabCycle.title": "Cambia lo sforzo di ragionamento con Shift+Tab",
-  "settings.display.shiftTabCycle.description":
-    "Premi Shift+Tab in un campo di inserimento del prompt per passare al livello di sforzo di ragionamento successivo. Disattiva l'opzione per mantenere Shift+Tab per la navigazione del focus tramite tastiera.",
   "settings.display.terminalCommand.title": "Blocchi comando terminale",
   "settings.display.terminalCommand.description": "Scegli se i blocchi comando terminale iniziano espansi o compressi.",
   "settings.display.terminalCommand.expanded": "Espansi",
@@ -800,9 +787,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "Espansi",
   "settings.display.mcpTool.collapsed": "Compressi",
 
-  "settings.display.tokenThroughput.title": "Mostra velocità di generazione dei token",
-  "settings.display.tokenThroughput.description":
-    "Mostra la velocità di generazione del testo (tokens/sec) nell'ultimo messaggio dell'assistente e nell'intestazione dell'attività. Visualizzata per impostazione predefinita; disabilita questa impostazione per nasconderla quando necessario.",
   "settings.display.autoApprovalReason.title": "Mostra motivo dell'approvazione automatica",
   "settings.display.autoApprovalReason.description":
     "Mostra perché una chiamata a uno strumento è stata approvata automaticamente, ad esempio una regola di autorizzazione corrispondente o un valore predefinito dell'agente.",

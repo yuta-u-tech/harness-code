@@ -659,9 +659,6 @@ export const dict = {
   "settings.notifications.sound.description":
     "Default uses different sounds for completion, input, and errors. Other choices use one sound for every event.",
 
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "Share a board between a main session and its task subagents, including nested subagents. Use it for parallel solution attempts or complementary work, not every task.",
 
   "settings.agentBehaviour.defaultAgent.title": "Default Agent",
   "settings.agentBehaviour.defaultAgent.description": "Agent to use when none is specified",
@@ -707,10 +704,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Push Pull Request Fixes",
   "settings.agentBehaviour.pushFixes.description":
     "When you send pull request CI failures or review comments to the agent, or update a worktree from its base, ask it to commit and push so the pull request updates. Permission prompts still apply. Turn off to keep commits manual.",
-  "settings.agentBehaviour.claudeCompat.heading": "Claude Code Compatibility",
-  "settings.agentBehaviour.claudeCompat.title": "Load Claude Code Files",
-  "settings.agentBehaviour.claudeCompat.description":
-    "Load CLAUDE.md instructions and skills from your Claude Code configuration directory into sessions. Enable this if you want Harness to use your Claude Code instructions and skills. Requires restart.",
   "settings.agentBehaviour.removeMcp.title": "Remove MCP server",
   "settings.agentBehaviour.removeMcp.confirm": 'Remove MCP server "{{name}}"? This will remove it from your config.',
   "settings.agentBehaviour.removeMcp.button": "Remove",
@@ -830,8 +823,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "Preview",
-  "settings.display.presets.title": "Display presets",
-  "settings.display.presets.description": "Changes the display options below, not permissions. Save to apply.",
   "settings.display.preview.model": "Sample model",
   "settings.display.preview.prompt": "Trim extra spaces from the greeting and check the tests.",
   "settings.display.preview.reasoning":
@@ -852,9 +843,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "Expanded",
   "settings.display.reasoningDisplay.preview": "Preview",
   "settings.display.reasoningDisplay.headline": "Headline",
-  "settings.display.shiftTabCycle.title": "Cycle Reasoning Effort with Shift+Tab",
-  "settings.display.shiftTabCycle.description":
-    "Press Shift+Tab in a prompt input to switch to the next reasoning effort level. Disable to keep Shift+Tab for keyboard focus navigation.",
   "settings.display.terminalCommand.title": "Terminal Command Blocks",
   "settings.display.terminalCommand.description": "Choose whether terminal command blocks start expanded or collapsed.",
   "settings.display.terminalCommand.expanded": "Expanded",
@@ -867,9 +855,6 @@ export const dict = {
   "settings.display.mcpTool.description": "Choose whether MCP and generic tool blocks start expanded or collapsed.",
   "settings.display.mcpTool.expanded": "Expanded",
   "settings.display.mcpTool.collapsed": "Collapsed",
-  "settings.display.tokenThroughput.title": "Show Token Throughput",
-  "settings.display.tokenThroughput.description":
-    "Display the text-generation rate (tokens/sec) on the latest assistant message and in the task header. Shown by default; disable this setting to hide it when needed.",
   "settings.display.autoApprovalReason.title": "Show Auto-Approval Reason",
   "settings.display.autoApprovalReason.description":
     "Show why a tool call was auto-approved, such as a matching permission rule or an agent default.",

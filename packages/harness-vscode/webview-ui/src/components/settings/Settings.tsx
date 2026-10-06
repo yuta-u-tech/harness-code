@@ -24,11 +24,13 @@ export interface SettingsProps {
 }
 
 /** The tabs that exist, in order. */
-const TABS = ["harness", "agentBehaviour", "models", "autoApprove", "display"] as const
+const TABS = ["harness", "models", "display"] as const
 type Tab = (typeof TABS)[number]
 
 /** Tab ids that other parts of the app still send, mapped to the tab that now holds them. */
 const MOVED: Record<string, Tab> = {
+  agentBehaviour: "harness",
+  autoApprove: "display",
   providers: "models",
   language: "display",
   notifications: "display",
@@ -137,17 +139,9 @@ const Settings: Component<SettingsProps> = (props) => {
             <Icon name="layers" />
             <span class="label">{language.t("settings.harness.title")}</span>
           </Tabs.Trigger>
-          <Tabs.Trigger value="agentBehaviour" aria-label={language.t("settings.agentBehaviour.title")}>
-            <Icon name="brain" />
-            <span class="label">{language.t("settings.agentBehaviour.title")}</span>
-          </Tabs.Trigger>
           <Tabs.Trigger value="models" aria-label={language.t("settings.connections.title")}>
             <Icon name="models" />
             <span class="label">{language.t("settings.connections.title")}</span>
-          </Tabs.Trigger>
-          <Tabs.Trigger value="autoApprove" aria-label={language.t("settings.autoApprove.title")}>
-            <Icon name="checklist" />
-            <span class="label">{language.t("settings.autoApprove.title")}</span>
           </Tabs.Trigger>
           <Tabs.Trigger value="display" aria-label={language.t("settings.display.title")}>
             <Icon name="eye" />
@@ -158,10 +152,9 @@ const Settings: Component<SettingsProps> = (props) => {
         <Tabs.Content value="harness">
           <h3>{language.t("settings.harness.title")}</h3>
           <HarnessTab />
-        </Tabs.Content>
-        <Tabs.Content value="agentBehaviour">
-          <h3>{language.t("settings.agentBehaviour.title")}</h3>
-          <AgentBehaviourTab />
+          <Section title={language.t("settings.agentBehaviour.title")}>
+            <AgentBehaviourTab />
+          </Section>
         </Tabs.Content>
         <Tabs.Content value="models">
           <h3>{language.t("settings.connections.title")}</h3>
@@ -172,12 +165,11 @@ const Settings: Component<SettingsProps> = (props) => {
             <ProvidersTab />
           </Section>
         </Tabs.Content>
-        <Tabs.Content value="autoApprove">
-          <h3>{language.t("settings.autoApprove.title")}</h3>
-          <AutoApproveTab />
-        </Tabs.Content>
         <Tabs.Content value="display">
           <h3>{language.t("settings.display.title")}</h3>
+          <Section title={language.t("settings.autoApprove.title")}>
+            <AutoApproveTab />
+          </Section>
           <DisplayTab />
           <Section title={language.t("settings.language.title")}>
             <LanguageTab />

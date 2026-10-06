@@ -291,6 +291,7 @@ const AgentBehaviourTab: Component = () => {
           <SettingsRow
             title={language.t("settings.agentBehaviour.defaultAgent.title")}
             description={language.t("settings.agentBehaviour.defaultAgent.description")}
+            last
           >
             <Select
               options={defaultAgentOptions()}
@@ -307,31 +308,6 @@ const AgentBehaviourTab: Component = () => {
               size="small"
               triggerVariant="settings"
             />
-          </SettingsRow>
-          <SettingsRow
-            title={language.t("settings.agentBehaviour.pushFixes.title")}
-            description={language.t("settings.agentBehaviour.pushFixes.description")}
-          >
-            <Switch
-              checked={settings()["agentManager.pushFixes"] !== false}
-              onChange={(checked: boolean) => updateSetting("agentManager.pushFixes", checked)}
-              hideLabel
-            >
-              {language.t("settings.agentBehaviour.pushFixes.title")}
-            </Switch>
-          </SettingsRow>
-          <SettingsRow
-            title={language.t("settings.agentBehaviour.sharedAgentBoard.title")}
-            description={language.t("settings.agentBehaviour.sharedAgentBoard.description")}
-            last
-          >
-            <Switch
-              checked={config().shared_agent_board ?? true}
-              onChange={(checked: boolean) => updateConfig({ shared_agent_board: checked })}
-              hideLabel
-            >
-              {language.t("settings.agentBehaviour.sharedAgentBoard.title")}
-            </Switch>
           </SettingsRow>
         </Card>
 
@@ -1070,29 +1046,6 @@ const AgentBehaviourTab: Component = () => {
             </div>
           )}
         </For>
-      </Card>
-
-      {/* Claude Code compatibility */}
-      <h4 style={{ "margin-top": "16px", "margin-bottom": "8px" }}>
-        {language.t("settings.agentBehaviour.claudeCompat.heading")}
-      </h4>
-      <Card>
-        <SettingsRow
-          title={language.t("settings.agentBehaviour.claudeCompat.title")}
-          description={language.t("settings.agentBehaviour.claudeCompat.description")}
-          last
-        >
-          <Switch
-            checked={claudeCompat()}
-            onChange={(checked: boolean) => {
-              setClaudeCompat(checked)
-              vscode.postMessage({ type: "updateSetting", key: "claudeCodeCompat", value: checked })
-            }}
-            hideLabel
-          >
-            {language.t("settings.agentBehaviour.claudeCompat.title")}
-          </Switch>
-        </SettingsRow>
       </Card>
     </div>
   )

@@ -645,9 +645,6 @@ export const dict = {
   "settings.notifications.sound.system": "系统",
   "settings.notifications.sound.description":
     "默认选项为完成、输入和错误使用不同的声音。其他选项为所有事件使用同一种声音。",
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "让主会话与负责其任务的子智能体共享看板，包括嵌套的子智能体。用于并行尝试解决方案或开展相互补充的工作，而不是用于每一项任务。",
 
   "settings.agentBehaviour.defaultAgent.title": "默认智能体",
   "settings.agentBehaviour.defaultAgent.description": "未指定时使用的智能体",
@@ -743,10 +740,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "推送拉取请求修复",
   "settings.agentBehaviour.pushFixes.description":
     "当你将拉取请求的 CI 失败或评审评论发送给智能体，或从基础分支更新 worktree 时，请求智能体提交并推送，以便更新拉取请求。权限确认仍然适用。关闭后可手动提交。",
-  "settings.agentBehaviour.claudeCompat.heading": "Claude Code 兼容性",
-  "settings.agentBehaviour.claudeCompat.title": "加载 Claude Code 文件",
-  "settings.agentBehaviour.claudeCompat.description":
-    "将 Claude Code 配置目录中的 CLAUDE.md 指令和技能加载到会话中。如果您希望 Harness 使用您的 Claude Code 指令和技能，请启用此选项。需要重启。",
   "settings.agentBehaviour.mcpDetail.command": "命令",
   "settings.agentBehaviour.mcpDetail.args": "参数",
   "settings.agentBehaviour.mcpDetail.env": "环境",
@@ -799,8 +792,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "预览",
-  "settings.display.presets.title": "显示预设",
-  "settings.display.presets.description": "更改下方的显示选项，而非权限。保存后生效。",
   "settings.display.preview.model": "示例模型",
   "settings.display.preview.prompt": "去除问候语中的多余空格，并检查测试。",
   "settings.display.preview.reasoning":
@@ -821,9 +812,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "展开",
   "settings.display.reasoningDisplay.preview": "预览",
   "settings.display.reasoningDisplay.headline": "标题",
-  "settings.display.shiftTabCycle.title": "使用 Shift+Tab 切换推理强度",
-  "settings.display.shiftTabCycle.description":
-    "在提示输入框中按 Shift+Tab 可切换到下一个推理强度等级。禁用此选项可将 Shift+Tab 用于键盘焦点导航。",
   "settings.display.terminalCommand.title": "终端命令块",
   "settings.display.terminalCommand.description": "选择终端命令块的初始状态：展开或折叠。",
   "settings.display.terminalCommand.expanded": "展开",
@@ -837,9 +825,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "展开",
   "settings.display.mcpTool.collapsed": "折叠",
 
-  "settings.display.tokenThroughput.title": "显示令牌吞吐量",
-  "settings.display.tokenThroughput.description":
-    "在最新的助手消息和任务标题中显示文本生成速率（tokens/sec）。默认显示；需要时禁用此设置即可隐藏。",
   "settings.display.autoApprovalReason.title": "显示自动批准原因",
   "settings.display.autoApprovalReason.description": "显示工具调用被自动批准的原因，例如匹配的权限规则或代理默认值。",
 

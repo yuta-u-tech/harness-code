@@ -668,9 +668,6 @@ export const dict = {
   "settings.notifications.sound.system": "시스템",
   "settings.notifications.sound.description":
     "기본값은 완료, 입력, 오류에 서로 다른 소리를 사용합니다. 다른 옵션에서는 모든 이벤트에 동일한 소리를 사용합니다.",
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "메인 세션과 해당 세션의 작업을 맡은 하위 에이전트(중첩된 하위 에이전트 포함)가 보드를 공유합니다. 모든 작업에 사용하지 말고, 해결책을 병렬로 시도하거나 서로 보완하는 작업을 수행할 때 사용하세요.",
 
   "settings.agentBehaviour.defaultAgent.title": "기본 에이전트",
   "settings.agentBehaviour.defaultAgent.description": "지정되지 않은 경우 사용할 에이전트",
@@ -772,10 +769,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "풀 리퀘스트 수정 사항 푸시",
   "settings.agentBehaviour.pushFixes.description":
     "풀 리퀘스트의 CI 실패나 리뷰 댓글을 에이전트에게 보내거나 worktree를 기본 브랜치에서 업데이트할 때, 풀 리퀘스트가 업데이트되도록 커밋과 푸시를 요청합니다. 권한 확인은 계속 적용됩니다. 직접 커밋하려면 끄세요.",
-  "settings.agentBehaviour.claudeCompat.heading": "Claude Code 호환성",
-  "settings.agentBehaviour.claudeCompat.title": "Claude Code 파일 로드",
-  "settings.agentBehaviour.claudeCompat.description":
-    "Claude Code 설정 디렉터리에서 세션으로 CLAUDE.md 지침 및 스킬을 로드합니다. Harness가 Claude Code 지침 및 스킬을 사용하게 하려면 활성화하세요. 다시 시작해야 합니다.",
   "settings.agentBehaviour.mcpDetail.command": "명령어",
   "settings.agentBehaviour.mcpDetail.args": "인수",
   "settings.agentBehaviour.mcpDetail.env": "환경",
@@ -834,8 +827,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "미리보기",
-  "settings.display.presets.title": "표시 프리셋",
-  "settings.display.presets.description": "아래 표시 옵션을 변경하며 권한은 변경하지 않습니다. 적용하려면 저장하세요.",
   "settings.display.preview.model": "샘플 모델",
   "settings.display.preview.prompt": "인사말에서 여분의 공백을 제거하고 테스트를 확인하세요.",
   "settings.display.preview.reasoning":
@@ -856,9 +847,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "펼침",
   "settings.display.reasoningDisplay.preview": "미리보기",
   "settings.display.reasoningDisplay.headline": "헤드라인",
-  "settings.display.shiftTabCycle.title": "Shift+Tab으로 추론 강도 전환",
-  "settings.display.shiftTabCycle.description":
-    "프롬프트 입력란에서 Shift+Tab을 눌러 다음 추론 강도 수준으로 전환합니다. Shift+Tab을 키보드 포커스 탐색에 사용하려면 비활성화하세요.",
   "settings.display.terminalCommand.title": "터미널 명령 블록",
   "settings.display.terminalCommand.description": "터미널 명령 블록을 처음부터 펼칠지 접을지 선택합니다.",
   "settings.display.terminalCommand.expanded": "펼침",
@@ -872,9 +860,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "펼침",
   "settings.display.mcpTool.collapsed": "접힘",
 
-  "settings.display.tokenThroughput.title": "토큰 처리량 표시",
-  "settings.display.tokenThroughput.description":
-    "최신 어시스턴트 메시지와 작업 헤더에 텍스트 생성 속도(tokens/sec)를 표시합니다. 기본적으로 표시되며, 필요할 때 이 설정을 비활성화하면 숨길 수 있습니다.",
   "settings.display.autoApprovalReason.title": "자동 승인 이유 표시",
   "settings.display.autoApprovalReason.description":
     "일치하는 권한 규칙이나 에이전트 기본값 등 도구 호출이 자동 승인된 이유를 표시합니다.",

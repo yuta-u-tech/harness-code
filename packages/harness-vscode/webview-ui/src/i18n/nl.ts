@@ -672,9 +672,6 @@ export const dict = {
   "settings.notifications.sound.description":
     "Standaard worden verschillende geluiden gebruikt voor voltooiing, invoer en fouten. Andere keuzes gebruiken voor elke gebeurtenis hetzelfde geluid.",
 
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "Deel een bord tussen een hoofdsessie en de subagenten die haar taken uitvoeren, inclusief geneste subagenten. Gebruik het voor parallelle oplossingspogingen of werkzaamheden die elkaar aanvullen, niet voor elke taak.",
 
   "settings.agentBehaviour.defaultAgent.title": "Standaard Agent",
   "settings.agentBehaviour.defaultAgent.description": "Agent om te gebruiken wanneer er geen is opgegeven",
@@ -729,10 +726,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Pull request-fixes pushen",
   "settings.agentBehaviour.pushFixes.description":
     "Wanneer je CI-fouten of reviewopmerkingen van een pull request naar de agent stuurt, of een worktree bijwerkt vanaf de basis, vraag de agent dan te committen en te pushen zodat de pull request wordt bijgewerkt. Toestemmingsvragen blijven gelden. Schakel uit om handmatig te committen.",
-  "settings.agentBehaviour.claudeCompat.heading": "Claude Code-compatibiliteit",
-  "settings.agentBehaviour.claudeCompat.title": "Claude Code-bestanden laden",
-  "settings.agentBehaviour.claudeCompat.description":
-    "Laad CLAUDE.md instructies en vaardigheden uit je Claude Code configuratiemap in sessies. Schakel dit in als je wilt dat Harness je Claude Code instructies en vaardigheden gebruikt. Herstart vereist.",
   "settings.agentBehaviour.removeMcp.title": "Verwijder MCP-server",
   "settings.agentBehaviour.removeMcp.confirm":
     'MCP-server "{{name}}" verwijderen? Dit zal deze uit je configuratie verwijderen.',
@@ -816,9 +809,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "Voorbeeld",
-  "settings.display.presets.title": "Weergavepresets",
-  "settings.display.presets.description":
-    "Wijzigt de weergaveopties hieronder, niet de machtigingen. Sla op om toe te passen.",
   "settings.display.preview.model": "Voorbeeldmodel",
   "settings.display.preview.prompt": "Verwijder overtollige spaties uit de begroeting en controleer de tests.",
   "settings.display.preview.reasoning":
@@ -841,9 +831,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "Uitgeklapt",
   "settings.display.reasoningDisplay.preview": "Voorbeeld",
   "settings.display.reasoningDisplay.headline": "Kop",
-  "settings.display.shiftTabCycle.title": "Doorloop niveaus van redeneringsinspanning met Shift+Tab",
-  "settings.display.shiftTabCycle.description":
-    "Druk op Shift+Tab in een promptinvoerveld om naar het volgende niveau van redeneringsinspanning te gaan. Schakel dit uit om Shift+Tab te behouden voor focusnavigatie via het toetsenbord.",
   "settings.display.terminalCommand.title": "Terminalopdrachtblokken",
   "settings.display.terminalCommand.description":
     "Kies of terminalopdrachtblokken standaard uitgeklapt of ingeklapt zijn.",
@@ -860,9 +847,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "Uitgeklapt",
   "settings.display.mcpTool.collapsed": "Ingeklapt",
 
-  "settings.display.tokenThroughput.title": "Tokendoorvoer weergeven",
-  "settings.display.tokenThroughput.description":
-    "Toon de tekstgeneratiesnelheid (tokens/sec) in het meest recente assistentbericht en in de taakkoptekst. Wordt standaard weergegeven; schakel deze instelling uit om de snelheid indien nodig te verbergen.",
   "settings.display.autoApprovalReason.title": "Reden voor automatische goedkeuring weergeven",
   "settings.display.autoApprovalReason.description":
     "Toont waarom een tool-aanroep automatisch is goedgekeurd, zoals een overeenkomende machtigingsregel of een agentstandaard.",

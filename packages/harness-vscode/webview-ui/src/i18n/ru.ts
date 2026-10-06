@@ -672,9 +672,6 @@ export const dict = {
   "settings.notifications.sound.system": "Системный",
   "settings.notifications.sound.description":
     "По умолчанию для завершения, запроса вашего участия и ошибок используются разные звуки. В остальных вариантах для всех событий используется один и тот же звук.",
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "Предоставьте общую доску основному сеансу и его подагентам, выполняющим задачи, включая вложенных подагентов. Используйте её для параллельных попыток найти решение или взаимодополняющей работы, а не для каждой задачи.",
 
   "settings.agentBehaviour.defaultAgent.title": "Агент по умолчанию",
   "settings.agentBehaviour.defaultAgent.description": "Агент при отсутствии указания",
@@ -779,10 +776,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Отправлять исправления пул-реквеста",
   "settings.agentBehaviour.pushFixes.description":
     "Когда вы отправляете агенту ошибки CI или комментарии ревью из пул-реквеста либо обновляете worktree из базовой ветки, попросить его сделать коммит и push, чтобы пул-реквест обновился. Запросы разрешений по-прежнему действуют. Отключите, чтобы делать коммиты вручную.",
-  "settings.agentBehaviour.claudeCompat.heading": "Совместимость с Claude Code",
-  "settings.agentBehaviour.claudeCompat.title": "Загружать файлы Claude Code",
-  "settings.agentBehaviour.claudeCompat.description":
-    "Загружать инструкции CLAUDE.md и навыки из каталога конфигурации Claude Code в сессии. Включите эту опцию, если хотите, чтобы Harness использовал ваши инструкции и навыки Claude Code. Требуется перезапуск.",
   "settings.agentBehaviour.mcpDetail.command": "Команда",
   "settings.agentBehaviour.mcpDetail.args": "Аргументы",
   "settings.agentBehaviour.mcpDetail.env": "Окружение",
@@ -849,9 +842,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "Предпросмотр",
-  "settings.display.presets.title": "Пресеты отображения",
-  "settings.display.presets.description":
-    "Изменяет параметры отображения ниже, а не разрешения. Сохраните, чтобы применить.",
   "settings.display.preview.model": "Пример модели",
   "settings.display.preview.prompt": "Удалите лишние пробелы из приветствия и проверьте тесты.",
   "settings.display.preview.reasoning":
@@ -872,9 +862,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "Развёрнуты",
   "settings.display.reasoningDisplay.preview": "Предпросмотр",
   "settings.display.reasoningDisplay.headline": "Заголовок",
-  "settings.display.shiftTabCycle.title": "Переключать усилие рассуждения с помощью Shift+Tab",
-  "settings.display.shiftTabCycle.description":
-    "Нажмите Shift+Tab в поле ввода запроса, чтобы перейти к следующему уровню усилий рассуждения. Отключите эту настройку, чтобы сохранить Shift+Tab для навигации по фокусу с помощью клавиатуры.",
   "settings.display.terminalCommand.title": "Блоки команд терминала",
   "settings.display.terminalCommand.description":
     "Выберите, будут ли блоки команд терминала изначально развёрнуты или свёрнуты.",
@@ -891,9 +878,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "Развёрнуты",
   "settings.display.mcpTool.collapsed": "Свёрнуты",
 
-  "settings.display.tokenThroughput.title": "Показывать пропускную способность токенов",
-  "settings.display.tokenThroughput.description":
-    "Показывать скорость генерации текста (tokens/sec) в последнем сообщении ассистента и в заголовке задачи. Показывается по умолчанию; отключите этот параметр, чтобы при необходимости скрыть её.",
   "settings.display.autoApprovalReason.title": "Показывать причину автоодобрения",
   "settings.display.autoApprovalReason.description":
     "Показывает, почему вызов инструмента был одобрен автоматически, например по совпавшему правилу разрешений или значению агента по умолчанию.",

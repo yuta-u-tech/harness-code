@@ -165,6 +165,7 @@ export function useFileMention(
   git?: Accessor<boolean>,
   worktrees?: Accessor<WorktreeReference[]>,
   modelKeys?: Accessor<Set<string>>,
+  onAction?: (action: string) => void,
 ): FileMention {
   const [mentionedPaths, setMentionedPaths] = createSignal<Set<string>>(new Set())
   const [mentionedSessions, setMentionedSessions] = createSignal<Map<string, SessionSearchItem>>(new Map())
@@ -649,6 +650,39 @@ export function useFileMention(
     }
   }
 
+  /** Entries that open a panel or run an action instead of inserting a token. */
+  const selectPanel = (
+    result: MentionResult,
+    textarea: HTMLTextAreaElement,
+    before: string,
+    cursor: number,
+    onSelect?: () => void,
+  ): boolean => {
+    if (result.type === "action") {
+      // Actions change a setting. The `@query` text is removed, never sent.
+      const match = before.match(AT_PATTERN)!
+      const prefix = /^\s/.test(match[0]) ? 1 : 0
+      replaceRange(textarea, match.index! + prefix, cursor, "")
+      textarea.focus()
+      closeMention()
+      onAction?.(result.value)
+      onSelect?.()
+      return true
+    }
+    if (result.type === "worktrees") {
+      references()
+      setWorktreePicker(true)
+      return true
+    }
+    if (result.type === "past-chats") {
+      // Switch the dropdown into the AM-style session search; the actual
+      // insertion happens when a session is picked there.
+      openSessionPicker()
+      return true
+    }
+    return false
+  }
+
   const selectMention = (
     result: MentionResult,
     textarea: HTMLTextAreaElement,
@@ -672,18 +706,7 @@ export function useFileMention(
       return
     }
 
-    if (result.type === "worktrees") {
-      references()
-      setWorktreePicker(true)
-      return
-    }
-
-    if (result.type === "past-chats") {
-      // Switch the dropdown into the AM-style session search; the actual
-      // insertion happens when a session is picked there.
-      openSessionPicker()
-      return
-    }
+    if (selectPanel(result, textarea, before, cursor, onSelect)) return
 
     if (result.type === "model") {
       // Switch the dropdown into the model picker; the actual insertion

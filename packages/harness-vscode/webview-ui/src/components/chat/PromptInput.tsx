@@ -4,6 +4,7 @@
  */
 
 import {
+  batch,
   createSignal,
   createEffect,
   createMemo,
@@ -21,6 +22,7 @@ import { Tooltip } from "@harness/harness-ui/tooltip"
 import { FileIcon } from "@harness/harness-ui/file-icon"
 import { Icon } from "@harness/harness-ui/icon"
 import { showToast } from "@harness/harness-ui/toast"
+import { getDisplayPreset } from "../../../../src/shared/work-style-presets"
 import {
   createHold,
   hasPopup,
@@ -205,6 +207,14 @@ function MentionItemContent(props: { item: MentionResult }) {
         <span class="file-mention-dir">{item.description}</span>
       </>
     )
+  if (item.type === "action")
+    return (
+      <>
+        <Icon name="settings-gear" class="file-mention-icon" />
+        <span class="file-mention-name">{item.label}</span>
+        <span class="file-mention-dir">{item.description}</span>
+      </>
+    )
   if (item.type === "model")
     return (
       <>
@@ -254,7 +264,7 @@ export const PromptInput: Component<PromptInputProps> = (props) => {
   const tabs = useLocalTabs()
   const server = useServer()
   const indexing = useIndexing()
-  const { config, globalConfig, settings, features } = useConfig()
+  const { config, globalConfig, settings, features, updateConfig, updateSetting } = useConfig()
   const provider = useProvider()
   const language = useLanguage()
   const vscode = useVSCode()
@@ -268,7 +278,24 @@ export const PromptInput: Component<PromptInputProps> = (props) => {
   }
   const hasGit = () => server.gitInstalled()
   const modelKeys = createMemo(() => new Set(provider.models().map((model) => `${model.providerID}/${model.id}`)))
-  const mention = useFileMention(vscode, sid, hasGit, props.worktrees, modelKeys)
+  // `@` actions flip display settings in place instead of living in the settings page.
+  const runAction = (action: string) => {
+    if (action === "token-speed") {
+      const next = !(settings()["showTokenThroughput"] ?? true)
+      updateSetting("showTokenThroughput", next)
+      showToast({ variant: "success", title: next ? "Token speed on" : "Token speed off" })
+      return
+    }
+    const style = action === "preset-human-in-the-loop" ? "human-in-the-loop" : action === "preset-autonomous" ? "autonomous" : undefined
+    if (!style) return
+    const preset = getDisplayPreset(style)
+    batch(() => {
+      updateConfig(preset.config)
+      updateSetting("showAutoApprovalReason", preset.settings.showAutoApprovalReason)
+    })
+    showToast({ variant: "success", title: style === "autonomous" ? "Preset: autonomous" : "Preset: step by step" })
+  }
+  const mention = useFileMention(vscode, sid, hasGit, props.worktrees, modelKeys, runAction)
   // Picking the `@` model entry reuses the shared model selector: it is
   // mounted hidden and opened through its programmatic-open event. The mention
   // latch resets immediately because the selector owns its own open state, so

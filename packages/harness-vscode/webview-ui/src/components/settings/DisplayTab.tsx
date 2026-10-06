@@ -104,52 +104,6 @@ const DisplayTab: Component = () => {
         </SettingsRow>
 
         <SettingsRow
-          title={language.t("settings.display.shiftTabCycle.title")}
-          description={language.t("settings.display.shiftTabCycle.description")}
-        >
-          <Switch
-            checked={Boolean(settings()["chat.shiftTabCyclesVariant"] ?? true)}
-            onChange={(checked: boolean) => updateSetting("chat.shiftTabCyclesVariant", checked)}
-            hideLabel
-          >
-            {language.t("settings.display.shiftTabCycle.title")}
-          </Switch>
-        </SettingsRow>
-
-        <SettingsRow
-          title={language.t("settings.display.tokenThroughput.title")}
-          description={language.t("settings.display.tokenThroughput.description")}
-        >
-          <Switch
-            checked={Boolean(settings()["showTokenThroughput"] ?? true)}
-            onChange={(checked: boolean) => updateSetting("showTokenThroughput", checked)}
-            hideLabel
-          >
-            {language.t("settings.display.tokenThroughput.title")}
-          </Switch>
-        </SettingsRow>
-
-        <div class="settings-display-presets" role="group" aria-label={language.t("settings.display.presets.title")}>
-          <span class="settings-display-presets-title">{language.t("settings.display.presets.title")}</span>
-          <div class="settings-display-presets-actions">
-            <For each={WORK_STYLE_CHOICES}>
-              {(style) => (
-                <Button
-                  size="small"
-                  variant={selected(style) ? "primary" : "secondary"}
-                  aria-pressed={selected(style)}
-                  data-preset={style}
-                  onClick={() => apply(style)}
-                >
-                  {language.t(`workStyle.choice.${style}.title`)}
-                </Button>
-              )}
-            </For>
-          </div>
-          <span class="settings-display-presets-description">{language.t("settings.display.presets.description")}</span>
-        </div>
-
-        <SettingsRow
           title={language.t("settings.display.autoApprovalReason.title")}
           description={language.t("settings.display.autoApprovalReason.description")}
         >

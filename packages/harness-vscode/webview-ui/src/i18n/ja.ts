@@ -669,9 +669,6 @@ export const dict = {
   "settings.notifications.sound.system": "システム",
   "settings.notifications.sound.description":
     "デフォルトでは、完了、入力、エラーにそれぞれ異なるサウンドが使用されます。その他の選択肢では、すべてのイベントに同じサウンドが使用されます。",
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "メインセッションと、そのタスクを担当するサブエージェント（ネストされたサブエージェントを含む）の間でボードを共有します。すべてのタスクで使うのではなく、並行して解決策を試す場合や、互いに補完し合う作業に使用してください。",
 
   "settings.agentBehaviour.defaultAgent.title": "デフォルトエージェント",
   "settings.agentBehaviour.defaultAgent.description": "指定されていない場合に使用するエージェント",
@@ -776,10 +773,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "プルリクエストの修正をプッシュ",
   "settings.agentBehaviour.pushFixes.description":
     "プルリクエストの CI 失敗やレビューコメントをエージェントに送信したとき、またはベースから worktree を更新したときに、プルリクエストが更新されるようにコミットとプッシュを依頼します。権限の確認は引き続き行われます。手動でコミットしたい場合はオフにしてください。",
-  "settings.agentBehaviour.claudeCompat.heading": "Claude Code 互換性",
-  "settings.agentBehaviour.claudeCompat.title": "Claude Code ファイルを読み込む",
-  "settings.agentBehaviour.claudeCompat.description":
-    "Claude Code の設定ディレクトリから CLAUDE.md のインストラクションとスキルをセッションに読み込みます。Harness に Claude Code のインストラクションとスキルを使用させる場合は、これを有効にしてください。再起動が必要です。",
   "settings.agentBehaviour.mcpDetail.command": "コマンド",
   "settings.agentBehaviour.mcpDetail.args": "引数",
   "settings.agentBehaviour.mcpDetail.env": "環境",
@@ -843,9 +836,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "プレビュー",
-  "settings.display.presets.title": "表示プリセット",
-  "settings.display.presets.description":
-    "下の表示オプションを変更します。権限は変更しません。適用するには保存してください。",
   "settings.display.preview.model": "サンプルモデル",
   "settings.display.preview.prompt": "挨拶から余分な空白を削除し、テストを確認してください。",
   "settings.display.preview.reasoning":
@@ -866,9 +856,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "展開",
   "settings.display.reasoningDisplay.preview": "プレビュー",
   "settings.display.reasoningDisplay.headline": "見出し",
-  "settings.display.shiftTabCycle.title": "Shift+Tab で推論の強度を切り替える",
-  "settings.display.shiftTabCycle.description":
-    "プロンプト入力欄で Shift+Tab を押すと、次の推論の強度レベルに切り替わります。Shift+Tab をキーボードフォーカスの移動に使用する場合は、無効にしてください。",
   "settings.display.terminalCommand.title": "ターミナルコマンドブロック",
   "settings.display.terminalCommand.description":
     "ターミナルコマンドブロックを最初から展開するか折りたたむかを選択します。",
@@ -884,9 +871,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "展開",
   "settings.display.mcpTool.collapsed": "折りたたみ",
 
-  "settings.display.tokenThroughput.title": "トークンスループットを表示",
-  "settings.display.tokenThroughput.description":
-    "最新のアシスタントメッセージとタスクヘッダーにテキスト生成速度（tokens/sec）を表示します。デフォルトで表示され、必要に応じてこの設定を無効にすると非表示にできます。",
   "settings.display.autoApprovalReason.title": "自動承認の理由を表示",
   "settings.display.autoApprovalReason.description":
     "ツール呼び出しが自動承認された理由（一致する権限ルールやエージェントのデフォルトなど）を表示します。",

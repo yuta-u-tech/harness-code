@@ -4,6 +4,7 @@ import { useFileMention } from "../../webview-ui/src/hooks/useFileMention"
 import {
   FILE_PICKER_RESULT,
   MODEL_RESULT,
+  ACTION_RESULTS,
   TERMINAL_RESULT,
   type WorktreeReference,
 } from "../../webview-ui/src/hooks/file-mention-utils"
@@ -2083,6 +2084,7 @@ describe("useFileMention", () => {
       MODEL_RESULT,
       { type: "terminal", value: "terminal", label: "Terminal", description: "Active terminal output" },
       { type: "past-chats", value: "past-chats", label: "Past chats", description: "Search previous sessions" },
+      ...ACTION_RESULTS,
       FILE_PICKER_RESULT,
       { type: "opened-file", value: "src/index.ts" },
       { type: "file", value: "package.json" },
@@ -2097,6 +2099,7 @@ describe("useFileMention", () => {
       MODEL_RESULT,
       { type: "terminal", value: "terminal", label: "Terminal", description: "Active terminal output" },
       { type: "past-chats", value: "past-chats", label: "Past chats", description: "Search previous sessions" },
+      ...ACTION_RESULTS,
       FILE_PICKER_RESULT,
       { type: "opened-file", value: "src/index.ts" },
       { type: "file", value: "package.json" },
@@ -2245,6 +2248,7 @@ describe("useFileMention", () => {
       MODEL_RESULT,
       { type: "terminal", value: "terminal", label: "Terminal", description: "Active terminal output" },
       { type: "past-chats", value: "past-chats", label: "Past chats", description: "Search previous sessions" },
+      ...ACTION_RESULTS,
       FILE_PICKER_RESULT,
     ])
 

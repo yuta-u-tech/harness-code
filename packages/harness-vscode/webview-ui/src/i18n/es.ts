@@ -680,9 +680,6 @@ export const dict = {
   "settings.notifications.sound.system": "Sistema",
   "settings.notifications.sound.description":
     "La opción predeterminada utiliza sonidos diferentes para la finalización, la intervención y los errores. Las demás opciones utilizan un solo sonido para todos los eventos.",
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "Comparte un tablero entre una sesión principal y sus subagentes de tareas, incluidos los subagentes anidados. Úsalo para intentos de solución en paralelo o trabajos complementarios, no para todas las tareas.",
 
   "settings.agentBehaviour.defaultAgent.title": "Agente predeterminado",
   "settings.agentBehaviour.defaultAgent.description": "Agente a usar cuando no se especifica ninguno",
@@ -790,10 +787,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Enviar correcciones del pull request",
   "settings.agentBehaviour.pushFixes.description":
     "Al enviar al agente fallos de CI o comentarios de revisión de un pull request, o al actualizar un worktree desde su base, pedirle que haga commit y push para que el pull request se actualice. Las solicitudes de permiso siguen aplicándose. Desactívalo para hacer los commits manualmente.",
-  "settings.agentBehaviour.claudeCompat.heading": "Compatibilidad con Claude Code",
-  "settings.agentBehaviour.claudeCompat.title": "Cargar archivos de Claude Code",
-  "settings.agentBehaviour.claudeCompat.description":
-    "Carga las instrucciones y habilidades de CLAUDE.md desde tu directorio de configuración de Claude Code en las sesiones. Activa esta opción si quieres que Harness utilice tus instrucciones y habilidades de Claude Code. Requiere reiniciar.",
   "settings.agentBehaviour.mcpDetail.command": "Comando",
   "settings.agentBehaviour.mcpDetail.args": "Argumentos",
   "settings.agentBehaviour.mcpDetail.env": "Entorno",
@@ -860,9 +853,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "Vista previa",
-  "settings.display.presets.title": "Preajustes de visualización",
-  "settings.display.presets.description":
-    "Cambia las opciones de visualización siguientes, no los permisos. Guarda para aplicar.",
   "settings.display.preview.model": "Modelo de ejemplo",
   "settings.display.preview.prompt": "Elimina los espacios sobrantes del saludo y comprueba las pruebas.",
   "settings.display.preview.reasoning":
@@ -885,9 +875,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "Expandidos",
   "settings.display.reasoningDisplay.preview": "Vista previa",
   "settings.display.reasoningDisplay.headline": "Encabezado",
-  "settings.display.shiftTabCycle.title": "Alternar el esfuerzo de razonamiento con Shift+Tab",
-  "settings.display.shiftTabCycle.description":
-    "Pulsa Shift+Tab en un campo de entrada de prompt para cambiar al siguiente nivel de esfuerzo de razonamiento. Desactívalo para conservar Shift+Tab para la navegación del foco con el teclado.",
   "settings.display.terminalCommand.title": "Bloques de comandos de terminal",
   "settings.display.terminalCommand.description":
     "Elige si los bloques de comandos de terminal aparecen inicialmente expandidos o contraídos.",
@@ -904,9 +891,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "Expandidos",
   "settings.display.mcpTool.collapsed": "Contraídos",
 
-  "settings.display.tokenThroughput.title": "Mostrar rendimiento de tokens",
-  "settings.display.tokenThroughput.description":
-    "Mostrar la velocidad de generación de texto (tokens/sec) en el último mensaje del asistente y en el encabezado de la tarea. Se muestra de forma predeterminada; desactiva esta opción para ocultarla cuando sea necesario.",
   "settings.display.autoApprovalReason.title": "Mostrar motivo de aprobación automática",
   "settings.display.autoApprovalReason.description":
     "Muestra por qué se aprobó automáticamente una llamada a una herramienta, como una regla de permisos coincidente o un valor predeterminado del agente.",

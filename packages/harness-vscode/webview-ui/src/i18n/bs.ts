@@ -675,9 +675,6 @@ export const dict = {
   "settings.notifications.sound.system": "Sistem",
   "settings.notifications.sound.description":
     "Zadana opcija koristi različite zvukove za završetak, unos i greške. Ostale opcije koriste jedan zvuk za sve događaje.",
-  "settings.agentBehaviour.sharedAgentBoard.title": "Harness Swarm",
-  "settings.agentBehaviour.sharedAgentBoard.description":
-    "Dijelite ploču između glavne sesije i njenih podagenata za zadatke, uključujući ugniježđene podagente. Koristite je za paralelne pokušaje rješavanja problema ili rad na zadacima koji se međusobno nadopunjuju, a ne za svaki zadatak.",
 
   "settings.agentBehaviour.defaultAgent.title": "Zadani agent",
   "settings.agentBehaviour.defaultAgent.description": "Agent koji se koristi kada nijedan nije naveden",
@@ -782,10 +779,6 @@ export const dict = {
   "settings.agentBehaviour.pushFixes.title": "Pošalji ispravke pull requesta",
   "settings.agentBehaviour.pushFixes.description":
     "Kada agentu pošalješ CI greške ili komentare pregleda iz pull requesta, ili ažuriraš radno stablo iz osnovne grane, zatraži da napravi commit i push kako bi se pull request ažurirao. Upiti za dozvole i dalje važe. Isključi da bi commite radio ručno.",
-  "settings.agentBehaviour.claudeCompat.heading": "Claude Code kompatibilnost",
-  "settings.agentBehaviour.claudeCompat.title": "Učitaj Claude Code datoteke",
-  "settings.agentBehaviour.claudeCompat.description":
-    "Učitajte CLAUDE.md instrukcije i vještine iz vašeg Claude Code konfiguracijskog direktorija u sesije. Omogućite ovo ako želite da Harness koristi vaše Claude Code instrukcije i vještine. Zahtijeva ponovno pokretanje.",
   "settings.agentBehaviour.mcpDetail.command": "Naredba",
   "settings.agentBehaviour.mcpDetail.args": "Argumenti",
   "settings.agentBehaviour.mcpDetail.env": "Okruženje",
@@ -853,8 +846,6 @@ export const dict = {
   "chat.memory.rebuild": "Memory index rebuilt",
 
   "settings.display.preview.title": "Pregled",
-  "settings.display.presets.title": "Preseti prikaza",
-  "settings.display.presets.description": "Mijenja opcije prikaza ispod, ne dozvole. Sačuvajte da primijenite.",
   "settings.display.preview.model": "Primjer modela",
   "settings.display.preview.prompt": "Uklonite dodatne razmake iz pozdrava i provjerite testove.",
   "settings.display.preview.reasoning":
@@ -875,9 +866,6 @@ export const dict = {
   "settings.display.reasoningDisplay.expanded": "Prošireni",
   "settings.display.reasoningDisplay.preview": "Pregled",
   "settings.display.reasoningDisplay.headline": "Naslov",
-  "settings.display.shiftTabCycle.title": "Promijeni napor razmišljanja pomoću Shift+Tab",
-  "settings.display.shiftTabCycle.description":
-    "Pritisnite Shift+Tab u polju za unos upita da pređete na sljedeći nivo napora razmišljanja. Onemogućite ovu opciju kako biste zadržali Shift+Tab za navigaciju fokusom putem tastature.",
   "settings.display.terminalCommand.title": "Blokovi terminalskih naredbi",
   "settings.display.terminalCommand.description":
     "Odaberite da li blokovi terminalskih naredbi počinju prošireni ili sažeti.",
@@ -894,9 +882,6 @@ export const dict = {
   "settings.display.mcpTool.expanded": "Prošireni",
   "settings.display.mcpTool.collapsed": "Sažeti",
 
-  "settings.display.tokenThroughput.title": "Prikaži protok tokena",
-  "settings.display.tokenThroughput.description":
-    "Prikažite brzinu generisanja teksta (tokens/sec) u najnovijoj poruci asistenta i zaglavlju zadatka. Prikazuje se podrazumijevano; onemogućite ovu postavku da biste je po potrebi sakrili.",
   "settings.display.autoApprovalReason.title": "Prikaži razlog automatskog odobravanja",
   "settings.display.autoApprovalReason.description":
     "Prikazuje zašto je poziv alata automatski odobren, kao što je odgovarajuće pravilo dozvole ili zadana vrijednost agenta.",
