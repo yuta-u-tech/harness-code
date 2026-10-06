@@ -542,3 +542,16 @@
   font-size: var(--harness-font-size-12, 12px);
   padding: 4px 0;
 }
+
+.harness-check-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.harness-check-name {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}

@@ -64,13 +64,17 @@ const HarnessCheckStepEditor: Component<Props> = (props) => {
 
       <For each={props.step.checks}>
         {(check) => (
-          <div class="harness-check">
+          <details class="harness-check">
+            <summary class="harness-check-summary">
+              <span class="harness-check-name">{check.name}</span>
+              <Tag>{language.t(`settings.harness.check.${check.type}`)}</Tag>
+              <Tag>{language.t(`settings.harness.check.treat.${treatment(check)}`)}</Tag>
+            </summary>
             <div class="harness-check-head">
               <TextField
                 value={check.name}
                 onChange={(name) => name && props.onEdit((h) => updateCheck(h, id(), check.id, { name }))}
               />
-              <Tag>{language.t(`settings.harness.check.${check.type}`)}</Tag>
               <IconButton
                 size="small"
                 variant="ghost"
@@ -124,7 +128,7 @@ const HarnessCheckStepEditor: Component<Props> = (props) => {
                 )}
               </Match>
             </Branch>
-          </div>
+          </details>
         )}
       </For>
 
