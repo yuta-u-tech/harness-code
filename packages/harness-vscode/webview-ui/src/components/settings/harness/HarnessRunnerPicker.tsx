@@ -1,6 +1,5 @@
 import { Component, Show } from "solid-js"
 import { Select } from "@harness/harness-ui/select"
-import { TextField } from "@harness/harness-ui/text-field"
 
 import { useLanguage } from "../../../context/language"
 import type { HarnessRunner } from "../../../types/messages"
@@ -16,6 +15,12 @@ export const EFFORTS: Record<HarnessRunner["kind"], string[]> = {
   claude: ["low", "medium", "high", "xhigh", "max"],
 }
 
+/** Models each CLI is offered with. An empty choice leaves the CLI's own default. */
+export const CLI_MODELS: Record<HarnessRunner["kind"], string[]> = {
+  codex: ["gpt-5-codex", "gpt-5"],
+  claude: ["claude-fable-5-1", "claude-opus-5-5", "claude-sonnet-5-5", "claude-haiku-4-5-20251001"],
+}
+
 interface Props {
   runner: HarnessRunner | undefined
   onChange: (runner: HarnessRunner | undefined) => void
@@ -25,6 +30,13 @@ interface Props {
 const HarnessRunnerPicker: Component<Props> = (props) => {
   const language = useLanguage()
   const choice = (): Choice => props.runner?.kind ?? "model"
+  // A model typed into the config earlier stays selectable.
+  const models = () => {
+    const runner = props.runner
+    if (!runner) return [""]
+    const known = CLI_MODELS[runner.kind]
+    return ["", ...(runner.model && !known.includes(runner.model) ? [runner.model] : []), ...known]
+  }
   const efforts = () => (props.runner ? ["", ...EFFORTS[props.runner.kind]] : [""])
 
   const pick = (next: Choice | undefined) => {
@@ -53,10 +65,15 @@ const HarnessRunnerPicker: Component<Props> = (props) => {
         {(runner) => (
           <>
             <SettingsRow title={language.t("settings.harness.runner.cliModel")}>
-              <TextField
-                value={runner().model ?? ""}
-                placeholder={language.t("settings.harness.runner.cliDefault")}
-                onChange={(model) => props.onChange({ ...runner(), model: model.trim() || undefined })}
+              <Select
+                options={models()}
+                current={runner().model ?? ""}
+                value={(item) => item}
+                label={(item) => item || language.t("settings.harness.runner.cliDefault")}
+                onSelect={(model) => props.onChange({ ...runner(), model: model || undefined })}
+                variant="secondary"
+                size="small"
+                triggerVariant="settings"
               />
             </SettingsRow>
             <SettingsRow title={language.t("settings.harness.reasoning")} last>

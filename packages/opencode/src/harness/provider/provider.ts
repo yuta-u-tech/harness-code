@@ -5,6 +5,7 @@
 // This module exports patch functions and data that the upstream provider.ts
 // calls at well-defined injection points (each marked with harness_change).
 
+import { host as ollamaHost } from "@/harness/ollama/provider"
 import { AI_SDK_PROVIDERS, PROMPTS } from "@opencode-ai/core/v1/config/provider"
 import { DEFAULT_HEADERS } from "@/harness/const"
 import { ProviderV2 } from "@opencode-ai/core/provider"
@@ -163,6 +164,13 @@ export function harnessCustomLoaders(dep: CustomDep): Record<string, CustomLoade
           return shouldUseCopilotResponsesApi(modelID) ? sdk.responses(modelID) : sdk.chat(modelID)
         },
         options: {},
+      }),
+
+    // A running Ollama needs no key; its models are listed by the catalog overlay.
+    ollama: () =>
+      Effect.succeed({
+        autoload: true,
+        options: { baseURL: `${ollamaHost()}/v1`, apiKey: "ollama" },
       }),
 
     // Override opencode to prevent auto-connecting without credentials
