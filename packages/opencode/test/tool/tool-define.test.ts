@@ -50,6 +50,23 @@ function invalid(exit: Exit.Exit<unknown, unknown>) {
 }
 
 describe("Tool.define", () => {
+  it.effect("accepts booleans and numbers sent as strings, but not strings where text is expected", () =>
+    Effect.gen(function* () {
+      const info = yield* Tool.define(
+        "coerce-tool",
+        Effect.succeed({
+          description: "test tool",
+          parameters: Schema.Struct({ multiple: Schema.Boolean, count: Schema.Number, text: Schema.String }),
+          execute: (args: { multiple: boolean; count: number; text: string }) =>
+            Effect.succeed({ title: "t", output: JSON.stringify(args), metadata: { truncated: false } }),
+        }),
+      )
+      const tool = yield* info.init()
+      const result = yield* tool.execute({ multiple: "false", count: "3", text: "true" } as never, makeCtx())
+      expect(JSON.parse(result.output)).toEqual({ multiple: false, count: 3, text: "true" })
+    }),
+  )
+
   it.effect("object-defined tool does not mutate the original init object", () =>
     Effect.gen(function* () {
       const original = makeTool("test")

@@ -97,6 +97,43 @@ export type InferDef<T> =
       ? Def<P, M>
       : never
 
+type Fix = { path: ReadonlyArray<PropertyKey>; to: "Boolean" | "Number" }
+
+/** Where a strict decode failed because a boolean or number arrived in another form. */
+function scalarFixes(issue: any, prefix: ReadonlyArray<PropertyKey> = []): Fix[] {
+  if (!issue) return []
+  if (issue._tag === "Pointer") return scalarFixes(issue.issue, [...prefix, ...issue.path])
+  if (issue._tag === "InvalidType") {
+    const to = issue.ast?._tag
+    return to === "Boolean" || to === "Number" ? [{ path: prefix, to }] : []
+  }
+  return Array.isArray(issue.issues) ? issue.issues.flatMap((item: unknown) => scalarFixes(item, prefix)) : []
+}
+
+function convert(value: unknown, to: Fix["to"]): unknown {
+  if (typeof value !== "string") return value
+  if (to === "Boolean") return value === "true" ? true : value === "false" ? false : value
+  return /^-?\d+(\.\d+)?$/.test(value) ? Number(value) : value
+}
+
+function setAt(value: any, path: ReadonlyArray<PropertyKey>, to: Fix["to"]): unknown {
+  const [head, ...rest] = path
+  if (head === undefined) return convert(value, to)
+  if (value === null || typeof value !== "object") return value
+  const copy = Array.isArray(value) ? [...value] : { ...value }
+  copy[head as any] = setAt(value[head as any], rest, to)
+  return copy
+}
+
+/**
+ * Small local models often send booleans and numbers as strings ("false", "3").
+ * Only the fields the strict decode rejected are converted, so text that happens
+ * to read "true" in a string field is never changed.
+ */
+export function repairScalars(args: unknown, issue: unknown): unknown {
+  return scalarFixes(issue).reduce((current, fix) => setAt(current, fix.path, fix.to), args)
+}
+
 function wrap<Parameters extends Schema.Decoder<unknown>, Result extends Metadata>(
   id: string,
   init: Init<Parameters, Result>,
@@ -119,7 +156,13 @@ function wrap<Parameters extends Schema.Decoder<unknown>, Result extends Metadat
           ...(ctx.callID ? { "tool.call_id": ctx.callID } : {}),
         }
         return Effect.gen(function* () {
-          const decoded = yield* decode(args, { errors: "all" }).pipe(
+          const strict = decode(args, { errors: "all" })
+          const decoded = yield* strict.pipe(
+            Effect.catch((error) =>
+              decode(repairScalars(args, (error as { issue?: unknown }).issue), { errors: "all" }).pipe(
+                Effect.mapError(() => error),
+              ),
+            ),
             Effect.mapError(
               (error) =>
                 new InvalidArgumentsError({
