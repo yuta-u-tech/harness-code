@@ -496,6 +496,12 @@ export const dict = {
   "settings.config.source.projectRoot": "Корневая конфигурация проекта",
   "settings.config.source.projectOpencode": "Устаревшая конфигурация .opencode",
   "settings.other.title": "Прочее",
+  "settings.cli.checking": "Checking…",
+  "settings.cli.missing": "Not installed",
+  "settings.cli.signedIn": "Signed in",
+  "settings.cli.signedOut": "Not signed in",
+  "settings.cli.signIn": "Run `{{command}}` in a terminal to sign in.",
+  "settings.cli.install": "Install the CLI, then sign in.",
   "settings.advanced": "Дополнительно",
 
   "settings.permissions.toast.updateFailed.title": "Не удалось обновить разрешения",

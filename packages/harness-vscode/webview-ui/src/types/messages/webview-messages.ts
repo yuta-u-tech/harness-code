@@ -10,7 +10,7 @@ import type { BrowserFeedbackData } from "../../../../src/shared/browser-feedbac
 import type { BrowserInteraction, BrowserViewport, BrowserViewIdentity } from "../../../../src/shared/browser-stream"
 import type { AnacondaDesktopWebviewMessage } from "../../../../src/shared/anaconda-desktop-messages"
 import type { RequestMigrationDataMessage, StartMigrationMessage } from "./migration"
-import type { HarnessWebviewMessage } from "./harness-run"
+import type { HarnessWebviewMessage, CliStatusWebviewMessage } from "./harness-run"
 import type { MemoryShowMessage, MemoryOperationMessage, RequestMemoryMessage } from "./memory"
 import type { RequestSessionBoardMessage, ResetSessionBoardMessage } from "./board"
 import type { Activity } from "../../utils/session-activity"
@@ -1514,6 +1514,7 @@ export interface DismissAgentMigrationBannerMessage {
 
 export type WebviewMessage =
   | HarnessWebviewMessage
+  | CliStatusWebviewMessage
   | import("./agent-manager").BaseUpdateRequest
   | PRMergeRequest
   | { type: "sessionActivity"; state: Activity }

@@ -479,6 +479,12 @@ export const dict = {
   "settings.config.source.projectRoot": "项目根目录配置",
   "settings.config.source.projectOpencode": "旧版 .opencode 配置",
   "settings.other.title": "其他",
+  "settings.cli.checking": "Checking…",
+  "settings.cli.missing": "Not installed",
+  "settings.cli.signedIn": "Signed in",
+  "settings.cli.signedOut": "Not signed in",
+  "settings.cli.signIn": "Run `{{command}}` in a terminal to sign in.",
+  "settings.cli.install": "Install the CLI, then sign in.",
   "settings.advanced": "高级",
 
   "settings.permissions.toast.updateFailed.title": "更新权限失败",

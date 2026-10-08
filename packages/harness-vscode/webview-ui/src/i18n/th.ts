@@ -495,6 +495,12 @@ export const dict = {
   "settings.config.source.projectRoot": "การตั้งค่ารูทของโปรเจกต์",
   "settings.config.source.projectOpencode": "การตั้งค่า .opencode แบบเก่า",
   "settings.other.title": "อื่น ๆ",
+  "settings.cli.checking": "Checking…",
+  "settings.cli.missing": "Not installed",
+  "settings.cli.signedIn": "Signed in",
+  "settings.cli.signedOut": "Not signed in",
+  "settings.cli.signIn": "Run `{{command}}` in a terminal to sign in.",
+  "settings.cli.install": "Install the CLI, then sign in.",
   "settings.advanced": "ขั้นสูง",
 
   "settings.permissions.toast.updateFailed.title": "ไม่สามารถอัปเดตสิทธิ์",

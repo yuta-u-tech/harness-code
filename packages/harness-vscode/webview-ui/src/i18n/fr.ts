@@ -503,6 +503,12 @@ export const dict = {
   "settings.config.source.projectRoot": "Configuration racine du projet",
   "settings.config.source.projectOpencode": "Configuration obsolète .opencode",
   "settings.other.title": "Autres",
+  "settings.cli.checking": "Checking…",
+  "settings.cli.missing": "Not installed",
+  "settings.cli.signedIn": "Signed in",
+  "settings.cli.signedOut": "Not signed in",
+  "settings.cli.signIn": "Run `{{command}}` in a terminal to sign in.",
+  "settings.cli.install": "Install the CLI, then sign in.",
   "settings.advanced": "Avancé",
 
   "settings.permissions.toast.updateFailed.title": "Échec de la mise à jour des permissions",

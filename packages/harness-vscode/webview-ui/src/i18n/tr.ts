@@ -497,6 +497,12 @@ export const dict = {
   "settings.config.source.projectRoot": "Proje kök yapılandırması",
   "settings.config.source.projectOpencode": "Eski .opencode yapılandırması",
   "settings.other.title": "Diğer",
+  "settings.cli.checking": "Checking…",
+  "settings.cli.missing": "Not installed",
+  "settings.cli.signedIn": "Signed in",
+  "settings.cli.signedOut": "Not signed in",
+  "settings.cli.signIn": "Run `{{command}}` in a terminal to sign in.",
+  "settings.cli.install": "Install the CLI, then sign in.",
   "settings.advanced": "Gelişmiş",
 
   "settings.permissions.toast.updateFailed.title": "İzinler güncellenemedi",

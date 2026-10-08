@@ -501,6 +501,12 @@ export const dict = {
   "settings.config.source.projectRoot": "Prosjektets rotkonfigurasjon",
   "settings.config.source.projectOpencode": "Eldre .opencode-konfigurasjon",
   "settings.other.title": "Annet",
+  "settings.cli.checking": "Checking…",
+  "settings.cli.missing": "Not installed",
+  "settings.cli.signedIn": "Signed in",
+  "settings.cli.signedOut": "Not signed in",
+  "settings.cli.signIn": "Run `{{command}}` in a terminal to sign in.",
+  "settings.cli.install": "Install the CLI, then sign in.",
   "settings.advanced": "Avansert",
 
   "settings.permissions.toast.updateFailed.title": "Kunne ikke oppdatere tillatelser",

@@ -44,3 +44,14 @@ export type HarnessExtensionMessage =
   | { type: "harnessRun"; run: HarnessRun }
   | { type: "harnessRuns"; runs: HarnessRun[] }
   | { type: "harnessError"; message: string }
+
+export type CliKind = "codex" | "claude"
+
+export interface CliStatus {
+  installed: boolean
+  signedIn: boolean
+}
+
+export type CliStatusWebviewMessage = { type: "requestCliStatus" }
+
+export type CliStatusExtensionMessage = { type: "cliStatusLoaded"; status: Record<CliKind, CliStatus> }

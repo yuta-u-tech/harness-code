@@ -13,6 +13,7 @@ import { useLanguage } from "../../context/language"
 import { useProvider } from "../../context/provider"
 import { useVSCode } from "../../context/vscode"
 import type { Provider } from "../../types/messages"
+import CliConnections from "./CliConnections"
 import CustomProviderDialog from "./CustomProviderDialog"
 import ProviderConnectDialog from "./ProviderConnectDialog"
 import ProviderSelectDialog from "./ProviderSelectDialog"
@@ -146,6 +147,8 @@ const ProvidersTab: Component = () => {
 
   return (
     <div>
+      <CliConnections />
+
       {/* Connected providers (excluding Harness) */}
       <h4 style={{ "margin-top": "16px", "margin-bottom": "8px" }}>
         {language.t("settings.providers.section.connected")}

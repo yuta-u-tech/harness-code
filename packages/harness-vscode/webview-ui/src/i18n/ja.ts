@@ -497,6 +497,12 @@ export const dict = {
   "settings.config.source.projectRoot": "プロジェクトルート構成",
   "settings.config.source.projectOpencode": "旧.opencode構成",
   "settings.other.title": "その他",
+  "settings.cli.checking": "確認中…",
+  "settings.cli.missing": "未インストール",
+  "settings.cli.signedIn": "サインイン済み",
+  "settings.cli.signedOut": "未サインイン",
+  "settings.cli.signIn": "ターミナルで `{{command}}` を実行してサインインしてください。",
+  "settings.cli.install": "CLI をインストールして、サインインしてください。",
   "settings.advanced": "詳細",
 
   "settings.permissions.toast.updateFailed.title": "権限の更新に失敗しました",

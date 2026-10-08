@@ -1,4 +1,4 @@
-import type { HarnessExtensionMessage } from "./harness-run"
+import type { HarnessExtensionMessage, CliStatusExtensionMessage } from "./harness-run"
 import type { ProviderAuthAuthorization, ProviderAuthMethod } from "@harness/sdk/v2/client"
 import type { DiffSourceCapabilities, DiffSourceDescriptor } from "../../../../src/diff/sources/types"
 import type { PRComment, PRReactionContent } from "../../../agent-manager/pr/pr-types"
@@ -1492,6 +1492,7 @@ export interface AgentManagerBrowserDevtoolsMessage {
 
 export type ExtensionMessage =
   | HarnessExtensionMessage
+  | CliStatusExtensionMessage
   | {
       type: "agentManager.resolveCommentResult" | "agentManager.unresolveCommentResult"
       projectId?: string

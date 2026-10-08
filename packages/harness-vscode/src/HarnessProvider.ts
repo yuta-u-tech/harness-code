@@ -107,6 +107,7 @@ import {
   fetchAndSendPendingQuestions,
 } from "./harness-provider/handlers/question"
 import { fetchAndSendPendingSuggestions } from "./harness-provider/handlers/suggestion"
+import { allCliStatus } from "./harness-provider/handlers/cli-status"
 import { parseHarnessMessage, routeHarnessWebviewMessage } from "./harness-provider/handlers/harness"
 import { nativeTitle } from "./harness-provider/native-tab-title"
 import { isActivity, type Activity } from "../webview-ui/src/utils/session-activity"
@@ -4496,6 +4497,10 @@ export class HarnessProvider implements vscode.WebviewViewProvider, TelemetryPro
 
   /** Sends a harness request to its handler. Returns false for any other message. */
   private routeHarness(message: Record<string, unknown>): boolean {
+    if (message.type === "requestCliStatus") {
+      void allCliStatus().then((status) => this.postMessage({ type: "cliStatusLoaded", status }))
+      return true
+    }
     const parsed = parseHarnessMessage(message)
     if (!parsed) return false
     void routeHarnessWebviewMessage(
